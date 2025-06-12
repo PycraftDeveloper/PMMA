@@ -55,6 +55,34 @@ class EXPORT CPP_Space_KeyEvent {
             }
             return PMMA::KeyEvent_Space_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Space_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Space_Instance is null");
+            }
+            PMMA::KeyEvent_Space_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Space_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Space_Instance is null");
+            }
+            return PMMA::KeyEvent_Space_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Space_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Space_Instance is null");
+            }
+            return PMMA::KeyEvent_Space_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Space_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Space_Instance is null");
+            }
+            return PMMA::KeyEvent_Space_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Apostrophe_KeyEvent {
@@ -106,6 +134,34 @@ class EXPORT CPP_Apostrophe_KeyEvent {
                 throw std::runtime_error("KeyEvent_Apostrophe_Instance is null");
             }
             return PMMA::KeyEvent_Apostrophe_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Apostrophe_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Apostrophe_Instance is null");
+            }
+            PMMA::KeyEvent_Apostrophe_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Apostrophe_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Apostrophe_Instance is null");
+            }
+            return PMMA::KeyEvent_Apostrophe_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Apostrophe_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Apostrophe_Instance is null");
+            }
+            return PMMA::KeyEvent_Apostrophe_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Apostrophe_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Apostrophe_Instance is null");
+            }
+            return PMMA::KeyEvent_Apostrophe_Instance->GetDoublePressDuration();
         };
 };
 
@@ -159,6 +215,34 @@ class EXPORT CPP_Comma_KeyEvent {
             }
             return PMMA::KeyEvent_Comma_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Comma_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Comma_Instance is null");
+            }
+            PMMA::KeyEvent_Comma_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Comma_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Comma_Instance is null");
+            }
+            return PMMA::KeyEvent_Comma_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Comma_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Comma_Instance is null");
+            }
+            return PMMA::KeyEvent_Comma_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Comma_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Comma_Instance is null");
+            }
+            return PMMA::KeyEvent_Comma_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Minus_KeyEvent {
@@ -210,6 +294,34 @@ class EXPORT CPP_Minus_KeyEvent {
                 throw std::runtime_error("KeyEvent_Minus_Instance is null");
             }
             return PMMA::KeyEvent_Minus_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Minus_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Minus_Instance is null");
+            }
+            PMMA::KeyEvent_Minus_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Minus_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Minus_Instance is null");
+            }
+            return PMMA::KeyEvent_Minus_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Minus_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Minus_Instance is null");
+            }
+            return PMMA::KeyEvent_Minus_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Minus_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Minus_Instance is null");
+            }
+            return PMMA::KeyEvent_Minus_Instance->GetDoublePressDuration();
         };
 };
 
@@ -263,6 +375,34 @@ class EXPORT CPP_Period_KeyEvent {
             }
             return PMMA::KeyEvent_Period_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Period_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Period_Instance is null");
+            }
+            PMMA::KeyEvent_Period_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Period_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Period_Instance is null");
+            }
+            return PMMA::KeyEvent_Period_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Period_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Period_Instance is null");
+            }
+            return PMMA::KeyEvent_Period_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Period_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Period_Instance is null");
+            }
+            return PMMA::KeyEvent_Period_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Slash_KeyEvent {
@@ -314,6 +454,34 @@ class EXPORT CPP_Slash_KeyEvent {
                 throw std::runtime_error("KeyEvent_Slash_Instance is null");
             }
             return PMMA::KeyEvent_Slash_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Slash_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Slash_Instance is null");
+            }
+            PMMA::KeyEvent_Slash_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Slash_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Slash_Instance is null");
+            }
+            return PMMA::KeyEvent_Slash_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Slash_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Slash_Instance is null");
+            }
+            return PMMA::KeyEvent_Slash_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Slash_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Slash_Instance is null");
+            }
+            return PMMA::KeyEvent_Slash_Instance->GetDoublePressDuration();
         };
 };
 
@@ -367,6 +535,34 @@ class EXPORT CPP_0_KeyEvent {
             }
             return PMMA::KeyEvent_0_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_0_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_0_Instance is null");
+            }
+            PMMA::KeyEvent_0_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_0_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_0_Instance is null");
+            }
+            return PMMA::KeyEvent_0_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_0_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_0_Instance is null");
+            }
+            return PMMA::KeyEvent_0_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_0_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_0_Instance is null");
+            }
+            return PMMA::KeyEvent_0_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_1_KeyEvent {
@@ -418,6 +614,34 @@ class EXPORT CPP_1_KeyEvent {
                 throw std::runtime_error("KeyEvent_1_Instance is null");
             }
             return PMMA::KeyEvent_1_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_1_Instance is null");
+            }
+            PMMA::KeyEvent_1_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_1_Instance is null");
+            }
+            return PMMA::KeyEvent_1_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_1_Instance is null");
+            }
+            return PMMA::KeyEvent_1_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_1_Instance is null");
+            }
+            return PMMA::KeyEvent_1_Instance->GetDoublePressDuration();
         };
 };
 
@@ -471,6 +695,34 @@ class EXPORT CPP_2_KeyEvent {
             }
             return PMMA::KeyEvent_2_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_2_Instance is null");
+            }
+            PMMA::KeyEvent_2_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_2_Instance is null");
+            }
+            return PMMA::KeyEvent_2_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_2_Instance is null");
+            }
+            return PMMA::KeyEvent_2_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_2_Instance is null");
+            }
+            return PMMA::KeyEvent_2_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_3_KeyEvent {
@@ -522,6 +774,34 @@ class EXPORT CPP_3_KeyEvent {
                 throw std::runtime_error("KeyEvent_3_Instance is null");
             }
             return PMMA::KeyEvent_3_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_3_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_3_Instance is null");
+            }
+            PMMA::KeyEvent_3_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_3_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_3_Instance is null");
+            }
+            return PMMA::KeyEvent_3_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_3_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_3_Instance is null");
+            }
+            return PMMA::KeyEvent_3_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_3_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_3_Instance is null");
+            }
+            return PMMA::KeyEvent_3_Instance->GetDoublePressDuration();
         };
 };
 
@@ -575,6 +855,34 @@ class EXPORT CPP_4_KeyEvent {
             }
             return PMMA::KeyEvent_4_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_4_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_4_Instance is null");
+            }
+            PMMA::KeyEvent_4_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_4_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_4_Instance is null");
+            }
+            return PMMA::KeyEvent_4_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_4_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_4_Instance is null");
+            }
+            return PMMA::KeyEvent_4_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_4_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_4_Instance is null");
+            }
+            return PMMA::KeyEvent_4_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_5_KeyEvent {
@@ -626,6 +934,34 @@ class EXPORT CPP_5_KeyEvent {
                 throw std::runtime_error("KeyEvent_5_Instance is null");
             }
             return PMMA::KeyEvent_5_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_5_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_5_Instance is null");
+            }
+            PMMA::KeyEvent_5_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_5_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_5_Instance is null");
+            }
+            return PMMA::KeyEvent_5_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_5_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_5_Instance is null");
+            }
+            return PMMA::KeyEvent_5_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_5_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_5_Instance is null");
+            }
+            return PMMA::KeyEvent_5_Instance->GetDoublePressDuration();
         };
 };
 
@@ -679,6 +1015,34 @@ class EXPORT CPP_6_KeyEvent {
             }
             return PMMA::KeyEvent_6_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_6_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_6_Instance is null");
+            }
+            PMMA::KeyEvent_6_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_6_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_6_Instance is null");
+            }
+            return PMMA::KeyEvent_6_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_6_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_6_Instance is null");
+            }
+            return PMMA::KeyEvent_6_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_6_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_6_Instance is null");
+            }
+            return PMMA::KeyEvent_6_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_7_KeyEvent {
@@ -730,6 +1094,34 @@ class EXPORT CPP_7_KeyEvent {
                 throw std::runtime_error("KeyEvent_7_Instance is null");
             }
             return PMMA::KeyEvent_7_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_7_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_7_Instance is null");
+            }
+            PMMA::KeyEvent_7_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_7_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_7_Instance is null");
+            }
+            return PMMA::KeyEvent_7_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_7_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_7_Instance is null");
+            }
+            return PMMA::KeyEvent_7_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_7_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_7_Instance is null");
+            }
+            return PMMA::KeyEvent_7_Instance->GetDoublePressDuration();
         };
 };
 
@@ -783,6 +1175,34 @@ class EXPORT CPP_8_KeyEvent {
             }
             return PMMA::KeyEvent_8_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_8_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_8_Instance is null");
+            }
+            PMMA::KeyEvent_8_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_8_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_8_Instance is null");
+            }
+            return PMMA::KeyEvent_8_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_8_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_8_Instance is null");
+            }
+            return PMMA::KeyEvent_8_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_8_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_8_Instance is null");
+            }
+            return PMMA::KeyEvent_8_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_9_KeyEvent {
@@ -834,6 +1254,34 @@ class EXPORT CPP_9_KeyEvent {
                 throw std::runtime_error("KeyEvent_9_Instance is null");
             }
             return PMMA::KeyEvent_9_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_9_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_9_Instance is null");
+            }
+            PMMA::KeyEvent_9_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_9_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_9_Instance is null");
+            }
+            return PMMA::KeyEvent_9_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_9_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_9_Instance is null");
+            }
+            return PMMA::KeyEvent_9_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_9_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_9_Instance is null");
+            }
+            return PMMA::KeyEvent_9_Instance->GetDoublePressDuration();
         };
 };
 
@@ -887,6 +1335,34 @@ class EXPORT CPP_Semicolon_KeyEvent {
             }
             return PMMA::KeyEvent_Semicolon_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Semicolon_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Semicolon_Instance is null");
+            }
+            PMMA::KeyEvent_Semicolon_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Semicolon_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Semicolon_Instance is null");
+            }
+            return PMMA::KeyEvent_Semicolon_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Semicolon_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Semicolon_Instance is null");
+            }
+            return PMMA::KeyEvent_Semicolon_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Semicolon_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Semicolon_Instance is null");
+            }
+            return PMMA::KeyEvent_Semicolon_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Equal_KeyEvent {
@@ -938,6 +1414,34 @@ class EXPORT CPP_Equal_KeyEvent {
                 throw std::runtime_error("KeyEvent_Equal_Instance is null");
             }
             return PMMA::KeyEvent_Equal_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Equal_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Equal_Instance is null");
+            }
+            PMMA::KeyEvent_Equal_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Equal_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Equal_Instance is null");
+            }
+            return PMMA::KeyEvent_Equal_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Equal_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Equal_Instance is null");
+            }
+            return PMMA::KeyEvent_Equal_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Equal_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Equal_Instance is null");
+            }
+            return PMMA::KeyEvent_Equal_Instance->GetDoublePressDuration();
         };
 };
 
@@ -991,6 +1495,34 @@ class EXPORT CPP_A_KeyEvent {
             }
             return PMMA::KeyEvent_A_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_A_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_A_Instance is null");
+            }
+            PMMA::KeyEvent_A_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_A_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_A_Instance is null");
+            }
+            return PMMA::KeyEvent_A_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_A_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_A_Instance is null");
+            }
+            return PMMA::KeyEvent_A_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_A_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_A_Instance is null");
+            }
+            return PMMA::KeyEvent_A_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_B_KeyEvent {
@@ -1042,6 +1574,34 @@ class EXPORT CPP_B_KeyEvent {
                 throw std::runtime_error("KeyEvent_B_Instance is null");
             }
             return PMMA::KeyEvent_B_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_B_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_B_Instance is null");
+            }
+            PMMA::KeyEvent_B_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_B_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_B_Instance is null");
+            }
+            return PMMA::KeyEvent_B_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_B_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_B_Instance is null");
+            }
+            return PMMA::KeyEvent_B_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_B_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_B_Instance is null");
+            }
+            return PMMA::KeyEvent_B_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1095,6 +1655,34 @@ class EXPORT CPP_C_KeyEvent {
             }
             return PMMA::KeyEvent_C_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_C_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_C_Instance is null");
+            }
+            PMMA::KeyEvent_C_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_C_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_C_Instance is null");
+            }
+            return PMMA::KeyEvent_C_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_C_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_C_Instance is null");
+            }
+            return PMMA::KeyEvent_C_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_C_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_C_Instance is null");
+            }
+            return PMMA::KeyEvent_C_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_D_KeyEvent {
@@ -1146,6 +1734,34 @@ class EXPORT CPP_D_KeyEvent {
                 throw std::runtime_error("KeyEvent_D_Instance is null");
             }
             return PMMA::KeyEvent_D_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_D_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_D_Instance is null");
+            }
+            PMMA::KeyEvent_D_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_D_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_D_Instance is null");
+            }
+            return PMMA::KeyEvent_D_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_D_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_D_Instance is null");
+            }
+            return PMMA::KeyEvent_D_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_D_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_D_Instance is null");
+            }
+            return PMMA::KeyEvent_D_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1199,6 +1815,34 @@ class EXPORT CPP_E_KeyEvent {
             }
             return PMMA::KeyEvent_E_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_E_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_E_Instance is null");
+            }
+            PMMA::KeyEvent_E_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_E_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_E_Instance is null");
+            }
+            return PMMA::KeyEvent_E_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_E_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_E_Instance is null");
+            }
+            return PMMA::KeyEvent_E_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_E_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_E_Instance is null");
+            }
+            return PMMA::KeyEvent_E_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F_KeyEvent {
@@ -1250,6 +1894,34 @@ class EXPORT CPP_F_KeyEvent {
                 throw std::runtime_error("KeyEvent_F_Instance is null");
             }
             return PMMA::KeyEvent_F_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F_Instance is null");
+            }
+            PMMA::KeyEvent_F_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F_Instance is null");
+            }
+            return PMMA::KeyEvent_F_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F_Instance is null");
+            }
+            return PMMA::KeyEvent_F_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F_Instance is null");
+            }
+            return PMMA::KeyEvent_F_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1303,6 +1975,34 @@ class EXPORT CPP_G_KeyEvent {
             }
             return PMMA::KeyEvent_G_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_G_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_G_Instance is null");
+            }
+            PMMA::KeyEvent_G_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_G_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_G_Instance is null");
+            }
+            return PMMA::KeyEvent_G_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_G_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_G_Instance is null");
+            }
+            return PMMA::KeyEvent_G_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_G_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_G_Instance is null");
+            }
+            return PMMA::KeyEvent_G_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_H_KeyEvent {
@@ -1354,6 +2054,34 @@ class EXPORT CPP_H_KeyEvent {
                 throw std::runtime_error("KeyEvent_H_Instance is null");
             }
             return PMMA::KeyEvent_H_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_H_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_H_Instance is null");
+            }
+            PMMA::KeyEvent_H_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_H_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_H_Instance is null");
+            }
+            return PMMA::KeyEvent_H_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_H_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_H_Instance is null");
+            }
+            return PMMA::KeyEvent_H_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_H_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_H_Instance is null");
+            }
+            return PMMA::KeyEvent_H_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1407,6 +2135,34 @@ class EXPORT CPP_I_KeyEvent {
             }
             return PMMA::KeyEvent_I_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_I_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_I_Instance is null");
+            }
+            PMMA::KeyEvent_I_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_I_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_I_Instance is null");
+            }
+            return PMMA::KeyEvent_I_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_I_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_I_Instance is null");
+            }
+            return PMMA::KeyEvent_I_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_I_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_I_Instance is null");
+            }
+            return PMMA::KeyEvent_I_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_J_KeyEvent {
@@ -1458,6 +2214,34 @@ class EXPORT CPP_J_KeyEvent {
                 throw std::runtime_error("KeyEvent_J_Instance is null");
             }
             return PMMA::KeyEvent_J_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_J_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_J_Instance is null");
+            }
+            PMMA::KeyEvent_J_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_J_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_J_Instance is null");
+            }
+            return PMMA::KeyEvent_J_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_J_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_J_Instance is null");
+            }
+            return PMMA::KeyEvent_J_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_J_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_J_Instance is null");
+            }
+            return PMMA::KeyEvent_J_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1511,6 +2295,34 @@ class EXPORT CPP_K_KeyEvent {
             }
             return PMMA::KeyEvent_K_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_K_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_K_Instance is null");
+            }
+            PMMA::KeyEvent_K_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_K_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_K_Instance is null");
+            }
+            return PMMA::KeyEvent_K_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_K_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_K_Instance is null");
+            }
+            return PMMA::KeyEvent_K_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_K_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_K_Instance is null");
+            }
+            return PMMA::KeyEvent_K_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_L_KeyEvent {
@@ -1562,6 +2374,34 @@ class EXPORT CPP_L_KeyEvent {
                 throw std::runtime_error("KeyEvent_L_Instance is null");
             }
             return PMMA::KeyEvent_L_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_L_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_L_Instance is null");
+            }
+            PMMA::KeyEvent_L_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_L_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_L_Instance is null");
+            }
+            return PMMA::KeyEvent_L_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_L_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_L_Instance is null");
+            }
+            return PMMA::KeyEvent_L_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_L_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_L_Instance is null");
+            }
+            return PMMA::KeyEvent_L_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1615,6 +2455,34 @@ class EXPORT CPP_M_KeyEvent {
             }
             return PMMA::KeyEvent_M_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_M_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_M_Instance is null");
+            }
+            PMMA::KeyEvent_M_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_M_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_M_Instance is null");
+            }
+            return PMMA::KeyEvent_M_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_M_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_M_Instance is null");
+            }
+            return PMMA::KeyEvent_M_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_M_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_M_Instance is null");
+            }
+            return PMMA::KeyEvent_M_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_N_KeyEvent {
@@ -1666,6 +2534,34 @@ class EXPORT CPP_N_KeyEvent {
                 throw std::runtime_error("KeyEvent_N_Instance is null");
             }
             return PMMA::KeyEvent_N_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_N_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_N_Instance is null");
+            }
+            PMMA::KeyEvent_N_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_N_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_N_Instance is null");
+            }
+            return PMMA::KeyEvent_N_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_N_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_N_Instance is null");
+            }
+            return PMMA::KeyEvent_N_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_N_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_N_Instance is null");
+            }
+            return PMMA::KeyEvent_N_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1719,6 +2615,34 @@ class EXPORT CPP_O_KeyEvent {
             }
             return PMMA::KeyEvent_O_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_O_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_O_Instance is null");
+            }
+            PMMA::KeyEvent_O_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_O_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_O_Instance is null");
+            }
+            return PMMA::KeyEvent_O_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_O_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_O_Instance is null");
+            }
+            return PMMA::KeyEvent_O_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_O_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_O_Instance is null");
+            }
+            return PMMA::KeyEvent_O_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_P_KeyEvent {
@@ -1770,6 +2694,34 @@ class EXPORT CPP_P_KeyEvent {
                 throw std::runtime_error("KeyEvent_P_Instance is null");
             }
             return PMMA::KeyEvent_P_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_P_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_P_Instance is null");
+            }
+            PMMA::KeyEvent_P_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_P_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_P_Instance is null");
+            }
+            return PMMA::KeyEvent_P_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_P_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_P_Instance is null");
+            }
+            return PMMA::KeyEvent_P_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_P_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_P_Instance is null");
+            }
+            return PMMA::KeyEvent_P_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1823,6 +2775,34 @@ class EXPORT CPP_Q_KeyEvent {
             }
             return PMMA::KeyEvent_Q_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Q_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Q_Instance is null");
+            }
+            PMMA::KeyEvent_Q_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Q_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Q_Instance is null");
+            }
+            return PMMA::KeyEvent_Q_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Q_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Q_Instance is null");
+            }
+            return PMMA::KeyEvent_Q_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Q_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Q_Instance is null");
+            }
+            return PMMA::KeyEvent_Q_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_R_KeyEvent {
@@ -1874,6 +2854,34 @@ class EXPORT CPP_R_KeyEvent {
                 throw std::runtime_error("KeyEvent_R_Instance is null");
             }
             return PMMA::KeyEvent_R_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_R_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_R_Instance is null");
+            }
+            PMMA::KeyEvent_R_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_R_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_R_Instance is null");
+            }
+            return PMMA::KeyEvent_R_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_R_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_R_Instance is null");
+            }
+            return PMMA::KeyEvent_R_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_R_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_R_Instance is null");
+            }
+            return PMMA::KeyEvent_R_Instance->GetDoublePressDuration();
         };
 };
 
@@ -1927,6 +2935,34 @@ class EXPORT CPP_S_KeyEvent {
             }
             return PMMA::KeyEvent_S_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_S_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_S_Instance is null");
+            }
+            PMMA::KeyEvent_S_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_S_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_S_Instance is null");
+            }
+            return PMMA::KeyEvent_S_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_S_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_S_Instance is null");
+            }
+            return PMMA::KeyEvent_S_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_S_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_S_Instance is null");
+            }
+            return PMMA::KeyEvent_S_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_T_KeyEvent {
@@ -1978,6 +3014,34 @@ class EXPORT CPP_T_KeyEvent {
                 throw std::runtime_error("KeyEvent_T_Instance is null");
             }
             return PMMA::KeyEvent_T_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_T_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_T_Instance is null");
+            }
+            PMMA::KeyEvent_T_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_T_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_T_Instance is null");
+            }
+            return PMMA::KeyEvent_T_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_T_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_T_Instance is null");
+            }
+            return PMMA::KeyEvent_T_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_T_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_T_Instance is null");
+            }
+            return PMMA::KeyEvent_T_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2031,6 +3095,34 @@ class EXPORT CPP_U_KeyEvent {
             }
             return PMMA::KeyEvent_U_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_U_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_U_Instance is null");
+            }
+            PMMA::KeyEvent_U_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_U_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_U_Instance is null");
+            }
+            return PMMA::KeyEvent_U_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_U_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_U_Instance is null");
+            }
+            return PMMA::KeyEvent_U_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_U_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_U_Instance is null");
+            }
+            return PMMA::KeyEvent_U_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_V_KeyEvent {
@@ -2082,6 +3174,34 @@ class EXPORT CPP_V_KeyEvent {
                 throw std::runtime_error("KeyEvent_V_Instance is null");
             }
             return PMMA::KeyEvent_V_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_V_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_V_Instance is null");
+            }
+            PMMA::KeyEvent_V_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_V_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_V_Instance is null");
+            }
+            return PMMA::KeyEvent_V_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_V_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_V_Instance is null");
+            }
+            return PMMA::KeyEvent_V_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_V_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_V_Instance is null");
+            }
+            return PMMA::KeyEvent_V_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2135,6 +3255,34 @@ class EXPORT CPP_W_KeyEvent {
             }
             return PMMA::KeyEvent_W_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_W_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_W_Instance is null");
+            }
+            PMMA::KeyEvent_W_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_W_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_W_Instance is null");
+            }
+            return PMMA::KeyEvent_W_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_W_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_W_Instance is null");
+            }
+            return PMMA::KeyEvent_W_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_W_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_W_Instance is null");
+            }
+            return PMMA::KeyEvent_W_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_X_KeyEvent {
@@ -2186,6 +3334,34 @@ class EXPORT CPP_X_KeyEvent {
                 throw std::runtime_error("KeyEvent_X_Instance is null");
             }
             return PMMA::KeyEvent_X_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_X_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_X_Instance is null");
+            }
+            PMMA::KeyEvent_X_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_X_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_X_Instance is null");
+            }
+            return PMMA::KeyEvent_X_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_X_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_X_Instance is null");
+            }
+            return PMMA::KeyEvent_X_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_X_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_X_Instance is null");
+            }
+            return PMMA::KeyEvent_X_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2239,6 +3415,34 @@ class EXPORT CPP_Y_KeyEvent {
             }
             return PMMA::KeyEvent_Y_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Y_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Y_Instance is null");
+            }
+            PMMA::KeyEvent_Y_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Y_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Y_Instance is null");
+            }
+            return PMMA::KeyEvent_Y_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Y_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Y_Instance is null");
+            }
+            return PMMA::KeyEvent_Y_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Y_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Y_Instance is null");
+            }
+            return PMMA::KeyEvent_Y_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Z_KeyEvent {
@@ -2290,6 +3494,34 @@ class EXPORT CPP_Z_KeyEvent {
                 throw std::runtime_error("KeyEvent_Z_Instance is null");
             }
             return PMMA::KeyEvent_Z_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Z_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Z_Instance is null");
+            }
+            PMMA::KeyEvent_Z_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Z_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Z_Instance is null");
+            }
+            return PMMA::KeyEvent_Z_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Z_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Z_Instance is null");
+            }
+            return PMMA::KeyEvent_Z_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Z_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Z_Instance is null");
+            }
+            return PMMA::KeyEvent_Z_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2343,6 +3575,34 @@ class EXPORT CPP_Left_Bracket_KeyEvent {
             }
             return PMMA::KeyEvent_Left_Bracket_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Left_Bracket_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Bracket_Instance is null");
+            }
+            PMMA::KeyEvent_Left_Bracket_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Left_Bracket_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Bracket_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Bracket_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Left_Bracket_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Bracket_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Bracket_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Left_Bracket_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Bracket_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Bracket_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Backslash_KeyEvent {
@@ -2394,6 +3654,34 @@ class EXPORT CPP_Backslash_KeyEvent {
                 throw std::runtime_error("KeyEvent_Backslash_Instance is null");
             }
             return PMMA::KeyEvent_Backslash_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Backslash_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Backslash_Instance is null");
+            }
+            PMMA::KeyEvent_Backslash_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Backslash_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Backslash_Instance is null");
+            }
+            return PMMA::KeyEvent_Backslash_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Backslash_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Backslash_Instance is null");
+            }
+            return PMMA::KeyEvent_Backslash_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Backslash_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Backslash_Instance is null");
+            }
+            return PMMA::KeyEvent_Backslash_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2447,6 +3735,34 @@ class EXPORT CPP_Right_Bracket_KeyEvent {
             }
             return PMMA::KeyEvent_Right_Bracket_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Right_Bracket_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Bracket_Instance is null");
+            }
+            PMMA::KeyEvent_Right_Bracket_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Right_Bracket_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Bracket_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Bracket_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Right_Bracket_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Bracket_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Bracket_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Right_Bracket_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Bracket_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Bracket_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Grave_Accent_KeyEvent {
@@ -2498,6 +3814,34 @@ class EXPORT CPP_Grave_Accent_KeyEvent {
                 throw std::runtime_error("KeyEvent_Grave_Accent_Instance is null");
             }
             return PMMA::KeyEvent_Grave_Accent_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Grave_Accent_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Grave_Accent_Instance is null");
+            }
+            PMMA::KeyEvent_Grave_Accent_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Grave_Accent_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Grave_Accent_Instance is null");
+            }
+            return PMMA::KeyEvent_Grave_Accent_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Grave_Accent_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Grave_Accent_Instance is null");
+            }
+            return PMMA::KeyEvent_Grave_Accent_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Grave_Accent_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Grave_Accent_Instance is null");
+            }
+            return PMMA::KeyEvent_Grave_Accent_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2551,6 +3895,34 @@ class EXPORT CPP_World_1_KeyEvent {
             }
             return PMMA::KeyEvent_World_1_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_World_1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_World_1_Instance is null");
+            }
+            PMMA::KeyEvent_World_1_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_World_1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_World_1_Instance is null");
+            }
+            return PMMA::KeyEvent_World_1_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_World_1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_World_1_Instance is null");
+            }
+            return PMMA::KeyEvent_World_1_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_World_1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_World_1_Instance is null");
+            }
+            return PMMA::KeyEvent_World_1_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_World_2_KeyEvent {
@@ -2602,6 +3974,34 @@ class EXPORT CPP_World_2_KeyEvent {
                 throw std::runtime_error("KeyEvent_World_2_Instance is null");
             }
             return PMMA::KeyEvent_World_2_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_World_2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_World_2_Instance is null");
+            }
+            PMMA::KeyEvent_World_2_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_World_2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_World_2_Instance is null");
+            }
+            return PMMA::KeyEvent_World_2_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_World_2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_World_2_Instance is null");
+            }
+            return PMMA::KeyEvent_World_2_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_World_2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_World_2_Instance is null");
+            }
+            return PMMA::KeyEvent_World_2_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2655,6 +4055,34 @@ class EXPORT CPP_Escape_KeyEvent {
             }
             return PMMA::KeyEvent_Escape_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Escape_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Escape_Instance is null");
+            }
+            PMMA::KeyEvent_Escape_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Escape_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Escape_Instance is null");
+            }
+            return PMMA::KeyEvent_Escape_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Escape_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Escape_Instance is null");
+            }
+            return PMMA::KeyEvent_Escape_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Escape_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Escape_Instance is null");
+            }
+            return PMMA::KeyEvent_Escape_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Enter_KeyEvent {
@@ -2706,6 +4134,34 @@ class EXPORT CPP_Enter_KeyEvent {
                 throw std::runtime_error("KeyEvent_Enter_Instance is null");
             }
             return PMMA::KeyEvent_Enter_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Enter_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Enter_Instance is null");
+            }
+            PMMA::KeyEvent_Enter_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Enter_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Enter_Instance is null");
+            }
+            return PMMA::KeyEvent_Enter_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Enter_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Enter_Instance is null");
+            }
+            return PMMA::KeyEvent_Enter_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Enter_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Enter_Instance is null");
+            }
+            return PMMA::KeyEvent_Enter_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2759,6 +4215,34 @@ class EXPORT CPP_Tab_KeyEvent {
             }
             return PMMA::KeyEvent_Tab_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Tab_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Tab_Instance is null");
+            }
+            PMMA::KeyEvent_Tab_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Tab_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Tab_Instance is null");
+            }
+            return PMMA::KeyEvent_Tab_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Tab_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Tab_Instance is null");
+            }
+            return PMMA::KeyEvent_Tab_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Tab_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Tab_Instance is null");
+            }
+            return PMMA::KeyEvent_Tab_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Backspace_KeyEvent {
@@ -2810,6 +4294,34 @@ class EXPORT CPP_Backspace_KeyEvent {
                 throw std::runtime_error("KeyEvent_Backspace_Instance is null");
             }
             return PMMA::KeyEvent_Backspace_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Backspace_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Backspace_Instance is null");
+            }
+            PMMA::KeyEvent_Backspace_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Backspace_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Backspace_Instance is null");
+            }
+            return PMMA::KeyEvent_Backspace_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Backspace_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Backspace_Instance is null");
+            }
+            return PMMA::KeyEvent_Backspace_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Backspace_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Backspace_Instance is null");
+            }
+            return PMMA::KeyEvent_Backspace_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2863,6 +4375,34 @@ class EXPORT CPP_Insert_KeyEvent {
             }
             return PMMA::KeyEvent_Insert_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Insert_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Insert_Instance is null");
+            }
+            PMMA::KeyEvent_Insert_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Insert_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Insert_Instance is null");
+            }
+            return PMMA::KeyEvent_Insert_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Insert_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Insert_Instance is null");
+            }
+            return PMMA::KeyEvent_Insert_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Insert_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Insert_Instance is null");
+            }
+            return PMMA::KeyEvent_Insert_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Delete_KeyEvent {
@@ -2914,6 +4454,34 @@ class EXPORT CPP_Delete_KeyEvent {
                 throw std::runtime_error("KeyEvent_Delete_Instance is null");
             }
             return PMMA::KeyEvent_Delete_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Delete_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Delete_Instance is null");
+            }
+            PMMA::KeyEvent_Delete_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Delete_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Delete_Instance is null");
+            }
+            return PMMA::KeyEvent_Delete_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Delete_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Delete_Instance is null");
+            }
+            return PMMA::KeyEvent_Delete_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Delete_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Delete_Instance is null");
+            }
+            return PMMA::KeyEvent_Delete_Instance->GetDoublePressDuration();
         };
 };
 
@@ -2967,6 +4535,34 @@ class EXPORT CPP_Right_KeyEvent {
             }
             return PMMA::KeyEvent_Right_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Right_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Instance is null");
+            }
+            PMMA::KeyEvent_Right_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Right_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Right_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Right_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Left_KeyEvent {
@@ -3018,6 +4614,34 @@ class EXPORT CPP_Left_KeyEvent {
                 throw std::runtime_error("KeyEvent_Left_Instance is null");
             }
             return PMMA::KeyEvent_Left_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Left_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Instance is null");
+            }
+            PMMA::KeyEvent_Left_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Left_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Left_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Left_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3071,6 +4695,34 @@ class EXPORT CPP_Down_KeyEvent {
             }
             return PMMA::KeyEvent_Down_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Down_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Down_Instance is null");
+            }
+            PMMA::KeyEvent_Down_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Down_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Down_Instance is null");
+            }
+            return PMMA::KeyEvent_Down_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Down_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Down_Instance is null");
+            }
+            return PMMA::KeyEvent_Down_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Down_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Down_Instance is null");
+            }
+            return PMMA::KeyEvent_Down_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Up_KeyEvent {
@@ -3122,6 +4774,34 @@ class EXPORT CPP_Up_KeyEvent {
                 throw std::runtime_error("KeyEvent_Up_Instance is null");
             }
             return PMMA::KeyEvent_Up_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Up_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Up_Instance is null");
+            }
+            PMMA::KeyEvent_Up_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Up_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Up_Instance is null");
+            }
+            return PMMA::KeyEvent_Up_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Up_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Up_Instance is null");
+            }
+            return PMMA::KeyEvent_Up_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Up_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Up_Instance is null");
+            }
+            return PMMA::KeyEvent_Up_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3175,6 +4855,34 @@ class EXPORT CPP_Page_Up_KeyEvent {
             }
             return PMMA::KeyEvent_Page_Up_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Page_Up_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Page_Up_Instance is null");
+            }
+            PMMA::KeyEvent_Page_Up_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Page_Up_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Page_Up_Instance is null");
+            }
+            return PMMA::KeyEvent_Page_Up_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Page_Up_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Page_Up_Instance is null");
+            }
+            return PMMA::KeyEvent_Page_Up_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Page_Up_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Page_Up_Instance is null");
+            }
+            return PMMA::KeyEvent_Page_Up_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Page_Down_KeyEvent {
@@ -3226,6 +4934,34 @@ class EXPORT CPP_Page_Down_KeyEvent {
                 throw std::runtime_error("KeyEvent_Page_Down_Instance is null");
             }
             return PMMA::KeyEvent_Page_Down_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Page_Down_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Page_Down_Instance is null");
+            }
+            PMMA::KeyEvent_Page_Down_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Page_Down_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Page_Down_Instance is null");
+            }
+            return PMMA::KeyEvent_Page_Down_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Page_Down_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Page_Down_Instance is null");
+            }
+            return PMMA::KeyEvent_Page_Down_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Page_Down_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Page_Down_Instance is null");
+            }
+            return PMMA::KeyEvent_Page_Down_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3279,6 +5015,34 @@ class EXPORT CPP_Home_KeyEvent {
             }
             return PMMA::KeyEvent_Home_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Home_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Home_Instance is null");
+            }
+            PMMA::KeyEvent_Home_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Home_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Home_Instance is null");
+            }
+            return PMMA::KeyEvent_Home_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Home_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Home_Instance is null");
+            }
+            return PMMA::KeyEvent_Home_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Home_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Home_Instance is null");
+            }
+            return PMMA::KeyEvent_Home_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_End_KeyEvent {
@@ -3330,6 +5094,34 @@ class EXPORT CPP_End_KeyEvent {
                 throw std::runtime_error("KeyEvent_End_Instance is null");
             }
             return PMMA::KeyEvent_End_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_End_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_End_Instance is null");
+            }
+            PMMA::KeyEvent_End_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_End_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_End_Instance is null");
+            }
+            return PMMA::KeyEvent_End_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_End_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_End_Instance is null");
+            }
+            return PMMA::KeyEvent_End_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_End_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_End_Instance is null");
+            }
+            return PMMA::KeyEvent_End_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3383,6 +5175,34 @@ class EXPORT CPP_Caps_Lock_KeyEvent {
             }
             return PMMA::KeyEvent_Caps_Lock_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Caps_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Caps_Lock_Instance is null");
+            }
+            PMMA::KeyEvent_Caps_Lock_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Caps_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Caps_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Caps_Lock_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Caps_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Caps_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Caps_Lock_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Caps_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Caps_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Caps_Lock_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Scroll_Lock_KeyEvent {
@@ -3434,6 +5254,34 @@ class EXPORT CPP_Scroll_Lock_KeyEvent {
                 throw std::runtime_error("KeyEvent_Scroll_Lock_Instance is null");
             }
             return PMMA::KeyEvent_Scroll_Lock_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Scroll_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Scroll_Lock_Instance is null");
+            }
+            PMMA::KeyEvent_Scroll_Lock_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Scroll_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Scroll_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Scroll_Lock_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Scroll_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Scroll_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Scroll_Lock_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Scroll_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Scroll_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Scroll_Lock_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3487,6 +5335,34 @@ class EXPORT CPP_Num_Lock_KeyEvent {
             }
             return PMMA::KeyEvent_Num_Lock_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Num_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Num_Lock_Instance is null");
+            }
+            PMMA::KeyEvent_Num_Lock_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Num_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Num_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Num_Lock_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Num_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Num_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Num_Lock_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Num_Lock_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Num_Lock_Instance is null");
+            }
+            return PMMA::KeyEvent_Num_Lock_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Print_Screen_KeyEvent {
@@ -3538,6 +5414,34 @@ class EXPORT CPP_Print_Screen_KeyEvent {
                 throw std::runtime_error("KeyEvent_Print_Screen_Instance is null");
             }
             return PMMA::KeyEvent_Print_Screen_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Print_Screen_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Print_Screen_Instance is null");
+            }
+            PMMA::KeyEvent_Print_Screen_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Print_Screen_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Print_Screen_Instance is null");
+            }
+            return PMMA::KeyEvent_Print_Screen_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Print_Screen_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Print_Screen_Instance is null");
+            }
+            return PMMA::KeyEvent_Print_Screen_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Print_Screen_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Print_Screen_Instance is null");
+            }
+            return PMMA::KeyEvent_Print_Screen_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3591,6 +5495,34 @@ class EXPORT CPP_Pause_KeyEvent {
             }
             return PMMA::KeyEvent_Pause_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Pause_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Pause_Instance is null");
+            }
+            PMMA::KeyEvent_Pause_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Pause_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Pause_Instance is null");
+            }
+            return PMMA::KeyEvent_Pause_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Pause_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Pause_Instance is null");
+            }
+            return PMMA::KeyEvent_Pause_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Pause_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Pause_Instance is null");
+            }
+            return PMMA::KeyEvent_Pause_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F1_KeyEvent {
@@ -3642,6 +5574,34 @@ class EXPORT CPP_F1_KeyEvent {
                 throw std::runtime_error("KeyEvent_F1_Instance is null");
             }
             return PMMA::KeyEvent_F1_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F1_Instance is null");
+            }
+            PMMA::KeyEvent_F1_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F1_Instance is null");
+            }
+            return PMMA::KeyEvent_F1_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F1_Instance is null");
+            }
+            return PMMA::KeyEvent_F1_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F1_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F1_Instance is null");
+            }
+            return PMMA::KeyEvent_F1_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3695,6 +5655,34 @@ class EXPORT CPP_F2_KeyEvent {
             }
             return PMMA::KeyEvent_F2_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F2_Instance is null");
+            }
+            PMMA::KeyEvent_F2_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F2_Instance is null");
+            }
+            return PMMA::KeyEvent_F2_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F2_Instance is null");
+            }
+            return PMMA::KeyEvent_F2_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F2_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F2_Instance is null");
+            }
+            return PMMA::KeyEvent_F2_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F3_KeyEvent {
@@ -3746,6 +5734,34 @@ class EXPORT CPP_F3_KeyEvent {
                 throw std::runtime_error("KeyEvent_F3_Instance is null");
             }
             return PMMA::KeyEvent_F3_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F3_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F3_Instance is null");
+            }
+            PMMA::KeyEvent_F3_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F3_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F3_Instance is null");
+            }
+            return PMMA::KeyEvent_F3_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F3_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F3_Instance is null");
+            }
+            return PMMA::KeyEvent_F3_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F3_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F3_Instance is null");
+            }
+            return PMMA::KeyEvent_F3_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3799,6 +5815,34 @@ class EXPORT CPP_F4_KeyEvent {
             }
             return PMMA::KeyEvent_F4_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F4_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F4_Instance is null");
+            }
+            PMMA::KeyEvent_F4_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F4_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F4_Instance is null");
+            }
+            return PMMA::KeyEvent_F4_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F4_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F4_Instance is null");
+            }
+            return PMMA::KeyEvent_F4_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F4_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F4_Instance is null");
+            }
+            return PMMA::KeyEvent_F4_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F5_KeyEvent {
@@ -3850,6 +5894,34 @@ class EXPORT CPP_F5_KeyEvent {
                 throw std::runtime_error("KeyEvent_F5_Instance is null");
             }
             return PMMA::KeyEvent_F5_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F5_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F5_Instance is null");
+            }
+            PMMA::KeyEvent_F5_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F5_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F5_Instance is null");
+            }
+            return PMMA::KeyEvent_F5_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F5_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F5_Instance is null");
+            }
+            return PMMA::KeyEvent_F5_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F5_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F5_Instance is null");
+            }
+            return PMMA::KeyEvent_F5_Instance->GetDoublePressDuration();
         };
 };
 
@@ -3903,6 +5975,34 @@ class EXPORT CPP_F6_KeyEvent {
             }
             return PMMA::KeyEvent_F6_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F6_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F6_Instance is null");
+            }
+            PMMA::KeyEvent_F6_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F6_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F6_Instance is null");
+            }
+            return PMMA::KeyEvent_F6_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F6_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F6_Instance is null");
+            }
+            return PMMA::KeyEvent_F6_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F6_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F6_Instance is null");
+            }
+            return PMMA::KeyEvent_F6_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F7_KeyEvent {
@@ -3954,6 +6054,34 @@ class EXPORT CPP_F7_KeyEvent {
                 throw std::runtime_error("KeyEvent_F7_Instance is null");
             }
             return PMMA::KeyEvent_F7_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F7_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F7_Instance is null");
+            }
+            PMMA::KeyEvent_F7_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F7_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F7_Instance is null");
+            }
+            return PMMA::KeyEvent_F7_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F7_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F7_Instance is null");
+            }
+            return PMMA::KeyEvent_F7_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F7_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F7_Instance is null");
+            }
+            return PMMA::KeyEvent_F7_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4007,6 +6135,34 @@ class EXPORT CPP_F8_KeyEvent {
             }
             return PMMA::KeyEvent_F8_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F8_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F8_Instance is null");
+            }
+            PMMA::KeyEvent_F8_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F8_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F8_Instance is null");
+            }
+            return PMMA::KeyEvent_F8_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F8_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F8_Instance is null");
+            }
+            return PMMA::KeyEvent_F8_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F8_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F8_Instance is null");
+            }
+            return PMMA::KeyEvent_F8_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F9_KeyEvent {
@@ -4058,6 +6214,34 @@ class EXPORT CPP_F9_KeyEvent {
                 throw std::runtime_error("KeyEvent_F9_Instance is null");
             }
             return PMMA::KeyEvent_F9_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F9_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F9_Instance is null");
+            }
+            PMMA::KeyEvent_F9_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F9_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F9_Instance is null");
+            }
+            return PMMA::KeyEvent_F9_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F9_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F9_Instance is null");
+            }
+            return PMMA::KeyEvent_F9_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F9_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F9_Instance is null");
+            }
+            return PMMA::KeyEvent_F9_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4111,6 +6295,34 @@ class EXPORT CPP_F10_KeyEvent {
             }
             return PMMA::KeyEvent_F10_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F10_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F10_Instance is null");
+            }
+            PMMA::KeyEvent_F10_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F10_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F10_Instance is null");
+            }
+            return PMMA::KeyEvent_F10_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F10_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F10_Instance is null");
+            }
+            return PMMA::KeyEvent_F10_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F10_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F10_Instance is null");
+            }
+            return PMMA::KeyEvent_F10_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F11_KeyEvent {
@@ -4162,6 +6374,34 @@ class EXPORT CPP_F11_KeyEvent {
                 throw std::runtime_error("KeyEvent_F11_Instance is null");
             }
             return PMMA::KeyEvent_F11_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F11_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F11_Instance is null");
+            }
+            PMMA::KeyEvent_F11_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F11_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F11_Instance is null");
+            }
+            return PMMA::KeyEvent_F11_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F11_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F11_Instance is null");
+            }
+            return PMMA::KeyEvent_F11_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F11_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F11_Instance is null");
+            }
+            return PMMA::KeyEvent_F11_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4215,6 +6455,34 @@ class EXPORT CPP_F12_KeyEvent {
             }
             return PMMA::KeyEvent_F12_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F12_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F12_Instance is null");
+            }
+            PMMA::KeyEvent_F12_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F12_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F12_Instance is null");
+            }
+            return PMMA::KeyEvent_F12_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F12_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F12_Instance is null");
+            }
+            return PMMA::KeyEvent_F12_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F12_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F12_Instance is null");
+            }
+            return PMMA::KeyEvent_F12_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F13_KeyEvent {
@@ -4266,6 +6534,34 @@ class EXPORT CPP_F13_KeyEvent {
                 throw std::runtime_error("KeyEvent_F13_Instance is null");
             }
             return PMMA::KeyEvent_F13_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F13_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F13_Instance is null");
+            }
+            PMMA::KeyEvent_F13_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F13_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F13_Instance is null");
+            }
+            return PMMA::KeyEvent_F13_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F13_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F13_Instance is null");
+            }
+            return PMMA::KeyEvent_F13_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F13_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F13_Instance is null");
+            }
+            return PMMA::KeyEvent_F13_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4319,6 +6615,34 @@ class EXPORT CPP_F14_KeyEvent {
             }
             return PMMA::KeyEvent_F14_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F14_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F14_Instance is null");
+            }
+            PMMA::KeyEvent_F14_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F14_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F14_Instance is null");
+            }
+            return PMMA::KeyEvent_F14_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F14_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F14_Instance is null");
+            }
+            return PMMA::KeyEvent_F14_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F14_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F14_Instance is null");
+            }
+            return PMMA::KeyEvent_F14_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F15_KeyEvent {
@@ -4370,6 +6694,34 @@ class EXPORT CPP_F15_KeyEvent {
                 throw std::runtime_error("KeyEvent_F15_Instance is null");
             }
             return PMMA::KeyEvent_F15_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F15_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F15_Instance is null");
+            }
+            PMMA::KeyEvent_F15_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F15_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F15_Instance is null");
+            }
+            return PMMA::KeyEvent_F15_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F15_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F15_Instance is null");
+            }
+            return PMMA::KeyEvent_F15_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F15_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F15_Instance is null");
+            }
+            return PMMA::KeyEvent_F15_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4423,6 +6775,34 @@ class EXPORT CPP_F16_KeyEvent {
             }
             return PMMA::KeyEvent_F16_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F16_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F16_Instance is null");
+            }
+            PMMA::KeyEvent_F16_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F16_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F16_Instance is null");
+            }
+            return PMMA::KeyEvent_F16_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F16_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F16_Instance is null");
+            }
+            return PMMA::KeyEvent_F16_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F16_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F16_Instance is null");
+            }
+            return PMMA::KeyEvent_F16_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F17_KeyEvent {
@@ -4474,6 +6854,34 @@ class EXPORT CPP_F17_KeyEvent {
                 throw std::runtime_error("KeyEvent_F17_Instance is null");
             }
             return PMMA::KeyEvent_F17_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F17_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F17_Instance is null");
+            }
+            PMMA::KeyEvent_F17_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F17_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F17_Instance is null");
+            }
+            return PMMA::KeyEvent_F17_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F17_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F17_Instance is null");
+            }
+            return PMMA::KeyEvent_F17_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F17_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F17_Instance is null");
+            }
+            return PMMA::KeyEvent_F17_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4527,6 +6935,34 @@ class EXPORT CPP_F18_KeyEvent {
             }
             return PMMA::KeyEvent_F18_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F18_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F18_Instance is null");
+            }
+            PMMA::KeyEvent_F18_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F18_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F18_Instance is null");
+            }
+            return PMMA::KeyEvent_F18_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F18_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F18_Instance is null");
+            }
+            return PMMA::KeyEvent_F18_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F18_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F18_Instance is null");
+            }
+            return PMMA::KeyEvent_F18_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F19_KeyEvent {
@@ -4578,6 +7014,34 @@ class EXPORT CPP_F19_KeyEvent {
                 throw std::runtime_error("KeyEvent_F19_Instance is null");
             }
             return PMMA::KeyEvent_F19_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F19_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F19_Instance is null");
+            }
+            PMMA::KeyEvent_F19_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F19_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F19_Instance is null");
+            }
+            return PMMA::KeyEvent_F19_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F19_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F19_Instance is null");
+            }
+            return PMMA::KeyEvent_F19_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F19_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F19_Instance is null");
+            }
+            return PMMA::KeyEvent_F19_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4631,6 +7095,34 @@ class EXPORT CPP_F20_KeyEvent {
             }
             return PMMA::KeyEvent_F20_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F20_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F20_Instance is null");
+            }
+            PMMA::KeyEvent_F20_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F20_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F20_Instance is null");
+            }
+            return PMMA::KeyEvent_F20_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F20_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F20_Instance is null");
+            }
+            return PMMA::KeyEvent_F20_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F20_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F20_Instance is null");
+            }
+            return PMMA::KeyEvent_F20_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F21_KeyEvent {
@@ -4682,6 +7174,34 @@ class EXPORT CPP_F21_KeyEvent {
                 throw std::runtime_error("KeyEvent_F21_Instance is null");
             }
             return PMMA::KeyEvent_F21_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F21_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F21_Instance is null");
+            }
+            PMMA::KeyEvent_F21_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F21_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F21_Instance is null");
+            }
+            return PMMA::KeyEvent_F21_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F21_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F21_Instance is null");
+            }
+            return PMMA::KeyEvent_F21_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F21_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F21_Instance is null");
+            }
+            return PMMA::KeyEvent_F21_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4735,6 +7255,34 @@ class EXPORT CPP_F22_KeyEvent {
             }
             return PMMA::KeyEvent_F22_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F22_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F22_Instance is null");
+            }
+            PMMA::KeyEvent_F22_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F22_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F22_Instance is null");
+            }
+            return PMMA::KeyEvent_F22_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F22_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F22_Instance is null");
+            }
+            return PMMA::KeyEvent_F22_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F22_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F22_Instance is null");
+            }
+            return PMMA::KeyEvent_F22_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F23_KeyEvent {
@@ -4786,6 +7334,34 @@ class EXPORT CPP_F23_KeyEvent {
                 throw std::runtime_error("KeyEvent_F23_Instance is null");
             }
             return PMMA::KeyEvent_F23_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F23_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F23_Instance is null");
+            }
+            PMMA::KeyEvent_F23_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F23_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F23_Instance is null");
+            }
+            return PMMA::KeyEvent_F23_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F23_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F23_Instance is null");
+            }
+            return PMMA::KeyEvent_F23_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F23_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F23_Instance is null");
+            }
+            return PMMA::KeyEvent_F23_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4839,6 +7415,34 @@ class EXPORT CPP_F24_KeyEvent {
             }
             return PMMA::KeyEvent_F24_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F24_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F24_Instance is null");
+            }
+            PMMA::KeyEvent_F24_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F24_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F24_Instance is null");
+            }
+            return PMMA::KeyEvent_F24_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F24_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F24_Instance is null");
+            }
+            return PMMA::KeyEvent_F24_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F24_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F24_Instance is null");
+            }
+            return PMMA::KeyEvent_F24_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_F25_KeyEvent {
@@ -4890,6 +7494,34 @@ class EXPORT CPP_F25_KeyEvent {
                 throw std::runtime_error("KeyEvent_F25_Instance is null");
             }
             return PMMA::KeyEvent_F25_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_F25_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F25_Instance is null");
+            }
+            PMMA::KeyEvent_F25_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_F25_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F25_Instance is null");
+            }
+            return PMMA::KeyEvent_F25_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_F25_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F25_Instance is null");
+            }
+            return PMMA::KeyEvent_F25_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_F25_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_F25_Instance is null");
+            }
+            return PMMA::KeyEvent_F25_Instance->GetDoublePressDuration();
         };
 };
 
@@ -4943,6 +7575,34 @@ class EXPORT CPP_0_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_0_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_0_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_0_Instance is null");
+            }
+            PMMA::KeyPadEvent_0_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_0_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_0_Instance is null");
+            }
+            return PMMA::KeyPadEvent_0_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_0_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_0_Instance is null");
+            }
+            return PMMA::KeyPadEvent_0_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_0_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_0_Instance is null");
+            }
+            return PMMA::KeyPadEvent_0_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_1_KeyPadEvent {
@@ -4994,6 +7654,34 @@ class EXPORT CPP_1_KeyPadEvent {
                 throw std::runtime_error("KeyPadEvent_1_Instance is null");
             }
             return PMMA::KeyPadEvent_1_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_1_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_1_Instance is null");
+            }
+            PMMA::KeyPadEvent_1_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_1_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_1_Instance is null");
+            }
+            return PMMA::KeyPadEvent_1_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_1_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_1_Instance is null");
+            }
+            return PMMA::KeyPadEvent_1_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_1_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_1_Instance is null");
+            }
+            return PMMA::KeyPadEvent_1_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5047,6 +7735,34 @@ class EXPORT CPP_2_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_2_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_2_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_2_Instance is null");
+            }
+            PMMA::KeyPadEvent_2_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_2_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_2_Instance is null");
+            }
+            return PMMA::KeyPadEvent_2_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_2_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_2_Instance is null");
+            }
+            return PMMA::KeyPadEvent_2_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_2_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_2_Instance is null");
+            }
+            return PMMA::KeyPadEvent_2_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_3_KeyPadEvent {
@@ -5098,6 +7814,34 @@ class EXPORT CPP_3_KeyPadEvent {
                 throw std::runtime_error("KeyPadEvent_3_Instance is null");
             }
             return PMMA::KeyPadEvent_3_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_3_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_3_Instance is null");
+            }
+            PMMA::KeyPadEvent_3_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_3_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_3_Instance is null");
+            }
+            return PMMA::KeyPadEvent_3_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_3_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_3_Instance is null");
+            }
+            return PMMA::KeyPadEvent_3_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_3_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_3_Instance is null");
+            }
+            return PMMA::KeyPadEvent_3_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5151,6 +7895,34 @@ class EXPORT CPP_4_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_4_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_4_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_4_Instance is null");
+            }
+            PMMA::KeyPadEvent_4_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_4_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_4_Instance is null");
+            }
+            return PMMA::KeyPadEvent_4_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_4_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_4_Instance is null");
+            }
+            return PMMA::KeyPadEvent_4_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_4_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_4_Instance is null");
+            }
+            return PMMA::KeyPadEvent_4_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_5_KeyPadEvent {
@@ -5202,6 +7974,34 @@ class EXPORT CPP_5_KeyPadEvent {
                 throw std::runtime_error("KeyPadEvent_5_Instance is null");
             }
             return PMMA::KeyPadEvent_5_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_5_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_5_Instance is null");
+            }
+            PMMA::KeyPadEvent_5_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_5_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_5_Instance is null");
+            }
+            return PMMA::KeyPadEvent_5_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_5_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_5_Instance is null");
+            }
+            return PMMA::KeyPadEvent_5_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_5_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_5_Instance is null");
+            }
+            return PMMA::KeyPadEvent_5_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5255,6 +8055,34 @@ class EXPORT CPP_6_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_6_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_6_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_6_Instance is null");
+            }
+            PMMA::KeyPadEvent_6_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_6_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_6_Instance is null");
+            }
+            return PMMA::KeyPadEvent_6_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_6_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_6_Instance is null");
+            }
+            return PMMA::KeyPadEvent_6_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_6_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_6_Instance is null");
+            }
+            return PMMA::KeyPadEvent_6_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_7_KeyPadEvent {
@@ -5306,6 +8134,34 @@ class EXPORT CPP_7_KeyPadEvent {
                 throw std::runtime_error("KeyPadEvent_7_Instance is null");
             }
             return PMMA::KeyPadEvent_7_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_7_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_7_Instance is null");
+            }
+            PMMA::KeyPadEvent_7_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_7_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_7_Instance is null");
+            }
+            return PMMA::KeyPadEvent_7_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_7_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_7_Instance is null");
+            }
+            return PMMA::KeyPadEvent_7_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_7_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_7_Instance is null");
+            }
+            return PMMA::KeyPadEvent_7_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5359,6 +8215,34 @@ class EXPORT CPP_8_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_8_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_8_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_8_Instance is null");
+            }
+            PMMA::KeyPadEvent_8_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_8_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_8_Instance is null");
+            }
+            return PMMA::KeyPadEvent_8_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_8_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_8_Instance is null");
+            }
+            return PMMA::KeyPadEvent_8_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_8_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_8_Instance is null");
+            }
+            return PMMA::KeyPadEvent_8_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_9_KeyPadEvent {
@@ -5410,6 +8294,34 @@ class EXPORT CPP_9_KeyPadEvent {
                 throw std::runtime_error("KeyPadEvent_9_Instance is null");
             }
             return PMMA::KeyPadEvent_9_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_9_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_9_Instance is null");
+            }
+            PMMA::KeyPadEvent_9_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_9_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_9_Instance is null");
+            }
+            return PMMA::KeyPadEvent_9_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_9_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_9_Instance is null");
+            }
+            return PMMA::KeyPadEvent_9_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_9_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_9_Instance is null");
+            }
+            return PMMA::KeyPadEvent_9_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5463,6 +8375,34 @@ class EXPORT CPP_Decimal_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_Decimal_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_Decimal_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Decimal_Instance is null");
+            }
+            PMMA::KeyPadEvent_Decimal_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_Decimal_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Decimal_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Decimal_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_Decimal_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Decimal_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Decimal_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_Decimal_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Decimal_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Decimal_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Divide_KeyPadEvent {
@@ -5514,6 +8454,34 @@ class EXPORT CPP_Divide_KeyPadEvent {
                 throw std::runtime_error("KeyPadEvent_Divide_Instance is null");
             }
             return PMMA::KeyPadEvent_Divide_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_Divide_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Divide_Instance is null");
+            }
+            PMMA::KeyPadEvent_Divide_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_Divide_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Divide_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Divide_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_Divide_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Divide_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Divide_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_Divide_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Divide_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Divide_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5567,6 +8535,34 @@ class EXPORT CPP_Multiply_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_Multiply_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_Multiply_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Multiply_Instance is null");
+            }
+            PMMA::KeyPadEvent_Multiply_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_Multiply_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Multiply_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Multiply_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_Multiply_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Multiply_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Multiply_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_Multiply_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Multiply_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Multiply_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Subtract_KeyPadEvent {
@@ -5618,6 +8614,34 @@ class EXPORT CPP_Subtract_KeyPadEvent {
                 throw std::runtime_error("KeyPadEvent_Subtract_Instance is null");
             }
             return PMMA::KeyPadEvent_Subtract_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_Subtract_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Subtract_Instance is null");
+            }
+            PMMA::KeyPadEvent_Subtract_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_Subtract_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Subtract_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Subtract_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_Subtract_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Subtract_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Subtract_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_Subtract_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Subtract_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Subtract_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5671,6 +8695,34 @@ class EXPORT CPP_Add_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_Add_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_Add_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Add_Instance is null");
+            }
+            PMMA::KeyPadEvent_Add_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_Add_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Add_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Add_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_Add_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Add_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Add_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_Add_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Add_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Add_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Enter_KeyPadEvent {
@@ -5722,6 +8774,34 @@ class EXPORT CPP_Enter_KeyPadEvent {
                 throw std::runtime_error("KeyPadEvent_Enter_Instance is null");
             }
             return PMMA::KeyPadEvent_Enter_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_Enter_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Enter_Instance is null");
+            }
+            PMMA::KeyPadEvent_Enter_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_Enter_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Enter_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Enter_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_Enter_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Enter_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Enter_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_Enter_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Enter_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Enter_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5775,6 +8855,34 @@ class EXPORT CPP_Equal_KeyPadEvent {
             }
             return PMMA::KeyPadEvent_Equal_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyPadEvent_Equal_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Equal_Instance is null");
+            }
+            PMMA::KeyPadEvent_Equal_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyPadEvent_Equal_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Equal_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Equal_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyPadEvent_Equal_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Equal_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Equal_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyPadEvent_Equal_Instance == nullptr) {
+                throw std::runtime_error("KeyPadEvent_Equal_Instance is null");
+            }
+            return PMMA::KeyPadEvent_Equal_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Left_Shift_KeyEvent {
@@ -5826,6 +8934,34 @@ class EXPORT CPP_Left_Shift_KeyEvent {
                 throw std::runtime_error("KeyEvent_Left_Shift_Instance is null");
             }
             return PMMA::KeyEvent_Left_Shift_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Left_Shift_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Shift_Instance is null");
+            }
+            PMMA::KeyEvent_Left_Shift_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Left_Shift_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Shift_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Shift_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Left_Shift_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Shift_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Shift_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Left_Shift_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Shift_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Shift_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5879,6 +9015,34 @@ class EXPORT CPP_Left_Control_KeyEvent {
             }
             return PMMA::KeyEvent_Left_Control_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Left_Control_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Control_Instance is null");
+            }
+            PMMA::KeyEvent_Left_Control_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Left_Control_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Control_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Control_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Left_Control_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Control_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Control_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Left_Control_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Control_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Control_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Left_Alt_KeyEvent {
@@ -5930,6 +9094,34 @@ class EXPORT CPP_Left_Alt_KeyEvent {
                 throw std::runtime_error("KeyEvent_Left_Alt_Instance is null");
             }
             return PMMA::KeyEvent_Left_Alt_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Left_Alt_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Alt_Instance is null");
+            }
+            PMMA::KeyEvent_Left_Alt_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Left_Alt_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Alt_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Alt_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Left_Alt_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Alt_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Alt_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Left_Alt_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Alt_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Alt_Instance->GetDoublePressDuration();
         };
 };
 
@@ -5983,6 +9175,34 @@ class EXPORT CPP_Left_Super_KeyEvent {
             }
             return PMMA::KeyEvent_Left_Super_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Left_Super_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Super_Instance is null");
+            }
+            PMMA::KeyEvent_Left_Super_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Left_Super_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Super_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Super_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Left_Super_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Super_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Super_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Left_Super_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Left_Super_Instance is null");
+            }
+            return PMMA::KeyEvent_Left_Super_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Right_Shift_KeyEvent {
@@ -6034,6 +9254,34 @@ class EXPORT CPP_Right_Shift_KeyEvent {
                 throw std::runtime_error("KeyEvent_Right_Shift_Instance is null");
             }
             return PMMA::KeyEvent_Right_Shift_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Right_Shift_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Shift_Instance is null");
+            }
+            PMMA::KeyEvent_Right_Shift_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Right_Shift_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Shift_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Shift_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Right_Shift_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Shift_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Shift_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Right_Shift_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Shift_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Shift_Instance->GetDoublePressDuration();
         };
 };
 
@@ -6087,6 +9335,34 @@ class EXPORT CPP_Right_Control_KeyEvent {
             }
             return PMMA::KeyEvent_Right_Control_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Right_Control_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Control_Instance is null");
+            }
+            PMMA::KeyEvent_Right_Control_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Right_Control_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Control_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Control_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Right_Control_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Control_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Control_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Right_Control_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Control_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Control_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Right_Alt_KeyEvent {
@@ -6138,6 +9414,34 @@ class EXPORT CPP_Right_Alt_KeyEvent {
                 throw std::runtime_error("KeyEvent_Right_Alt_Instance is null");
             }
             return PMMA::KeyEvent_Right_Alt_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Right_Alt_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Alt_Instance is null");
+            }
+            PMMA::KeyEvent_Right_Alt_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Right_Alt_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Alt_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Alt_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Right_Alt_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Alt_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Alt_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Right_Alt_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Alt_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Alt_Instance->GetDoublePressDuration();
         };
 };
 
@@ -6191,6 +9495,34 @@ class EXPORT CPP_Right_Super_KeyEvent {
             }
             return PMMA::KeyEvent_Right_Super_Instance->PollLongPressed();
         };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Right_Super_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Super_Instance is null");
+            }
+            PMMA::KeyEvent_Right_Super_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Right_Super_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Super_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Super_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Right_Super_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Super_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Super_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Right_Super_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Right_Super_Instance is null");
+            }
+            return PMMA::KeyEvent_Right_Super_Instance->GetDoublePressDuration();
+        };
 };
 
 class EXPORT CPP_Menu_KeyEvent {
@@ -6242,5 +9574,33 @@ class EXPORT CPP_Menu_KeyEvent {
                 throw std::runtime_error("KeyEvent_Menu_Instance is null");
             }
             return PMMA::KeyEvent_Menu_Instance->PollLongPressed();
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            if (PMMA::KeyEvent_Menu_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Menu_Instance is null");
+            }
+            PMMA::KeyEvent_Menu_Instance->SetRepeatPressDuration(Duration);
+        };
+
+        inline float GetRepeatPressDuration() {
+            if (PMMA::KeyEvent_Menu_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Menu_Instance is null");
+            }
+            return PMMA::KeyEvent_Menu_Instance->GetRepeatPressDuration();
+        };
+
+        inline float GetLongPressDuration() {
+            if (PMMA::KeyEvent_Menu_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Menu_Instance is null");
+            }
+            return PMMA::KeyEvent_Menu_Instance->GetLongPressDuration();
+        };
+
+        inline float GetDoublePressDuration() {
+            if (PMMA::KeyEvent_Menu_Instance == nullptr) {
+                throw std::runtime_error("KeyEvent_Menu_Instance is null");
+            }
+            return PMMA::KeyEvent_Menu_Instance->GetDoublePressDuration();
         };
 };

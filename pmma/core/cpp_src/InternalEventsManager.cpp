@@ -467,6 +467,19 @@ void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, i
         PMMA::KeyEvent_U_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_V) {
         PMMA::KeyEvent_V_Instance->Update(action!=GLFW_RELEASE);
+        if (PMMA::KeyEvent_Left_Control_Instance->GetPressedToggle() ||
+                PMMA::KeyEvent_Right_Control_Instance->GetPressedToggle() ||
+                PMMA::KeyEvent_Left_Control_Instance->PollLongPressed() ||
+                PMMA::KeyEvent_Right_Control_Instance->PollLongPressed()) {
+            const char* ClipboardData = glfwGetClipboardString(window);
+            if (ClipboardData == nullptr) {
+                return;
+            }
+            std::string NewTextContent = ClipboardData;
+            for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
+                PMMA::InternalTextEventInstances[i]->Update(NewTextContent);
+            }
+        }
     } else if (key == GLFW_KEY_W) {
         PMMA::KeyEvent_W_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_X) {
@@ -495,10 +508,35 @@ void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, i
         PMMA::KeyEvent_Tab_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_BACKSPACE) {
         PMMA::KeyEvent_Backspace_Instance->Update(action!=GLFW_RELEASE);
+        if (PMMA::KeyEvent_Backspace_Instance->GetPressedToggle() ||
+                PMMA::KeyEvent_Backspace_Instance->PollLongPressed()) {
+            for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
+                PMMA::InternalTextEventInstances[i]->RemoveBack();
+            }
+        }
     } else if (key == GLFW_KEY_INSERT) {
         PMMA::KeyEvent_Insert_Instance->Update(action!=GLFW_RELEASE);
+        if (PMMA::KeyEvent_Left_Shift_Instance->GetPressedToggle() ||
+                PMMA::KeyEvent_Right_Shift_Instance->GetPressedToggle() ||
+                PMMA::KeyEvent_Left_Shift_Instance->PollLongPressed() ||
+                PMMA::KeyEvent_Right_Shift_Instance->PollLongPressed()) {
+            const char* ClipboardData = glfwGetClipboardString(window);
+            if (ClipboardData == nullptr) {
+                return;
+            }
+            std::string NewTextContent = ClipboardData;
+            for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
+                PMMA::InternalTextEventInstances[i]->Update(NewTextContent);
+            }
+        }
     } else if (key == GLFW_KEY_DELETE) {
         PMMA::KeyEvent_Delete_Instance->Update(action!=GLFW_RELEASE);
+        if (PMMA::KeyEvent_Delete_Instance->GetPressedToggle() ||
+                PMMA::KeyEvent_Delete_Instance->PollLongPressed()) {
+            for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
+                PMMA::InternalTextEventInstances[i]->RemoveFront();
+            }
+        }
     } else if (key == GLFW_KEY_RIGHT) {
         PMMA::KeyEvent_Right_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_LEFT) {
@@ -654,9 +692,6 @@ inline string encode_utf8(unsigned int codepoint) {
 
 void CPP_EventsManager::TextCallback(GLFWwindow* window, unsigned int codepoint) {
     string NewTextContent = encode_utf8(codepoint);
-    /*
-    If COMMAND key pressed and V key toggle, also add clipboard content!
-    */
     for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
         PMMA::InternalTextEventInstances[i]->Update(NewTextContent);
     }

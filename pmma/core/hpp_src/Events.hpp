@@ -20,6 +20,24 @@ class EXPORT CPP_TextEvent {
             Text += NewTextContent;
         };
 
+        inline void RemoveBack() {
+            if (!IsEnabled) {
+                return;
+            }
+            if (Text.size() > 0) {
+                Text.pop_back();
+            }
+        };
+
+        inline void RemoveFront() {
+            if (!IsEnabled) {
+                return;
+            }
+            if (Text.size() > 0) {
+                Text.erase(Text.begin());
+            }
+        };
+
         inline std::string GetText() {
             return Text;
         };

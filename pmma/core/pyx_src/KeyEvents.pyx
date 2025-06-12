@@ -10,8 +10,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Apostrophe_KeyEvent:
         bool GetPressed() except + nogil
@@ -19,8 +26,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Comma_KeyEvent:
         bool GetPressed() except + nogil
@@ -28,8 +42,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Minus_KeyEvent:
         bool GetPressed() except + nogil
@@ -37,8 +58,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Period_KeyEvent:
         bool GetPressed() except + nogil
@@ -46,8 +74,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Slash_KeyEvent:
         bool GetPressed() except + nogil
@@ -55,8 +90,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_0_KeyEvent:
         bool GetPressed() except + nogil
@@ -64,8 +106,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_1_KeyEvent:
         bool GetPressed() except + nogil
@@ -73,8 +122,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_2_KeyEvent:
         bool GetPressed() except + nogil
@@ -82,8 +138,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_3_KeyEvent:
         bool GetPressed() except + nogil
@@ -91,8 +154,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_4_KeyEvent:
         bool GetPressed() except + nogil
@@ -100,8 +170,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_5_KeyEvent:
         bool GetPressed() except + nogil
@@ -109,8 +186,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_6_KeyEvent:
         bool GetPressed() except + nogil
@@ -118,8 +202,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_7_KeyEvent:
         bool GetPressed() except + nogil
@@ -127,8 +218,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_8_KeyEvent:
         bool GetPressed() except + nogil
@@ -136,8 +234,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_9_KeyEvent:
         bool GetPressed() except + nogil
@@ -145,8 +250,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Semicolon_KeyEvent:
         bool GetPressed() except + nogil
@@ -154,8 +266,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Equal_KeyEvent:
         bool GetPressed() except + nogil
@@ -163,8 +282,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_A_KeyEvent:
         bool GetPressed() except + nogil
@@ -172,8 +298,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_B_KeyEvent:
         bool GetPressed() except + nogil
@@ -181,8 +314,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_C_KeyEvent:
         bool GetPressed() except + nogil
@@ -190,8 +330,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_D_KeyEvent:
         bool GetPressed() except + nogil
@@ -199,8 +346,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_E_KeyEvent:
         bool GetPressed() except + nogil
@@ -208,8 +362,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F_KeyEvent:
         bool GetPressed() except + nogil
@@ -217,8 +378,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_G_KeyEvent:
         bool GetPressed() except + nogil
@@ -226,8 +394,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_H_KeyEvent:
         bool GetPressed() except + nogil
@@ -235,8 +410,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_I_KeyEvent:
         bool GetPressed() except + nogil
@@ -244,8 +426,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_J_KeyEvent:
         bool GetPressed() except + nogil
@@ -253,8 +442,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_K_KeyEvent:
         bool GetPressed() except + nogil
@@ -262,8 +458,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_L_KeyEvent:
         bool GetPressed() except + nogil
@@ -271,8 +474,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_M_KeyEvent:
         bool GetPressed() except + nogil
@@ -280,8 +490,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_N_KeyEvent:
         bool GetPressed() except + nogil
@@ -289,8 +506,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_O_KeyEvent:
         bool GetPressed() except + nogil
@@ -298,8 +522,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_P_KeyEvent:
         bool GetPressed() except + nogil
@@ -307,8 +538,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Q_KeyEvent:
         bool GetPressed() except + nogil
@@ -316,8 +554,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_R_KeyEvent:
         bool GetPressed() except + nogil
@@ -325,8 +570,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_S_KeyEvent:
         bool GetPressed() except + nogil
@@ -334,8 +586,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_T_KeyEvent:
         bool GetPressed() except + nogil
@@ -343,8 +602,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_U_KeyEvent:
         bool GetPressed() except + nogil
@@ -352,8 +618,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_V_KeyEvent:
         bool GetPressed() except + nogil
@@ -361,8 +634,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_W_KeyEvent:
         bool GetPressed() except + nogil
@@ -370,8 +650,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_X_KeyEvent:
         bool GetPressed() except + nogil
@@ -379,8 +666,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Y_KeyEvent:
         bool GetPressed() except + nogil
@@ -388,8 +682,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Z_KeyEvent:
         bool GetPressed() except + nogil
@@ -397,8 +698,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Left_Bracket_KeyEvent:
         bool GetPressed() except + nogil
@@ -406,8 +714,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Backslash_KeyEvent:
         bool GetPressed() except + nogil
@@ -415,8 +730,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Right_Bracket_KeyEvent:
         bool GetPressed() except + nogil
@@ -424,8 +746,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Grave_Accent_KeyEvent:
         bool GetPressed() except + nogil
@@ -433,8 +762,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_World_1_KeyEvent:
         bool GetPressed() except + nogil
@@ -442,8 +778,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_World_2_KeyEvent:
         bool GetPressed() except + nogil
@@ -451,8 +794,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Escape_KeyEvent:
         bool GetPressed() except + nogil
@@ -460,8 +810,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Enter_KeyEvent:
         bool GetPressed() except + nogil
@@ -469,8 +826,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Tab_KeyEvent:
         bool GetPressed() except + nogil
@@ -478,8 +842,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Backspace_KeyEvent:
         bool GetPressed() except + nogil
@@ -487,8 +858,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Insert_KeyEvent:
         bool GetPressed() except + nogil
@@ -496,8 +874,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Delete_KeyEvent:
         bool GetPressed() except + nogil
@@ -505,8 +890,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Right_KeyEvent:
         bool GetPressed() except + nogil
@@ -514,8 +906,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Left_KeyEvent:
         bool GetPressed() except + nogil
@@ -523,8 +922,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Down_KeyEvent:
         bool GetPressed() except + nogil
@@ -532,8 +938,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Up_KeyEvent:
         bool GetPressed() except + nogil
@@ -541,8 +954,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Page_Up_KeyEvent:
         bool GetPressed() except + nogil
@@ -550,8 +970,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Page_Down_KeyEvent:
         bool GetPressed() except + nogil
@@ -559,8 +986,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Home_KeyEvent:
         bool GetPressed() except + nogil
@@ -568,8 +1002,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_End_KeyEvent:
         bool GetPressed() except + nogil
@@ -577,8 +1018,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Caps_Lock_KeyEvent:
         bool GetPressed() except + nogil
@@ -586,8 +1034,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Scroll_Lock_KeyEvent:
         bool GetPressed() except + nogil
@@ -595,8 +1050,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Num_Lock_KeyEvent:
         bool GetPressed() except + nogil
@@ -604,8 +1066,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Print_Screen_KeyEvent:
         bool GetPressed() except + nogil
@@ -613,8 +1082,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Pause_KeyEvent:
         bool GetPressed() except + nogil
@@ -622,8 +1098,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F1_KeyEvent:
         bool GetPressed() except + nogil
@@ -631,8 +1114,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F2_KeyEvent:
         bool GetPressed() except + nogil
@@ -640,8 +1130,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F3_KeyEvent:
         bool GetPressed() except + nogil
@@ -649,8 +1146,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F4_KeyEvent:
         bool GetPressed() except + nogil
@@ -658,8 +1162,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F5_KeyEvent:
         bool GetPressed() except + nogil
@@ -667,8 +1178,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F6_KeyEvent:
         bool GetPressed() except + nogil
@@ -676,8 +1194,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F7_KeyEvent:
         bool GetPressed() except + nogil
@@ -685,8 +1210,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F8_KeyEvent:
         bool GetPressed() except + nogil
@@ -694,8 +1226,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F9_KeyEvent:
         bool GetPressed() except + nogil
@@ -703,8 +1242,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F10_KeyEvent:
         bool GetPressed() except + nogil
@@ -712,8 +1258,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F11_KeyEvent:
         bool GetPressed() except + nogil
@@ -721,8 +1274,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F12_KeyEvent:
         bool GetPressed() except + nogil
@@ -730,8 +1290,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F13_KeyEvent:
         bool GetPressed() except + nogil
@@ -739,8 +1306,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F14_KeyEvent:
         bool GetPressed() except + nogil
@@ -748,8 +1322,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F15_KeyEvent:
         bool GetPressed() except + nogil
@@ -757,8 +1338,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F16_KeyEvent:
         bool GetPressed() except + nogil
@@ -766,8 +1354,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F17_KeyEvent:
         bool GetPressed() except + nogil
@@ -775,8 +1370,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F18_KeyEvent:
         bool GetPressed() except + nogil
@@ -784,8 +1386,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F19_KeyEvent:
         bool GetPressed() except + nogil
@@ -793,8 +1402,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F20_KeyEvent:
         bool GetPressed() except + nogil
@@ -802,8 +1418,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F21_KeyEvent:
         bool GetPressed() except + nogil
@@ -811,8 +1434,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F22_KeyEvent:
         bool GetPressed() except + nogil
@@ -820,8 +1450,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F23_KeyEvent:
         bool GetPressed() except + nogil
@@ -829,8 +1466,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F24_KeyEvent:
         bool GetPressed() except + nogil
@@ -838,8 +1482,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_F25_KeyEvent:
         bool GetPressed() except + nogil
@@ -847,8 +1498,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_0_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -856,8 +1514,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_1_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -865,8 +1530,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_2_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -874,8 +1546,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_3_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -883,8 +1562,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_4_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -892,8 +1578,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_5_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -901,8 +1594,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_6_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -910,8 +1610,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_7_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -919,8 +1626,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_8_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -928,8 +1642,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_9_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -937,8 +1658,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Decimal_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -946,8 +1674,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Divide_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -955,8 +1690,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Multiply_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -964,8 +1706,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Subtract_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -973,8 +1722,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Add_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -982,8 +1738,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Enter_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -991,8 +1754,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Equal_KeyPadEvent:
         bool GetPressed() except + nogil
@@ -1000,8 +1770,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Left_Shift_KeyEvent:
         bool GetPressed() except + nogil
@@ -1009,8 +1786,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Left_Control_KeyEvent:
         bool GetPressed() except + nogil
@@ -1018,8 +1802,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Left_Alt_KeyEvent:
         bool GetPressed() except + nogil
@@ -1027,8 +1818,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Left_Super_KeyEvent:
         bool GetPressed() except + nogil
@@ -1036,8 +1834,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Right_Shift_KeyEvent:
         bool GetPressed() except + nogil
@@ -1045,8 +1850,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Right_Control_KeyEvent:
         bool GetPressed() except + nogil
@@ -1054,8 +1866,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Right_Alt_KeyEvent:
         bool GetPressed() except + nogil
@@ -1063,8 +1882,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Right_Super_KeyEvent:
         bool GetPressed() except + nogil
@@ -1072,8 +1898,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_Menu_KeyEvent:
         bool GetPressed() except + nogil
@@ -1081,8 +1914,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetDoublePressed() except + nogil
         bool GetLongPressed() except + nogil
 
-        void SetDoublePressDuration(float duration) except + nogil
-        void SetLongPressDuration(float duration) except + nogil
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
 cdef class KeyEvent_Space:
     cdef:
@@ -1106,11 +1946,26 @@ cdef class KeyEvent_Space:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Apostrophe:
     cdef:
@@ -1134,11 +1989,26 @@ cdef class KeyEvent_Apostrophe:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Comma:
     cdef:
@@ -1162,11 +2032,26 @@ cdef class KeyEvent_Comma:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Minus:
     cdef:
@@ -1190,11 +2075,26 @@ cdef class KeyEvent_Minus:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Period:
     cdef:
@@ -1218,11 +2118,26 @@ cdef class KeyEvent_Period:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Slash:
     cdef:
@@ -1246,11 +2161,26 @@ cdef class KeyEvent_Slash:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_0:
     cdef:
@@ -1274,11 +2204,26 @@ cdef class KeyEvent_0:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_1:
     cdef:
@@ -1302,11 +2247,26 @@ cdef class KeyEvent_1:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_2:
     cdef:
@@ -1330,11 +2290,26 @@ cdef class KeyEvent_2:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_3:
     cdef:
@@ -1358,11 +2333,26 @@ cdef class KeyEvent_3:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_4:
     cdef:
@@ -1386,11 +2376,26 @@ cdef class KeyEvent_4:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_5:
     cdef:
@@ -1414,11 +2419,26 @@ cdef class KeyEvent_5:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_6:
     cdef:
@@ -1442,11 +2462,26 @@ cdef class KeyEvent_6:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_7:
     cdef:
@@ -1470,11 +2505,26 @@ cdef class KeyEvent_7:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_8:
     cdef:
@@ -1498,11 +2548,26 @@ cdef class KeyEvent_8:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_9:
     cdef:
@@ -1526,11 +2591,26 @@ cdef class KeyEvent_9:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Semicolon:
     cdef:
@@ -1554,11 +2634,26 @@ cdef class KeyEvent_Semicolon:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Equal:
     cdef:
@@ -1582,11 +2677,26 @@ cdef class KeyEvent_Equal:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_A:
     cdef:
@@ -1610,11 +2720,26 @@ cdef class KeyEvent_A:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_B:
     cdef:
@@ -1638,11 +2763,26 @@ cdef class KeyEvent_B:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_C:
     cdef:
@@ -1666,11 +2806,26 @@ cdef class KeyEvent_C:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_D:
     cdef:
@@ -1694,11 +2849,26 @@ cdef class KeyEvent_D:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_E:
     cdef:
@@ -1722,11 +2892,26 @@ cdef class KeyEvent_E:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F:
     cdef:
@@ -1750,11 +2935,26 @@ cdef class KeyEvent_F:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_G:
     cdef:
@@ -1778,11 +2978,26 @@ cdef class KeyEvent_G:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_H:
     cdef:
@@ -1806,11 +3021,26 @@ cdef class KeyEvent_H:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_I:
     cdef:
@@ -1834,11 +3064,26 @@ cdef class KeyEvent_I:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_J:
     cdef:
@@ -1862,11 +3107,26 @@ cdef class KeyEvent_J:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_K:
     cdef:
@@ -1890,11 +3150,26 @@ cdef class KeyEvent_K:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_L:
     cdef:
@@ -1918,11 +3193,26 @@ cdef class KeyEvent_L:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_M:
     cdef:
@@ -1946,11 +3236,26 @@ cdef class KeyEvent_M:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_N:
     cdef:
@@ -1974,11 +3279,26 @@ cdef class KeyEvent_N:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_O:
     cdef:
@@ -2002,11 +3322,26 @@ cdef class KeyEvent_O:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_P:
     cdef:
@@ -2030,11 +3365,26 @@ cdef class KeyEvent_P:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Q:
     cdef:
@@ -2058,11 +3408,26 @@ cdef class KeyEvent_Q:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_R:
     cdef:
@@ -2086,11 +3451,26 @@ cdef class KeyEvent_R:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_S:
     cdef:
@@ -2114,11 +3494,26 @@ cdef class KeyEvent_S:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_T:
     cdef:
@@ -2142,11 +3537,26 @@ cdef class KeyEvent_T:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_U:
     cdef:
@@ -2170,11 +3580,26 @@ cdef class KeyEvent_U:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_V:
     cdef:
@@ -2198,11 +3623,26 @@ cdef class KeyEvent_V:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_W:
     cdef:
@@ -2226,11 +3666,26 @@ cdef class KeyEvent_W:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_X:
     cdef:
@@ -2254,11 +3709,26 @@ cdef class KeyEvent_X:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Y:
     cdef:
@@ -2282,11 +3752,26 @@ cdef class KeyEvent_Y:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Z:
     cdef:
@@ -2310,11 +3795,26 @@ cdef class KeyEvent_Z:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Left_Bracket:
     cdef:
@@ -2338,11 +3838,26 @@ cdef class KeyEvent_Left_Bracket:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Backslash:
     cdef:
@@ -2366,11 +3881,26 @@ cdef class KeyEvent_Backslash:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Right_Bracket:
     cdef:
@@ -2394,11 +3924,26 @@ cdef class KeyEvent_Right_Bracket:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Grave_Accent:
     cdef:
@@ -2422,11 +3967,26 @@ cdef class KeyEvent_Grave_Accent:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_World_1:
     cdef:
@@ -2450,11 +4010,26 @@ cdef class KeyEvent_World_1:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_World_2:
     cdef:
@@ -2478,11 +4053,26 @@ cdef class KeyEvent_World_2:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Escape:
     cdef:
@@ -2506,11 +4096,26 @@ cdef class KeyEvent_Escape:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Enter:
     cdef:
@@ -2534,11 +4139,26 @@ cdef class KeyEvent_Enter:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Tab:
     cdef:
@@ -2562,11 +4182,26 @@ cdef class KeyEvent_Tab:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Backspace:
     cdef:
@@ -2590,11 +4225,26 @@ cdef class KeyEvent_Backspace:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Insert:
     cdef:
@@ -2618,11 +4268,26 @@ cdef class KeyEvent_Insert:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Delete:
     cdef:
@@ -2646,11 +4311,26 @@ cdef class KeyEvent_Delete:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Right:
     cdef:
@@ -2674,11 +4354,26 @@ cdef class KeyEvent_Right:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Left:
     cdef:
@@ -2702,11 +4397,26 @@ cdef class KeyEvent_Left:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Down:
     cdef:
@@ -2730,11 +4440,26 @@ cdef class KeyEvent_Down:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Up:
     cdef:
@@ -2758,11 +4483,26 @@ cdef class KeyEvent_Up:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Page_Up:
     cdef:
@@ -2786,11 +4526,26 @@ cdef class KeyEvent_Page_Up:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Page_Down:
     cdef:
@@ -2814,11 +4569,26 @@ cdef class KeyEvent_Page_Down:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Home:
     cdef:
@@ -2842,11 +4612,26 @@ cdef class KeyEvent_Home:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_End:
     cdef:
@@ -2870,11 +4655,26 @@ cdef class KeyEvent_End:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Caps_Lock:
     cdef:
@@ -2898,11 +4698,26 @@ cdef class KeyEvent_Caps_Lock:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Scroll_Lock:
     cdef:
@@ -2926,11 +4741,26 @@ cdef class KeyEvent_Scroll_Lock:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Num_Lock:
     cdef:
@@ -2954,11 +4784,26 @@ cdef class KeyEvent_Num_Lock:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Print_Screen:
     cdef:
@@ -2982,11 +4827,26 @@ cdef class KeyEvent_Print_Screen:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Pause:
     cdef:
@@ -3010,11 +4870,26 @@ cdef class KeyEvent_Pause:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F1:
     cdef:
@@ -3038,11 +4913,26 @@ cdef class KeyEvent_F1:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F2:
     cdef:
@@ -3066,11 +4956,26 @@ cdef class KeyEvent_F2:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F3:
     cdef:
@@ -3094,11 +4999,26 @@ cdef class KeyEvent_F3:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F4:
     cdef:
@@ -3122,11 +5042,26 @@ cdef class KeyEvent_F4:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F5:
     cdef:
@@ -3150,11 +5085,26 @@ cdef class KeyEvent_F5:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F6:
     cdef:
@@ -3178,11 +5128,26 @@ cdef class KeyEvent_F6:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F7:
     cdef:
@@ -3206,11 +5171,26 @@ cdef class KeyEvent_F7:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F8:
     cdef:
@@ -3234,11 +5214,26 @@ cdef class KeyEvent_F8:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F9:
     cdef:
@@ -3262,11 +5257,26 @@ cdef class KeyEvent_F9:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F10:
     cdef:
@@ -3290,11 +5300,26 @@ cdef class KeyEvent_F10:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F11:
     cdef:
@@ -3318,11 +5343,26 @@ cdef class KeyEvent_F11:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F12:
     cdef:
@@ -3346,11 +5386,26 @@ cdef class KeyEvent_F12:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F13:
     cdef:
@@ -3374,11 +5429,26 @@ cdef class KeyEvent_F13:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F14:
     cdef:
@@ -3402,11 +5472,26 @@ cdef class KeyEvent_F14:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F15:
     cdef:
@@ -3430,11 +5515,26 @@ cdef class KeyEvent_F15:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F16:
     cdef:
@@ -3458,11 +5558,26 @@ cdef class KeyEvent_F16:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F17:
     cdef:
@@ -3486,11 +5601,26 @@ cdef class KeyEvent_F17:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F18:
     cdef:
@@ -3514,11 +5644,26 @@ cdef class KeyEvent_F18:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F19:
     cdef:
@@ -3542,11 +5687,26 @@ cdef class KeyEvent_F19:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F20:
     cdef:
@@ -3570,11 +5730,26 @@ cdef class KeyEvent_F20:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F21:
     cdef:
@@ -3598,11 +5773,26 @@ cdef class KeyEvent_F21:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F22:
     cdef:
@@ -3626,11 +5816,26 @@ cdef class KeyEvent_F22:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F23:
     cdef:
@@ -3654,11 +5859,26 @@ cdef class KeyEvent_F23:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F24:
     cdef:
@@ -3682,11 +5902,26 @@ cdef class KeyEvent_F24:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_F25:
     cdef:
@@ -3710,11 +5945,26 @@ cdef class KeyEvent_F25:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_0:
     cdef:
@@ -3738,11 +5988,26 @@ cdef class KeyPadEvent_0:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_1:
     cdef:
@@ -3766,11 +6031,26 @@ cdef class KeyPadEvent_1:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_2:
     cdef:
@@ -3794,11 +6074,26 @@ cdef class KeyPadEvent_2:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_3:
     cdef:
@@ -3822,11 +6117,26 @@ cdef class KeyPadEvent_3:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_4:
     cdef:
@@ -3850,11 +6160,26 @@ cdef class KeyPadEvent_4:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_5:
     cdef:
@@ -3878,11 +6203,26 @@ cdef class KeyPadEvent_5:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_6:
     cdef:
@@ -3906,11 +6246,26 @@ cdef class KeyPadEvent_6:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_7:
     cdef:
@@ -3934,11 +6289,26 @@ cdef class KeyPadEvent_7:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_8:
     cdef:
@@ -3962,11 +6332,26 @@ cdef class KeyPadEvent_8:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_9:
     cdef:
@@ -3990,11 +6375,26 @@ cdef class KeyPadEvent_9:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_Decimal:
     cdef:
@@ -4018,11 +6418,26 @@ cdef class KeyPadEvent_Decimal:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_Divide:
     cdef:
@@ -4046,11 +6461,26 @@ cdef class KeyPadEvent_Divide:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_Multiply:
     cdef:
@@ -4074,11 +6504,26 @@ cdef class KeyPadEvent_Multiply:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_Subtract:
     cdef:
@@ -4102,11 +6547,26 @@ cdef class KeyPadEvent_Subtract:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_Add:
     cdef:
@@ -4130,11 +6590,26 @@ cdef class KeyPadEvent_Add:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_Enter:
     cdef:
@@ -4158,11 +6633,26 @@ cdef class KeyPadEvent_Enter:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyPadEvent_Equal:
     cdef:
@@ -4186,11 +6676,26 @@ cdef class KeyPadEvent_Equal:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Left_Shift:
     cdef:
@@ -4214,11 +6719,26 @@ cdef class KeyEvent_Left_Shift:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Left_Control:
     cdef:
@@ -4242,11 +6762,26 @@ cdef class KeyEvent_Left_Control:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Left_Alt:
     cdef:
@@ -4270,11 +6805,26 @@ cdef class KeyEvent_Left_Alt:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Left_Super:
     cdef:
@@ -4298,11 +6848,26 @@ cdef class KeyEvent_Left_Super:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Right_Shift:
     cdef:
@@ -4326,11 +6891,26 @@ cdef class KeyEvent_Right_Shift:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Right_Control:
     cdef:
@@ -4354,11 +6934,26 @@ cdef class KeyEvent_Right_Control:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Right_Alt:
     cdef:
@@ -4382,11 +6977,26 @@ cdef class KeyEvent_Right_Alt:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Right_Super:
     cdef:
@@ -4410,11 +7020,26 @@ cdef class KeyEvent_Right_Super:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)
 
 cdef class KeyEvent_Menu:
     cdef:
@@ -4438,8 +7063,23 @@ cdef class KeyEvent_Menu:
     def get_long_pressed(self):
         return self.cpp_class_ptr.GetLongPressed()
 
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
     def set_double_press_duration(self, duration):
-        return self.cpp_class_ptr.SetDoublePressDuration(duration)
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
 
     def set_long_press_duration(self, duration):
-        return self.cpp_class_ptr.SetLongPressDuration(duration)
+        self.cpp_class_ptr.SetLongPressDuration(duration)

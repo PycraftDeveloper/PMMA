@@ -12,6 +12,7 @@ class EXPORT CPP_InternalKeyEvent {
         std::chrono::high_resolution_clock::time_point LongPressPollTime;
         float DoublePressDuration = 0.5f;
         float LongPressDuration = 1.0f;
+        float RepeatPressDuration = 0.5f;
         bool IsPressed = false;
         bool IsPressedToggle = false;
         bool IsLongPressValid = false;
@@ -80,13 +81,29 @@ class EXPORT CPP_InternalKeyEvent {
             bool LongPressed = GetLongPressed();
             if (LongPressed) {
                 std::chrono::duration<float> Duration = std::chrono::high_resolution_clock::now() - LongPressPollTime;
-                if (Duration.count() >= LongPressDuration) {
+                if (Duration.count() >= RepeatPressDuration) {
                     LongPressPollTime = std::chrono::high_resolution_clock::now();
                     return true;
                 }
                 return false;
             }
             return false;
+        };
+
+        inline void SetRepeatPressDuration(float Duration) {
+            RepeatPressDuration = Duration;
+        };
+
+        inline float GetRepeatPressDuration() {
+            return RepeatPressDuration;
+        };
+
+        inline float GetLongPressDuration() {
+            return LongPressDuration;
+        };
+
+        inline float GetDoublePressDuration() {
+            return DoublePressDuration;
         };
 };
 
