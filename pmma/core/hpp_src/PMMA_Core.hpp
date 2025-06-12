@@ -142,5 +142,6 @@ namespace PMMA {
 
 #include "AdvancedMathematics.hpp"
 #include "InternalEventsManager.hpp"
+#include "KeyEvents.hpp"
 #include "FractalBrownianMotion.hpp"
 #include "PerlinNoise.hpp"
