@@ -5404,3 +5404,22 @@ class EXPORT CPP_Menu_KeyEvent {
             return PMMA::KeyEvent_Menu_Instance->GetLongPressed();
         };
 };
+
+class EXPORT CPP_TextEvent {
+    private:
+        std::string Text = "";
+        bool IsEnabled = true;
+
+    public:
+        CPP_TextEvent();
+
+        ~CPP_TextEvent();
+
+        inline void Update(std::string NewTextContent);
+
+        inline std::string GetText();
+
+        inline void SetEnabled(bool NewIsEnabled);
+
+        inline bool GetEnabled();
+};

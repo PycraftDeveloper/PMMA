@@ -1,11 +1,13 @@
 #pragma once
-
 #include "PMMA_Exports.hpp"
+
+#include <vector>
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
 
 #include "InternalEvents.hpp"
+#include "Events.hpp"
 
 namespace PMMA {
     EXPORT extern CPP_Display* DisplayInstance;
@@ -131,13 +133,14 @@ namespace PMMA {
     EXPORT extern CPP_InternalKeyEvent* KeyEvent_Right_Super_Instance;
     EXPORT extern CPP_InternalKeyEvent* KeyEvent_Menu_Instance;
 
+    EXPORT extern std::vector<CPP_TextEvent*> InternalTextEventInstances;
+
     EXPORT extern bool GLFW_Initialized;
 
     EXPORT extern int GLFW_References;
 }
 
 #include "AdvancedMathematics.hpp"
-#include "Events.hpp"
 #include "InternalEventsManager.hpp"
 #include "FractalBrownianMotion.hpp"
 #include "PerlinNoise.hpp"

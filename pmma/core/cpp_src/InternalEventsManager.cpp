@@ -1,4 +1,5 @@
 #include <iostream>
+#include <string>
 
 #include <GLFW/glfw3.h>
 
@@ -631,8 +632,34 @@ void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, i
     }
 }
 
-void CPP_EventsManager::TextCallback(GLFWwindow* window, unsigned int codepoint) {
+inline string encode_utf8(unsigned int codepoint) {
+    string out;
+    if (codepoint <= 0x7F) {
+        out += static_cast<char>(codepoint);
+    } else if (codepoint <= 0x7FF) {
+        out += static_cast<char>(0xC0 | ((codepoint >> 6) & 0x1F));
+        out += static_cast<char>(0x80 | (codepoint & 0x3F));
+    } else if (codepoint <= 0xFFFF) {
+        out += static_cast<char>(0xE0 | ((codepoint >> 12) & 0x0F));
+        out += static_cast<char>(0x80 | ((codepoint >> 6) & 0x3F));
+        out += static_cast<char>(0x80 | (codepoint & 0x3F));
+    } else if (codepoint <= 0x10FFFF) {
+        out += static_cast<char>(0xF0 | ((codepoint >> 18) & 0x07));
+        out += static_cast<char>(0x80 | ((codepoint >> 12) & 0x3F));
+        out += static_cast<char>(0x80 | ((codepoint >> 6) & 0x3F));
+        out += static_cast<char>(0x80 | (codepoint & 0x3F));
+    }
+    return out;
+}
 
+void CPP_EventsManager::TextCallback(GLFWwindow* window, unsigned int codepoint) {
+    string NewTextContent = encode_utf8(codepoint);
+    /*
+    If COMMAND key pressed and V key toggle, also add clipboard content!
+    */
+    for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
+        PMMA::InternalTextEventInstances[i]->Update(NewTextContent);
+    }
 }
 
 void CPP_EventsManager::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {

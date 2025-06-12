@@ -1083,6 +1083,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void SetDoublePressDuration(float duration) except + nogil
         void SetLongPressDuration(float duration) except + nogil
 
+    cdef cppclass CPP_TextEvent:
+        string GetText() except + nogil
+
+        void SetEnabled(bool NewIsEnabled) except + nogil
+        bool GetEnabled() except + nogil
+
 cdef class KeyEvent_Space:
     cdef:
         CPP_Space_KeyEvent* cpp_class_ptr
@@ -4442,3 +4448,23 @@ cdef class KeyEvent_Menu:
 
     def set_long_press_duration(self, duration):
         return self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class TextEvent:
+    cdef:
+        CPP_TextEvent* cpp_class_ptr
+
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_TextEvent()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_text(self):
+        cdef string cpp_str = self.cpp_class_ptr.GetText()
+        return cpp_str.c_str().decode("utf-8")
+
+    def get_enabled(self):
+        return self.cpp_class_ptr.GetEnabled()
+
+    def set_enabled(self, value):
+        self.cpp_class_ptr.SetEnabled(value)

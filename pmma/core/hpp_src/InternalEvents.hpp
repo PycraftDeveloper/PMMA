@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <chrono>
+#include <vector>
 
 class EXPORT CPP_InternalKeyEvent {
     private:
