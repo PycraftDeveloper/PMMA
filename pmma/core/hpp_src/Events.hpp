@@ -1,8 +1,6 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include <stdexcept>
-
 class EXPORT CPP_TextEvent {
     private:
         std::string Text = "";
@@ -20,23 +18,9 @@ class EXPORT CPP_TextEvent {
             Text += NewTextContent;
         };
 
-        inline void RemoveBack() {
-            if (!IsEnabled) {
-                return;
-            }
-            if (Text.size() > 0) {
-                Text.pop_back();
-            }
-        };
+        void RemoveBack();
 
-        inline void RemoveFront() {
-            if (!IsEnabled) {
-                return;
-            }
-            if (Text.size() > 0) {
-                Text.erase(Text.begin());
-            }
-        };
+        void RemoveFront();
 
         inline std::string GetText() {
             return Text;

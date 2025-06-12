@@ -10,6 +10,26 @@
 
 using namespace std;
 
+inline string encode_utf8(unsigned int codepoint) {
+    string out;
+    if (codepoint <= 0x7F) {
+        out += static_cast<char>(codepoint);
+    } else if (codepoint <= 0x7FF) {
+        out += static_cast<char>(0xC0 | ((codepoint >> 6) & 0x1F));
+        out += static_cast<char>(0x80 | (codepoint & 0x3F));
+    } else if (codepoint <= 0xFFFF) {
+        out += static_cast<char>(0xE0 | ((codepoint >> 12) & 0x0F));
+        out += static_cast<char>(0x80 | ((codepoint >> 6) & 0x3F));
+        out += static_cast<char>(0x80 | (codepoint & 0x3F));
+    } else if (codepoint <= 0x10FFFF) {
+        out += static_cast<char>(0xF0 | ((codepoint >> 18) & 0x07));
+        out += static_cast<char>(0x80 | ((codepoint >> 12) & 0x3F));
+        out += static_cast<char>(0x80 | ((codepoint >> 6) & 0x3F));
+        out += static_cast<char>(0x80 | (codepoint & 0x3F));
+    }
+    return out;
+}
+
 CPP_EventsManager::CPP_EventsManager(GLFWwindow* Window) {
     PMMA::KeyEvent_Space_Instance = new CPP_InternalKeyEvent();
     PMMA::KeyEvent_Apostrophe_Instance = new CPP_InternalKeyEvent();
@@ -668,26 +688,6 @@ void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, i
     } else {
         cout << "Unknown key: " << key << endl;
     }
-}
-
-inline string encode_utf8(unsigned int codepoint) {
-    string out;
-    if (codepoint <= 0x7F) {
-        out += static_cast<char>(codepoint);
-    } else if (codepoint <= 0x7FF) {
-        out += static_cast<char>(0xC0 | ((codepoint >> 6) & 0x1F));
-        out += static_cast<char>(0x80 | (codepoint & 0x3F));
-    } else if (codepoint <= 0xFFFF) {
-        out += static_cast<char>(0xE0 | ((codepoint >> 12) & 0x0F));
-        out += static_cast<char>(0x80 | ((codepoint >> 6) & 0x3F));
-        out += static_cast<char>(0x80 | (codepoint & 0x3F));
-    } else if (codepoint <= 0x10FFFF) {
-        out += static_cast<char>(0xF0 | ((codepoint >> 18) & 0x07));
-        out += static_cast<char>(0x80 | ((codepoint >> 12) & 0x3F));
-        out += static_cast<char>(0x80 | ((codepoint >> 6) & 0x3F));
-        out += static_cast<char>(0x80 | (codepoint & 0x3F));
-    }
-    return out;
 }
 
 void CPP_EventsManager::TextCallback(GLFWwindow* window, unsigned int codepoint) {
