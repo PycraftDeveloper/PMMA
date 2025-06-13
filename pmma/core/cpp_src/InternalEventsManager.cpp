@@ -487,19 +487,6 @@ void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, i
         PMMA::KeyEvent_U_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_V) {
         PMMA::KeyEvent_V_Instance->Update(action!=GLFW_RELEASE);
-        if (PMMA::KeyEvent_Left_Control_Instance->GetPressedToggle() ||
-                PMMA::KeyEvent_Right_Control_Instance->GetPressedToggle() ||
-                PMMA::KeyEvent_Left_Control_Instance->PollLongPressed() ||
-                PMMA::KeyEvent_Right_Control_Instance->PollLongPressed()) {
-            const char* ClipboardData = glfwGetClipboardString(window);
-            if (ClipboardData == nullptr) {
-                return;
-            }
-            std::string NewTextContent = ClipboardData;
-            for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
-                PMMA::InternalTextEventInstances[i]->Update(NewTextContent);
-            }
-        }
     } else if (key == GLFW_KEY_W) {
         PMMA::KeyEvent_W_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_X) {
@@ -528,35 +515,10 @@ void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, i
         PMMA::KeyEvent_Tab_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_BACKSPACE) {
         PMMA::KeyEvent_Backspace_Instance->Update(action!=GLFW_RELEASE);
-        if (PMMA::KeyEvent_Backspace_Instance->GetPressedToggle() ||
-                PMMA::KeyEvent_Backspace_Instance->PollLongPressed()) {
-            for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
-                PMMA::InternalTextEventInstances[i]->RemoveBack();
-            }
-        }
     } else if (key == GLFW_KEY_INSERT) {
         PMMA::KeyEvent_Insert_Instance->Update(action!=GLFW_RELEASE);
-        if (PMMA::KeyEvent_Left_Shift_Instance->GetPressedToggle() ||
-                PMMA::KeyEvent_Right_Shift_Instance->GetPressedToggle() ||
-                PMMA::KeyEvent_Left_Shift_Instance->PollLongPressed() ||
-                PMMA::KeyEvent_Right_Shift_Instance->PollLongPressed()) {
-            const char* ClipboardData = glfwGetClipboardString(window);
-            if (ClipboardData == nullptr) {
-                return;
-            }
-            std::string NewTextContent = ClipboardData;
-            for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
-                PMMA::InternalTextEventInstances[i]->Update(NewTextContent);
-            }
-        }
     } else if (key == GLFW_KEY_DELETE) {
         PMMA::KeyEvent_Delete_Instance->Update(action!=GLFW_RELEASE);
-        if (PMMA::KeyEvent_Delete_Instance->GetPressedToggle() ||
-                PMMA::KeyEvent_Delete_Instance->PollLongPressed()) {
-            for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
-                PMMA::InternalTextEventInstances[i]->RemoveFront();
-            }
-        }
     } else if (key == GLFW_KEY_RIGHT) {
         PMMA::KeyEvent_Right_Instance->Update(action!=GLFW_RELEASE);
     } else if (key == GLFW_KEY_LEFT) {
@@ -723,4 +685,55 @@ void CPP_EventsManager::JoystickCallback(int jid, int event) {
 
 void CPP_EventsManager::DropCallback(GLFWwindow* window, int count, const char** paths) {
 
+}
+
+void CPP_EventsManager::GenericUpdate(GLFWwindow* window) {
+    vector<CPP_TextEvent*> EnabledTextEvents;
+    for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
+        if (PMMA::InternalTextEventInstances[i]->GetEnabled()) {
+            EnabledTextEvents.push_back(PMMA::InternalTextEventInstances[i]);
+        }
+    }
+
+    if (EnabledTextEvents.size() > 0) {
+        if (PMMA::KeyEvent_Left_Control_Instance->GetPressed() || PMMA::KeyEvent_Right_Control_Instance->GetPressed()) {
+            if (PMMA::KeyEvent_V_Instance->PollLongPressed() || PMMA::KeyEvent_V_Instance->GetPressedToggle()) {
+                const char* ClipboardData = glfwGetClipboardString(window);
+                if (ClipboardData == nullptr) {
+                    return;
+                }
+                std::string NewTextContent = ClipboardData;
+                for (int i = 0; i < EnabledTextEvents.size(); i++) {
+                    EnabledTextEvents[i]->Update(NewTextContent);
+                }
+            }
+        }
+
+        if (PMMA::KeyEvent_Left_Shift_Instance->GetPressed() || PMMA::KeyEvent_Right_Shift_Instance->GetPressed()) {
+            if (PMMA::KeyEvent_Insert_Instance->PollLongPressed() || PMMA::KeyEvent_Insert_Instance->GetPressedToggle()) {
+                const char* ClipboardData = glfwGetClipboardString(window);
+                if (ClipboardData == nullptr) {
+                    return;
+                }
+                std::string NewTextContent = ClipboardData;
+                for (int i = 0; i < EnabledTextEvents.size(); i++) {
+                    EnabledTextEvents[i]->Update(NewTextContent);
+                }
+            }
+        }
+
+        if (PMMA::KeyEvent_Backspace_Instance->PollLongPressed() ||
+                PMMA::KeyEvent_Backspace_Instance->GetPressedToggle()) {
+            for (int i = 0; i < EnabledTextEvents.size(); i++) {
+                EnabledTextEvents[i]->RemoveBack();
+            }
+        }
+
+        if (PMMA::KeyEvent_Delete_Instance->PollLongPressed() ||
+                PMMA::KeyEvent_Delete_Instance->GetPressedToggle()) {
+            for (int i = 0; i < EnabledTextEvents.size(); i++) {
+                EnabledTextEvents[i]->RemoveFront();
+            }
+        }
+    }
 }

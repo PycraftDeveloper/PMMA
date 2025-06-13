@@ -351,6 +351,8 @@ void CPP_Display::Refresh(
     glfwSwapBuffers(Window);
     glfwPollEvents();
 
+    EventsManagerInstance->GenericUpdate(Window);
+
     float estimate = 0.001f;
     float average = 0.001f;
     unsigned int samples = 1;
@@ -388,6 +390,8 @@ void CPP_Display::Refresh() {
 
     glfwSwapBuffers(Window);
     glfwPollEvents();
+
+    EventsManagerInstance->GenericUpdate(Window);
 }
 
 CPP_Display::~CPP_Display() {

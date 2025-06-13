@@ -17,4 +17,5 @@ public:
     static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
     static void JoystickCallback(int jid, int event);
     static void DropCallback(GLFWwindow* window, int count, const char** paths);
+    static void GenericUpdate(GLFWwindow* window);
 };
