@@ -6,7 +6,6 @@ import site
 import subprocess
 import sys
 import platform
-import glob
 from typing import Iterable
 
 cwd = os.path.dirname(__file__)
@@ -17,6 +16,10 @@ temp_dir = os.path.join(cwd, "pmma", "temporary")
 include_dir = os.path.join(cwd, "pmma", "core", "hpp_src")
 pyx_dir = os.path.join(cwd, "pmma", "core", "pyx_src")
 cmake_temp_dir = os.path.join(temp_dir, "cmake")
+build_tools_dir = os.path.join(cwd, "build_tools")
+vcpkg_dir = os.path.join(build_tools_dir, "vcpkg")
+
+vcpkg_cmake = os.path.join(vcpkg_dir, "scripts", "buildsystems", "vcpkg.cmake")
 
 TERMINAL_SIZE = shutil.get_terminal_size().columns
 
@@ -67,6 +70,22 @@ if result == "y":
 
 print("=" * TERMINAL_SIZE)
 
+####################### INSTALLING  DEPENDENCIES #######################
+
+if platform.system() == "Windows":
+    print("📦 Installing dependencies...")
+    if not os.path.exists(vcpkg_dir):
+        print("📦 Cloning vcpkg...")
+        subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git", vcpkg_dir], check=True)
+
+    subprocess.run(["cmd", "/c", "bootstrap-vcpkg.bat"], cwd=vcpkg_dir, check=True)
+    subprocess.run(["cmd", "/c", "vcpkg install glfw3"], cwd=vcpkg_dir, check=True)
+    subprocess.run(["cmd", "/c", "vcpkg integrate install"], cwd=vcpkg_dir, check=True)
+
+    print("✅ Dependencies installed.")
+
+    print("=" * TERMINAL_SIZE)
+
 ########################### BUILD PMMA CORE ############################
 
 def flatten_dir(parent_dir):
@@ -90,7 +109,10 @@ def build_shared_lib():
     os.makedirs(cmake_temp_dir, exist_ok=True)
 
     print("📦 Running CMake configuration...")
-    subprocess.run(["cmake", cwd], cwd=cmake_temp_dir, check=True)
+    if platform.system() == "Windows":
+        subprocess.run(["cmake", cwd, f"-DCMAKE_TOOLCHAIN_FILE={vcpkg_cmake}"], cwd=cmake_temp_dir, check=True)
+    else:
+        subprocess.run(["cmake", cwd], cwd=cmake_temp_dir, check=True)
 
     print("🔨 Building PMMA_Core...")
     build_command = ["cmake", "--build", "."]

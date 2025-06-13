@@ -34,18 +34,19 @@ target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
 # GLFW settings (platform-specific)
 if (WIN32)
-    set(GLFW_INCLUDE_DIR "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/include")
-    set(GLFW_LIB_DIR "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/lib-vc2022")
-
     target_include_directories(${LIB_NAME}
         PRIVATE
             ${INCLUDE_DIR}
-            ${GLFW_INCLUDE_DIR}
     )
 
-    target_link_directories(${LIB_NAME} PRIVATE ${GLFW_LIB_DIR})
-    target_link_libraries(${LIB_NAME} PRIVATE glfw3)
-    target_link_libraries(${LIB_NAME} PRIVATE opengl32)
+    find_package(glfw3 CONFIG REQUIRED)
+    find_package(OpenGL REQUIRED)
+
+    target_link_libraries(${LIB_NAME}
+        PRIVATE
+            glfw
+            OpenGL::GL
+    )
 elseif(APPLE)
     target_include_directories(${LIB_NAME}
         PRIVATE ${INCLUDE_DIR}

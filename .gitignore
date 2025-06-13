@@ -178,3 +178,6 @@ pmma/lib/*
 
 # annotations
 *.html
+
+# Ignore everything in build_tools
+build_tools/*
