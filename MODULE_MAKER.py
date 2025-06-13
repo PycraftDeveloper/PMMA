@@ -1,3 +1,5 @@
+#type: ignore
+
 import shutil
 import os
 import site

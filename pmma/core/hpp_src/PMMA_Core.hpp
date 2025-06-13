@@ -135,6 +135,8 @@ namespace PMMA {
 
     EXPORT extern std::vector<CPP_TextEvent*> InternalTextEventInstances;
 
+    EXPORT extern CPP_InternalMouseEvent* MouseEvent_Instance;
+
     EXPORT extern bool GLFW_Initialized;
 
     EXPORT extern int GLFW_References;

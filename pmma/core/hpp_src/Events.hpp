@@ -1,6 +1,8 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
+#include <stdexcept>
+
 class EXPORT CPP_TextEvent {
     private:
         std::string Text = "";
@@ -37,4 +39,13 @@ class EXPORT CPP_TextEvent {
         inline void ClearText() {
             Text = "";
         };
+};
+
+class EXPORT CPP_MouseEvent {
+    public:
+        void GetPosition(float* out);
+
+        void GetDelta(float* out);
+
+        void GetDeltaToggle(float* out);
 };

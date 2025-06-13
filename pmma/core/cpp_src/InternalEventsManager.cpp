@@ -152,6 +152,8 @@ CPP_EventsManager::CPP_EventsManager(GLFWwindow* Window) {
     PMMA::KeyEvent_Right_Super_Instance = new CPP_InternalKeyEvent();
     PMMA::KeyEvent_Menu_Instance = new CPP_InternalKeyEvent();
 
+    PMMA::MouseEvent_Instance = new CPP_InternalMouseEvent();
+
     glfwSetKeyCallback(Window, CPP_EventsManager::KeyCallback);
     glfwSetCharCallback(Window, CPP_EventsManager::TextCallback);
     glfwSetCursorPosCallback(Window, CPP_EventsManager::CursorPositionCallback);
@@ -284,6 +286,8 @@ CPP_EventsManager::~CPP_EventsManager() {
     delete PMMA::KeyEvent_Right_Super_Instance;
     delete PMMA::KeyEvent_Menu_Instance;
 
+    delete PMMA::MouseEvent_Instance;
+
     PMMA::KeyEvent_Space_Instance = nullptr;
     PMMA::KeyEvent_Apostrophe_Instance = nullptr;
     PMMA::KeyEvent_Comma_Instance = nullptr;
@@ -404,6 +408,8 @@ CPP_EventsManager::~CPP_EventsManager() {
     PMMA::KeyEvent_Right_Alt_Instance = nullptr;
     PMMA::KeyEvent_Right_Super_Instance = nullptr;
     PMMA::KeyEvent_Menu_Instance = nullptr;
+
+    PMMA::MouseEvent_Instance = nullptr;
 }
 
 void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -660,7 +666,7 @@ void CPP_EventsManager::TextCallback(GLFWwindow* window, unsigned int codepoint)
 }
 
 void CPP_EventsManager::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
-
+    PMMA::MouseEvent_Instance->Update(xpos, ypos);
 }
 
 void CPP_EventsManager::CursorEnterCallback(GLFWwindow* window, int entered) {

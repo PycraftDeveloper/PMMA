@@ -109,3 +109,40 @@ class EXPORT CPP_InternalKeyEvent {
 
 class EXPORT CPP_InternalKeyPadEvent : public CPP_InternalKeyEvent {
 };
+
+class EXPORT CPP_InternalMouseEvent {
+    private:
+        float position[2] = {0, 0};
+        float previous_position[2] = {0, 0};
+        float delta[2] = {0, 0};
+        float toggle_delta[2] = {0, 0};
+
+    public:
+        inline void Update(float x_value, float y_value) {
+            delta[0] = x_value - position[0];
+            delta[1] = y_value - position[1];
+            toggle_delta[0] = delta[0];
+            toggle_delta[1] = delta[1];
+            previous_position[0] = position[0];
+            previous_position[1] = position[1];
+            position[0] = x_value;
+            position[1] = y_value;
+        };
+
+        inline void GetPosition(float* out) {
+            out[0] = position[0];
+            out[1] = position[1];
+        };
+
+        inline void GetDelta(float* out) {
+            out[0] = delta[0];
+            out[1] = delta[1];
+        };
+
+        inline void GetDeltaToggle(float* out) {
+            out[0] = toggle_delta[0];
+            out[1] = toggle_delta[1];
+            toggle_delta[0] = 0;
+            toggle_delta[1] = 0;
+        };
+};

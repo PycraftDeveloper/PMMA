@@ -85,3 +85,24 @@ void CPP_TextEvent::RemoveFront() {
         remove_utf8_char(Text, 0);
     }
 };
+
+void CPP_MouseEvent::GetPosition(float* out) {
+    if (PMMA::MouseEvent_Instance == nullptr) {
+        throw std::runtime_error("PMMA::MouseEvent_Instance is null");
+    }
+    PMMA::MouseEvent_Instance->GetPosition(out);
+};
+
+void CPP_MouseEvent::GetDelta(float* out) {
+    if (PMMA::MouseEvent_Instance == nullptr) {
+        throw std::runtime_error("PMMA::MouseEvent_Instance is null");
+    }
+    PMMA::MouseEvent_Instance->GetDelta(out);
+};
+
+void CPP_MouseEvent::GetDeltaToggle(float* out) {
+    if (PMMA::MouseEvent_Instance == nullptr) {
+        throw std::runtime_error("PMMA::MouseEvent_Instance is null");
+    }
+    PMMA::MouseEvent_Instance->GetDeltaToggle(out);
+};

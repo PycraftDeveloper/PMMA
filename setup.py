@@ -1,3 +1,5 @@
+#type: ignore
+
 from setuptools import setup, Extension
 from Cython.Build import cythonize
 import sys, os
@@ -91,7 +93,7 @@ def make_ext(name, extra_cpp=None, add_numpy=False):
 ext_modules = [
     make_ext("AdvancedMathematics", add_numpy=True),
     make_ext("Display", add_numpy=True),
-    make_ext("Events"),
+    make_ext("Events", add_numpy=True),
     make_ext("FractalBrownianMotion", add_numpy=True),
     make_ext("KeyEvents"),
     make_ext("NumberConverter", add_numpy=True),
