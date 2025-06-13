@@ -12,7 +12,6 @@ public:
     static void TextCallback(GLFWwindow* window, unsigned int codepoint);
     static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
     static void CursorEnterCallback(GLFWwindow* window, int entered);
-    static void MousePositionCallback(GLFWwindow* window, int button, int action, int mods);
     static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
     static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
     static void JoystickCallback(int jid, int event);

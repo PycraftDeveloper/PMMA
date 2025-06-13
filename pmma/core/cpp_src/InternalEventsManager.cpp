@@ -673,10 +673,6 @@ void CPP_EventsManager::CursorEnterCallback(GLFWwindow* window, int entered) {
 
 }
 
-void CPP_EventsManager::MousePositionCallback(GLFWwindow* window, int button, int action, int mods) {
-
-}
-
 void CPP_EventsManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
 
 }
