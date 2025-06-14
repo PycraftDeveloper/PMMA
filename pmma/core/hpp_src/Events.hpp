@@ -256,3 +256,86 @@ class EXPORT CPP_MouseButton_4_Event {
 
         float GetDoublePressDuration();
 };
+
+class EXPORT CPP_MouseScrollEvent {
+    private:
+        float Position[2] = {0, 0};
+        float Delta[2] = {0, 0};
+        float DeltaToggle[2] = {0, 0};
+        bool IsEnabled = true;
+
+    public:
+        CPP_MouseScrollEvent();
+
+        ~CPP_MouseScrollEvent();
+
+        inline void Update(float delta_x, float delta_y) {
+            if (!IsEnabled) {
+                return;
+            }
+            Delta[0] = delta_x;
+            Delta[1] = delta_y;
+            DeltaToggle[0] += delta_x;
+            DeltaToggle[1] += delta_y;
+            Position[0] += delta_x;
+            Position[1] += delta_y;
+        };
+
+        inline void GetPosition(float* out) {
+            out[0] = Position[0];
+            out[1] = Position[1];
+        };
+
+        inline void GetDelta(float* out) {
+            out[0] = Delta[0];
+            out[1] = Delta[1];
+        };
+
+        inline void GetDeltaToggle(float* out) {
+            out[0] = DeltaToggle[0];
+            out[1] = DeltaToggle[1];
+            DeltaToggle[0] = 0;
+            DeltaToggle[1] = 0;
+        };
+
+        inline float GetHorizontalPosition() {
+            return Position[0];
+        };
+
+        inline float GetVerticalPosition() {
+            return Position[1];
+        };
+
+        inline float GetHorizontalDelta() {
+            return Delta[0];
+        };
+
+        inline float GetVerticalDelta() {
+            return Delta[1];
+        };
+
+        inline float GetHorizontalDeltaToggle() {
+            float out = DeltaToggle[0];
+            DeltaToggle[0] = 0;
+            return out;
+        };
+
+        inline float GetVerticalDeltaToggle() {
+            float out = DeltaToggle[1];
+            DeltaToggle[1] = 0;
+            return out;
+        };
+
+        inline void ClearPosition() {
+            Position[0] = 0;
+            Position[1] = 0;
+        };
+
+        inline bool GetEnabled() {
+            return IsEnabled;
+        };
+
+        inline void SetEnabled(bool NewIsEnabled) {
+            IsEnabled = NewIsEnabled;
+        };
+};

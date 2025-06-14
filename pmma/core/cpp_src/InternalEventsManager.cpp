@@ -690,8 +690,8 @@ void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, i
 
 void CPP_EventsManager::TextCallback(GLFWwindow* window, unsigned int codepoint) {
     string NewTextContent = encode_utf8(codepoint);
-    for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
-        PMMA::InternalTextEventInstances[i]->Update(NewTextContent);
+    for (int i = 0; i < PMMA::TextEventInstances.size(); i++) {
+        PMMA::TextEventInstances[i]->Update(NewTextContent);
     }
 }
 
@@ -726,7 +726,9 @@ void CPP_EventsManager::MouseButtonCallback(GLFWwindow* window, int button, int 
 }
 
 void CPP_EventsManager::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
-
+    for (int i = 0; i < PMMA::MouseScrollEventInstances.size(); i++) {
+        PMMA::MouseScrollEventInstances[i]->Update(xoffset, yoffset);
+    }
 }
 
 void CPP_EventsManager::JoystickCallback(int jid, int event) {
@@ -739,9 +741,9 @@ void CPP_EventsManager::DropCallback(GLFWwindow* window, int count, const char**
 
 void CPP_EventsManager::GenericUpdate(GLFWwindow* window) {
     vector<CPP_TextEvent*> EnabledTextEvents;
-    for (int i = 0; i < PMMA::InternalTextEventInstances.size(); i++) {
-        if (PMMA::InternalTextEventInstances[i]->GetEnabled()) {
-            EnabledTextEvents.push_back(PMMA::InternalTextEventInstances[i]);
+    for (int i = 0; i < PMMA::TextEventInstances.size(); i++) {
+        if (PMMA::TextEventInstances[i]->GetEnabled()) {
+            EnabledTextEvents.push_back(PMMA::TextEventInstances[i]);
         }
     }
 

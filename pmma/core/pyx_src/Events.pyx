@@ -153,6 +153,23 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void SetLongPressDuration(float Duration) except + nogil
         void SetRepeatPressDuration(float Duration) except + nogil
 
+    cdef cppclass CPP_MouseScrollEvent:
+        void GetPosition(float* out) except + nogil
+        void ClearPosition() except + nogil
+        float GetHorizontalPosition() except + nogil
+        float GetVerticalPosition() except + nogil
+
+        void GetDelta(float* out) except + nogil
+        float GetHorizontalDelta() except + nogil
+        float GetVerticalDelta() except + nogil
+
+        void GetDeltaToggle(float* out) except + nogil
+        float GetHorizontalDeltaToggle() except + nogil
+        float GetVerticalDeltaToggle() except + nogil
+
+        bool GetEnabled() except + nogil
+        void SetEnabled(bool NewIsEnabled) except + nogil
+
 cdef class TextEvent:
     cdef:
         CPP_TextEvent* cpp_class_ptr
@@ -593,3 +610,88 @@ cdef class MouseButton_4_Event:
 
     def set_long_press_duration(self, duration):
         self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class MouseScrollEvent:
+    cdef:
+        CPP_MouseScrollEvent* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseScrollEvent()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_position(self, using_numpy=True):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] position_np
+            float* position_ptr
+
+        position_np = np.empty(2, dtype=np.float32, order='C')
+
+        position_ptr = <float*>&position_np[0]
+
+        self.cpp_class_ptr.GetPosition(position_ptr)
+
+        if using_numpy:
+            return position_np
+        else:
+            return position_np.tolist()
+
+    def clear_position(self):
+        self.cpp_class_ptr.ClearPosition()
+
+    def get_horizontal_position(self):
+        return self.cpp_class_ptr.GetHorizontalPosition()
+
+    def get_vertical_position(self):
+        return self.cpp_class_ptr.GetVerticalPosition()
+
+    def get_delta(self, using_numpy=True):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] delta_np
+            float* delta_ptr
+
+        delta_np = np.empty(2, dtype=np.float32, order='C')
+
+        delta_ptr = <float*>&delta_np[0]
+
+        self.cpp_class_ptr.GetDelta(delta_ptr)
+
+        if using_numpy:
+            return delta_np
+        else:
+            return delta_np.tolist()
+
+    def get_horizontal_delta(self):
+        return self.cpp_class_ptr.GetHorizontalDelta()
+
+    def get_vertical_delta(self):
+        return self.cpp_class_ptr.GetVerticalDelta()
+
+    def get_delta_toggle(self, using_numpy=True):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] delta_toggle_np
+            float* delta_toggle_ptr
+
+        delta_toggle_np = np.empty(2, dtype=np.float32, order='C')
+
+        delta_toggle_ptr = <float*>&delta_toggle_np[0]
+
+        self.cpp_class_ptr.GetDeltaToggle(delta_toggle_ptr)
+
+        if using_numpy:
+            return delta_toggle_np
+        else:
+            return delta_toggle_np.tolist()
+
+    def get_horizontal_delta_toggle(self):
+        return self.cpp_class_ptr.GetHorizontalDeltaToggle()
+
+    def get_vertical_delta_toggle(self):
+        return self.cpp_class_ptr.GetVerticalDeltaToggle()
+
+    def get_enabled(self):
+        return self.cpp_class_ptr.GetEnabled()
+
+    def set_enabled(self, value):
+        self.cpp_class_ptr.SetEnabled(value)

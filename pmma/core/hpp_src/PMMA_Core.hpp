@@ -133,7 +133,7 @@ namespace PMMA {
     EXPORT extern CPP_InternalKeyEvent* KeyEvent_Right_Super_Instance;
     EXPORT extern CPP_InternalKeyEvent* KeyEvent_Menu_Instance;
 
-    EXPORT extern std::vector<CPP_TextEvent*> InternalTextEventInstances;
+    EXPORT extern std::vector<CPP_TextEvent*> TextEventInstances;
 
     EXPORT extern CPP_InternalMousePositionEvent* MousePositionEvent_Instance;
     EXPORT extern CPP_InternalMouseEnterWindowEvent* MouseEnterWindowEvent_Instance;
@@ -146,6 +146,8 @@ namespace PMMA {
     EXPORT extern CPP_InternalMouseButtonEvent* MouseButtonEvent_2_Instance;
     EXPORT extern CPP_InternalMouseButtonEvent* MouseButtonEvent_3_Instance;
     EXPORT extern CPP_InternalMouseButtonEvent* MouseButtonEvent_4_Instance;
+
+    EXPORT extern vector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
 
     EXPORT extern bool GLFW_Initialized;
 
