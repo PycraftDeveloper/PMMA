@@ -34,6 +34,12 @@ target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
 # GLFW settings (platform-specific)
 if (WIN32)
+    # Compiler flags
+    add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251)
+
+    # Linker flags
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
+
     target_include_directories(${LIB_NAME}
         PRIVATE
             ${INCLUDE_DIR}
@@ -48,6 +54,8 @@ if (WIN32)
             OpenGL::GL
     )
 elseif(APPLE)
+    add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
+
     target_include_directories(${LIB_NAME}
         PRIVATE ${INCLUDE_DIR}
     )
@@ -59,6 +67,8 @@ elseif(APPLE)
     target_link_libraries(${LIB_NAME} PRIVATE glfw ${OpenGL_LIBRARY})
 
 elseif(UNIX)
+    add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
+
     target_include_directories(${LIB_NAME}
         PRIVATE ${INCLUDE_DIR}
     )
