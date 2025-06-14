@@ -130,7 +130,17 @@ namespace PMMA {
 
     vector<CPP_TextEvent*> InternalTextEventInstances;
 
-    CPP_InternalMouseEvent* MouseEvent_Instance = nullptr;
+    CPP_InternalMousePositionEvent* MousePositionEvent_Instance = nullptr;
+    CPP_InternalMouseEnterWindowEvent* MouseEnterWindowEvent_Instance = nullptr;
+
+    CPP_InternalMouseButtonEvent* MouseButtonEvent_Left_Instance = nullptr;
+    CPP_InternalMouseButtonEvent* MouseButtonEvent_Right_Instance = nullptr;
+    CPP_InternalMouseButtonEvent* MouseButtonEvent_Middle_Instance = nullptr;
+    CPP_InternalMouseButtonEvent* MouseButtonEvent_0_Instance = nullptr;
+    CPP_InternalMouseButtonEvent* MouseButtonEvent_1_Instance = nullptr;
+    CPP_InternalMouseButtonEvent* MouseButtonEvent_2_Instance = nullptr;
+    CPP_InternalMouseButtonEvent* MouseButtonEvent_3_Instance = nullptr;
+    CPP_InternalMouseButtonEvent* MouseButtonEvent_4_Instance = nullptr;
 
     bool GLFW_Initialized = false;
 

@@ -15,11 +15,143 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void ClearText() except + nogil
 
-    cdef cppclass CPP_MouseEvent:
+    cdef cppclass CPP_MousePositionEvent:
         void GetPosition(float* out) except + nogil
 
         void GetDelta(float* out) except + nogil
         void GetDeltaToggle(float* out) except + nogil
+
+    cdef cppclass CPP_MouseEnterWindowEvent:
+        bool GetEntered() except + nogil
+        bool GetEnteredToggle() except + nogil
+
+    cdef cppclass CPP_MouseButton_Left_Event:
+        bool GetPressed() except + nogil
+        bool GetPressedToggle() except + nogil
+        bool GetDoublePressed() except + nogil
+        bool GetLongPressed() except + nogil
+
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
+
+    cdef cppclass CPP_MouseButton_Right_Event:
+        bool GetPressed() except + nogil
+        bool GetPressedToggle() except + nogil
+        bool GetDoublePressed() except + nogil
+        bool GetLongPressed() except + nogil
+
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
+
+    cdef cppclass CPP_MouseButton_Middle_Event:
+        bool GetPressed() except + nogil
+        bool GetPressedToggle() except + nogil
+        bool GetDoublePressed() except + nogil
+        bool GetLongPressed() except + nogil
+
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
+
+    cdef cppclass CPP_MouseButton_0_Event:
+        bool GetPressed() except + nogil
+        bool GetPressedToggle() except + nogil
+        bool GetDoublePressed() except + nogil
+        bool GetLongPressed() except + nogil
+
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
+
+    cdef cppclass CPP_MouseButton_1_Event:
+        bool GetPressed() except + nogil
+        bool GetPressedToggle() except + nogil
+        bool GetDoublePressed() except + nogil
+        bool GetLongPressed() except + nogil
+
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
+
+    cdef cppclass CPP_MouseButton_2_Event:
+        bool GetPressed() except + nogil
+        bool GetPressedToggle() except + nogil
+        bool GetDoublePressed() except + nogil
+        bool GetLongPressed() except + nogil
+
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
+
+    cdef cppclass CPP_MouseButton_3_Event:
+        bool GetPressed() except + nogil
+        bool GetPressedToggle() except + nogil
+        bool GetDoublePressed() except + nogil
+        bool GetLongPressed() except + nogil
+
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
+
+    cdef cppclass CPP_MouseButton_4_Event:
+        bool GetPressed() except + nogil
+        bool GetPressedToggle() except + nogil
+        bool GetDoublePressed() except + nogil
+        bool GetLongPressed() except + nogil
+
+        float GetRepeatPressDuration() except + nogil
+        float GetLongPressDuration() except + nogil
+        float GetDoublePressDuration() except + nogil
+
+        bool PollLongPressed() except + nogil
+
+        void SetDoublePressDuration(float Duration) except + nogil
+        void SetLongPressDuration(float Duration) except + nogil
+        void SetRepeatPressDuration(float Duration) except + nogil
 
 cdef class TextEvent:
     cdef:
@@ -44,12 +176,12 @@ cdef class TextEvent:
     def clear_text(self):
         self.cpp_class_ptr.ClearText()
 
-cdef class MouseEvent:
+cdef class MousePositionEvent:
     cdef:
-        CPP_MouseEvent* cpp_class_ptr
+        CPP_MousePositionEvent* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseEvent()
+        self.cpp_class_ptr = new CPP_MousePositionEvent()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -101,3 +233,363 @@ cdef class MouseEvent:
             return delta_toggle_np
         else:
             return delta_toggle_np.tolist()
+
+cdef class MouseEnterWindowEvent:
+    cdef:
+        CPP_MouseEnterWindowEvent* cpp_class_ptr
+
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_MouseEnterWindowEvent()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_entered(self):
+        return self.cpp_class_ptr.GetEntered()
+
+    def get_entered_toggle(self):
+        return self.cpp_class_ptr.GetEnteredToggle()
+
+cdef class MouseButton_Left_Event:
+    cdef:
+        CPP_MouseButton_Left_Event* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseButton_Left_Event()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_pressed(self):
+        return self.cpp_class_ptr.GetPressed()
+
+    def get_pressed_toggle(self):
+        return self.cpp_class_ptr.GetPressedToggle()
+
+    def get_double_pressed(self):
+        return self.cpp_class_ptr.GetDoublePressed()
+
+    def get_long_pressed(self):
+        return self.cpp_class_ptr.GetLongPressed()
+
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
+    def set_double_press_duration(self, duration):
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
+
+    def set_long_press_duration(self, duration):
+        self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class MouseButton_Right_Event:
+    cdef:
+        CPP_MouseButton_Right_Event* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseButton_Right_Event()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_pressed(self):
+        return self.cpp_class_ptr.GetPressed()
+
+    def get_pressed_toggle(self):
+        return self.cpp_class_ptr.GetPressedToggle()
+
+    def get_double_pressed(self):
+        return self.cpp_class_ptr.GetDoublePressed()
+
+    def get_long_pressed(self):
+        return self.cpp_class_ptr.GetLongPressed()
+
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
+    def set_double_press_duration(self, duration):
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
+
+    def set_long_press_duration(self, duration):
+        self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class MouseButton_Middle_Event:
+    cdef:
+        CPP_MouseButton_Middle_Event* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseButton_Middle_Event()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_pressed(self):
+        return self.cpp_class_ptr.GetPressed()
+
+    def get_pressed_toggle(self):
+        return self.cpp_class_ptr.GetPressedToggle()
+
+    def get_double_pressed(self):
+        return self.cpp_class_ptr.GetDoublePressed()
+
+    def get_long_pressed(self):
+        return self.cpp_class_ptr.GetLongPressed()
+
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
+    def set_double_press_duration(self, duration):
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
+
+    def set_long_press_duration(self, duration):
+        self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class MouseButton_0_Event:
+    cdef:
+        CPP_MouseButton_0_Event* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseButton_0_Event()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_pressed(self):
+        return self.cpp_class_ptr.GetPressed()
+
+    def get_pressed_toggle(self):
+        return self.cpp_class_ptr.GetPressedToggle()
+
+    def get_double_pressed(self):
+        return self.cpp_class_ptr.GetDoublePressed()
+
+    def get_long_pressed(self):
+        return self.cpp_class_ptr.GetLongPressed()
+
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
+    def set_double_press_duration(self, duration):
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
+
+    def set_long_press_duration(self, duration):
+        self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class MouseButton_1_Event:
+    cdef:
+        CPP_MouseButton_1_Event* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseButton_1_Event()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_pressed(self):
+        return self.cpp_class_ptr.GetPressed()
+
+    def get_pressed_toggle(self):
+        return self.cpp_class_ptr.GetPressedToggle()
+
+    def get_double_pressed(self):
+        return self.cpp_class_ptr.GetDoublePressed()
+
+    def get_long_pressed(self):
+        return self.cpp_class_ptr.GetLongPressed()
+
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
+    def set_double_press_duration(self, duration):
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
+
+    def set_long_press_duration(self, duration):
+        self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class MouseButton_2_Event:
+    cdef:
+        CPP_MouseButton_2_Event* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseButton_2_Event()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_pressed(self):
+        return self.cpp_class_ptr.GetPressed()
+
+    def get_pressed_toggle(self):
+        return self.cpp_class_ptr.GetPressedToggle()
+
+    def get_double_pressed(self):
+        return self.cpp_class_ptr.GetDoublePressed()
+
+    def get_long_pressed(self):
+        return self.cpp_class_ptr.GetLongPressed()
+
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
+    def set_double_press_duration(self, duration):
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
+
+    def set_long_press_duration(self, duration):
+        self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class MouseButton_3_Event:
+    cdef:
+        CPP_MouseButton_3_Event* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseButton_3_Event()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_pressed(self):
+        return self.cpp_class_ptr.GetPressed()
+
+    def get_pressed_toggle(self):
+        return self.cpp_class_ptr.GetPressedToggle()
+
+    def get_double_pressed(self):
+        return self.cpp_class_ptr.GetDoublePressed()
+
+    def get_long_pressed(self):
+        return self.cpp_class_ptr.GetLongPressed()
+
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
+    def set_double_press_duration(self, duration):
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
+
+    def set_long_press_duration(self, duration):
+        self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class MouseButton_4_Event:
+    cdef:
+        CPP_MouseButton_4_Event* cpp_class_ptr
+
+    def __cinit__(self):
+            self.cpp_class_ptr = new CPP_MouseButton_4_Event()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_pressed(self):
+        return self.cpp_class_ptr.GetPressed()
+
+    def get_pressed_toggle(self):
+        return self.cpp_class_ptr.GetPressedToggle()
+
+    def get_double_pressed(self):
+        return self.cpp_class_ptr.GetDoublePressed()
+
+    def get_long_pressed(self):
+        return self.cpp_class_ptr.GetLongPressed()
+
+    def poll_long_pressed(self):
+        return self.cpp_class_ptr.PollLongPressed()
+
+    def get_repeat_press_duration(self):
+        return self.cpp_class_ptr.GetRepeatPressDuration()
+
+    def get_long_press_duration(self):
+        return self.cpp_class_ptr.GetLongPressDuration()
+
+    def get_double_press_duration(self):
+        return self.cpp_class_ptr.GetDoublePressDuration()
+
+    def set_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.SetRepeatPressDuration(duration)
+
+    def set_double_press_duration(self, duration):
+        self.cpp_class_ptr.SetDoublePressDuration(duration)
+
+    def set_long_press_duration(self, duration):
+        self.cpp_class_ptr.SetLongPressDuration(duration)

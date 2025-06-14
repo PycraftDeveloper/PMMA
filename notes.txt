@@ -50,7 +50,6 @@ RELEASE SCHEDULE
 [NEW FEATURE] - An entirely new feature/mechanic.
 
 Next release:
-	[BUG FIX] Few issues in some realtime audio effects - test these and try and fix.
 	[NEW FEATURE] Add collisions to shapes.
 	[EXTENSION] Add paths as extension from transitions.
 	[EXTENSION] Add camera as extension from perspective.
@@ -62,14 +61,8 @@ Next release:
 	[NEW FEATURE] Introduce the option for additional "surfaces" as render points for all content (2D and 3D) with the ability to combine them to main window
 	[NEW FEATURE] Shader based main window effects eg fading (finally)!
 	[NEW FEATURE] Add option to clear passport / clear passport data every n days perhaps
-	[IMPROVEMENT] Include the ability to globally adjust double tap time, instead of per-key.
-	[NEW FEATURE] Introduce a generic TEXT INPUT.
-	[IMPROVEMENT] OPENGL coordinates returned as numpy arrays?
-	[IMPROVEMENT] Noise min/max for numpy arrays created only when changed?
-	[BUG FIX] Fix how seed is set for color generation
 
 Following releases:
-	[BUG FIX] Fix perlin noise for arrays.
 	[NEW FEATURE] Introduce loading of custom 3D AND 2D objects from file or array.
 	[NEW FEATURE] Introduce skybox.
 	[NEW FEATURE] Introduce collisions for 3D objects and scenes.

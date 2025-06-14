@@ -110,7 +110,7 @@ class EXPORT CPP_InternalKeyEvent {
 class EXPORT CPP_InternalKeyPadEvent : public CPP_InternalKeyEvent {
 };
 
-class EXPORT CPP_InternalMouseEvent {
+class EXPORT CPP_InternalMousePositionEvent {
     private:
         float position[2] = {0, 0};
         float previous_position[2] = {0, 0};
@@ -145,4 +145,33 @@ class EXPORT CPP_InternalMouseEvent {
             toggle_delta[0] = 0;
             toggle_delta[1] = 0;
         };
+};
+
+class EXPORT CPP_InternalMouseEnterWindowEvent {
+    private:
+        bool IsEntered = false;
+        bool IsEnteredToggle = false;
+
+    public:
+        inline void Update(bool NewIsEntered) {
+            if (NewIsEntered != IsEntered) {
+                IsEnteredToggle = NewIsEntered;
+            }
+            IsEntered = NewIsEntered;
+        };
+
+        inline bool GetEntered() {
+            return IsEntered;
+        };
+
+        inline bool GetEnteredToggle() {
+            if (IsEnteredToggle) {
+                IsEnteredToggle = false;
+                return true;
+            }
+            return false;
+        };
+};
+
+class EXPORT CPP_InternalMouseButtonEvent : public CPP_InternalKeyEvent {
 };

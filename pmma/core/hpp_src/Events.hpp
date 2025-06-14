@@ -41,11 +41,218 @@ class EXPORT CPP_TextEvent {
         };
 };
 
-class EXPORT CPP_MouseEvent {
+class EXPORT CPP_MousePositionEvent {
     public:
         void GetPosition(float* out);
 
         void GetDelta(float* out);
 
         void GetDeltaToggle(float* out);
+};
+
+class EXPORT CPP_MouseEnterWindowEvent {
+    public:
+        bool GetEntered();
+
+        bool GetEnteredToggle();
+};
+
+class EXPORT CPP_MouseButton_Left_Event {
+    public:
+        bool GetPressed();
+
+        void SetDoublePressDuration(float duration);
+
+        bool GetPressedToggle();
+
+        bool GetDoublePressed();
+
+        void SetLongPressDuration(float duration);
+
+        bool GetLongPressed();
+
+        bool PollLongPressed();
+
+        void SetRepeatPressDuration(float Duration);
+
+        float GetRepeatPressDuration();
+
+        float GetLongPressDuration();
+
+        float GetDoublePressDuration();
+};
+
+class EXPORT CPP_MouseButton_Right_Event {
+    public:
+        bool GetPressed();
+
+        void SetDoublePressDuration(float duration);
+
+        bool GetPressedToggle();
+
+        bool GetDoublePressed();
+
+        void SetLongPressDuration(float duration);
+
+        bool GetLongPressed();
+
+        bool PollLongPressed();
+
+        void SetRepeatPressDuration(float Duration);
+
+        float GetRepeatPressDuration();
+
+        float GetLongPressDuration();
+
+        float GetDoublePressDuration();
+};
+
+class EXPORT CPP_MouseButton_Middle_Event {
+    public:
+        bool GetPressed();
+
+        void SetDoublePressDuration(float duration);
+
+        bool GetPressedToggle();
+
+        bool GetDoublePressed();
+
+        void SetLongPressDuration(float duration);
+
+        bool GetLongPressed();
+
+        bool PollLongPressed();
+
+        void SetRepeatPressDuration(float Duration);
+
+        float GetRepeatPressDuration();
+
+        float GetLongPressDuration();
+
+        float GetDoublePressDuration();
+};
+
+class EXPORT CPP_MouseButton_0_Event {
+    public:
+        bool GetPressed();
+
+        void SetDoublePressDuration(float duration);
+
+        bool GetPressedToggle();
+
+        bool GetDoublePressed();
+
+        void SetLongPressDuration(float duration);
+
+        bool GetLongPressed();
+
+        bool PollLongPressed();
+
+        void SetRepeatPressDuration(float Duration);
+
+        float GetRepeatPressDuration();
+
+        float GetLongPressDuration();
+
+        float GetDoublePressDuration();
+};
+
+class EXPORT CPP_MouseButton_1_Event {
+    public:
+        bool GetPressed();
+
+        void SetDoublePressDuration(float duration);
+
+        bool GetPressedToggle();
+
+        bool GetDoublePressed();
+
+        void SetLongPressDuration(float duration);
+
+        bool GetLongPressed();
+
+        bool PollLongPressed();
+
+        void SetRepeatPressDuration(float Duration);
+
+        float GetRepeatPressDuration();
+
+        float GetLongPressDuration();
+
+        float GetDoublePressDuration();
+};
+
+class EXPORT CPP_MouseButton_2_Event {
+    public:
+        bool GetPressed();
+
+        void SetDoublePressDuration(float duration);
+
+        bool GetPressedToggle();
+
+        bool GetDoublePressed();
+
+        void SetLongPressDuration(float duration);
+
+        bool GetLongPressed();
+
+        bool PollLongPressed();
+
+        void SetRepeatPressDuration(float Duration);
+
+        float GetRepeatPressDuration();
+
+        float GetLongPressDuration();
+
+        float GetDoublePressDuration();
+};
+
+class EXPORT CPP_MouseButton_3_Event {
+    public:
+        bool GetPressed();
+
+        void SetDoublePressDuration(float duration);
+
+        bool GetPressedToggle();
+
+        bool GetDoublePressed();
+
+        void SetLongPressDuration(float duration);
+
+        bool GetLongPressed();
+
+        bool PollLongPressed();
+
+        void SetRepeatPressDuration(float Duration);
+
+        float GetRepeatPressDuration();
+
+        float GetLongPressDuration();
+
+        float GetDoublePressDuration();
+};
+
+class EXPORT CPP_MouseButton_4_Event {
+    public:
+        bool GetPressed();
+
+        void SetDoublePressDuration(float duration);
+
+        bool GetPressedToggle();
+
+        bool GetDoublePressed();
+
+        void SetLongPressDuration(float duration);
+
+        bool GetLongPressed();
+
+        bool PollLongPressed();
+
+        void SetRepeatPressDuration(float Duration);
+
+        float GetRepeatPressDuration();
+
+        float GetLongPressDuration();
+
+        float GetDoublePressDuration();
 };

@@ -152,7 +152,17 @@ CPP_EventsManager::CPP_EventsManager(GLFWwindow* Window) {
     PMMA::KeyEvent_Right_Super_Instance = new CPP_InternalKeyEvent();
     PMMA::KeyEvent_Menu_Instance = new CPP_InternalKeyEvent();
 
-    PMMA::MouseEvent_Instance = new CPP_InternalMouseEvent();
+    PMMA::MousePositionEvent_Instance = new CPP_InternalMousePositionEvent();
+    PMMA::MouseEnterWindowEvent_Instance = new CPP_InternalMouseEnterWindowEvent();
+
+    PMMA::MouseButtonEvent_Left_Instance = new CPP_InternalMouseButtonEvent();
+    PMMA::MouseButtonEvent_Right_Instance = new CPP_InternalMouseButtonEvent();
+    PMMA::MouseButtonEvent_Middle_Instance = new CPP_InternalMouseButtonEvent();
+    PMMA::MouseButtonEvent_0_Instance = new CPP_InternalMouseButtonEvent();
+    PMMA::MouseButtonEvent_1_Instance = new CPP_InternalMouseButtonEvent();
+    PMMA::MouseButtonEvent_2_Instance = new CPP_InternalMouseButtonEvent();
+    PMMA::MouseButtonEvent_3_Instance = new CPP_InternalMouseButtonEvent();
+    PMMA::MouseButtonEvent_4_Instance = new CPP_InternalMouseButtonEvent();
 
     glfwSetKeyCallback(Window, CPP_EventsManager::KeyCallback);
     glfwSetCharCallback(Window, CPP_EventsManager::TextCallback);
@@ -286,7 +296,17 @@ CPP_EventsManager::~CPP_EventsManager() {
     delete PMMA::KeyEvent_Right_Super_Instance;
     delete PMMA::KeyEvent_Menu_Instance;
 
-    delete PMMA::MouseEvent_Instance;
+    delete PMMA::MousePositionEvent_Instance;
+    delete PMMA::MouseEnterWindowEvent_Instance;
+
+    delete PMMA::MouseButtonEvent_Left_Instance;
+    delete PMMA::MouseButtonEvent_Right_Instance;
+    delete PMMA::MouseButtonEvent_Middle_Instance;
+    delete PMMA::MouseButtonEvent_0_Instance;
+    delete PMMA::MouseButtonEvent_1_Instance;
+    delete PMMA::MouseButtonEvent_2_Instance;
+    delete PMMA::MouseButtonEvent_3_Instance;
+    delete PMMA::MouseButtonEvent_4_Instance;
 
     PMMA::KeyEvent_Space_Instance = nullptr;
     PMMA::KeyEvent_Apostrophe_Instance = nullptr;
@@ -409,7 +429,17 @@ CPP_EventsManager::~CPP_EventsManager() {
     PMMA::KeyEvent_Right_Super_Instance = nullptr;
     PMMA::KeyEvent_Menu_Instance = nullptr;
 
-    PMMA::MouseEvent_Instance = nullptr;
+    PMMA::MousePositionEvent_Instance = nullptr;
+    PMMA::MouseEnterWindowEvent_Instance = nullptr;
+
+    PMMA::MouseButtonEvent_Left_Instance = nullptr;
+    PMMA::MouseButtonEvent_Right_Instance = nullptr;
+    PMMA::MouseButtonEvent_Middle_Instance = nullptr;
+    PMMA::MouseButtonEvent_0_Instance = nullptr;
+    PMMA::MouseButtonEvent_1_Instance = nullptr;
+    PMMA::MouseButtonEvent_2_Instance = nullptr;
+    PMMA::MouseButtonEvent_3_Instance = nullptr;
+    PMMA::MouseButtonEvent_4_Instance = nullptr;
 }
 
 void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -666,15 +696,33 @@ void CPP_EventsManager::TextCallback(GLFWwindow* window, unsigned int codepoint)
 }
 
 void CPP_EventsManager::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
-    PMMA::MouseEvent_Instance->Update(xpos, ypos);
+    PMMA::MousePositionEvent_Instance->Update(xpos, ypos);
 }
 
 void CPP_EventsManager::CursorEnterCallback(GLFWwindow* window, int entered) {
-
+    PMMA::MouseEnterWindowEvent_Instance->Update(entered);
 }
 
 void CPP_EventsManager::MouseButtonCallback(GLFWwindow* window, int button, int action, int mods) {
-
+    if (button == GLFW_MOUSE_BUTTON_LEFT) {
+        PMMA::MouseButtonEvent_Left_Instance->Update(action!=GLFW_RELEASE);
+    } else if (button == GLFW_MOUSE_BUTTON_RIGHT) {
+        PMMA::MouseButtonEvent_Right_Instance->Update(action!=GLFW_RELEASE);
+    } else if (button == GLFW_MOUSE_BUTTON_MIDDLE) {
+        PMMA::MouseButtonEvent_Middle_Instance->Update(action!=GLFW_RELEASE);
+    } else if (button == GLFW_MOUSE_BUTTON_4) {
+        PMMA::MouseButtonEvent_0_Instance->Update(action!=GLFW_RELEASE);
+    } else if (button == GLFW_MOUSE_BUTTON_5) {
+        PMMA::MouseButtonEvent_1_Instance->Update(action!=GLFW_RELEASE);
+    } else if (button == GLFW_MOUSE_BUTTON_6) {
+        PMMA::MouseButtonEvent_2_Instance->Update(action!=GLFW_RELEASE);
+    } else if (button == GLFW_MOUSE_BUTTON_7) {
+        PMMA::MouseButtonEvent_3_Instance->Update(action!=GLFW_RELEASE);
+    } else if (button == GLFW_MOUSE_BUTTON_8) {
+        PMMA::MouseButtonEvent_4_Instance->Update(action!=GLFW_RELEASE);
+    } else {
+        cout << "Unknown mouse button: " << button << endl;
+    }
 }
 
 void CPP_EventsManager::ScrollCallback(GLFWwindow* window, double xoffset, double yoffset) {
