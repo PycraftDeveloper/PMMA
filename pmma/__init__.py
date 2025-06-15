@@ -1,5 +1,3 @@
-#type: ignore
-
 import os
 import platform
 import ctypes

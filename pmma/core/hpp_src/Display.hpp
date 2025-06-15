@@ -14,7 +14,6 @@
 #include <GLFW/glfw3.h>
 
 #include "InternalEventsManager.hpp"
-#include "PMMA_Core.hpp"
 
 class CPP_ColorConverter;
 

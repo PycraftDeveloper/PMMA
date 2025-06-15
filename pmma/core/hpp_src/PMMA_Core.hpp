@@ -9,33 +9,6 @@
 #include "InternalEvents.hpp"
 #include "Events.hpp"
 
-template<typename T>
-class ExternalVector {
-    private:
-        static std::vector<T*> Instances;
-
-    public:
-        static void Add(T* instance) {
-            Instances.push_back(instance);
-        }
-
-        static std::vector<T*> Get() {
-            return Instances;
-        }
-
-        static void Clear() {
-            Instances.clear();
-        }
-
-        static void Remove(T* instance) {
-            Instances.erase(std::remove(Instances.begin(), Instances.end(), instance), Instances.end());
-        }
-
-        static T* GetElement(unsigned int Index) {
-            return Instances[Index];
-        }
-};
-
 namespace PMMA {
     EXPORT extern CPP_Display* DisplayInstance;
 
@@ -160,7 +133,7 @@ namespace PMMA {
     EXPORT extern CPP_InternalKeyEvent* KeyEvent_Right_Super_Instance;
     EXPORT extern CPP_InternalKeyEvent* KeyEvent_Menu_Instance;
 
-    EXPORT ExternalVector<CPP_TextEvent*> TextEventInstances;
+    EXPORT extern std::vector<CPP_TextEvent*> TextEventInstances;
 
     EXPORT extern CPP_InternalMousePositionEvent* MousePositionEvent_Instance;
     EXPORT extern CPP_InternalMouseEnterWindowEvent* MouseEnterWindowEvent_Instance;
@@ -174,9 +147,9 @@ namespace PMMA {
     EXPORT extern CPP_InternalMouseButtonEvent* MouseButtonEvent_3_Instance;
     EXPORT extern CPP_InternalMouseButtonEvent* MouseButtonEvent_4_Instance;
 
-    EXPORT ExternalVector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
+    EXPORT extern std::vector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
 
-    EXPORT ExternalVector<CPP_ControllerEvent*> ControllerEventInstances;
+    EXPORT extern std::vector<CPP_ControllerEvent*> ControllerEventInstances;
 
     EXPORT extern bool GLFW_Initialized;
 

@@ -3,6 +3,9 @@
 
 #include <stdexcept>
 #include <vector>
+#include <iostream>
+
+#include <GLFW/glfw3.h>
 
 #include "NumberConverter.hpp"
 
@@ -364,16 +367,19 @@ class EXPORT CPP_ControllerEvent {
             if (new_Connected) {
                 Name = glfwGetJoystickName(ID);
                 GUID = glfwGetJoystickGUID(ID);
+
+                glfwGetJoystickAxes(ID, &AxisCount);
+                for (int i = 0; i < AxisCount; i++) {
+                    AxesData.emplace_back();
+                }
+
+                Update();
             } else {
                 Name = "";
                 GUID = "";
                 AxesData.clear();
             }
             Connected = new_Connected;
-
-            for (int i = 0; i < AxisCount; i++) {
-                AxesData.emplace_back();
-            }
         };
 
         inline void Update() {

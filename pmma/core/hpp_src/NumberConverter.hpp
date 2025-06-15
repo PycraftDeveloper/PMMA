@@ -8,8 +8,6 @@
 #include "FractalBrownianMotion.hpp"
 #include "AdvancedMathematics.hpp"
 
-#include "PMMA_Core.hpp"
-
 class CPP_Display;
 
 class EXPORT CPP_BasicColorConverter {

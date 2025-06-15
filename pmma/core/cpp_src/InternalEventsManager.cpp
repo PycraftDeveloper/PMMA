@@ -165,7 +165,7 @@ CPP_EventsManager::CPP_EventsManager(GLFWwindow* Window) {
     PMMA::MouseButtonEvent_4_Instance = new CPP_InternalMouseButtonEvent();
 
     for (unsigned int i = 0; i < 16; i++) {
-        PMMA::ControllerEventInstances[i] = new CPP_ControllerEvent(i);
+        PMMA::ControllerEventInstances.emplace_back(new CPP_ControllerEvent(i));
         PMMA::ControllerEventInstances[i]->UpdateConnection(glfwJoystickPresent(i) == GLFW_TRUE);
     }
 
