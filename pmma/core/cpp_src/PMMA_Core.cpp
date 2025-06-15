@@ -1,8 +1,4 @@
-#include <vector>
-
 #include "PMMA_Core.hpp"
-
-using namespace std;
 
 namespace PMMA {
     CPP_Display* DisplayInstance = nullptr;
@@ -128,7 +124,7 @@ namespace PMMA {
     CPP_InternalKeyEvent* KeyEvent_Right_Super_Instance = nullptr;
     CPP_InternalKeyEvent* KeyEvent_Menu_Instance = nullptr;
 
-    vector<CPP_TextEvent*> TextEventInstances;
+    ExternalVector<CPP_TextEvent*> TextEventInstances;
 
     CPP_InternalMousePositionEvent* MousePositionEvent_Instance = nullptr;
     CPP_InternalMouseEnterWindowEvent* MouseEnterWindowEvent_Instance = nullptr;
@@ -142,7 +138,9 @@ namespace PMMA {
     CPP_InternalMouseButtonEvent* MouseButtonEvent_3_Instance = nullptr;
     CPP_InternalMouseButtonEvent* MouseButtonEvent_4_Instance = nullptr;
 
-    vector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
+    ExternalVector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
+
+    ExternalVector<CPP_ControllerEvent*> ControllerEventInstances;
 
     bool GLFW_Initialized = false;
 

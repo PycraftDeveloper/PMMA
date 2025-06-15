@@ -164,6 +164,11 @@ CPP_EventsManager::CPP_EventsManager(GLFWwindow* Window) {
     PMMA::MouseButtonEvent_3_Instance = new CPP_InternalMouseButtonEvent();
     PMMA::MouseButtonEvent_4_Instance = new CPP_InternalMouseButtonEvent();
 
+    for (unsigned int i = 0; i < 16; i++) {
+        PMMA::ControllerEventInstances[i] = new CPP_ControllerEvent(i);
+        PMMA::ControllerEventInstances[i]->UpdateConnection(glfwJoystickPresent(i) == GLFW_TRUE);
+    }
+
     glfwSetKeyCallback(Window, CPP_EventsManager::KeyCallback);
     glfwSetCharCallback(Window, CPP_EventsManager::TextCallback);
     glfwSetCursorPosCallback(Window, CPP_EventsManager::CursorPositionCallback);
@@ -308,6 +313,10 @@ CPP_EventsManager::~CPP_EventsManager() {
     delete PMMA::MouseButtonEvent_3_Instance;
     delete PMMA::MouseButtonEvent_4_Instance;
 
+    for (unsigned int i = 0; i < 16; i++) {
+        delete PMMA::ControllerEventInstances[i];
+    }
+
     PMMA::KeyEvent_Space_Instance = nullptr;
     PMMA::KeyEvent_Apostrophe_Instance = nullptr;
     PMMA::KeyEvent_Comma_Instance = nullptr;
@@ -440,6 +449,8 @@ CPP_EventsManager::~CPP_EventsManager() {
     PMMA::MouseButtonEvent_2_Instance = nullptr;
     PMMA::MouseButtonEvent_3_Instance = nullptr;
     PMMA::MouseButtonEvent_4_Instance = nullptr;
+
+    PMMA::ControllerEventInstances.clear();
 }
 
 void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -732,7 +743,7 @@ void CPP_EventsManager::ScrollCallback(GLFWwindow* window, double xoffset, doubl
 }
 
 void CPP_EventsManager::JoystickCallback(int jid, int event) {
-
+    PMMA::ControllerEventInstances[jid]->UpdateConnection(event==GLFW_CONNECTED);
 }
 
 void CPP_EventsManager::DropCallback(GLFWwindow* window, int count, const char** paths) {
@@ -786,6 +797,19 @@ void CPP_EventsManager::GenericUpdate(GLFWwindow* window) {
             for (int i = 0; i < EnabledTextEvents.size(); i++) {
                 EnabledTextEvents[i]->RemoveFront();
             }
+        }
+    }
+
+    vector<CPP_ControllerEvent*> ConnectedControllers;
+    for (int i = 0; i < PMMA::ControllerEventInstances.size(); i++) {
+        if (PMMA::ControllerEventInstances[i]->GetConnected()) {
+            ConnectedControllers.push_back(PMMA::ControllerEventInstances[i]);
+        }
+    }
+
+    if (ConnectedControllers.size() > 0) {
+        for (int i = 0; i < ConnectedControllers.size(); i++) {
+            ConnectedControllers[i]->Update();
         }
     }
 }

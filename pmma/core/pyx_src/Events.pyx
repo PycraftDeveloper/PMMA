@@ -2,6 +2,7 @@
 
 from libcpp cimport bool
 from libcpp.string cimport string
+from libcpp.vector cimport vector
 
 import numpy as np
 cimport numpy as np
@@ -170,6 +171,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetEnabled() except + nogil
         void SetEnabled(bool NewIsEnabled) except + nogil
 
+    cdef cppclass CPP_ControllerEvent:
+        bool GetConnected() except + nogil
+
+        float GetAxis_Decimal(int AxisID) except + nogil
+        float GetAxis_Percentage(int AxisID) except + nogil
+
+cdef extern from "PMMA_Core.hpp" namespace "PMMA" nogil:
+    cdef vector[CPP_ControllerEvent*] ControllerEventInstances
+
 cdef class TextEvent:
     cdef:
         CPP_TextEvent* cpp_class_ptr
@@ -272,7 +282,7 @@ cdef class MouseButton_Left_Event:
         CPP_MouseButton_Left_Event* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseButton_Left_Event()
+        self.cpp_class_ptr = new CPP_MouseButton_Left_Event()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -315,7 +325,7 @@ cdef class MouseButton_Right_Event:
         CPP_MouseButton_Right_Event* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseButton_Right_Event()
+        self.cpp_class_ptr = new CPP_MouseButton_Right_Event()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -358,7 +368,7 @@ cdef class MouseButton_Middle_Event:
         CPP_MouseButton_Middle_Event* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseButton_Middle_Event()
+        self.cpp_class_ptr = new CPP_MouseButton_Middle_Event()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -401,7 +411,7 @@ cdef class MouseButton_0_Event:
         CPP_MouseButton_0_Event* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseButton_0_Event()
+        self.cpp_class_ptr = new CPP_MouseButton_0_Event()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -444,7 +454,7 @@ cdef class MouseButton_1_Event:
         CPP_MouseButton_1_Event* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseButton_1_Event()
+        self.cpp_class_ptr = new CPP_MouseButton_1_Event()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -487,7 +497,7 @@ cdef class MouseButton_2_Event:
         CPP_MouseButton_2_Event* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseButton_2_Event()
+        self.cpp_class_ptr = new CPP_MouseButton_2_Event()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -530,7 +540,7 @@ cdef class MouseButton_3_Event:
         CPP_MouseButton_3_Event* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseButton_3_Event()
+        self.cpp_class_ptr = new CPP_MouseButton_3_Event()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -573,7 +583,7 @@ cdef class MouseButton_4_Event:
         CPP_MouseButton_4_Event* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseButton_4_Event()
+        self.cpp_class_ptr = new CPP_MouseButton_4_Event()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -616,7 +626,7 @@ cdef class MouseScrollEvent:
         CPP_MouseScrollEvent* cpp_class_ptr
 
     def __cinit__(self):
-            self.cpp_class_ptr = new CPP_MouseScrollEvent()
+        self.cpp_class_ptr = new CPP_MouseScrollEvent()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -695,3 +705,24 @@ cdef class MouseScrollEvent:
 
     def set_enabled(self, value):
         self.cpp_class_ptr.SetEnabled(value)
+
+cdef class ControllerEvent:
+    cdef:
+        CPP_ControllerEvent* cpp_class_ptr
+
+    def __cinit__(self):
+        self.cpp_class_ptr = NULL
+
+    def __dealloc__(self):
+        self.cpp_class_ptr = NULL
+
+    def __init__(self, controller_id):
+        cdef CPP_ControllerEvent* ptr
+        ptr = ControllerEventInstances[controller_id]
+        self.cpp_class_ptr = ptr
+
+    def get_axis_decimal(self, axis_id):
+        return self.cpp_class_ptr.GetAxis_Decimal(axis_id)
+
+    def get_axis_percentage(self, axis_id):
+        return self.cpp_class_ptr.GetAxis_Percentage(axis_id)

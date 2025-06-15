@@ -2,21 +2,11 @@
 
 #include "NumberConverter.hpp"
 
-CPP_DisplayCoordinatesConverter::CPP_DisplayCoordinatesConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+CPP_BasicDisplayCoordinatesConverter::CPP_BasicDisplayCoordinatesConverter() {
     display = PMMA::DisplayInstance;
-
-    srand((unsigned int)time(0));
-
-    PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-    FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
-
-    seed = new_seed;
-    octaves = new_octaves;
-    frequency = new_frequency;
-    amplitude = new_amplitude;
 }
 
-void CPP_DisplayCoordinatesConverter::GetCoordinates_Pixel(unsigned int* out_coordinates) {
+void CPP_BasicDisplayCoordinatesConverter::GetCoordinates_Pixel(unsigned int* out_coordinates) {
     if (!CoordinatesAreSet) {
         throw std::runtime_error("Coordinates not set!");
     }
@@ -32,7 +22,7 @@ void CPP_DisplayCoordinatesConverter::GetCoordinates_Pixel(unsigned int* out_coo
     out_coordinates[1] = (unsigned int)(InternalCoordinates[1] * HalfDisplaySize[1] + HalfDisplaySize[1]);
 }
 
-void CPP_DisplayCoordinatesConverter::SetCoordinates_Pixel(unsigned int* in_coordinates) {
+void CPP_BasicDisplayCoordinatesConverter::SetCoordinates_Pixel(unsigned int* in_coordinates) {
     if (display == nullptr) {
         throw std::runtime_error("Display not created yet!");
     }
@@ -46,9 +36,7 @@ void CPP_DisplayCoordinatesConverter::SetCoordinates_Pixel(unsigned int* in_coor
     CoordinatesAreSet = true;
 }
 
-CPP_DisplayScalarConverter::CPP_DisplayScalarConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-    display = PMMA::DisplayInstance;
-
+CPP_DisplayCoordinatesConverter::CPP_DisplayCoordinatesConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
     srand((unsigned int)time(0));
 
     PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
@@ -60,7 +48,11 @@ CPP_DisplayScalarConverter::CPP_DisplayScalarConverter(uint32_t new_seed, uint32
     amplitude = new_amplitude;
 }
 
-void CPP_DisplayScalarConverter::SetScalar_Pixel(unsigned int in_scalar) {
+CPP_BasicDisplayScalarConverter::CPP_BasicDisplayScalarConverter() {
+    display = PMMA::DisplayInstance;
+}
+
+void CPP_BasicDisplayScalarConverter::SetScalar_Pixel(unsigned int in_scalar) {
     if (display == nullptr) {
         throw std::runtime_error("Display not created yet!");
     }
@@ -68,7 +60,7 @@ void CPP_DisplayScalarConverter::SetScalar_Pixel(unsigned int in_scalar) {
     ScalarIsSet = true;
 }
 
-unsigned int CPP_DisplayScalarConverter::GetScalar_Pixel() {
+unsigned int CPP_BasicDisplayScalarConverter::GetScalar_Pixel() {
     if (!ScalarIsSet) {
         throw std::runtime_error("Scalar not set!");
     }
@@ -76,4 +68,16 @@ unsigned int CPP_DisplayScalarConverter::GetScalar_Pixel() {
         throw std::runtime_error("Display not created yet!");
     }
     return (unsigned int)(InternalScalar * display->GetHeight() / 2.f);
+}
+
+CPP_DisplayScalarConverter::CPP_DisplayScalarConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+    srand((unsigned int)time(0));
+
+    PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
+    FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+
+    seed = new_seed;
+    octaves = new_octaves;
+    frequency = new_frequency;
+    amplitude = new_amplitude;
 }
