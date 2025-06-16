@@ -95,7 +95,6 @@ jobs:
     - name: Debug library dependencies
       if: runner.os == 'macOS'
       run: |
-        ls -lh pmma/build
         otool -L /Users/runner/work/PMMA/PMMA/pmma/lib/libPMMA_Core.dylib
 
     - name: Build PMMA Python Extension
