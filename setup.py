@@ -56,6 +56,13 @@ elif sys.platform == "darwin":
         "-framework", "CoreVideo",
     ]
 
+    arch = platform.machine()
+    if arch == "arm64":
+        compile_args.append("-arch")
+        compile_args.append("arm64")
+        link_args.append("-arch")
+        link_args.append("arm64")
+
     glfw_include = "/opt/homebrew/include"
     glfw_lib = "/opt/homebrew/lib"
     glfw_libraries = ["glfw"]
