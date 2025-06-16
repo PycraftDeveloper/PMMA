@@ -60,10 +60,13 @@ elseif(APPLE)
         PRIVATE ${INCLUDE_DIR}
     )
 
+    find_library(COCOA_LIBRARY Cocoa REQUIRED)
+    target_link_libraries(${LIB_NAME} PRIVATE ${COCOA_LIBRARY})
+
     find_package(glfw3 REQUIRED)
     target_link_libraries(${LIB_NAME} PRIVATE glfw)
 
-    find_library(OpenGL_LIBRARY OpenGL)
+    find_library(OpenGL_LIBRARY OpenGL REQUIRED)
     target_link_libraries(${LIB_NAME} PRIVATE glfw ${OpenGL_LIBRARY})
 
 elseif(UNIX)
