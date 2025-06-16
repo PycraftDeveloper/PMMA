@@ -59,7 +59,7 @@ jobs:
       run: |
         sudo apt-get update || true
         sudo apt-get install -y cmake build-essential || true
-        sudo apt-get -y install libglfw3 libglfw3-dev
+        sudo apt-get -y install libxi-dev libxrandr-dev libxinerama-dev libxcursor-dev libglfw3 libglfw3-dev
 
     - name: Install dependencies (macOS)
       if: runner.os == 'macOS'
