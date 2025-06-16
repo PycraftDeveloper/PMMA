@@ -92,11 +92,6 @@ jobs:
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
 
-    - name: Debug library dependencies
-      if: runner.os == 'macOS'
-      run: |
-        find PMMA/ -type f
-
     - name: Build PMMA Python Extension
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }}
