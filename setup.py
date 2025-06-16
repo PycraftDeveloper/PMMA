@@ -35,6 +35,8 @@ if sys.platform.startswith("win"):
         "opengl32"
     ]
 
+    shared_name = 'PMMA_Core'
+
 elif sys.platform.startswith("linux"):
     compile_args = [
         "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++17"
@@ -45,6 +47,8 @@ elif sys.platform.startswith("linux"):
     glfw_lib = "/usr/lib/x86_64-linux-gnu"
     glfw_libraries = ["glfw", "GL", "X11", "pthread", "Xrandr", "Xi", "dl", "m"]
 
+    shared_name = 'PMMA_Core'
+
 elif sys.platform == "darwin":
     compile_args = [
         "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++17"
@@ -54,10 +58,11 @@ elif sys.platform == "darwin":
     glfw_include = "/opt/homebrew/include"
     glfw_lib = "/opt/homebrew/lib"
     glfw_libraries = ["glfw", "Cocoa", "OpenGL", "IOKit", "CoreVideo"]
+
+    shared_name = 'libPMMA_Core'
 else:
     raise NotImplementedError("Unsupported platform")
 
-shared_name = 'PMMA_Core'
 pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
 
 def make_ext(name, extra_cpp=None, add_numpy=False):
