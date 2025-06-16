@@ -5,8 +5,52 @@
 
 
 # PMMA (Python Multi-Media API)
+⚠️ This is the DEVELOPMENT version for PMMA 5.0.0 and is NOT meant for routine use yet. ⚠️
+
+
 PMMA is a Python library aimed at improving application development in Python.
 Typically, developing applications in Python necessitates familiarity with a variety of different libraries such as [Pygame](https://github.com/pygame/pygame), [ModernGL](https://github.com/moderngl/moderngl), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy). PMMA aims to simplify the application development process by creating a single interface that provides easy access to simple and advanced pre-written and highly optimised application development utilities, whilst still also allowing these utilities to be expanded upon by exposing their underlying APIs.
+
+## Progress on PMMA v5.0.0
+
+![Progress on PMMA v5.0.0](https://geps.dev/progress/40)
+
+Each entry is worth: (20/7) %
+
+* ✅ - Setup new repository structure
+* ✅ - Setup new repository automation
+* ✅ - Finished Advanced Mathematics component
+* ✅ - Finished Perlin Noise component
+* ✅ - Finished Fractal Brownian Motion
+* ✅ - Finished Backpack
+* ✅ - Finished Number Converter
+* ✅ - Finished Audio
+* ✅ - Finished GPU
+* ✅ - Finished Executor
+* ✅ - Finished Advanced Tkinter
+* ⏳ - Working on Video
+* ⏳ - Working on Display
+* ⏳ - Working on Events
+* ⏳ - Working on OpenGL
+* ⏳ - Working on Logging
+* ⏳ - Working on General
+* 🛑 - Not started Advanced Threading
+* 🛑 - Not started Camera
+* 🛑 - Not started Complex 2D shapes
+* 🛑 - Not started Constants
+* 🛑 - Not started Registry
+* 🛑 - Not started Controller
+* 🛑 - Not started Data Structures
+* 🛑 - Not started Error
+* 🛑 - Not started File
+* 🛑 - Not started Formatters
+* 🛑 - Not started Memory Manager
+* 🛑 - Not started Quick Start
+* 🛑 - Not started Recorder
+* 🛑 - Not started Sampler
+* 🛑 - Not started Settings
+* 🛑 - Not started Shapes 2D
+* 🛑 - Not started Transitions
 
 ## Contents
 

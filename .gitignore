@@ -5,7 +5,6 @@ __pycache__/
 
 # Distribution / packaging
 .Python
-build/
 develop-eggs/
 dist/
 downloads/
@@ -160,21 +159,25 @@ cython_debug/
 *.nbi
 *.nbc
 
-# PMMA temporary directory
-temporary
+# PMMA
 
-# PMMA log directory
-logs
+# IGNORE temporary directory
+pmma/temporary/
 
-# PMMA runtime generated binaries
-bin
-/*.so
-/*.pyd
+# IGNORE everything in cython directory EXCEPT pyx files
+pmma/core/pyx_src/*
+!pmma/core/pyx_src/*.pyx
+!pmma/core/pyx_src/*.pxd
 
-# PMMA Cython PYX -> C conversion
-cython_src/*.c
-cython_src/utility/*.c
+# Ignore everything in pmma/build except .pyi files
+pmma/build/*
+!pmma/build/*.pyi
 
-# PMMA passports directory
-passports
-/configuration
+# Ignore everything in pmma/lib
+pmma/lib/*
+
+# annotations
+*.html
+
+# Ignore everything in build_tools
+build_tools/*
