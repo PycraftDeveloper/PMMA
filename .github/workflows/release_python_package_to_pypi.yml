@@ -75,14 +75,14 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Setup PIP
+      if: runner.os != 'Linux'
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine cython numpy cibuildwheel
+        pip install setuptools wheel twine cython numpy
 
     - name: Setup PIP Linux specific
       if: runner.os == 'Linux'
       run: |
-        python -m pip install --upgrade pip
         pip install cibuildwheel
 
     - name: Cache vcpkg
