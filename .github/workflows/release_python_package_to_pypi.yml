@@ -75,15 +75,9 @@ jobs:
           ${{ runner.os }}-pip-
 
     - name: Setup PIP
-      if: runner.os != 'Linux'
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine cython numpy
-
-    - name: Setup PIP Linux specific
-      if: runner.os == 'Linux'
-      run: |
-        pip install cibuildwheel
 
     - name: Cache vcpkg
       if: runner.os == 'Windows'
@@ -142,15 +136,7 @@ jobs:
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
 
-    - name: Build Linux Wheel
-      if: runner.os == 'Linux'
-      run: |
-        export MY_BUILD_LIB=pmma/build
-        export MY_BUILD_TEMP=pmma/temporary
-        cibuildwheel --output-dir wheelhouse
-
-    - name: Build wheel on other platforms
-      if: runner.os != 'Linux'
+    - name: Build Wheel
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 
