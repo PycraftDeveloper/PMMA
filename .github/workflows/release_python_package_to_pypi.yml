@@ -136,7 +136,15 @@ jobs:
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
 
-    - name: Build Wheel
+    - name: Build Linux Wheel
+      if: runner.os == 'Linux'
+      run: |
+        export MY_BUILD_LIB=pmma/build
+        export MY_BUILD_TEMP=pmma/temporary
+        cibuildwheel --output-dir wheelhouse
+
+    - name: Build wheel on other platforms
+      if: runner.os != 'Linux'
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 

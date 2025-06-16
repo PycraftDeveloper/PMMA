@@ -4,6 +4,7 @@ from setuptools import setup, Extension, find_packages
 from Cython.Build import cythonize
 import sys, os
 import platform
+from setuptools.command.build_ext import build_ext
 
 import numpy
 
@@ -136,6 +137,12 @@ def list_dirs(root_dir):
             packages.append(package)
 list_dirs(os.path.join(cwd, "pmma"))
 
+class CustomBuildExt(build_ext):
+    def finalize_options(self):
+        super().finalize_options()
+        self.build_lib = os.environ.get("MY_BUILD_LIB", os.path.join("pmma", "build"))
+        self.build_temp = os.environ.get("MY_BUILD_TEMP", os.path.join("pmma", "temporary"))
+
 setup(
     name="pmma",
     version="5.0.0",
@@ -159,4 +166,7 @@ setup(
     include_package_data=True,
     package_data=package_data,
     ext_modules=cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True),
+    cmdclass={
+        "build_ext": CustomBuildExt
+    },
 )
