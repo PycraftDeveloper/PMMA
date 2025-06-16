@@ -63,7 +63,7 @@ jobs:
     - name: Setup PIP
       run: |
         python -m pip install --upgrade pip
-        pip install setuptools wheel twine cython requests
+        pip install setuptools wheel twine cython requests numpy
 
     - name: Clone and bootstrap vcpkg (Windows only)
       if: runner.os == 'Windows'
