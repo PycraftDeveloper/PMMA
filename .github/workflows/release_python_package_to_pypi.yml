@@ -39,15 +39,11 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies (Linux & macOS)
-      if: runner.os != 'Windows'
-      run: |
-        sudo apt-get update || true
-        sudo apt-get install -y cmake build-essential || true
-
     - name: Install dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
+        sudo apt-get update || true
+        sudo apt-get install -y cmake build-essential || true
         sudo apt-get -y install libglfw3 libglfw3-dev
 
     - name: Install dependencies (macOS)
