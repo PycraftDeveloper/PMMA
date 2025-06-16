@@ -2,36 +2,98 @@ name: Release Python Package to PyPI
 
 on:
   release:
-    types: [published]  # Trigger only when a release is published
-  workflow_dispatch:  # Allows manual triggering
+    types: [published]
+  workflow_dispatch:
 
 jobs:
-  build_and_deploy:
-    runs-on: ubuntu-latest
+  build_and_publish:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macos-latest]
+        arch: [x64] # Add "x86" if you set up cross-compilation
+        include:
+          - os: windows-latest
+            python-version: '3.10'
+          - os: ubuntu-latest
+            python-version: '3.10'
+          - os: macos-latest
+            python-version: '3.10'
+
+    env:
+      BUILD_DIR: pmma/build
+      LIB_DIR: pmma/lib
+      TEMP_DIR: pmma/temporary
+      CMAKE_TEMP_DIR: pmma/temporary/cmake
+      VCPKG_DIR: build_tools/vcpkg
+      VCPKG_CMAKE: build_tools/vcpkg/scripts/buildsystems/vcpkg.cmake
 
     steps:
-    - name: Checkout repository
+    - name: Checkout repo
       uses: actions/checkout@v2
       with:
-        fetch-depth: 0  # Fetch all history for the latest commit
+        fetch-depth: 0
 
-    - name: Checkout distributables branch
-      run: git checkout distributables  # Switch to the distributables branch
-
-    - name: Set up Python
+    - name: Setup Python
       uses: actions/setup-python@v2
       with:
-        python-version: 3.x
+        python-version: ${{ matrix.python-version }}
 
-    - name: Install dependencies
+    - name: Install dependencies (Linux & macOS)
+      if: runner.os != 'Windows'
       run: |
+        sudo apt-get update || true
+        sudo apt-get install -y cmake build-essential || true
         python -m pip install --upgrade pip
         pip install setuptools wheel twine
 
-    - name: Build package
-      run: python setup.py sdist bdist_wheel
+    - name: Install dependencies (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+        python -m pip install --upgrade pip
+        pip install setuptools wheel twine
 
-    - name: Publish package to PyPI
+    - name: Clone and bootstrap vcpkg (Windows only)
+      if: runner.os == 'Windows'
+      run: |
+        git clone https://github.com/microsoft/vcpkg.git $env:VCPKG_DIR
+        .\build_tools\vcpkg\bootstrap-vcpkg.bat
+        .\build_tools\vcpkg\vcpkg.exe install glfw3
+        .\build_tools\vcpkg\vcpkg.exe integrate install
+
+    - name: Clean old build directories
+      run: |
+        echo "Cleaning..."
+        rm -rf ${{ env.BUILD_DIR }} ${{ env.TEMP_DIR }} ${{ env.LIB_DIR }} || true
+        mkdir -p ${{ env.CMAKE_TEMP_DIR }}
+
+    - name: Configure CMake
+      run: |
+        echo "Running CMake..."
+        if [[ "${{ runner.os }}" == "Windows" ]]; then
+          cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_CMAKE }}
+        else
+          cmake -S . -B ${{ env.CMAKE_TEMP_DIR }}
+        fi
+      shell: bash
+
+    - name: Build Shared Library
+      run: |
+        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release
+        mv ${{ env.LIB_DIR }}/* ${{ env.LIB_DIR }}/..
+        rm -rf ${{ env.CMAKE_TEMP_DIR }}
+      shell: bash
+
+    - name: Build PMMA Python Extension
+      run: |
+        python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }}
+
+    - name: Build Wheel
+      run: |
+        python setup.py sdist bdist_wheel
+
+    - name: Publish to PyPI
       uses: pypa/gh-action-pypi-publish@v1.4.2
       with:
         user: __token__
