@@ -61,6 +61,7 @@ elseif(APPLE)
     )
 
     target_link_libraries(PMMA_Core
+        PRIVATE
         "-framework Cocoa"
         "-framework OpenGL"
         "-framework IOKit"
@@ -69,9 +70,6 @@ elseif(APPLE)
 
     find_package(glfw3 REQUIRED)
     target_link_libraries(${LIB_NAME} PRIVATE glfw)
-
-    find_library(OpenGL_LIBRARY OpenGL REQUIRED)
-    target_link_libraries(${LIB_NAME} PRIVATE glfw ${OpenGL_LIBRARY})
 
 elseif(UNIX)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
