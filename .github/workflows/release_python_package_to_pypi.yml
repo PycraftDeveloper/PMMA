@@ -125,7 +125,7 @@ jobs:
         with:
           python-version: '3.10'
       - run: |
-          pip install setuptools wheel
+          pip install setuptools wheel cython numpy
           python setup.py sdist
       - uses: actions/upload-artifact@v4
         with:
