@@ -136,13 +136,9 @@ jobs:
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
 
-    - name: Build PMMA Python Extension
-      run: |
-        python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }}
-
     - name: Build Wheel
       run: |
-        python setup.py sdist bdist_wheel
+        python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 
     - name: Upload wheel
       uses: actions/upload-artifact@v4
@@ -171,13 +167,22 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, sdist]
     steps:
-    - uses: actions/download-artifact@v4
+    - name: Download artifacts
+      uses: actions/download-artifact@v4
       with:
         path: ./artifacts
+
+    - name: Move distribution files to expected location
+      run: |
+        mkdir -p dist
+        mv artifacts/* dist/
+
+    - name: Verify contents before publishing
+      run: ls -lh dist/
 
     - name: Publish all wheels and sdist
       uses: pypa/gh-action-pypi-publish@v1.4.2
       with:
         user: __token__
         password: ${{ secrets.PYPI_API_TOKEN }}
-        packages-dir: ./artifacts
+        packages_dir: dist
