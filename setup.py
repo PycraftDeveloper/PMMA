@@ -51,8 +51,8 @@ elif sys.platform == "darwin":
     ]
     link_args = []
 
-    glfw_include = "/opt/homebrew/include"  # or /usr/local/include depending on installation
-    glfw_lib = ""
+    glfw_include = "/opt/homebrew/include"
+    glfw_lib = "/opt/homebrew/lib"
     glfw_libraries = ["glfw", "Cocoa", "OpenGL", "IOKit", "CoreVideo"]
 else:
     raise NotImplementedError("Unsupported platform")
