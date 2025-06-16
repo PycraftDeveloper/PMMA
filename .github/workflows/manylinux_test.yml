@@ -1,0 +1,15 @@
+jobs:
+  test-manylinux:
+    runs-on: ubuntu-latest
+    container: quay.io/pypa/manylinux2014_x86_64
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Python
+        run: |
+          /opt/python/cp310-cp310/bin/pip install --upgrade pip
+          /opt/python/cp310-cp310/bin/pip install pmma==5.0.0
+
+      - name: Run tests
+        run: |
+          /opt/python/cp310-cp310/bin/python -c "import yourmodule; print(yourmodule.__version__)"
