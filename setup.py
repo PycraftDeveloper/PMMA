@@ -58,7 +58,7 @@ elif sys.platform == "darwin":
 
     glfw_include = "/opt/homebrew/include"
     glfw_lib = "/opt/homebrew/lib"
-    glfw_libraries = ["glfw", "OpenGL"]
+    glfw_libraries = ["glfw"]
 else:
     raise NotImplementedError("Unsupported platform")
 

@@ -70,6 +70,7 @@ jobs:
         pip install setuptools wheel twine cython numpy
 
     - name: Cache vcpkg
+      if: runner.os == 'Windows'
       uses: actions/cache@v3
       with:
         path: ${{ env.VCPKG_DIR }}
