@@ -167,22 +167,19 @@ jobs:
     runs-on: ubuntu-latest
     needs: [build, sdist]
     steps:
-    - name: Download artifacts
-      uses: actions/download-artifact@v4
-      with:
-        path: ./artifacts
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
 
-    - name: Move distribution files to expected location
-      run: |
-        mkdir -p dist
-        mv artifacts/* dist/
+      - name: Move distribution files to expected location
+        run: |
+          mkdir -p dist
+          find artifacts -type f \( -name "*.whl" -o -name "*.tar.gz" \) -exec mv {} dist/ \;
 
-    - name: Verify contents before publishing
-      run: ls -lh dist/
-
-    - name: Publish all wheels and sdist
-      uses: pypa/gh-action-pypi-publish@v1.4.2
-      with:
-        user: __token__
-        password: ${{ secrets.PYPI_API_TOKEN }}
-        packages_dir: dist
+      - name: Publish all wheels and sdist
+        uses: pypa/gh-action-pypi-publish@v1.4.2
+        with:
+          user: __token__
+          password: ${{ secrets.PYPI_API_TOKEN }}
+          packages_dir: dist
