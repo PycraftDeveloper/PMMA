@@ -1,20 +1,26 @@
-name: ManyLinux Test
+name: Test pmma in manylinux2014
 
 on:
-    workflow_dispatch:
+  workflow_dispatch:  # Allow manual triggering
 
 jobs:
   test-manylinux:
     runs-on: ubuntu-latest
-    container: quay.io/pypa/manylinux2014_x86_64
+
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout dummy repo (if needed)
+      uses: actions/checkout@v4
 
-      - name: Install Python
-        run: |
-          /opt/python/cp310-cp310/bin/pip install --upgrade pip
-          /opt/python/cp310-cp310/bin/pip install pmma==5.0.0
+    - name: Set up Docker container (manylinux2014)
+      run: |
+        docker run --rm -v $(pwd):/io quay.io/pypa/manylinux2014_x86_64 /bin/bash -c "
+          # Install Python and pip
+          yum install -y python3 python3-pip
 
-      - name: Run tests
-        run: |
-          /opt/python/cp310-cp310/bin/python -c "import yourmodule; print(yourmodule.__version__)"
+          # Install pmma
+          python3 -m pip install --upgrade pip
+          python3 -m pip install pmma==5.0.0
+
+          # Run a basic check
+          python3 -c 'import pmma; print(pmma.__version__)'
+        "
