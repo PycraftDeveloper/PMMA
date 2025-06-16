@@ -19,10 +19,14 @@ if sys.platform.startswith("win"):
     compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17", "/wd4551", "/wd4251"] # disable warning 4551 & 4251 which is an issue for Cython
     link_args = ["/LTCG"]
 
-    glfw_include = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/include"
-    glfw_lib = "D:/Visual Studio C++ Extensions/glfw-3.4.bin.WIN64/lib-vc2022"
+    build_tools_dir = os.path.join(cwd, "build_tools")
+    vcpkg_dir = os.path.join(build_tools_dir, "vcpkg")
+
+    glfw_include = os.path.join(vcpkg_dir, "installed", "x64-windows", "include")
+    glfw_lib = os.path.join(vcpkg_dir, "installed", "x64-windows", "lib")
+
     glfw_libraries = [
-        "glfw3",
+        "glfw3dll",
         "user32",
         "gdi32",
         "shell32",
