@@ -88,7 +88,7 @@ jobs:
     - name: Build Shared Library
       run: |
         cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release
-        mv ${{ env.LIB_DIR }}/*/** ${{ env.LIB_DIR }}/
+        find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
 
