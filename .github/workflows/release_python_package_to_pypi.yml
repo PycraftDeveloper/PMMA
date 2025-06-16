@@ -88,6 +88,8 @@ jobs:
         echo "Running CMake..."
         if [[ "${{ runner.os }}" == "Windows" ]]; then
           cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_CMAKE }}
+        elif [[ "${{ runner.os }}" == "macOS" ]]; then
+          cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_OSX_ARCHITECTURES=x86_64
         else
           cmake -S . -B ${{ env.CMAKE_TEMP_DIR }}
         fi
