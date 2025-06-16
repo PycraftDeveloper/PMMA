@@ -60,8 +60,12 @@ elseif(APPLE)
         PRIVATE ${INCLUDE_DIR}
     )
 
-    find_library(COCOA_LIBRARY Cocoa REQUIRED)
-    target_link_libraries(${LIB_NAME} PRIVATE ${COCOA_LIBRARY})
+    target_link_libraries(PMMA_Core
+        "-framework Cocoa"
+        "-framework OpenGL"
+        "-framework IOKit"
+        "-framework CoreVideo"
+    )
 
     find_package(glfw3 REQUIRED)
     target_link_libraries(${LIB_NAME} PRIVATE glfw)

@@ -49,11 +49,16 @@ elif sys.platform == "darwin":
     compile_args = [
         "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++17"
     ]
-    link_args = []
+    link_args = [
+        "-framework", "Cocoa",
+        "-framework", "OpenGL",
+        "-framework", "IOKit",
+        "-framework", "CoreVideo",
+    ]
 
     glfw_include = "/opt/homebrew/include"
     glfw_lib = "/opt/homebrew/lib"
-    glfw_libraries = ["glfw", "Cocoa", "OpenGL", "IOKit", "CoreVideo"]
+    glfw_libraries = ["glfw", "OpenGL"]
 else:
     raise NotImplementedError("Unsupported platform")
 
