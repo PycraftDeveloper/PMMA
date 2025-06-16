@@ -140,6 +140,22 @@ jobs:
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 
+    - name: Install auditwheel (Linux only)
+      if: runner.os == 'Linux'
+      run: python -m pip install --upgrade auditwheel
+
+    - name: Repair Linux wheels with auditwheel (Linux only)
+      if: runner.os == 'Linux'
+      run: |
+        mkdir -p wheelhouse
+        for whl in dist/*-linux_*.whl; do
+          auditwheel repair "$whl" -w wheelhouse/
+        done
+        if [ -d wheelhouse ]; then
+          rm dist/*-linux_*.whl
+          mv wheelhouse/*.whl dist/
+        fi
+
     - name: Upload wheel
       uses: actions/upload-artifact@v4
       with:
