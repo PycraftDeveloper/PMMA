@@ -4,8 +4,6 @@ from setuptools import setup, Extension, find_packages
 from Cython.Build import cythonize
 import sys, os
 import platform
-from requests import get
-from json import loads
 
 import numpy
 
@@ -102,10 +100,6 @@ ext_modules = [
     make_ext("PerlinNoise", add_numpy=True),
 ]
 
-# Get the latest tag from GitHub
-tag_data = get("https://api.github.com/repos/PycraftDeveloper/PMMA/tags")
-latest_tag = loads(tag_data.text)[0]["name"]
-
 # Read the long description from README.md
 with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
@@ -121,7 +115,7 @@ packages = find_packages()
 
 setup(
     name="pmma",
-    version=latest_tag,
+    version="5.0.0",
     author="PycraftDev",
     author_email="thomasjebbo@gmail.com",
     description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",
