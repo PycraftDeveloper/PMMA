@@ -191,9 +191,34 @@ jobs:
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages_dir: dist
 
-      - name: Get release info
+      - name: Get release tag
         id: get_release
         run: echo "RELEASE_TAG=${GITHUB_REF##*/}" >> $GITHUB_OUTPUT
+
+      - name: Install GitHub CLI
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y gh
+
+      - name: Authenticate gh CLI
+        run: |
+          echo "${{ secrets.GITHUB_TOKEN }}" | gh auth login --with-token
+
+      - name: Delete existing release assets with same filenames
+        run: |
+          # List assets for the release tag
+          ASSETS=$(gh release view ${{ steps.get_release.outputs.RELEASE_TAG }} --json assets --template '{{range .assets}}{{.name}} {{end}}')
+
+          echo "Existing assets: $ASSETS"
+
+          # For each asset in dist/, if exists in release, delete it
+          for asset in dist/*; do
+            filename=$(basename "$asset")
+            if echo "$ASSETS" | grep -qw "$filename"; then
+              echo "Deleting asset $filename"
+              gh release delete-asset ${{ steps.get_release.outputs.RELEASE_TAG }} --asset "$filename" --yes
+            fi
+          done
 
       - name: Upload release assets to GitHub
         uses: softprops/action-gh-release@v2
