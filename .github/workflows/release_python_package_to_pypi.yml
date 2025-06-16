@@ -95,7 +95,7 @@ jobs:
     - name: Debug library dependencies
       if: runner.os == 'macOS'
       run: |
-        find PMMA/ -name 'libPMMA_Core.dylib'
+        find PMMA/ -type f
 
     - name: Build PMMA Python Extension
       run: |
