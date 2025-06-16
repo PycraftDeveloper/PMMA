@@ -115,8 +115,15 @@ with open("requirements.txt", "r", encoding="utf-8") as req_file:
 
 package_data={"pmma": ["**/*"]}
 
-# Manually specify packages
-packages = find_packages()
+packages = []
+def list_dirs(root_dir):
+    for dirpath, dirnames, _ in os.walk(root_dir):
+        if not "temporary" in dirpath:
+            package = "pmma." + dirpath.replace(root_dir, "").replace(os.sep, ".")[1:]
+            if package == "pmma.":
+                package = "pmma"
+            packages.append(package)
+list_dirs(os.path.join(cwd, "pmma"))
 
 setup(
     name="pmma",
