@@ -65,19 +65,8 @@ else:
 shared_name = 'PMMA_Core'
 pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
 
-def list_files(startpath):
-    for root, dirs, files in os.walk(startpath):
-        level = root.replace(startpath, '').count(os.sep)
-        indent = ' ' * 4 * (level)
-        print('{}{}/'.format(indent, os.path.basename(root)))
-        subindent = ' ' * 4 * (level + 1)
-        for f in files:
-            print('{}{}'.format(subindent, f))
-
-list_files(cwd)
-
 def make_ext(name, extra_cpp=None, add_numpy=False):
-    sources = [os.path.join(cwd, "pmma", "core", "pyx_src", f"{name}.pyx")]
+    sources = [os.path.join("pmma", "core", "pyx_src", f"{name}.pyx")]
     if extra_cpp is not None:
         sources.extend(extra_cpp)
 
