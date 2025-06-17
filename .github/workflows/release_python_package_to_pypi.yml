@@ -204,17 +204,31 @@ jobs:
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 
-    - name: Rename Linux wheel to manylinux2014
+    - name: Rename wheel with unique name
       if: runner.os == 'Linux'
       run: |
         ORIGINAL_WHEEL=$(ls dist/*.whl)
         RENAMED_WHEEL=$(echo "$ORIGINAL_WHEEL" | sed 's/linux/manylinux2014/')
-        mv "$ORIGINAL_WHEEL" "$RENAMED_WHEEL"
+        # Append python version and arch
+        PYTHON_VERSION=${{ matrix.python-version }}
+        ARCH=${{ matrix.arch }}
+        NEW_NAME=$(basename "$RENAMED_WHEEL" .whl)-${PYTHON_VERSION}-${ARCH}.whl
+        mv "$RENAMED_WHEEL" "dist/$NEW_NAME"
+
+    - name: Rename wheel with unique name
+      if: runner.os != 'Linux'
+      run: |
+        ORIGINAL_WHEEL=$(ls dist/*.whl)
+        PYTHON_VERSION=${{ matrix.python-version }}
+        OS=${{ runner.os }}
+        ARCH=${{ matrix.arch }}
+        NEW_NAME=$(basename "$ORIGINAL_WHEEL" .whl)-${OS}-${PYTHON_VERSION}-${ARCH}.whl
+        mv "$ORIGINAL_WHEEL" "dist/$NEW_NAME"
 
     - name: Upload wheel
       uses: actions/upload-artifact@v4
       with:
-        name: wheels-${{ runner.os }}
+        name: wheels-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.arch }}
         path: dist/*.whl
 
   sdist:
