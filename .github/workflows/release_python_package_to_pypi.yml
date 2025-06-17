@@ -204,6 +204,7 @@ jobs:
         ARCH=${{ matrix.arch }}
         NEW_NAME=$(basename "$RENAMED_WHEEL" .whl)-${PYTHON_VERSION}-${ARCH}.whl
         mv "$RENAMED_WHEEL" "dist/$NEW_NAME"
+      shell: bash
 
     - name: Rename wheel with unique name
       if: runner.os != 'Linux'
@@ -214,6 +215,7 @@ jobs:
         ARCH=${{ matrix.arch }}
         NEW_NAME=$(basename "$ORIGINAL_WHEEL" .whl)-${OS}-${PYTHON_VERSION}-${ARCH}.whl
         mv "$ORIGINAL_WHEEL" "dist/$NEW_NAME"
+      shell: bash
 
     - name: Upload wheel
       uses: actions/upload-artifact@v4
