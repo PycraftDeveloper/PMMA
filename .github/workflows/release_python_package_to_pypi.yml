@@ -54,7 +54,7 @@ jobs:
       run: |
         sudo apt-get update || true
         sudo apt-get install -y cmake build-essential || true
-        sudo apt-get -y install libxi-dev libxrandr-dev libxinerama-dev libxcursor-dev libwayland-dev libxkbcommon-dev
+        sudo apt-get -y install libxi-dev libxrandr-dev libxinerama-dev libxcursor-dev libwayland-dev libxkbcommon-dev libgl1-mesa-dev
 
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
