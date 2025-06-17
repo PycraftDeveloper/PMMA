@@ -15,11 +15,6 @@ jobs:
           - os: ubuntu
             runner: ubuntu-18.04
             arch: x64
-            python-version: '3.7'
-
-          - os: ubuntu
-            runner: ubuntu-18.04
-            arch: x64
             python-version: '3.8'
 
           - os: ubuntu
@@ -36,11 +31,6 @@ jobs:
             runner: ubuntu-18.04
             arch: x64
             python-version: '3.11'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.7'
 
           - os: windows
             runner: windows-latest
