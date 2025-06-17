@@ -241,6 +241,7 @@ jobs:
           packages_dir: dist
 
       - name: Upload wheels and sdist to GitHub Release
+        if: github.event_name == 'release'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPLOAD_URL: ${{ github.event.release.upload_url }}
