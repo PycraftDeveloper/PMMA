@@ -12,6 +12,7 @@ cwd = os.path.dirname(__file__)
 
 build_dir = os.path.join(cwd, "pmma", "build")
 lib_dir = os.path.join(cwd, "pmma", "lib")
+extern_dir = os.path.join(cwd, "pmma", "extern")
 temp_dir = os.path.join(cwd, "pmma", "temporary")
 include_dir = os.path.join(cwd, "pmma", "core", "hpp_src")
 pyx_dir = os.path.join(cwd, "pmma", "core", "pyx_src")
@@ -56,8 +57,8 @@ def clean_old_build():
     if os.path.exists(lib_dir):
         shutil.rmtree(lib_dir, ignore_errors=False)
 
-    if os.path.exists(temp_dir):
-        shutil.rmtree(temp_dir, ignore_errors=False)
+    if os.path.exists(extern_dir):
+        shutil.rmtree(extern_dir, ignore_errors=False)
 
 print("=" * TERMINAL_SIZE)
 
@@ -70,21 +71,31 @@ if result == "y":
 
 print("=" * TERMINAL_SIZE)
 
+result = ""
+while result not in ["y", "n"]:
+    result = input("Do you want to clean up the old build configuration (not generally recommended)? (y/n): ").lower()
+
+if result == "y":
+    if os.path.exists(temp_dir):
+        shutil.rmtree(temp_dir, ignore_errors=True)
+
+print("=" * TERMINAL_SIZE)
+
 ####################### INSTALLING  DEPENDENCIES #######################
 
-if platform.system() == "Windows":
+"""if platform.system() == "Windows":
     print("📦 Installing dependencies...")
     if not os.path.exists(vcpkg_dir):
         print("📦 Cloning vcpkg...")
         subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git", vcpkg_dir], check=True)
 
     subprocess.run(["cmd", "/c", "bootstrap-vcpkg.bat"], cwd=vcpkg_dir, check=True)
-    subprocess.run(["cmd", "/c", "vcpkg install glfw3"], cwd=vcpkg_dir, check=True)
+    #subprocess.run(["cmd", "/c", "vcpkg install glfw3"], cwd=vcpkg_dir, check=True)
     subprocess.run(["cmd", "/c", "vcpkg integrate install"], cwd=vcpkg_dir, check=True)
 
     print("✅ Dependencies installed.")
 
-    print("=" * TERMINAL_SIZE)
+    print("=" * TERMINAL_SIZE)"""
 
 ########################### BUILD PMMA CORE ############################
 
@@ -109,10 +120,10 @@ def build_shared_lib():
     os.makedirs(cmake_temp_dir, exist_ok=True)
 
     print("📦 Running CMake configuration...")
-    if platform.system() == "Windows":
-        subprocess.run(["cmake", cwd, f"-DCMAKE_TOOLCHAIN_FILE={vcpkg_cmake}"], cwd=cmake_temp_dir, check=True)
-    else:
-        subprocess.run(["cmake", cwd], cwd=cmake_temp_dir, check=True)
+    #if platform.system() == "Windows":
+        #subprocess.run(["cmake", cwd, f"-DCMAKE_TOOLCHAIN_FILE={vcpkg_cmake}"], cwd=cmake_temp_dir, check=True)
+    #else:
+    subprocess.run(["cmake", cwd], cwd=cmake_temp_dir, check=True)
 
     print("🔨 Building PMMA_Core...")
     build_command = ["cmake", "--build", "."]
@@ -121,9 +132,6 @@ def build_shared_lib():
     subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
     flatten_dir(lib_dir)
-
-    if os.path.exists(cmake_temp_dir):
-        shutil.rmtree(cmake_temp_dir, ignore_errors=False)
 
     print("✅ Build complete. Output should be in pmma/lib/")
 
@@ -174,6 +182,13 @@ print("=" * TERMINAL_SIZE)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 print("Copying new version of PMMA...")
-shutil.copytree(os.path.join(current_dir, 'pmma'), os.path.join(SITE_PACKAGE_DIR, 'pmma'))
+def ignore_temp_dirs(directory, contents):
+    return [item for item in contents if 'temporary' in os.path.join(directory, item)]
+
+shutil.copytree(
+    os.path.join(current_dir, 'pmma'),
+    os.path.join(SITE_PACKAGE_DIR, 'pmma'),
+    ignore=ignore_temp_dirs
+)
 
 print("=" * TERMINAL_SIZE)

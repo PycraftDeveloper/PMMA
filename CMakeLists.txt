@@ -29,62 +29,62 @@ set(SOURCES
     "${SRC_DIR}/NumberConverter.cpp"
     "${SRC_DIR}/PerlinNoise.cpp")
 
+include(FetchContent)
+
+# Fetch GLFW
+FetchContent_Declare(
+    glfw
+    GIT_REPOSITORY https://github.com/glfw/glfw.git
+    GIT_TAG latest
+)
+FetchContent_MakeAvailable(glfw)  # Just downloads, doesn't configure
+
+# Build + install paths
+set(GLFW_SOURCE_DIR ${glfw_SOURCE_DIR})
+set(GLFW_BUILD_DIR ${CMAKE_BINARY_DIR}/_glfw_build)
+set(GLFW_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/pmma/extern)
+
+file(MAKE_DIRECTORY ${GLFW_BUILD_DIR})
+file(MAKE_DIRECTORY ${GLFW_INSTALL_DIR})
+
+# Custom install target
+add_custom_target(glfw_install
+    COMMAND ${CMAKE_COMMAND}
+        -DGLFW_BUILD_EXAMPLES=OFF
+        -DGLFW_BUILD_TESTS=OFF
+        -DGLFW_BUILD_DOCS=OFF
+        -DCMAKE_INSTALL_PREFIX=${GLFW_INSTALL_DIR}
+        -DCMAKE_BUILD_TYPE=Release
+        -S ${GLFW_SOURCE_DIR}
+        -B ${GLFW_BUILD_DIR}
+    COMMAND ${CMAKE_COMMAND} --build ${GLFW_BUILD_DIR} --config Release --target install
+    COMMENT "Installing GLFW to ${GLFW_INSTALL_DIR}"
+)
+
 # Add shared library
-add_library(
-    ${LIB_NAME} SHARED ${SOURCES})
+add_library(${LIB_NAME} SHARED ${SOURCES})
+
+add_dependencies(${LIB_NAME} glfw_install)
+add_custom_target(build_all DEPENDS glfw_install ${LIB_NAME})
+
 target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
-set(GLFW_STATIC TRUE)
+target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_DIR} ${GLFW_INSTALL_DIR}/include)
+
+find_package(OpenGL REQUIRED)
 
 # GLFW settings (platform-specific)
 if (WIN32)
-    # Compiler flags
     add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251)
-
-    # Linker flags
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
+    target_link_libraries(${LIB_NAME} PRIVATE glfw OpenGL::GL)
 
-    target_include_directories(${LIB_NAME}
-        PRIVATE
-            ${INCLUDE_DIR}
-    )
-
-    find_package(glfw3 CONFIG REQUIRED)
-    find_package(OpenGL REQUIRED)
-
-    target_link_libraries(${LIB_NAME}
-        PRIVATE
-            glfw
-            OpenGL::GL
-    )
 elseif(APPLE)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
-
-    target_include_directories(${LIB_NAME}
-        PRIVATE ${INCLUDE_DIR}
-    )
-
-    target_link_libraries(PMMA_Core
-        PRIVATE
-        "-framework Cocoa"
-        "-framework OpenGL"
-        "-framework IOKit"
-        "-framework CoreVideo"
-    )
-
-    find_package(glfw3 REQUIRED)
-    target_link_libraries(${LIB_NAME} PRIVATE glfw)
+    target_link_libraries(${LIB_NAME} PRIVATE "-framework Cocoa" "-framework OpenGL" "-framework IOKit" "-framework CoreVideo" glfw)
 
 elseif(UNIX)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
-
-    target_include_directories(${LIB_NAME}
-        PRIVATE ${INCLUDE_DIR}
-    )
-
-    find_package(glfw3 REQUIRED)
-    find_package(OpenGL REQUIRED)
-    target_link_libraries(${LIB_NAME} PRIVATE glfw)
     target_link_libraries(${LIB_NAME} PRIVATE glfw OpenGL::GL)
 endif()
 
@@ -94,3 +94,5 @@ set_target_properties(${LIB_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
     ARCHIVE_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
 )
+
+message(STATUS "GLFW installed in ${GLFW_INSTALL_DIR}")

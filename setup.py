@@ -22,11 +22,8 @@ if sys.platform.startswith("win"):
     build_tools_dir = os.path.join(cwd, "build_tools")
     vcpkg_dir = os.path.join(build_tools_dir, "vcpkg")
 
-    glfw_include = os.path.join(vcpkg_dir, "installed", "x64-windows", "include")
-    glfw_lib = os.path.join(vcpkg_dir, "installed", "x64-windows", "lib")
-
     glfw_libraries = [
-        "glfw3dll",
+        "glfw3",
         "user32",
         "gdi32",
         "shell32",
@@ -45,8 +42,6 @@ elif sys.platform.startswith("linux"):
     ]
     link_args = []
 
-    glfw_include = "/usr/include"
-    glfw_lib = "/usr/lib/x86_64-linux-gnu"
     glfw_libraries = ["glfw", "GL", "X11", "pthread", "Xrandr", "Xi", "dl", "m"]
 
 elif sys.platform == "darwin":
@@ -67,25 +62,22 @@ elif sys.platform == "darwin":
         link_args.append("-arch")
         link_args.append("arm64")
 
-    glfw_include = "/opt/homebrew/include"
-    glfw_lib = "/opt/homebrew/lib"
     glfw_libraries = ["glfw"]
 else:
     raise NotImplementedError("Unsupported platform")
 
 shared_name = 'PMMA_Core'
-pmma_lib_dir = os.path.join(cwd, "pmma", "lib")
 
 def make_ext(name, extra_cpp=None, add_numpy=False):
     sources = [os.path.join("pmma", "core", "pyx_src", f"{name}.pyx")]
     if extra_cpp is not None:
         sources.extend(extra_cpp)
 
-    lib_dirs = [pmma_lib_dir, glfw_lib]
+    lib_dirs = [os.path.join(cwd, "pmma", "lib"), os.path.join(cwd, "pmma", "extern", "lib")]
 
     libs = [shared_name, *glfw_libraries]
 
-    includes = [os.path.join(cwd, "pmma", "core", "hpp_src"), glfw_include]
+    includes = [os.path.join(cwd, "pmma", "core", "hpp_src"), os.path.join(cwd, "pmma", "extern", "include")]
 
     if add_numpy:
         includes += [numpy.get_include()]

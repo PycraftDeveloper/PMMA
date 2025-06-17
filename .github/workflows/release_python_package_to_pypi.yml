@@ -54,12 +54,7 @@ jobs:
       run: |
         sudo apt-get update || true
         sudo apt-get install -y cmake build-essential || true
-        sudo apt-get -y install libxi-dev libxrandr-dev libxinerama-dev libxcursor-dev libglfw3 libglfw3-dev
-
-    - name: Install dependencies (macOS)
-      if: runner.os == 'macOS'
-      run: |
-        brew install glfw3 glew
+        sudo apt-get -y install libxi-dev libxrandr-dev libxinerama-dev libxcursor-dev
 
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
@@ -79,33 +74,33 @@ jobs:
         python -m pip install --upgrade pip
         pip install setuptools wheel twine cython numpy
 
-    - name: Cache vcpkg
-      if: runner.os == 'Windows'
-      uses: actions/cache@v3
-      with:
-        path: ${{ env.VCPKG_DIR }}
-        key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json') }}
-        restore-keys: |
-          ${{ runner.os }}-vcpkg-
+    #- name: Cache vcpkg
+    #  if: runner.os == 'Windows'
+    #  uses: actions/cache@v3
+    #  with:
+    #    path: ${{ env.VCPKG_DIR }}
+    #    key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json') }}
+    #    restore-keys: |
+    #      ${{ runner.os }}-vcpkg-
 
-    - name: Cache vcpkg installed packages
-      uses: actions/cache@v3
-      with:
-        path: |
-          ${{ env.VCPKG_DIR }}/installed
-          ${{ env.VCPKG_DIR }}/buildtrees
-          ${{ env.VCPKG_DIR }}/packages
-        key: ${{ runner.os }}-vcpkg-cache-${{ hashFiles('**/vcpkg.json') }}
-        restore-keys: |
-          ${{ runner.os }}-vcpkg-cache-
+    #- name: Cache vcpkg installed packages
+    #  uses: actions/cache@v3
+    #  with:
+    #    path: |
+    #      ${{ env.VCPKG_DIR }}/installed
+    #      ${{ env.VCPKG_DIR }}/buildtrees
+    #      ${{ env.VCPKG_DIR }}/packages
+    #    key: ${{ runner.os }}-vcpkg-cache-${{ hashFiles('**/vcpkg.json') }}
+    #    restore-keys: |
+    #      ${{ runner.os }}-vcpkg-cache-
 
-    - name: Clone and bootstrap vcpkg (Windows only)
-      if: runner.os == 'Windows'
-      run: |
-        git clone https://github.com/microsoft/vcpkg.git $env:VCPKG_DIR
-        .\build_tools\vcpkg\bootstrap-vcpkg.bat
-        .\build_tools\vcpkg\vcpkg.exe install glfw3
-        .\build_tools\vcpkg\vcpkg.exe integrate install
+    #- name: Clone and bootstrap vcpkg (Windows only)
+    #  if: runner.os == 'Windows'
+    #  run: |
+    #    git clone https://github.com/microsoft/vcpkg.git $env:VCPKG_DIR
+    #    .\build_tools\vcpkg\bootstrap-vcpkg.bat
+    #    .\build_tools\vcpkg\vcpkg.exe install glfw3
+    #    .\build_tools\vcpkg\vcpkg.exe integrate install
 
     - name: Clean old build directories
       shell: bash
@@ -114,12 +109,25 @@ jobs:
         rm -rf "${{ env.BUILD_DIR }}" "${{ env.LIB_DIR }}" || true
         mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
 
-    - name: Configure CMake
+    #- name: Configure CMake OLD
+    #  run: |
+    #    echo "Running CMake..."
+    #    if [[ "${{ runner.os }}" == "Windows" ]]; then
+    #      cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_CMAKE }}
+    #    elif [[ "${{ runner.os }}" == "macOS" ]]; then
+    #      export MACOSX_DEPLOYMENT_TARGET=14.0
+    #      export CFLAGS="-arch arm64"
+    #      export CXXFLAGS="-arch arm64"
+    #      cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
+    #    else
+    #      cmake -S . -B ${{ env.CMAKE_TEMP_DIR }}
+    #    fi
+    #  shell: bash
+
+    - name: Configure CMake NEW
       run: |
         echo "Running CMake..."
-        if [[ "${{ runner.os }}" == "Windows" ]]; then
-          cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_CMAKE }}
-        elif [[ "${{ runner.os }}" == "macOS" ]]; then
+        if [[ "${{ runner.os }}" == "macOS" ]]; then
           export MACOSX_DEPLOYMENT_TARGET=14.0
           export CFLAGS="-arch arm64"
           export CXXFLAGS="-arch arm64"

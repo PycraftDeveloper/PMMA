@@ -2,17 +2,13 @@
 av
 cython
 getostheme
-moderngl
-moderngl_window
 moviepy
 num2words
-numba
 pedalboard
 Pillow
 pprofile
 psutil
 pyadl
-pygame
 pyrr
 requests
 send2trash
