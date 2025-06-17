@@ -194,7 +194,7 @@ jobs:
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 
-    - name: Rename wheel with unique name
+    - name: Rename wheel with unique name (Linux)
       if: runner.os == 'Linux'
       run: |
         ORIGINAL_WHEEL=$(ls dist/*.whl)
@@ -203,10 +203,10 @@ jobs:
         PYTHON_VERSION=${{ matrix.python-version }}
         ARCH=${{ matrix.arch }}
         NEW_NAME=$(basename "$RENAMED_WHEEL" .whl)-${PYTHON_VERSION}-${ARCH}.whl
-        mv "$RENAMED_WHEEL" "dist/$NEW_NAME"
+        mv "$ORIGINAL_WHEEL" "dist/$NEW_NAME"
       shell: bash
 
-    - name: Rename wheel with unique name
+    - name: Rename wheel with unique name (Windows & MacOS)
       if: runner.os != 'Linux'
       run: |
         ORIGINAL_WHEEL=$(ls dist/*.whl)
