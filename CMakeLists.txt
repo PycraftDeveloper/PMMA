@@ -2,9 +2,12 @@ cmake_minimum_required(VERSION 3.16)
 project(PMMA_Core LANGUAGES CXX)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+# Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+# Core library name
 set(LIB_NAME PMMA_Core)
 
 # Source and header directories
@@ -24,67 +27,65 @@ set(SOURCES
     "${SRC_DIR}/FractalBrownianMotion.cpp"
     "${SRC_DIR}/InternalEventsManager.cpp"
     "${SRC_DIR}/NumberConverter.cpp"
-    "${SRC_DIR}/PerlinNoise.cpp"
-)
+    "${SRC_DIR}/PerlinNoise.cpp")
 
 # Add shared library
-add_library(${LIB_NAME} SHARED ${SOURCES})
+add_library(
+    ${LIB_NAME} SHARED ${SOURCES})
 target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
-# Set include directories
-target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_DIR})
+set(GLFW_STATIC TRUE)
 
-# --- Fetch GLFW from GitHub ---
-include(FetchContent)
-
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_INSTALL OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
-
-FetchContent_Declare(
-  glfw
-  GIT_REPOSITORY https://github.com/glfw/glfw.git
-  GIT_TAG latest
-)
-
-FetchContent_MakeAvailable(glfw)
-
-# Find OpenGL (still system-provided)
-find_package(OpenGL REQUIRED)
-
-# Platform-specific flags and linking
+# GLFW settings (platform-specific)
 if (WIN32)
+    # Compiler flags
     add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251)
+
+    # Linker flags
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
+
+    target_include_directories(${LIB_NAME}
+        PRIVATE
+            ${INCLUDE_DIR}
+    )
+
+    find_package(glfw3 CONFIG REQUIRED)
+    find_package(OpenGL REQUIRED)
 
     target_link_libraries(${LIB_NAME}
         PRIVATE
             glfw
             OpenGL::GL
     )
-
 elseif(APPLE)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
 
-    target_link_libraries(${LIB_NAME}
-        PRIVATE
-            glfw
-            "-framework Cocoa"
-            "-framework OpenGL"
-            "-framework IOKit"
-            "-framework CoreVideo"
+    target_include_directories(${LIB_NAME}
+        PRIVATE ${INCLUDE_DIR}
     )
+
+    target_link_libraries(PMMA_Core
+        PRIVATE
+        "-framework Cocoa"
+        "-framework OpenGL"
+        "-framework IOKit"
+        "-framework CoreVideo"
+    )
+
+    find_package(glfw3 REQUIRED)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw)
 
 elseif(UNIX)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
 
-    target_link_libraries(${LIB_NAME}
-        PRIVATE
-            glfw
-            OpenGL::GL
+    target_include_directories(${LIB_NAME}
+        PRIVATE ${INCLUDE_DIR}
     )
+
+    find_package(glfw3 REQUIRED)
+    find_package(OpenGL REQUIRED)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw OpenGL::GL)
 endif()
 
 # Set output path

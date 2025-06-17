@@ -56,6 +56,9 @@ def clean_old_build():
     if os.path.exists(lib_dir):
         shutil.rmtree(lib_dir, ignore_errors=False)
 
+    if os.path.exists(temp_dir):
+        shutil.rmtree(temp_dir, ignore_errors=False)
+
 print("=" * TERMINAL_SIZE)
 
 result = ""
@@ -64,16 +67,6 @@ while result not in ["y", "n"]:
 
 if result == "y":
     clean_old_build()
-
-print("=" * TERMINAL_SIZE)
-
-result = ""
-while result not in ["y", "n"]:
-    result = input("Do you want to clean up the last build cache (not generally recommended unless changing environments)? (y/n): ").lower()
-
-if result == "y":
-    if os.path.exists(temp_dir):
-        shutil.rmtree(temp_dir, ignore_errors=True)
 
 print("=" * TERMINAL_SIZE)
 
@@ -86,7 +79,7 @@ if platform.system() == "Windows":
         subprocess.run(["git", "clone", "https://github.com/microsoft/vcpkg.git", vcpkg_dir], check=True)
 
     subprocess.run(["cmd", "/c", "bootstrap-vcpkg.bat"], cwd=vcpkg_dir, check=True)
-    #subprocess.run(["cmd", "/c", "vcpkg install glfw3"], cwd=vcpkg_dir, check=True)
+    subprocess.run(["cmd", "/c", "vcpkg install glfw3"], cwd=vcpkg_dir, check=True)
     subprocess.run(["cmd", "/c", "vcpkg integrate install"], cwd=vcpkg_dir, check=True)
 
     print("✅ Dependencies installed.")
@@ -128,6 +121,9 @@ def build_shared_lib():
     subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
     flatten_dir(lib_dir)
+
+    if os.path.exists(cmake_temp_dir):
+        shutil.rmtree(cmake_temp_dir, ignore_errors=False)
 
     print("✅ Build complete. Output should be in pmma/lib/")
 
@@ -178,13 +174,6 @@ print("=" * TERMINAL_SIZE)
 current_dir = os.path.dirname(os.path.abspath(__file__))
 
 print("Copying new version of PMMA...")
-def ignore_temporary(dir, contents):
-    return ['temporary'] if dir == os.path.join(current_dir, 'pmma') else []
-
-shutil.copytree(
-    os.path.join(current_dir, 'pmma'),
-    os.path.join(SITE_PACKAGE_DIR, 'pmma'),
-    ignore=ignore_temporary
-)
+shutil.copytree(os.path.join(current_dir, 'pmma'), os.path.join(SITE_PACKAGE_DIR, 'pmma'))
 
 print("=" * TERMINAL_SIZE)
