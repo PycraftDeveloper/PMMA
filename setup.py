@@ -62,7 +62,7 @@ elif sys.platform == "darwin":
         link_args.append("-arch")
         link_args.append("arm64")
 
-    glfw_libraries = ["glfw"]
+    glfw_libraries = ["glfw3"]
 else:
     raise NotImplementedError("Unsupported platform")
 
