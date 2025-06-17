@@ -239,3 +239,21 @@ jobs:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages_dir: dist
+
+      - name: Upload wheels and sdist to GitHub Release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          UPLOAD_URL: ${{ github.event.release.upload_url }}
+        run: |
+          for file in dist/*; do
+            filename=$(basename "$file")
+            echo "Uploading $filename ..."
+            # Strip the {?name,label} part from upload_url if exists
+            upload_url="${UPLOAD_URL%\{*}"
+            curl \
+              -X POST \
+              -H "Authorization: token $GITHUB_TOKEN" \
+              -H "Content-Type: application/octet-stream" \
+              --data-binary @"$file" \
+              "$upload_url?name=$filename"
+          done
