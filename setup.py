@@ -116,17 +116,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 with open("requirements.txt", "r", encoding="utf-8") as req_file:
     requirements = req_file.read().splitlines()
 
-package_data={"pmma": ["**/*"]}
-
-packages = []
-def list_dirs(root_dir):
-    for dirpath, dirnames, _ in os.walk(root_dir):
-        if not (dirpath in ["temporary", "pyx_src", "cpp_src", "hpp_src"]):
-            package = "pmma." + dirpath.replace(root_dir, "").replace(os.sep, ".")[1:]
-            if package == "pmma.":
-                package = "pmma"
-            packages.append(package)
-list_dirs(os.path.join(cwd, "pmma"))
+packages = ['pmma']
 
 setup(
     name="pmma",
@@ -149,6 +139,5 @@ setup(
     python_requires=">=3.8",
     install_requires=requirements,
     include_package_data=True,
-    package_data=package_data,
     ext_modules=cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True),
 )

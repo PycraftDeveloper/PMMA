@@ -1,0 +1,11 @@
+recursive-include pmma *
+
+include setup.py
+include requirements.txt
+include README.md
+
+prune pmma/core/cpp_src
+prune pmma/core/pyx_src
+prune pmma/core/hpp_src
+
+global-exclude *.pyc
