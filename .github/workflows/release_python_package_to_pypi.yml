@@ -93,19 +93,16 @@ jobs:
       if: runner.os == 'macOS'
       run: |
         export MACOSX_DEPLOYMENT_TARGET=14.0
-
     - name: Install dependencies (Linux)
       if: runner.os == 'Linux'
       run: |
         sudo apt-get update || true
         sudo apt-get install -y cmake build-essential || true
         sudo apt-get -y install libxi-dev libxrandr-dev libxinerama-dev libxcursor-dev libwayland-dev libxkbcommon-dev libgl1-mesa-dev
-
     - name: Install dependencies (Windows)
       if: runner.os == 'Windows'
       run: |
         choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
-
     - name: Cache pip dependencies
       uses: actions/cache@v3
       with:
@@ -113,12 +110,10 @@ jobs:
         key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
         restore-keys: |
           ${{ runner.os }}-pip-
-
     - name: Setup PIP
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine cython numpy
-
     #- name: Cache vcpkg
     #  if: runner.os == 'Windows'
     #  uses: actions/cache@v3
@@ -153,7 +148,6 @@ jobs:
         echo "Cleaning..."
         rm -rf "${{ env.BUILD_DIR }}" "${{ env.LIB_DIR }}" || true
         mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
-
     #- name: Configure CMake OLD
     #  run: |
     #    echo "Running CMake..."
@@ -193,41 +187,25 @@ jobs:
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 
-    - name: Rename wheel with unique name (Linux)
+    - name: Rename Linux wheel to manylinux2014
       if: runner.os == 'Linux'
       run: |
         ORIGINAL_WHEEL=$(ls dist/*.whl)
         RENAMED_WHEEL=$(echo "$ORIGINAL_WHEEL" | sed 's/linux/manylinux2014/')
-        # Append python version and arch
-        PYTHON_VERSION=${{ matrix.python-version }}
-        ARCH=${{ matrix.arch }}
-        NEW_NAME=$(basename "$RENAMED_WHEEL" .whl)-${PYTHON_VERSION}-${ARCH}.whl
-        mv "$ORIGINAL_WHEEL" "dist/$NEW_NAME"
-      shell: bash
-
-    - name: Rename wheel with unique name (Windows & MacOS)
-      if: runner.os != 'Linux'
-      run: |
-        ORIGINAL_WHEEL=$(ls dist/*.whl)
-        PYTHON_VERSION=${{ matrix.python-version }}
-        OS=${{ runner.os }}
-        ARCH=${{ matrix.arch }}
-        NEW_NAME=$(basename "$ORIGINAL_WHEEL" .whl)-${OS}-${PYTHON_VERSION}-${ARCH}.whl
-        mv "$ORIGINAL_WHEEL" "dist/$NEW_NAME"
-      shell: bash
+        mv "$ORIGINAL_WHEEL" "$RENAMED_WHEEL"
 
     - name: Upload wheel
       uses: actions/upload-artifact@v4
       with:
-        name: wheels-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.arch }}
+        name: wheel-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.arch }}
         path: dist/*.whl
 
   sdist:
       name: Build Source Distribution
       runs-on: ubuntu-latest
       steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v2
+      - uses: actions/setup-python@v2
         with:
           python-version: '3.10'
       - run: |
