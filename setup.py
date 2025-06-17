@@ -146,7 +146,7 @@ setup(
         "Operating System :: OS Independent",
     ],
     packages=packages,  # Include the pmma package and all its sub-packages
-    python_requires=">=3.6",
+    python_requires=">=3.8",
     install_requires=requirements,
     include_package_data=True,
     package_data=package_data,
