@@ -42,7 +42,7 @@ elif sys.platform.startswith("linux"):
     ]
     link_args = []
 
-    glfw_libraries = ["glfw", "GL", "X11", "pthread", "Xrandr", "Xi", "dl", "m"]
+    glfw_libraries = ["glfw3", "GL", "X11", "pthread", "Xrandr", "Xi", "dl", "m"]
 
 elif sys.platform == "darwin":
     compile_args = [
