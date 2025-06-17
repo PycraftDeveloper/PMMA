@@ -1,6 +1,6 @@
 #type: ignore
 
-from setuptools import setup, Extension, find_packages
+from setuptools import setup, Extension
 from Cython.Build import cythonize
 import sys, os
 import platform
@@ -121,7 +121,7 @@ package_data={"pmma": ["**/*"]}
 packages = []
 def list_dirs(root_dir):
     for dirpath, dirnames, _ in os.walk(root_dir):
-        if not "temporary" in dirpath:
+        if not (dirpath in ["temporary", "pyx_src", "cpp_src", "hpp_src"]):
             package = "pmma." + dirpath.replace(root_dir, "").replace(os.sep, ".")[1:]
             if package == "pmma.":
                 package = "pmma"
@@ -130,7 +130,7 @@ list_dirs(os.path.join(cwd, "pmma"))
 
 setup(
     name="pmma",
-    version="5.0.6",
+    version="5.0.7",
     author="PycraftDev",
     author_email="thomasjebbo@gmail.com",
     description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",

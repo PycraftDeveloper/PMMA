@@ -181,3 +181,9 @@ pmma/lib/*
 
 # Ignore everything in build_tools
 build_tools/*
+
+# Ignore everything in temporary/
+temporary/*
+
+# Ignore everything in pmma/extern
+pmma/extern/

@@ -73,8 +73,8 @@ jobs:
     env:
       BUILD_DIR: pmma/build
       LIB_DIR: pmma/lib
-      TEMP_DIR: pmma/temporary
-      CMAKE_TEMP_DIR: pmma/temporary/cmake
+      TEMP_DIR: temporary
+      CMAKE_TEMP_DIR: temporary/cmake
       VCPKG_DIR: build_tools/vcpkg
       VCPKG_CMAKE: build_tools/vcpkg/scripts/buildsystems/vcpkg.cmake
 

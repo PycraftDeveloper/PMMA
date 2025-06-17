@@ -16,7 +16,7 @@ sounddevice
 soundfile
 waiting
 watchdog
-wmi
 
 # Windows-specific requirement
 pywin32; sys_platform == 'win32'
+wmi; sys_platform == 'win32'
