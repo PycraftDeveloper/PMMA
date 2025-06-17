@@ -1,6 +1,8 @@
 cmake_minimum_required(VERSION 3.16)
 project(PMMA_Core LANGUAGES CXX)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -31,6 +33,8 @@ set(SOURCES
 add_library(
     ${LIB_NAME} SHARED ${SOURCES})
 target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
+
+set(GLFW_STATIC TRUE)
 
 # GLFW settings (platform-specific)
 if (WIN32)
