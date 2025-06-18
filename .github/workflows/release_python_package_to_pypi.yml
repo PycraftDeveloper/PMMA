@@ -15,66 +15,66 @@ jobs:
             arch: x64
             python-version: '3.8'
             python-tag: 'cp38-cp38'
-
-          - os: linux
-            runner: ubuntu-latest
-            arch: x64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
-
-          - os: linux
-            runner: ubuntu-latest
-            arch: x64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
-
-          - os: linux
-            runner: ubuntu-latest
-            arch: x64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
-
+#
+        #  - os: linux
+        #    runner: ubuntu-latest
+        #    arch: x64
+        #    python-version: '3.9'
+        #    python-tag: 'cp39-cp39'
+#
+        #  - os: linux
+        #    runner: ubuntu-latest
+        #    arch: x64
+        #    python-version: '3.10'
+        #    python-tag: 'cp310-cp310'
+#
+        #  - os: linux
+        #    runner: ubuntu-latest
+        #    arch: x64
+        #    python-version: '3.11'
+        #    python-tag: 'cp311-cp311'
+#
           - os: windows
             runner: windows-latest
             arch: x64
             python-version: '3.8'
             python-tag: 'cp38-cp38'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.8'
-            python-tag: 'cp38-cp38'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
+#
+        #  - os: windows
+        #    runner: windows-latest
+        #    arch: x64
+        #    python-version: '3.9'
+        #    python-tag: 'cp39-cp39'
+#
+        #  - os: windows
+        #    runner: windows-latest
+        #    arch: x64
+        #    python-version: '3.10'
+        #    python-tag: 'cp310-cp310'
+#
+        #  - os: windows
+        #    runner: windows-latest
+        #    arch: x64
+        #    python-version: '3.11'
+        #    python-tag: 'cp311-cp311'
+#
+        #  - os: macos
+        #    runner: macos-latest
+        #    arch: arm64
+        #    python-version: '3.8'
+        #    python-tag: 'cp38-cp38'
+#
+        #  - os: macos
+        #    runner: macos-latest
+        #    arch: arm64
+        #    python-version: '3.9'
+        #    python-tag: 'cp39-cp39'
+#
+        #  - os: macos
+        #    runner: macos-latest
+        #    arch: arm64
+        #    python-version: '3.10'
+        #    python-tag: 'cp310-cp310'
 
           - os: macos
             runner: macos-latest

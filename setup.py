@@ -7,20 +7,17 @@ import platform
 
 import numpy
 
-cwd = os.path.dirname(__file__)
+os.chdir(os.path.dirname(__file__))
 
 def add_source(name: str):
     return [
-        os.path.join(cwd, "pmma", "core", "pyx_src", f"{name}.pyx"),
-        os.path.join(cwd, "pmma", "core", "cpp_src", f"{name}.cpp")
+        os.path.join("pmma", "core", "pyx_src", f"{name}.pyx"),
+        os.path.join("pmma", "core", "cpp_src", f"{name}.cpp")
         ]
 
 if sys.platform.startswith("win"):
     compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17", "/wd4551", "/wd4251"] # disable warning 4551 & 4251 which is an issue for Cython
     link_args = ["/LTCG"]
-
-    build_tools_dir = os.path.join(cwd, "build_tools")
-    vcpkg_dir = os.path.join(build_tools_dir, "vcpkg")
 
     glfw_libraries = [
         "glfw3",
@@ -69,15 +66,15 @@ else:
 shared_name = 'PMMA_Core'
 
 def make_ext(name, extra_cpp=None, add_numpy=False):
-    sources = [os.path.join(cwd, "pmma", "core", "pyx_src", f"{name}.pyx")]
+    sources = [os.path.join("pmma", "core", "pyx_src", f"{name}.pyx")]
     if extra_cpp is not None:
         sources.extend(extra_cpp)
 
-    lib_dirs = [os.path.join(cwd, "pmma", "lib"), os.path.join(cwd, "pmma", "extern", "lib")]
+    lib_dirs = [os.path.join("pmma", "lib"), os.path.join("pmma", "extern", "lib")]
 
     libs = [shared_name, *glfw_libraries]
 
-    includes = [os.path.join(cwd, "pmma", "core", "hpp_src"), os.path.join(cwd, "pmma", "extern", "include")]
+    includes = [os.path.join("pmma", "core", "hpp_src"), os.path.join("pmma", "extern", "include")]
 
     if add_numpy:
         includes += [numpy.get_include()]
@@ -109,11 +106,11 @@ ext_modules = [
 ]
 
 # Read the long description from README.md
-with open(os.path.join(cwd, "README.md"), "r", encoding="utf-8") as fh:
+with open("README.md", "r", encoding="utf-8") as fh:
     long_description = fh.read()
 
 # Read the requirements from requirements.txt
-with open(os.path.join(cwd, "requirements.txt"), "r", encoding="utf-8") as req_file:
+with open("requirements.txt", "r", encoding="utf-8") as req_file:
     requirements = req_file.read().splitlines()
 
 packages = ['pmma']
