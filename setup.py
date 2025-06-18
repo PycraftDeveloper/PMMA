@@ -8,7 +8,9 @@ import platform
 import numpy
 
 cwd = os.path.dirname(__file__)
-os.chdir(os.path.dirname(__file__))
+
+if sys.platform.startswith("linux"):
+    os.chdir(os.path.dirname(__file__))
 
 def add_source(name: str):
     return [
