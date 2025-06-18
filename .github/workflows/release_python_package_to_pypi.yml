@@ -119,7 +119,7 @@ jobs:
       shell: bash
       run: mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
 
-    - name: Build on Linux using manylinux2014 Docker (manual run)
+    - name: Build on Linux using manylinux_2_28_x86_64 Docker (manual run)
       if: runner.os == 'Linux'
       run: |
         docker run --rm \
@@ -127,6 +127,7 @@ jobs:
           quay.io/pypa/manylinux_2_28_x86_64 \
           /bin/bash -c "
             yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel \
+            && ls /opt/python \
             && /opt/python/${{ matrix.python-version }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
             && mkdir -p /io/${{ env.CMAKE_TEMP_DIR }} \
             && cmake -S /io -B /io/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
