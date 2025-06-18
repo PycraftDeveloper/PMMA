@@ -34,11 +34,11 @@ jobs:
         #    python-version: '3.11'
         #    python-tag: 'cp311-cp311'
 #
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.8'
-            python-tag: 'cp38-cp38'
+        #  - os: windows
+        #    runner: windows-latest
+        #    arch: x64
+        #    python-version: '3.8'
+        #    python-tag: 'cp38-cp38'
 #
         #  - os: windows
         #    runner: windows-latest
@@ -123,19 +123,19 @@ jobs:
       if: runner.os == 'Linux'
       run: |
         docker run --rm \
-          -v "${{ github.workspace }}:/io" \
+          -v "${{ github.workspace }}:/PMMA" \
           quay.io/pypa/manylinux_2_28_x86_64 \
           /bin/bash -c "
             yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel \
             && /opt/python/${{ matrix.python-tag }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
-            && mkdir -p /io/${{ env.CMAKE_TEMP_DIR }} \
-            && cmake -S /io -B /io/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-            && cmake --build /io/${{ env.CMAKE_TEMP_DIR }} --config Release \
-            && find /io/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /io/${{ env.LIB_DIR }} {} + \
-            && rm -rf /io/${{ env.CMAKE_TEMP_DIR }} \
+            && mkdir -p /PMMA/${{ env.CMAKE_TEMP_DIR }} \
+            && cmake -S /PMMA -B /PMMA/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_INSTALL_LIBDIR=lib \
+            && cmake --build /PMMA/${{ env.CMAKE_TEMP_DIR }} --config Release \
+            && find /PMMA/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /PMMA/${{ env.LIB_DIR }} {} + \
+            && rm -rf /PMMA/${{ env.CMAKE_TEMP_DIR }} \
             && ls -lR | less \
-            && /opt/python/${{ matrix.python-tag }}/bin/python /io/setup.py build_ext --build-lib /io/${{ env.BUILD_DIR }} --build-temp /io/${{ env.TEMP_DIR }} sdist bdist_wheel \
-            && ORIGINAL_WHEEL=\$(ls /io/dist/*.whl) \
+            && /opt/python/${{ matrix.python-tag }}/bin/python /PMMA/setup.py build_ext --build-lib /PMMA/${{ env.BUILD_DIR }} --build-temp /PMMA/${{ env.TEMP_DIR }} sdist bdist_wheel \
+            && ORIGINAL_WHEEL=\$(ls /PMMA/dist/*.whl) \
             && RENAMED_WHEEL=\$(echo \"\$ORIGINAL_WHEEL\" | sed 's/linux/manylinux_2_28/') \
             && mv \"\$ORIGINAL_WHEEL\" \"\$RENAMED_WHEEL\"
           "
@@ -188,42 +188,42 @@ jobs:
           name: sdist
           path: dist/*.tar.gz
 
-  publish:
-    name: Publish to PyPI
-    runs-on: ubuntu-latest
-    needs: [build, sdist]
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: ./artifacts
-
-      - name: Move distribution files to expected location
-        run: |
-          mkdir -p dist
-          find artifacts -type f \( -name "*.whl" -o -name "*.tar.gz" \) -exec mv {} dist/ \;
-
-      - name: Publish all wheels and sdist
-        uses: pypa/gh-action-pypi-publish@v1.4.2
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          packages_dir: dist
-
-      - name: Upload wheels and sdist to GitHub Release
-        if: github.event_name == 'release'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          UPLOAD_URL: ${{ github.event.release.upload_url }}
-        run: |
-          for file in dist/*; do
-            filename=$(basename "$file")
-            echo "Uploading $filename ..."
-            upload_url="${UPLOAD_URL%\{*}"
-            curl \
-              -X POST \
-              -H "Authorization: token $GITHUB_TOKEN" \
-              -H "Content-Type: application/octet-stream" \
-              --data-binary @"$file" \
-              "$upload_url?name=$filename"
-          done
+  #publish:
+  #  name: Publish to PyPI
+  #  runs-on: ubuntu-latest
+  #  needs: [build, sdist]
+  #  steps:
+  #    - name: Download artifacts
+  #      uses: actions/download-artifact@v4
+  #      with:
+  #        path: ./artifacts
+#
+  #    - name: Move distribution files to expected location
+  #      run: |
+  #        mkdir -p dist
+  #        find artifacts -type f \( -name "*.whl" -o -name "*.tar.gz" \) -exec mv {} dist/ \;
+#
+  #    - name: Publish all wheels and sdist
+  #      uses: pypa/gh-action-pypi-publish@v1.4.2
+  #      with:
+  #        user: __token__
+  #        password: ${{ secrets.PYPI_API_TOKEN }}
+  #        packages_dir: dist
+#
+  #    - name: Upload wheels and sdist to GitHub Release
+  #      if: github.event_name == 'release'
+  #      env:
+  #        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #        UPLOAD_URL: ${{ github.event.release.upload_url }}
+  #      run: |
+  #        for file in dist/*; do
+  #          filename=$(basename "$file")
+  #          echo "Uploading $filename ..."
+  #          upload_url="${UPLOAD_URL%\{*}"
+  #          curl \
+  #            -X POST \
+  #            -H "Authorization: token $GITHUB_TOKEN" \
+  #            -H "Content-Type: application/octet-stream" \
+  #            --data-binary @"$file" \
+  #            "$upload_url?name=$filename"
+  #        done
