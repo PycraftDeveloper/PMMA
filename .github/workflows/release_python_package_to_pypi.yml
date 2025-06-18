@@ -133,7 +133,7 @@ jobs:
             && cmake --build /PMMA/${{ env.CMAKE_TEMP_DIR }} --config Release \
             && find /PMMA/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /PMMA/${{ env.LIB_DIR }} {} + \
             && rm -rf /PMMA/${{ env.CMAKE_TEMP_DIR }} \
-            && ls -lR | less \
+            && ls -lR /PMMA | less \
             && /opt/python/${{ matrix.python-tag }}/bin/python /PMMA/setup.py build_ext --build-lib /PMMA/${{ env.BUILD_DIR }} --build-temp /PMMA/${{ env.TEMP_DIR }} sdist bdist_wheel \
             && ORIGINAL_WHEEL=\$(ls /PMMA/dist/*.whl) \
             && RENAMED_WHEEL=\$(echo \"\$ORIGINAL_WHEEL\" | sed 's/linux/manylinux_2_28/') \
