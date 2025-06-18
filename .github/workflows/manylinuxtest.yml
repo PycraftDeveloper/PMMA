@@ -1,5 +1,5 @@
 
-name: Test pmma in manylinux2014
+name: Test pmma in manylinux_2_28_x86_64
 
 on:
   workflow_dispatch:  # Allow manual triggering
@@ -12,9 +12,9 @@ jobs:
     - name: Checkout dummy repo (if needed)
       uses: actions/checkout@v4
 
-    - name: Set up Docker container (manylinux2014)
+    - name: Set up Docker container (manylinux_2_28_x86_64)
       run: |
-        docker run --rm -v $(pwd):/io quay.io/pypa/manylinux2014_x86_64 /bin/bash -c "
+        docker run --rm -v $(pwd):/io quay.io/pypa/manylinux_2_28_x86_64 /bin/bash -c "
         /opt/python/cp310-cp310/bin/python3.10 -m pip install --upgrade pip
         /opt/python/cp310-cp310/bin/python3.10 -m pip install pmma==5.0.10
         /opt/python/cp310-cp310/bin/python3.10 -c 'import pmma; print(pmma.__version__)'
