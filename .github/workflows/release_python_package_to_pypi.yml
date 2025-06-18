@@ -129,7 +129,7 @@ jobs:
             yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel \
             && /opt/python/${{ matrix.python-tag }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
             && mkdir -p /PMMA/${{ env.CMAKE_TEMP_DIR }} \
-            && cmake -S /PMMA -B /PMMA/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_INSTALL_LIBDIR=lib \
+            && cmake -S /PMMA -B /PMMA/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
             && cmake --build /PMMA/${{ env.CMAKE_TEMP_DIR }} --config Release \
             && find /PMMA/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /PMMA/${{ env.LIB_DIR }} {} + \
             && rm -rf /PMMA/${{ env.CMAKE_TEMP_DIR }} \

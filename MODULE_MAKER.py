@@ -123,7 +123,7 @@ def build_shared_lib():
     #if platform.system() == "Windows":
         #subprocess.run(["cmake", cwd, f"-DCMAKE_TOOLCHAIN_FILE={vcpkg_cmake}"], cwd=cmake_temp_dir, check=True)
     #else:
-    subprocess.run(["cmake", cwd, "-DCMAKE_INSTALL_LIBDIR=lib"], cwd=cmake_temp_dir, check=True)
+    subprocess.run(["cmake", cwd], cwd=cmake_temp_dir, check=True)
 
     print("🔨 Building PMMA_Core...")
     build_command = ["cmake", "--build", "."]
