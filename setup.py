@@ -7,6 +7,7 @@ import platform
 
 import numpy
 
+cwd = os.path.dirname(__file__)
 os.chdir(os.path.dirname(__file__))
 
 def add_source(name: str):
@@ -70,11 +71,11 @@ def make_ext(name, extra_cpp=None, add_numpy=False):
     if extra_cpp is not None:
         sources.extend(extra_cpp)
 
-    lib_dirs = [os.path.join("pmma", "lib"), os.path.join("pmma", "extern", "lib")]
+    lib_dirs = [os.path.join(cwd, "pmma", "lib"), os.path.join(cwd, "pmma", "extern", "lib")]
 
     libs = [shared_name, *glfw_libraries]
 
-    includes = [os.path.join("pmma", "core", "hpp_src"), os.path.join("pmma", "extern", "include")]
+    includes = [os.path.join(cwd, "pmma", "core", "hpp_src"), os.path.join(cwd, "pmma", "extern", "include")]
 
     if add_numpy:
         includes += [numpy.get_include()]

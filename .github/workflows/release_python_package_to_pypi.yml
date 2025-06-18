@@ -76,11 +76,11 @@ jobs:
         #    python-version: '3.10'
         #    python-tag: 'cp310-cp310'
 
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
+        #  - os: macos
+        #    runner: macos-latest
+        #    arch: arm64
+        #    python-version: '3.11'
+        #    python-tag: 'cp311-cp311'
 
     runs-on: ${{ matrix.runner }}
     env:
@@ -133,6 +133,7 @@ jobs:
             && cmake --build /io/${{ env.CMAKE_TEMP_DIR }} --config Release \
             && find /io/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /io/${{ env.LIB_DIR }} {} + \
             && rm -rf /io/${{ env.CMAKE_TEMP_DIR }} \
+            && ls /io/pmma/extern/lib \
             && /opt/python/${{ matrix.python-tag }}/bin/python /io/setup.py build_ext --build-lib /io/${{ env.BUILD_DIR }} --build-temp /io/${{ env.TEMP_DIR }} sdist bdist_wheel \
             && ORIGINAL_WHEEL=\$(ls /io/dist/*.whl) \
             && RENAMED_WHEEL=\$(echo \"\$ORIGINAL_WHEEL\" | sed 's/linux/manylinux_2_28/') \
