@@ -14,61 +14,73 @@ jobs:
             runner: ubuntu-latest
             arch: x64
             python-version: '3.8'
+            python-tag: 'cp308-cp308'
 
           - os: linux
             runner: ubuntu-latest
             arch: x64
             python-version: '3.9'
+            python-tag: 'cp309-cp309'
 
           - os: linux
             runner: ubuntu-latest
             arch: x64
             python-version: '3.10'
+            python-tag: 'cp310-cp310'
 
           - os: linux
             runner: ubuntu-latest
             arch: x64
             python-version: '3.11'
+            python-tag: 'cp311-cp311'
 
           - os: windows
             runner: windows-latest
             arch: x64
             python-version: '3.8'
+            python-tag: 'cp308-cp308'
 
           - os: windows
             runner: windows-latest
             arch: x64
             python-version: '3.9'
+            python-tag: 'cp309-cp309'
 
           - os: windows
             runner: windows-latest
             arch: x64
             python-version: '3.10'
+            python-tag: 'cp310-cp310'
 
           - os: windows
             runner: windows-latest
             arch: x64
             python-version: '3.11'
+            python-tag: 'cp311-cp311'
 
           - os: macos
             runner: macos-latest
             arch: arm64
             python-version: '3.8'
+            python-tag: 'cp308-cp308'
 
           - os: macos
             runner: macos-latest
             arch: arm64
             python-version: '3.9'
+            python-tag: 'cp309-cp309'
 
           - os: macos
             runner: macos-latest
             arch: arm64
             python-version: '3.10'
+            python-tag: 'cp310-cp310'
 
           - os: macos
             runner: macos-latest
             arch: arm64
             python-version: '3.11'
+            python-tag: 'cp311-cp311'
 
     runs-on: ${{ matrix.runner }}
     env:
@@ -107,25 +119,24 @@ jobs:
       shell: bash
       run: mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
 
-    - name: Build on Linux using manylinux2014 Docker
+    - name: Build on Linux using manylinux2014 Docker (manual run)
       if: runner.os == 'Linux'
-      uses: docker://quay.io/pypa/manylinux_2_28_x86_64
-      with:
-        entrypoint: /bin/bash
-        command: |
-          -c "
-          yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel \
-          && python${{ matrix.python-version }} -m ensurepip \
-          && python${{ matrix.python-version }} -m pip install --upgrade pip setuptools wheel cython numpy \
-          && mkdir -p ${{ env.CMAKE_TEMP_DIR }} \
-          && cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-          && cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release \
-          && find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} + \
-          && rm -rf ${{ env.CMAKE_TEMP_DIR }} \
-          && python${{ matrix.python-version }} setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel \
-          && ORIGINAL_WHEEL=\$(ls dist/*.whl) \
-          && RENAMED_WHEEL=\$(echo \"\$ORIGINAL_WHEEL\" | sed 's/linux/manylinux_2_28/') \
-          && mv \"\$ORIGINAL_WHEEL\" \"\$RENAMED_WHEEL\"
+      run: |
+        docker run --rm \
+          -v "${{ github.workspace }}:/io" \
+          quay.io/pypa/manylinux_2_28_x86_64 \
+          /bin/bash -c "
+            yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel \
+            && /opt/python/${{ matrix.python-tag }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
+            && mkdir -p /io/${{ env.CMAKE_TEMP_DIR }} \
+            && cmake -S /io -B /io/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+            && cmake --build /io/${{ env.CMAKE_TEMP_DIR }} --config Release \
+            && find /io/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /io/${{ env.LIB_DIR }} {} + \
+            && rm -rf /io/${{ env.CMAKE_TEMP_DIR }} \
+            && /opt/python/${{ matrix.python-tag }}/bin/python /io/setup.py build_ext --build-lib /io/${{ env.BUILD_DIR }} --build-temp /io/${{ env.TEMP_DIR }} sdist bdist_wheel \
+            && ORIGINAL_WHEEL=\$(ls /io/dist/*.whl) \
+            && RENAMED_WHEEL=\$(echo \"\$ORIGINAL_WHEEL\" | sed 's/linux/manylinux_2_28/') \
+            && mv \"\$ORIGINAL_WHEEL\" \"\$RENAMED_WHEEL\"
           "
 
     - name: Configure CMake (non-Linux)
