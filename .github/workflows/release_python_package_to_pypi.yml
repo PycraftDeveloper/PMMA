@@ -154,13 +154,6 @@ jobs:
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 
-    - name: Rename Linux wheel to manylinux2014 (redundant safeguard)
-      if: runner.os == 'Linux'
-      run: |
-        ORIGINAL_WHEEL=$(ls dist/*.whl)
-        RENAMED_WHEEL=$(echo "$ORIGINAL_WHEEL" | sed 's/linux/manylinux2014/')
-        mv "$ORIGINAL_WHEEL" "$RENAMED_WHEEL"
-
     - name: Upload wheel
       uses: actions/upload-artifact@v4
       with:
