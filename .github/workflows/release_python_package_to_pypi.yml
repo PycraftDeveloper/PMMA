@@ -7,27 +7,26 @@ on:
 
 jobs:
   build:
-    runs-on: ${{ matrix.runner }}
     strategy:
       matrix:
         include:
-          - os: ubuntu
-            runner: ubuntu-22.04
+          - os: linux
+            runner: ubuntu-latest
             arch: x64
             python-version: '3.8'
 
-          - os: ubuntu
-            runner: ubuntu-22.04
+          - os: linux
+            runner: ubuntu-latest
             arch: x64
             python-version: '3.9'
 
-          - os: ubuntu
-            runner: ubuntu-22.04
+          - os: linux
+            runner: ubuntu-latest
             arch: x64
             python-version: '3.10'
 
-          - os: ubuntu
-            runner: ubuntu-22.04
+          - os: linux
+            runner: ubuntu-latest
             arch: x64
             python-version: '3.11'
 
@@ -70,13 +69,13 @@ jobs:
             runner: macos-latest
             arch: arm64
             python-version: '3.11'
+
+    runs-on: ${{ matrix.runner }}
     env:
       BUILD_DIR: pmma/build
       LIB_DIR: pmma/lib
       TEMP_DIR: temporary
       CMAKE_TEMP_DIR: temporary/cmake
-      VCPKG_DIR: build_tools/vcpkg
-      VCPKG_CMAKE: build_tools/vcpkg/scripts/buildsystems/vcpkg.cmake
 
     steps:
     - name: Checkout repo
@@ -85,89 +84,53 @@ jobs:
         fetch-depth: 0
 
     - name: Setup Python
+      if: runner.os != 'Linux'
       uses: actions/setup-python@v5
       with:
         python-version: ${{ matrix.python-version }}
 
     - name: Set macOS Deployment Target
       if: runner.os == 'macOS'
-      run: |
-        export MACOSX_DEPLOYMENT_TARGET=14.0
+      run: export MACOSX_DEPLOYMENT_TARGET=14.0
 
-    - name: Install dependencies (Linux)
-      if: runner.os == 'Linux'
-      run: |
-        sudo apt-get update || true
-        sudo apt-get install -y cmake build-essential || true
-        sudo apt-get -y install libxi-dev libxrandr-dev libxinerama-dev libxcursor-dev libwayland-dev libxkbcommon-dev libgl1-mesa-dev
-    - name: Install dependencies (Windows)
+    - name: Install Dependencies (Windows)
       if: runner.os == 'Windows'
-      run: |
-        choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+      run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
 
-    - name: Cache pip dependencies
-      uses: actions/cache@v3
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    - name: Setup PIP
+    - name: Setup pip (non-Linux)
+      if: runner.os != 'Linux'
       run: |
         python -m pip install --upgrade pip
         pip install setuptools wheel twine cython numpy
-    #- name: Cache vcpkg
-    #  if: runner.os == 'Windows'
-    #  uses: actions/cache@v3
-    #  with:
-    #    path: ${{ env.VCPKG_DIR }}
-    #    key: ${{ runner.os }}-vcpkg-${{ hashFiles('**/vcpkg.json') }}
-    #    restore-keys: |
-    #      ${{ runner.os }}-vcpkg-
-
-    #- name: Cache vcpkg installed packages
-    #  uses: actions/cache@v3
-    #  with:
-    #    path: |
-    #      ${{ env.VCPKG_DIR }}/installed
-    #      ${{ env.VCPKG_DIR }}/buildtrees
-    #      ${{ env.VCPKG_DIR }}/packages
-    #    key: ${{ runner.os }}-vcpkg-cache-${{ hashFiles('**/vcpkg.json') }}
-    #    restore-keys: |
-    #      ${{ runner.os }}-vcpkg-cache-
-
-    #- name: Clone and bootstrap vcpkg (Windows only)
-    #  if: runner.os == 'Windows'
-    #  run: |
-    #    git clone https://github.com/microsoft/vcpkg.git $env:VCPKG_DIR
-    #    .\build_tools\vcpkg\bootstrap-vcpkg.bat
-    #    .\build_tools\vcpkg\vcpkg.exe install glfw3
-    #    .\build_tools\vcpkg\vcpkg.exe integrate install
 
     - name: Clean old build directories
       shell: bash
-      run: |
-        echo "Cleaning..."
-        mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
-    #- name: Configure CMake OLD
-    #  run: |
-    #    echo "Running CMake..."
-    #    if [[ "${{ runner.os }}" == "Windows" ]]; then
-    #      cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_TOOLCHAIN_FILE=${{ env.VCPKG_CMAKE }}
-    #    elif [[ "${{ runner.os }}" == "macOS" ]]; then
-    #      export MACOSX_DEPLOYMENT_TARGET=14.0
-    #      export CFLAGS="-arch arm64"
-    #      export CXXFLAGS="-arch arm64"
-    #      cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
-    #    else
-    #      cmake -S . -B ${{ env.CMAKE_TEMP_DIR }}
-    #    fi
-    #  shell: bash
+      run: mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
 
-    - name: Configure CMake NEW
+    - name: Build on Linux using manylinux2014 Docker
+      if: runner.os == 'Linux'
+      uses: docker://quay.io/pypa/manylinux_2_28_x86_64
+      with:
+        entrypoint: /bin/bash
+        command: |
+          -c "
+          yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel \
+          && python${{ matrix.python-version }} -m ensurepip \
+          && python${{ matrix.python-version }} -m pip install --upgrade pip setuptools wheel cython numpy \
+          && mkdir -p ${{ env.CMAKE_TEMP_DIR }} \
+          && cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+          && cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release \
+          && find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} + \
+          && rm -rf ${{ env.CMAKE_TEMP_DIR }} \
+          && python${{ matrix.python-version }} setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel \
+          && ORIGINAL_WHEEL=\$(ls dist/*.whl) \
+          && RENAMED_WHEEL=\$(echo \"\$ORIGINAL_WHEEL\" | sed 's/linux/manylinux_2_28/') \
+          && mv \"\$ORIGINAL_WHEEL\" \"\$RENAMED_WHEEL\"
+          "
+
+    - name: Configure CMake (non-Linux)
+      if: runner.os != 'Linux'
       run: |
-        echo "Running CMake..."
         if [[ "${{ runner.os }}" == "macOS" ]]; then
           export MACOSX_DEPLOYMENT_TARGET=14.0
           export CFLAGS="-arch arm64"
@@ -178,18 +141,20 @@ jobs:
         fi
       shell: bash
 
-    - name: Build Shared Library
+    - name: Build Shared Library (non-Linux)
+      if: runner.os != 'Linux'
       run: |
         cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release
         find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
 
-    - name: Build Wheel
+    - name: Build Wheel (non-Linux)
+      if: runner.os != 'Linux'
       run: |
         python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
 
-    - name: Rename Linux wheel to manylinux2014
+    - name: Rename Linux wheel to manylinux2014 (redundant safeguard)
       if: runner.os == 'Linux'
       run: |
         ORIGINAL_WHEEL=$(ls dist/*.whl)
@@ -203,9 +168,9 @@ jobs:
         path: dist/*.whl
 
   sdist:
-      name: Build Source Distribution
-      runs-on: ubuntu-latest
-      steps:
+    name: Build Source Distribution
+    runs-on: ubuntu-latest
+    steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-python@v2
         with:
@@ -249,7 +214,6 @@ jobs:
           for file in dist/*; do
             filename=$(basename "$file")
             echo "Uploading $filename ..."
-            # Strip the {?name,label} part from upload_url if exists
             upload_url="${UPLOAD_URL%\{*}"
             curl \
               -X POST \
