@@ -126,7 +126,7 @@ jobs:
           -v "${{ github.workspace }}:/io" \
           quay.io/pypa/manylinux_2_28_x86_64 \
           /bin/bash -c "
-            yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel libwayland-devel libxkbcommon-devel libgl1-mesa-devel \
+            yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel libwayland-client libxkbcommon-devel \
             && /opt/python/${{ matrix.python-tag }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
             && mkdir -p /io/${{ env.CMAKE_TEMP_DIR }} \
             && cmake -S /io -B /io/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
