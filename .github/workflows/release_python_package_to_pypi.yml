@@ -127,13 +127,13 @@ jobs:
           quay.io/pypa/manylinux_2_28_x86_64 \
           /bin/bash -c "
             yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel \
-            && /opt/python/${{ matrix.python-tag }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
+            && /opt/python/${{ matrix.python-version }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
             && mkdir -p /io/${{ env.CMAKE_TEMP_DIR }} \
             && cmake -S /io -B /io/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
             && cmake --build /io/${{ env.CMAKE_TEMP_DIR }} --config Release \
             && find /io/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /io/${{ env.LIB_DIR }} {} + \
             && rm -rf /io/${{ env.CMAKE_TEMP_DIR }} \
-            && /opt/python/${{ matrix.python-tag }}/bin/python /io/setup.py build_ext --build-lib /io/${{ env.BUILD_DIR }} --build-temp /io/${{ env.TEMP_DIR }} sdist bdist_wheel \
+            && /opt/python/${{ matrix.python-version }}/bin/python /io/setup.py build_ext --build-lib /io/${{ env.BUILD_DIR }} --build-temp /io/${{ env.TEMP_DIR }} sdist bdist_wheel \
             && ORIGINAL_WHEEL=\$(ls /io/dist/*.whl) \
             && RENAMED_WHEEL=\$(echo \"\$ORIGINAL_WHEEL\" | sed 's/linux/manylinux_2_28/') \
             && mv \"\$ORIGINAL_WHEEL\" \"\$RENAMED_WHEEL\"
