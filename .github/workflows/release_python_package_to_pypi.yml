@@ -46,11 +46,11 @@ jobs:
 #            python-version: '3.9'
 #            python-tag: 'cp39-cp39'
 #
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
+#          - os: windows
+#            runner: windows-latest
+#            arch: x64
+#            python-version: '3.10'
+#            python-tag: 'cp310-cp310'
 #
 #          - os: windows
 #            runner: windows-latest
@@ -70,11 +70,11 @@ jobs:
 #            python-version: '3.9'
 #            python-tag: 'cp39-cp39'
 #
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
+#          - os: macos
+#            runner: macos-latest
+#            arch: arm64
+#            python-version: '3.10'
+#            python-tag: 'cp310-cp310'
 #
 #          - os: macos
 #            runner: macos-latest

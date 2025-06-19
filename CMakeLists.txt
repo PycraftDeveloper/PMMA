@@ -65,11 +65,14 @@ add_custom_target(glfw_install
 )
 
 # ZLib #################################################################
+set(ZLIB_ENABLE_TESTS OFF)
+
 FetchContent_Declare(
     zlib
     GIT_REPOSITORY https://github.com/madler/zlib.git
     GIT_TAG v1.3.1
 )
+set(ZLIB_BUILD_SHARED OFF CACHE BOOL "Build shared libraries")
 FetchContent_MakeAvailable(zlib)
 
 set(ZLIB_SOURCE_DIR ${zlib_SOURCE_DIR})

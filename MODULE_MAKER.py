@@ -135,7 +135,7 @@ def build_shared_lib():
     print("🔨 Building PMMA_Core...")
     build_command = ["cmake", "--build", "."]
     if platform.system() == "Windows":
-        build_command += ["--config", "Release", "--verbose"]
+        build_command += ["--config", "Release"]
     subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
     flatten_dir(lib_dir)
