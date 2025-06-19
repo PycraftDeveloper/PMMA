@@ -81,6 +81,8 @@ file(MAKE_DIRECTORY ${ZLIB_BUILD_DIR})
 
 add_custom_target(zlib_install
     COMMAND ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${EXTERN_INSTALL_DIR}
+                             -DCMAKE_C_FLAGS=-fPIC
+                             -DCMAKE_POSITION_INDEPENDENT_CODE=ON
                              -S ${ZLIB_SOURCE_DIR}
                              -B ${ZLIB_BUILD_DIR}
     COMMAND ${CMAKE_COMMAND} --build ${ZLIB_BUILD_DIR} --target install --config Release
