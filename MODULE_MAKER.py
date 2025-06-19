@@ -1,5 +1,8 @@
 #type: ignore
 
+# Additional dependencies: pkgconf-pkg-config zlib-devel libpng-devel bzip2-devel brotli-devel?
+
+
 import shutil
 import os
 import site
@@ -123,7 +126,7 @@ def build_shared_lib():
     #if platform.system() == "Windows":
         #subprocess.run(["cmake", cwd, f"-DCMAKE_TOOLCHAIN_FILE={vcpkg_cmake}"], cwd=cmake_temp_dir, check=True)
     #else:
-    subprocess.run(["cmake", cwd], cwd=cmake_temp_dir, check=True)
+    subprocess.run(["cmake", "-DCMAKE_POLICY_VERSION_MINIMUM=3.5", cwd], cwd=cmake_temp_dir, check=True)
 
     print("🔨 Building PMMA_Core...")
     build_command = ["cmake", "--build", "."]

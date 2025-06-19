@@ -15,7 +15,8 @@ jobs:
     - name: Set up Docker container (manylinux_2_28_x86_64)
       run: |
         docker run --rm -v $(pwd):/io quay.io/pypa/manylinux_2_28_x86_64 /bin/bash -c "
-        yum install -y libXrandr libXi
+        yum install -y libXrandr libXi cmake
+        cmake --version
         /opt/python/cp310-cp310/bin/python3.10 -m pip install --upgrade pip
         /opt/python/cp310-cp310/bin/python3.10 -m pip install pmma==5.0.10
         /opt/python/cp310-cp310/bin/python3.10 -c 'import pmma; print(pmma.__version__)'
