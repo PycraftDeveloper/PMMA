@@ -117,7 +117,9 @@ jobs:
 
     - name: Clean old build directories
       shell: bash
-      run: mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
+      run: |
+        mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
+        cp -a extern/. pmma/extern/
 
     - name: Build on Linux using manylinux_2_28_x86_64 Docker (manual run)
       if: runner.os == 'Linux'

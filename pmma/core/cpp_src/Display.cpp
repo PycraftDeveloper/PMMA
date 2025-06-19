@@ -102,6 +102,11 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     Centered = NewCentered;
     Maximized = NewMaximized;
 
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     GLFWwindow* TemporaryWindow = glfwCreateWindow(1, 1, Caption.c_str(), NULL, NULL);
     if (!TemporaryWindow) {
@@ -191,6 +196,11 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
     } else {
         glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
     }
+
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     if (FullScreen) {
         Window = glfwCreateWindow(Size[0], Size[1], Caption.c_str(), TargetMonitor, NULL);

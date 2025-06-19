@@ -22,6 +22,7 @@ pyx_dir = os.path.join(cwd, "pmma", "core", "pyx_src")
 cmake_temp_dir = os.path.join(temp_dir, "cmake")
 build_tools_dir = os.path.join(cwd, "build_tools")
 vcpkg_dir = os.path.join(build_tools_dir, "vcpkg")
+perm_extern_dir = os.path.join(cwd, "extern")
 
 vcpkg_cmake = os.path.join(vcpkg_dir, "scripts", "buildsystems", "vcpkg.cmake")
 
@@ -62,6 +63,9 @@ def clean_old_build():
 
     if os.path.exists(extern_dir):
         shutil.rmtree(extern_dir, ignore_errors=False)
+
+        shutil.copytree(perm_extern_dir, extern_dir, dirs_exist_ok=True)
+
 
 print("=" * TERMINAL_SIZE)
 
@@ -131,7 +135,7 @@ def build_shared_lib():
     print("🔨 Building PMMA_Core...")
     build_command = ["cmake", "--build", "."]
     if platform.system() == "Windows":
-        build_command += ["--config", "Release"]
+        build_command += ["--config", "Release", "--verbose"]
     subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
     flatten_dir(lib_dir)

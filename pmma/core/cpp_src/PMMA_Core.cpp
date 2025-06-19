@@ -1,3 +1,6 @@
+#define GLAD_GL_IMPLEMENTATION
+#include <glad/gl.h>
+
 #include <vector>
 
 #include "PMMA_Core.hpp"

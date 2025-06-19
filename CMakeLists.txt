@@ -16,6 +16,7 @@ set(INCLUDE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/pmma/core/hpp_src")
 
 set(EXTERN_INSTALL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/pmma/extern)
 file(MAKE_DIRECTORY ${EXTERN_INSTALL_DIR})
+file(MAKE_DIRECTORY ${EXTERN_INSTALL_DIR}/include)
 
 # Output directory for the library
 set(LIB_OUTPUT_DIR "${CMAKE_CURRENT_SOURCE_DIR}/pmma/lib")
@@ -67,13 +68,9 @@ add_custom_target(glfw_install
 FetchContent_Declare(
     zlib
     GIT_REPOSITORY https://github.com/madler/zlib.git
-    GIT_TAG v1.2.11  # adjust tag if needed
+    GIT_TAG v1.3.1
 )
 FetchContent_MakeAvailable(zlib)
-
-file(READ "${zlib_SOURCE_DIR}/CMakeLists.txt" ZLIB_CMAKE_CONTENTS)
-string(REPLACE "cmake_minimum_required(VERSION 2.8)" "cmake_minimum_required(VERSION 3.5)" ZLIB_CMAKE_CONTENTS "${ZLIB_CMAKE_CONTENTS}")
-file(WRITE "${zlib_SOURCE_DIR}/CMakeLists.txt" "${ZLIB_CMAKE_CONTENTS}")
 
 set(ZLIB_SOURCE_DIR ${zlib_SOURCE_DIR})
 set(ZLIB_BUILD_DIR ${CMAKE_BINARY_DIR}/_zlib_build)
@@ -85,17 +82,6 @@ add_custom_target(zlib_install
                              -B ${ZLIB_BUILD_DIR}
     COMMAND ${CMAKE_COMMAND} --build ${ZLIB_BUILD_DIR} --target install --config Release
     COMMENT "Installing ZLib to ${EXTERN_INSTALL_DIR}"
-)
-
-execute_process(
-    COMMAND ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${EXTERN_INSTALL_DIR}
-                              -DCMAKE_BUILD_TYPE=Release
-                              -S ${ZLIB_SOURCE_DIR}
-                              -B ${ZLIB_BUILD_DIR}
-)
-
-execute_process(
-    COMMAND ${CMAKE_COMMAND} --build ${ZLIB_BUILD_DIR} --target install --config Release
 )
 
 set(ZLIB_ROOT ${EXTERN_INSTALL_DIR})
@@ -115,22 +101,23 @@ set(ZLIB_INCLUDE_DIR "${EXTERN_INSTALL_DIR}/include")
 FetchContent_Declare(
     libpng
     GIT_REPOSITORY https://github.com/glennrp/libpng.git
-    GIT_TAG v1.6.37  # adjust if required
+    GIT_TAG v1.6.49
 )
 FetchContent_MakeAvailable(libpng)
-
-file(READ "${libpng_SOURCE_DIR}/CMakeLists.txt" LIBPNG_CMAKE_CONTENTS)
-string(REPLACE "cmake_minimum_required(VERSION 2.8)" "cmake_minimum_required(VERSION 3.5)" LIBPNG_CMAKE_CONTENTS "${LIBPNG_CMAKE_CONTENTS}")
-file(WRITE "${libpng_SOURCE_DIR}/CMakeLists.txt" "${LIBPNG_CMAKE_CONTENTS}")
 
 set(LIBPNG_SOURCE_DIR ${libpng_SOURCE_DIR})
 set(LIBPNG_BUILD_DIR ${CMAKE_BINARY_DIR}/_libpng_build)
 file(MAKE_DIRECTORY ${LIBPNG_BUILD_DIR})
 
 add_custom_target(libpng_install
-    COMMAND ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${EXTERN_INSTALL_DIR}
-                             -S ${LIBPNG_SOURCE_DIR}
-                             -B ${LIBPNG_BUILD_DIR}
+    COMMAND ${CMAKE_COMMAND}
+        -DCMAKE_INSTALL_PREFIX=${EXTERN_INSTALL_DIR}
+        -DZLIB_LIBRARY=${ZLIB_LIBRARY}
+        -DZLIB_INCLUDE_DIR=${ZLIB_INCLUDE_DIR}
+        -DCMAKE_PREFIX_PATH=${EXTERN_INSTALL_DIR}
+        -DCMAKE_BUILD_TYPE=Release
+        -S ${LIBPNG_SOURCE_DIR}
+        -B ${LIBPNG_BUILD_DIR}
     COMMAND ${CMAKE_COMMAND} --build ${LIBPNG_BUILD_DIR} --target install --config Release
     COMMENT "Installing libpng to ${EXTERN_INSTALL_DIR}"
 )
@@ -176,18 +163,12 @@ add_custom_target(brotlidec_install
 )
 
 # Fetch FreeType #######################################################
-set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
-
 FetchContent_Declare(
     freetype
     GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
     GIT_TAG VER-2-13-3
 )
 FetchContent_MakeAvailable(freetype)
-
-file(READ "${freetype_SOURCE_DIR}/CMakeLists.txt" FREETYPE_CMAKE_CONTENTS)
-string(REPLACE "cmake_minimum_required(VERSION 2.8)" "cmake_minimum_required(VERSION 3.5)" FREETYPE_CMAKE_CONTENTS "${FREETYPE_CMAKE_CONTENTS}")
-file(WRITE "${freetype_SOURCE_DIR}/CMakeLists.txt" "${FREETYPE_CMAKE_CONTENTS}")
 
 # Build + install paths
 set(FREETYPE_SOURCE_DIR ${freetype_SOURCE_DIR})
@@ -209,14 +190,32 @@ add_custom_target(freetype_install
     COMMENT "Installing FreeType to ${EXTERN_INSTALL_DIR}"
 )
 
+# Fetch GLM ###########################################################
+
+FetchContent_Declare(
+    glm
+    GIT_REPOSITORY https://github.com/g-truc/glm.git
+    GIT_TAG 1.0.1
+)
+FetchContent_MakeAvailable(glm)
+
+add_custom_target(glm_install
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        ${glm_SOURCE_DIR}/glm
+        ${EXTERN_INSTALL_DIR}/include/glm
+    COMMENT "Installing glm headers to ${EXTERN_INSTALL_DIR}/include/glm"
+)
+
 ########################################################################
 
 # Add shared library
 add_library(${LIB_NAME} SHARED ${SOURCES})
 
+add_dependencies(libpng_install zlib_install)
 add_dependencies(freetype_install zlib_install libpng_install bzip2_install brotlidec_install)
-add_dependencies(${LIB_NAME} glfw_install freetype_install)
-add_custom_target(build_all DEPENDS glfw_install freetype_install ${LIB_NAME})
+add_dependencies(${LIB_NAME} glfw_install freetype_install glm_install)
+
+add_custom_target(build_all DEPENDS glfw_install freetype_install glm_install ${LIB_NAME})
 
 target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
@@ -246,4 +245,4 @@ set_target_properties(${LIB_NAME} PROPERTIES
     ARCHIVE_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
 )
 
-message(STATUS "GLFW installed in ${GLFW_INSTALL_DIR}")
+message(STATUS "PMMA_Core & Dependencies code compilation complete!")

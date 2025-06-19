@@ -3,7 +3,7 @@
 #include <ft2build.h> // freetype
 #include FT_FREETYPE_H
 
-#include <glad/glad.h>
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
 #include <iostream>
