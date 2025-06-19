@@ -14,9 +14,9 @@ Typically, developing applications in Python necessitates familiarity with a var
 ## Contents
 
 * [Development Progress](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#development-progress)
-* [Installation]()
-* [Build Guide]()
-* [Troubleshooting]()
+* [Installation](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation)
+* [Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md#pmma-build-guide)
+* [Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-troubleshooting)
 
 ## Development Progress
 
@@ -52,4 +52,4 @@ _Please note, these requirements are only needed by users installing PMMA onto L
 
 > For older versions of PMMA, there are no hardware requirements.
 
-_If you encounter any issues or problems then check out our [troubleshooting page]()._
+_If you encounter any issues or problems then check out our [troubleshooting page](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-troubleshooting)._

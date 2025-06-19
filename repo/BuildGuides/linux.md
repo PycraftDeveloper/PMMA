@@ -6,4 +6,7 @@
 
 # PMMA (Python Multi-Media API)
 
+## Contents
+* [Back to the README](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#contents)
+
 ## Linux Build Guide

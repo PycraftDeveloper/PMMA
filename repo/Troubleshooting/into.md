@@ -7,9 +7,10 @@
 # PMMA (Python Multi-Media API)
 
 ## Contents
-* [Windows Troubleshooting]()
-* [MacOS Troubleshooting]()
-* [Linux Troubleshooting]()
+* [Back to the README](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#contents)
+* [Windows Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/windows.md#windows-troubleshooting)
+* [MacOS Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/macos.md#macos-troubleshooting)
+* [Linux Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/linux.md#linux-troubleshooting)
 
 ## PMMA Troubleshooting
 

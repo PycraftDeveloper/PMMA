@@ -6,4 +6,10 @@
 
 # PMMA (Python Multi-Media API)
 
+## Contents
+* [Back to the README](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#contents)
+* [Windows Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/windows.md#windows-build-guide)
+* [MacOS Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/macos.md#macos-build-guide)
+* [Linux Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/linux.md#linux-build-guide)
+
 ## PMMA Build Guide
