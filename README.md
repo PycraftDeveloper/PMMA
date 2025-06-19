@@ -30,13 +30,13 @@ You can install the latest version of PMMA from PyPi using the command: `pip ins
 
 ### Requirements
 
- In order to install PMMA 5 and newer, you must ensure you meet the following criteria:
+In order to install PMMA 5 and newer, you must ensure you meet the following criteria:
 
- | Category | Requirement |
- | :-------- | :------: |
- | Operating System | <table>  <thead>  <tr>  <th>Operating System</th>  <th>Architecture</th>  </tr>  </thead>  <tbody>  <tr>  <td>`Windows`, `ALT Linux 10+`, `RHEL 9+`, `Debian 11+`, `Fedora 34+`, `Mageia 8+`, `Photon OS 3.0 (with updates)`, `Ubuntu 21.04+`</td>  <td><code>64-bit</code></td>  </tr>  <tr>  <td>`MacOS`</td>  <td><code>ARM-64</code></td>  </tr>  </tbody>  </table> |
- | Python Version | `3.8.x`, `3.9.x`, `3.10.x`, `3.11.x` |
- | `pip` Version | `20.3 or newer` |
+| Category | Requirement |
+| :-------- | :------: |
+| Operating System | `Windows`, `ALT Linux 10+`, `RHEL 9+`, `Debian 11+`, `Fedora 34+`, `Mageia 8+`, `Photon OS 3.0 (with updates)`, `Ubuntu 21.04+` **Architecture**: `64-bit (x64)`<br><br>`MacOS` **Architecture**:  `arm-64` |
+| Python Version | `3.8.x`, `3.9.x`, `3.10.x`, `3.11.x` |
+| `pip` Version | `20.3 or newer` |
 
 <details><summary>Additional Technical Requirements</summary>
 
@@ -51,3 +51,5 @@ _Please note, these requirements are only needed by users installing PMMA onto L
 </br>
 
 > For older versions of PMMA, there are no hardware requirements.
+
+_If you encounter any issues or problems then check out our [troubleshooting page]()._
