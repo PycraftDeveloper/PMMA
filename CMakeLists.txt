@@ -31,8 +31,7 @@ set(SOURCES
     "${SRC_DIR}/FractalBrownianMotion.cpp"
     "${SRC_DIR}/InternalEventsManager.cpp"
     "${SRC_DIR}/NumberConverter.cpp"
-    "${SRC_DIR}/PerlinNoise.cpp"
-    "${SRC_DIR}/TextRenderer.cpp")
+    "${SRC_DIR}/PerlinNoise.cpp")
 
 include(FetchContent)
 
