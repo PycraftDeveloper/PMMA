@@ -10,17 +10,17 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: linux
-            runner: ubuntu-latest
-            arch: x64
-            python-version: '3.8'
-            python-tag: 'cp38-cp38'
-
-          - os: linux
-            runner: ubuntu-latest
-            arch: x64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
+          #- os: linux
+          #  runner: ubuntu-latest
+          #  arch: x64
+          #  python-version: '3.8'
+          #  python-tag: 'cp38-cp38'
+#
+          #- os: linux
+          #  runner: ubuntu-latest
+          #  arch: x64
+          #  python-version: '3.9'
+          #  python-tag: 'cp39-cp39'
 
           - os: linux
             runner: ubuntu-latest
@@ -28,23 +28,23 @@ jobs:
             python-version: '3.10'
             python-tag: 'cp310-cp310'
 
-          - os: linux
-            runner: ubuntu-latest
-            arch: x64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.8'
-            python-tag: 'cp38-cp38'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
+          #- os: linux
+          #  runner: ubuntu-latest
+          #  arch: x64
+          #  python-version: '3.11'
+          #  python-tag: 'cp311-cp311'
+#
+          #- os: windows
+          #  runner: windows-latest
+          #  arch: x64
+          #  python-version: '3.8'
+          #  python-tag: 'cp38-cp38'
+#
+          #- os: windows
+          #  runner: windows-latest
+          #  arch: x64
+          #  python-version: '3.9'
+          #  python-tag: 'cp39-cp39'
 
           - os: windows
             runner: windows-latest
@@ -52,23 +52,23 @@ jobs:
             python-version: '3.10'
             python-tag: 'cp310-cp310'
 
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.8'
-            python-tag: 'cp38-cp38'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
+          #- os: windows
+          #  runner: windows-latest
+          #  arch: x64
+          #  python-version: '3.11'
+          #  python-tag: 'cp311-cp311'
+#
+          #- os: macos
+          #  runner: macos-latest
+          #  arch: arm64
+          #  python-version: '3.8'
+          #  python-tag: 'cp38-cp38'
+#
+          #- os: macos
+          #  runner: macos-latest
+          #  arch: arm64
+          #  python-version: '3.9'
+          #  python-tag: 'cp39-cp39'
 
           - os: macos
             runner: macos-latest
@@ -76,11 +76,11 @@ jobs:
             python-version: '3.10'
             python-tag: 'cp310-cp310'
 
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
+          #- os: macos
+          #  runner: macos-latest
+          #  arch: arm64
+          #  python-version: '3.11'
+          #  python-tag: 'cp311-cp311'
 
     runs-on: ${{ matrix.runner }}
     env:
@@ -132,7 +132,7 @@ jobs:
             && /opt/python/${{ matrix.python-tag }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
             && mkdir -p /PMMA/${{ env.CMAKE_TEMP_DIR }} \
             && cmake -S /PMMA -B /PMMA/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-            && cmake --build /PMMA/${{ env.CMAKE_TEMP_DIR }} --config Release \
+            && cmake --build /PMMA/${{ env.CMAKE_TEMP_DIR }} --config Release -- -j{nproc} \
             && find /PMMA/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /PMMA/${{ env.LIB_DIR }} {} + \
             && rm -rf /PMMA/${{ env.CMAKE_TEMP_DIR }} \
             && /opt/python/${{ matrix.python-tag }}/bin/python /PMMA/setup.py build_ext --build-lib /PMMA/${{ env.BUILD_DIR }} --build-temp /PMMA/${{ env.TEMP_DIR }} sdist bdist_wheel \
@@ -154,10 +154,18 @@ jobs:
         fi
       shell: bash
 
-    - name: Build Shared Library (non-Linux)
-      if: runner.os != 'Linux'
+    - name: Build Shared Library (MacOS)
+      if: runner.os == 'macOS'
       run: |
-        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release
+        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- -j{nproc}
+        find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
+        rm -rf ${{ env.CMAKE_TEMP_DIR }}
+      shell: bash
+
+    - name: Build Shared Library (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- /m
         find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
@@ -173,58 +181,59 @@ jobs:
         name: wheel-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.arch }}
         path: dist/*.whl
 
-  sdist:
-    name: Build Source Distribution
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
-        with:
-          python-version: '3.10'
-      - run: |
-          pip install setuptools wheel cython numpy
-          python setup.py sdist
-      - uses: actions/upload-artifact@v4
-        with:
-          name: sdist
-          path: dist/*.tar.gz
+#  sdist:
+#    name: Build Source Distribution
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#      - uses: actions/setup-python@v2
+#        with:
+#          python-version: '3.10'
+#      - run: |
+#          pip install setuptools wheel cython numpy
+#          python setup.py sdist
+#      - uses: actions/upload-artifact@v4
+#        with:
+#          name: sdist
+#          path: dist/*.tar.gz
 
-  publish:
-    name: Publish to PyPI
-    runs-on: ubuntu-latest
-    needs: [build, sdist]
-    steps:
-      - name: Download artifacts
-        uses: actions/download-artifact@v4
-        with:
-          path: ./artifacts
-
-      - name: Move distribution files to expected location
-        run: |
-          mkdir -p dist
-          find artifacts -type f \( -name "*.whl" -o -name "*.tar.gz" \) -exec mv {} dist/ \;
-
-      - name: Publish all wheels and sdist
-        uses: pypa/gh-action-pypi-publish@v1.4.2
-        with:
-          user: __token__
-          password: ${{ secrets.PYPI_API_TOKEN }}
-          packages_dir: dist
-
-      - name: Upload wheels and sdist to GitHub Release
-        if: github.event_name == 'release'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          UPLOAD_URL: ${{ github.event.release.upload_url }}
-        run: |
-          for file in dist/*; do
-            filename=$(basename "$file")
-            echo "Uploading $filename ..."
-            upload_url="${UPLOAD_URL%\{*}"
-            curl \
-              -X POST \
-              -H "Authorization: token $GITHUB_TOKEN" \
-              -H "Content-Type: application/octet-stream" \
-              --data-binary @"$file" \
-              "$upload_url?name=$filename"
-          done
+#  publish:
+#    name: Publish to PyPI
+#    runs-on: ubuntu-latest
+#    needs: [build, sdist]
+#    steps:
+#      - name: Download artifacts
+#        uses: actions/download-artifact@v4
+#        with:
+#          path: ./artifacts
+#
+#      - name: Move distribution files to expected location
+#        run: |
+#          mkdir -p dist
+#          find artifacts -type f \( -name "*.whl" -o -name "*.tar.gz" \) -exec mv {} dist/ \;
+#
+#      - name: Publish all wheels and sdist
+#        uses: pypa/gh-action-pypi-publish@v1.4.2
+#        with:
+#          user: __token__
+#          password: ${{ secrets.PYPI_API_TOKEN }}
+#          packages_dir: dist
+#
+#      - name: Upload wheels and sdist to GitHub Release
+#        if: github.event_name == 'release'
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#          UPLOAD_URL: ${{ github.event.release.upload_url }}
+#        run: |
+#          for file in dist/*; do
+#            filename=$(basename "$file")
+#            echo "Uploading $filename ..."
+#            upload_url="${UPLOAD_URL%\{*}"
+#            curl \
+#              -X POST \
+#              -H "Authorization: token $GITHUB_TOKEN" \
+#              -H "Content-Type: application/octet-stream" \
+#              --data-binary @"$file" \
+#              "$upload_url?name=$filename"
+#          done
+#
