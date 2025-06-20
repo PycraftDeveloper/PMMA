@@ -132,7 +132,7 @@ jobs:
             && /opt/python/${{ matrix.python-tag }}/bin/python -m pip install --upgrade pip setuptools wheel cython numpy \
             && mkdir -p /PMMA/${{ env.CMAKE_TEMP_DIR }} \
             && cmake -S /PMMA -B /PMMA/${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-            && cmake --build /PMMA/${{ env.CMAKE_TEMP_DIR }} --config Release -- -j{nproc} \
+            && cmake --build /PMMA/${{ env.CMAKE_TEMP_DIR }} --config Release -- -j$(nproc) \
             && find /PMMA/${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t /PMMA/${{ env.LIB_DIR }} {} + \
             && rm -rf /PMMA/${{ env.CMAKE_TEMP_DIR }} \
             && /opt/python/${{ matrix.python-tag }}/bin/python /PMMA/setup.py build_ext --build-lib /PMMA/${{ env.BUILD_DIR }} --build-temp /PMMA/${{ env.TEMP_DIR }} sdist bdist_wheel \
@@ -157,7 +157,7 @@ jobs:
     - name: Build Shared Library (MacOS)
       if: runner.os == 'macOS'
       run: |
-        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- -j{nproc}
+        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- -j$(sysctl -n hw.ncpu)
         find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
