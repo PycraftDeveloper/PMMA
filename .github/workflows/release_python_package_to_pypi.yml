@@ -96,13 +96,13 @@ jobs:
         run: brew install cmake
       - name: Configure & build
         run: |
-          cp -a build_tools/extern/. pmma/extern/
           export MACOSX_DEPLOYMENT_TARGET=14.0
           cmake -S build_tools/cmake -B cmake-out -DCMAKE_OSX_ARCHITECTURES=arm64
+          cmake --build cmake-out --config Release -- -j$(sysctl -n hw.ncpu)
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-macos-arm64
-          path: PMMA
+          path: ./PMMA
 
   build-core-windows:
     name: Build native library (Windows x64)
@@ -114,12 +114,12 @@ jobs:
       - name: Configure & build
         shell: pwsh
         run: |
-          cp -a build_tools/extern/. pmma/extern/
           cmake -S build_tools/cmake -B cmake-out -DCMAKE_BUILD_TYPE=Release
+          cmake --build cmake-out --config Release -- /m
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-windows-x64
-          path: PMMA
+          path: pmma
 
   # ──────────────────────────────────────
   # 2. Python builds per OS/arch via matrix
@@ -175,7 +175,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.pmma_artifact }}
-          path: /PMMA
+          path: pmma
 
       - name: Setup Python
         uses: actions/setup-python@v5
