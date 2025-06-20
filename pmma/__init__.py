@@ -1,3 +1,6 @@
+print("Welcome to Python Multi-Media API, PMMA!")
+print("Please note, this API is still in early development.")
+
 import os
 import platform
 import ctypes
