@@ -181,7 +181,7 @@ jobs:
             pmma_artifact: pmma-windows-x64
             python-version: '3.11'
 
-    runs-on: ${{ matrix.runner }}
+    runs-on: ${{ matrix.runs-on }}
     steps:
       - name: Checkout repo
         uses: actions/checkout@v3
