@@ -104,8 +104,14 @@ jobs:
       - name: Configure & build
         run: |
           export MACOSX_DEPLOYMENT_TARGET=14.0
-          cmake -S build_tools/cmake -B cmake-out -DCMAKE_OSX_ARCHITECTURES=arm64
-          cmake --build cmake-out --config Release -- -j$(sysctl -n hw.ncpu)
+          export CFLAGS="-arch arm64"
+          export CXXFLAGS="-arch arm64"
+          cmake -S build_tools/cmake -B temporary -DCMAKE_OSX_ARCHITECTURES=arm64
+          cmake --build temporary --config Release -- -j$(sysctl -n hw.ncpu)
+
+      - name: Clean up build directory
+        run: rm -rf temporary
+
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-macos-arm64
@@ -128,8 +134,12 @@ jobs:
       - name: Configure & build
         shell: pwsh
         run: |
-          cmake -S build_tools/cmake -B cmake-out -DCMAKE_BUILD_TYPE=Release
-          cmake --build cmake-out --config Release -- /m
+          cmake -S build_tools/cmake -B temporary -DCMAKE_BUILD_TYPE=Release
+          cmake --build temporary --config Release -- /m
+
+      - name: Clean up build directory
+        shell: pwsh
+        run: Remove-Item -Recurse -Force temporary
 
       - uses: actions/upload-artifact@v4
         with:
