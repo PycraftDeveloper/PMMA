@@ -34,17 +34,20 @@ set(SOURCES
 # Add shared library
 add_library(${LIB_NAME} SHARED ${SOURCES})
 
+include(CheckIPOSupported)
+check_ipo_supported(RESULT lto_supported OUTPUT lto_msg)
+if(lto_supported)
+    set_target_properties(${LIB_NAME} PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
+endif()
+
 target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
 target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_DIR} ${EXTERN_INSTALL_DIR}/include)
 
 target_link_directories(${LIB_NAME} PRIVATE ${EXTERN_INSTALL_DIR}/lib)
 
-#message(FATAL "${EXTERN_INSTALL_DIR}/lib/")
-
 find_package(OpenGL REQUIRED)
 
-# GLFW settings (platform-specific)
 if (WIN32)
     add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
@@ -67,10 +70,9 @@ set_target_properties(${LIB_NAME} PROPERTIES
 )
 
 install(TARGETS ${LIB_NAME}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
-    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/lib
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/pmma/lib
+    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/pmma/lib
+    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/pmma/lib
 )
-
 
 message(STATUS "PMMA_Core & Dependencies code compilation complete!")

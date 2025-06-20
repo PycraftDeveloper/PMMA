@@ -3,6 +3,12 @@ project(Stage2 LANGUAGES C)
 
 include(FetchContent)
 
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+
+set(PNG_TESTS OFF CACHE BOOL "" FORCE)
+set(PNG_SHARED OFF CACHE BOOL "" FORCE)
+set(PNG_STATIC ON CACHE BOOL "" FORCE)
+
 FetchContent_Declare(
     libpng
     GIT_REPOSITORY https://github.com/glennrp/libpng.git

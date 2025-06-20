@@ -8,6 +8,8 @@ set(ZLIB_ENABLE_TESTS OFF CACHE BOOL "" FORCE)
 # Build static library
 set(ZLIB_BUILD_SHARED OFF CACHE BOOL "" FORCE)
 
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+
 # Declare and fetch zlib
 FetchContent_Declare(
     zlib

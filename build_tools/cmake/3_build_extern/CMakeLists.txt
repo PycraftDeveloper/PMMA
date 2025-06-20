@@ -3,6 +3,11 @@ project(Stage3 LANGUAGES C)
 
 include(FetchContent)
 
+set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
+
+set(FT_DISABLE_BZIP2 ON CACHE BOOL "" FORCE)
+set(FT_DISABLE_BROTLI ON CACHE BOOL "" FORCE)
+
 FetchContent_Declare(
     freetype
     GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
@@ -10,12 +15,9 @@ FetchContent_Declare(
 )
 FetchContent_MakeAvailable(freetype)
 
-FetchContent_Declare(
-    glm
-    GIT_REPOSITORY https://github.com/g-truc/glm.git
-    GIT_TAG 1.0.1
-)
-FetchContent_MakeAvailable(glm)
+set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
+set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
 
 FetchContent_Declare(
     glfw

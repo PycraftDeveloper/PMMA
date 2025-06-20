@@ -21,7 +21,6 @@ include(ExternalProject)
 ExternalProject_Add(stage1
   SOURCE_DIR "${CMAKE_SOURCE_DIR}/1_build_deps_first_pass" # LibZ
   CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
-  BUILD_ALWAYS 1
 )
 
 ExternalProject_Add(stage2
