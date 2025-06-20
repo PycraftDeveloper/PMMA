@@ -194,7 +194,9 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel cython numpy twine
 
       - name: Build Python wheel
-        run: python setup.py build_ext --build-lib PMMA/pmma/build --build-temp temporary sdist bdist_wheel
+        run: |
+          ls -R
+          python setup.py build_ext --build-lib PMMA/pmma/build --build-temp temporary sdist bdist_wheel
 
       - name: Upload wheel
         uses: actions/upload-artifact@v4
@@ -247,7 +249,9 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel cython numpy twine
 
       - name: Build Python wheel
-        run: python setup.py build_ext --build-lib PMMA/pmma/build --build-temp temporary sdist bdist_wheel
+        run: |
+          ls -R
+          python setup.py build_ext --build-lib PMMA/pmma/build --build-temp temporary sdist bdist_wheel
 
       - name: Upload wheel
         uses: actions/upload-artifact@v4
