@@ -100,7 +100,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-macos-arm64
-          path: ./PMMA
+          path: "${{ github.workspace }}"
 
   build-core-windows:
     name: Build native library (Windows x64)
@@ -116,7 +116,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-windows-x64
-          path: pmma
+          path: "${{ github.workspace }}"
 
   # ──────────────────────────────────────
   # 2. Python builds per OS/arch via matrix
