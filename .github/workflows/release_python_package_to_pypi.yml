@@ -97,8 +97,6 @@ jobs:
       - name: Configure & build
         run: |
           export MACOSX_DEPLOYMENT_TARGET=14.0
-          cmake -S build_tools/cmake -B cmake-out -DCMAKE_OSX_ARCHITECTURES=arm64
-          cmake --build cmake-out --config Release -- -j$(sysctl -n hw.ncpu)
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-macos-arm64
@@ -115,7 +113,6 @@ jobs:
         shell: pwsh
         run: |
           cmake -S build_tools/cmake -B cmake-out -DCMAKE_BUILD_TYPE=Release
-          cmake --build cmake-out --config Release -- /m
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-windows-x64
