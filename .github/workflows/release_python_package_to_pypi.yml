@@ -21,11 +21,15 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Ensure dist directory exists
+        run: mkdir -p dist
+
       - name: Build all Linux wheels in parallel inside Docker
         if: runner.os == 'Linux'
         run: |
           docker run --rm \
             -v "${{ github.workspace }}:/PMMA" \
+            -v "${{ github.workspace }}/dist:/output_dist" \
             -e PYTHON_TAGS="cp38-cp38 cp39-cp39 cp310-cp310 cp311-cp311" \
             quay.io/pypa/manylinux_2_28_x86_64 \
             /bin/bash -c '
@@ -47,7 +51,7 @@ jobs:
                 original=$(ls dist/*.whl)
                 renamed=$(echo "$original" | sed "s/linux/manylinux_2_28/")
                 mv "$original" "$renamed"
-                cp dist/* /PMMA/dist/
+                cp dist/* /output_dist/
               }
 
               export -f build_for_python
@@ -216,7 +220,7 @@ jobs:
   publish:
     name: Publish to PyPI
     runs-on: ubuntu-latest
-    needs: [build, sdist]
+    needs: [build, sdist, build-linux]
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
