@@ -196,7 +196,7 @@ jobs:
       - name: Build Python wheel
         run: |
           ls -R
-          python setup.py build_ext --build-lib PMMA/pmma/build --build-temp temporary sdist bdist_wheel
+          python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel
 
       - name: Upload wheel
         uses: actions/upload-artifact@v4
