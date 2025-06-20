@@ -43,7 +43,7 @@ jobs:
                 cd "$dir"
 
                 mkdir -p pmma/extern
-                mv build_tools/extern pmma/extern/
+                mv build_tools/extern/* pmma/extern/
 
                 ls -R
 
