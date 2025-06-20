@@ -92,11 +92,17 @@ jobs:
       CMAKE_OSX_ARCHITECTURES: arm64
     steps:
       - uses: actions/checkout@v3
+
       - name: Install dependencies
         run: brew install cmake
-      - name: Configure & build
+
+      - name: Copy pre-configured extern includes
+        shell: bash
         run: |
           cp -a build_tools/extern/. pmma/extern/
+
+      - name: Configure & build
+        run: |
           export MACOSX_DEPLOYMENT_TARGET=14.0
           cmake -S build_tools/cmake -B cmake-out -DCMAKE_OSX_ARCHITECTURES=arm64
           cmake --build cmake-out --config Release -- -j$(sysctl -n hw.ncpu)
@@ -110,14 +116,21 @@ jobs:
     runs-on: windows-latest
     steps:
       - uses: actions/checkout@v3
+
       - name: Install CMake
         run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+
+      - name: Copy pre-configured extern includes
+        shell: bash
+        run: |
+          cp -a build_tools/extern/. pmma/extern/
+
       - name: Configure & build
         shell: pwsh
         run: |
-          cp -a build_tools/extern/. pmma/extern/
           cmake -S build_tools/cmake -B cmake-out -DCMAKE_BUILD_TYPE=Release
           cmake --build cmake-out --config Release -- /m
+
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-windows-x64
