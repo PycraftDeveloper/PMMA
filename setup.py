@@ -125,7 +125,7 @@ packages = ['pmma']
 
 setup(
     name="pmma",
-    version="5.0.10",
+    version="5.0.11",
     author="PycraftDev",
     author_email="thomasjebbo@gmail.com",
     description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",
