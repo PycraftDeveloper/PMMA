@@ -165,10 +165,10 @@ jobs:
     - name: Build Shared Library (Windows)
       if: runner.os == 'Windows'
       run: |
-        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- "/m"
-        find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
-        rm -rf ${{ env.CMAKE_TEMP_DIR }}
-      shell: bash
+        cmake --build "%CMAKE_TEMP_DIR%" --config Release -- /m
+        move "%LIB_DIR%\**\*" "%LIB_DIR%"
+        rmdir /s /q "%CMAKE_TEMP_DIR%"
+      shell: cmd
 
     - name: Build Wheel (non-Linux)
       if: runner.os != 'Linux'
