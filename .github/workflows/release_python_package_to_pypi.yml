@@ -115,11 +115,11 @@ jobs:
           #  python-version: '3.8'
           #  python-tag: 'cp38-cp38'
 #
-          #- os: macos
-          #  runner: macos-latest
-          #  arch: arm64
-          #  python-version: '3.9'
-          #  python-tag: 'cp39-cp39'
+          - os: macos
+            runner: macos-latest
+            arch: arm64
+            python-version: '3.9'
+            python-tag: 'cp39-cp39'
 #
           #- os: macos
           #  runner: macos-latest
