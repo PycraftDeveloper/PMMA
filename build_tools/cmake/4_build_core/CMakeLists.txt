@@ -44,7 +44,14 @@ target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
 target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_DIR} ${EXTERN_INSTALL_DIR}/include)
 
-target_link_directories(${LIB_NAME} PRIVATE ${EXTERN_INSTALL_DIR}/lib)
+file(GLOB LIBDIRS "${EXTERN_INSTALL_DIR}/lib*")
+
+foreach(libdir ${LIBDIRS})
+    if(IS_DIRECTORY "${libdir}")
+        message(STATUS "Using link directory: ${libdir}")
+        target_link_directories(${LIB_NAME} PRIVATE ${libdir})
+    endif()
+endforeach()
 
 find_package(OpenGL REQUIRED)
 

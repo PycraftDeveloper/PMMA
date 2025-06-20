@@ -72,16 +72,16 @@ search_pattern = os.path.join(cwd, "pmma", "extern", "lib*")
 matching_paths = glob.glob(search_pattern)  # Get all matching paths
 
 if matching_paths:
-    external_lib = matching_paths[0]  # Take the first match
+    external_lib = matching_paths
 else:
-    external_lib = os.path.join(cwd, "pmma", "extern", "lib")
+    external_lib = [os.path.join(cwd, "pmma", "extern", "lib")]
 
 def make_ext(name, extra_cpp=None, add_numpy=False):
     sources = [os.path.join("pmma", "core", "pyx_src", f"{name}.pyx")]
     if extra_cpp is not None:
         sources.extend(extra_cpp)
 
-    lib_dirs = [os.path.join(cwd, "pmma", "lib"), external_lib]
+    lib_dirs = [os.path.join(cwd, "pmma", "lib"), *external_lib]
 
     libs = [shared_name, *glfw_libraries]
 
