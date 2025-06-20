@@ -97,6 +97,8 @@ jobs:
       - name: Configure & build
         run: |
           export MACOSX_DEPLOYMENT_TARGET=14.0
+          cmake -S build_tools/cmake -B cmake-out -DCMAKE_OSX_ARCHITECTURES=arm64
+          cmake --build cmake-out --config Release -- -j$(sysctl -n hw.ncpu)
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-macos-arm64
@@ -113,6 +115,7 @@ jobs:
         shell: pwsh
         run: |
           cmake -S build_tools/cmake -B cmake-out -DCMAKE_BUILD_TYPE=Release
+          cmake --build cmake-out --config Release -- /m
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-windows-x64
@@ -172,7 +175,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: ${{ matrix.pmma_artifact }}
-          path: pmma
+          path: PMMA
 
       - name: Setup Python
         uses: actions/setup-python@v5
@@ -184,7 +187,7 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel cython numpy twine
 
       - name: Build Python wheel
-        run: python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel
+        run: python setup.py build_ext --build-lib PMMA/pmma/build --build-temp temporary sdist bdist_wheel
 
       - name: Upload wheel
         uses: actions/upload-artifact@v4
