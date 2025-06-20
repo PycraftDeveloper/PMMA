@@ -102,7 +102,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-macos-arm64
-          path: /PMMA
+          path: PMMA
 
   build-core-windows:
     name: Build native library (Windows x64)
@@ -119,7 +119,7 @@ jobs:
       - uses: actions/upload-artifact@v4
         with:
           name: pmma-windows-x64
-          path: /PMMA
+          path: PMMA
 
   # ──────────────────────────────────────
   # 2. Python builds per OS/arch via matrix
