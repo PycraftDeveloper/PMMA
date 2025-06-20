@@ -45,8 +45,6 @@ jobs:
                 mkdir -p pmma/extern
                 mv build_tools/extern/* pmma/extern/
 
-                ls -R
-
                 /opt/python/$tag/bin/python -m pip install --upgrade pip setuptools wheel cython numpy
                 mkdir -p ${{ env.CMAKE_TEMP_DIR }}
                 cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
