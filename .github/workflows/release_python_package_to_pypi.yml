@@ -22,11 +22,11 @@ jobs:
           #  python-version: '3.9'
           #  python-tag: 'cp39-cp39'
 
-          - os: linux
-            runner: ubuntu-latest
-            arch: x64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
+          #- os: linux
+          #  runner: ubuntu-latest
+          #  arch: x64
+          #  python-version: '3.10'
+          #  python-tag: 'cp310-cp310'
 
           #- os: linux
           #  runner: ubuntu-latest
@@ -70,11 +70,11 @@ jobs:
           #  python-version: '3.9'
           #  python-tag: 'cp39-cp39'
 
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
+          #- os: macos
+          #  runner: macos-latest
+          #  arch: arm64
+          #  python-version: '3.10'
+          #  python-tag: 'cp310-cp310'
 
           #- os: macos
           #  runner: macos-latest
@@ -165,7 +165,7 @@ jobs:
     - name: Build Shared Library (Windows)
       if: runner.os == 'Windows'
       run: |
-        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- /m
+        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- "/m"
         find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
