@@ -6,11 +6,15 @@ import soundfile
 import waiting
 import numpy
 import pedalboard
+
 try:
     import sounddevice
     _sounddevice_available = True
-except (OSError, ModuleNotFoundError) as _sounddevice_error:
+    _sounddevice_error = ""
+except Exception as _error:
     _sounddevice_available = False
+
+    _sounddevice_error = str(_error)
 
 from pmma.build.NumberConverter import ProportionConverter, LinkedProportionConverter
 
@@ -22,7 +26,7 @@ class Audio:
             print(f"Sounddevice is not available because ({_sounddevice_error}), audio playback is not \
 possible. To fix do: 'sudo apt install libportaudio2' or consult our \
 troubleshooting section here: \
-")
+https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/linux.md#oserror-portaudio-library-not-found")
 
         self._file = None
         self._sample_rate = None

@@ -4,12 +4,18 @@ import ctypes
 
 system = platform.system()
 
-pmma_lib_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "lib")
+pmma_dir = os.path.dirname(os.path.abspath(__file__))
+
+pmma_lib_dir = os.path.join(pmma_dir, "lib")
 
 if system == "Windows":
     ctypes.CDLL(os.path.join(pmma_lib_dir, "PMMA_Core.dll"))
+
 elif system == "Linux":
     ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.so"))
+
+elif system == "Darwin":
+    ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.dylib"))
 
 from pmma.build.AdvancedMathematics import AdvancedMathematics
 from pmma.build.PerlinNoise import PerlinNoise
