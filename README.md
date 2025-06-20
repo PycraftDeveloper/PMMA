@@ -17,12 +17,13 @@ Typically, developing applications in Python necessitates familiarity with a var
 * [Installation](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation)
 * [Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md#pmma-build-guide)
 * [Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-troubleshooting)
+* [Credits](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-credits)
 
 ## Development Progress
 
 ![Progress on PMMA v5.0.0](https://geps.dev/progress/40)
 
-We are currently working on the next major update to PMMA, version 5.x.x. This update features a complete API rework with a significant proportion being re-written in C++ for a significant performance and efficiency improvement. This major update will also introduce all the features lacking from previous iterations of PMMA, including text rendering, aggregated events for text input and improvements to the accuracy and variety of procedural noise generation. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5]()
+We are currently working on the next major update to PMMA, version 5.x.x. This update features a complete API rework with a significant proportion being re-written in C++ for a significant performance and efficiency improvement. This major update will also introduce all the features lacking from previous iterations of PMMA, including text rendering, aggregated events for text input and improvements to the accuracy and variety of procedural noise generation. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/DevelopmentProgress.md#progress-on-pmma-5)
 
 ## Installation
 
@@ -53,3 +54,39 @@ _Please note, these requirements are only needed by users installing PMMA onto L
 > For older versions of PMMA, there are no hardware requirements.
 
 _If you encounter any issues or problems then check out our [troubleshooting page](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-troubleshooting)._
+
+
+## Credits
+
+PMMA is made possible thanks to the following:
+
+C/C++ projects:
+* LIBZ - 1.3.1 - https://github.com/madler/zlib
+* Libpng - 1.6.49 - https://github.com/glennrp/libpng
+* GLFW - 3.4 - https://github.com/glfw/glfw
+* FreeType - 2-13-3 - https://gitlab.freedesktop.org/freetype/freetype
+* GLM - 0.9.3.2 - https://github.com/icaven/glm
+* GLAD - 2.0.8 - https://github.com/Dav1dde/glad
+
+Python projects:
+* PyAV - latest - https://github.com/PyAV-Org/PyAV
+* Cython - latest - https://github.com/cython/cython
+* GetOSTheme - latest - https://github.com/FHPythonUtils/GetOSTheme
+* MoviePy - latest - https://github.com/Zulko/moviepy
+* Num2Words - latest - https://github.com/savoirfairelinux/num2words
+* Pedalboard - latest - https://github.com/spotify/pedalboard
+* Pillow - latest - https://github.com/python-pillow/Pillow
+* Pprofile - latest - https://github.com/vpelletier/pprofile
+* Psutil - latest - https://github.com/giampaolo/psutil
+* PyADL - latest - https://github.com/nicolargo/pyadl
+* Pyrr - latest - https://github.com/adamlwgriffiths/Pyrr
+* Requests - latest - https://github.com/psf/requests
+* Send2Trash - latest - https://github.com/arsenetar/send2trash
+* SoundDevice - latest - https://github.com/spatialaudio/python-sounddevice/
+* SoundFile - latest - https://github.com/bastibe/python-soundfile
+* Waiting - latest - https://github.com/vmalloc/waiting
+* Watchdog - latest - https://github.com/gorakhargosh/watchdog/
+* PyWin32 - latest - https://github.com/mhammond/pywin32
+* WMI - latest - https://timgolden.me.uk/python/wmi/
+
+NONE of the projects mentioned above are owned or maintained by PycraftDeveloper the maker of this repository, who would also like to say a big thank you to all the teams working on these projects!

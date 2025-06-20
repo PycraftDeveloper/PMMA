@@ -3,10 +3,14 @@ import queue
 import time
 
 import soundfile
-import sounddevice
 import waiting
 import numpy
 import pedalboard
+try:
+    import sounddevice
+    _sounddevice_available = True
+except (OSError, ModuleNotFoundError) as _sounddevice_error:
+    _sounddevice_available = False
 
 from pmma.build.NumberConverter import ProportionConverter, LinkedProportionConverter
 
@@ -14,6 +18,12 @@ from pmma.core.py_src.Constants import Constants
 
 class Audio:
     def __init__(self):
+        if (_sounddevice_available == False):
+            print(f"Sounddevice is not available because ({_sounddevice_error}), audio playback is not \
+possible. To fix do: 'sudo apt install libportaudio2' or consult our \
+troubleshooting section here: \
+")
+
         self._file = None
         self._sample_rate = None
         self._audio_loaded = False
@@ -197,6 +207,12 @@ that's already playing. We will therefore ignore your request to prevent unexpec
         """
         🟩 **R** -
         """
+        if (_sounddevice_available == False):
+            print("Sounddevice is not available, ignoring")
+            self._audio_playing_start_time = None
+            self._file.seek(0)
+            return
+
         self._file.seek(0)
         # Start the audio stream
         with sounddevice.OutputStream(callback=self._audio_callback, samplerate=self._sample_rate, channels=self._channels, blocksize=2048):
