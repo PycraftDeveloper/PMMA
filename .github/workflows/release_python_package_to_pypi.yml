@@ -148,9 +148,9 @@ jobs:
           export MACOSX_DEPLOYMENT_TARGET=14.0
           export CFLAGS="-arch arm64"
           export CXXFLAGS="-arch arm64"
-          cmake -S . -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
+          cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
         else
-          cmake -S . -B ${{ env.CMAKE_TEMP_DIR }}
+          cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }}
         fi
       shell: bash
 
