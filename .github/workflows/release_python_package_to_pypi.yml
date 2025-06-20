@@ -41,6 +41,10 @@ jobs:
                 dir="/tmp/build_$tag"
                 cp -r /PMMA "$dir"
                 cd "$dir"
+
+                mkdir -p pmma/extern
+                mv build_tools/extern pmma/extern/
+
                 /opt/python/$tag/bin/python -m pip install --upgrade pip setuptools wheel cython numpy
                 mkdir -p ${{ env.CMAKE_TEMP_DIR }}
                 cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
@@ -57,8 +61,15 @@ jobs:
               export -f build_for_python
               mkdir -p /PMMA/dist
 
+              pids=()
               for tag in $PYTHON_TAGS; do
                 bash -c "build_for_python $tag" &
+                pids+=($!)
+              done
+
+              # Wait for all and fail if any fail
+              for pid in "${pids[@]}"; do
+                wait "$pid" || exit 1
               done
 
               wait
@@ -184,11 +195,17 @@ jobs:
 
     - name: Build Shared Library (Windows)
       if: runner.os == 'Windows'
+      shell: pwsh
       run: |
-        cmake --build "%CMAKE_TEMP_DIR%" --config Release -- /m
-        move "%LIB_DIR%\**\*" "%LIB_DIR%"
-        rmdir /s /q "%CMAKE_TEMP_DIR%"
-      shell: cmd
+        cmake --build "$env:CMAKE_TEMP_DIR" --config Release -- /m
+
+        # Move all files from subdirectories into LIB_DIR
+        Get-ChildItem -Path "$env:LIB_DIR" -Recurse -File |
+          Where-Object { $_.DirectoryName -ne "$env:LIB_DIR" } |
+          ForEach-Object { Move-Item $_.FullName -Destination "$env:LIB_DIR" -Force }
+
+        # Remove the temporary build directory
+        Remove-Item -Path "$env:CMAKE_TEMP_DIR" -Recurse
 
     - name: Build Wheel (non-Linux)
       if: runner.os != 'Linux'
