@@ -6,7 +6,11 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-linux:
+  # ──────────────────────────────────────
+  # 1. Build PMMA_Core for each OS once
+  # ──────────────────────────────────────
+
+  build-core-linux:
     name: Build Linux wheels (all versions)
     runs-on: ubuntu-latest
     env:
@@ -81,141 +85,128 @@ jobs:
           name: wheel-linux-all
           path: dist/*.whl
 
+  build-core-macos:
+    name: Build native library (macOS arm64)
+    runs-on: macos-latest
+    env:
+      CMAKE_OSX_ARCHITECTURES: arm64
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install dependencies
+        run: brew install cmake
+      - name: Configure & build
+        run: |
+          export MACOSX_DEPLOYMENT_TARGET=14.0
+          cmake -S build_tools/cmake -B cmake-out -DCMAKE_OSX_ARCHITECTURES=arm64
+          cmake --build cmake-out --config Release -- -j$(sysctl -n hw.ncpu)
+          mkdir -p pmma/lib
+          find cmake-out -type f -name '*.dylib' -exec mv -t pmma/lib {} +
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pmma-macos-arm64
+          path: pmma
+
+  build-core-windows:
+    name: Build native library (Windows x64)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install CMake
+        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+      - name: Configure & build
+        shell: pwsh
+        run: |
+          cmake -S build_tools/cmake -B cmake-out -DCMAKE_BUILD_TYPE=Release
+          cmake --build cmake-out --config Release -- /m
+          Copy-Item -Path "cmake-out\\*.dll" -Destination pmma/lib
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pmma-windows-x64
+          path: pmma
+
+  # ──────────────────────────────────────
+  # 2. Python builds per OS/arch via matrix
+  # ──────────────────────────────────────
+
   build:
+    needs:
+      - build-core-macos
+      - build-core-windows
+
     strategy:
       matrix:
         include:
-          - os: windows
-            runner: windows-latest
-            arch: x64
+          - os: macos
+            runs-on: macos-latest
+            pmma_artifact: pmma-macos-arm64
             python-version: '3.8'
-            python-tag: 'cp38-cp38'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
-
           - os: macos
-            runner: macos-latest
-            arch: arm64
+            runs-on: macos-latest
+            pmma_artifact: pmma-macos-arm64
+            python-version: '3.9'
+          - os: macos
+            runs-on: macos-latest
+            pmma_artifact: pmma-macos-arm64
+            python-version: '3.10'
+          - os: macos
+            runs-on: macos-latest
+            pmma_artifact: pmma-macos-arm64
+            python-version: '3.11'
+          - os: windows
+            runs-on: windows-latest
+            pmma_artifact: pmma-windows-x64
             python-version: '3.8'
-            python-tag: 'cp38-cp38'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
+          - os: windows
+            runs-on: windows-latest
+            pmma_artifact: pmma-windows-x64
             python-version: '3.9'
-            python-tag: 'cp39-cp39'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
+          - os: windows
+            runs-on: windows-latest
+            pmma_artifact: pmma-windows-x64
             python-version: '3.10'
-            python-tag: 'cp310-cp310'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
+          - os: windows
+            runs-on: windows-latest
+            pmma_artifact: pmma-windows-x64
             python-version: '3.11'
-            python-tag: 'cp311-cp311'
-
-    runs-on: ${{ matrix.runner }}
-    env:
-      BUILD_DIR: pmma/build
-      LIB_DIR: pmma/lib
-      TEMP_DIR: temporary
-      CMAKE_TEMP_DIR: temporary/cmake
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
-      with:
-        fetch-depth: 0
+      - name: Checkout repo
+        uses: actions/checkout@v3
 
-    - name: Setup Python
-      if: runner.os != 'Linux'
-      uses: actions/setup-python@v5
-      with:
-        python-version: ${{ matrix.python-version }}
+      - name: Download pmma directory artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ matrix.pmma_artifact }}
+          path: pmma
 
-    - name: Set macOS Deployment Target
-      if: runner.os == 'macOS'
-      run: export MACOSX_DEPLOYMENT_TARGET=14.0
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
 
-    - name: Install Dependencies (Windows)
-      if: runner.os == 'Windows'
-      run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+      - name: Setup pip & build tools
+        run: |
+          python -m pip install --upgrade pip setuptools wheel cython numpy twine
 
-    - name: Setup pip (non-Linux)
-      if: runner.os != 'Linux'
-      run: |
-        python -m pip install --upgrade pip
-        pip install setuptools wheel twine cython numpy
+      - name: Build Python wheel
+        run: python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel
 
-    - name: Clean old build directories
-      shell: bash
-      run: |
-        mkdir -p "${{ env.CMAKE_TEMP_DIR }}"
-        cp -a build_tools/extern/. pmma/extern/
+      - name: Upload wheel
+        uses: actions/upload-artifact@v4
+        with:
+          name: wheel-${{ matrix.os }}-${{ matrix.python-version }}
+          path: dist/*.whl
 
-    - name: Configure CMake (non-Linux)
-      if: runner.os != 'Linux'
-      run: |
-        if [[ "${{ runner.os }}" == "macOS" ]]; then
-          export MACOSX_DEPLOYMENT_TARGET=14.0
-          export CFLAGS="-arch arm64"
-          export CXXFLAGS="-arch arm64"
-          cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_OSX_ARCHITECTURES=${{ matrix.arch }}
-        else
-          cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }}
-        fi
-      shell: bash
-
-    - name: Build Shared Library (MacOS)
-      if: runner.os == 'macOS'
-      run: |
-        cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- -j$(sysctl -n hw.ncpu)
-        find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
-        rm -rf ${{ env.CMAKE_TEMP_DIR }}
-      shell: bash
-
-    - name: Build Shared Library (Windows)
-      if: runner.os == 'Windows'
-      shell: pwsh
-      run: |
-        cmake --build "$env:CMAKE_TEMP_DIR" --config Release -- /m
-
-    - name: Build Wheel (non-Linux)
-      if: runner.os != 'Linux'
-      run: |
-        python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
-
-    - name: Upload wheel
-      uses: actions/upload-artifact@v4
-      with:
-        name: wheel-${{ runner.os }}-${{ matrix.python-version }}-${{ matrix.arch }}
-        path: dist/*.whl
+  # ──────────────────────────────────────
+  # 3. sdist and publish
+  # ──────────────────────────────────────
 
   sdist:
     name: Build Source Distribution
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - uses: actions/setup-python@v2
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
       - run: |
@@ -227,41 +218,38 @@ jobs:
           path: dist/*.tar.gz
 
   publish:
-    name: Publish to PyPI
+    name: Publish to PyPI + GitHub Release
     runs-on: ubuntu-latest
-    needs: [build, sdist, build-linux]
+    needs: [build, sdist]
     steps:
       - name: Download artifacts
         uses: actions/download-artifact@v4
         with:
           path: ./artifacts
 
-      - name: Move distribution files to expected location
+      - name: Move distribution files
         run: |
           mkdir -p dist
           find artifacts -type f \( -name "*.whl" -o -name "*.tar.gz" \) -exec mv {} dist/ \;
 
-      - name: Publish all wheels and sdist
+      - name: Publish to PyPI
         uses: pypa/gh-action-pypi-publish@v1.4.2
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
           packages_dir: dist
 
-      - name: Upload wheels and sdist to GitHub Release
+      - name: Upload to GitHub Release
         if: github.event_name == 'release'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           UPLOAD_URL: ${{ github.event.release.upload_url }}
         run: |
-          for file in dist/*; do
-            filename=$(basename "$file")
-            echo "Uploading $filename ..."
-            upload_url="${UPLOAD_URL%\{*}"
-            curl \
-              -X POST \
+          for f in dist/*; do
+            echo "Uploading $f ..."
+            curl -X POST \
               -H "Authorization: token $GITHUB_TOKEN" \
               -H "Content-Type: application/octet-stream" \
-              --data-binary @"$file" \
-              "$upload_url?name=$filename"
+              --data-binary @"$f" \
+              "${UPLOAD_URL%\{*}?name=$(basename "$f")"
           done
