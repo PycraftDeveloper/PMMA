@@ -23,14 +23,14 @@ jobs:
 
       - name: Ensure dist directory exists
         run: mkdir -p dist
-
+#-e PYTHON_TAGS="cp38-cp38 cp39-cp39 cp310-cp310 cp311-cp311" \
       - name: Build all Linux wheels in parallel inside Docker
         if: runner.os == 'Linux'
         run: |
           docker run --rm \
             -v "${{ github.workspace }}:/PMMA" \
             -v "${{ github.workspace }}/dist:/output_dist" \
-            -e PYTHON_TAGS="cp38-cp38 cp39-cp39 cp310-cp310 cp311-cp311" \
+            -e PYTHON_TAGS="cp38-cp38" \
             quay.io/pypa/manylinux_2_28_x86_64 \
             /bin/bash -c '
               set -e
@@ -44,6 +44,8 @@ jobs:
 
                 mkdir -p pmma/extern
                 mv build_tools/extern pmma/extern/
+
+                ls -R
 
                 /opt/python/$tag/bin/python -m pip install --upgrade pip setuptools wheel cython numpy
                 mkdir -p ${{ env.CMAKE_TEMP_DIR }}
@@ -91,47 +93,47 @@ jobs:
             python-version: '3.8'
             python-tag: 'cp38-cp38'
 
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
-
-          - os: windows
-            runner: windows-latest
-            arch: x64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.8'
-            python-tag: 'cp38-cp38'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.9'
-            python-tag: 'cp39-cp39'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.10'
-            python-tag: 'cp310-cp310'
-
-          - os: macos
-            runner: macos-latest
-            arch: arm64
-            python-version: '3.11'
-            python-tag: 'cp311-cp311'
+          #- os: windows
+          #  runner: windows-latest
+          #  arch: x64
+          #  python-version: '3.9'
+          #  python-tag: 'cp39-cp39'
+#
+          #- os: windows
+          #  runner: windows-latest
+          #  arch: x64
+          #  python-version: '3.10'
+          #  python-tag: 'cp310-cp310'
+#
+          #- os: windows
+          #  runner: windows-latest
+          #  arch: x64
+          #  python-version: '3.11'
+          #  python-tag: 'cp311-cp311'
+#
+          #- os: macos
+          #  runner: macos-latest
+          #  arch: arm64
+          #  python-version: '3.8'
+          #  python-tag: 'cp38-cp38'
+#
+          #- os: macos
+          #  runner: macos-latest
+          #  arch: arm64
+          #  python-version: '3.9'
+          #  python-tag: 'cp39-cp39'
+#
+          #- os: macos
+          #  runner: macos-latest
+          #  arch: arm64
+          #  python-version: '3.10'
+          #  python-tag: 'cp310-cp310'
+#
+          #- os: macos
+          #  runner: macos-latest
+          #  arch: arm64
+          #  python-version: '3.11'
+          #  python-tag: 'cp311-cp311'
 
     runs-on: ${{ matrix.runner }}
     env:
@@ -193,19 +195,16 @@ jobs:
         rm -rf ${{ env.CMAKE_TEMP_DIR }}
       shell: bash
 
+      # Move all files from subdirectories into LIB_DIR
+        #Get-ChildItem -Path "$env:LIB_DIR" -Recurse -File |
+        #  Where-Object { $_.DirectoryName -ne "$env:LIB_DIR" } |
+        #  ForEach-Object { Move-Item $_.FullName -Destination "$env:LIB_DIR" -Force }
+
     - name: Build Shared Library (Windows)
       if: runner.os == 'Windows'
       shell: pwsh
       run: |
         cmake --build "$env:CMAKE_TEMP_DIR" --config Release -- /m
-
-        # Move all files from subdirectories into LIB_DIR
-        Get-ChildItem -Path "$env:LIB_DIR" -Recurse -File |
-          Where-Object { $_.DirectoryName -ne "$env:LIB_DIR" } |
-          ForEach-Object { Move-Item $_.FullName -Destination "$env:LIB_DIR" -Force }
-
-        # Remove the temporary build directory
-        Remove-Item -Path "$env:CMAKE_TEMP_DIR" -Recurse
 
     - name: Build Wheel (non-Linux)
       if: runner.os != 'Linux'
