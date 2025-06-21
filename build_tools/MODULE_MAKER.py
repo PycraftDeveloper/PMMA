@@ -61,10 +61,26 @@ def clean_old_build():
         shutil.rmtree(lib_dir, ignore_errors=False)
 
     if os.path.exists(extern_dir):
-        shutil.rmtree(extern_dir, ignore_errors=False)
+        def should_keep(path):
+            return f'include{os.sep}glm' in path or f'include{os.sep}glad' in path
 
-        shutil.copytree(perm_extern_dir, extern_dir, dirs_exist_ok=True)
+        for dirpath, dirnames, filenames in os.walk(extern_dir, topdown=False):
+            full_dirpath = os.path.abspath(dirpath)
+            # Remove files not in keep paths
+            for filename in filenames:
+                full_path = os.path.join(full_dirpath, filename)
+                if not should_keep(full_path):
+                    os.remove(full_path)
 
+            # Remove directories if they're empty and not part of keep paths
+            for dirname in dirnames:
+                full_subdir = os.path.join(full_dirpath, dirname)
+                if not should_keep(full_subdir) and not os.listdir(full_subdir):
+                    os.rmdir(full_subdir)
+
+        # Optionally remove directories that became empty after cleaning
+        if not should_keep(extern_dir) and not os.listdir(extern_dir):
+            os.rmdir(extern_dir)
 
 print("=" * TERMINAL_SIZE)
 

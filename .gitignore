@@ -182,5 +182,18 @@ pmma/lib/*
 # Ignore everything in temporary/
 temporary/*
 
-# Ignore everything in pmma/extern
+# Ignore everything under extern by default
 pmma/extern/*
+
+# But don't ignore the 'include' directory itself (so we can control subdirs)
+!pmma/extern/include/
+
+# Ignore everything under 'include'
+pmma/extern/include/*
+
+# Allow only glad and glm folders
+!pmma/extern/include/glad/
+!pmma/extern/include/glad/**
+
+!pmma/extern/include/glm/
+!pmma/extern/include/glm/**

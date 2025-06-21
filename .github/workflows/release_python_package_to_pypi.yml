@@ -46,9 +46,6 @@ jobs:
                 cp -r /PMMA "$dir"
                 cd "$dir"
 
-                mkdir -p pmma/extern
-                mv build_tools/extern/* pmma/extern/
-
                 /opt/python/$tag/bin/python -m pip install --upgrade pip setuptools wheel cython numpy
                 mkdir -p ${{ env.CMAKE_TEMP_DIR }}
                 cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
@@ -96,11 +93,6 @@ jobs:
       - name: Install dependencies
         run: brew install cmake
 
-      - name: Copy pre-configured extern includes
-        shell: bash
-        run: |
-          cp -a build_tools/extern/. pmma/extern/
-
       - name: Configure & build
         run: |
           export MACOSX_DEPLOYMENT_TARGET=14.0
@@ -125,11 +117,6 @@ jobs:
 
       - name: Install CMake
         run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
-
-      - name: Copy pre-configured extern includes
-        shell: bash
-        run: |
-          cp -a build_tools/extern/. pmma/extern/
 
       - name: Configure & build
         shell: pwsh

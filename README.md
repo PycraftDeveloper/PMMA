@@ -18,6 +18,7 @@ Typically, developing applications in Python necessitates familiarity with a var
 * [Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md#pmma-build-guide)
 * [Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-troubleshooting)
 * [Credits](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-credits)
+* [About](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-about)
 
 ## Development Progress
 
@@ -39,6 +40,8 @@ In order to install PMMA 5 and newer, you must ensure you meet the following cri
 | Python Version | `3.8.x`, `3.9.x`, `3.10.x`, `3.11.x` |
 | `pip` Version | `20.3 or newer` |
 
+_Note: If your platform is not listed here then you can attempt to build your own version of PMMA using our [build guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md)!_
+
 <details><summary>Additional Technical Requirements</summary>
 
 _Please note, these requirements are only needed by users installing PMMA onto Linux machines and in most cases the operating systems listed above should be compatible._
@@ -55,12 +58,11 @@ _Please note, these requirements are only needed by users installing PMMA onto L
 
 _If you encounter any issues or problems then check out our [troubleshooting page](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-troubleshooting)._
 
-
 ## Credits
 
 PMMA is made possible thanks to the following:
 
-C/C++ projects:
+C/C++ projects (used in PMMA 5 and newer)
 * LIBZ - 1.3.1 - https://github.com/madler/zlib
 * Libpng - 1.6.49 - https://github.com/glennrp/libpng
 * GLFW - 3.4 - https://github.com/glfw/glfw
@@ -68,7 +70,7 @@ C/C++ projects:
 * GLM - 0.9.3.2 - https://github.com/icaven/glm
 * GLAD - 2.0.8 - https://github.com/Dav1dde/glad
 
-Python projects:
+Python projects (used in PMMA 1 and newer)
 * PyAV - latest - https://github.com/PyAV-Org/PyAV
 * Cython - latest - https://github.com/cython/cython
 * GetOSTheme - latest - https://github.com/FHPythonUtils/GetOSTheme
@@ -90,3 +92,9 @@ Python projects:
 * WMI - latest - https://timgolden.me.uk/python/wmi/
 
 NONE of the projects mentioned above are owned or maintained by PycraftDeveloper the maker of this repository, who would also like to say a big thank you to all the teams working on these projects!
+
+You can check out our licenses and the licenses of all the C/C++ projects PMMA uses as standard [here](https://github.com/PycraftDeveloper/PMMA/tree/main/pmma/licenses) or on your installed version of PMMA (version 5 or later) under `pmma/licenses`.
+
+## About
+
+We have worked on numerous large applications using the Python programming language. Most notably [Pycraft](https://github.com/PycraftDeveloper/Pycraft) which is our flagship project, an OpenGL based game using Python. Every time we write these large projects, we often find ourselves writing the same utility programs - which are small programs that help to eliminate complexity in our larger program files. So we decided to combine all of these utility programs into this project, PMMA which is intended then to make writing these larger applications easier as we don't need to keep re-using the same utility programs. The benefits don't stop there though as we are also ensuring this API is as fast and efficient as possible.

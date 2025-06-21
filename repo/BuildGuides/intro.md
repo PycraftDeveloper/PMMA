@@ -13,3 +13,9 @@
 * [Linux Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/linux.md#linux-build-guide)
 
 ## PMMA Build Guide
+
+Welcome to the build guide for PMMA. For most users we **strongly recommend** checking out our [simpler install method](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation).
+
+If however you want to try to install PMMA on a platform that doesn't meet the minimum requirements then you can do so by clicking on your operating system of choice in the contents section.
+
+**Please note that building PMMA yourself is a complex task and whilst we have tried to make the instructions as useful as possible, let us know in the issues section if you think the process could be improved, or you have steps to build PMMA onto a platform not listed here.**

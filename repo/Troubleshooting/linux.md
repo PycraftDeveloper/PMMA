@@ -8,6 +8,7 @@
 
 ## Contents
 * [Back to the README](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#contents)
+* [`OSError: PortAudio library not found`](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/linux.md#oserror-portaudio-library-not-found)
 
 ## Linux Troubleshooting
 
