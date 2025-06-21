@@ -11,7 +11,9 @@
 
 ## Linux Build Guide
 
-Welcome to the Linux build guide! Before we begin, you will need admin privileges to do this. Lets begin:
+Welcome to the Linux build guide! This build guide is intended for users of PMMA 5 or later, but for users of PMMA 4 or older only do steps 2 and 7.
+
+Before we begin, you will need admin privileges to do this.
 
 ### Step 1: Pre-requisites
 
@@ -95,7 +97,7 @@ This is nice and simple - just run: `python3 setup.py build_ext --build-lib pmma
 
 ### Step 7: Finishing up
 
-Congratulations, you now have a ready-to-go version of PMMA on your computer! However we have just one more step to make - we need to copy the entire ROOT/pmma directory into your python versions dist-packages folder, so you can import it and use it like any other Python module.
+Congratulations, you now have a ready-to-go version of PMMA on your computer! However we have just one more step to make - we need to copy the entire `ROOT/pmma directory` into your python versions `dist-packages` folder, so you can import it and use it like any other Python module.
 
 This step will depend on where Python3 was installed to, but you can do: `sudo cp -r pmma '/usr/lib/python3/dist-packages/pmma'`
 
