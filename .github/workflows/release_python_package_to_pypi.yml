@@ -50,7 +50,6 @@ jobs:
                 mkdir -p ${{ env.CMAKE_TEMP_DIR }}
                 cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_POSITION_INDEPENDENT_CODE=ON
                 cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release -- -j$(nproc)
-                find ${{ env.LIB_DIR }} -mindepth 2 -type f -exec mv -t ${{ env.LIB_DIR }} {} +
                 rm -rf ${{ env.CMAKE_TEMP_DIR }}
                 /opt/python/$tag/bin/python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
                 original=$(ls dist/*.whl)
