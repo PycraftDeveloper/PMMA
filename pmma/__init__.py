@@ -11,14 +11,24 @@ pmma_dir = os.path.dirname(os.path.abspath(__file__))
 
 pmma_lib_dir = os.path.join(pmma_dir, "lib")
 
+extern_binaries = os.path.join(pmma_dir, "extern", "bin")
+
 if system == "Windows":
+    ctypes.CDLL(os.path.join(extern_binaries, "zlib.dll"))
     ctypes.CDLL(os.path.join(pmma_lib_dir, "PMMA_Core.dll"))
 
 elif system == "Linux":
+    ctypes.CDLL(os.path.join(extern_binaries, "zlib.so"))
     ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.so"))
 
 elif system == "Darwin":
+    ctypes.CDLL(os.path.join(extern_binaries, "zlib.dylib"))
     ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.dylib"))
+
+from pmma.build.General import General
+
+General.set_pmma_location(pmma_dir)
+General.set_path_separator()
 
 from pmma.build.AdvancedMathematics import AdvancedMathematics
 from pmma.build.PerlinNoise import PerlinNoise
@@ -58,6 +68,7 @@ from pmma.build.KeyEvents import (
     KeyEvent_Left_Shift, KeyEvent_Left_Control, KeyEvent_Left_Alt,
     KeyEvent_Left_Super, KeyEvent_Right_Shift, KeyEvent_Right_Control,
     KeyEvent_Right_Alt, KeyEvent_Right_Super, KeyEvent_Menu)
+from pmma.build.TextRenderer import *
 
 from pmma.core.py_src.Backpack import Backpack
 from pmma.core.py_src.Audio import *

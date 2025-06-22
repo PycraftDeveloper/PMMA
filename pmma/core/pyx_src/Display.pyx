@@ -9,49 +9,49 @@ import numpy as np
 cimport numpy as np
 
 # Declare the external C++ function
-cdef extern from "PMMA_Core.hpp" nogil:
+cdef extern from "PMMA_Core.hpp":
     cdef cppclass CPP_Display:
         CPP_Display(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude);
 
-        inline void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) except + nogil
+        inline void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) except +
 
-        inline unsigned int GetWidth() except + nogil
-        inline unsigned int GetHeight() except + nogil
+        inline unsigned int GetWidth() except +
+        inline unsigned int GetHeight() except +
 
-        inline void GetSize(unsigned int* out) except + nogil
+        inline void GetSize(unsigned int* out) except +
 
-        void SetRelativeWindowPosition(unsigned int* Position) except + nogil
-        void SetAbsoluteWindowPosition(unsigned int* Position) except + nogil
+        void SetRelativeWindowPosition(unsigned int* Position) except +
+        void SetAbsoluteWindowPosition(unsigned int* Position) except +
 
-        void CenterWindow() except + nogil
+        void CenterWindow() except +
 
-        void Clear() except + nogil
-        void Clear(float* in_color) except + nogil
+        void Clear() except +
+        void Clear(float* in_color) except +
 
-        void SetWindowInFocus() except + nogil
+        void SetWindowInFocus() except +
 
-        void SetWindowMinimized(bool IsMinimized) except + nogil
-        void SetWindowMaximized(bool IsMaximized) except + nogil
+        void SetWindowMinimized(bool IsMinimized) except +
+        void SetWindowMaximized(bool IsMaximized) except +
 
-        void SetCaption(string& new_caption) except + nogil
-        string GetCaption() except + nogil
+        void SetCaption(string& new_caption) except +
+        string GetCaption() except +
 
-        void GetCenter_Pixels(unsigned int* out) except + nogil
-        void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) except + nogil
+        void GetCenter_Pixels(unsigned int* out) except +
+        void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) except +
 
-        float GetAspectRatio() except + nogil
+        float GetAspectRatio() except +
 
         void Refresh(unsigned int RefreshRate, bool Minimized,
             bool FocusLoss, bool LowBattery,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery) except + nogil
+            bool LowerRefreshRate_OnLowBattery) except +
 
-        void Refresh() except + nogil
+        void Refresh() except +
 
-        inline unsigned int GetFrameRate() except + nogil
+        inline unsigned int GetFrameRate() except +
 
-        inline float GetFrameTime() except + nogil
+        inline float GetFrameTime() except +
 
 cdef class Display:
     cdef:

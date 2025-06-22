@@ -149,6 +149,9 @@ namespace PMMA {
 
     vector<CPP_ControllerEvent*> ControllerEventInstances;
 
+    std::string PMMA_Location = "";
+    std::string PathSeparator = "";
+
     bool GLFW_Initialized = false;
 
     int GLFW_References = 0;

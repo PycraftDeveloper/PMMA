@@ -12,6 +12,8 @@
 #include <array>
 
 #include <GLFW/glfw3.h>
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
 
 #include "InternalEventsManager.hpp"
 
@@ -30,6 +32,9 @@ class EXPORT CPP_Display {
         bool Maximized;
         float RefreshTime = 0.000001f;
         std::chrono::high_resolution_clock::time_point StartTime = std::chrono::high_resolution_clock::now();
+
+        glm::mat4 OrthographicProjection;
+        bool OrthographicProjectionSet = false;
 
         GLFWmonitor* Monitor = nullptr;
         GLFWwindow* Window = nullptr;
@@ -132,11 +137,29 @@ class EXPORT CPP_Display {
             return RefreshTime;
         }
 
+        inline glm::mat4 GetDisplayProjection() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            if (OrthographicProjectionSet) {
+                return OrthographicProjection;
+            }
+
+            float HalfWidth = (float)Size[0] / 2.0f;
+            float HalfHeight = (float)Size[1] / 2.0f;
+            OrthographicProjection = glm::ortho(
+                0.0f, static_cast<float>(Size[0]),        // Left to Right
+                static_cast<float>(Size[1]), 0.0f,        // Top to Bottom (invert Y)
+                -1.0f, 1.0f                               // Near and Far
+            );
+            OrthographicProjectionSet = true;
+            return OrthographicProjection;
+        };
+
         ~CPP_Display();
 
         // WIPs
-
-        void GetDisplayProjection();
 
         void Get_2D_Surface(bool SetToBeUsed=true);
 

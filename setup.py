@@ -111,6 +111,8 @@ ext_modules = [
     make_ext("KeyEvents"),
     make_ext("NumberConverter", add_numpy=True),
     make_ext("PerlinNoise", add_numpy=True),
+    make_ext("TextRenderer", add_numpy=True),
+    make_ext("General", add_numpy=True)
 ]
 
 # Read the long description from README.md

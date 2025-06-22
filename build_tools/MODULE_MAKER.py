@@ -27,39 +27,10 @@ cmake_dir = os.path.join(build_tools_dir, "cmake")
 
 TERMINAL_SIZE = shutil.get_terminal_size().columns
 
-########################## CLEAN UP OLD BUILD ##########################
-def selective_removal(directory, keep_items: Iterable[str]):
-    for item in os.listdir(directory):
-        item_path = os.path.join(directory, item)
+########################## CLEAN UP  OLD DEPS ##########################
 
-        if os.path.isfile(item_path):  # Check if it's a file
-            delete = True
-            for keep_item in keep_items:
-                if item.endswith(keep_item):
-                    delete = False
-                    break
-            if delete:
-                print("Deleting file:", item_path)
-                os.remove(item_path)  # Delete the file
-
-        elif os.path.isdir(item_path) and not item_path.endswith(".mypy_cache"):  # Check if it's a directory
-            print("Deleting directory:", item_path)
-            try:
-                os.remove(item_path)  # Delete the directory
-            except:
-                print("Could not delete directory:", item_path)
-
-def clean_old_build():
-    print("Cleaning old build directories...")
-    if os.path.exists(build_dir):
-        selective_removal(build_dir, [".pyi"])
-
-    if os.path.exists(pyx_dir):
-        selective_removal(pyx_dir, [".pyx", ".pxd"])
-
-    if os.path.exists(lib_dir):
-        shutil.rmtree(lib_dir, ignore_errors=False)
-
+def clean_deps():
+    print("Cleaning dependencies...")
     if os.path.exists(extern_dir):
         def should_keep(path):
             return f'include{os.sep}glm' in path or f'include{os.sep}glad' in path
@@ -86,16 +57,70 @@ print("=" * TERMINAL_SIZE)
 
 result = ""
 while result not in ["y", "n"]:
-    result = input("Do you want to clean up old build directories? (y/n): ").lower()
+    result = input("Do you want to clean up PMMA's dependencies (not recommended, longer compile times)? (y/n): ").lower()
+    if result == "":
+        result = "n"
+
+build_deps = result == "y"
 
 if result == "y":
-    clean_old_build()
+    clean_deps()
+    print("Dependencies cleaned.")
+
+########################## CLEAN UP  OLD CORE ##########################
+def selective_removal(directory, keep_items: Iterable[str]):
+    for item in os.listdir(directory):
+        item_path = os.path.join(directory, item)
+
+        if os.path.isfile(item_path):  # Check if it's a file
+            delete = True
+            for keep_item in keep_items:
+                if item.endswith(keep_item):
+                    delete = False
+                    break
+            if delete:
+                print("Deleting file:", item_path)
+                os.remove(item_path)  # Delete the file
+
+        elif os.path.isdir(item_path) and not item_path.endswith(".mypy_cache"):  # Check if it's a directory
+            print("Deleting directory:", item_path)
+            try:
+                os.remove(item_path)  # Delete the directory
+            except:
+                print("Could not delete directory:", item_path)
+
+def clean_old_core():
+    print("Cleaning old build directories...")
+    if os.path.exists(build_dir):
+        selective_removal(build_dir, [".pyi"])
+
+    if os.path.exists(pyx_dir):
+        selective_removal(pyx_dir, [".pyx", ".pxd"])
+
+    if os.path.exists(lib_dir):
+        shutil.rmtree(lib_dir, ignore_errors=False)
 
 print("=" * TERMINAL_SIZE)
 
 result = ""
 while result not in ["y", "n"]:
-    result = input("Do you want to clean up the old build configuration (not generally recommended)? (y/n): ").lower()
+    result = input("Do you want to clean up old PMMA Core? (y/n): ").lower()
+    if result == "":
+        result = "y"
+
+if result == "y":
+    clean_old_core()
+    print("Old PMMA Core cleaned.")
+
+########################## CLEAN CMAKE TEMP ############################
+
+print("=" * TERMINAL_SIZE)
+
+result = ""
+while result not in ["y", "n"]:
+    result = input("Do you want to clean up the old build cache? (y/n): ").lower()
+    if result == "":
+        result = "y"
 
 if result == "y":
     if os.path.exists(temp_dir):
@@ -126,7 +151,12 @@ def build_shared_lib():
     os.makedirs(cmake_temp_dir, exist_ok=True)
 
     print("📦 Running CMake configuration...")
-    subprocess.run(["cmake", "-DCMAKE_POLICY_VERSION_MINIMUM=3.5", cmake_dir], cwd=cmake_temp_dir, check=True)
+    if build_deps:
+        deps_flag = "-DBUILD_DEPS=ON"
+    else:
+        deps_flag = "-DBUILD_DEPS=OFF"
+
+    subprocess.run(["cmake", "-DCMAKE_POLICY_VERSION_MINIMUM=3.5", cmake_dir, deps_flag], cwd=cmake_temp_dir, check=True)
 
     print("🔨 Building PMMA_Core...")
     build_command = ["cmake", "--build", "."]

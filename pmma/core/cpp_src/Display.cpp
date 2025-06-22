@@ -5,6 +5,7 @@
 #include <thread>
 #include <array>
 
+#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 
 #include "Display.hpp"
@@ -226,6 +227,9 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
     }
 
     glfwMakeContextCurrent(Window);
+
+    int version = gladLoadGL(glfwGetProcAddress);
+    cout << "OpenGL version: " << GLAD_VERSION_MAJOR(version) << "." << GLAD_VERSION_MINOR(version) << endl;
 
     if (Vsync) {
         glfwSwapInterval(1);

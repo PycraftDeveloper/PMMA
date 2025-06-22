@@ -28,7 +28,10 @@ set(SOURCES
     "${SRC_DIR}/FractalBrownianMotion.cpp"
     "${SRC_DIR}/InternalEventsManager.cpp"
     "${SRC_DIR}/NumberConverter.cpp"
-    "${SRC_DIR}/PerlinNoise.cpp")
+    "${SRC_DIR}/PerlinNoise.cpp"
+    "${SRC_DIR}/OpenGL.cpp"
+    "${SRC_DIR}/TextRenderer.cpp"
+    "${SRC_DIR}/General.cpp")
 
 # Add shared library
 add_library(${LIB_NAME} SHARED ${SOURCES})
@@ -41,7 +44,7 @@ endif()
 
 target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
 
-target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_DIR} ${EXTERN_INSTALL_DIR}/include)
+target_include_directories(${LIB_NAME} PRIVATE ${INCLUDE_DIR} ${EXTERN_INSTALL_DIR}/include ${EXTERN_INSTALL_DIR}/include/freetype2)
 
 file(GLOB LIBDIRS "${EXTERN_INSTALL_DIR}/lib*")
 
@@ -57,15 +60,15 @@ find_package(OpenGL REQUIRED)
 if (WIN32)
     add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
-    target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype libpng16_static zlib)
 
 elseif(APPLE)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
-    target_link_libraries(${LIB_NAME} PRIVATE "-framework Cocoa" "-framework OpenGL" "-framework IOKit" "-framework CoreVideo" glfw3 freetype)
+    target_link_libraries(${LIB_NAME} PRIVATE "-framework Cocoa" "-framework OpenGL" "-framework IOKit" "-framework CoreVideo" glfw3 freetype libpng16_static zlib)
 
 elseif(UNIX)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
-    target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype libpng16_static zlib)
 endif()
 
 # Set output path

@@ -2,6 +2,9 @@
 #include "PMMA_Exports.hpp"
 
 #include <vector>
+#include <string>
+
+#include "General.hpp"
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
@@ -151,6 +154,9 @@ namespace PMMA {
 
     EXPORT extern std::vector<CPP_ControllerEvent*> ControllerEventInstances;
 
+    EXPORT extern std::string PMMA_Location;
+    EXPORT extern std::string PathSeparator;
+
     EXPORT extern bool GLFW_Initialized;
 
     EXPORT extern int GLFW_References;
@@ -160,3 +166,5 @@ namespace PMMA {
 #include "InternalEventsManager.hpp"
 #include "FractalBrownianMotion.hpp"
 #include "PerlinNoise.hpp"
+#include "OpenGL.hpp"
+#include "TextRenderer.hpp"

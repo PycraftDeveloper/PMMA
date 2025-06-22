@@ -5,7 +5,8 @@
             "includePath": [
                 "${workspaceFolder}/**",
                 "D:\\Visual Studio C++ Extensions\\glfw-3.4.bin.WIN64\\include",
-                "D:\\Visual Studio C++ Extensions\\SFML-2.6.1\\include"
+                "D:\\Visual Studio C++ Extensions\\SFML-2.6.1\\include",
+                "W:\\Documents\\GitHub\\PMMA\\pmma\\extern\\include"
             ],
             "defines": [
                 "_DEBUG",
