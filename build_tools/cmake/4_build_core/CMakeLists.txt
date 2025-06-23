@@ -60,15 +60,15 @@ find_package(OpenGL REQUIRED)
 if (WIN32)
     add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
-    target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype libpng16 zlib)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype libpng16 zlib harfbuzz)
 
 elseif(APPLE)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
-    target_link_libraries(${LIB_NAME} PRIVATE "-framework Cocoa" "-framework OpenGL" "-framework IOKit" "-framework CoreVideo" glfw3 freetype png z)
+    target_link_libraries(${LIB_NAME} PRIVATE "-framework Cocoa" "-framework OpenGL" "-framework IOKit" "-framework CoreVideo" glfw3 freetype png z harfbuzz)
 
 elseif(UNIX)
     add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
-    target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype png z)
+    target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype png z harfbuzz)
 endif()
 
 # Set output path

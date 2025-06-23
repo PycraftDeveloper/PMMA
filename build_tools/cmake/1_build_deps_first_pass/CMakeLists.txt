@@ -20,3 +20,11 @@ FetchContent_Declare(
 )
 
 FetchContent_MakeAvailable(zlib)
+
+FetchContent_Declare(
+    harfbuzz
+    GIT_REPOSITORY https://github.com/harfbuzz/harfbuzz.git
+    GIT_TAG 11.2.1
+)
+
+FetchContent_MakeAvailable(harfbuzz)
