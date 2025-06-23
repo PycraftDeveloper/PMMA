@@ -1,6 +1,8 @@
 #include <string>
 #include <algorithm>
 
+#include <GLFW/glfw3.h>
+
 #include "Events.hpp"
 
 #include "PMMA_Core.hpp"
@@ -60,6 +62,13 @@ void remove_last_utf8_char(string& text) {
 
 CPP_TextEvent::CPP_TextEvent() {
     PMMA::TextEventInstances.push_back(this);
+
+    Control_KeyEventPtr = new CPP_KeyEvent_Control();
+    Shift_KeyEventPtr = new CPP_KeyEvent_Shift();
+    V_KeyEventPtr = new CPP_KeyEvent_V();
+    Insert_KeyEventPtr = new CPP_KeyEvent_Insert();
+    Delete_KeyEventPtr = new CPP_KeyEvent_Delete();;
+    Backspace_KeyEventPtr = new CPP_KeyEvent_Backspace();
 };
 
 CPP_TextEvent::~CPP_TextEvent() {
@@ -67,6 +76,13 @@ CPP_TextEvent::~CPP_TextEvent() {
     if (it != PMMA::TextEventInstances.end()) {
         PMMA::TextEventInstances.erase(it);
     }
+
+    Control_KeyEventPtr = nullptr;
+    Shift_KeyEventPtr = nullptr;
+    V_KeyEventPtr = nullptr;
+    Insert_KeyEventPtr = nullptr;
+    Delete_KeyEventPtr = nullptr;
+    Backspace_KeyEventPtr = nullptr;
 };
 
 void CPP_TextEvent::RemoveBack() {
@@ -84,6 +100,1505 @@ void CPP_TextEvent::RemoveFront() {
     }
     if (Text.size() > 0) {
         remove_utf8_char(Text, 0);
+    }
+};
+
+void CPP_TextEvent::GenericUpdate(GLFWwindow* window) {
+    if (!IsEnabled) {
+        return;
+    }
+
+    if (Control_KeyEventPtr->GetPressed()) {
+        if (V_KeyEventPtr->PollLongPressed() || V_KeyEventPtr->GetPressedToggle()) {
+            const char* ClipboardData = glfwGetClipboardString(window);
+            if (ClipboardData == nullptr) {
+                return;
+            }
+            std::string NewTextContent = ClipboardData;
+            Update(NewTextContent);
+        }
+    }
+
+    if (Shift_KeyEventPtr->GetPressed()) {
+        if (Insert_KeyEventPtr->PollLongPressed() || Insert_KeyEventPtr->GetPressedToggle()) {
+            const char* ClipboardData = glfwGetClipboardString(window);
+            if (ClipboardData == nullptr) {
+                return;
+            }
+            std::string NewTextContent = ClipboardData;
+            Update(NewTextContent);
+        }
+    }
+
+    if (Backspace_KeyEventPtr->PollLongPressed() || Backspace_KeyEventPtr->GetPressedToggle()) {
+        RemoveBack();
+    }
+
+    if (Delete_KeyEventPtr->PollLongPressed() || Delete_KeyEventPtr->GetPressedToggle()) {
+        RemoveFront();
+    }
+};
+
+CPP_MouseScrollEvent::CPP_MouseScrollEvent() {
+    PMMA::MouseScrollEventInstances.push_back(this);
+};
+
+CPP_MouseScrollEvent::~CPP_MouseScrollEvent() {
+    auto it = find(PMMA::MouseScrollEventInstances.begin(), PMMA::MouseScrollEventInstances.end(), this);
+    if (it != PMMA::MouseScrollEventInstances.end()) {
+        PMMA::MouseScrollEventInstances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Space::CPP_KeyEvent_Space() {
+    PMMA::KeyEvent_Space_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Space::~CPP_KeyEvent_Space() {
+    auto it = find(PMMA::KeyEvent_Space_Instances.begin(), PMMA::KeyEvent_Space_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Space_Instances.end()) {
+        PMMA::KeyEvent_Space_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Apostrophe::CPP_KeyEvent_Apostrophe() {
+    PMMA::KeyEvent_Apostrophe_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Apostrophe::~CPP_KeyEvent_Apostrophe() {
+    auto it = find(PMMA::KeyEvent_Apostrophe_Instances.begin(), PMMA::KeyEvent_Apostrophe_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Apostrophe_Instances.end()) {
+        PMMA::KeyEvent_Apostrophe_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Comma::CPP_KeyEvent_Comma() {
+    PMMA::KeyEvent_Comma_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Comma::~CPP_KeyEvent_Comma() {
+    auto it = find(PMMA::KeyEvent_Comma_Instances.begin(), PMMA::KeyEvent_Comma_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Comma_Instances.end()) {
+        PMMA::KeyEvent_Comma_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Minus::CPP_KeyEvent_Minus() {
+    PMMA::KeyEvent_Minus_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Minus::~CPP_KeyEvent_Minus() {
+    auto it = find(PMMA::KeyEvent_Minus_Instances.begin(), PMMA::KeyEvent_Minus_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Minus_Instances.end()) {
+        PMMA::KeyEvent_Minus_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Period::CPP_KeyEvent_Period() {
+    PMMA::KeyEvent_Period_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Period::~CPP_KeyEvent_Period() {
+    auto it = find(PMMA::KeyEvent_Period_Instances.begin(), PMMA::KeyEvent_Period_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Period_Instances.end()) {
+        PMMA::KeyEvent_Period_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Slash::CPP_KeyEvent_Slash() {
+    PMMA::KeyEvent_Slash_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Slash::~CPP_KeyEvent_Slash() {
+    auto it = find(PMMA::KeyEvent_Slash_Instances.begin(), PMMA::KeyEvent_Slash_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Slash_Instances.end()) {
+        PMMA::KeyEvent_Slash_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_0::CPP_KeyEvent_0() {
+    PMMA::KeyEvent_0_Instances.push_back(this);
+};
+
+CPP_KeyEvent_0::~CPP_KeyEvent_0() {
+    auto it = find(PMMA::KeyEvent_0_Instances.begin(), PMMA::KeyEvent_0_Instances.end(), this);
+    if (it != PMMA::KeyEvent_0_Instances.end()) {
+        PMMA::KeyEvent_0_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_1::CPP_KeyEvent_1() {
+    PMMA::KeyEvent_1_Instances.push_back(this);
+};
+
+CPP_KeyEvent_1::~CPP_KeyEvent_1() {
+    auto it = find(PMMA::KeyEvent_1_Instances.begin(), PMMA::KeyEvent_1_Instances.end(), this);
+    if (it != PMMA::KeyEvent_1_Instances.end()) {
+        PMMA::KeyEvent_1_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_2::CPP_KeyEvent_2() {
+    PMMA::KeyEvent_2_Instances.push_back(this);
+};
+
+CPP_KeyEvent_2::~CPP_KeyEvent_2() {
+    auto it = find(PMMA::KeyEvent_2_Instances.begin(), PMMA::KeyEvent_2_Instances.end(), this);
+    if (it != PMMA::KeyEvent_2_Instances.end()) {
+        PMMA::KeyEvent_2_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_3::CPP_KeyEvent_3() {
+    PMMA::KeyEvent_3_Instances.push_back(this);
+};
+
+CPP_KeyEvent_3::~CPP_KeyEvent_3() {
+    auto it = find(PMMA::KeyEvent_3_Instances.begin(), PMMA::KeyEvent_3_Instances.end(), this);
+    if (it != PMMA::KeyEvent_3_Instances.end()) {
+        PMMA::KeyEvent_3_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_4::CPP_KeyEvent_4() {
+    PMMA::KeyEvent_4_Instances.push_back(this);
+};
+
+CPP_KeyEvent_4::~CPP_KeyEvent_4() {
+    auto it = find(PMMA::KeyEvent_4_Instances.begin(), PMMA::KeyEvent_4_Instances.end(), this);
+    if (it != PMMA::KeyEvent_4_Instances.end()) {
+        PMMA::KeyEvent_4_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_5::CPP_KeyEvent_5() {
+    PMMA::KeyEvent_5_Instances.push_back(this);
+};
+
+CPP_KeyEvent_5::~CPP_KeyEvent_5() {
+    auto it = find(PMMA::KeyEvent_5_Instances.begin(), PMMA::KeyEvent_5_Instances.end(), this);
+    if (it != PMMA::KeyEvent_5_Instances.end()) {
+        PMMA::KeyEvent_5_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_6::CPP_KeyEvent_6() {
+    PMMA::KeyEvent_6_Instances.push_back(this);
+};
+
+CPP_KeyEvent_6::~CPP_KeyEvent_6() {
+    auto it = find(PMMA::KeyEvent_6_Instances.begin(), PMMA::KeyEvent_6_Instances.end(), this);
+    if (it != PMMA::KeyEvent_6_Instances.end()) {
+        PMMA::KeyEvent_6_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_7::CPP_KeyEvent_7() {
+    PMMA::KeyEvent_7_Instances.push_back(this);
+};
+
+CPP_KeyEvent_7::~CPP_KeyEvent_7() {
+    auto it = find(PMMA::KeyEvent_7_Instances.begin(), PMMA::KeyEvent_7_Instances.end(), this);
+    if (it != PMMA::KeyEvent_7_Instances.end()) {
+        PMMA::KeyEvent_7_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_8::CPP_KeyEvent_8() {
+    PMMA::KeyEvent_8_Instances.push_back(this);
+};
+
+CPP_KeyEvent_8::~CPP_KeyEvent_8() {
+    auto it = find(PMMA::KeyEvent_8_Instances.begin(), PMMA::KeyEvent_8_Instances.end(), this);
+    if (it != PMMA::KeyEvent_8_Instances.end()) {
+        PMMA::KeyEvent_8_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_9::CPP_KeyEvent_9() {
+    PMMA::KeyEvent_9_Instances.push_back(this);
+};
+
+CPP_KeyEvent_9::~CPP_KeyEvent_9() {
+    auto it = find(PMMA::KeyEvent_9_Instances.begin(), PMMA::KeyEvent_9_Instances.end(), this);
+    if (it != PMMA::KeyEvent_9_Instances.end()) {
+        PMMA::KeyEvent_9_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Semicolon::CPP_KeyEvent_Semicolon() {
+    PMMA::KeyEvent_Semicolon_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Semicolon::~CPP_KeyEvent_Semicolon() {
+    auto it = find(PMMA::KeyEvent_Semicolon_Instances.begin(), PMMA::KeyEvent_Semicolon_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Semicolon_Instances.end()) {
+        PMMA::KeyEvent_Semicolon_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Equal::CPP_KeyEvent_Equal() {
+    PMMA::KeyEvent_Equal_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Equal::~CPP_KeyEvent_Equal() {
+    auto it = find(PMMA::KeyEvent_Equal_Instances.begin(), PMMA::KeyEvent_Equal_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Equal_Instances.end()) {
+        PMMA::KeyEvent_Equal_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_A::CPP_KeyEvent_A() {
+    PMMA::KeyEvent_A_Instances.push_back(this);
+};
+
+CPP_KeyEvent_A::~CPP_KeyEvent_A() {
+    auto it = find(PMMA::KeyEvent_A_Instances.begin(), PMMA::KeyEvent_A_Instances.end(), this);
+    if (it != PMMA::KeyEvent_A_Instances.end()) {
+        PMMA::KeyEvent_A_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_B::CPP_KeyEvent_B() {
+    PMMA::KeyEvent_B_Instances.push_back(this);
+};
+
+CPP_KeyEvent_B::~CPP_KeyEvent_B() {
+    auto it = find(PMMA::KeyEvent_B_Instances.begin(), PMMA::KeyEvent_B_Instances.end(), this);
+    if (it != PMMA::KeyEvent_B_Instances.end()) {
+        PMMA::KeyEvent_B_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_C::CPP_KeyEvent_C() {
+    PMMA::KeyEvent_C_Instances.push_back(this);
+};
+
+CPP_KeyEvent_C::~CPP_KeyEvent_C() {
+    auto it = find(PMMA::KeyEvent_C_Instances.begin(), PMMA::KeyEvent_C_Instances.end(), this);
+    if (it != PMMA::KeyEvent_C_Instances.end()) {
+        PMMA::KeyEvent_C_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_D::CPP_KeyEvent_D() {
+    PMMA::KeyEvent_D_Instances.push_back(this);
+};
+
+CPP_KeyEvent_D::~CPP_KeyEvent_D() {
+    auto it = find(PMMA::KeyEvent_D_Instances.begin(), PMMA::KeyEvent_D_Instances.end(), this);
+    if (it != PMMA::KeyEvent_D_Instances.end()) {
+        PMMA::KeyEvent_D_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_E::CPP_KeyEvent_E() {
+    PMMA::KeyEvent_E_Instances.push_back(this);
+};
+
+CPP_KeyEvent_E::~CPP_KeyEvent_E() {
+    auto it = find(PMMA::KeyEvent_E_Instances.begin(), PMMA::KeyEvent_E_Instances.end(), this);
+    if (it != PMMA::KeyEvent_E_Instances.end()) {
+        PMMA::KeyEvent_E_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F::CPP_KeyEvent_F() {
+    PMMA::KeyEvent_F_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F::~CPP_KeyEvent_F() {
+    auto it = find(PMMA::KeyEvent_F_Instances.begin(), PMMA::KeyEvent_F_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F_Instances.end()) {
+        PMMA::KeyEvent_F_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_G::CPP_KeyEvent_G() {
+    PMMA::KeyEvent_G_Instances.push_back(this);
+};
+
+CPP_KeyEvent_G::~CPP_KeyEvent_G() {
+    auto it = find(PMMA::KeyEvent_G_Instances.begin(), PMMA::KeyEvent_G_Instances.end(), this);
+    if (it != PMMA::KeyEvent_G_Instances.end()) {
+        PMMA::KeyEvent_G_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_H::CPP_KeyEvent_H() {
+    PMMA::KeyEvent_H_Instances.push_back(this);
+};
+
+CPP_KeyEvent_H::~CPP_KeyEvent_H() {
+    auto it = find(PMMA::KeyEvent_H_Instances.begin(), PMMA::KeyEvent_H_Instances.end(), this);
+    if (it != PMMA::KeyEvent_H_Instances.end()) {
+        PMMA::KeyEvent_H_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_I::CPP_KeyEvent_I() {
+    PMMA::KeyEvent_I_Instances.push_back(this);
+};
+
+CPP_KeyEvent_I::~CPP_KeyEvent_I() {
+    auto it = find(PMMA::KeyEvent_I_Instances.begin(), PMMA::KeyEvent_I_Instances.end(), this);
+    if (it != PMMA::KeyEvent_I_Instances.end()) {
+        PMMA::KeyEvent_I_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_J::CPP_KeyEvent_J() {
+    PMMA::KeyEvent_J_Instances.push_back(this);
+};
+
+CPP_KeyEvent_J::~CPP_KeyEvent_J() {
+    auto it = find(PMMA::KeyEvent_J_Instances.begin(), PMMA::KeyEvent_J_Instances.end(), this);
+    if (it != PMMA::KeyEvent_J_Instances.end()) {
+        PMMA::KeyEvent_J_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_K::CPP_KeyEvent_K() {
+    PMMA::KeyEvent_K_Instances.push_back(this);
+};
+
+CPP_KeyEvent_K::~CPP_KeyEvent_K() {
+    auto it = find(PMMA::KeyEvent_K_Instances.begin(), PMMA::KeyEvent_K_Instances.end(), this);
+    if (it != PMMA::KeyEvent_K_Instances.end()) {
+        PMMA::KeyEvent_K_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_L::CPP_KeyEvent_L() {
+    PMMA::KeyEvent_L_Instances.push_back(this);
+};
+
+CPP_KeyEvent_L::~CPP_KeyEvent_L() {
+    auto it = find(PMMA::KeyEvent_L_Instances.begin(), PMMA::KeyEvent_L_Instances.end(), this);
+    if (it != PMMA::KeyEvent_L_Instances.end()) {
+        PMMA::KeyEvent_L_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_M::CPP_KeyEvent_M() {
+    PMMA::KeyEvent_M_Instances.push_back(this);
+};
+
+CPP_KeyEvent_M::~CPP_KeyEvent_M() {
+    auto it = find(PMMA::KeyEvent_M_Instances.begin(), PMMA::KeyEvent_M_Instances.end(), this);
+    if (it != PMMA::KeyEvent_M_Instances.end()) {
+        PMMA::KeyEvent_M_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_N::CPP_KeyEvent_N() {
+    PMMA::KeyEvent_N_Instances.push_back(this);
+};
+
+CPP_KeyEvent_N::~CPP_KeyEvent_N() {
+    auto it = find(PMMA::KeyEvent_N_Instances.begin(), PMMA::KeyEvent_N_Instances.end(), this);
+    if (it != PMMA::KeyEvent_N_Instances.end()) {
+        PMMA::KeyEvent_N_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_O::CPP_KeyEvent_O() {
+    PMMA::KeyEvent_O_Instances.push_back(this);
+};
+
+CPP_KeyEvent_O::~CPP_KeyEvent_O() {
+    auto it = find(PMMA::KeyEvent_O_Instances.begin(), PMMA::KeyEvent_O_Instances.end(), this);
+    if (it != PMMA::KeyEvent_O_Instances.end()) {
+        PMMA::KeyEvent_O_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_P::CPP_KeyEvent_P() {
+    PMMA::KeyEvent_P_Instances.push_back(this);
+};
+
+CPP_KeyEvent_P::~CPP_KeyEvent_P() {
+    auto it = find(PMMA::KeyEvent_P_Instances.begin(), PMMA::KeyEvent_P_Instances.end(), this);
+    if (it != PMMA::KeyEvent_P_Instances.end()) {
+        PMMA::KeyEvent_P_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Q::CPP_KeyEvent_Q() {
+    PMMA::KeyEvent_Q_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Q::~CPP_KeyEvent_Q() {
+    auto it = find(PMMA::KeyEvent_Q_Instances.begin(), PMMA::KeyEvent_Q_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Q_Instances.end()) {
+        PMMA::KeyEvent_Q_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_R::CPP_KeyEvent_R() {
+    PMMA::KeyEvent_R_Instances.push_back(this);
+};
+
+CPP_KeyEvent_R::~CPP_KeyEvent_R() {
+    auto it = find(PMMA::KeyEvent_R_Instances.begin(), PMMA::KeyEvent_R_Instances.end(), this);
+    if (it != PMMA::KeyEvent_R_Instances.end()) {
+        PMMA::KeyEvent_R_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_S::CPP_KeyEvent_S() {
+    PMMA::KeyEvent_S_Instances.push_back(this);
+};
+
+CPP_KeyEvent_S::~CPP_KeyEvent_S() {
+    auto it = find(PMMA::KeyEvent_S_Instances.begin(), PMMA::KeyEvent_S_Instances.end(), this);
+    if (it != PMMA::KeyEvent_S_Instances.end()) {
+        PMMA::KeyEvent_S_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_T::CPP_KeyEvent_T() {
+    PMMA::KeyEvent_T_Instances.push_back(this);
+};
+
+CPP_KeyEvent_T::~CPP_KeyEvent_T() {
+    auto it = find(PMMA::KeyEvent_T_Instances.begin(), PMMA::KeyEvent_T_Instances.end(), this);
+    if (it != PMMA::KeyEvent_T_Instances.end()) {
+        PMMA::KeyEvent_T_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_U::CPP_KeyEvent_U() {
+    PMMA::KeyEvent_U_Instances.push_back(this);
+};
+
+CPP_KeyEvent_U::~CPP_KeyEvent_U() {
+    auto it = find(PMMA::KeyEvent_U_Instances.begin(), PMMA::KeyEvent_U_Instances.end(), this);
+    if (it != PMMA::KeyEvent_U_Instances.end()) {
+        PMMA::KeyEvent_U_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_V::CPP_KeyEvent_V() {
+    PMMA::KeyEvent_V_Instances.push_back(this);
+};
+
+CPP_KeyEvent_V::~CPP_KeyEvent_V() {
+    auto it = find(PMMA::KeyEvent_V_Instances.begin(), PMMA::KeyEvent_V_Instances.end(), this);
+    if (it != PMMA::KeyEvent_V_Instances.end()) {
+        PMMA::KeyEvent_V_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_W::CPP_KeyEvent_W() {
+    PMMA::KeyEvent_W_Instances.push_back(this);
+};
+
+CPP_KeyEvent_W::~CPP_KeyEvent_W() {
+    auto it = find(PMMA::KeyEvent_W_Instances.begin(), PMMA::KeyEvent_W_Instances.end(), this);
+    if (it != PMMA::KeyEvent_W_Instances.end()) {
+        PMMA::KeyEvent_W_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_X::CPP_KeyEvent_X() {
+    PMMA::KeyEvent_X_Instances.push_back(this);
+};
+
+CPP_KeyEvent_X::~CPP_KeyEvent_X() {
+    auto it = find(PMMA::KeyEvent_X_Instances.begin(), PMMA::KeyEvent_X_Instances.end(), this);
+    if (it != PMMA::KeyEvent_X_Instances.end()) {
+        PMMA::KeyEvent_X_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Y::CPP_KeyEvent_Y() {
+    PMMA::KeyEvent_Y_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Y::~CPP_KeyEvent_Y() {
+    auto it = find(PMMA::KeyEvent_Y_Instances.begin(), PMMA::KeyEvent_Y_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Y_Instances.end()) {
+        PMMA::KeyEvent_Y_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Z::CPP_KeyEvent_Z() {
+    PMMA::KeyEvent_Z_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Z::~CPP_KeyEvent_Z() {
+    auto it = find(PMMA::KeyEvent_Z_Instances.begin(), PMMA::KeyEvent_Z_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Z_Instances.end()) {
+        PMMA::KeyEvent_Z_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Left_Bracket::CPP_KeyEvent_Left_Bracket() {
+    PMMA::KeyEvent_Left_Bracket_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Left_Bracket::~CPP_KeyEvent_Left_Bracket() {
+    auto it = find(PMMA::KeyEvent_Left_Bracket_Instances.begin(), PMMA::KeyEvent_Left_Bracket_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Left_Bracket_Instances.end()) {
+        PMMA::KeyEvent_Left_Bracket_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Backslash::CPP_KeyEvent_Backslash() {
+    PMMA::KeyEvent_Backslash_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Backslash::~CPP_KeyEvent_Backslash() {
+    auto it = find(PMMA::KeyEvent_Backslash_Instances.begin(), PMMA::KeyEvent_Backslash_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Backslash_Instances.end()) {
+        PMMA::KeyEvent_Backslash_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Right_Bracket::CPP_KeyEvent_Right_Bracket() {
+    PMMA::KeyEvent_Right_Bracket_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Right_Bracket::~CPP_KeyEvent_Right_Bracket() {
+    auto it = find(PMMA::KeyEvent_Right_Bracket_Instances.begin(), PMMA::KeyEvent_Right_Bracket_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Right_Bracket_Instances.end()) {
+        PMMA::KeyEvent_Right_Bracket_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Grave_Accent::CPP_KeyEvent_Grave_Accent() {
+    PMMA::KeyEvent_Grave_Accent_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Grave_Accent::~CPP_KeyEvent_Grave_Accent() {
+    auto it = find(PMMA::KeyEvent_Grave_Accent_Instances.begin(), PMMA::KeyEvent_Grave_Accent_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Grave_Accent_Instances.end()) {
+        PMMA::KeyEvent_Grave_Accent_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_World_1::CPP_KeyEvent_World_1() {
+    PMMA::KeyEvent_World_1_Instances.push_back(this);
+};
+
+CPP_KeyEvent_World_1::~CPP_KeyEvent_World_1() {
+    auto it = find(PMMA::KeyEvent_World_1_Instances.begin(), PMMA::KeyEvent_World_1_Instances.end(), this);
+    if (it != PMMA::KeyEvent_World_1_Instances.end()) {
+        PMMA::KeyEvent_World_1_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_World_2::CPP_KeyEvent_World_2() {
+    PMMA::KeyEvent_World_2_Instances.push_back(this);
+};
+
+CPP_KeyEvent_World_2::~CPP_KeyEvent_World_2() {
+    auto it = find(PMMA::KeyEvent_World_2_Instances.begin(), PMMA::KeyEvent_World_2_Instances.end(), this);
+    if (it != PMMA::KeyEvent_World_2_Instances.end()) {
+        PMMA::KeyEvent_World_2_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Escape::CPP_KeyEvent_Escape() {
+    PMMA::KeyEvent_Escape_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Escape::~CPP_KeyEvent_Escape() {
+    auto it = find(PMMA::KeyEvent_Escape_Instances.begin(), PMMA::KeyEvent_Escape_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Escape_Instances.end()) {
+        PMMA::KeyEvent_Escape_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Enter::CPP_KeyEvent_Enter() {
+    PMMA::KeyEvent_Enter_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Enter::~CPP_KeyEvent_Enter() {
+    auto it = find(PMMA::KeyEvent_Enter_Instances.begin(), PMMA::KeyEvent_Enter_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Enter_Instances.end()) {
+        PMMA::KeyEvent_Enter_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Tab::CPP_KeyEvent_Tab() {
+    PMMA::KeyEvent_Tab_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Tab::~CPP_KeyEvent_Tab() {
+    auto it = find(PMMA::KeyEvent_Tab_Instances.begin(), PMMA::KeyEvent_Tab_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Tab_Instances.end()) {
+        PMMA::KeyEvent_Tab_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Backspace::CPP_KeyEvent_Backspace() {
+    PMMA::KeyEvent_Backspace_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Backspace::~CPP_KeyEvent_Backspace() {
+    auto it = find(PMMA::KeyEvent_Backspace_Instances.begin(), PMMA::KeyEvent_Backspace_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Backspace_Instances.end()) {
+        PMMA::KeyEvent_Backspace_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Insert::CPP_KeyEvent_Insert() {
+    PMMA::KeyEvent_Insert_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Insert::~CPP_KeyEvent_Insert() {
+    auto it = find(PMMA::KeyEvent_Insert_Instances.begin(), PMMA::KeyEvent_Insert_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Insert_Instances.end()) {
+        PMMA::KeyEvent_Insert_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Delete::CPP_KeyEvent_Delete() {
+    PMMA::KeyEvent_Delete_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Delete::~CPP_KeyEvent_Delete() {
+    auto it = find(PMMA::KeyEvent_Delete_Instances.begin(), PMMA::KeyEvent_Delete_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Delete_Instances.end()) {
+        PMMA::KeyEvent_Delete_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Right::CPP_KeyEvent_Right() {
+    PMMA::KeyEvent_Right_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Right::~CPP_KeyEvent_Right() {
+    auto it = find(PMMA::KeyEvent_Right_Instances.begin(), PMMA::KeyEvent_Right_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Right_Instances.end()) {
+        PMMA::KeyEvent_Right_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Left::CPP_KeyEvent_Left() {
+    PMMA::KeyEvent_Left_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Left::~CPP_KeyEvent_Left() {
+    auto it = find(PMMA::KeyEvent_Left_Instances.begin(), PMMA::KeyEvent_Left_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Left_Instances.end()) {
+        PMMA::KeyEvent_Left_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Down::CPP_KeyEvent_Down() {
+    PMMA::KeyEvent_Down_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Down::~CPP_KeyEvent_Down() {
+    auto it = find(PMMA::KeyEvent_Down_Instances.begin(), PMMA::KeyEvent_Down_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Down_Instances.end()) {
+        PMMA::KeyEvent_Down_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Up::CPP_KeyEvent_Up() {
+    PMMA::KeyEvent_Up_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Up::~CPP_KeyEvent_Up() {
+    auto it = find(PMMA::KeyEvent_Up_Instances.begin(), PMMA::KeyEvent_Up_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Up_Instances.end()) {
+        PMMA::KeyEvent_Up_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Page_Up::CPP_KeyEvent_Page_Up() {
+    PMMA::KeyEvent_Page_Up_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Page_Up::~CPP_KeyEvent_Page_Up() {
+    auto it = find(PMMA::KeyEvent_Page_Up_Instances.begin(), PMMA::KeyEvent_Page_Up_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Page_Up_Instances.end()) {
+        PMMA::KeyEvent_Page_Up_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Page_Down::CPP_KeyEvent_Page_Down() {
+    PMMA::KeyEvent_Page_Down_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Page_Down::~CPP_KeyEvent_Page_Down() {
+    auto it = find(PMMA::KeyEvent_Page_Down_Instances.begin(), PMMA::KeyEvent_Page_Down_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Page_Down_Instances.end()) {
+        PMMA::KeyEvent_Page_Down_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Home::CPP_KeyEvent_Home() {
+    PMMA::KeyEvent_Home_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Home::~CPP_KeyEvent_Home() {
+    auto it = find(PMMA::KeyEvent_Home_Instances.begin(), PMMA::KeyEvent_Home_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Home_Instances.end()) {
+        PMMA::KeyEvent_Home_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_End::CPP_KeyEvent_End() {
+    PMMA::KeyEvent_End_Instances.push_back(this);
+};
+
+CPP_KeyEvent_End::~CPP_KeyEvent_End() {
+    auto it = find(PMMA::KeyEvent_End_Instances.begin(), PMMA::KeyEvent_End_Instances.end(), this);
+    if (it != PMMA::KeyEvent_End_Instances.end()) {
+        PMMA::KeyEvent_End_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Caps_Lock::CPP_KeyEvent_Caps_Lock() {
+    PMMA::KeyEvent_Caps_Lock_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Caps_Lock::~CPP_KeyEvent_Caps_Lock() {
+    auto it = find(PMMA::KeyEvent_Caps_Lock_Instances.begin(), PMMA::KeyEvent_Caps_Lock_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Caps_Lock_Instances.end()) {
+        PMMA::KeyEvent_Caps_Lock_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Scroll_Lock::CPP_KeyEvent_Scroll_Lock() {
+    PMMA::KeyEvent_Scroll_Lock_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Scroll_Lock::~CPP_KeyEvent_Scroll_Lock() {
+    auto it = find(PMMA::KeyEvent_Scroll_Lock_Instances.begin(), PMMA::KeyEvent_Scroll_Lock_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Scroll_Lock_Instances.end()) {
+        PMMA::KeyEvent_Scroll_Lock_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Num_Lock::CPP_KeyEvent_Num_Lock() {
+    PMMA::KeyEvent_Num_Lock_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Num_Lock::~CPP_KeyEvent_Num_Lock() {
+    auto it = find(PMMA::KeyEvent_Num_Lock_Instances.begin(), PMMA::KeyEvent_Num_Lock_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Num_Lock_Instances.end()) {
+        PMMA::KeyEvent_Num_Lock_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Print_Screen::CPP_KeyEvent_Print_Screen() {
+    PMMA::KeyEvent_Print_Screen_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Print_Screen::~CPP_KeyEvent_Print_Screen() {
+    auto it = find(PMMA::KeyEvent_Print_Screen_Instances.begin(), PMMA::KeyEvent_Print_Screen_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Print_Screen_Instances.end()) {
+        PMMA::KeyEvent_Print_Screen_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Pause::CPP_KeyEvent_Pause() {
+    PMMA::KeyEvent_Pause_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Pause::~CPP_KeyEvent_Pause() {
+    auto it = find(PMMA::KeyEvent_Pause_Instances.begin(), PMMA::KeyEvent_Pause_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Pause_Instances.end()) {
+        PMMA::KeyEvent_Pause_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F1::CPP_KeyEvent_F1() {
+    PMMA::KeyEvent_F1_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F1::~CPP_KeyEvent_F1() {
+    auto it = find(PMMA::KeyEvent_F1_Instances.begin(), PMMA::KeyEvent_F1_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F1_Instances.end()) {
+        PMMA::KeyEvent_F1_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F2::CPP_KeyEvent_F2() {
+    PMMA::KeyEvent_F2_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F2::~CPP_KeyEvent_F2() {
+    auto it = find(PMMA::KeyEvent_F2_Instances.begin(), PMMA::KeyEvent_F2_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F2_Instances.end()) {
+        PMMA::KeyEvent_F2_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F3::CPP_KeyEvent_F3() {
+    PMMA::KeyEvent_F3_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F3::~CPP_KeyEvent_F3() {
+    auto it = find(PMMA::KeyEvent_F3_Instances.begin(), PMMA::KeyEvent_F3_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F3_Instances.end()) {
+        PMMA::KeyEvent_F3_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F4::CPP_KeyEvent_F4() {
+    PMMA::KeyEvent_F4_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F4::~CPP_KeyEvent_F4() {
+    auto it = find(PMMA::KeyEvent_F4_Instances.begin(), PMMA::KeyEvent_F4_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F4_Instances.end()) {
+        PMMA::KeyEvent_F4_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F5::CPP_KeyEvent_F5() {
+    PMMA::KeyEvent_F5_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F5::~CPP_KeyEvent_F5() {
+    auto it = find(PMMA::KeyEvent_F5_Instances.begin(), PMMA::KeyEvent_F5_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F5_Instances.end()) {
+        PMMA::KeyEvent_F5_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F6::CPP_KeyEvent_F6() {
+    PMMA::KeyEvent_F6_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F6::~CPP_KeyEvent_F6() {
+    auto it = find(PMMA::KeyEvent_F6_Instances.begin(), PMMA::KeyEvent_F6_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F6_Instances.end()) {
+        PMMA::KeyEvent_F6_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F7::CPP_KeyEvent_F7() {
+    PMMA::KeyEvent_F7_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F7::~CPP_KeyEvent_F7() {
+    auto it = find(PMMA::KeyEvent_F7_Instances.begin(), PMMA::KeyEvent_F7_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F7_Instances.end()) {
+        PMMA::KeyEvent_F7_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F8::CPP_KeyEvent_F8() {
+    PMMA::KeyEvent_F8_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F8::~CPP_KeyEvent_F8() {
+    auto it = find(PMMA::KeyEvent_F8_Instances.begin(), PMMA::KeyEvent_F8_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F8_Instances.end()) {
+        PMMA::KeyEvent_F8_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F9::CPP_KeyEvent_F9() {
+    PMMA::KeyEvent_F9_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F9::~CPP_KeyEvent_F9() {
+    auto it = find(PMMA::KeyEvent_F9_Instances.begin(), PMMA::KeyEvent_F9_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F9_Instances.end()) {
+        PMMA::KeyEvent_F9_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F10::CPP_KeyEvent_F10() {
+    PMMA::KeyEvent_F10_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F10::~CPP_KeyEvent_F10() {
+    auto it = find(PMMA::KeyEvent_F10_Instances.begin(), PMMA::KeyEvent_F10_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F10_Instances.end()) {
+        PMMA::KeyEvent_F10_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F11::CPP_KeyEvent_F11() {
+    PMMA::KeyEvent_F11_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F11::~CPP_KeyEvent_F11() {
+    auto it = find(PMMA::KeyEvent_F11_Instances.begin(), PMMA::KeyEvent_F11_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F11_Instances.end()) {
+        PMMA::KeyEvent_F11_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F12::CPP_KeyEvent_F12() {
+    PMMA::KeyEvent_F12_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F12::~CPP_KeyEvent_F12() {
+    auto it = find(PMMA::KeyEvent_F12_Instances.begin(), PMMA::KeyEvent_F12_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F12_Instances.end()) {
+        PMMA::KeyEvent_F12_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F13::CPP_KeyEvent_F13() {
+    PMMA::KeyEvent_F13_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F13::~CPP_KeyEvent_F13() {
+    auto it = find(PMMA::KeyEvent_F13_Instances.begin(), PMMA::KeyEvent_F13_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F13_Instances.end()) {
+        PMMA::KeyEvent_F13_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F14::CPP_KeyEvent_F14() {
+    PMMA::KeyEvent_F14_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F14::~CPP_KeyEvent_F14() {
+    auto it = find(PMMA::KeyEvent_F14_Instances.begin(), PMMA::KeyEvent_F14_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F14_Instances.end()) {
+        PMMA::KeyEvent_F14_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F15::CPP_KeyEvent_F15() {
+    PMMA::KeyEvent_F15_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F15::~CPP_KeyEvent_F15() {
+    auto it = find(PMMA::KeyEvent_F15_Instances.begin(), PMMA::KeyEvent_F15_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F15_Instances.end()) {
+        PMMA::KeyEvent_F15_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F16::CPP_KeyEvent_F16() {
+    PMMA::KeyEvent_F16_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F16::~CPP_KeyEvent_F16() {
+    auto it = find(PMMA::KeyEvent_F16_Instances.begin(), PMMA::KeyEvent_F16_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F16_Instances.end()) {
+        PMMA::KeyEvent_F16_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F17::CPP_KeyEvent_F17() {
+    PMMA::KeyEvent_F17_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F17::~CPP_KeyEvent_F17() {
+    auto it = find(PMMA::KeyEvent_F17_Instances.begin(), PMMA::KeyEvent_F17_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F17_Instances.end()) {
+        PMMA::KeyEvent_F17_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F18::CPP_KeyEvent_F18() {
+    PMMA::KeyEvent_F18_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F18::~CPP_KeyEvent_F18() {
+    auto it = find(PMMA::KeyEvent_F18_Instances.begin(), PMMA::KeyEvent_F18_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F18_Instances.end()) {
+        PMMA::KeyEvent_F18_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F19::CPP_KeyEvent_F19() {
+    PMMA::KeyEvent_F19_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F19::~CPP_KeyEvent_F19() {
+    auto it = find(PMMA::KeyEvent_F19_Instances.begin(), PMMA::KeyEvent_F19_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F19_Instances.end()) {
+        PMMA::KeyEvent_F19_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F20::CPP_KeyEvent_F20() {
+    PMMA::KeyEvent_F20_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F20::~CPP_KeyEvent_F20() {
+    auto it = find(PMMA::KeyEvent_F20_Instances.begin(), PMMA::KeyEvent_F20_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F20_Instances.end()) {
+        PMMA::KeyEvent_F20_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F21::CPP_KeyEvent_F21() {
+    PMMA::KeyEvent_F21_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F21::~CPP_KeyEvent_F21() {
+    auto it = find(PMMA::KeyEvent_F21_Instances.begin(), PMMA::KeyEvent_F21_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F21_Instances.end()) {
+        PMMA::KeyEvent_F21_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F22::CPP_KeyEvent_F22() {
+    PMMA::KeyEvent_F22_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F22::~CPP_KeyEvent_F22() {
+    auto it = find(PMMA::KeyEvent_F22_Instances.begin(), PMMA::KeyEvent_F22_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F22_Instances.end()) {
+        PMMA::KeyEvent_F22_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F23::CPP_KeyEvent_F23() {
+    PMMA::KeyEvent_F23_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F23::~CPP_KeyEvent_F23() {
+    auto it = find(PMMA::KeyEvent_F23_Instances.begin(), PMMA::KeyEvent_F23_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F23_Instances.end()) {
+        PMMA::KeyEvent_F23_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F24::CPP_KeyEvent_F24() {
+    PMMA::KeyEvent_F24_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F24::~CPP_KeyEvent_F24() {
+    auto it = find(PMMA::KeyEvent_F24_Instances.begin(), PMMA::KeyEvent_F24_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F24_Instances.end()) {
+        PMMA::KeyEvent_F24_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_F25::CPP_KeyEvent_F25() {
+    PMMA::KeyEvent_F25_Instances.push_back(this);
+};
+
+CPP_KeyEvent_F25::~CPP_KeyEvent_F25() {
+    auto it = find(PMMA::KeyEvent_F25_Instances.begin(), PMMA::KeyEvent_F25_Instances.end(), this);
+    if (it != PMMA::KeyEvent_F25_Instances.end()) {
+        PMMA::KeyEvent_F25_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Left_Shift::CPP_KeyEvent_Left_Shift() {
+    PMMA::KeyEvent_Left_Shift_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Left_Shift::~CPP_KeyEvent_Left_Shift() {
+    auto it = find(PMMA::KeyEvent_Left_Shift_Instances.begin(), PMMA::KeyEvent_Left_Shift_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Left_Shift_Instances.end()) {
+        PMMA::KeyEvent_Left_Shift_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Left_Control::CPP_KeyEvent_Left_Control() {
+    PMMA::KeyEvent_Left_Control_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Left_Control::~CPP_KeyEvent_Left_Control() {
+    auto it = find(PMMA::KeyEvent_Left_Control_Instances.begin(), PMMA::KeyEvent_Left_Control_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Left_Control_Instances.end()) {
+        PMMA::KeyEvent_Left_Control_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Left_Alt::CPP_KeyEvent_Left_Alt() {
+    PMMA::KeyEvent_Left_Alt_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Left_Alt::~CPP_KeyEvent_Left_Alt() {
+    auto it = find(PMMA::KeyEvent_Left_Alt_Instances.begin(), PMMA::KeyEvent_Left_Alt_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Left_Alt_Instances.end()) {
+        PMMA::KeyEvent_Left_Alt_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Left_Super::CPP_KeyEvent_Left_Super() {
+    PMMA::KeyEvent_Left_Super_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Left_Super::~CPP_KeyEvent_Left_Super() {
+    auto it = find(PMMA::KeyEvent_Left_Super_Instances.begin(), PMMA::KeyEvent_Left_Super_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Left_Super_Instances.end()) {
+        PMMA::KeyEvent_Left_Super_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Right_Shift::CPP_KeyEvent_Right_Shift() {
+    PMMA::KeyEvent_Right_Shift_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Right_Shift::~CPP_KeyEvent_Right_Shift() {
+    auto it = find(PMMA::KeyEvent_Right_Shift_Instances.begin(), PMMA::KeyEvent_Right_Shift_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Right_Shift_Instances.end()) {
+        PMMA::KeyEvent_Right_Shift_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Right_Control::CPP_KeyEvent_Right_Control() {
+    PMMA::KeyEvent_Right_Control_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Right_Control::~CPP_KeyEvent_Right_Control() {
+    auto it = find(PMMA::KeyEvent_Right_Control_Instances.begin(), PMMA::KeyEvent_Right_Control_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Right_Control_Instances.end()) {
+        PMMA::KeyEvent_Right_Control_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Right_Alt::CPP_KeyEvent_Right_Alt() {
+    PMMA::KeyEvent_Right_Alt_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Right_Alt::~CPP_KeyEvent_Right_Alt() {
+    auto it = find(PMMA::KeyEvent_Right_Alt_Instances.begin(), PMMA::KeyEvent_Right_Alt_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Right_Alt_Instances.end()) {
+        PMMA::KeyEvent_Right_Alt_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Right_Super::CPP_KeyEvent_Right_Super() {
+    PMMA::KeyEvent_Right_Super_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Right_Super::~CPP_KeyEvent_Right_Super() {
+    auto it = find(PMMA::KeyEvent_Right_Super_Instances.begin(), PMMA::KeyEvent_Right_Super_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Right_Super_Instances.end()) {
+        PMMA::KeyEvent_Right_Super_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Shift::CPP_KeyEvent_Shift() {
+    PMMA::KeyEvent_Shift_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Shift::~CPP_KeyEvent_Shift() {
+    auto it = find(PMMA::KeyEvent_Shift_Instances.begin(), PMMA::KeyEvent_Shift_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Shift_Instances.end()) {
+        PMMA::KeyEvent_Shift_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Control::CPP_KeyEvent_Control() {
+    PMMA::KeyEvent_Control_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Control::~CPP_KeyEvent_Control() {
+    auto it = find(PMMA::KeyEvent_Control_Instances.begin(), PMMA::KeyEvent_Control_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Control_Instances.end()) {
+        PMMA::KeyEvent_Control_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Alt::CPP_KeyEvent_Alt() {
+    PMMA::KeyEvent_Alt_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Alt::~CPP_KeyEvent_Alt() {
+    auto it = find(PMMA::KeyEvent_Alt_Instances.begin(), PMMA::KeyEvent_Alt_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Alt_Instances.end()) {
+        PMMA::KeyEvent_Alt_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Super::CPP_KeyEvent_Super() {
+    PMMA::KeyEvent_Super_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Super::~CPP_KeyEvent_Super() {
+    auto it = find(PMMA::KeyEvent_Super_Instances.begin(), PMMA::KeyEvent_Super_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Super_Instances.end()) {
+        PMMA::KeyEvent_Super_Instances.erase(it);
+    }
+};
+
+CPP_KeyEvent_Menu::CPP_KeyEvent_Menu() {
+    PMMA::KeyEvent_Menu_Instances.push_back(this);
+};
+
+CPP_KeyEvent_Menu::~CPP_KeyEvent_Menu() {
+    auto it = find(PMMA::KeyEvent_Menu_Instances.begin(), PMMA::KeyEvent_Menu_Instances.end(), this);
+    if (it != PMMA::KeyEvent_Menu_Instances.end()) {
+        PMMA::KeyEvent_Menu_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_0::CPP_KeyPadEvent_0() {
+    PMMA::KeyPadEvent_0_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_0::~CPP_KeyPadEvent_0() {
+    auto it = find(PMMA::KeyPadEvent_0_Instances.begin(), PMMA::KeyPadEvent_0_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_0_Instances.end()) {
+        PMMA::KeyPadEvent_0_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_1::CPP_KeyPadEvent_1() {
+    PMMA::KeyPadEvent_1_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_1::~CPP_KeyPadEvent_1() {
+    auto it = find(PMMA::KeyPadEvent_1_Instances.begin(), PMMA::KeyPadEvent_1_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_1_Instances.end()) {
+        PMMA::KeyPadEvent_1_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_2::CPP_KeyPadEvent_2() {
+    PMMA::KeyPadEvent_2_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_2::~CPP_KeyPadEvent_2() {
+    auto it = find(PMMA::KeyPadEvent_2_Instances.begin(), PMMA::KeyPadEvent_2_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_2_Instances.end()) {
+        PMMA::KeyPadEvent_2_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_3::CPP_KeyPadEvent_3() {
+    PMMA::KeyPadEvent_3_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_3::~CPP_KeyPadEvent_3() {
+    auto it = find(PMMA::KeyPadEvent_3_Instances.begin(), PMMA::KeyPadEvent_3_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_3_Instances.end()) {
+        PMMA::KeyPadEvent_3_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_4::CPP_KeyPadEvent_4() {
+    PMMA::KeyPadEvent_4_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_4::~CPP_KeyPadEvent_4() {
+    auto it = find(PMMA::KeyPadEvent_4_Instances.begin(), PMMA::KeyPadEvent_4_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_4_Instances.end()) {
+        PMMA::KeyPadEvent_4_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_5::CPP_KeyPadEvent_5() {
+    PMMA::KeyPadEvent_5_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_5::~CPP_KeyPadEvent_5() {
+    auto it = find(PMMA::KeyPadEvent_5_Instances.begin(), PMMA::KeyPadEvent_5_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_5_Instances.end()) {
+        PMMA::KeyPadEvent_5_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_6::CPP_KeyPadEvent_6() {
+    PMMA::KeyPadEvent_6_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_6::~CPP_KeyPadEvent_6() {
+    auto it = find(PMMA::KeyPadEvent_6_Instances.begin(), PMMA::KeyPadEvent_6_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_6_Instances.end()) {
+        PMMA::KeyPadEvent_6_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_7::CPP_KeyPadEvent_7() {
+    PMMA::KeyPadEvent_7_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_7::~CPP_KeyPadEvent_7() {
+    auto it = find(PMMA::KeyPadEvent_7_Instances.begin(), PMMA::KeyPadEvent_7_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_7_Instances.end()) {
+        PMMA::KeyPadEvent_7_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_8::CPP_KeyPadEvent_8() {
+    PMMA::KeyPadEvent_8_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_8::~CPP_KeyPadEvent_8() {
+    auto it = find(PMMA::KeyPadEvent_8_Instances.begin(), PMMA::KeyPadEvent_8_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_8_Instances.end()) {
+        PMMA::KeyPadEvent_8_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_9::CPP_KeyPadEvent_9() {
+    PMMA::KeyPadEvent_9_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_9::~CPP_KeyPadEvent_9() {
+    auto it = find(PMMA::KeyPadEvent_9_Instances.begin(), PMMA::KeyPadEvent_9_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_9_Instances.end()) {
+        PMMA::KeyPadEvent_9_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_Decimal::CPP_KeyPadEvent_Decimal() {
+    PMMA::KeyPadEvent_Decimal_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_Decimal::~CPP_KeyPadEvent_Decimal() {
+    auto it = find(PMMA::KeyPadEvent_Decimal_Instances.begin(), PMMA::KeyPadEvent_Decimal_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_Decimal_Instances.end()) {
+        PMMA::KeyPadEvent_Decimal_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_Divide::CPP_KeyPadEvent_Divide() {
+    PMMA::KeyPadEvent_Divide_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_Divide::~CPP_KeyPadEvent_Divide() {
+    auto it = find(PMMA::KeyPadEvent_Divide_Instances.begin(), PMMA::KeyPadEvent_Divide_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_Divide_Instances.end()) {
+        PMMA::KeyPadEvent_Divide_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_Multiply::CPP_KeyPadEvent_Multiply() {
+    PMMA::KeyPadEvent_Multiply_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_Multiply::~CPP_KeyPadEvent_Multiply() {
+    auto it = find(PMMA::KeyPadEvent_Multiply_Instances.begin(), PMMA::KeyPadEvent_Multiply_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_Multiply_Instances.end()) {
+        PMMA::KeyPadEvent_Multiply_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_Subtract::CPP_KeyPadEvent_Subtract() {
+    PMMA::KeyPadEvent_Subtract_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_Subtract::~CPP_KeyPadEvent_Subtract() {
+    auto it = find(PMMA::KeyPadEvent_Subtract_Instances.begin(), PMMA::KeyPadEvent_Subtract_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_Subtract_Instances.end()) {
+        PMMA::KeyPadEvent_Subtract_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_Add::CPP_KeyPadEvent_Add() {
+    PMMA::KeyPadEvent_Add_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_Add::~CPP_KeyPadEvent_Add() {
+    auto it = find(PMMA::KeyPadEvent_Add_Instances.begin(), PMMA::KeyPadEvent_Add_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_Add_Instances.end()) {
+        PMMA::KeyPadEvent_Add_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_Enter::CPP_KeyPadEvent_Enter() {
+    PMMA::KeyPadEvent_Enter_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_Enter::~CPP_KeyPadEvent_Enter() {
+    auto it = find(PMMA::KeyPadEvent_Enter_Instances.begin(), PMMA::KeyPadEvent_Enter_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_Enter_Instances.end()) {
+        PMMA::KeyPadEvent_Enter_Instances.erase(it);
+    }
+};
+
+CPP_KeyPadEvent_Equal::CPP_KeyPadEvent_Equal() {
+    PMMA::KeyPadEvent_Equal_Instances.push_back(this);
+};
+
+CPP_KeyPadEvent_Equal::~CPP_KeyPadEvent_Equal() {
+    auto it = find(PMMA::KeyPadEvent_Equal_Instances.begin(), PMMA::KeyPadEvent_Equal_Instances.end(), this);
+    if (it != PMMA::KeyPadEvent_Equal_Instances.end()) {
+        PMMA::KeyPadEvent_Equal_Instances.erase(it);
+    }
+};
+
+CPP_MouseButtonEvent_Left::CPP_MouseButtonEvent_Left() {
+    PMMA::MouseButtonEvent_Left_Instances.push_back(this);
+};
+
+CPP_MouseButtonEvent_Left::~CPP_MouseButtonEvent_Left() {
+    auto it = find(PMMA::MouseButtonEvent_Left_Instances.begin(), PMMA::MouseButtonEvent_Left_Instances.end(), this);
+    if (it != PMMA::MouseButtonEvent_Left_Instances.end()) {
+        PMMA::MouseButtonEvent_Left_Instances.erase(it);
+    }
+};
+
+CPP_MouseButtonEvent_Right::CPP_MouseButtonEvent_Right() {
+    PMMA::MouseButtonEvent_Right_Instances.push_back(this);
+};
+
+CPP_MouseButtonEvent_Right::~CPP_MouseButtonEvent_Right() {
+    auto it = find(PMMA::MouseButtonEvent_Right_Instances.begin(), PMMA::MouseButtonEvent_Right_Instances.end(), this);
+    if (it != PMMA::MouseButtonEvent_Right_Instances.end()) {
+        PMMA::MouseButtonEvent_Right_Instances.erase(it);
+    }
+};
+
+CPP_MouseButtonEvent_Middle::CPP_MouseButtonEvent_Middle() {
+    PMMA::MouseButtonEvent_Middle_Instances.push_back(this);
+};
+
+CPP_MouseButtonEvent_Middle::~CPP_MouseButtonEvent_Middle() {
+    auto it = find(PMMA::MouseButtonEvent_Middle_Instances.begin(), PMMA::MouseButtonEvent_Middle_Instances.end(), this);
+    if (it != PMMA::MouseButtonEvent_Middle_Instances.end()) {
+        PMMA::MouseButtonEvent_Middle_Instances.erase(it);
+    }
+};
+
+CPP_MouseButtonEvent_0::CPP_MouseButtonEvent_0() {
+    PMMA::MouseButtonEvent_0_Instances.push_back(this);
+};
+
+CPP_MouseButtonEvent_0::~CPP_MouseButtonEvent_0() {
+    auto it = find(PMMA::MouseButtonEvent_0_Instances.begin(), PMMA::MouseButtonEvent_0_Instances.end(), this);
+    if (it != PMMA::MouseButtonEvent_0_Instances.end()) {
+        PMMA::MouseButtonEvent_0_Instances.erase(it);
+    }
+};
+
+CPP_MouseButtonEvent_1::CPP_MouseButtonEvent_1() {
+    PMMA::MouseButtonEvent_1_Instances.push_back(this);
+};
+
+CPP_MouseButtonEvent_1::~CPP_MouseButtonEvent_1() {
+    auto it = find(PMMA::MouseButtonEvent_1_Instances.begin(), PMMA::MouseButtonEvent_1_Instances.end(), this);
+    if (it != PMMA::MouseButtonEvent_1_Instances.end()) {
+        PMMA::MouseButtonEvent_1_Instances.erase(it);
+    }
+};
+
+CPP_MouseButtonEvent_2::CPP_MouseButtonEvent_2() {
+    PMMA::MouseButtonEvent_2_Instances.push_back(this);
+};
+
+CPP_MouseButtonEvent_2::~CPP_MouseButtonEvent_2() {
+    auto it = find(PMMA::MouseButtonEvent_2_Instances.begin(), PMMA::MouseButtonEvent_2_Instances.end(), this);
+    if (it != PMMA::MouseButtonEvent_2_Instances.end()) {
+        PMMA::MouseButtonEvent_2_Instances.erase(it);
+    }
+};
+
+CPP_MouseButtonEvent_3::CPP_MouseButtonEvent_3() {
+    PMMA::MouseButtonEvent_3_Instances.push_back(this);
+};
+
+CPP_MouseButtonEvent_3::~CPP_MouseButtonEvent_3() {
+    auto it = find(PMMA::MouseButtonEvent_3_Instances.begin(), PMMA::MouseButtonEvent_3_Instances.end(), this);
+    if (it != PMMA::MouseButtonEvent_3_Instances.end()) {
+        PMMA::MouseButtonEvent_3_Instances.erase(it);
+    }
+};
+
+CPP_MouseButtonEvent_4::CPP_MouseButtonEvent_4() {
+    PMMA::MouseButtonEvent_4_Instances.push_back(this);
+};
+
+CPP_MouseButtonEvent_4::~CPP_MouseButtonEvent_4() {
+    auto it = find(PMMA::MouseButtonEvent_4_Instances.begin(), PMMA::MouseButtonEvent_4_Instances.end(), this);
+    if (it != PMMA::MouseButtonEvent_4_Instances.end()) {
+        PMMA::MouseButtonEvent_4_Instances.erase(it);
     }
 };
 
@@ -120,631 +1635,4 @@ bool CPP_MouseEnterWindowEvent::GetEnteredToggle() {
         throw runtime_error("PMMA::MouseEnterWindowEvent_Instance is null");
     }
     return PMMA::MouseEnterWindowEvent_Instance->GetEnteredToggle();
-};
-
-bool CPP_MouseButton_Left_Event::GetPressed() {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Left_Instance->GetPressed();
-};
-
-void CPP_MouseButton_Left_Event::SetDoublePressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Left_Instance->SetDoublePressDuration(duration);
-};
-
-bool CPP_MouseButton_Left_Event::GetPressedToggle() {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Left_Instance->GetPressedToggle();
-};
-
-bool CPP_MouseButton_Left_Event::GetDoublePressed() {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Left_Instance->GetDoublePressed();
-};
-
-void CPP_MouseButton_Left_Event::SetLongPressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Left_Instance->SetLongPressDuration(duration);
-};
-
-bool CPP_MouseButton_Left_Event::GetLongPressed() {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Left_Instance->GetLongPressed();
-};
-
-bool CPP_MouseButton_Left_Event::PollLongPressed() {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Left_Instance->PollLongPressed();
-};
-
-void CPP_MouseButton_Left_Event::SetRepeatPressDuration(float Duration) {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Left_Instance->SetRepeatPressDuration(Duration);
-};
-
-float CPP_MouseButton_Left_Event::GetRepeatPressDuration() {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Left_Instance->GetRepeatPressDuration();
-};
-
-float CPP_MouseButton_Left_Event::GetLongPressDuration() {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Left_Instance->GetLongPressDuration();
-};
-
-float CPP_MouseButton_Left_Event::GetDoublePressDuration() {
-    if (PMMA::MouseButtonEvent_Left_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Left_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Left_Instance->GetDoublePressDuration();
-};
-
-bool CPP_MouseButton_Right_Event::GetPressed() {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Right_Instance->GetPressed();
-};
-
-void CPP_MouseButton_Right_Event::SetDoublePressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Right_Instance->SetDoublePressDuration(duration);
-};
-
-bool CPP_MouseButton_Right_Event::GetPressedToggle() {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Right_Instance->GetPressedToggle();
-};
-
-bool CPP_MouseButton_Right_Event::GetDoublePressed() {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Right_Instance->GetDoublePressed();
-};
-
-void CPP_MouseButton_Right_Event::SetLongPressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Right_Instance->SetLongPressDuration(duration);
-};
-
-bool CPP_MouseButton_Right_Event::GetLongPressed() {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Right_Instance->GetLongPressed();
-};
-
-bool CPP_MouseButton_Right_Event::PollLongPressed() {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Right_Instance->PollLongPressed();
-};
-
-void CPP_MouseButton_Right_Event::SetRepeatPressDuration(float Duration) {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Right_Instance->SetRepeatPressDuration(Duration);
-};
-
-float CPP_MouseButton_Right_Event::GetRepeatPressDuration() {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Right_Instance->GetRepeatPressDuration();
-};
-
-float CPP_MouseButton_Right_Event::GetLongPressDuration() {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Right_Instance->GetLongPressDuration();
-};
-
-float CPP_MouseButton_Right_Event::GetDoublePressDuration() {
-    if (PMMA::MouseButtonEvent_Right_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Right_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Right_Instance->GetDoublePressDuration();
-};
-
-bool CPP_MouseButton_Middle_Event::GetPressed() {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Middle_Instance->GetPressed();
-};
-
-void CPP_MouseButton_Middle_Event::SetDoublePressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Middle_Instance->SetDoublePressDuration(duration);
-};
-
-bool CPP_MouseButton_Middle_Event::GetPressedToggle() {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Middle_Instance->GetPressedToggle();
-};
-
-bool CPP_MouseButton_Middle_Event::GetDoublePressed() {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Middle_Instance->GetDoublePressed();
-};
-
-void CPP_MouseButton_Middle_Event::SetLongPressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Middle_Instance->SetLongPressDuration(duration);
-};
-
-bool CPP_MouseButton_Middle_Event::GetLongPressed() {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Middle_Instance->GetLongPressed();
-};
-
-bool CPP_MouseButton_Middle_Event::PollLongPressed() {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Middle_Instance->PollLongPressed();
-};
-
-void CPP_MouseButton_Middle_Event::SetRepeatPressDuration(float Duration) {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    PMMA::MouseButtonEvent_Middle_Instance->SetRepeatPressDuration(Duration);
-};
-
-float CPP_MouseButton_Middle_Event::GetRepeatPressDuration() {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Middle_Instance->GetRepeatPressDuration();
-};
-
-float CPP_MouseButton_Middle_Event::GetLongPressDuration() {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Middle_Instance->GetLongPressDuration();
-};
-
-float CPP_MouseButton_Middle_Event::GetDoublePressDuration() {
-    if (PMMA::MouseButtonEvent_Middle_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_Middle_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_Middle_Instance->GetDoublePressDuration();
-};
-
-bool CPP_MouseButton_0_Event::GetPressed() {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_0_Instance->GetPressed();
-};
-
-void CPP_MouseButton_0_Event::SetDoublePressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    PMMA::MouseButtonEvent_0_Instance->SetDoublePressDuration(duration);
-};
-
-bool CPP_MouseButton_0_Event::GetPressedToggle() {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_0_Instance->GetPressedToggle();
-};
-
-bool CPP_MouseButton_0_Event::GetDoublePressed() {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_0_Instance->GetDoublePressed();
-};
-
-void CPP_MouseButton_0_Event::SetLongPressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    PMMA::MouseButtonEvent_0_Instance->SetLongPressDuration(duration);
-};
-
-bool CPP_MouseButton_0_Event::GetLongPressed() {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_0_Instance->GetLongPressed();
-};
-
-bool CPP_MouseButton_0_Event::PollLongPressed() {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_0_Instance->PollLongPressed();
-};
-
-void CPP_MouseButton_0_Event::SetRepeatPressDuration(float Duration) {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    PMMA::MouseButtonEvent_0_Instance->SetRepeatPressDuration(Duration);
-};
-
-float CPP_MouseButton_0_Event::GetRepeatPressDuration() {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_0_Instance->GetRepeatPressDuration();
-};
-
-float CPP_MouseButton_0_Event::GetLongPressDuration() {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_0_Instance->GetLongPressDuration();
-};
-
-float CPP_MouseButton_0_Event::GetDoublePressDuration() {
-    if (PMMA::MouseButtonEvent_0_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_0_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_0_Instance->GetDoublePressDuration();
-};
-
-bool CPP_MouseButton_1_Event::GetPressed() {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_1_Instance->GetPressed();
-};
-
-void CPP_MouseButton_1_Event::SetDoublePressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    PMMA::MouseButtonEvent_1_Instance->SetDoublePressDuration(duration);
-};
-
-bool CPP_MouseButton_1_Event::GetPressedToggle() {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_1_Instance->GetPressedToggle();
-};
-
-bool CPP_MouseButton_1_Event::GetDoublePressed() {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_1_Instance->GetDoublePressed();
-};
-
-void CPP_MouseButton_1_Event::SetLongPressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    PMMA::MouseButtonEvent_1_Instance->SetLongPressDuration(duration);
-};
-
-bool CPP_MouseButton_1_Event::GetLongPressed() {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_1_Instance->GetLongPressed();
-};
-
-bool CPP_MouseButton_1_Event::PollLongPressed() {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_1_Instance->PollLongPressed();
-};
-
-void CPP_MouseButton_1_Event::SetRepeatPressDuration(float Duration) {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    PMMA::MouseButtonEvent_1_Instance->SetRepeatPressDuration(Duration);
-};
-
-float CPP_MouseButton_1_Event::GetRepeatPressDuration() {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_1_Instance->GetRepeatPressDuration();
-};
-
-float CPP_MouseButton_1_Event::GetLongPressDuration() {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_1_Instance->GetLongPressDuration();
-};
-
-float CPP_MouseButton_1_Event::GetDoublePressDuration() {
-    if (PMMA::MouseButtonEvent_1_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_1_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_1_Instance->GetDoublePressDuration();
-};
-
-bool CPP_MouseButton_2_Event::GetPressed() {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_2_Instance->GetPressed();
-};
-
-void CPP_MouseButton_2_Event::SetDoublePressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    PMMA::MouseButtonEvent_2_Instance->SetDoublePressDuration(duration);
-};
-
-bool CPP_MouseButton_2_Event::GetPressedToggle() {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_2_Instance->GetPressedToggle();
-};
-
-bool CPP_MouseButton_2_Event::GetDoublePressed() {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_2_Instance->GetDoublePressed();
-};
-
-void CPP_MouseButton_2_Event::SetLongPressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    PMMA::MouseButtonEvent_2_Instance->SetLongPressDuration(duration);
-};
-
-bool CPP_MouseButton_2_Event::GetLongPressed() {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_2_Instance->GetLongPressed();
-};
-
-bool CPP_MouseButton_2_Event::PollLongPressed() {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_2_Instance->PollLongPressed();
-};
-
-void CPP_MouseButton_2_Event::SetRepeatPressDuration(float Duration) {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    PMMA::MouseButtonEvent_2_Instance->SetRepeatPressDuration(Duration);
-};
-
-float CPP_MouseButton_2_Event::GetRepeatPressDuration() {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_2_Instance->GetRepeatPressDuration();
-};
-
-float CPP_MouseButton_2_Event::GetLongPressDuration() {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_2_Instance->GetLongPressDuration();
-};
-
-float CPP_MouseButton_2_Event::GetDoublePressDuration() {
-    if (PMMA::MouseButtonEvent_2_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_2_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_2_Instance->GetDoublePressDuration();
-};
-
-bool CPP_MouseButton_3_Event::GetPressed() {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_3_Instance->GetPressed();
-};
-
-void CPP_MouseButton_3_Event::SetDoublePressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    PMMA::MouseButtonEvent_3_Instance->SetDoublePressDuration(duration);
-};
-
-bool CPP_MouseButton_3_Event::GetPressedToggle() {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_3_Instance->GetPressedToggle();
-};
-
-bool CPP_MouseButton_3_Event::GetDoublePressed() {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_3_Instance->GetDoublePressed();
-};
-
-void CPP_MouseButton_3_Event::SetLongPressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    PMMA::MouseButtonEvent_3_Instance->SetLongPressDuration(duration);
-};
-
-bool CPP_MouseButton_3_Event::GetLongPressed() {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_3_Instance->GetLongPressed();
-};
-
-bool CPP_MouseButton_3_Event::PollLongPressed() {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_3_Instance->PollLongPressed();
-};
-
-void CPP_MouseButton_3_Event::SetRepeatPressDuration(float Duration) {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    PMMA::MouseButtonEvent_3_Instance->SetRepeatPressDuration(Duration);
-};
-
-float CPP_MouseButton_3_Event::GetRepeatPressDuration() {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_3_Instance->GetRepeatPressDuration();
-};
-
-float CPP_MouseButton_3_Event::GetLongPressDuration() {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_3_Instance->GetLongPressDuration();
-};
-
-float CPP_MouseButton_3_Event::GetDoublePressDuration() {
-    if (PMMA::MouseButtonEvent_3_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_3_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_3_Instance->GetDoublePressDuration();
-};
-
-bool CPP_MouseButton_4_Event::GetPressed() {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_4_Instance->GetPressed();
-};
-
-void CPP_MouseButton_4_Event::SetDoublePressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    PMMA::MouseButtonEvent_4_Instance->SetDoublePressDuration(duration);
-};
-
-bool CPP_MouseButton_4_Event::GetPressedToggle() {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_4_Instance->GetPressedToggle();
-};
-
-bool CPP_MouseButton_4_Event::GetDoublePressed() {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_4_Instance->GetDoublePressed();
-};
-
-void CPP_MouseButton_4_Event::SetLongPressDuration(float duration) {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    PMMA::MouseButtonEvent_4_Instance->SetLongPressDuration(duration);
-};
-
-bool CPP_MouseButton_4_Event::GetLongPressed() {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_4_Instance->GetLongPressed();
-};
-
-bool CPP_MouseButton_4_Event::PollLongPressed() {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_4_Instance->PollLongPressed();
-};
-
-void CPP_MouseButton_4_Event::SetRepeatPressDuration(float Duration) {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    PMMA::MouseButtonEvent_4_Instance->SetRepeatPressDuration(Duration);
-};
-
-float CPP_MouseButton_4_Event::GetRepeatPressDuration() {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_4_Instance->GetRepeatPressDuration();
-};
-
-float CPP_MouseButton_4_Event::GetLongPressDuration() {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_4_Instance->GetLongPressDuration();
-};
-
-float CPP_MouseButton_4_Event::GetDoublePressDuration() {
-    if (PMMA::MouseButtonEvent_4_Instance == nullptr) {
-        throw runtime_error("MouseButtonEvent_4_Instance is null");
-    }
-    return PMMA::MouseButtonEvent_4_Instance->GetDoublePressDuration();
-};
-
-CPP_MouseScrollEvent::CPP_MouseScrollEvent() {
-    PMMA::MouseScrollEventInstances.push_back(this);
-};
-
-CPP_MouseScrollEvent::~CPP_MouseScrollEvent() {
-    auto it = find(PMMA::MouseScrollEventInstances.begin(), PMMA::MouseScrollEventInstances.end(), this);
-    if (it != PMMA::MouseScrollEventInstances.end()) {
-        PMMA::MouseScrollEventInstances.erase(it);
-    }
 };

@@ -108,7 +108,6 @@ ext_modules = [
     make_ext("Display", add_numpy=True),
     make_ext("Events", add_numpy=True),
     make_ext("FractalBrownianMotion", add_numpy=True),
-    make_ext("KeyEvents"),
     make_ext("NumberConverter", add_numpy=True),
     make_ext("PerlinNoise", add_numpy=True),
     make_ext("TextRenderer", add_numpy=True),

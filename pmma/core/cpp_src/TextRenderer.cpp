@@ -1,8 +1,5 @@
 #include "TextRenderer.hpp"
 
-#pragma once
-#include "PMMA_Exports.hpp"
-
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
