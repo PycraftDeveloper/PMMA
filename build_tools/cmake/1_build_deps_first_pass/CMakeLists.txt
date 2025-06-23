@@ -10,6 +10,8 @@ set(ZLIB_BUILD_SHARED OFF CACHE BOOL "" FORCE)
 
 set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 # Declare and fetch zlib
 FetchContent_Declare(
     zlib

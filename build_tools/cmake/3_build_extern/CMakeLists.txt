@@ -8,6 +8,8 @@ set(FETCHCONTENT_UPDATES_DISCONNECTED ON)
 set(FT_DISABLE_BZIP2 ON CACHE BOOL "" FORCE)
 set(FT_DISABLE_BROTLI ON CACHE BOOL "" FORCE)
 
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
 FetchContent_Declare(
     freetype
     GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
