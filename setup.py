@@ -2,7 +2,7 @@
 
 from setuptools import setup, Extension
 from Cython.Build import cythonize
-import sys, os, glob
+import sys, os
 import platform
 
 import numpy
@@ -19,27 +19,11 @@ if sys.platform.startswith("win"):
     compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17", "/wd4551", "/wd4251"] # disable warning 4551 & 4251 which is an issue for Cython
     link_args = ["/LTCG"]
 
-    glfw_libraries = [
-        "glfw3",
-        "user32",
-        "gdi32",
-        "shell32",
-        "advapi32",
-        "ole32",
-        "oleaut32",
-        "uuid",
-        "comdlg32",
-        "winmm",
-        "opengl32"
-    ]
-
 elif sys.platform.startswith("linux"):
     compile_args = [
         "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++17"
     ]
     link_args = []
-
-    glfw_libraries = ["glfw3", "GL", "X11", "pthread", "Xrandr", "Xi", "dl", "m"]
 
 elif sys.platform == "darwin":
     compile_args = [
@@ -58,29 +42,19 @@ elif sys.platform == "darwin":
         compile_args.append("arm64")
         link_args.append("-arch")
         link_args.append("arm64")
-
-    glfw_libraries = ["glfw3"]
 else:
     raise NotImplementedError("Unsupported platform")
 
 shared_name = 'PMMA_Core'
-
-search_pattern = os.path.join(cwd, "pmma", "extern", "lib*")
-matching_paths = glob.glob(search_pattern)  # Get all matching paths
-
-if matching_paths:
-    external_lib = matching_paths
-else:
-    external_lib = [os.path.join(cwd, "pmma", "extern", "lib")]
 
 def make_ext(name, extra_cpp=None, add_numpy=False):
     sources = [os.path.join("pmma", "core", "pyx_src", f"{name}.pyx")]
     if extra_cpp is not None:
         sources.extend(extra_cpp)
 
-    lib_dirs = [os.path.join(cwd, "pmma", "lib"), *external_lib]
+    lib_dirs = [os.path.join(cwd, "pmma", "lib")]
 
-    libs = [shared_name, *glfw_libraries]
+    libs = [shared_name]
 
     includes = [os.path.join(cwd, "pmma", "core", "hpp_src"), os.path.join(cwd, "pmma", "extern", "include")]
 
