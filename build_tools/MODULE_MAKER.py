@@ -9,7 +9,6 @@ import site
 import subprocess
 import sys
 import platform
-from typing import Iterable
 import multiprocessing
 
 cwd = os.path.dirname(os.path.dirname(__file__))
@@ -68,7 +67,7 @@ if result == "y":
     print("Dependencies cleaned.")
 
 ########################## CLEAN UP  OLD CORE ##########################
-def selective_removal(directory, keep_items: Iterable[str]):
+def selective_removal(directory, keep_items):
     for item in os.listdir(directory):
         item_path = os.path.join(directory, item)
 

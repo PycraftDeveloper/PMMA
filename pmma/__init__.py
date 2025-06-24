@@ -19,17 +19,17 @@ if system == "Windows":
     ctypes.CDLL(os.path.join(pmma_lib_dir, "PMMA_Core.dll"))
 
 elif system == "Linux":
-    extern_binaries = os.path.join(pmma_dir, "extern", "lib")
+    extern_libs = os.path.join(pmma_dir, "extern", "lib")
 
-    ctypes.CDLL(os.path.join(extern_binaries, "libz.so"))
-    ctypes.CDLL(os.path.join(extern_binaries, "libpng16.so"))
+    ctypes.CDLL(os.path.join(extern_libs, "libz.so"))
+    ctypes.CDLL(os.path.join(extern_libs, "libpng16.so"))
     ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.so"))
 
 elif system == "Darwin":
-    extern_binaries = os.path.join(pmma_dir, "extern", "bin")
+    extern_libs = os.path.join(pmma_dir, "extern", "lib")
 
-    ctypes.CDLL(os.path.join(extern_binaries, "zlib.dylib"))
-    ctypes.CDLL(os.path.join(extern_binaries, "libpng16.dylib"))
+    ctypes.CDLL(os.path.join(extern_libs, "zlib.dylib"))
+    ctypes.CDLL(os.path.join(extern_libs, "libpng16.dylib"))
     ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.dylib"))
 
 from pmma.build.General import General
