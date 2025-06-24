@@ -2,6 +2,8 @@
 
 # Additional dependencies: pkgconf-pkg-config zlib-devel libpng-devel bzip2-devel brotli-devel?
 
+print("WARNING: THIS BUILD METHOD IS DEPRECATED, PLEASE INSTEAD USE 'main.py'.")
+input("PRESS ANY KEY TO CONTINUE ANYWAY.")
 
 import shutil
 import os

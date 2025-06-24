@@ -230,7 +230,7 @@ else:
             shutil.rmtree(pmma_core_lib_dir, ignore_errors=False)
 
         if os.path.exists(cmake_temp_dir):
-            shutil.rmtree(cmake_temp_dir, ignore_errors=False)
+            shutil.rmtree(cmake_temp_dir, ignore_errors=True)
             os.makedirs(cmake_temp_dir, exist_ok=True)
 
         clean_deps()
