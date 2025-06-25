@@ -3,10 +3,12 @@
 from libcpp cimport bool
 from libcpp.string cimport string
 
-import random
+import random, threading
 
 import numpy as np
 cimport numpy as np
+
+import pmma.core.py_src.Utility as Utility
 
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp":
@@ -76,6 +78,7 @@ cdef class Display:
             string encoded_icon = icon.encode('utf-8')
             unsigned int* size_ptr
 
+        Utility.Registry.render_thread = threading.current_thread()
 
         if not isinstance(size, np.ndarray) or size.dtype != np.uint32 or not size.flags['C_CONTIGUOUS']:
             size_np = np.array(size, dtype=np.uint32, order='C')

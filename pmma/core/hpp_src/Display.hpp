@@ -146,8 +146,6 @@ class EXPORT CPP_Display {
                 return OrthographicProjection;
             }
 
-            float HalfWidth = (float)Size[0] / 2.0f;
-            float HalfHeight = (float)Size[1] / 2.0f;
             OrthographicProjection = glm::ortho(
                 0.0f, static_cast<float>(Size[0]),        // Left to Right
                 static_cast<float>(Size[1]), 0.0f,        // Top to Bottom (invert Y)

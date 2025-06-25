@@ -27,7 +27,6 @@ temp_cache_dir = os.path.join(temp_dir, "cache")
 temp_platform_cache_dir = os.path.join(temp_cache_dir, operating_system_type)
 
 build_tools_dir = os.path.join(cwd, "build_tools")
-perm_extern_dir = os.path.join(build_tools_dir, "extern")
 cmake_dir = os.path.join(build_tools_dir, "cmake")
 
 cmake_temp_dir = os.path.join(temp_dir, "cmake")
@@ -208,6 +207,10 @@ else:
                     to_do.append(BUILD_DEPENDENCIES)
                     break
 
+    if not BUILD_DEPENDENCIES in to_do:
+        print("Looking for build configuration changes.")
+        scan_files_for_changes(cmake_dir, BUILD_DEPENDENCIES)
+
 if to_do == []:
     print("No changes detected.")
 else:
@@ -218,7 +221,7 @@ else:
             shutil.rmtree(pmma_core_lib_dir, ignore_errors=False)
 
         if os.path.exists(cmake_temp_dir):
-            shutil.rmtree(cmake_temp_dir, ignore_errors=False)
+            shutil.rmtree(cmake_temp_dir, ignore_errors=True)
             os.makedirs(cmake_temp_dir, exist_ok=True)
 
         subprocess.run(["cmake", "-DCMAKE_POLICY_VERSION_MINIMUM=3.5", cmake_dir, "-DBUILD_DEPS=OFF"], cwd=cmake_temp_dir, check=True)
@@ -273,6 +276,7 @@ else:
     cache_files(pyx_src_dir)
     cache_files(hpp_src_dir)
     cache_files(cpp_src_dir)
+    cache_files(cmake_dir)
 
 print("Refreshing installed version of PMMA.")
 

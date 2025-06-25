@@ -39,6 +39,15 @@ CPP_EventsManager::CPP_EventsManager(GLFWwindow* Window) {
         PMMA::ControllerEventInstances[i]->UpdateConnection(glfwJoystickPresent(i) == GLFW_TRUE);
     }
 
+    Left_Shift_Instance = new CPP_KeyEvent_Left_Shift();
+    Right_Shift_Instance = new CPP_KeyEvent_Right_Shift();
+    Left_Control_Instance = new CPP_KeyEvent_Left_Control();
+    Right_Control_Instance = new CPP_KeyEvent_Right_Control();
+    Left_Alt_Instance = new CPP_KeyEvent_Left_Alt();
+    Right_Alt_Instance = new CPP_KeyEvent_Right_Alt();
+    Left_Super_Instance = new CPP_KeyEvent_Left_Super();
+    Right_Super_Instance = new CPP_KeyEvent_Right_Super();
+
     glfwSetKeyCallback(Window, CPP_EventsManager::KeyCallback);
     glfwSetCharCallback(Window, CPP_EventsManager::TextCallback);
     glfwSetCursorPosCallback(Window, CPP_EventsManager::CursorPositionCallback);
@@ -53,7 +62,6 @@ CPP_EventsManager::~CPP_EventsManager() {
     delete PMMA::MousePositionEvent_Instance;
     delete PMMA::MouseEnterWindowEvent_Instance;
 
-
     for (unsigned int i = 0; i < 16; i++) {
         delete PMMA::ControllerEventInstances[i];
     }
@@ -62,6 +70,24 @@ CPP_EventsManager::~CPP_EventsManager() {
     PMMA::MouseEnterWindowEvent_Instance = nullptr;
 
     PMMA::ControllerEventInstances.clear();
+
+    delete Left_Shift_Instance;
+    delete Right_Shift_Instance;
+    delete Left_Control_Instance;
+    delete Right_Control_Instance;
+    delete Left_Alt_Instance;
+    delete Right_Alt_Instance;
+    delete Left_Super_Instance;
+    delete Right_Super_Instance;
+
+    Left_Shift_Instance = nullptr;
+    Right_Shift_Instance = nullptr;
+    Left_Control_Instance = nullptr;
+    Right_Control_Instance = nullptr;
+    Left_Alt_Instance = nullptr;
+    Right_Alt_Instance = nullptr;
+    Left_Super_Instance = nullptr;
+    Right_Super_Instance = nullptr;
 }
 
 void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods) {
@@ -513,65 +539,33 @@ void CPP_EventsManager::KeyCallback(GLFWwindow* window, int key, int scancode, i
         for (unsigned int i = 0; i < PMMA::KeyEvent_Left_Shift_Instances.size(); i++) {
             PMMA::KeyEvent_Left_Shift_Instances[i]->Update(action!=GLFW_RELEASE);
         }
-
-        for (unsigned int i = 0; i < PMMA::KeyEvent_Shift_Instances.size(); i++) {
-            PMMA::KeyEvent_Shift_Instances[i]->Update(action!=GLFW_RELEASE);
-        }
     } else if (key == GLFW_KEY_LEFT_CONTROL) {
         for (unsigned int i = 0; i < PMMA::KeyEvent_Left_Control_Instances.size(); i++) {
             PMMA::KeyEvent_Left_Control_Instances[i]->Update(action!=GLFW_RELEASE);
-        }
-
-        for (unsigned int i = 0; i < PMMA::KeyEvent_Control_Instances.size(); i++) {
-            PMMA::KeyEvent_Control_Instances[i]->Update(action!=GLFW_RELEASE);
         }
     } else if (key == GLFW_KEY_LEFT_ALT) {
         for (unsigned int i = 0; i < PMMA::KeyEvent_Left_Alt_Instances.size(); i++) {
             PMMA::KeyEvent_Left_Alt_Instances[i]->Update(action!=GLFW_RELEASE);
         }
-
-        for (unsigned int i = 0; i < PMMA::KeyEvent_Alt_Instances.size(); i++) {
-            PMMA::KeyEvent_Alt_Instances[i]->Update(action!=GLFW_RELEASE);
-        }
     } else if (key == GLFW_KEY_LEFT_SUPER) {
         for (unsigned int i = 0; i < PMMA::KeyEvent_Left_Super_Instances.size(); i++) {
             PMMA::KeyEvent_Left_Super_Instances[i]->Update(action!=GLFW_RELEASE);
-        }
-
-        for (unsigned int i = 0; i < PMMA::KeyEvent_Super_Instances.size(); i++) {
-            PMMA::KeyEvent_Super_Instances[i]->Update(action!=GLFW_RELEASE);
         }
     } else if (key == GLFW_KEY_RIGHT_SHIFT) {
         for (unsigned int i = 0; i < PMMA::KeyEvent_Right_Shift_Instances.size(); i++) {
             PMMA::KeyEvent_Right_Shift_Instances[i]->Update(action!=GLFW_RELEASE);
         }
-
-        for (unsigned int i = 0; i < PMMA::KeyEvent_Shift_Instances.size(); i++) {
-            PMMA::KeyEvent_Shift_Instances[i]->Update(action!=GLFW_RELEASE);
-        }
     } else if (key == GLFW_KEY_RIGHT_CONTROL) {
         for (unsigned int i = 0; i < PMMA::KeyEvent_Right_Control_Instances.size(); i++) {
             PMMA::KeyEvent_Right_Control_Instances[i]->Update(action!=GLFW_RELEASE);
-        }
-
-        for (unsigned int i = 0; i < PMMA::KeyEvent_Control_Instances.size(); i++) {
-            PMMA::KeyEvent_Control_Instances[i]->Update(action!=GLFW_RELEASE);
         }
     } else if (key == GLFW_KEY_RIGHT_ALT) {
         for (unsigned int i = 0; i < PMMA::KeyEvent_Right_Alt_Instances.size(); i++) {
             PMMA::KeyEvent_Right_Alt_Instances[i]->Update(action!=GLFW_RELEASE);
         }
-
-        for (unsigned int i = 0; i < PMMA::KeyEvent_Alt_Instances.size(); i++) {
-            PMMA::KeyEvent_Alt_Instances[i]->Update(action!=GLFW_RELEASE);
-        }
     } else if (key == GLFW_KEY_RIGHT_SUPER) {
         for (unsigned int i = 0; i < PMMA::KeyEvent_Right_Super_Instances.size(); i++) {
             PMMA::KeyEvent_Right_Super_Instances[i]->Update(action!=GLFW_RELEASE);
-        }
-
-        for (unsigned int i = 0; i < PMMA::KeyEvent_Super_Instances.size(); i++) {
-            PMMA::KeyEvent_Super_Instances[i]->Update(action!=GLFW_RELEASE);
         }
     } else if (key == GLFW_KEY_MENU) {
         for (unsigned int i = 0; i < PMMA::KeyEvent_Menu_Instances.size(); i++) {
@@ -665,5 +659,21 @@ void CPP_EventsManager::GenericUpdate(GLFWwindow* window) {
         for (int i = 0; i < ConnectedControllers.size(); i++) {
             ConnectedControllers[i]->Update();
         }
+    }
+
+    for (unsigned int i = 0; i < PMMA::KeyEvent_Shift_Instances.size(); i++) {
+        PMMA::KeyEvent_Shift_Instances[i]->Update((Left_Shift_Instance->GetPressed() || Right_Shift_Instance->GetPressed()));
+    }
+
+    for (unsigned int i = 0; i < PMMA::KeyEvent_Control_Instances.size(); i++) {
+        PMMA::KeyEvent_Control_Instances[i]->Update((Left_Control_Instance->GetPressed() || Right_Control_Instance->GetPressed()));
+    }
+
+    for (unsigned int i = 0; i < PMMA::KeyEvent_Alt_Instances.size(); i++) {
+        PMMA::KeyEvent_Alt_Instances[i]->Update((Left_Alt_Instance->GetPressed() || Right_Alt_Instance->GetPressed()));
+    }
+
+    for (unsigned int i = 0; i < PMMA::KeyEvent_Super_Instances.size(); i++) {
+        PMMA::KeyEvent_Super_Instances[i]->Update((Left_Super_Instance->GetPressed() || Right_Super_Instance->GetPressed()));
     }
 }

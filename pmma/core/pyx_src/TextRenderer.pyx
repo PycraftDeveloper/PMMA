@@ -5,6 +5,8 @@ from libcpp.string cimport string
 import numpy as np
 cimport numpy as np
 
+import pmma.core.py_src.Utility as Utility
+
 cdef extern from "PMMA_Core.hpp":
     cdef cppclass CPP_TextRenderer:
         CPP_TextRenderer(string& font_path, int font_height) except +
@@ -25,12 +27,15 @@ cdef class TextRenderer:
     def __dealloc__(self):
         del self.cpp_class_ptr
 
+    @Utility.require_render_thread
     def begin(self):
         self.cpp_class_ptr.begin()
 
+    @Utility.require_render_thread
     def end(self):
         self.cpp_class_ptr.end()
 
+    @Utility.require_render_thread
     def drawText(self, text, pos, scale, color):
         cdef:
             string encoded_text = text.encode('utf-8')

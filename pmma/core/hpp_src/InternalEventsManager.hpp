@@ -3,7 +3,19 @@
 
 #include <GLFW/glfw3.h>
 
+#include "Events.hpp"
+
 class EXPORT CPP_EventsManager {
+private:
+    CPP_KeyEvent_Left_Shift* Left_Shift_Instance = nullptr;
+    CPP_KeyEvent_Right_Shift* Right_Shift_Instance = nullptr;
+    CPP_KeyEvent_Left_Control* Left_Control_Instance = nullptr;
+    CPP_KeyEvent_Right_Control* Right_Control_Instance = nullptr;
+    CPP_KeyEvent_Left_Alt* Left_Alt_Instance = nullptr;
+    CPP_KeyEvent_Right_Alt* Right_Alt_Instance = nullptr;
+    CPP_KeyEvent_Left_Super* Left_Super_Instance = nullptr;
+    CPP_KeyEvent_Right_Super* Right_Super_Instance = nullptr;
+
 public:
     CPP_EventsManager(GLFWwindow* Window);
     ~CPP_EventsManager();
@@ -16,5 +28,5 @@ public:
     static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
     static void JoystickCallback(int jid, int event);
     static void DropCallback(GLFWwindow* window, int count, const char** paths);
-    static void GenericUpdate(GLFWwindow* window);
+    void GenericUpdate(GLFWwindow* window);
 };
