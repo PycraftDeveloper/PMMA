@@ -112,7 +112,9 @@ class EXPORT CPP_Display {
             return (float)Size[0] / (float)Size[1];
         }
 
-        void Refresh(
+        void LimitRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery);
+
+        void ContinuousRefresh(
             unsigned int RefreshRate,
             bool Minimized,
             bool FocusLoss,
@@ -121,7 +123,22 @@ class EXPORT CPP_Display {
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery);
 
-        void Refresh();
+        void EventRefresh(
+            unsigned int RefreshRate,
+            unsigned int MaxRefreshRate,
+            bool Minimized,
+            bool FocusLoss,
+            bool LowBattery,
+            bool LowerRefreshRate_OnMinimize,
+            bool LowerRefreshRate_OnFocusLoss,
+            bool LowerRefreshRate_OnLowBattery);
+
+        inline void TriggerEventRefresh() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+            glfwPostEmptyEvent();
+        }
 
         inline unsigned int GetFrameRate() {
             if (Window == nullptr) {

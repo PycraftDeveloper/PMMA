@@ -43,13 +43,20 @@ cdef extern from "PMMA_Core.hpp":
 
         float GetAspectRatio() except +
 
-        void Refresh(unsigned int RefreshRate, bool Minimized,
+        void ContinuousRefresh(unsigned int RefreshRate, bool Minimized,
             bool FocusLoss, bool LowBattery,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery) except +
 
-        void Refresh() except +
+        void EventRefresh(unsigned int RefreshRate,
+            unsigned int MaxRefreshRate, bool Minimized,
+            bool FocusLoss, bool LowBattery,
+            bool LowerRefreshRate_OnMinimize,
+            bool LowerRefreshRate_OnFocusLoss,
+            bool LowerRefreshRate_OnLowBattery) except +
+
+        void TriggerEventRefresh() except +
 
         inline unsigned int GetFrameRate() except +
 
@@ -213,18 +220,32 @@ cdef class Display:
     def get_aspect_ratio(self):
         return self.cpp_class_ptr.GetAspectRatio()
 
-    def refresh(self,
+    def continuous_refresh(self,
         refresh_rate=60,
         lower_refresh_rate_on_minimize=True,
         lower_refresh_rate_on_focus_loss=True,
         lower_refresh_rate_on_low_battery=True):
 
         if refresh_rate <= 0:
-            self.cpp_class_ptr.Refresh()
-        else:
-            self.cpp_class_ptr.Refresh(refresh_rate, False, False, False,
-        lower_refresh_rate_on_minimize, lower_refresh_rate_on_focus_loss,
-        lower_refresh_rate_on_low_battery)
+            refresh_rate = 0
+
+        self.cpp_class_ptr.ContinuousRefresh(refresh_rate, False, False,
+            False, lower_refresh_rate_on_minimize,
+            lower_refresh_rate_on_focus_loss,
+            lower_refresh_rate_on_low_battery)
+
+    def event_refresh(self, refresh_rate=60, max_refresh_rate=60,
+        lower_refresh_rate_on_minimize=True,
+        lower_refresh_rate_on_focus_loss=True,
+        lower_refresh_rate_on_low_battery=True):
+
+        self.cpp_class_ptr.EventRefresh(refresh_rate, max_refresh_rate,
+            False, False, False, lower_refresh_rate_on_minimize,
+            lower_refresh_rate_on_focus_loss,
+            lower_refresh_rate_on_low_battery)
+
+    def trigger_event_refresh(self):
+        self.cpp_class_ptr.TriggerEventRefresh()
 
     def get_frame_rate(self):
         return self.cpp_class_ptr.GetFrameRate()

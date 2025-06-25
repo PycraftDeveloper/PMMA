@@ -12,6 +12,7 @@ pmma_core_dir = os.path.join(pmma_dir, "core")
 pyx_src_dir = os.path.join(pmma_core_dir, "pyx_src")
 hpp_src_dir = os.path.join(pmma_core_dir, "hpp_src")
 cpp_src_dir = os.path.join(pmma_core_dir, "cpp_src")
+py_src_dir = os.path.join(pmma_core_dir, "py_src")
 
 pmma_core_lib_dir = os.path.join(pmma_dir, "lib")
 
@@ -214,6 +215,8 @@ else:
 if to_do == []:
     print("No changes detected.")
 else:
+    shutil.rmtree(temp_platform_cache_dir)
+
     if BUILD_CORE in to_do and not BUILD_DEPENDENCIES in to_do:
         print("Configuring PMMA Core.")
 
@@ -250,6 +253,10 @@ else:
             build_command += ["--", f"-j{multiprocessing.cpu_count()}"]
         subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
+    cache_files(hpp_src_dir)
+    cache_files(cpp_src_dir)
+    cache_files(cmake_dir)
+
     if BUILD_CYTHON in to_do:
         print("Building Cython.")
 
@@ -270,13 +277,7 @@ else:
 
         subprocess.run(command, check=True)
 
-    print("Updating cache.")
-    shutil.rmtree(temp_platform_cache_dir)
-
     cache_files(pyx_src_dir)
-    cache_files(hpp_src_dir)
-    cache_files(cpp_src_dir)
-    cache_files(cmake_dir)
 
 print("Refreshing installed version of PMMA.")
 
@@ -304,21 +305,22 @@ while not installed:
             print("Exiting...")
             break
 
-content = os.listdir(build_dir)
-pyd_files = []
+content = os.listdir(build_dir) + os.listdir(py_src_dir)
+src_files = []
 pyi_files = []
 for file in content:
-    if file.endswith(".pyd"):
-        pyd_files.append(file.split(".")[0])
+    if file.endswith(".pyd") or file.endswith(".py"):
+        src_files.append(file.split(".")[0])
     if file.endswith(".pyi"):
         pyi_files.append(file.split(".")[0])
 
-for file in pyd_files:
-    found = False
-    for stub in pyi_files:
-        if file == stub:
-            found = True
-            break
+for file in src_files:
+    if file not in ["Utility"]:
+        found = False
+        for stub in pyi_files:
+            if file == stub:
+                found = True
+                break
 
-    if not found:
-        print(f"Warning: {file}.pyd is missing a corresponding .pyi file.")
+        if not found:
+            print(f"Warning: {file}.pyd is missing a corresponding .pyi file.")

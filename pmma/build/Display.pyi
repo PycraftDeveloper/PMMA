@@ -20,6 +20,8 @@ OptionalColor = Union[
     None
 ]
 
+Numerical = Union[float, int]
+
 class Display:
     def __init__(self, seed: OptionalInteger=None, octaves: int=2, lacunarity: float=0.75, gain: float=1.0) -> None: ...
 
@@ -48,11 +50,19 @@ class Display:
 
     def get_aspect_ratio(self) -> float: ...
 
-    def refresh(self,
+    def continuous_refresh(self,
         refresh_rate: int=60,
         lower_refresh_rate_on_minimize: bool=True,
         lower_refresh_rate_on_focus_loss: bool=True,
         lower_refresh_rate_on_low_battery: bool=True) -> None: ...
+
+    def event_refresh(self, refresh_rate: int=60,
+        max_refresh_rate: int=60,
+        lower_refresh_rate_on_minimize: bool=True,
+        lower_refresh_rate_on_focus_loss: bool=True,
+        lower_refresh_rate_on_low_battery: bool=True) -> None: ...
+
+    def trigger_event_refresh(self) -> None: ...
 
     def get_frame_rate(self) -> int: ...
     def get_frame_time(self) -> float: ...
