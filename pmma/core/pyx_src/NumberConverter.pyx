@@ -36,10 +36,10 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         inline void GenerateFractalBrownianMotionCoordinates(float value) except + nogil
 
-        inline void SetCoordinates_Pixel(unsigned int* in_coordinates) except + nogil
+        void SetCoordinates_Pixel(unsigned int* in_coordinates) except + nogil
         inline void SetCoordinates_Normalized(float* in_coordinates) except + nogil
 
-        inline void GetCoordinates_Pixel(unsigned int* out_coordinates) except + nogil
+        void GetCoordinates_Pixel(unsigned int* out_coordinates) except + nogil
         inline void GetCoordinates_Normalized(float* out_coordinates) except + nogil
 
     cdef cppclass CPP_AngleConverter:
@@ -66,10 +66,10 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         inline void GenerateFractalBrownianMotionScalar(float value) except + nogil
 
-        inline void SetScalar_Pixel(unsigned int in_scalar) except + nogil
+        void SetScalar_Pixel(unsigned int in_scalar) except + nogil
         inline void SetScalar_Normalized(float in_scalar) except + nogil
 
-        inline unsigned int GetScalar_Pixel() except + nogil
+        unsigned int GetScalar_Pixel() except + nogil
         inline float GetScalar_Normalized() except + nogil
 
     cdef cppclass CPP_ProportionConverter:

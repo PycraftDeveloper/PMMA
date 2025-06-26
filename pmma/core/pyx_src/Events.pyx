@@ -9,2181 +9,2181 @@ cimport numpy as np
 
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_TextEvent:
-        string GetText() except + nogil
+        inline string GetText() except + nogil
 
-        void SetEnabled(bool NewIsEnabled) except + nogil
-        bool GetEnabled() except + nogil
+        inline void SetEnabled(bool NewIsEnabled) except + nogil
+        inline bool GetEnabled() except + nogil
 
-        void ClearText() except + nogil
+        inline void ClearText() except + nogil
 
-        void Set_ControlKey_DoublePressDuration(float NewDuration) except + nogil
-        void Set_ControlKey_LongPressDuration(float NewDuration) except + nogil
-        void Set_ControlKey_RepeatPressDuration(float NewDuration) except + nogil
+        inline void Set_ControlKey_DoublePressDuration(float NewDuration) except + nogil
+        inline void Set_ControlKey_LongPressDuration(float NewDuration) except + nogil
+        inline void Set_ControlKey_RepeatPressDuration(float NewDuration) except + nogil
 
-        void Set_ShiftKey_DoublePressDuration(float NewDuration) except + nogil
-        void Set_ShiftKey_LongPressDuration(float NewDuration) except + nogil
-        void Set_ShiftKey_RepeatPressDuration(float NewDuration) except + nogil
+        inline void Set_ShiftKey_DoublePressDuration(float NewDuration) except + nogil
+        inline void Set_ShiftKey_LongPressDuration(float NewDuration) except + nogil
+        inline void Set_ShiftKey_RepeatPressDuration(float NewDuration) except + nogil
 
-        void Set_VKey_DoublePressDuration(float NewDuration) except + nogil
-        void Set_VKey_LongPressDuration(float NewDuration) except + nogil
-        void Set_VKey_RepeatPressDuration(float NewDuration) except + nogil
+        inline void Set_VKey_DoublePressDuration(float NewDuration) except + nogil
+        inline void Set_VKey_LongPressDuration(float NewDuration) except + nogil
+        inline void Set_VKey_RepeatPressDuration(float NewDuration) except + nogil
 
-        void Set_InsertKey_DoublePressDuration(float NewDuration) except + nogil
-        void Set_InsertKey_LongPressDuration(float NewDuration) except + nogil
-        void Set_InsertKey_RepeatPressDuration(float NewDuration) except + nogil
+        inline void Set_InsertKey_DoublePressDuration(float NewDuration) except + nogil
+        inline void Set_InsertKey_LongPressDuration(float NewDuration) except + nogil
+        inline void Set_InsertKey_RepeatPressDuration(float NewDuration) except + nogil
 
-        void Set_DeleteKey_DoublePressDuration(float NewDuration) except + nogil
-        void Set_DeleteKey_LongPressDuration(float NewDuration) except + nogil
-        void Set_DeleteKey_RepeatPressDuration(float NewDuration) except + nogil
+        inline void Set_DeleteKey_DoublePressDuration(float NewDuration) except + nogil
+        inline void Set_DeleteKey_LongPressDuration(float NewDuration) except + nogil
+        inline void Set_DeleteKey_RepeatPressDuration(float NewDuration) except + nogil
 
-        void Set_BackspaceKey_DoublePressDuration(float NewDuration) except + nogil
-        void Set_BackspaceKey_LongPressDuration(float NewDuration) except + nogil
-        void Set_BackspaceKey_RepeatPressDuration(float NewDuration) except + nogil
+        inline void Set_BackspaceKey_DoublePressDuration(float NewDuration) except + nogil
+        inline void Set_BackspaceKey_LongPressDuration(float NewDuration) except + nogil
+        inline void Set_BackspaceKey_RepeatPressDuration(float NewDuration) except + nogil
 
     cdef cppclass CPP_MousePositionEvent:
-        void GetPosition(float* out) except + nogil
+        inline void GetPosition(float* out) except + nogil
 
-        void GetDelta(float* out) except + nogil
-        void GetDeltaToggle(float* out) except + nogil
+        inline void GetDelta(float* out) except + nogil
+        inline void GetDeltaToggle(float* out) except + nogil
 
     cdef cppclass CPP_MouseEnterWindowEvent:
-        bool GetEntered() except + nogil
-        bool GetEnteredToggle() except + nogil
+        inline bool GetEntered() except + nogil
+        inline bool GetEnteredToggle() except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_Left:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_Right:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_Middle:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_0:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_1:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_2:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_3:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_4:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_MouseScrollEvent:
-        void GetPosition(float* out) except + nogil
-        void ClearPosition() except + nogil
-        float GetHorizontalPosition() except + nogil
-        float GetVerticalPosition() except + nogil
+        inline void GetPosition(float* out) except + nogil
+        inline void ClearPosition() except + nogil
+        inline float GetHorizontalPosition() except + nogil
+        inline float GetVerticalPosition() except + nogil
 
-        void GetDelta(float* out) except + nogil
-        float GetHorizontalDelta() except + nogil
-        float GetVerticalDelta() except + nogil
+        inline void GetDelta(float* out) except + nogil
+        inline float GetHorizontalDelta() except + nogil
+        inline float GetVerticalDelta() except + nogil
 
-        void GetDeltaToggle(float* out) except + nogil
-        float GetHorizontalDeltaToggle() except + nogil
-        float GetVerticalDeltaToggle() except + nogil
+        inline void GetDeltaToggle(float* out) except + nogil
+        inline float GetHorizontalDeltaToggle() except + nogil
+        inline float GetVerticalDeltaToggle() except + nogil
 
-        bool GetEnabled() except + nogil
-        void SetEnabled(bool NewIsEnabled) except + nogil
+        inline bool GetEnabled() except + nogil
+        inline void SetEnabled(bool NewIsEnabled) except + nogil
 
     cdef cppclass CPP_ControllerEvent:
-        bool GetConnected() except + nogil
+        inline bool GetConnected() except + nogil
 
-        float GetAxis_Decimal(int AxisID) except + nogil
-        float GetAxis_Percentage(int AxisID) except + nogil
+        inline float GetAxis_Decimal(int AxisID) except + nogil
+        inline float GetAxis_Percentage(int AxisID) except + nogil
 
     cdef cppclass CPP_KeyEvent_Space:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Apostrophe:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Comma:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Minus:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Period:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Slash:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_0:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_1:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_2:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_3:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_4:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_5:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_6:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_7:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_8:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_9:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Semicolon:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Equal:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_A:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_B:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_C:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_D:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_E:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_G:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_H:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_I:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_J:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_K:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_L:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_M:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_N:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_O:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_P:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Q:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_R:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_S:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_T:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_U:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_V:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_W:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_X:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Y:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Z:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Left_Bracket:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Backslash:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Right_Bracket:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Grave_Accent:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_World_1:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_World_2:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Escape:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Enter:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Tab:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Backspace:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Insert:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Delete:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Right:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Left:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Down:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Up:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Page_Up:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Page_Down:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Home:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_End:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Caps_Lock:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Scroll_Lock:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Num_Lock:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Print_Screen:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Pause:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F1:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F2:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F3:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F4:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F5:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F6:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F7:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F8:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F9:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F10:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F11:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F12:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F13:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F14:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F15:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F16:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F17:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F18:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F19:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F20:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F21:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F22:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F23:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F24:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_F25:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Left_Shift:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Left_Control:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Left_Alt:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Left_Super:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Right_Shift:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Right_Control:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Right_Alt:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Right_Super:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Shift:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Control:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Alt:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Super:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyEvent_Menu:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_0:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_1:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_2:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_3:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_4:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_5:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_6:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_7:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_8:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_9:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_Decimal:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_Divide:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_Multiply:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_Subtract:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_Add:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_Enter:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
     cdef cppclass CPP_KeyPadEvent_Equal:
-        bool GetPressed() except + nogil
-        bool GetPressedToggle() except + nogil
-        bool GetDoublePressed() except + nogil
-        bool GetLongPressed() except + nogil
+        inline bool GetPressed() except + nogil
+        inline bool GetPressedToggle() except + nogil
+        inline bool GetDoublePressed() except + nogil
+        inline bool GetLongPressed() except + nogil
 
-        float GetRepeatPressDuration() except + nogil
-        float GetLongPressDuration() except + nogil
-        float GetDoublePressDuration() except + nogil
+        inline float GetRepeatPressDuration() except + nogil
+        inline float GetLongPressDuration() except + nogil
+        inline float GetDoublePressDuration() except + nogil
 
-        bool PollLongPressed() except + nogil
+        inline bool PollLongPressed() except + nogil
 
-        void SetDoublePressDuration(float Duration) except + nogil
-        void SetLongPressDuration(float Duration) except + nogil
-        void SetRepeatPressDuration(float Duration) except + nogil
+        inline void SetDoublePressDuration(float Duration) except + nogil
+        inline void SetLongPressDuration(float Duration) except + nogil
+        inline void SetRepeatPressDuration(float Duration) except + nogil
 
 cdef extern from "PMMA_Core.hpp" namespace "PMMA" nogil:
     cdef vector[CPP_ControllerEvent*] ControllerEventInstances

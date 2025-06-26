@@ -11,56 +11,56 @@ cimport numpy as np
 import pmma.core.py_src.Utility as Utility
 
 # Declare the external C++ function
-cdef extern from "PMMA_Core.hpp":
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Display:
         CPP_Display(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude);
 
-        inline void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) except +
+        void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) except + nogil
 
-        inline unsigned int GetWidth() except +
-        inline unsigned int GetHeight() except +
+        inline unsigned int GetWidth() except + nogil
+        inline unsigned int GetHeight() except + nogil
 
-        inline void GetSize(unsigned int* out) except +
+        inline void GetSize(unsigned int* out) except + nogil
 
-        void SetRelativeWindowPosition(unsigned int* Position) except +
-        void SetAbsoluteWindowPosition(unsigned int* Position) except +
+        inline void SetRelativeWindowPosition(unsigned int* Position) except + nogil
+        inline void SetAbsoluteWindowPosition(unsigned int* Position) except + nogil
 
-        void CenterWindow() except +
+        inline void CenterWindow() except + nogil
 
-        void Clear() except +
-        void Clear(float* in_color) except +
+        void Clear() except + nogil
+        void Clear(float* in_color) except + nogil
 
-        void SetWindowInFocus() except +
+        inline void SetWindowInFocus() except + nogil
 
-        void SetWindowMinimized(bool IsMinimized) except +
-        void SetWindowMaximized(bool IsMaximized) except +
+        inline void SetWindowMinimized(bool IsMinimized) except + nogil
+        inline void SetWindowMaximized(bool IsMaximized) except + nogil
 
-        void SetCaption(string& new_caption) except +
-        string GetCaption() except +
+        inline void SetCaption(string& new_caption) except + nogil
+        inline string GetCaption() except + nogil
 
-        void GetCenter_Pixels(unsigned int* out) except +
-        void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) except +
+        inline void GetCenter_Pixels(unsigned int* out) except + nogil
+        inline void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) except + nogil
 
-        float GetAspectRatio() except +
+        inline float GetAspectRatio() except + nogil
 
         void ContinuousRefresh(unsigned int RefreshRate, bool Minimized,
             bool FocusLoss, bool LowBattery,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery) except +
+            bool LowerRefreshRate_OnLowBattery) except + nogil
 
         void EventRefresh(unsigned int RefreshRate,
             unsigned int MaxRefreshRate, bool Minimized,
             bool FocusLoss, bool LowBattery,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery) except +
+            bool LowerRefreshRate_OnLowBattery) except + nogil
 
-        void TriggerEventRefresh() except +
+        inline void TriggerEventRefresh() except + nogil
 
-        inline unsigned int GetFrameRate() except +
+        inline unsigned int GetFrameRate() except + nogil
 
-        inline float GetFrameTime() except +
+        inline float GetFrameTime() except + nogil
 
 cdef class Display:
     cdef:
@@ -151,6 +151,7 @@ cdef class Display:
     def center_window(self):
         self.cpp_class_ptr.CenterWindow()
 
+    @Utility.require_render_thread
     def clear(self, new_color=None):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
@@ -220,6 +221,7 @@ cdef class Display:
     def get_aspect_ratio(self):
         return self.cpp_class_ptr.GetAspectRatio()
 
+    @Utility.require_render_thread
     def continuous_refresh(self,
         refresh_rate=60,
         lower_refresh_rate_on_minimize=True,
@@ -234,6 +236,7 @@ cdef class Display:
             lower_refresh_rate_on_focus_loss,
             lower_refresh_rate_on_low_battery)
 
+    @Utility.require_render_thread
     def event_refresh(self, refresh_rate=60, max_refresh_rate=60,
         lower_refresh_rate_on_minimize=True,
         lower_refresh_rate_on_focus_loss=True,

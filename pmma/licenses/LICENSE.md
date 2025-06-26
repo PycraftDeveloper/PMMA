@@ -1,6 +1,10 @@
 PMMA
 ====
 
+(PLEASE NOTE: THIS license covers EXCLUSIVELY code written by Thomas Jebson
+and contributors to PMMA, ALL THIRD PARTY code can be found in 'pmma/extern'
+AND has corresponding licenses in this directory and sub-directories.)
+
 MIT License
 
 Copyright (c) 2024-2025 Thomas Jebson

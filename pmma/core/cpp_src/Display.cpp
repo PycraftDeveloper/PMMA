@@ -243,78 +243,6 @@ visual tearing and improve frame pacing." << endl;
     EventsManagerInstance = new CPP_EventsManager(Window);
 }
 
-void CPP_Display::SetWindowInFocus() {
-    if (Window == nullptr) {
-        throw runtime_error("Display not created yet!");
-    }
-
-    glfwFocusWindow(Window);
-}
-
-void CPP_Display::SetWindowMinimized(bool IsMinimized) {
-    if (Window == nullptr) {
-        throw runtime_error("Display not created yet!");
-    }
-
-    if (IsMinimized) {
-        glfwIconifyWindow(Window);
-    }
-    else {
-        glfwRestoreWindow(Window);
-    }
-}
-
-void CPP_Display::SetWindowMaximized(bool IsMaximized) {
-    if (Window == nullptr) {
-        throw runtime_error("Display not created yet!");
-    }
-
-    if (IsMaximized) {
-        glfwMaximizeWindow(Window);
-    }
-    else {
-        glfwRestoreWindow(Window);
-    }
-}
-
-void CPP_Display::SetRelativeWindowPosition(unsigned int* NewPosition) {
-    if (Window == nullptr) {
-        throw runtime_error("Display not created yet!");
-    }
-
-    glfwSetWindowPos(Window, NewPosition[0], NewPosition[1]);
-}
-
-void CPP_Display::SetAbsoluteWindowPosition(unsigned int* NewPosition) {
-    if (Window == nullptr) {
-        throw runtime_error("Display not created yet!");
-    }
-
-    GLFWmonitor* PointMonitor = GetMonitorAtPoint(NewPosition);
-
-    int Monitor_X_Position, Monitor_Y_Position;
-    glfwGetMonitorPos(PointMonitor, &Monitor_X_Position, &Monitor_Y_Position);
-    glfwSetWindowPos(Window, NewPosition[0] - Monitor_X_Position, NewPosition[1] - Monitor_Y_Position);
-}
-
-void CPP_Display::CenterWindow() {
-    if (Window == nullptr) {
-        throw runtime_error("Display not created yet!");
-    }
-
-    GLFWmonitor* CurrentMonitor = GetCurrentMonitor(Window);
-
-    int Monitor_Width, Monitor_Height;
-    const GLFWvidmode* Mode = glfwGetVideoMode(CurrentMonitor);
-    Monitor_Width = Mode->width;
-    Monitor_Height = Mode->height;
-
-    int Window_X_Offset = (Monitor_Width - Size[0]) / 2;
-    int Window_Y_Offset = (Monitor_Height - Size[1]) / 2;
-
-    glfwSetWindowPos(Window, Window_X_Offset, Window_Y_Offset);
-}
-
 void CPP_Display::Clear(float* in_color) {
     if (Window == nullptr) {
         throw runtime_error("Display not created yet!");
@@ -336,53 +264,12 @@ void CPP_Display::Clear() {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
-void CPP_Display::SetCaption(string& new_caption) {
-    if (Window == nullptr) {
-        throw runtime_error("Display not created yet!");
-    }
-
-    glfwSetWindowTitle(Window, new_caption.c_str());
-    Caption = new_caption;
-}
-
-string CPP_Display::GetCaption() {
-    return Caption;
-}
-
-unsigned int CalculateRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery) {
-    unsigned int OriginalRefreshRate = RefreshRate;
-
-    if (Minimized) {
-        RefreshRate /= 5;
-    }
-
-    if (FocusLoss) {
-        RefreshRate /= 2;
-    }
-
-    if (LowBattery) {
-        RefreshRate /= 2;
-    }
-
-    if (Minimized) {
-        RefreshRate = max(RefreshRate, 5u);
-    } else {
-        RefreshRate = max(RefreshRate, RefreshRate / 2);
-    }
-
-    if (RefreshRate > OriginalRefreshRate) {
-        RefreshRate = OriginalRefreshRate;
-    }
-
-    return RefreshRate;
-}
-
 void CPP_Display::LimitRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery) {
     if (Vsync) {
         return;
     }
 
-    RefreshRate = CalculateRefreshRate(RefreshRate, Minimized, FocusLoss, LowBattery);
+    RefreshRate = CPP_Display::CalculateRefreshRate(RefreshRate, Minimized, FocusLoss, LowBattery);
 
     float estimate = 0.001f;
     float average = 0.001f;
@@ -451,7 +338,7 @@ void CPP_Display::EventRefresh(
 
     glfwSwapBuffers(Window);
 
-    MaxRefreshRate = CalculateRefreshRate(MaxRefreshRate, Minimized, FocusLoss, LowBattery);
+    MaxRefreshRate = CPP_Display::CalculateRefreshRate(MaxRefreshRate, Minimized, FocusLoss, LowBattery);
 
     if (RefreshRate == 0) {
         glfwWaitEvents();

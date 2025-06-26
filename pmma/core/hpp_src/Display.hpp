@@ -76,24 +76,93 @@ class EXPORT CPP_Display {
 
         GLFWmonitor* GetCurrentMonitor(GLFWwindow* Window);
 
-        void SetRelativeWindowPosition(unsigned int* Position);
+        inline void SetRelativeWindowPosition(unsigned int* NewPosition) {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
 
-        void SetAbsoluteWindowPosition(unsigned int* Position);
+            glfwSetWindowPos(Window, NewPosition[0], NewPosition[1]);
+        }
 
-        void CenterWindow();
+        inline void SetAbsoluteWindowPosition(unsigned int* NewPosition) {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            GLFWmonitor* PointMonitor = GetMonitorAtPoint(NewPosition);
+
+            int Monitor_X_Position, Monitor_Y_Position;
+            glfwGetMonitorPos(PointMonitor, &Monitor_X_Position, &Monitor_Y_Position);
+            glfwSetWindowPos(Window, NewPosition[0] - Monitor_X_Position, NewPosition[1] - Monitor_Y_Position);
+        }
+
+        inline void CenterWindow() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            GLFWmonitor* CurrentMonitor = GetCurrentMonitor(Window);
+
+            int Monitor_Width, Monitor_Height;
+            const GLFWvidmode* Mode = glfwGetVideoMode(CurrentMonitor);
+            Monitor_Width = Mode->width;
+            Monitor_Height = Mode->height;
+
+            int Window_X_Offset = (Monitor_Width - Size[0]) / 2;
+            int Window_Y_Offset = (Monitor_Height - Size[1]) / 2;
+
+            glfwSetWindowPos(Window, Window_X_Offset, Window_Y_Offset);
+        }
 
         void Clear(float* in_color);
         void Clear();
 
-        void SetWindowInFocus();
+        inline void SetWindowInFocus() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
 
-        void SetWindowMinimized(bool IsMinimized);
+            glfwFocusWindow(Window);
+        }
 
-        void SetWindowMaximized(bool IsMaximized);
+        inline void SetWindowMinimized(bool IsMinimized) {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
 
-        void SetCaption(std::string& new_caption);
+            if (IsMinimized) {
+                glfwIconifyWindow(Window);
+            }
+            else {
+                glfwRestoreWindow(Window);
+            }
+        }
 
-        std::string GetCaption();
+        inline void SetWindowMaximized(bool IsMaximized) {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            if (IsMaximized) {
+                glfwMaximizeWindow(Window);
+            }
+            else {
+                glfwRestoreWindow(Window);
+            }
+        }
+
+        inline void SetCaption(std::string& new_caption) {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            glfwSetWindowTitle(Window, new_caption.c_str());
+            Caption = new_caption;
+        }
+
+        inline std::string GetCaption() {
+            return Caption;
+        }
 
         inline void GetCenter_Pixels(unsigned int* out) {
             out[0] = (unsigned int)(Size[0] / 2);
@@ -171,6 +240,34 @@ class EXPORT CPP_Display {
             OrthographicProjectionSet = true;
             return OrthographicProjection;
         };
+
+        inline unsigned int CalculateRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery) {
+            unsigned int OriginalRefreshRate = RefreshRate;
+
+            if (Minimized) {
+                RefreshRate /= 5;
+            }
+
+            if (FocusLoss) {
+                RefreshRate /= 2;
+            }
+
+            if (LowBattery) {
+                RefreshRate /= 2;
+            }
+
+            if (Minimized) {
+                RefreshRate = std::max(RefreshRate, 5u);
+            } else {
+                RefreshRate = std::max(RefreshRate, RefreshRate / 2);
+            }
+
+            if (RefreshRate > OriginalRefreshRate) {
+                RefreshRate = OriginalRefreshRate;
+            }
+
+            return RefreshRate;
+        }
 
         ~CPP_Display();
 

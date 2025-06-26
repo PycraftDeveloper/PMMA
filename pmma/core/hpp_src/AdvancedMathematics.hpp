@@ -2,19 +2,45 @@
 #include "PMMA_Exports.hpp"
 
 #include <cmath>
+#include <cstring>
 
 namespace CPP_AdvancedMathematics {
-    EXPORT float PythagoreanDifference(const float x1, const float y1, const float x2, const float y2);
+    EXPORT inline float PythagoreanDifference(
+            const float x1,
+            const float y1,
+            const float x2,
+            const float y2) {
 
-    EXPORT float PythagoreanDistance(const float x, const float y);
+        return (float)std::sqrt(std::pow(x2 - x1, 2) + std::pow(y2 - y1, 2));
+    };
 
-    EXPORT float SmoothStep(const float value);
+    EXPORT inline float PythagoreanDistance(const float x, const float y) {
+        return (float)std::sqrt(std::pow(x, 2) + std::pow(y, 2));
+    };
 
-    EXPORT inline float Ranger(const float value, const float* old_range, const float* new_range) {
+    EXPORT inline float SmoothStep(const float value) {
+        return value * value * (3 - 2 * value);
+    };
+
+    EXPORT inline float Ranger(
+            const float value,
+            const float* old_range,
+            const float* new_range) {
+
         return new_range[0] + (value - old_range[0]) * (new_range[1] - new_range[0]) / (old_range[1] - old_range[0]);
     }
 
-    EXPORT void ArrayRanger(const float* values, const unsigned int length, const float* old_range, const float* new_range, float* out);
+    EXPORT inline void ArrayRanger(
+            const float* values,
+            const unsigned int length,
+            const float* old_range,
+            const float* new_range,
+            float* out) {
+
+        for (unsigned int i = 0; i < length; i++) {
+            out[i] = CPP_AdvancedMathematics::Ranger(values[i], old_range, new_range);
+        }
+    }
 
     EXPORT inline void InPlaceArrayNormalize(float* value) {
         float len = std::sqrt(value[0]*value[0] + value[1]*value[1] + value[2]*value[2]);
@@ -25,7 +51,17 @@ namespace CPP_AdvancedMathematics {
         }
     }
 
-    EXPORT void ArrayNormalize(const float* value, float* out);
+    EXPORT inline void ArrayNormalize(const float* value, float* out) {
+        out[0] = value[0];
+        out[1] = value[1];
+        out[2] = value[2];
+        float len = std::sqrt(out[0]*out[0] + out[1]*out[1] + out[2]*out[2]);
+        if (len > 1e-6f) {
+            out[0] /= len;
+            out[1] /= len;
+            out[2] /= len;
+        }
+    }
 
     EXPORT inline void Cross(const float* a, const float* b, float* out) {
         out[0] = a[1]*b[2] - a[2]*b[1];
@@ -43,14 +79,56 @@ namespace CPP_AdvancedMathematics {
         return a[0]*b[0] + a[1]*b[1] + a[2]*b[2];
     }
 
-    EXPORT void LookAt(const float* eye, const float* target, const float* up, float* out);
+    EXPORT inline void LookAt(
+            const float* eye,
+            const float* target,
+            const float* up,
+            float* out) {
 
-    EXPORT void ComputePosition(const float* position, const float* target, const float* up, float* out_x, float* out_y, float* out_z);
+        float f[3];
+        CPP_AdvancedMathematics::Subtract(target, eye, f);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize(f);
+
+        float upn[3] = {up[0], up[1], up[2]};
+        CPP_AdvancedMathematics::InPlaceArrayNormalize(upn);
+
+        float s[3];
+        CPP_AdvancedMathematics::Cross(f, upn, s);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize(s);
+
+        float u[3];
+        CPP_AdvancedMathematics::Cross(s, f, u);
+
+        float m[16] = {
+            s[0], u[0], -f[0], 0.0f,
+            s[1], u[1], -f[1], 0.0f,
+            s[2], u[2], -f[2], 0.0f,
+            -CPP_AdvancedMathematics::Dot(s, eye), -CPP_AdvancedMathematics::Dot(u, eye), CPP_AdvancedMathematics::Dot(f, eye), 1.0f
+        };
+        std::memcpy(out, m, sizeof(float) * 16);
+    }
+
+    EXPORT inline void ComputePosition(
+            const float* position,
+            const float* target,
+            const float* up,
+            float* out_x,
+            float* out_y,
+            float* out_z) {
+        CPP_AdvancedMathematics::Subtract(position, target, out_z);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize(out_z);
+
+        CPP_AdvancedMathematics::Cross(up, out_z, out_x);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize(out_x);
+
+        CPP_AdvancedMathematics::Cross(out_z, out_x, out_y);
+    }
 
     EXPORT void PerspectiveFOV(const float fov, const float aspect_ratio, const float near, const float far, float (*out)[4]);
 
     EXPORT inline float RandomFloat(const float* out_range) {
         float value = (float)rand() / RAND_MAX;
-        return Ranger(value, new float[2]{0.0f, 1.0f}, out_range);
+        float default_range[2] = {0.0f, 1.0f};
+        return CPP_AdvancedMathematics::Ranger(value, default_range, out_range);
     }
 }

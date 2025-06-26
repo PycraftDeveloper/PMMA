@@ -7,13 +7,13 @@ cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
 
-cdef extern from "PMMA_Core.hpp":
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_TextRenderer:
-        CPP_TextRenderer(string& font_path, int font_height) except +
+        CPP_TextRenderer(string& font_path, int font_height) except + nogil
 
-        void begin() except +
-        void end() except +
-        void drawText(string& text, float* pos, float scale, float* color) except +
+        void begin() except + nogil
+        void end() except + nogil
+        void drawText(string& text, float* pos, float scale, float* color) except + nogil
 
 cdef class TextRenderer:
     cdef:

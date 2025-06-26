@@ -69,6 +69,7 @@ C/C++ projects (used in PMMA 5 and newer)
 * FreeType - 2-13-3 - https://gitlab.freedesktop.org/freetype/freetype
 * GLM - 0.9.3.2 - https://github.com/icaven/glm
 * GLAD - 2.0.8 - https://github.com/Dav1dde/glad
+* HarfBuzz - 11.2.1 - https://github.com/harfbuzz/harfbuzz
 
 Python projects (used in PMMA 1 and newer)
 * PyAV - latest - https://github.com/PyAV-Org/PyAV
@@ -94,6 +95,8 @@ Python projects (used in PMMA 1 and newer)
 NONE of the projects mentioned above are owned or maintained by PycraftDeveloper the maker of this repository, who would also like to say a big thank you to all the teams working on these projects!
 
 You can check out our licenses and the licenses of all the C/C++ projects PMMA uses as standard [here](https://github.com/PycraftDeveloper/PMMA/tree/main/pmma/licenses) or on your installed version of PMMA (version 5 or later) under `pmma/licenses`.
+
+_Note: If you spot a problem in our licensing or distribution of third party dependencies please raise the problem as [an issue here](https://github.com/PycraftDeveloper/PMMA/issues) with the title-prefix: 'LICENSING: ' and we will respond to these problems as soon as possible. Thanks!_
 
 ## About
 

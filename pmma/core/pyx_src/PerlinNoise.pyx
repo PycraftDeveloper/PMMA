@@ -13,13 +13,13 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float Noise2D(const float x, const float y) except + nogil
         inline float Noise3D(const float x, const float y, const float z) except + nogil
 
-        inline void ArrayNoise1D(const float* values, const unsigned int length, float* out) except + nogil
-        inline void ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) except + nogil
-        inline void ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) except + nogil
+        void ArrayNoise1D(const float* values, const unsigned int length, float* out) except + nogil
+        void ArrayNoise2D(const float (*values)[2], const unsigned int length, float* out) except + nogil
+        void ArrayNoise3D(const float (*values)[3], const unsigned int length, float* out) except + nogil
 
-        inline void RangeNoise1D(const float* x_range, const unsigned int length, float* out) except + nogil
-        inline void RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) except + nogil
-        inline void RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) except + nogil
+        void RangeNoise1D(const float* x_range, const unsigned int length, float* out) except + nogil
+        void RangeNoise2D(const float* x_range, const float* y_range, const unsigned int length, float* out) except + nogil
+        void RangeNoise3D(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) except + nogil
 
 
 cdef class PerlinNoise:
