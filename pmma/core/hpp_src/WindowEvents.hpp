@@ -1,25 +1,42 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-class EXPORT CPP_InternalDropEvent {
+#include <string>
+#include <vector>
+
+class EXPORT CPP_DropEvent {
     private:
-        std::string FilePath;
+        std::vector<std::string> FilePaths;
+        unsigned int FilePathCount = 0;
         bool IsEnabled = true;
 
     public:
-        inline void Update(std::string NewFilePath) {
+        CPP_DropEvent();
+        ~CPP_DropEvent();
+
+        inline void Update(std::vector<std::string> NewFilePaths, unsigned int NewCount) {
             if (!IsEnabled) {
                 return;
             }
-            FilePath = NewFilePath;
+            FilePaths = NewFilePaths;
+            FilePathCount = NewCount;
         };
 
-        inline std::string GetFilePath() {
-            return FilePath;
+        inline const char** GetFilePaths() {
+            const char** paths = new const char*[FilePathCount];
+            for (unsigned int i = 0; i < FilePathCount; i++) {
+                paths[i] = FilePaths[i].c_str();
+            }
+            return paths;
         };
 
-        inline void ClearFilePath() {
-            FilePath = "";
+        inline unsigned int GetNumberOfFilePaths() {
+            return FilePathCount;
+        };
+
+        inline void ClearFilePaths() {
+            FilePaths.clear();
+            FilePathCount = 0;
         };
 
         inline bool GetEnabled() {
@@ -29,18 +46,4 @@ class EXPORT CPP_InternalDropEvent {
         inline void SetEnabled(bool NewIsEnabled) {
             IsEnabled = NewIsEnabled;
         };
-};
-
-class EXPORT CPP_DropEvent {
-    public:
-        CPP_DropEvent();
-        ~CPP_DropEvent();
-
-        std::string GetFilePath();
-
-        void ClearFilePath();
-
-        bool GetEnabled();
-
-        void SetEnabled(bool NewIsEnabled);
 };

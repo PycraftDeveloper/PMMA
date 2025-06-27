@@ -203,6 +203,14 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetAxis_Decimal(int AxisID) except + nogil
         inline float GetAxis_Percentage(int AxisID) except + nogil
 
+    cdef cppclass CPP_DropEvent:
+        inline const char** GetFilePaths() except + nogil
+        inline unsigned int GetNumberOfFilePaths() except + nogil
+        inline void ClearFilePaths() except + nogil
+
+        inline bool GetEnabled() except + nogil
+        inline void SetEnabled(bool NewIsEnabled) except + nogil
+
     cdef cppclass CPP_KeyEvent_Space:
         inline bool GetPressed() except + nogil
         inline bool GetPressedToggle() except + nogil
@@ -8114,3 +8122,32 @@ cdef class KeyPadEvent_Equal:
 
     def set_long_press_duration(self, duration):
         self.cpp_class_ptr.SetLongPressDuration(duration)
+
+cdef class DropEvent:
+    cdef:
+        CPP_DropEvent* cpp_class_ptr
+
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_DropEvent()
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_file_paths(self):
+        cdef const char** paths = self.cpp_class_ptr.GetFilePaths()
+
+        count = self.cpp_class_ptr.GetNumberOfFilePaths()
+
+        return [paths[i].decode("utf-8") for i in range(count)]
+
+    def get_file_path_count(self):
+        return self.cpp_class_ptr.GetNumberOfFilePaths()
+
+    def clear_file_paths(self):
+        self.cpp_class_ptr.ClearFilePaths()
+
+    def get_enabled(self):
+        return self.cpp_class_ptr.GetEnabled()
+
+    def set_enabled(self, enabled):
+        self.cpp_class_ptr.SetEnabled(enabled)

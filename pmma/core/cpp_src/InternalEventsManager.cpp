@@ -202,15 +202,10 @@ void CPP_InternalControllerEventManager::JoystickCallback(int jid, int event) {
 
 CPP_InternalDropEventManager::CPP_InternalDropEventManager() {
     Active = false;
-
-    PMMA::DropEvent_Instance = new CPP_InternalDropEvent();
 }
 
 CPP_InternalDropEventManager::~CPP_InternalDropEventManager() {
     Active = false;
-
-    delete PMMA::DropEvent_Instance;
-    PMMA::DropEvent_Instance = nullptr;
 }
 
 void CPP_InternalDropEventManager::Update(GLFWwindow* Window) {
@@ -218,6 +213,14 @@ void CPP_InternalDropEventManager::Update(GLFWwindow* Window) {
 }
 
 void CPP_InternalDropEventManager::DropCallback(GLFWwindow* window, int count, const char** paths) {
+    vector<string> PathList;
+    for (int i = 0; i < count; i++) {
+        PathList.push_back(paths[i]);
+    }
+
+    for (int i = 0; i < PMMA::DropEvent_Instances.size(); i++) {
+        PMMA::DropEvent_Instances[i]->Update(PathList, count);
+    }
 }
 
 CPP_InternalKeyEventManager::CPP_InternalKeyEventManager() {

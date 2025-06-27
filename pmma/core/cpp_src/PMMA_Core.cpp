@@ -158,7 +158,7 @@ namespace PMMA {
 
     vector<CPP_InternalControllerEvent*> ControllerEventInstances;
 
-    CPP_InternalDropEvent* DropEvent_Instance = nullptr;
+    vector<CPP_DropEvent*> DropEvent_Instances;
 
     CPP_InternalKeyEventManager* KeyManagerInstance = nullptr;
     CPP_InternalTextEventManager* TextManagerInstance = nullptr;

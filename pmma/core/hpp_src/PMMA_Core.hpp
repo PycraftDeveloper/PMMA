@@ -167,7 +167,7 @@ namespace PMMA {
 
     EXPORT extern std::vector<CPP_InternalControllerEvent*> ControllerEventInstances;
 
-    EXPORT extern CPP_InternalDropEvent* DropEvent_Instance;
+    EXPORT extern std::vector<CPP_DropEvent*> DropEvent_Instances;
 
     EXPORT extern CPP_InternalKeyEventManager* KeyManagerInstance;
     EXPORT extern CPP_InternalTextEventManager* TextManagerInstance;
