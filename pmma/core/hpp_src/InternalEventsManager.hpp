@@ -3,30 +3,110 @@
 
 #include <GLFW/glfw3.h>
 
-#include "Events.hpp"
+#include "KeyEvents.hpp"
 
-class EXPORT CPP_EventsManager {
-private:
-    CPP_KeyEvent_Left_Shift* Left_Shift_Instance = nullptr;
-    CPP_KeyEvent_Right_Shift* Right_Shift_Instance = nullptr;
-    CPP_KeyEvent_Left_Control* Left_Control_Instance = nullptr;
-    CPP_KeyEvent_Right_Control* Right_Control_Instance = nullptr;
-    CPP_KeyEvent_Left_Alt* Left_Alt_Instance = nullptr;
-    CPP_KeyEvent_Right_Alt* Right_Alt_Instance = nullptr;
-    CPP_KeyEvent_Left_Super* Left_Super_Instance = nullptr;
-    CPP_KeyEvent_Right_Super* Right_Super_Instance = nullptr;
+class EXPORT CPP_InternalKeyEventManager {
+    private:
+        CPP_KeyEvent_Left_Shift* Left_Shift_Instance = nullptr;
+        CPP_KeyEvent_Right_Shift* Right_Shift_Instance = nullptr;
+        CPP_KeyEvent_Left_Control* Left_Control_Instance = nullptr;
+        CPP_KeyEvent_Right_Control* Right_Control_Instance = nullptr;
+        CPP_KeyEvent_Left_Alt* Left_Alt_Instance = nullptr;
+        CPP_KeyEvent_Right_Alt* Right_Alt_Instance = nullptr;
+        CPP_KeyEvent_Left_Super* Left_Super_Instance = nullptr;
+        CPP_KeyEvent_Right_Super* Right_Super_Instance = nullptr;
 
-public:
-    CPP_EventsManager(GLFWwindow* Window);
-    ~CPP_EventsManager();
+    public:
+        bool Active;
 
-    static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
-    static void TextCallback(GLFWwindow* window, unsigned int codepoint);
-    static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
-    static void CursorEnterCallback(GLFWwindow* window, int entered);
-    static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
-    static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
-    static void JoystickCallback(int jid, int event);
-    static void DropCallback(GLFWwindow* window, int count, const char** paths);
-    void GenericUpdate(GLFWwindow* window);
+        CPP_InternalKeyEventManager();
+        ~CPP_InternalKeyEventManager();
+
+        void Update(GLFWwindow* Window);
+
+        static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
+};
+
+class EXPORT CPP_InternalTextEventManager {
+    public:
+        bool Active;
+
+        CPP_InternalTextEventManager();
+        ~CPP_InternalTextEventManager();
+
+        void Update(GLFWwindow* Window);
+
+        static void TextCallback(GLFWwindow* window, unsigned int codepoint);
+};
+
+class EXPORT CPP_InternalMousePositionEventManager {
+    public:
+        bool Active;
+
+        CPP_InternalMousePositionEventManager();
+        ~CPP_InternalMousePositionEventManager();
+
+        void Update(GLFWwindow* Window);
+
+        static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
+};
+
+class EXPORT CPP_InternalMouseEnterWindowEventManager {
+    public:
+        bool Active;
+
+        CPP_InternalMouseEnterWindowEventManager();
+        ~CPP_InternalMouseEnterWindowEventManager();
+
+        void Update(GLFWwindow* Window);
+
+        static void CursorEnterCallback(GLFWwindow* window, int entered);
+};
+
+class EXPORT CPP_InternalMouseButtonEventManager {
+    public:
+        bool Active;
+
+        CPP_InternalMouseButtonEventManager();
+        ~CPP_InternalMouseButtonEventManager();
+
+        void Update(GLFWwindow* Window);
+
+        static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
+};
+
+class EXPORT CPP_InternalMouseScrollEventManager {
+    public:
+        bool Active;
+
+        CPP_InternalMouseScrollEventManager();
+        ~CPP_InternalMouseScrollEventManager();
+
+        void Update(GLFWwindow* Window);
+
+        static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
+};
+
+class EXPORT CPP_InternalControllerEventManager {
+    public:
+        bool Active;
+
+        CPP_InternalControllerEventManager();
+        ~CPP_InternalControllerEventManager();
+
+        void Update(GLFWwindow* Window);
+
+        static void JoystickCallback(int jid, int event);
+};
+
+class EXPORT CPP_InternalDropEventManager {
+    public:
+        bool Active;
+
+        CPP_InternalDropEventManager();
+        ~CPP_InternalDropEventManager();
+
+        void Update(GLFWwindow* Window);
+
+        static void DropCallback(GLFWwindow* window, int count, const char** paths);
 };

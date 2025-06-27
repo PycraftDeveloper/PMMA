@@ -9,7 +9,17 @@
 #include "Display.hpp"
 #include "NumberConverter.hpp"
 
-#include "Events.hpp"
+#include "KeyEvents.hpp"
+#include "MouseEvents.hpp"
+#include "WindowEvents.hpp"
+#include "ControllerEvents.hpp"
+
+#include "InternalEventsManager.hpp"
+
+/*
+Notes:
+    > Internal events MUST have a default 'safe value' to return before the event manager is initialized.
+*/
 
 namespace PMMA {
     EXPORT extern CPP_Display* DisplayInstance;
@@ -155,7 +165,18 @@ namespace PMMA {
 
     EXPORT extern std::vector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
 
-    EXPORT extern std::vector<CPP_ControllerEvent*> ControllerEventInstances;
+    EXPORT extern std::vector<CPP_InternalControllerEvent*> ControllerEventInstances;
+
+    EXPORT extern CPP_InternalDropEvent* DropEvent_Instance;
+
+    EXPORT extern CPP_InternalKeyEventManager* KeyManagerInstance;
+    EXPORT extern CPP_InternalTextEventManager* TextManagerInstance;
+    EXPORT extern CPP_InternalMousePositionEventManager* MousePositionManagerInstance;
+    EXPORT extern CPP_InternalMouseEnterWindowEventManager* MouseEnterWindowManagerInstance;
+    EXPORT extern CPP_InternalMouseButtonEventManager* MouseButtonManagerInstance;
+    EXPORT extern CPP_InternalMouseScrollEventManager* MouseScrollManagerInstance;
+    EXPORT extern CPP_InternalControllerEventManager* ControllerManagerInstance;
+    EXPORT extern CPP_InternalDropEventManager* DropManagerInstance;
 
     EXPORT extern std::string PMMA_Location;
     EXPORT extern std::string PathSeparator;
@@ -163,6 +184,15 @@ namespace PMMA {
     EXPORT extern bool GLFW_Initialized;
 
     EXPORT extern int GLFW_References;
+
+    EXPORT extern unsigned int KeyboardEventInstanceCount;
+    EXPORT extern unsigned int TextEventInstanceCount;
+    EXPORT extern unsigned int MousePositionEventInstanceCount;
+    EXPORT extern unsigned int MouseEnterWindowEventInstanceCount;
+    EXPORT extern unsigned int MouseButtonEventInstanceCount;
+    EXPORT extern unsigned int MouseScrollEventInstanceCount;
+    EXPORT extern unsigned int ControllerEventInstanceCount;
+    EXPORT extern unsigned int DropEventInstanceCount;
 }
 
 #include "AdvancedMathematics.hpp"

@@ -1,5 +1,4 @@
 #include <cmath>
-#include <cstring>
 
 #include "AdvancedMathematics.hpp"
 

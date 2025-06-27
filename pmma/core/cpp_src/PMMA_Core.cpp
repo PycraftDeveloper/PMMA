@@ -5,6 +5,11 @@
 
 #include "PMMA_Core.hpp"
 
+#include "KeyEvents.hpp"
+#include "MouseEvents.hpp"
+#include "WindowEvents.hpp"
+#include "ControllerEvents.hpp"
+
 using namespace std;
 
 namespace PMMA {
@@ -151,7 +156,18 @@ namespace PMMA {
 
     vector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
 
-    vector<CPP_ControllerEvent*> ControllerEventInstances;
+    vector<CPP_InternalControllerEvent*> ControllerEventInstances;
+
+    CPP_InternalDropEvent* DropEvent_Instance = nullptr;
+
+    CPP_InternalKeyEventManager* KeyManagerInstance = nullptr;
+    CPP_InternalTextEventManager* TextManagerInstance = nullptr;
+    CPP_InternalMousePositionEventManager* MousePositionManagerInstance = nullptr;
+    CPP_InternalMouseEnterWindowEventManager* MouseEnterWindowManagerInstance = nullptr;
+    CPP_InternalMouseButtonEventManager* MouseButtonManagerInstance = nullptr;
+    CPP_InternalMouseScrollEventManager* MouseScrollManagerInstance = nullptr;
+    CPP_InternalControllerEventManager* ControllerManagerInstance = nullptr;
+    CPP_InternalDropEventManager* DropManagerInstance = nullptr;
 
     string PMMA_Location = "";
     string PathSeparator = "";
@@ -159,4 +175,13 @@ namespace PMMA {
     bool GLFW_Initialized = false;
 
     int GLFW_References = 0;
+
+    unsigned int KeyboardEventInstanceCount = 0;
+    unsigned int TextEventInstanceCount = 0; //
+    unsigned int MousePositionEventInstanceCount = 0; //
+    unsigned int MouseEnterWindowEventInstanceCount = 0; //
+    unsigned int MouseButtonEventInstanceCount = 0; //
+    unsigned int MouseScrollEventInstanceCount = 0; //
+    unsigned int ControllerEventInstanceCount = 0; //
+    unsigned int DropEventInstanceCount = 0; //
 }

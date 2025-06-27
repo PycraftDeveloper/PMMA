@@ -257,6 +257,9 @@ else:
     cache_files(cpp_src_dir)
     cache_files(cmake_dir)
 
+    if not (BUILD_CORE in to_do and not BUILD_DEPENDENCIES in to_do):
+        cache_files(cmake_dir)
+
     if BUILD_CYTHON in to_do:
         print("Building Cython.")
 
@@ -302,9 +305,9 @@ while not installed:
     if not installed:
         response = input("Try again? (y/n): ")
         if response.lower() == "n":
-            print("Exiting...")
             break
 
+print("Scanning for missing stubs...")
 content = os.listdir(build_dir) + os.listdir(py_src_dir)
 src_files = []
 pyi_files = []
@@ -324,3 +327,5 @@ for file in src_files:
 
         if not found:
             print(f"Warning: {file}.pyd is missing a corresponding .pyi file.")
+
+print("Done!")

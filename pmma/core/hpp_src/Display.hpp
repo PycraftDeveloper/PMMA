@@ -15,8 +15,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "InternalEventsManager.hpp"
-
 class CPP_ColorConverter;
 
 class EXPORT CPP_Display {
@@ -41,10 +39,10 @@ class EXPORT CPP_Display {
 
         CPP_ColorConverter* WindowFillColor = nullptr;
 
-        CPP_EventsManager* EventsManagerInstance = nullptr;
-
     public:
         CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
+
+        void PMMA_Update(GLFWwindow* Window);
 
         void Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen=true, bool NewResizable=false, bool NewNoFrame=false, bool NewVsync=true, bool NewCentered=true, bool NewMaximized=false, bool Transparent=false);
 

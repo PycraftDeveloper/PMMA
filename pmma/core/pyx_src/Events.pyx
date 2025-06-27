@@ -196,6 +196,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetEnabled(bool NewIsEnabled) except + nogil
 
     cdef cppclass CPP_ControllerEvent:
+        CPP_ControllerEvent(unsigned int new_ID) except + nogil
+
         inline bool GetConnected() except + nogil
 
         inline float GetAxis_Decimal(int AxisID) except + nogil
@@ -2185,9 +2187,6 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetLongPressDuration(float Duration) except + nogil
         inline void SetRepeatPressDuration(float Duration) except + nogil
 
-cdef extern from "PMMA_Core.hpp" namespace "PMMA" nogil:
-    cdef vector[CPP_ControllerEvent*] ControllerEventInstances
-
 cdef class TextEvent:
     cdef:
         CPP_TextEvent* cpp_class_ptr
@@ -2772,16 +2771,11 @@ cdef class ControllerEvent:
     cdef:
         CPP_ControllerEvent* cpp_class_ptr
 
-    def __cinit__(self):
-        self.cpp_class_ptr = NULL
+    def __cinit__(self, controller_id):
+        self.cpp_class_ptr = new CPP_ControllerEvent(controller_id)
 
     def __dealloc__(self):
-        self.cpp_class_ptr = NULL
-
-    def __init__(self, controller_id):
-        cdef CPP_ControllerEvent* ptr
-        ptr = ControllerEventInstances[controller_id]
-        self.cpp_class_ptr = ptr
+        del self.cpp_class_ptr
 
     def get_axis_decimal(self, axis_id):
         return self.cpp_class_ptr.GetAxis_Decimal(axis_id)
