@@ -21,6 +21,8 @@ class EXPORT CPP_ControllerEvent {
         float GetAxis_Decimal(int AxisID);
 
         float GetAxis_Percentage(int AxisID);
+
+        bool GetActive();
 };
 
 class EXPORT CPP_InternalControllerEvent {

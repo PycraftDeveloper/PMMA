@@ -205,6 +205,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         CPP_ControllerEvent(unsigned int new_ID) except + nogil
 
         inline bool GetConnected() except + nogil
+        inline bool GetActive() except + nogil
 
         inline float GetAxis_Decimal(int AxisID) except + nogil
         inline float GetAxis_Percentage(int AxisID) except + nogil
@@ -2804,6 +2805,12 @@ cdef class ControllerEvent:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+
+    def get_connected(self):
+        return self.cpp_class_ptr.GetConnected()
+
+    def get_active(self):
+        return self.cpp_class_ptr.GetActive()
 
     def get_axis_decimal(self, axis_id):
         return self.cpp_class_ptr.GetAxis_Decimal(axis_id)

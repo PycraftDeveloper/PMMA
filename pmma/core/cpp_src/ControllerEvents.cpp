@@ -20,6 +20,10 @@ bool CPP_ControllerEvent::GetConnected() {
     return PMMA::ControllerEventInstances[ID]->GetConnected();
 };
 
+bool CPP_ControllerEvent::GetActive() {
+    return !(PMMA::ControllerManagerInstance == nullptr || PMMA::ControllerManagerInstance->Active == false);
+};
+
 float CPP_ControllerEvent::GetAxis_Decimal(int Axis) {
     if (PMMA::ControllerManagerInstance == nullptr || PMMA::ControllerManagerInstance->Active == false) {
         return 0.0f;
