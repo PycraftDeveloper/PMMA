@@ -54,15 +54,10 @@ void CPP_InternalTextEventManager::TextCallback(GLFWwindow* window, unsigned int
 
 CPP_InternalMousePositionEventManager::CPP_InternalMousePositionEventManager() {
     Active = false;
-
-    PMMA::MousePositionEvent_Instance = new CPP_InternalMousePositionEvent();
 }
 
 CPP_InternalMousePositionEventManager::~CPP_InternalMousePositionEventManager() {
     Active = false;
-
-    delete PMMA::MousePositionEvent_Instance;
-    PMMA::MousePositionEvent_Instance = nullptr;
 }
 
 void CPP_InternalMousePositionEventManager::Update(GLFWwindow* Window) {
@@ -70,20 +65,17 @@ void CPP_InternalMousePositionEventManager::Update(GLFWwindow* Window) {
 }
 
 void CPP_InternalMousePositionEventManager::CursorPositionCallback(GLFWwindow* window, double xpos, double ypos) {
-    PMMA::MousePositionEvent_Instance->Update(xpos, ypos);
+    for (unsigned int i = 0; i < PMMA::MousePositionEvent_Instances.size(); i++) {
+        PMMA::MousePositionEvent_Instances[i]->Update(static_cast<float>(xpos), static_cast<float>(ypos));
+    }
 }
 
 CPP_InternalMouseEnterWindowEventManager::CPP_InternalMouseEnterWindowEventManager() {
     Active = false;
-
-    PMMA::MouseEnterWindowEvent_Instance = new CPP_InternalMouseEnterWindowEvent();
 }
 
 CPP_InternalMouseEnterWindowEventManager::~CPP_InternalMouseEnterWindowEventManager() {
     Active = false;
-
-    delete PMMA::MouseEnterWindowEvent_Instance;
-    PMMA::MouseEnterWindowEvent_Instance = nullptr;
 }
 
 void CPP_InternalMouseEnterWindowEventManager::Update(GLFWwindow* Window) {
@@ -91,7 +83,9 @@ void CPP_InternalMouseEnterWindowEventManager::Update(GLFWwindow* Window) {
 }
 
 void CPP_InternalMouseEnterWindowEventManager::CursorEnterCallback(GLFWwindow* window, int entered) {
-    PMMA::MouseEnterWindowEvent_Instance->Update(entered);
+    for (unsigned int i = 0; i < PMMA::MouseEnterWindowEvent_Instances.size(); i++) {
+        PMMA::MouseEnterWindowEvent_Instances[i]->Update(entered);
+    }
 }
 
 CPP_InternalMouseButtonEventManager::CPP_InternalMouseButtonEventManager() {

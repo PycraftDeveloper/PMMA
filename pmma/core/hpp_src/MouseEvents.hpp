@@ -3,15 +3,22 @@
 
 #include "EventsCore.hpp"
 
-class EXPORT CPP_InternalMousePositionEvent {
+class EXPORT CPP_MousePositionEvent {
     private:
         float position[2] = {0, 0};
         float previous_position[2] = {0, 0};
         float delta[2] = {0, 0};
         float toggle_delta[2] = {0, 0};
+        bool Enabled = true;
 
     public:
+        CPP_MousePositionEvent();
+        ~CPP_MousePositionEvent();
+
         inline void Update(float x_value, float y_value) {
+            if (!Enabled) {
+                return;
+            }
             delta[0] = x_value - position[0];
             delta[1] = y_value - position[1];
             toggle_delta[0] = delta[0];
@@ -38,15 +45,30 @@ class EXPORT CPP_InternalMousePositionEvent {
             toggle_delta[0] = 0;
             toggle_delta[1] = 0;
         };
+
+        inline bool GetEnabled() {
+            return Enabled;
+        };
+
+        inline void SetEnabled(bool NewIsEnabled) {
+            Enabled = NewIsEnabled;
+        };
 };
 
-class EXPORT CPP_InternalMouseEnterWindowEvent {
+class EXPORT CPP_MouseEnterWindowEvent {
     private:
         bool IsEntered = false;
         bool IsEnteredToggle = false;
+        bool Enabled = true;
 
     public:
+        CPP_MouseEnterWindowEvent();
+        ~CPP_MouseEnterWindowEvent();
+
         inline void Update(bool NewIsEntered) {
+            if (!Enabled) {
+                return;
+            }
             if (NewIsEntered != IsEntered) {
                 IsEnteredToggle = NewIsEntered;
             }
@@ -64,28 +86,14 @@ class EXPORT CPP_InternalMouseEnterWindowEvent {
             }
             return false;
         };
-};
 
-class EXPORT CPP_MousePositionEvent {
-    public:
-        CPP_MousePositionEvent();
-        ~CPP_MousePositionEvent();
+        inline bool GetEnabled() {
+            return Enabled;
+        };
 
-        void GetPosition(float* out);
-
-        void GetDelta(float* out);
-
-        void GetDeltaToggle(float* out);
-};
-
-class EXPORT CPP_MouseEnterWindowEvent {
-    public:
-        CPP_MouseEnterWindowEvent();
-        ~CPP_MouseEnterWindowEvent();
-
-        bool GetEntered();
-
-        bool GetEnteredToggle();
+        inline void SetEnabled(bool NewIsEnabled) {
+            Enabled = NewIsEnabled;
+        };
 };
 
 class EXPORT CPP_MouseButtonEvent_Left : public CPP_ButtonPressedEvent {

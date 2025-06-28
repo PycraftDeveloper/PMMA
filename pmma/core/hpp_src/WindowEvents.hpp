@@ -30,6 +30,16 @@ class EXPORT CPP_DropEvent {
             return paths;
         };
 
+        inline const char** GetFilePathsToggle() {
+            const char** paths = new const char*[FilePathCount];
+            for (unsigned int i = 0; i < FilePathCount; i++) {
+                paths[i] = FilePaths[i].c_str();
+            }
+            FilePaths.clear();
+            FilePathCount = 0;
+            return paths;
+        };
+
         inline unsigned int GetNumberOfFilePaths() {
             return FilePathCount;
         };

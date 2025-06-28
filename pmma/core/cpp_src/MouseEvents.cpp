@@ -130,60 +130,33 @@ CPP_MouseButtonEvent_4::~CPP_MouseButtonEvent_4() {
 };
 
 CPP_MousePositionEvent::CPP_MousePositionEvent() {
+    PMMA::MousePositionEvent_Instances.push_back(this);
+
     PMMA::MousePositionEventInstanceCount++;
 };
 
 CPP_MousePositionEvent::~CPP_MousePositionEvent() {
+    auto it = find(PMMA::MousePositionEvent_Instances.begin(), PMMA::MousePositionEvent_Instances.end(), this);
+    if (it != PMMA::MousePositionEvent_Instances.end()) {
+        PMMA::MousePositionEvent_Instances.erase(it);
+    }
+
     PMMA::MousePositionEventInstanceCount--;
 };
 
-void CPP_MousePositionEvent::GetPosition(float* out) {
-    if (PMMA::MousePositionManagerInstance == nullptr || PMMA::MousePositionManagerInstance->Active == false) {
-        float defaultPosition[2] = {0.0f, 0.0f};
-        out[0] = defaultPosition[0];
-        out[1] = defaultPosition[1];
-    }
-    PMMA::MousePositionEvent_Instance->GetPosition(out);
-};
-
-void CPP_MousePositionEvent::GetDelta(float* out) {
-    if (PMMA::MousePositionManagerInstance == nullptr || PMMA::MousePositionManagerInstance->Active == false) {
-        float defaultDelta[2] = {0.0f, 0.0f};
-        out[0] = defaultDelta[0];
-        out[1] = defaultDelta[1];
-    }
-    PMMA::MousePositionEvent_Instance->GetDelta(out);
-};
-
-void CPP_MousePositionEvent::GetDeltaToggle(float* out) {
-    if (PMMA::MousePositionManagerInstance == nullptr || PMMA::MousePositionManagerInstance->Active == false) {
-        float defaultToggleDelta[2] = {0.0f, 0.0f};
-        out[0] = defaultToggleDelta[0];
-        out[1] = defaultToggleDelta[1];
-    }
-    PMMA::MousePositionEvent_Instance->GetDeltaToggle(out);
-};
-
 CPP_MouseEnterWindowEvent::CPP_MouseEnterWindowEvent() {
+    PMMA::MouseEnterWindowEvent_Instances.push_back(this);
+
     PMMA::MouseEnterWindowEventInstanceCount++;
 };
 
 CPP_MouseEnterWindowEvent::~CPP_MouseEnterWindowEvent() {
+    auto it = find(PMMA::MouseEnterWindowEvent_Instances.begin(), PMMA::MouseEnterWindowEvent_Instances.end(), this);
+    if (it != PMMA::MouseEnterWindowEvent_Instances.end()) {
+        PMMA::MouseEnterWindowEvent_Instances.erase(it);
+    }
+
     PMMA::MouseEnterWindowEventInstanceCount--;
-};
-
-bool CPP_MouseEnterWindowEvent::GetEntered() {
-    if (PMMA::MouseEnterWindowManagerInstance == nullptr || PMMA::MouseEnterWindowManagerInstance->Active == false) {
-        return false;
-    }
-    return PMMA::MouseEnterWindowEvent_Instance->GetEntered();
-};
-
-bool CPP_MouseEnterWindowEvent::GetEnteredToggle() {
-    if (PMMA::MouseEnterWindowManagerInstance == nullptr || PMMA::MouseEnterWindowManagerInstance->Active == false) {
-        return false;
-    }
-    return PMMA::MouseEnterWindowEvent_Instance->GetEnteredToggle();
 };
 
 CPP_MouseScrollEvent::CPP_MouseScrollEvent() {

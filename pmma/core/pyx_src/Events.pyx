@@ -46,9 +46,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void GetDelta(float* out) except + nogil
         inline void GetDeltaToggle(float* out) except + nogil
 
+        inline bool GetEnabled() except + nogil
+        inline void SetEnabled(bool NewIsEnabled) except + nogil
+
     cdef cppclass CPP_MouseEnterWindowEvent:
         inline bool GetEntered() except + nogil
         inline bool GetEnteredToggle() except + nogil
+
+        inline bool GetEnabled() except + nogil
+        inline void SetEnabled(bool NewIsEnabled) except + nogil
 
     cdef cppclass CPP_MouseButtonEvent_Left:
         inline bool GetPressed() except + nogil
@@ -205,6 +211,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
     cdef cppclass CPP_DropEvent:
         inline const char** GetFilePaths() except + nogil
+        inline const char** GetFilePathsToggle() except + nogil
+
         inline unsigned int GetNumberOfFilePaths() except + nogil
         inline void ClearFilePaths() except + nogil
 
@@ -2330,6 +2338,12 @@ cdef class MousePositionEvent:
         else:
             return delta_toggle_np.tolist()
 
+    def get_enabled(self):
+        return self.cpp_class_ptr.GetEnabled()
+
+    def set_enabled(self, value):
+        self.cpp_class_ptr.SetEnabled(value)
+
 cdef class MouseEnterWindowEvent:
     cdef:
         CPP_MouseEnterWindowEvent* cpp_class_ptr
@@ -2345,6 +2359,12 @@ cdef class MouseEnterWindowEvent:
 
     def get_entered_toggle(self):
         return self.cpp_class_ptr.GetEnteredToggle()
+
+    def get_enabled(self):
+        return self.cpp_class_ptr.GetEnabled()
+
+    def set_enabled(self, value):
+        self.cpp_class_ptr.SetEnabled(value)
 
 cdef class MouseButton_Left_Event:
     cdef:
@@ -8135,8 +8155,13 @@ cdef class DropEvent:
 
     def get_file_paths(self):
         cdef const char** paths = self.cpp_class_ptr.GetFilePaths()
-
         count = self.cpp_class_ptr.GetNumberOfFilePaths()
+
+        return [paths[i].decode("utf-8") for i in range(count)]
+
+    def get_file_paths_toggle(self):
+        count = self.cpp_class_ptr.GetNumberOfFilePaths()
+        cdef const char** paths = self.cpp_class_ptr.GetFilePathsToggle()
 
         return [paths[i].decode("utf-8") for i in range(count)]
 

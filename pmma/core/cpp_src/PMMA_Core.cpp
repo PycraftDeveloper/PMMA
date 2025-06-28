@@ -142,8 +142,8 @@ namespace PMMA {
 
     vector<CPP_TextEvent*> TextEventInstances;
 
-    CPP_InternalMousePositionEvent* MousePositionEvent_Instance = nullptr;
-    CPP_InternalMouseEnterWindowEvent* MouseEnterWindowEvent_Instance = nullptr;
+    vector<CPP_MousePositionEvent*> MousePositionEvent_Instances;
+    vector<CPP_MouseEnterWindowEvent*> MouseEnterWindowEvent_Instances;
 
     vector<CPP_MouseButtonEvent_Left*> MouseButtonEvent_Left_Instances;
     vector<CPP_MouseButtonEvent_Right*> MouseButtonEvent_Right_Instances;
