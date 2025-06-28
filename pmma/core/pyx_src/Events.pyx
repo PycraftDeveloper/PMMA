@@ -204,11 +204,215 @@ cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_ControllerEvent:
         CPP_ControllerEvent(unsigned int new_ID) except + nogil
 
-        inline bool GetConnected() except + nogil
-        inline bool GetActive() except + nogil
+        bool GetConnected() except + nogil
+        bool GetActive() except + nogil
 
-        inline float GetAxis_Decimal(int AxisID) except + nogil
-        inline float GetAxis_Percentage(int AxisID) except + nogil
+        string GetRawName() except + nogil
+        string GetGamePadName() except + nogil
+        string GetGUID() except + nogil
+
+        float GetRawAxis_Decimal(int AxisID) except + nogil
+        float GetRawAxis_Percentage(int AxisID) except + nogil
+        bool GetRawButtonPressed(int ButtonID) except + nogil
+        string GetRawHatState(int HatID) except + nogil
+
+        bool Get_GamePad_A_Button_Pressed() except + nogil
+        void Set_GamePad_A_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_A_Button_PressedToggle() except + nogil
+        bool Get_GamePad_A_Button_DoublePressed() except + nogil
+        void Set_GamePad_A_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_A_Button_LongPressed() except + nogil
+        bool Poll_GamePad_A_Button_LongPressed() except + nogil
+        void Set_GamePad_A_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_A_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_A_Button_LongPressDuration() except + nogil
+        float Get_GamePad_A_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_B_Button_Pressed() except + nogil
+        void Set_GamePad_B_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_B_Button_PressedToggle() except + nogil
+        bool Get_GamePad_B_Button_DoublePressed() except + nogil
+        void Set_GamePad_B_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_B_Button_LongPressed() except + nogil
+        bool Poll_GamePad_B_Button_LongPressed() except + nogil
+        void Set_GamePad_B_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_B_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_B_Button_LongPressDuration() except + nogil
+        float Get_GamePad_B_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_X_Button_Pressed() except + nogil
+        void Set_GamePad_X_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_X_Button_PressedToggle() except + nogil
+        bool Get_GamePad_X_Button_DoublePressed() except + nogil
+        void Set_GamePad_X_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_X_Button_LongPressed() except + nogil
+        bool Poll_GamePad_X_Button_LongPressed() except + nogil
+        void Set_GamePad_X_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_X_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_X_Button_LongPressDuration() except + nogil
+        float Get_GamePad_X_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_Y_Button_Pressed() except + nogil
+        void Set_GamePad_Y_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_Y_Button_PressedToggle() except + nogil
+        bool Get_GamePad_Y_Button_DoublePressed() except + nogil
+        void Set_GamePad_Y_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_Y_Button_LongPressed() except + nogil
+        bool Poll_GamePad_Y_Button_LongPressed() except + nogil
+        void Set_GamePad_Y_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_Y_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_Y_Button_LongPressDuration() except + nogil
+        float Get_GamePad_Y_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_Left_Bumper_Button_Pressed() except + nogil
+        void Set_GamePad_Left_Bumper_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_Left_Bumper_Button_PressedToggle() except + nogil
+        bool Get_GamePad_Left_Bumper_Button_DoublePressed() except + nogil
+        void Set_GamePad_Left_Bumper_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_Left_Bumper_Button_LongPressed() except + nogil
+        bool Poll_GamePad_Left_Bumper_Button_LongPressed() except + nogil
+        void Set_GamePad_Left_Bumper_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_Left_Bumper_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_Left_Bumper_Button_LongPressDuration() except + nogil
+        float Get_GamePad_Left_Bumper_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_Right_Bumper_Button_Pressed() except + nogil
+        void Set_GamePad_Right_Bumper_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_Right_Bumper_Button_PressedToggle() except + nogil
+        bool Get_GamePad_Right_Bumper_Button_DoublePressed() except + nogil
+        void Set_GamePad_Right_Bumper_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_Right_Bumper_Button_LongPressed() except + nogil
+        bool Poll_GamePad_Right_Bumper_Button_LongPressed() except + nogil
+        void Set_GamePad_Right_Bumper_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_Right_Bumper_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_Right_Bumper_Button_LongPressDuration() except + nogil
+        float Get_GamePad_Right_Bumper_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_Back_Button_Pressed() except + nogil
+        void Set_GamePad_Back_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_Back_Button_PressedToggle() except + nogil
+        bool Get_GamePad_Back_Button_DoublePressed() except + nogil
+        void Set_GamePad_Back_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_Back_Button_LongPressed() except + nogil
+        bool Poll_GamePad_Back_Button_LongPressed() except + nogil
+        void Set_GamePad_Back_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_Back_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_Back_Button_LongPressDuration() except + nogil
+        float Get_GamePad_Back_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_Start_Button_Pressed() except + nogil
+        void Set_GamePad_Start_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_Start_Button_PressedToggle() except + nogil
+        bool Get_GamePad_Start_Button_DoublePressed() except + nogil
+        void Set_GamePad_Start_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_Start_Button_LongPressed() except + nogil
+        bool Poll_GamePad_Start_Button_LongPressed() except + nogil
+        void Set_GamePad_Start_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_Start_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_Start_Button_LongPressDuration() except + nogil
+        float Get_GamePad_Start_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_Guide_Button_Pressed() except + nogil
+        void Set_GamePad_Guide_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_Guide_Button_PressedToggle() except + nogil
+        bool Get_GamePad_Guide_Button_DoublePressed() except + nogil
+        void Set_GamePad_Guide_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_Guide_Button_LongPressed() except + nogil
+        bool Poll_GamePad_Guide_Button_LongPressed() except + nogil
+        void Set_GamePad_Guide_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_Guide_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_Guide_Button_LongPressDuration() except + nogil
+        float Get_GamePad_Guide_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_Left_Thumb_Button_Pressed() except + nogil
+        void Set_GamePad_Left_Thumb_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_Left_Thumb_Button_PressedToggle() except + nogil
+        bool Get_GamePad_Left_Thumb_Button_DoublePressed() except + nogil
+        void Set_GamePad_Left_Thumb_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_Left_Thumb_Button_LongPressed() except + nogil
+        bool Poll_GamePad_Left_Thumb_Button_LongPressed() except + nogil
+        void Set_GamePad_Left_Thumb_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_Left_Thumb_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_Left_Thumb_Button_LongPressDuration() except + nogil
+        float Get_GamePad_Left_Thumb_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_Right_Thumb_Button_Pressed() except + nogil
+        void Set_GamePad_Right_Thumb_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_Right_Thumb_Button_PressedToggle() except + nogil
+        bool Get_GamePad_Right_Thumb_Button_DoublePressed() except + nogil
+        void Set_GamePad_Right_Thumb_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_Right_Thumb_Button_LongPressed() except + nogil
+        bool Poll_GamePad_Right_Thumb_Button_LongPressed() except + nogil
+        void Set_GamePad_Right_Thumb_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_Right_Thumb_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_Right_Thumb_Button_LongPressDuration() except + nogil
+        float Get_GamePad_Right_Thumb_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_DPad_Up_Button_Pressed() except + nogil
+        void Set_GamePad_DPad_Up_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_DPad_Up_Button_PressedToggle() except + nogil
+        bool Get_GamePad_DPad_Up_Button_DoublePressed() except + nogil
+        void Set_GamePad_DPad_Up_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_DPad_Up_Button_LongPressed() except + nogil
+        bool Poll_GamePad_DPad_Up_Button_LongPressed() except + nogil
+        void Set_GamePad_DPad_Up_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_DPad_Up_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_DPad_Up_Button_LongPressDuration() except + nogil
+        float Get_GamePad_DPad_Up_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_DPad_Right_Button_Pressed() except + nogil
+        void Set_GamePad_DPad_Right_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_DPad_Right_Button_PressedToggle() except + nogil
+        bool Get_GamePad_DPad_Right_Button_DoublePressed() except + nogil
+        void Set_GamePad_DPad_Right_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_DPad_Right_Button_LongPressed() except + nogil
+        bool Poll_GamePad_DPad_Right_Button_LongPressed() except + nogil
+        void Set_GamePad_DPad_Right_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_DPad_Right_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_DPad_Right_Button_LongPressDuration() except + nogil
+        float Get_GamePad_DPad_Right_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_DPad_Down_Button_Pressed() except + nogil
+        void Set_GamePad_DPad_Down_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_DPad_Down_Button_PressedToggle() except + nogil
+        bool Get_GamePad_DPad_Down_Button_DoublePressed() except + nogil
+        void Set_GamePad_DPad_Down_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_DPad_Down_Button_LongPressed() except + nogil
+        bool Poll_GamePad_DPad_Down_Button_LongPressed() except + nogil
+        void Set_GamePad_DPad_Down_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_DPad_Down_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_DPad_Down_Button_LongPressDuration() except + nogil
+        float Get_GamePad_DPad_Down_Button_DoublePressDuration() except + nogil
+
+        bool Get_GamePad_DPad_Left_Button_Pressed() except + nogil
+        void Set_GamePad_DPad_Left_Button_DoublePressDuration(float Duration) except + nogil
+        bool Get_GamePad_DPad_Left_Button_PressedToggle() except + nogil
+        bool Get_GamePad_DPad_Left_Button_DoublePressed() except + nogil
+        void Set_GamePad_DPad_Left_Button_LongPressDuration(float Duration) except + nogil
+        bool Get_GamePad_DPad_Left_Button_LongPressed() except + nogil
+        bool Poll_GamePad_DPad_Left_Button_LongPressed() except + nogil
+        void Set_GamePad_DPad_Left_Button_RepeatPressDuration(float Duration) except + nogil
+        float Get_GamePad_DPad_Left_Button_RepeatPressDuration() except + nogil
+        float Get_GamePad_DPad_Left_Button_LongPressDuration() except + nogil
+        float Get_GamePad_DPad_Left_Button_DoublePressDuration() except + nogil
+
+        float Get_Right_Stick_X_Axis_Percentage() except + nogil
+        float Get_Right_Stick_Y_Axis_Percentage() except + nogil
+
+        float Get_Right_Stick_X_Axis_Decimal() except + nogil
+        float Get_Right_Stick_Y_Axis_Decimal() except + nogil
+
+        float Get_Left_Stick_X_Axis_Percentage() except + nogil
+        float Get_Left_Stick_Y_Axis_Percentage() except + nogil
+
+        float Get_Left_Stick_X_Axis_Decimal() except + nogil
+        float Get_Left_Stick_Y_Axis_Decimal() except + nogil
+
+        float Get_Right_Trigger_Axis_Percentage() except + nogil
+        float Get_Left_Trigger_Axis_Percentage() except + nogil
+
+        float Get_Right_Trigger_Axis_Decimal() except + nogil
+        float Get_Left_Trigger_Axis_Decimal() except + nogil
 
     cdef cppclass CPP_DropEvent:
         inline const char** GetFilePaths() except + nogil
@@ -2812,11 +3016,580 @@ cdef class ControllerEvent:
     def get_active(self):
         return self.cpp_class_ptr.GetActive()
 
-    def get_axis_decimal(self, axis_id):
-        return self.cpp_class_ptr.GetAxis_Decimal(axis_id)
+    def get_raw_axis_decimal(self, axis_id):
+        return self.cpp_class_ptr.GetRawAxis_Decimal(axis_id)
 
-    def get_axis_percentage(self, axis_id):
-        return self.cpp_class_ptr.GetAxis_Percentage(axis_id)
+    def get_raw_axis_percentage(self, axis_id):
+        return self.cpp_class_ptr.GetRawAxis_Percentage(axis_id)
+
+    def get_raw_button_pressed(self, button_id):
+        return self.cpp_class_ptr.GetRawButtonPressed(button_id)
+
+    def get_raw_hat_state(self, hat_id):
+        cdef string cpp_str = self.cpp_class_ptr.GetRawHatState(hat_id)
+        return cpp_str.c_str().decode('utf-8')
+
+    def get_raw_name(self):
+        cdef string cpp_str = self.cpp_class_ptr.GetRawName()
+        return cpp_str.c_str().decode('utf-8')
+
+    def get_gamepad_name(self):
+        cdef string cpp_str = self.cpp_class_ptr.GetGamePadName()
+        return cpp_str.c_str().decode('utf-8')
+
+    def get_GUID(self):
+        cdef string cpp_str = self.cpp_class_ptr.GetGUID()
+        return cpp_str.c_str().decode('utf-8')
+
+    def get_gamepad_a_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_A_Button_Pressed()
+
+    def set_gamepad_a_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_A_Button_DoublePressDuration(duration)
+
+    def get_gamepad_a_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_A_Button_PressedToggle()
+
+    def get_gamepad_a_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_A_Button_DoublePressed()
+
+    def set_gamepad_a_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_A_Button_LongPressDuration(duration)
+
+    def get_gamepad_a_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_A_Button_LongPressed()
+
+    def poll_gamepad_a_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_A_Button_LongPressed()
+
+    def set_gamepad_a_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_A_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_a_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_A_Button_RepeatPressDuration()
+
+    def get_gamepad_a_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_A_Button_LongPressDuration()
+
+    def get_gamepad_a_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_A_Button_DoublePressDuration()
+
+
+    def get_gamepad_b_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_B_Button_Pressed()
+
+    def set_gamepad_b_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_B_Button_DoublePressDuration(duration)
+
+    def get_gamepad_b_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_B_Button_PressedToggle()
+
+    def get_gamepad_b_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_B_Button_DoublePressed()
+
+    def set_gamepad_b_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_B_Button_LongPressDuration(duration)
+
+    def get_gamepad_b_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_B_Button_LongPressed()
+
+    def poll_gamepad_b_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_B_Button_LongPressed()
+
+    def set_gamepad_b_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_B_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_b_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_B_Button_RepeatPressDuration()
+
+    def get_gamepad_b_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_B_Button_LongPressDuration()
+
+    def get_gamepad_b_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_B_Button_DoublePressDuration()
+
+
+    def get_gamepad_x_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_X_Button_Pressed()
+
+    def set_gamepad_x_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_X_Button_DoublePressDuration(duration)
+
+    def get_gamepad_x_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_X_Button_PressedToggle()
+
+    def get_gamepad_x_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_X_Button_DoublePressed()
+
+    def set_gamepad_x_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_X_Button_LongPressDuration(duration)
+
+    def get_gamepad_x_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_X_Button_LongPressed()
+
+    def poll_gamepad_x_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_X_Button_LongPressed()
+
+    def set_gamepad_x_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_X_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_x_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_X_Button_RepeatPressDuration()
+
+    def get_gamepad_x_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_X_Button_LongPressDuration()
+
+    def get_gamepad_x_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_X_Button_DoublePressDuration()
+
+
+    def get_gamepad_y_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Y_Button_Pressed()
+
+    def set_gamepad_y_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Y_Button_DoublePressDuration(duration)
+
+    def get_gamepad_y_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_Y_Button_PressedToggle()
+
+    def get_gamepad_y_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Y_Button_DoublePressed()
+
+    def set_gamepad_y_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Y_Button_LongPressDuration(duration)
+
+    def get_gamepad_y_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Y_Button_LongPressed()
+
+    def poll_gamepad_y_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_Y_Button_LongPressed()
+
+    def set_gamepad_y_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Y_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_y_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Y_Button_RepeatPressDuration()
+
+    def get_gamepad_y_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Y_Button_LongPressDuration()
+
+    def get_gamepad_y_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Y_Button_DoublePressDuration()
+
+
+    def get_gamepad_left_bumper_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Bumper_Button_Pressed()
+
+    def set_gamepad_left_bumper_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Left_Bumper_Button_DoublePressDuration(duration)
+
+    def get_gamepad_left_bumper_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Bumper_Button_PressedToggle()
+
+    def get_gamepad_left_bumper_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Bumper_Button_DoublePressed()
+
+    def set_gamepad_left_bumper_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Left_Bumper_Button_LongPressDuration(duration)
+
+    def get_gamepad_left_bumper_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Bumper_Button_LongPressed()
+
+    def poll_gamepad_left_bumper_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_Left_Bumper_Button_LongPressed()
+
+    def set_gamepad_left_bumper_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Left_Bumper_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_left_bumper_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Bumper_Button_RepeatPressDuration()
+
+    def get_gamepad_left_bumper_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Bumper_Button_LongPressDuration()
+
+    def get_gamepad_left_bumper_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Bumper_Button_DoublePressDuration()
+
+
+    def get_gamepad_right_bumper_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Bumper_Button_Pressed()
+
+    def set_gamepad_right_bumper_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Right_Bumper_Button_DoublePressDuration(duration)
+
+    def get_gamepad_right_bumper_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Bumper_Button_PressedToggle()
+
+    def get_gamepad_right_bumper_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Bumper_Button_DoublePressed()
+
+    def set_gamepad_right_bumper_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Right_Bumper_Button_LongPressDuration(duration)
+
+    def get_gamepad_right_bumper_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Bumper_Button_LongPressed()
+
+    def poll_gamepad_right_bumper_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_Right_Bumper_Button_LongPressed()
+
+    def set_gamepad_right_bumper_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Right_Bumper_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_right_bumper_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Bumper_Button_RepeatPressDuration()
+
+    def get_gamepad_right_bumper_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Bumper_Button_LongPressDuration()
+
+    def get_gamepad_right_bumper_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Bumper_Button_DoublePressDuration()
+
+
+    def get_gamepad_back_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Back_Button_Pressed()
+
+    def set_gamepad_back_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Back_Button_DoublePressDuration(duration)
+
+    def get_gamepad_back_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_Back_Button_PressedToggle()
+
+    def get_gamepad_back_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Back_Button_DoublePressed()
+
+    def set_gamepad_back_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Back_Button_LongPressDuration(duration)
+
+    def get_gamepad_back_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Back_Button_LongPressed()
+
+    def poll_gamepad_back_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_Back_Button_LongPressed()
+
+    def set_gamepad_back_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Back_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_back_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Back_Button_RepeatPressDuration()
+
+    def get_gamepad_back_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Back_Button_LongPressDuration()
+
+    def get_gamepad_back_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Back_Button_DoublePressDuration()
+
+
+    def get_gamepad_start_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Start_Button_Pressed()
+
+    def set_gamepad_start_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Start_Button_DoublePressDuration(duration)
+
+    def get_gamepad_start_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_Start_Button_PressedToggle()
+
+    def get_gamepad_start_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Start_Button_DoublePressed()
+
+    def set_gamepad_start_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Start_Button_LongPressDuration(duration)
+
+    def get_gamepad_start_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Start_Button_LongPressed()
+
+    def poll_gamepad_start_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_Start_Button_LongPressed()
+
+    def set_gamepad_start_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Start_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_start_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Start_Button_RepeatPressDuration()
+
+    def get_gamepad_start_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Start_Button_LongPressDuration()
+
+    def get_gamepad_start_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Start_Button_DoublePressDuration()
+
+
+    def get_gamepad_guide_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Guide_Button_Pressed()
+
+    def set_gamepad_guide_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Guide_Button_DoublePressDuration(duration)
+
+    def get_gamepad_guide_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_Guide_Button_PressedToggle()
+
+    def get_gamepad_guide_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Guide_Button_DoublePressed()
+
+    def set_gamepad_guide_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Guide_Button_LongPressDuration(duration)
+
+    def get_gamepad_guide_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Guide_Button_LongPressed()
+
+    def poll_gamepad_guide_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_Guide_Button_LongPressed()
+
+    def set_gamepad_guide_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Guide_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_guide_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Guide_Button_RepeatPressDuration()
+
+    def get_gamepad_guide_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Guide_Button_LongPressDuration()
+
+    def get_gamepad_guide_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Guide_Button_DoublePressDuration()
+
+
+    def get_gamepad_left_thumb_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Thumb_Button_Pressed()
+
+    def set_gamepad_left_thumb_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Left_Thumb_Button_DoublePressDuration(duration)
+
+    def get_gamepad_left_thumb_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Thumb_Button_PressedToggle()
+
+    def get_gamepad_left_thumb_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Thumb_Button_DoublePressed()
+
+    def set_gamepad_left_thumb_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Left_Thumb_Button_LongPressDuration(duration)
+
+    def get_gamepad_left_thumb_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Thumb_Button_LongPressed()
+
+    def poll_gamepad_left_thumb_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_Left_Thumb_Button_LongPressed()
+
+    def set_gamepad_left_thumb_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Left_Thumb_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_left_thumb_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Thumb_Button_RepeatPressDuration()
+
+    def get_gamepad_left_thumb_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Thumb_Button_LongPressDuration()
+
+    def get_gamepad_left_thumb_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Left_Thumb_Button_DoublePressDuration()
+
+
+    def get_gamepad_right_thumb_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Thumb_Button_Pressed()
+
+    def set_gamepad_right_thumb_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Right_Thumb_Button_DoublePressDuration(duration)
+
+    def get_gamepad_right_thumb_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Thumb_Button_PressedToggle()
+
+    def get_gamepad_right_thumb_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Thumb_Button_DoublePressed()
+
+    def set_gamepad_right_thumb_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Right_Thumb_Button_LongPressDuration(duration)
+
+    def get_gamepad_right_thumb_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Thumb_Button_LongPressed()
+
+    def poll_gamepad_right_thumb_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_Right_Thumb_Button_LongPressed()
+
+    def set_gamepad_right_thumb_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_Right_Thumb_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_right_thumb_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Thumb_Button_RepeatPressDuration()
+
+    def get_gamepad_right_thumb_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Thumb_Button_LongPressDuration()
+
+    def get_gamepad_right_thumb_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_Right_Thumb_Button_DoublePressDuration()
+
+
+    def get_gamepad_dpad_up_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Up_Button_Pressed()
+
+    def set_gamepad_dpad_up_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Up_Button_DoublePressDuration(duration)
+
+    def get_gamepad_dpad_up_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Up_Button_PressedToggle()
+
+    def get_gamepad_dpad_up_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Up_Button_DoublePressed()
+
+    def set_gamepad_dpad_up_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Up_Button_LongPressDuration(duration)
+
+    def get_gamepad_dpad_up_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Up_Button_LongPressed()
+
+    def poll_gamepad_dpad_up_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_DPad_Up_Button_LongPressed()
+
+    def set_gamepad_dpad_up_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Up_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_dpad_up_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Up_Button_RepeatPressDuration()
+
+    def get_gamepad_dpad_up_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Up_Button_LongPressDuration()
+
+    def get_gamepad_dpad_up_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Up_Button_DoublePressDuration()
+
+
+    def get_gamepad_dpad_right_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Right_Button_Pressed()
+
+    def set_gamepad_dpad_right_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Right_Button_DoublePressDuration(duration)
+
+    def get_gamepad_dpad_right_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Right_Button_PressedToggle()
+
+    def get_gamepad_dpad_right_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Right_Button_DoublePressed()
+
+    def set_gamepad_dpad_right_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Right_Button_LongPressDuration(duration)
+
+    def get_gamepad_dpad_right_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Right_Button_LongPressed()
+
+    def poll_gamepad_dpad_right_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_DPad_Right_Button_LongPressed()
+
+    def set_gamepad_dpad_right_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Right_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_dpad_right_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Right_Button_RepeatPressDuration()
+
+    def get_gamepad_dpad_right_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Right_Button_LongPressDuration()
+
+    def get_gamepad_dpad_right_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Right_Button_DoublePressDuration()
+
+
+    def get_gamepad_dpad_down_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Down_Button_Pressed()
+
+    def set_gamepad_dpad_down_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Down_Button_DoublePressDuration(duration)
+
+    def get_gamepad_dpad_down_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Down_Button_PressedToggle()
+
+    def get_gamepad_dpad_down_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Down_Button_DoublePressed()
+
+    def set_gamepad_dpad_down_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Down_Button_LongPressDuration(duration)
+
+    def get_gamepad_dpad_down_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Down_Button_LongPressed()
+
+    def poll_gamepad_dpad_down_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_DPad_Down_Button_LongPressed()
+
+    def set_gamepad_dpad_down_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Down_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_dpad_down_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Down_Button_RepeatPressDuration()
+
+    def get_gamepad_dpad_down_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Down_Button_LongPressDuration()
+
+    def get_gamepad_dpad_down_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Down_Button_DoublePressDuration()
+
+
+    def get_gamepad_dpad_left_button_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Left_Button_Pressed()
+
+    def set_gamepad_dpad_left_button_double_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Left_Button_DoublePressDuration(duration)
+
+    def get_gamepad_dpad_left_button_pressed_toggle(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Left_Button_PressedToggle()
+
+    def get_gamepad_dpad_left_button_double_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Left_Button_DoublePressed()
+
+    def set_gamepad_dpad_left_button_long_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Left_Button_LongPressDuration(duration)
+
+    def get_gamepad_dpad_left_button_long_pressed(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Left_Button_LongPressed()
+
+    def poll_gamepad_dpad_left_button_long_pressed(self):
+        return self.cpp_class_ptr.Poll_GamePad_DPad_Left_Button_LongPressed()
+
+    def set_gamepad_dpad_left_button_repeat_press_duration(self, duration):
+        self.cpp_class_ptr.Set_GamePad_DPad_Left_Button_RepeatPressDuration(duration)
+
+    def get_gamepad_dpad_left_button_repeat_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Left_Button_RepeatPressDuration()
+
+    def get_gamepad_dpad_left_button_long_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Left_Button_LongPressDuration()
+
+    def get_gamepad_dpad_left_button_double_press_duration(self):
+        return self.cpp_class_ptr.Get_GamePad_DPad_Left_Button_DoublePressDuration()
+
+    def get_right_stick_X_axis_percentage(self):
+        return self.cpp_class_ptr.Get_Right_Stick_X_Axis_Percentage()
+
+    def get_right_stick_Y_axis_percentage(self):
+        return self.cpp_class_ptr.Get_Right_Stick_Y_Axis_Percentage()
+
+
+    def get_right_stick_X_axis_decimal(self):
+        return self.cpp_class_ptr.Get_Right_Stick_X_Axis_Decimal()
+
+    def get_right_stick_Y_axis_decimal(self):
+        return self.cpp_class_ptr.Get_Right_Stick_Y_Axis_Decimal()
+
+
+    def get_left_stick_X_axis_percentage(self):
+        return self.cpp_class_ptr.Get_Left_Stick_X_Axis_Percentage()
+
+    def get_Left_stick_Y_axis_percentage(self):
+        return self.cpp_class_ptr.Get_Left_Stick_Y_Axis_Percentage()
+
+
+    def get_left_stick_X_axis_decimal(self):
+        return self.cpp_class_ptr.Get_Left_Stick_X_Axis_Decimal()
+
+    def get_Left_stick_Y_axis_decimal(self):
+        return self.cpp_class_ptr.Get_Left_Stick_Y_Axis_Decimal()
+
+
+    def get_right_trigger_axis_percentage(self):
+        return self.cpp_class_ptr.Get_Right_Trigger_Axis_Percentage()
+
+    def get_left_trigger_axis_percentage(self):
+        return self.cpp_class_ptr.Get_Left_Trigger_Axis_Percentage()
+
+
+    def get_right_trigger_axis_decimal(self):
+        return self.cpp_class_ptr.Get_Right_Trigger_Axis_Decimal()
+
+    def get_left_trigger_axis_decimal(self):
+        return self.cpp_class_ptr.Get_Left_Trigger_Axis_Decimal()
 
 cdef class KeyEvent_Space:
     cdef:
