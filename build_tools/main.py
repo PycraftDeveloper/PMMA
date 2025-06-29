@@ -288,17 +288,19 @@ installed = False
 while not installed:
     for dir in SITE_PACKAGE_DIRS:
         try:
-            print(f"Trying location: {dir}")
-            if os.path.exists(os.path.join(dir, 'pmma')):
-                shutil.rmtree(os.path.join(dir, 'pmma'))
+            if not installed:
+                print(f"Trying location: {dir}")
+                if os.path.exists(os.path.join(dir, 'pmma')):
+                    shutil.rmtree(os.path.join(dir, 'pmma'))
 
-            shutil.copytree(
-                pmma_dir,
-                os.path.join(dir, 'pmma'),
-            )
-            installed = True
-            print(f"PMMA has been installed to: {dir}")
-            break
+                shutil.copytree(
+                    pmma_dir,
+                    os.path.join(dir, 'pmma'),
+                )
+                installed = True
+                print(f"PMMA has been installed to: {dir}")
+            else:
+                print(f"Cleaning up any old versions of PMMA in: {dir}")
         except Exception as error:
             print(f"Cannot install PMMA here because: {error}")
 

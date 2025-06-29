@@ -396,23 +396,29 @@ cdef extern from "PMMA_Core.hpp" nogil:
         float Get_GamePad_DPad_Left_Button_LongPressDuration() except + nogil
         float Get_GamePad_DPad_Left_Button_DoublePressDuration() except + nogil
 
-        float Get_Right_Stick_X_Axis_Percentage() except + nogil
-        float Get_Right_Stick_Y_Axis_Percentage() except + nogil
+        float Get_Right_Stick_X_Axis_Percentage(float DeadZone) except + nogil
+        float Get_Right_Stick_Y_Axis_Percentage(float DeadZone) except + nogil
 
-        float Get_Right_Stick_X_Axis_Decimal() except + nogil
-        float Get_Right_Stick_Y_Axis_Decimal() except + nogil
+        float Get_Right_Stick_X_Axis_Decimal(float DeadZone) except + nogil
+        float Get_Right_Stick_Y_Axis_Decimal(float DeadZone) except + nogil
 
-        float Get_Left_Stick_X_Axis_Percentage() except + nogil
-        float Get_Left_Stick_Y_Axis_Percentage() except + nogil
+        float Get_Left_Stick_X_Axis_Percentage(float DeadZone) except + nogil
+        float Get_Left_Stick_Y_Axis_Percentage(float DeadZone) except + nogil
 
-        float Get_Left_Stick_X_Axis_Decimal() except + nogil
-        float Get_Left_Stick_Y_Axis_Decimal() except + nogil
+        float Get_Left_Stick_X_Axis_Decimal(float DeadZone) except + nogil
+        float Get_Left_Stick_Y_Axis_Decimal(float DeadZone) except + nogil
 
-        float Get_Right_Trigger_Axis_Percentage() except + nogil
-        float Get_Left_Trigger_Axis_Percentage() except + nogil
+        float Get_Right_Trigger_Axis_Percentage(float DeadZone) except + nogil
+        float Get_Left_Trigger_Axis_Percentage(float DeadZone) except + nogil
 
-        float Get_Right_Trigger_Axis_Decimal() except + nogil
-        float Get_Left_Trigger_Axis_Decimal() except + nogil
+        float Get_Right_Trigger_Axis_Decimal(float DeadZone) except + nogil
+        float Get_Left_Trigger_Axis_Decimal(float DeadZone) except + nogil
+
+        void Get_Left_Stick_Position_Percentage(float DeadZone, float* out) except + nogil
+        void Get_Left_Stick_Position_Decimal(float DeadZone, float* out) except + nogil
+
+        void Get_Right_Stick_Position_Percentage(float DeadZone, float* out) except + nogil
+        void Get_Right_Stick_Position_Decimal(float DeadZone, float* out) except + nogil
 
     cdef cppclass CPP_DropEvent:
         inline const char** GetFilePaths() except + nogil
@@ -3550,46 +3556,106 @@ cdef class ControllerEvent:
     def get_gamepad_dpad_left_button_double_press_duration(self):
         return self.cpp_class_ptr.Get_GamePad_DPad_Left_Button_DoublePressDuration()
 
-    def get_right_stick_X_axis_percentage(self):
-        return self.cpp_class_ptr.Get_Right_Stick_X_Axis_Percentage()
+    def get_right_stick_X_axis_percentage(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Right_Stick_X_Axis_Percentage(dead_zone)
 
-    def get_right_stick_Y_axis_percentage(self):
-        return self.cpp_class_ptr.Get_Right_Stick_Y_Axis_Percentage()
-
-
-    def get_right_stick_X_axis_decimal(self):
-        return self.cpp_class_ptr.Get_Right_Stick_X_Axis_Decimal()
-
-    def get_right_stick_Y_axis_decimal(self):
-        return self.cpp_class_ptr.Get_Right_Stick_Y_Axis_Decimal()
+    def get_right_stick_Y_axis_percentage(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Right_Stick_Y_Axis_Percentage(dead_zone)
 
 
-    def get_left_stick_X_axis_percentage(self):
-        return self.cpp_class_ptr.Get_Left_Stick_X_Axis_Percentage()
+    def get_right_stick_X_axis_decimal(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Right_Stick_X_Axis_Decimal(dead_zone)
 
-    def get_Left_stick_Y_axis_percentage(self):
-        return self.cpp_class_ptr.Get_Left_Stick_Y_Axis_Percentage()
-
-
-    def get_left_stick_X_axis_decimal(self):
-        return self.cpp_class_ptr.Get_Left_Stick_X_Axis_Decimal()
-
-    def get_Left_stick_Y_axis_decimal(self):
-        return self.cpp_class_ptr.Get_Left_Stick_Y_Axis_Decimal()
+    def get_right_stick_Y_axis_decimal(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Right_Stick_Y_Axis_Decimal(dead_zone)
 
 
-    def get_right_trigger_axis_percentage(self):
-        return self.cpp_class_ptr.Get_Right_Trigger_Axis_Percentage()
+    def get_left_stick_X_axis_percentage(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Left_Stick_X_Axis_Percentage(dead_zone)
 
-    def get_left_trigger_axis_percentage(self):
-        return self.cpp_class_ptr.Get_Left_Trigger_Axis_Percentage()
+    def get_Left_stick_Y_axis_percentage(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Left_Stick_Y_Axis_Percentage(dead_zone)
 
 
-    def get_right_trigger_axis_decimal(self):
-        return self.cpp_class_ptr.Get_Right_Trigger_Axis_Decimal()
+    def get_left_stick_X_axis_decimal(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Left_Stick_X_Axis_Decimal(dead_zone)
 
-    def get_left_trigger_axis_decimal(self):
-        return self.cpp_class_ptr.Get_Left_Trigger_Axis_Decimal()
+    def get_Left_stick_Y_axis_decimal(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Left_Stick_Y_Axis_Decimal(dead_zone)
+
+
+    def get_right_trigger_axis_percentage(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Right_Trigger_Axis_Percentage(dead_zone)
+
+    def get_left_trigger_axis_percentage(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Left_Trigger_Axis_Percentage(dead_zone)
+
+
+    def get_right_trigger_axis_decimal(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Right_Trigger_Axis_Decimal(dead_zone)
+
+    def get_left_trigger_axis_decimal(self, dead_zone=0):
+        return self.cpp_class_ptr.Get_Left_Trigger_Axis_Decimal(dead_zone)
+
+    def get_left_stick_position_percentage(self, dead_zone=0, using_numpy_arrays=True):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
+            float* out_ptr;
+
+        out_np = np.empty(2, dtype=np.float32, order='C')
+        out_ptr = <float*>&out_np[0]
+
+        self.cpp_class_ptr.Get_Left_Stick_Position_Percentage(dead_zone, out_ptr)
+
+        if using_numpy_arrays:
+            return out_np
+        else:
+            return out_np.tolist()
+
+    def get_right_stick_position_percentage(self, dead_zone=0, using_numpy_arrays=True):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
+            float* out_ptr;
+
+        out_np = np.empty(2, dtype=np.float32, order='C')
+        out_ptr = <float*>&out_np[0]
+
+        self.cpp_class_ptr.Get_Right_Stick_Position_Percentage(dead_zone, out_ptr)
+
+        if using_numpy_arrays:
+            return out_np
+        else:
+            return out_np.tolist()
+
+    def get_left_stick_position_decimal(self, dead_zone=0, using_numpy_arrays=True):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
+            float* out_ptr;
+
+        out_np = np.empty(2, dtype=np.float32, order='C')
+        out_ptr = <float*>&out_np[0]
+
+        self.cpp_class_ptr.Get_Left_Stick_Position_Decimal(dead_zone, out_ptr)
+
+        if using_numpy_arrays:
+            return out_np
+        else:
+            return out_np.tolist()
+
+    def get_right_stick_position_decimal(self, dead_zone=0, using_numpy_arrays=True):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] out_np
+            float* out_ptr;
+
+        out_np = np.empty(2, dtype=np.float32, order='C')
+        out_ptr = <float*>&out_np[0]
+
+        self.cpp_class_ptr.Get_Right_Stick_Position_Decimal(dead_zone, out_ptr)
+
+        if using_numpy_arrays:
+            return out_np
+        else:
+            return out_np.tolist()
 
 cdef class KeyEvent_Space:
     cdef:
