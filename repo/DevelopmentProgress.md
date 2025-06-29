@@ -8,7 +8,7 @@
 
 ## Progress on PMMA 5
 
-![Progress on PMMA 5](https://geps.dev/progress/40)
+![Progress on PMMA 5](https://geps.dev/progress/43)
 
 Each entry is worth: (20/7) %
 
@@ -23,12 +23,12 @@ Each entry is worth: (20/7) %
 * ✅ - Finished GPU
 * ✅ - Finished Executor
 * ✅ - Finished Advanced Tkinter
-* ⏳ - Working on Video
-* ⏳ - Working on Display
-* ⏳ - Working on Events
-* ⏳ - Working on OpenGL
-* ⏳ - Working on Logging
-* ⏳ - Working on General
+* ✅ - Working on Events
+* ⏳ - Working on Display (80 %)
+* ⏳ - Working on OpenGL (30 %)
+* ⏳ - Working on General (30 %)
+* ⏳ - Working on Video (25 %)
+* ⏳ - Working on Logging (25 %)
 * 🛑 - Not started Advanced Threading
 * 🛑 - Not started Camera
 * 🛑 - Not started Complex 2D shapes
