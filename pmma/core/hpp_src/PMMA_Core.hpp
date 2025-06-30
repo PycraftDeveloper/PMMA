@@ -6,6 +6,11 @@
 
 #include "General.hpp"
 
+#include "RadialPolygonShape.hpp"
+#include "RectangleShape.hpp"
+#include "RenderPipelineManager.hpp"
+#include "RenderPipelineCore.hpp"
+
 #include "Display.hpp"
 #include "NumberConverter.hpp"
 
@@ -23,6 +28,8 @@ Notes:
 
 namespace PMMA {
     EXPORT extern CPP_Display* DisplayInstance;
+
+    EXPORT extern CPP_RenderPipelineCore* RenderPipelineCore;
 
     EXPORT extern std::vector<CPP_KeyEvent_Space*> KeyEvent_Space_Instances;
     EXPORT extern std::vector<CPP_KeyEvent_Apostrophe*> KeyEvent_Apostrophe_Instances;

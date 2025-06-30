@@ -14,6 +14,7 @@ using namespace std;
 
 namespace PMMA {
     CPP_Display* DisplayInstance = nullptr;
+    CPP_RenderPipelineCore* RenderPipelineCore = nullptr;
 
     vector<CPP_KeyEvent_Space*> KeyEvent_Space_Instances;
     vector<CPP_KeyEvent_Apostrophe*> KeyEvent_Apostrophe_Instances;

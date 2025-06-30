@@ -34,7 +34,12 @@ set(SOURCES
     "${SRC_DIR}/PerlinNoise.cpp"
     "${SRC_DIR}/OpenGL.cpp"
     "${SRC_DIR}/TextRenderer.cpp"
-    "${SRC_DIR}/General.cpp")
+    "${SRC_DIR}/General.cpp"
+    "${SRC_DIR}/RenderPipelineCore.cpp"
+    "${SRC_DIR}/RenderPipelineManager.cpp"
+    "${SRC_DIR}/RadialPolygonShape.cpp"
+    "${SRC_DIR}/RectangleShape.cpp"
+    )
 
 # Add shared library
 add_library(${LIB_NAME} SHARED ${SOURCES})

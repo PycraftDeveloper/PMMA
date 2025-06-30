@@ -217,6 +217,11 @@ if to_do == []:
 else:
     shutil.rmtree(temp_platform_cache_dir)
 
+    cache_files(hpp_src_dir)
+    cache_files(cpp_src_dir)
+    cache_files(cmake_dir)
+    cache_files(pyx_src_dir)
+
     if BUILD_CORE in to_do and not BUILD_DEPENDENCIES in to_do:
         print("Configuring PMMA Core.")
 
@@ -253,13 +258,6 @@ else:
             build_command += ["--", f"-j{multiprocessing.cpu_count()}"]
         subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
-    cache_files(hpp_src_dir)
-    cache_files(cpp_src_dir)
-    cache_files(cmake_dir)
-
-    if not (BUILD_CORE in to_do and not BUILD_DEPENDENCIES in to_do):
-        cache_files(cmake_dir)
-
     if BUILD_CYTHON in to_do:
         print("Building Cython.")
 
@@ -279,8 +277,6 @@ else:
             temp_dir]
 
         subprocess.run(command, check=True)
-
-    cache_files(pyx_src_dir)
 
 print("Refreshing installed version of PMMA.")
 

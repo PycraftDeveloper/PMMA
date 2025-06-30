@@ -1,9 +1,12 @@
-#version 330
+#version 330 core
+flat in uint shape_id;
 
-in vec4 frag_color;
+layout(std140) uniform ShapeColors {
+    vec4 shape_colors[16];
+};
 
-out vec4 color;
+out vec4 frag_color;
 
 void main() {
-    color = frag_color;
+    frag_color = shape_colors[shape_id];
 }

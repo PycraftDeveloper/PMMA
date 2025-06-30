@@ -15,6 +15,8 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
+#include "RenderPipelineCore.hpp"
+
 class CPP_ColorConverter;
 
 class EXPORT CPP_Display {

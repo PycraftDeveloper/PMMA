@@ -23,7 +23,7 @@ Each entry is worth: (20/7) %
 * ✅ - Finished GPU
 * ✅ - Finished Executor
 * ✅ - Finished Advanced Tkinter
-* ✅ - Working on Events
+* ✅ - Finished Events
 * ⏳ - Working on Display (80 %)
 * ⏳ - Working on OpenGL (30 %)
 * ⏳ - Working on General (30 %)

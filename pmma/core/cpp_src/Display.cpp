@@ -9,6 +9,7 @@
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
+#include "RenderPipelineCore.hpp"
 
 #include "PMMA_Core.hpp"
 
@@ -367,6 +368,9 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
 vsync to limit the refresh rate of your window. Doing so will reduce \
 visual tearing and improve frame pacing." << endl;
     }
+
+
+    PMMA::RenderPipelineCore = new CPP_RenderPipelineCore();
 }
 
 void CPP_Display::Clear(float* in_color) {
@@ -377,6 +381,8 @@ void CPP_Display::Clear(float* in_color) {
     WindowFillColor->SetColor_rgba(in_color);
     glClearColor(in_color[0], in_color[1], in_color[2], in_color[3]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    PMMA::RenderPipelineCore->Clear();
 }
 
 void CPP_Display::Clear() {
@@ -388,6 +394,8 @@ void CPP_Display::Clear() {
     WindowFillColor->GetColor_rgba(out_color);
     glClearColor(out_color[0], out_color[1], out_color[2], out_color[3]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    PMMA::RenderPipelineCore->Clear();
 }
 
 void CPP_Display::LimitRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery) {
@@ -438,6 +446,8 @@ void CPP_Display::ContinuousRefresh(
         throw runtime_error("Display not created yet!");
     }
 
+    PMMA::RenderPipelineCore->Render();
+
     glfwSwapBuffers(Window);
     glfwPollEvents();
 
@@ -462,6 +472,8 @@ void CPP_Display::EventRefresh(
         throw runtime_error("Display not created yet!");
     }
 
+    PMMA::RenderPipelineCore->Render();
+
     glfwSwapBuffers(Window);
 
     MaxRefreshRate = CPP_Display::CalculateRefreshRate(MaxRefreshRate, Minimized, FocusLoss, LowBattery);
@@ -480,6 +492,11 @@ void CPP_Display::EventRefresh(
 }
 
 CPP_Display::~CPP_Display() {
+    if (PMMA::RenderPipelineCore != nullptr) {
+        delete PMMA::RenderPipelineCore;
+        PMMA::RenderPipelineCore = nullptr;
+    }
+
     if (PMMA::KeyManagerInstance != nullptr) {
         delete PMMA::KeyManagerInstance;
         PMMA::KeyManagerInstance = nullptr;
