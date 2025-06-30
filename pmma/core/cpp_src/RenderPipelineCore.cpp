@@ -1,6 +1,10 @@
 #include "RenderPipelineCore.hpp"
 #include "RenderPipelineManager.hpp"
 
+#include <iostream>
+
+using namespace std;
+
 CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
 
 }

@@ -4,7 +4,9 @@ layout(location = 1) in uint in_shape_id;
 
 flat out uint shape_id;
 
+uniform mat4 projection;
+
 void main() {
-    gl_Position = vec4(in_position, 0.0, 1.0);
+    gl_Position = projection * vec4(in_position, 0.0, 1.0);
     shape_id = in_shape_id;
 }

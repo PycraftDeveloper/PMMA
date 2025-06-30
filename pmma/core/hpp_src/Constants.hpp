@@ -16,4 +16,7 @@ namespace CPP_Constants {
     const unsigned int TYPE_RENDER_PIPELINE_MANAGER = 0;
     const unsigned int TYPE_RADIAL_POLYGON_SHAPE = 1;
     const unsigned int TYPE_RECTANGLE_SHAPE = 2;
+
+    const float PI = 3.141592653589793f;
+    const float TAU = 6.283185307179586f;
 }

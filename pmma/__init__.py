@@ -46,6 +46,7 @@ from pmma.build.NumberConverter import (
     DisplayScalarConverter, ProportionConverter)
 import pmma.build.Events as Events
 from pmma.build.TextRenderer import *
+import pmma.build.Shapes2D as Shapes2D
 
 from pmma.core.py_src.Backpack import Backpack
 from pmma.core.py_src.Audio import *

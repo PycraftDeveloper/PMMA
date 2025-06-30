@@ -1,5 +1,8 @@
 #include <glad/gl.h>
 #include <glm/glm.hpp>
+#include <glm/gtc/type_ptr.hpp>
+
+#include <vector>
 
 #include "RenderPipelineManager.hpp"
 #include "PMMA_Core.hpp"
@@ -36,15 +39,27 @@ CPP_RenderPipelineManager::~CPP_RenderPipelineManager() {
 
 void CPP_RenderPipelineManager::AddRenderTarget(RenderPipelineDataObject* NewObject) {
     std::visit([&](auto* actualPtr) {
-        // Get Color
-        // Get Vertex Data
+        GLuint color_index = shape_colors.size();
+        shape_colors.emplace_back(actualPtr->ColorData[0]);
+
+        const auto& vertices = actualPtr->VertexData;
+
+        // Insert degenerate vertices if this is not the first shape
+        if (!combined_vertexes.empty() && vertices.size() >= 2) {
+            // Repeat last vertex of previous shape
+            combined_vertexes.push_back(combined_vertexes.back());
+
+            // Repeat first vertex of new shape
+            combined_vertexes.push_back({vertices[0], color_index});
+        }
+
+        // Add actual shape vertices
+        for (const auto& vertex : vertices) {
+            combined_vertexes.push_back({vertex, color_index});
+        }
 
     }, *NewObject);
 }
-
-// Notes: Start shape generation into color and vertex arrays, determine if rp compatable (and add with RP_Vertex and RP_Color). RP_Vertex points to vertex array.
-// Then here see if color already exists. If it does then merge existing color pointer - otherwise generate a new one and merge that. THEN MAKE SURE TO ADJUST RENDERING
-// MODE BUT SHOULD BE MOSTLY DONE. CONSIDER PROJECTIONS.
 
 void CPP_RenderPipelineManager::InternalRender() {
     glBindVertexArray(vao);
@@ -60,16 +75,17 @@ void CPP_RenderPipelineManager::InternalRender() {
     GLuint ubo;
     glGenBuffers(1, &ubo);
     glBindBuffer(GL_UNIFORM_BUFFER, ubo);
-    glBufferData(GL_UNIFORM_BUFFER, 16 * sizeof(glm::vec4), nullptr, GL_STATIC_DRAW);
+    glBufferData(GL_UNIFORM_BUFFER, shape_colors.size() * sizeof(glm::vec4), nullptr, GL_STATIC_DRAW);
     glBufferSubData(GL_UNIFORM_BUFFER, 0, shape_colors.size() * sizeof(glm::vec4), shape_colors.data());
 
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo);
 
     glUseProgram(shader);
+    glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA::DisplayInstance->GetDisplayProjection()));
 
     GLuint block_index = glGetUniformBlockIndex(shader, "ShapeColors");
     glUniformBlockBinding(shader, block_index, 0);
 
     glBindVertexArray(vao);
-    glDrawArrays(GL_TRIANGLES, 0, combined_vertexes.size());
+    glDrawArrays(GL_TRIANGLE_STRIP, 0, combined_vertexes.size());
 }

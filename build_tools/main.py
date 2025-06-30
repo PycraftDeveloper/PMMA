@@ -4,6 +4,11 @@ import os, platform, shutil, site, subprocess, multiprocessing, sys
 
 operating_system_type = platform.system()
 
+if operating_system_type == "Windows":
+    os.system("cls")
+elif operating_system_type == "Linux":
+    os.system("clear")
+
 cwd = os.path.dirname(os.path.dirname(__file__))
 
 pmma_dir = os.path.join(cwd, "pmma")

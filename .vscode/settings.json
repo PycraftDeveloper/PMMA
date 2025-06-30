@@ -69,5 +69,6 @@
         "xstring": "cpp",
         "xtr1common": "cpp",
         "xutility": "cpp"
-    }
+    },
+    "cmake.sourceDirectory": "W:/Documents/GitHub/PMMA/build_tools/cmake"
 }

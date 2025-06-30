@@ -7,10 +7,11 @@
 
 #include <glm/glm.hpp>
 
-#include "RadialPolygonShape.hpp"
-#include "RectangleShape.hpp"
 #include "Constants.hpp"
 #include "OpenGL.hpp"
+
+class CPP_RadialPolygonShape;
+class CPP_RectangleShape;
 
 using RenderPipelineDataObject = std::variant<CPP_RadialPolygonShape*, CPP_RectangleShape*>;
 
