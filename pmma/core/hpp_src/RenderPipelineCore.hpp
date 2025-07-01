@@ -22,4 +22,22 @@ class EXPORT CPP_RenderPipelineCore {
         void Clear();
 
         void AddObject(RenderPipelineDataObject* RenderObject, bool RenderPipelineCompatable=true);
+
+        inline GLuint GetColorIndex() {
+            if (RenderData.empty()) {
+                return 0;
+            }
+
+            auto& lastVariant = RenderData.back();
+            // Try to extract the CPP_RenderPipelineManager*
+            if (CPP_RenderPipelineManager** managerPtr = std::get_if<CPP_RenderPipelineManager*>(&lastVariant)) {
+                if ((*managerPtr)->shape_colors.size() < (*managerPtr)->MaxSize) {
+                    return (*managerPtr)->shape_colors.size();
+                } else {
+                    return 0;
+                }
+            } else {
+                return 0;
+            }
+        }
 };

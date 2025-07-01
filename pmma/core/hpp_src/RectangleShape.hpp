@@ -6,6 +6,7 @@
 #include <glm/glm.hpp>
 
 #include "Constants.hpp"
+#include "RenderPipelineManager.hpp"
 
 class EXPORT CPP_RectangleShape {
     private:
@@ -15,6 +16,9 @@ class EXPORT CPP_RectangleShape {
 
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
+
+        std::vector<Vertex> RenderPipelineVertexData;
+        glm::vec4 RenderPipelineColorData;
 
         void Render();
 

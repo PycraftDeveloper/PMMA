@@ -16,8 +16,11 @@ class CPP_RectangleShape;
 using RenderPipelineDataObject = std::variant<CPP_RadialPolygonShape*, CPP_RectangleShape*>;
 
 struct Vertex {
-    glm::vec2 pos;
+    glm::vec2 position;
     GLuint shape_id;
+
+    Vertex(glm::vec2 pos, GLuint index)
+        : position(pos), shape_id(index) {}
 };
 
 class EXPORT CPP_RenderPipelineManager {

@@ -3,6 +3,7 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <vector>
+#include <chrono>
 
 #include "RenderPipelineManager.hpp"
 #include "PMMA_Core.hpp"
@@ -35,28 +36,31 @@ CPP_RenderPipelineManager::CPP_RenderPipelineManager() {
 }
 
 CPP_RenderPipelineManager::~CPP_RenderPipelineManager() {
+    glDeleteBuffers(1, &vbo);
+    glDeleteVertexArrays(1, &vao);
+    glDeleteProgram(shader);
 }
 
 void CPP_RenderPipelineManager::AddRenderTarget(RenderPipelineDataObject* NewObject) {
     std::visit([&](auto* actualPtr) {
         GLuint color_index = shape_colors.size();
-        shape_colors.emplace_back(actualPtr->ColorData[0]);
+        shape_colors.emplace_back(actualPtr->RenderPipelineColorData);
 
-        const auto& vertices = actualPtr->VertexData;
+        const auto& vertices = actualPtr->RenderPipelineVertexData;
+
+        //combined_vertexes.reserve(combined_vertexes.size() + vertices.size() + 2);
 
         // Insert degenerate vertices if this is not the first shape
         if (!combined_vertexes.empty() && vertices.size() >= 2) {
             // Repeat last vertex of previous shape
-            combined_vertexes.push_back(combined_vertexes.back());
+            combined_vertexes.emplace_back(combined_vertexes.back());
 
             // Repeat first vertex of new shape
-            combined_vertexes.push_back({vertices[0], color_index});
+            combined_vertexes.emplace_back(vertices[0]);
         }
 
         // Add actual shape vertices
-        for (const auto& vertex : vertices) {
-            combined_vertexes.push_back({vertex, color_index});
-        }
+        combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
 
     }, *NewObject);
 }
@@ -88,4 +92,6 @@ void CPP_RenderPipelineManager::InternalRender() {
 
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, combined_vertexes.size());
+
+    glDeleteBuffers(1, &ubo);
 }

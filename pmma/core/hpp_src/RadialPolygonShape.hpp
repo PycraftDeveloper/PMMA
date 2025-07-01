@@ -17,6 +17,9 @@ class EXPORT CPP_RadialPolygonShape {
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
+        std::vector<Vertex> RenderPipelineVertexData;
+        glm::vec4 RenderPipelineColorData;
+
         glm::vec2 ShapeCentre;
         unsigned int Radius;
         unsigned int Width;
@@ -42,7 +45,7 @@ class EXPORT CPP_RadialPolygonShape {
 
             ColorData.clear();
             HasAlpha = false;
-            for (int i = 0; i < size; i += 4) { // Color will be in form rgba
+            for (unsigned int i = 0; i < size; i += 4) { // Color will be in form rgba
                 ColorData.push_back(glm::vec4(in_color[i], in_color[i + 1], in_color[i + 2], in_color[i + 3]));
                 if (in_color[i + 3] != 1.0f) {
                     HasAlpha = true;

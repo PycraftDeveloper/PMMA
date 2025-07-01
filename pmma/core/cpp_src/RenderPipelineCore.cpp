@@ -18,6 +18,11 @@ void CPP_RenderPipelineCore::Render() {
 }
 
 void CPP_RenderPipelineCore::Clear() {
+    for (unsigned int i = 0; i < RenderData.size(); ++i) {
+        if (CPP_RenderPipelineManager** newManagerPtr = std::get_if<CPP_RenderPipelineManager*>(&RenderData[i])) {
+            delete (*newManagerPtr);
+        }
+    }
     RenderData.clear();
 }
 
