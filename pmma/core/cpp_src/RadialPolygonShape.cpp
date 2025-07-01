@@ -48,25 +48,26 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
         float angle = Rotation;
         float cx = ShapeCentre.x;
         float cy = ShapeCentre.y;
+        float cosStep = std::cos(angleStep);
+        float sinStep = std::sin(angleStep);
+        float cosA = std::cos(angle);
+        float sinA = std::sin(angle);
 
         if (inner_radius == 0) {
             for (unsigned int i = 0; i < InternalPointCount; ++i) {
-                float cosA = std::cos(angle);
-                float sinA = std::sin(angle);
-
                 float ox = outer_radius * cosA + cx;
                 float oy = outer_radius * sinA + cy;
 
                 RenderPipelineVertexData.emplace_back(glm::vec2(ox, oy), ColorIndex);
                 RenderPipelineVertexData.emplace_back(glm::vec2(cx, cy), ColorIndex);
 
-                angle += angleStep;
+                float new_cosA = cosA * cosStep - sinA * sinStep;
+                float new_sinA = sinA * cosStep + cosA * sinStep;
+                cosA = new_cosA;
+                sinA = new_sinA;
             }
         } else {
             for (unsigned int i = 0; i < InternalPointCount; ++i) {
-                float cosA = cos(angle);
-                float sinA = sin(angle);
-
                 float ox = outer_radius * cosA + cx;
                 float oy = outer_radius * sinA + cy;
 
@@ -76,7 +77,10 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
                 RenderPipelineVertexData.emplace_back(glm::vec2(ox, oy), ColorIndex);
                 RenderPipelineVertexData.emplace_back(glm::vec2(ix, iy), ColorIndex);
 
-                angle += angleStep;
+                float new_cosA = cosA * cosStep - sinA * sinStep;
+                float new_sinA = sinA * cosStep + cosA * sinStep;
+                cosA = new_cosA;
+                sinA = new_sinA;
             }
         }
 
