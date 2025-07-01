@@ -22,7 +22,7 @@ class EXPORT CPP_RadialPolygonShape {
 
         glm::vec2 ShapeCentre;
         unsigned int Radius;
-        unsigned int Width;
+        unsigned int Width = 0;
         unsigned int PointCount = 0;
         float Rotation = 0;
 
@@ -33,6 +33,7 @@ class EXPORT CPP_RadialPolygonShape {
         bool UsingGradients = false;
         bool HasAlpha = false;
         bool PointCountSet = false;
+        bool Changed = true;
 
         CPP_RadialPolygonShape();
 
@@ -43,34 +44,66 @@ class EXPORT CPP_RadialPolygonShape {
         void SetColor(float* in_color, unsigned int size) {
             UsingGradients = size > 4; // (determine if multiple colors inputted)
 
-            ColorData.clear();
+            std::vector<glm::vec4> NewColorData;
+
             HasAlpha = false;
             for (unsigned int i = 0; i < size; i += 4) { // Color will be in form rgba
-                ColorData.push_back(glm::vec4(in_color[i], in_color[i + 1], in_color[i + 2], in_color[i + 3]));
+                NewColorData.push_back(glm::vec4(in_color[i], in_color[i + 1], in_color[i + 2], in_color[i + 3]));
                 if (in_color[i + 3] != 1.0f) {
                     HasAlpha = true;
                 }
             }
 
+            if (ColorSet && (size != NewColorData.size() * 4 || ColorData.size() != NewColorData.size() || !std::equal(ColorData.begin(), ColorData.end(), NewColorData.begin()))) {
+                Changed = true;
+                RenderPipelineVertexData.clear();
+                VertexData.clear();
+            }
+
             ColorSet = true;
+            ColorData = NewColorData;
         }
 
         void SetCentre(unsigned int* in_position) {
+            if (CentreSet && in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y) {
+                Changed = true;
+                RenderPipelineVertexData.clear();
+                VertexData.clear();
+            }
+
             ShapeCentre = glm::vec2(in_position[0], in_position[1]);
             CentreSet = true;
         }
 
         void SetRadius(unsigned int in_radius) {
+            if (RadiusSet && in_radius != Radius) {
+                Changed = true;
+                RenderPipelineVertexData.clear();
+                VertexData.clear();
+            }
+
             Radius = in_radius;
             RadiusSet = true;
         }
 
         void SetPointCount(unsigned int in_pointCount) {
+            if (PointCountSet && in_pointCount != PointCount) {
+                Changed = true;
+                RenderPipelineVertexData.clear();
+                VertexData.clear();
+            }
+
             PointCount = in_pointCount;
             PointCountSet = true;
         }
 
         void SetWidth(unsigned int in_width) {
+            if (WidthSet && in_width != Width) {
+                Changed = true;
+                RenderPipelineVertexData.clear();
+                VertexData.clear();
+            }
+
             Width = in_width;
             WidthSet = true;
         }
