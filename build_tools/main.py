@@ -70,24 +70,36 @@ def clean_deps():
         if not should_keep(extern_dir) and not os.listdir(extern_dir):
             os.rmdir(extern_dir)
 
+import os
+
 def selective_removal(directory, keep_items):
-    for item in os.listdir(directory):
-        item_path = os.path.join(directory, item)
+    # Use a list as a queue to process directories iteratively
+    dirs_to_process = [directory]
 
-        if os.path.isfile(item_path):  # Check if it's a file
-            delete = True
-            for keep_item in keep_items:
-                if item.endswith(keep_item):
-                    delete = False
-                    break
-            if delete:
-                os.remove(item_path)  # Delete the file
+    while dirs_to_process:
+        current_dir = dirs_to_process.pop(0)
 
-        elif os.path.isdir(item_path) and not item_path.endswith(".mypy_cache"):  # Check if it's a directory
-            try:
-                os.remove(item_path)  # Delete the directory
-            except:
-                print("Could not delete directory:", item_path)
+        for item in os.listdir(current_dir):
+            item_path = os.path.join(current_dir, item)
+
+            if os.path.isfile(item_path):
+                # Check if the file should be deleted
+                if not any(item.endswith(keep) for keep in keep_items):
+                    os.remove(item_path)
+
+            elif os.path.isdir(item_path):
+                # Add subdirectory to the queue for later processing
+                if not item_path.endswith(".mypy_cache"):
+                    dirs_to_process.append(item_path)
+
+        # After processing, try to remove empty directories
+        for item in os.listdir(current_dir):
+            item_path = os.path.join(current_dir, item)
+            if os.path.isdir(item_path) and not os.listdir(item_path):
+                try:
+                    os.rmdir(item_path)
+                except Exception as e:
+                    print("Could not delete directory:", item_path, "-", e)
 
 def scan_files_for_changes(dir, component):
     if component in to_do:
@@ -235,7 +247,8 @@ else:
 
         if os.path.exists(cmake_temp_dir):
             shutil.rmtree(cmake_temp_dir, ignore_errors=True)
-            os.makedirs(cmake_temp_dir, exist_ok=True)
+
+        os.makedirs(cmake_temp_dir, exist_ok=True)
 
         subprocess.run(["cmake", "-DCMAKE_POLICY_VERSION_MINIMUM=3.5", cmake_dir, "-DBUILD_DEPS=OFF"], cwd=cmake_temp_dir, check=True)
 
@@ -247,7 +260,8 @@ else:
 
         if os.path.exists(cmake_temp_dir):
             shutil.rmtree(cmake_temp_dir, ignore_errors=True)
-            os.makedirs(cmake_temp_dir, exist_ok=True)
+
+        os.makedirs(cmake_temp_dir, exist_ok=True)
 
         clean_deps()
 

@@ -44,7 +44,10 @@ from pmma.build.Display import Display
 from pmma.build.NumberConverter import (
     ColorConverter, DisplayCoordinatesConverter, AngleConverter,
     DisplayScalarConverter, ProportionConverter)
-import pmma.build.Events as Events
+import pmma.build.KeyEvents as KeyEvents
+import pmma.build.KeyPadEvents as KeyPadEvents
+import pmma.build.WindowEvents as WindowEvents
+import pmma.build.ControllerEvents as ControllerEvents
 from pmma.build.TextRenderer import *
 import pmma.build.Shapes2D as Shapes2D
 

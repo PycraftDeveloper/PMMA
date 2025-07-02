@@ -172,7 +172,8 @@ namespace PMMA {
 
     EXPORT extern std::vector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
 
-    EXPORT extern std::vector<CPP_InternalControllerEvent*> ControllerEventInstances;
+    EXPORT extern std::vector<CPP_InternalControllerEvent*> InternalControllerEventInstances;
+    EXPORT extern std::vector<CPP_ControllerEvent*> ControllerEvent_Instances;
 
     EXPORT extern std::vector<CPP_DropEvent*> DropEvent_Instances;
 

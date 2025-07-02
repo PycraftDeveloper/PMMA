@@ -160,8 +160,8 @@ CPP_InternalControllerEventManager::CPP_InternalControllerEventManager() {
     Active = false;
 
     for (unsigned int i = 0; i < 16; i++) {
-        PMMA::ControllerEventInstances.emplace_back(new CPP_InternalControllerEvent(i));
-        PMMA::ControllerEventInstances[i]->UpdateConnection(glfwJoystickPresent(i) == GLFW_TRUE);
+        PMMA::InternalControllerEventInstances.emplace_back(new CPP_InternalControllerEvent(i));
+        PMMA::InternalControllerEventInstances[i]->UpdateConnection(glfwJoystickPresent(i) == GLFW_TRUE);
     }
 }
 
@@ -169,16 +169,16 @@ CPP_InternalControllerEventManager::~CPP_InternalControllerEventManager() {
     Active = false;
 
     for (unsigned int i = 0; i < 16; i++) {
-        delete PMMA::ControllerEventInstances[i];
+        delete PMMA::InternalControllerEventInstances[i];
     }
-    PMMA::ControllerEventInstances.clear();
+    PMMA::InternalControllerEventInstances.clear();
 }
 
 void CPP_InternalControllerEventManager::Update(GLFWwindow* Window) {
     vector<CPP_InternalControllerEvent*> ConnectedControllers;
-    for (int i = 0; i < PMMA::ControllerEventInstances.size(); i++) {
-        if (PMMA::ControllerEventInstances[i]->GetConnected()) {
-            ConnectedControllers.push_back(PMMA::ControllerEventInstances[i]);
+    for (int i = 0; i < PMMA::InternalControllerEventInstances.size(); i++) {
+        if (PMMA::InternalControllerEventInstances[i]->GetConnected()) {
+            ConnectedControllers.push_back(PMMA::InternalControllerEventInstances[i]);
         }
     }
 
@@ -188,10 +188,14 @@ void CPP_InternalControllerEventManager::Update(GLFWwindow* Window) {
         }
     }
     Active = true;
+
+    for (unsigned int i = 0; i < PMMA::ControllerEvent_Instances.size(); i++) {
+        PMMA::ControllerEvent_Instances[i]->Update();
+    }
 }
 
 void CPP_InternalControllerEventManager::JoystickCallback(int jid, int event) {
-    PMMA::ControllerEventInstances[jid]->UpdateConnection(event==GLFW_CONNECTED);
+    PMMA::InternalControllerEventInstances[jid]->UpdateConnection(event==GLFW_CONNECTED);
 }
 
 CPP_InternalDropEventManager::CPP_InternalDropEventManager() {

@@ -9,6 +9,8 @@ import numpy
 
 cwd = os.path.dirname(__file__)
 
+sys.path.insert(0, os.path.join(cwd, "pmma", "build"))
+
 def add_source(name: str):
     return [
         os.path.join("pmma", "core", "pyx_src", f"{name}.pyx"),
@@ -47,8 +49,8 @@ else:
 
 shared_name = 'PMMA_Core'
 
-def make_ext(name, extra_cpp=None, add_numpy=False):
-    sources = [os.path.join("pmma", "core", "pyx_src", f"{name}.pyx")]
+def make_ext(component, extra_cpp=None, add_numpy=False):
+    sources = [os.path.join("pmma", "core", "pyx_src", component)]
     if extra_cpp is not None:
         sources.extend(extra_cpp)
 
@@ -65,6 +67,8 @@ def make_ext(name, extra_cpp=None, add_numpy=False):
     if add_numpy:
         macros.append(('NPY_NO_DEPRECATED_API', 'NPY_1_7_API_VERSION'))
 
+    name = component.split(os.sep)[-1].replace(".pyx", "")
+
     return Extension(
         name=name,
         sources=sources,
@@ -78,15 +82,19 @@ def make_ext(name, extra_cpp=None, add_numpy=False):
     )
 
 ext_modules = [
-    make_ext("AdvancedMathematics", add_numpy=True),
-    make_ext("Display", add_numpy=True),
-    make_ext("Events", add_numpy=True),
-    make_ext("FractalBrownianMotion", add_numpy=True),
-    make_ext("NumberConverter", add_numpy=True),
-    make_ext("PerlinNoise", add_numpy=True),
-    make_ext("TextRenderer", add_numpy=True),
-    make_ext("General", add_numpy=True),
-    make_ext("Shapes2D", add_numpy=True)
+    make_ext("AdvancedMathematics.pyx", add_numpy=True),
+    make_ext("Display.pyx", add_numpy=True),
+    make_ext(os.path.join("Events", "KeyEvents.pyx")),
+    make_ext(os.path.join("Events", "KeyPadEvents.pyx")),
+    make_ext(os.path.join("Events", "WindowEvents.pyx")),
+    make_ext(os.path.join("Events", "ControllerEvents.pyx"), add_numpy=True),
+    make_ext(os.path.join("Events", "MouseEvents.pyx"), add_numpy=True),
+    make_ext("FractalBrownianMotion.pyx", add_numpy=True),
+    make_ext("NumberConverter.pyx", add_numpy=True),
+    make_ext("PerlinNoise.pyx", add_numpy=True),
+    make_ext("TextRenderer.pyx", add_numpy=True),
+    make_ext("General.pyx", add_numpy=True),
+    make_ext("Shapes2D.pyx", add_numpy=True)
 ]
 
 # Read the long description from README.md

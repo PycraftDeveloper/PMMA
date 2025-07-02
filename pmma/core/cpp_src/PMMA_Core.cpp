@@ -157,7 +157,8 @@ namespace PMMA {
 
     vector<CPP_MouseScrollEvent*> MouseScrollEventInstances;
 
-    vector<CPP_InternalControllerEvent*> ControllerEventInstances;
+    vector<CPP_InternalControllerEvent*> InternalControllerEventInstances;
+    vector<CPP_ControllerEvent*> ControllerEvent_Instances;
 
     vector<CPP_DropEvent*> DropEvent_Instances;
 

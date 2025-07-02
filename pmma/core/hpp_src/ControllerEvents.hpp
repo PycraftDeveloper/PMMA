@@ -20,6 +20,8 @@ class EXPORT CPP_ControllerEvent {
         CPP_ControllerEvent(unsigned int new_ID);
         ~CPP_ControllerEvent();
 
+        void Update();
+
         bool GetConnected();
         std::string GetRawName();
         std::string GetGamePadName();
@@ -36,185 +38,21 @@ class EXPORT CPP_ControllerEvent {
 
         bool GetActive();
 
-        bool Get_GamePad_A_Button_Pressed();
-        void Set_GamePad_A_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_A_Button_PressedToggle();
-        bool Get_GamePad_A_Button_DoublePressed();
-        void Set_GamePad_A_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_A_Button_LongPressed();
-        bool Poll_GamePad_A_Button_LongPressed();
-        void Set_GamePad_A_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_A_Button_RepeatPressDuration();
-        float Get_GamePad_A_Button_LongPressDuration();
-        float Get_GamePad_A_Button_DoublePressDuration();
-
-        bool Get_GamePad_B_Button_Pressed();
-        void Set_GamePad_B_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_B_Button_PressedToggle();
-        bool Get_GamePad_B_Button_DoublePressed();
-        void Set_GamePad_B_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_B_Button_LongPressed();
-        bool Poll_GamePad_B_Button_LongPressed();
-        void Set_GamePad_B_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_B_Button_RepeatPressDuration();
-        float Get_GamePad_B_Button_LongPressDuration();
-        float Get_GamePad_B_Button_DoublePressDuration();
-
-        bool Get_GamePad_X_Button_Pressed();
-        void Set_GamePad_X_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_X_Button_PressedToggle();
-        bool Get_GamePad_X_Button_DoublePressed();
-        void Set_GamePad_X_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_X_Button_LongPressed();
-        bool Poll_GamePad_X_Button_LongPressed();
-        void Set_GamePad_X_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_X_Button_RepeatPressDuration();
-        float Get_GamePad_X_Button_LongPressDuration();
-        float Get_GamePad_X_Button_DoublePressDuration();
-
-        bool Get_GamePad_Y_Button_Pressed();
-        void Set_GamePad_Y_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_Y_Button_PressedToggle();
-        bool Get_GamePad_Y_Button_DoublePressed();
-        void Set_GamePad_Y_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_Y_Button_LongPressed();
-        bool Poll_GamePad_Y_Button_LongPressed();
-        void Set_GamePad_Y_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_Y_Button_RepeatPressDuration();
-        float Get_GamePad_Y_Button_LongPressDuration();
-        float Get_GamePad_Y_Button_DoublePressDuration();
-
-        bool Get_GamePad_Left_Bumper_Button_Pressed();
-        void Set_GamePad_Left_Bumper_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_Left_Bumper_Button_PressedToggle();
-        bool Get_GamePad_Left_Bumper_Button_DoublePressed();
-        void Set_GamePad_Left_Bumper_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_Left_Bumper_Button_LongPressed();
-        bool Poll_GamePad_Left_Bumper_Button_LongPressed();
-        void Set_GamePad_Left_Bumper_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_Left_Bumper_Button_RepeatPressDuration();
-        float Get_GamePad_Left_Bumper_Button_LongPressDuration();
-        float Get_GamePad_Left_Bumper_Button_DoublePressDuration();
-
-        bool Get_GamePad_Right_Bumper_Button_Pressed();
-        void Set_GamePad_Right_Bumper_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_Right_Bumper_Button_PressedToggle();
-        bool Get_GamePad_Right_Bumper_Button_DoublePressed();
-        void Set_GamePad_Right_Bumper_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_Right_Bumper_Button_LongPressed();
-        bool Poll_GamePad_Right_Bumper_Button_LongPressed();
-        void Set_GamePad_Right_Bumper_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_Right_Bumper_Button_RepeatPressDuration();
-        float Get_GamePad_Right_Bumper_Button_LongPressDuration();
-        float Get_GamePad_Right_Bumper_Button_DoublePressDuration();
-
-        bool Get_GamePad_Back_Button_Pressed();
-        void Set_GamePad_Back_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_Back_Button_PressedToggle();
-        bool Get_GamePad_Back_Button_DoublePressed();
-        void Set_GamePad_Back_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_Back_Button_LongPressed();
-        bool Poll_GamePad_Back_Button_LongPressed();
-        void Set_GamePad_Back_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_Back_Button_RepeatPressDuration();
-        float Get_GamePad_Back_Button_LongPressDuration();
-        float Get_GamePad_Back_Button_DoublePressDuration();
-
-        bool Get_GamePad_Start_Button_Pressed();
-        void Set_GamePad_Start_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_Start_Button_PressedToggle();
-        bool Get_GamePad_Start_Button_DoublePressed();
-        void Set_GamePad_Start_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_Start_Button_LongPressed();
-        bool Poll_GamePad_Start_Button_LongPressed();
-        void Set_GamePad_Start_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_Start_Button_RepeatPressDuration();
-        float Get_GamePad_Start_Button_LongPressDuration();
-        float Get_GamePad_Start_Button_DoublePressDuration();
-
-        bool Get_GamePad_Guide_Button_Pressed();
-        void Set_GamePad_Guide_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_Guide_Button_PressedToggle();
-        bool Get_GamePad_Guide_Button_DoublePressed();
-        void Set_GamePad_Guide_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_Guide_Button_LongPressed();
-        bool Poll_GamePad_Guide_Button_LongPressed();
-        void Set_GamePad_Guide_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_Guide_Button_RepeatPressDuration();
-        float Get_GamePad_Guide_Button_LongPressDuration();
-        float Get_GamePad_Guide_Button_DoublePressDuration();
-
-        bool Get_GamePad_Left_Thumb_Button_Pressed();
-        void Set_GamePad_Left_Thumb_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_Left_Thumb_Button_PressedToggle();
-        bool Get_GamePad_Left_Thumb_Button_DoublePressed();
-        void Set_GamePad_Left_Thumb_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_Left_Thumb_Button_LongPressed();
-        bool Poll_GamePad_Left_Thumb_Button_LongPressed();
-        void Set_GamePad_Left_Thumb_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_Left_Thumb_Button_RepeatPressDuration();
-        float Get_GamePad_Left_Thumb_Button_LongPressDuration();
-        float Get_GamePad_Left_Thumb_Button_DoublePressDuration();
-
-        bool Get_GamePad_Right_Thumb_Button_Pressed();
-        void Set_GamePad_Right_Thumb_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_Right_Thumb_Button_PressedToggle();
-        bool Get_GamePad_Right_Thumb_Button_DoublePressed();
-        void Set_GamePad_Right_Thumb_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_Right_Thumb_Button_LongPressed();
-        bool Poll_GamePad_Right_Thumb_Button_LongPressed();
-        void Set_GamePad_Right_Thumb_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_Right_Thumb_Button_RepeatPressDuration();
-        float Get_GamePad_Right_Thumb_Button_LongPressDuration();
-        float Get_GamePad_Right_Thumb_Button_DoublePressDuration();
-
-        bool Get_GamePad_DPad_Up_Button_Pressed();
-        void Set_GamePad_DPad_Up_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_DPad_Up_Button_PressedToggle();
-        bool Get_GamePad_DPad_Up_Button_DoublePressed();
-        void Set_GamePad_DPad_Up_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_DPad_Up_Button_LongPressed();
-        bool Poll_GamePad_DPad_Up_Button_LongPressed();
-        void Set_GamePad_DPad_Up_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_DPad_Up_Button_RepeatPressDuration();
-        float Get_GamePad_DPad_Up_Button_LongPressDuration();
-        float Get_GamePad_DPad_Up_Button_DoublePressDuration();
-
-        bool Get_GamePad_DPad_Right_Button_Pressed();
-        void Set_GamePad_DPad_Right_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_DPad_Right_Button_PressedToggle();
-        bool Get_GamePad_DPad_Right_Button_DoublePressed();
-        void Set_GamePad_DPad_Right_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_DPad_Right_Button_LongPressed();
-        bool Poll_GamePad_DPad_Right_Button_LongPressed();
-        void Set_GamePad_DPad_Right_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_DPad_Right_Button_RepeatPressDuration();
-        float Get_GamePad_DPad_Right_Button_LongPressDuration();
-        float Get_GamePad_DPad_Right_Button_DoublePressDuration();
-
-        bool Get_GamePad_DPad_Down_Button_Pressed();
-        void Set_GamePad_DPad_Down_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_DPad_Down_Button_PressedToggle();
-        bool Get_GamePad_DPad_Down_Button_DoublePressed();
-        void Set_GamePad_DPad_Down_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_DPad_Down_Button_LongPressed();
-        bool Poll_GamePad_DPad_Down_Button_LongPressed();
-        void Set_GamePad_DPad_Down_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_DPad_Down_Button_RepeatPressDuration();
-        float Get_GamePad_DPad_Down_Button_LongPressDuration();
-        float Get_GamePad_DPad_Down_Button_DoublePressDuration();
-
-        bool Get_GamePad_DPad_Left_Button_Pressed();
-        void Set_GamePad_DPad_Left_Button_DoublePressDuration(float Duration);
-        bool Get_GamePad_DPad_Left_Button_PressedToggle();
-        bool Get_GamePad_DPad_Left_Button_DoublePressed();
-        void Set_GamePad_DPad_Left_Button_LongPressDuration(float Duration);
-        bool Get_GamePad_DPad_Left_Button_LongPressed();
-        bool Poll_GamePad_DPad_Left_Button_LongPressed();
-        void Set_GamePad_DPad_Left_Button_RepeatPressDuration(float Duration);
-        float Get_GamePad_DPad_Left_Button_RepeatPressDuration();
-        float Get_GamePad_DPad_Left_Button_LongPressDuration();
-        float Get_GamePad_DPad_Left_Button_DoublePressDuration();
+        CPP_ButtonPressedEvent* A_Button = nullptr;
+        CPP_ButtonPressedEvent* B_Button = nullptr;
+        CPP_ButtonPressedEvent* X_Button = nullptr;
+        CPP_ButtonPressedEvent* Y_Button = nullptr;
+        CPP_ButtonPressedEvent* Left_Bumper_Button = nullptr;
+        CPP_ButtonPressedEvent* Right_Bumper_Button = nullptr;
+        CPP_ButtonPressedEvent* Back_Button = nullptr;
+        CPP_ButtonPressedEvent* Start_Button = nullptr;
+        CPP_ButtonPressedEvent* Guide_Button = nullptr;
+        CPP_ButtonPressedEvent* Left_Thumb_Button = nullptr;
+        CPP_ButtonPressedEvent* Right_Thumb_Button = nullptr;
+        CPP_ButtonPressedEvent* DPad_Up_Button = nullptr;
+        CPP_ButtonPressedEvent* DPad_Down_Button = nullptr;
+        CPP_ButtonPressedEvent* DPad_Left_Button = nullptr;
+        CPP_ButtonPressedEvent* DPad_Right_Button = nullptr;
 
         float Get_Right_Stick_X_Axis_Percentage(float DeadZone);
         float Get_Right_Stick_Y_Axis_Percentage(float DeadZone);
@@ -242,7 +80,7 @@ class EXPORT CPP_ControllerEvent {
 };
 
 class EXPORT CPP_InternalControllerEvent {
-    private:
+    public:
         CPP_ButtonPressedEvent* GamePad_A_Button = nullptr;
         CPP_ButtonPressedEvent* GamePad_B_Button = nullptr;
         CPP_ButtonPressedEvent* GamePad_X_Button = nullptr;
@@ -259,6 +97,7 @@ class EXPORT CPP_InternalControllerEvent {
         CPP_ButtonPressedEvent* GamePad_DPad_Down_Button = nullptr;
         CPP_ButtonPressedEvent* GamePad_DPad_Left_Button = nullptr;
 
+    private:
         CPP_BasicProportionConverter* GamePad_Left_Trigger = nullptr;
         CPP_BasicProportionConverter* GamePad_Right_Trigger = nullptr;
         CPP_BasicProportionConverter* GamePad_Left_Stick_X = nullptr;
