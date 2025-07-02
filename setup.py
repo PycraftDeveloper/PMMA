@@ -94,7 +94,7 @@ ext_modules = [
     make_ext("PerlinNoise.pyx", add_numpy=True),
     make_ext("TextRenderer.pyx", add_numpy=True),
     make_ext("General.pyx", add_numpy=True),
-    make_ext(os.path.join("Shapes2D", "RadialPolygonShape.pyx"), add_numpy=True)
+    make_ext("Shapes2D.pyx", add_numpy=True)
 ]
 
 # Read the long description from README.md
