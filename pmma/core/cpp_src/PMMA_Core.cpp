@@ -180,11 +180,11 @@ namespace PMMA {
     int GLFW_References = 0;
 
     unsigned int KeyboardEventInstanceCount = 0;
-    unsigned int TextEventInstanceCount = 0; //
-    unsigned int MousePositionEventInstanceCount = 0; //
-    unsigned int MouseEnterWindowEventInstanceCount = 0; //
-    unsigned int MouseButtonEventInstanceCount = 0; //
-    unsigned int MouseScrollEventInstanceCount = 0; //
-    unsigned int ControllerEventInstanceCount = 0; //
-    unsigned int DropEventInstanceCount = 0; //
+    unsigned int TextEventInstanceCount = 0;
+    unsigned int MousePositionEventInstanceCount = 0;
+    unsigned int MouseEnterWindowEventInstanceCount = 0;
+    unsigned int MouseButtonEventInstanceCount = 0;
+    unsigned int MouseScrollEventInstanceCount = 0;
+    unsigned int ControllerEventInstanceCount = 0;
+    unsigned int DropEventInstanceCount = 0;
 }

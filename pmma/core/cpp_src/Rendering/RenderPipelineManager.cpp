@@ -11,26 +11,6 @@
 using namespace std;
 
 CPP_RenderPipelineManager::CPP_RenderPipelineManager() {
-    GLint max_block_size;
-    glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &max_block_size);
-    MaxSize = (unsigned int)max_block_size / sizeof(glm::vec4);
-
-    string vertex_shader_path[] = {"shaders", "render_pipeline", "vertex_shader.glsl"};
-    string fragment_shader_path[] = {"shaders", "render_pipeline", "fragment_shader.glsl"};
-
-    string vertex_shader = PMMA::PMMA_Location;
-    for (const auto& part : vertex_shader_path) {
-        vertex_shader += PMMA::PathSeparator + part;
-    }
-
-    string fragment_shader = PMMA::PMMA_Location;
-    for (const auto& part : fragment_shader_path) {
-        fragment_shader += PMMA::PathSeparator + part;
-    }
-
-    CPP_Shader ShaderObject;
-    shader = ShaderObject.CreateShaderProgram(vertex_shader, fragment_shader);
-
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
 }
@@ -38,7 +18,6 @@ CPP_RenderPipelineManager::CPP_RenderPipelineManager() {
 CPP_RenderPipelineManager::~CPP_RenderPipelineManager() {
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
-    glDeleteProgram(shader);
 }
 
 void CPP_RenderPipelineManager::AddRenderTarget(RenderPipelineDataObject* NewObject) {
@@ -84,11 +63,7 @@ void CPP_RenderPipelineManager::InternalRender() {
 
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo);
 
-    glUseProgram(shader);
-    glUniformMatrix4fv(glGetUniformLocation(shader, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA::DisplayInstance->GetDisplayProjection()));
-
-    GLuint block_index = glGetUniformBlockIndex(shader, "ShapeColors");
-    glUniformBlockBinding(shader, block_index, 0);
+    glUseProgram(PMMA::RenderPipelineCore->shader);
 
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, combined_vertexes.size());

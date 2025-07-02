@@ -18,9 +18,6 @@ using RenderPipelineDataObject = std::variant<CPP_RadialPolygonShape*, CPP_Recta
 struct Vertex {
     glm::vec2 position;
     GLuint shape_id;
-
-    Vertex(glm::vec2 pos, GLuint index)
-        : position(pos), shape_id(index) {}
 };
 
 class EXPORT CPP_RenderPipelineManager {
@@ -29,11 +26,9 @@ class EXPORT CPP_RenderPipelineManager {
         std::vector<Vertex> combined_vertexes;
         std::vector<glm::vec4> shape_colors;
 
-        unsigned int MaxSize;
         unsigned int type = CPP_Constants::TYPE_RENDER_PIPELINE_MANAGER;
 
         GLuint vao, vbo;
-        GLuint shader;
 
         CPP_RenderPipelineManager();
         ~CPP_RenderPipelineManager();

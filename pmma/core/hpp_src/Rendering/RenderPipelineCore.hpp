@@ -14,8 +14,11 @@ using RenderDataObject = std::variant<CPP_RenderPipelineManager*, CPP_RadialPoly
 class EXPORT CPP_RenderPipelineCore {
     public:
         std::vector<RenderDataObject> RenderData;
+        unsigned int MaxSize;
+        GLuint shader;
 
         CPP_RenderPipelineCore();
+        ~CPP_RenderPipelineCore();
 
         void Render();
 
@@ -31,7 +34,7 @@ class EXPORT CPP_RenderPipelineCore {
             auto& lastVariant = RenderData.back();
             // Try to extract the CPP_RenderPipelineManager*
             if (CPP_RenderPipelineManager** managerPtr = std::get_if<CPP_RenderPipelineManager*>(&lastVariant)) {
-                if ((*managerPtr)->shape_colors.size() < (*managerPtr)->MaxSize) {
+                if ((*managerPtr)->shape_colors.size() < MaxSize) {
                     return (*managerPtr)->shape_colors.size();
                 } else {
                     return 0;

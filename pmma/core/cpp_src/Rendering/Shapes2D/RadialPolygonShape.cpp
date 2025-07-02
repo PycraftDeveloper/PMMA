@@ -49,7 +49,7 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
 
             // Reserve the exact number of vertices upfront
             size_t vertexCount = InternalPointCount * 2 + 2;
-            RenderPipelineVertexData.reserve(vertexCount);
+            RenderPipelineVertexData.resize(vertexCount);
 
             float angle = Rotation;
             float cx = ShapeCentre.x;
@@ -64,8 +64,10 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
                     float ox = outer_radius * cosA + cx;
                     float oy = outer_radius * sinA + cy;
 
-                    RenderPipelineVertexData.emplace_back(glm::vec2(ox, oy), ColorIndex);
-                    RenderPipelineVertexData.emplace_back(glm::vec2(cx, cy), ColorIndex);
+                    unsigned int index = i * 2;
+
+                    RenderPipelineVertexData[index] = {glm::vec2(ox, oy), ColorIndex};
+                    RenderPipelineVertexData[index + 1] = {glm::vec2(cx, cy), ColorIndex};
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
@@ -80,8 +82,10 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
                     float ix = inner_radius * cosA + cx;
                     float iy = inner_radius * sinA + cy;
 
-                    RenderPipelineVertexData.emplace_back(glm::vec2(ox, oy), ColorIndex);
-                    RenderPipelineVertexData.emplace_back(glm::vec2(ix, iy), ColorIndex);
+                    unsigned int index = i * 2;
+
+                    RenderPipelineVertexData[index] = {glm::vec2(ox, oy), ColorIndex};
+                    RenderPipelineVertexData[index + 1] = {glm::vec2(ix, iy), ColorIndex};
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
@@ -91,8 +95,8 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
             }
 
             // Close the shape by repeating the first pair
-            RenderPipelineVertexData.emplace_back(RenderPipelineVertexData[0]);
-            RenderPipelineVertexData.emplace_back(RenderPipelineVertexData[1]);
+            RenderPipelineVertexData[vertexCount - 2] = RenderPipelineVertexData[0];
+            RenderPipelineVertexData[vertexCount - 1] = RenderPipelineVertexData[1];
         }
 
         PMMA::RenderPipelineCore->AddObject(RenderPipelineData, RenderPipelineCompatible);
