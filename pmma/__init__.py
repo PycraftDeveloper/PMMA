@@ -48,8 +48,9 @@ import pmma.build.KeyEvents as KeyEvents
 import pmma.build.KeyPadEvents as KeyPadEvents
 import pmma.build.WindowEvents as WindowEvents
 import pmma.build.ControllerEvents as ControllerEvents
+import pmma.build.MouseEvents as MouseEvents
 from pmma.build.TextRenderer import *
-import pmma.build.Shapes2D as Shapes2D
+import pmma.build.RadialPolygonShape as RadialPolygonShape
 
 from pmma.core.py_src.Backpack import Backpack
 from pmma.core.py_src.Audio import *

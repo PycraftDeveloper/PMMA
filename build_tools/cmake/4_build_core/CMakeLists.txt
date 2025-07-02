@@ -24,21 +24,25 @@ set(SOURCES
     "${SRC_DIR}/PMMA_Core.cpp"
     "${SRC_DIR}/AdvancedMathematics.cpp"
     "${SRC_DIR}/Display.cpp"
-    "${SRC_DIR}/KeyEvents.cpp"
-    "${SRC_DIR}/WindowEvents.cpp"
-    "${SRC_DIR}/ControllerEvents.cpp"
-    "${SRC_DIR}/MouseEvents.cpp"
     "${SRC_DIR}/FractalBrownianMotion.cpp"
-    "${SRC_DIR}/InternalEventsManager.cpp"
     "${SRC_DIR}/NumberConverter.cpp"
     "${SRC_DIR}/PerlinNoise.cpp"
     "${SRC_DIR}/OpenGL.cpp"
-    "${SRC_DIR}/TextRenderer.cpp"
     "${SRC_DIR}/General.cpp"
-    "${SRC_DIR}/RenderPipelineCore.cpp"
-    "${SRC_DIR}/RenderPipelineManager.cpp"
-    "${SRC_DIR}/RadialPolygonShape.cpp"
-    "${SRC_DIR}/RectangleShape.cpp"
+
+    "${SRC_DIR}/Rendering/RenderPipelineCore.cpp"
+    "${SRC_DIR}/Rendering/RenderPipelineManager.cpp"
+    "${SRC_DIR}/Rendering/TextRenderer.cpp"
+
+    "${SRC_DIR}/Rendering/Shapes2D/RectangleShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/RadialPolygonShape.cpp"
+
+    "${SRC_DIR}/Events/InternalEventsManager.cpp"
+    "${SRC_DIR}/Events/KeyPadEvents.cpp"
+    "${SRC_DIR}/Events/KeyEvents.cpp"
+    "${SRC_DIR}/Events/WindowEvents.cpp"
+    "${SRC_DIR}/Events/ControllerEvents.cpp"
+    "${SRC_DIR}/Events/MouseEvents.cpp"
     )
 
 # Add shared library

@@ -9,7 +9,7 @@
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
-#include "RenderPipelineCore.hpp"
+#include "Rendering/RenderPipelineCore.hpp"
 
 #include "PMMA_Core.hpp"
 

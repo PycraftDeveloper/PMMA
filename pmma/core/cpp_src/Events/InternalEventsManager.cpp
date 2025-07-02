@@ -3,8 +3,8 @@
 
 #include <GLFW/glfw3.h>
 
-#include "InternalEventsManager.hpp"
-#include "KeyEvents.hpp"
+#include "Events/InternalEventsManager.hpp"
+#include "Events/KeyEvents.hpp"
 
 #include "PMMA_Core.hpp"
 

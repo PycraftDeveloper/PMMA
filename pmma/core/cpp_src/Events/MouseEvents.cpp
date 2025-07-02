@@ -3,7 +3,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "MouseEvents.hpp"
+#include "Events/MouseEvents.hpp"
 
 #include "PMMA_Core.hpp"
 

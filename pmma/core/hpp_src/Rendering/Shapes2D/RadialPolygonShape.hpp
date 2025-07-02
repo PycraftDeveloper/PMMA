@@ -6,7 +6,7 @@
 #include <glm/glm.hpp>
 
 #include "Constants.hpp"
-#include "RenderPipelineManager.hpp"
+#include "Rendering/RenderPipelineManager.hpp"
 
 class EXPORT CPP_RadialPolygonShape {
     public:

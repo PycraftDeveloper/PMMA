@@ -1,7 +1,7 @@
 #include <cmath>
 
-#include "RadialPolygonShape.hpp"
-#include "RenderPipelineManager.hpp"
+#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
+#include "Rendering/RenderPipelineManager.hpp"
 #include "Constants.hpp"
 #include "PMMA_Core.hpp"
 

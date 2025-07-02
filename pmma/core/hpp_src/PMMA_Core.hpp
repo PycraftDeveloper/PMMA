@@ -6,20 +6,21 @@
 
 #include "General.hpp"
 
-#include "RadialPolygonShape.hpp"
-#include "RectangleShape.hpp"
-#include "RenderPipelineManager.hpp"
-#include "RenderPipelineCore.hpp"
+#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
+#include "Rendering/Shapes2D/RectangleShape.hpp"
+#include "Rendering/RenderPipelineManager.hpp"
+#include "Rendering/RenderPipelineCore.hpp"
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
 
-#include "KeyEvents.hpp"
-#include "MouseEvents.hpp"
-#include "WindowEvents.hpp"
-#include "ControllerEvents.hpp"
+#include "Events/KeyEvents.hpp"
+#include "Events/KeyPadEvents.hpp"
+#include "Events/MouseEvents.hpp"
+#include "Events/WindowEvents.hpp"
+#include "Events/ControllerEvents.hpp"
 
-#include "InternalEventsManager.hpp"
+#include "Events/InternalEventsManager.hpp"
 
 /*
 Notes:
@@ -204,8 +205,7 @@ namespace PMMA {
 }
 
 #include "AdvancedMathematics.hpp"
-#include "InternalEventsManager.hpp"
 #include "FractalBrownianMotion.hpp"
 #include "PerlinNoise.hpp"
 #include "OpenGL.hpp"
-#include "TextRenderer.hpp"
+#include "Rendering/TextRenderer.hpp"

@@ -1,5 +1,5 @@
-#include "RenderPipelineCore.hpp"
-#include "RenderPipelineManager.hpp"
+#include "Rendering/RenderPipelineCore.hpp"
+#include "Rendering/RenderPipelineManager.hpp"
 
 #include <iostream>
 

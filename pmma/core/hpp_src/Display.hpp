@@ -15,7 +15,7 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "RenderPipelineCore.hpp"
+#include "Rendering/RenderPipelineCore.hpp"
 
 class CPP_ColorConverter;
 

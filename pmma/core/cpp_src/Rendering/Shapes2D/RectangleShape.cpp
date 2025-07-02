@@ -1,4 +1,4 @@
-#include "RectangleShape.hpp"
+#include "Rendering/Shapes2D/RectangleShape.hpp"
 
 void CPP_RectangleShape::Render() {
 

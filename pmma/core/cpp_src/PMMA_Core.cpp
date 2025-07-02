@@ -5,10 +5,11 @@
 
 #include "PMMA_Core.hpp"
 
-#include "KeyEvents.hpp"
-#include "MouseEvents.hpp"
-#include "WindowEvents.hpp"
-#include "ControllerEvents.hpp"
+#include "Events/KeyEvents.hpp"
+#include "Events/KeyPadEvents.hpp"
+#include "Events/MouseEvents.hpp"
+#include "Events/WindowEvents.hpp"
+#include "Events/ControllerEvents.hpp"
 
 using namespace std;
 

@@ -161,8 +161,15 @@ else:
     scan_files_for_changes(pyx_src_dir, BUILD_CYTHON)
 
     if not BUILD_CYTHON in to_do:
+        raw_files = []
+        for dirpath, dirnames, filenames in os.walk(pyx_src_dir):
+            full_dirpath = os.path.abspath(dirpath)
+            # Remove files not in keep paths
+            for filename in filenames:
+                if not ".pyx" in filename:
+                    raw_files.append(filename)
+
         built_files = os.listdir(build_dir)
-        raw_files = os.listdir(pyx_src_dir)
 
         for raw_file in raw_files:
             found = False

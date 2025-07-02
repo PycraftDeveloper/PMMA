@@ -5,9 +5,9 @@
 #include <variant>
 #include <iostream>
 
-#include "RadialPolygonShape.hpp"
-#include "RectangleShape.hpp"
-#include "RenderPipelineManager.hpp"
+#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
+#include "Rendering/Shapes2D/RectangleShape.hpp"
+#include "Rendering/RenderPipelineManager.hpp"
 
 using RenderDataObject = std::variant<CPP_RenderPipelineManager*, CPP_RadialPolygonShape*, CPP_RectangleShape*>;
 

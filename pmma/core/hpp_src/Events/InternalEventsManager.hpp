@@ -3,7 +3,7 @@
 
 #include <GLFW/glfw3.h>
 
-#include "KeyEvents.hpp"
+#include "Events/KeyEvents.hpp"
 
 class EXPORT CPP_InternalKeyEventManager {
     private:
