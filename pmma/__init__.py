@@ -14,8 +14,15 @@ pmma_lib_dir = os.path.join(pmma_dir, "lib")
 if system == "Windows":
     extern_binaries = os.path.join(pmma_dir, "extern", "bin")
 
-    ctypes.CDLL(os.path.join(extern_binaries, "zlib.dll"))
-    ctypes.CDLL(os.path.join(extern_binaries, "libpng16.dll"))
+    try:
+        ctypes.CDLL(os.path.join(extern_binaries, "zlib.dll"))
+        ctypes.CDLL(os.path.join(extern_binaries, "libpng16.dll"))
+    except FileNotFoundError:
+        ctypes.CDLL(os.path.join(extern_binaries, "zlibd.dll"))
+        ctypes.CDLL(os.path.join(extern_binaries, "libpng16d.dll"))
+        print("You are using a DEBUGGING version of PMMA, this is not \
+meant for prime time and is used only for debugging or development testing.")
+
     ctypes.CDLL(os.path.join(pmma_lib_dir, "PMMA_Core.dll"))
 
 elif system == "Linux":
