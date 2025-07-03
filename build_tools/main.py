@@ -31,6 +31,7 @@ extern_lib_dir = os.path.join(extern_dir, "lib")
 temp_dir = os.path.join(cwd, "temporary")
 temp_cache_dir = os.path.join(temp_dir, "cache")
 temp_platform_cache_dir = os.path.join(temp_cache_dir, operating_system_type)
+temp_platform_opposite_build_type_cache_dir = os.path.join(temp_cache_dir, operating_system_type + " - DEBUG")
 
 build_tools_dir = os.path.join(cwd, "build_tools")
 cmake_dir = os.path.join(build_tools_dir, "cmake")
@@ -152,7 +153,14 @@ def cache_files(dir):
 if not os.path.exists(temp_platform_cache_dir):
     print("Cache not found, building from scratch. This will take a while.")
     if os.path.exists(temp_dir):
-        shutil.rmtree(temp_dir, ignore_errors=True)
+        if os.path.exists(temp_dir):
+            for dirpath, dirnames, filenames in os.walk(temp_cache_dir):
+                for dirname in dirnames:
+                    full_path = os.path.join(dirpath, dirname)
+                    # Skip deletion if this is the excluded path
+                    if os.path.abspath(full_path) == os.path.abspath(temp_platform_opposite_build_type_cache_dir):
+                        continue
+                    shutil.rmtree(full_path)
 
     os.makedirs(temp_platform_cache_dir)
     to_do = [BUILD_CORE, BUILD_CYTHON, BUILD_DEPENDENCIES]

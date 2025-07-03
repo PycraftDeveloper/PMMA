@@ -6,7 +6,7 @@ option(BUILD_DEPS "Build PMMA_Core's dependencies" ON)
 get_filename_component(DIR_ONE_ABOVE "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
 get_filename_component(ROOT "${DIR_ONE_ABOVE}/.." ABSOLUTE)
 
-set(EXTERN_DIR "${ROOT}/pmma/extern")
+set(EXTERN_DIR "${ROOT}/pmma/extern - DEBUG")
 file(MAKE_DIRECTORY ${EXTERN_DIR})
 
 set(EXTERN_LIBS "${EXTERN_DIR}/lib")
@@ -15,7 +15,7 @@ file(MAKE_DIRECTORY ${EXTERN_LIBS})
 set(EXTERN_INCLUDE "${EXTERN_DIR}/include")
 file(MAKE_DIRECTORY ${EXTERN_INCLUDE})
 
-set(CORE_LIB "${ROOT}/pmma/lib")
+set(CORE_LIB "${ROOT}/pmma/lib - DEBUG")
 file(MAKE_DIRECTORY ${CORE_LIB})
 
 include(ExternalProject)

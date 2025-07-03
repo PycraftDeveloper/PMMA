@@ -17,7 +17,7 @@ set(INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/pmma/core/hpp_src")
 set(EXTERN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/pmma/extern)
 
 # Output directory for the library
-set(LIB_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/pmma/lib")
+set(LIB_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/pmma/lib - DEBUG")
 
 # Collect source files
 set(SOURCES
@@ -91,9 +91,9 @@ set_target_properties(${LIB_NAME} PROPERTIES
 )
 
 install(TARGETS ${LIB_NAME}
-    ARCHIVE DESTINATION ${CMAKE_INSTALL_PREFIX}/pmma/lib
-    LIBRARY DESTINATION ${CMAKE_INSTALL_PREFIX}/pmma/lib
-    RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX}/pmma/lib
+    ARCHIVE DESTINATION "${CMAKE_INSTALL_PREFIX}/pmma/lib - DEBUG"
+    LIBRARY DESTINATION "${CMAKE_INSTALL_PREFIX}/pmma/lib - DEBUG"
+    RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}/pmma/lib - DEBUG"
 )
 
 message(STATUS "PMMA_Core & Dependencies code compilation complete!")

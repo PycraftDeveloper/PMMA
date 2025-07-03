@@ -12,20 +12,30 @@ pmma_dir = os.path.dirname(os.path.abspath(__file__))
 pmma_lib_dir = os.path.join(pmma_dir, "lib")
 
 if system == "Windows":
-    extern_binaries = os.path.join(pmma_dir, "extern", "bin")
-
-    try:
+    if os.environ["PMMA_DEBUG"] == "1":
+        try:
+            extern_binaries = os.path.join(pmma_dir, "extern - DEBUG", "bin")
+            ctypes.CDLL(os.path.join(extern_binaries, "zlibd.dll"))
+            ctypes.CDLL(os.path.join(extern_binaries, "libpng16d.dll"))
+            print("You are using a DEBUGGING version of PMMA, this is not \
+meant for prime time and is used only for debugging or development testing.")
+        except FileNotFoundError:
+            print("Could not find DEBUG files, please run: 'build_tools/main - debug.py'. Using release files instead")
+            extern_binaries = os.path.join(pmma_dir, "extern", "bin")
+            ctypes.CDLL(os.path.join(extern_binaries, "zlib.dll"))
+            ctypes.CDLL(os.path.join(extern_binaries, "libpng16.dll"))
+    else:
+        extern_binaries = os.path.join(pmma_dir, "extern", "bin")
         ctypes.CDLL(os.path.join(extern_binaries, "zlib.dll"))
         ctypes.CDLL(os.path.join(extern_binaries, "libpng16.dll"))
-    except FileNotFoundError:
-        ctypes.CDLL(os.path.join(extern_binaries, "zlibd.dll"))
-        ctypes.CDLL(os.path.join(extern_binaries, "libpng16d.dll"))
-        print("You are using a DEBUGGING version of PMMA, this is not \
-meant for prime time and is used only for debugging or development testing.")
 
     ctypes.CDLL(os.path.join(pmma_lib_dir, "PMMA_Core.dll"))
 
 elif system == "Linux":
+    if os.environ["PMMA_DEBUG"] == "1":
+        print("We don't currently support Linux debugging. You might be \
+the person to help change this! Defaulting to release files instead.")
+
     extern_libs = os.path.join(pmma_dir, "extern", "lib")
 
     ctypes.CDLL(os.path.join(extern_libs, "libz.so"))
@@ -33,6 +43,11 @@ elif system == "Linux":
     ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.so"))
 
 elif system == "Darwin":
+    if os.environ["PMMA_DEBUG"] == "1":
+        print("We don't currently support Apple platform debugging. You \
+might be the person to help change this! Defaulting to release files \
+instead.")
+
     extern_libs = os.path.join(pmma_dir, "extern", "lib")
 
     ctypes.CDLL(os.path.join(extern_libs, "zlib.dylib"))

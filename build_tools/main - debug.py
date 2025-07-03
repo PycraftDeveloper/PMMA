@@ -22,21 +22,22 @@ hpp_src_dir = os.path.join(pmma_core_dir, "hpp_src")
 cpp_src_dir = os.path.join(pmma_core_dir, "cpp_src")
 py_src_dir = os.path.join(pmma_core_dir, "py_src")
 
-pmma_core_lib_dir = os.path.join(pmma_dir, "lib")
+pmma_core_lib_dir = os.path.join(pmma_dir, "lib - DEBUG")
 
 build_dir = os.path.join(pmma_dir, "build")
 
-extern_dir = os.path.join(pmma_dir, "extern")
+extern_dir = os.path.join(pmma_dir, "extern - DEBUG")
 extern_bin_dir = os.path.join(extern_dir, "bin")
 extern_include_dir = os.path.join(extern_dir, "include")
 extern_lib_dir = os.path.join(extern_dir, "lib")
 
 temp_dir = os.path.join(cwd, "temporary")
 temp_cache_dir = os.path.join(temp_dir, "cache")
-temp_platform_cache_dir = os.path.join(temp_cache_dir, operating_system_type + " - Debug")
+temp_platform_cache_dir = os.path.join(temp_cache_dir, operating_system_type + " - DEBUG")
+temp_platform_opposite_build_type_cache_dir = os.path.join(temp_cache_dir, operating_system_type)
 
 build_tools_dir = os.path.join(cwd, "build_tools")
-cmake_dir = os.path.join(build_tools_dir, "cmake - debug")
+cmake_dir = os.path.join(build_tools_dir, "cmake - DEBUG")
 
 cmake_temp_dir = os.path.join(temp_dir, "cmake")
 
@@ -155,7 +156,13 @@ def cache_files(dir):
 if not os.path.exists(temp_platform_cache_dir):
     print("Cache not found, building from scratch. This will take a while.")
     if os.path.exists(temp_dir):
-        shutil.rmtree(temp_dir, ignore_errors=True)
+        for dirpath, dirnames, filenames in os.walk(temp_cache_dir):
+            for dirname in dirnames:
+                full_path = os.path.join(dirpath, dirname)
+                # Skip deletion if this is the excluded path
+                if os.path.abspath(full_path) == os.path.abspath(temp_platform_opposite_build_type_cache_dir):
+                    continue
+                shutil.rmtree(full_path)
 
     os.makedirs(temp_platform_cache_dir)
     to_do = [BUILD_CORE, BUILD_CYTHON, BUILD_DEPENDENCIES]
