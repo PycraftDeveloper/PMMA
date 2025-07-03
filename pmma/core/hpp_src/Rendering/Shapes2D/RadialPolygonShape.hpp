@@ -41,7 +41,7 @@ class EXPORT CPP_RadialPolygonShape {
 
         void InternalRender();
 
-        void SetColor(float* in_color, unsigned int size) {
+        inline void SetColor(float* in_color, unsigned int size) {
             UsingGradients = size > 4; // (determine if multiple colors inputted)
 
             std::vector<glm::vec4> NewColorData;
@@ -62,9 +62,9 @@ class EXPORT CPP_RadialPolygonShape {
 
             ColorSet = true;
             ColorData = NewColorData;
-        }
+        };
 
-        void SetCentre(unsigned int* in_position) {
+        inline void SetCentre(unsigned int* in_position) {
             if (CentreSet && in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
@@ -73,9 +73,9 @@ class EXPORT CPP_RadialPolygonShape {
 
             ShapeCentre = glm::vec2(in_position[0], in_position[1]);
             CentreSet = true;
-        }
+        };
 
-        void SetRadius(unsigned int in_radius) {
+        inline void SetRadius(unsigned int in_radius) {
             if (RadiusSet && in_radius != Radius) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
@@ -84,9 +84,9 @@ class EXPORT CPP_RadialPolygonShape {
 
             Radius = in_radius;
             RadiusSet = true;
-        }
+        };
 
-        void SetPointCount(unsigned int in_pointCount) {
+        inline void SetPointCount(unsigned int in_pointCount) {
             if (PointCountSet && in_pointCount != PointCount) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
@@ -95,9 +95,9 @@ class EXPORT CPP_RadialPolygonShape {
 
             PointCount = in_pointCount;
             PointCountSet = true;
-        }
+        };
 
-        void SetWidth(unsigned int in_width) {
+        inline void SetWidth(unsigned int in_width) {
             if (WidthSet && in_width != Width) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
@@ -106,5 +106,15 @@ class EXPORT CPP_RadialPolygonShape {
 
             Width = in_width;
             WidthSet = true;
+        };
+
+        inline void SetRotation(float in_rotation) {
+            if (in_rotation != Rotation) {
+                Changed = true;
+                RenderPipelineVertexData.clear();
+                VertexData.clear();
+            }
+
+            Rotation = in_rotation;
         }
 };

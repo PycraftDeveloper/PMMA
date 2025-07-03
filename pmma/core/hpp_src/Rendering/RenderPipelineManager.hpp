@@ -36,4 +36,6 @@ class EXPORT CPP_RenderPipelineManager {
         void AddRenderTarget(RenderPipelineDataObject* NewObject);
 
         void InternalRender();
+
+        void InternalAddRenderTarget(CPP_RadialPolygonShape* TargetPtr);
 };

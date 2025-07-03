@@ -20,28 +20,27 @@ CPP_RenderPipelineManager::~CPP_RenderPipelineManager() {
     glDeleteVertexArrays(1, &vao);
 }
 
+void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RadialPolygonShape* TargetPtr) {
+    shape_colors.emplace_back(TargetPtr->RenderPipelineColorData);
+
+    const auto& vertices = TargetPtr->RenderPipelineVertexData;
+
+    // Insert degenerate vertices if this is not the first shape
+    if (!combined_vertexes.empty() && vertices.size() >= 2) {
+        // Repeat last vertex of previous shape
+        combined_vertexes.emplace_back(combined_vertexes.back());
+
+        // Repeat first vertex of new shape
+        combined_vertexes.emplace_back(vertices[0]);
+    }
+
+    combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
+}
+
 void CPP_RenderPipelineManager::AddRenderTarget(RenderPipelineDataObject* NewObject) {
-    std::visit([&](auto* actualPtr) {
-        GLuint color_index = shape_colors.size();
-        shape_colors.emplace_back(actualPtr->RenderPipelineColorData);
-
-        const auto& vertices = actualPtr->RenderPipelineVertexData;
-
-        //combined_vertexes.reserve(combined_vertexes.size() + vertices.size() + 2);
-
-        // Insert degenerate vertices if this is not the first shape
-        if (!combined_vertexes.empty() && vertices.size() >= 2) {
-            // Repeat last vertex of previous shape
-            combined_vertexes.emplace_back(combined_vertexes.back());
-
-            // Repeat first vertex of new shape
-            combined_vertexes.emplace_back(vertices[0]);
-        }
-
-        // Add actual shape vertices
-        combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
-
-    }, *NewObject);
+    if (auto actualPtr = std::get_if<CPP_RadialPolygonShape*>(NewObject)) {
+        InternalAddRenderTarget(*actualPtr);
+    }
 }
 
 void CPP_RenderPipelineManager::InternalRender() {

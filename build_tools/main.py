@@ -102,7 +102,7 @@ def selective_removal(directory, keep_items):
                 except Exception as e:
                     print("Could not delete directory:", item_path, "-", e)
 
-def scan_files_for_changes(dir, component):
+def scan_files_for_changes(dir, component, ignore=[]):
     if component in to_do:
         return
 
@@ -115,6 +115,9 @@ def scan_files_for_changes(dir, component):
         for filename in filenames:
             full_path = os.path.join(full_dirpath, filename)
             cache_path = full_path.replace(cwd, temp_platform_cache_dir)
+
+            if any(full_path.endswith(ending) for ending in ignore):
+                continue
 
             if not os.path.exists(cache_path):
                 print(f"File {full_path} not found in cache.")
@@ -166,7 +169,7 @@ if not os.path.exists(temp_platform_cache_dir):
     to_do = [BUILD_CORE, BUILD_CYTHON, BUILD_DEPENDENCIES]
 else:
     print("Looking for PYX changes.")
-    scan_files_for_changes(pyx_src_dir, BUILD_CYTHON)
+    scan_files_for_changes(pyx_src_dir, BUILD_CYTHON, ignore=[".cpp", ".html"])
 
     if not BUILD_CYTHON in to_do:
         raw_files = []
@@ -295,8 +298,8 @@ else:
     if BUILD_CYTHON in to_do:
         print("Building Cython.")
 
-        if os.path.exists(build_dir):
-            selective_removal(build_dir, [".pyi"])
+        #if os.path.exists(build_dir):
+            #selective_removal(build_dir, [".pyi"])
 
         if os.path.exists(pyx_src_dir):
             selective_removal(pyx_src_dir, [".pyx", ".pxd"])

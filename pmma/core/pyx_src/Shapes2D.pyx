@@ -13,15 +13,12 @@ import pmma.core.py_src.Utility as Utility
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_RadialPolygonShape:
-        void SetColor(float* in_color, unsigned int size) except + nogil
-
-        void SetCentre(unsigned int* in_position) except + nogil
-
-        void SetRadius(unsigned int in_radius) except + nogil
-
-        void SetPointCount(unsigned int in_pointCount) except + nogil
-
-        void SetWidth(unsigned int in_width) except + nogil
+        inline void SetColor(float* in_color, unsigned int size) except + nogil
+        inline void SetCentre(unsigned int* in_position) except + nogil
+        inline void SetRadius(unsigned int in_radius) except + nogil
+        inline void SetPointCount(unsigned int in_pointCount) except + nogil
+        inline void SetWidth(unsigned int in_width) except + nogil
+        inline void SetRotation(float rotation) except + nogil
 
         void Render(float ShapeQuality) except + nogil
 
@@ -74,3 +71,6 @@ cdef class RadialPolygon:
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
+
+    def set_rotation(self, rotation):
+        self.cpp_class_ptr.SetRotation(rotation)

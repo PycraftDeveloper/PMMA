@@ -14,7 +14,7 @@ set(LIB_NAME PMMA_Core)
 set(SRC_DIR "${CMAKE_INSTALL_PREFIX}/pmma/core/cpp_src")
 set(INCLUDE_DIR "${CMAKE_INSTALL_PREFIX}/pmma/core/hpp_src")
 
-set(EXTERN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/pmma/extern)
+set(EXTERN_INSTALL_DIR "${CMAKE_INSTALL_PREFIX}/pmma/extern - DEBUG")
 
 # Output directory for the library
 set(LIB_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/pmma/lib - DEBUG")

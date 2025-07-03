@@ -12,7 +12,7 @@ pmma_dir = os.path.dirname(os.path.abspath(__file__))
 pmma_lib_dir = os.path.join(pmma_dir, "lib")
 
 if system == "Windows":
-    if os.environ["PMMA_DEBUG"] == "1":
+    if "PMMA_DEBUG" in os.environ and os.environ["PMMA_DEBUG"] == "1":
         try:
             extern_binaries = os.path.join(pmma_dir, "extern - DEBUG", "bin")
             ctypes.CDLL(os.path.join(extern_binaries, "zlibd.dll"))
@@ -32,7 +32,7 @@ meant for prime time and is used only for debugging or development testing.")
     ctypes.CDLL(os.path.join(pmma_lib_dir, "PMMA_Core.dll"))
 
 elif system == "Linux":
-    if os.environ["PMMA_DEBUG"] == "1":
+    if "PMMA_DEBUG" in os.environ and os.environ["PMMA_DEBUG"] == "1":
         print("We don't currently support Linux debugging. You might be \
 the person to help change this! Defaulting to release files instead.")
 
@@ -43,7 +43,7 @@ the person to help change this! Defaulting to release files instead.")
     ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.so"))
 
 elif system == "Darwin":
-    if os.environ["PMMA_DEBUG"] == "1":
+    if "PMMA_DEBUG" in os.environ and os.environ["PMMA_DEBUG"] == "1":
         print("We don't currently support Apple platform debugging. You \
 might be the person to help change this! Defaulting to release files \
 instead.")

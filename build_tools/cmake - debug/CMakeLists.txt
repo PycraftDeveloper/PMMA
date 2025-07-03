@@ -18,17 +18,33 @@ file(MAKE_DIRECTORY ${EXTERN_INCLUDE})
 set(CORE_LIB "${ROOT}/pmma/lib - DEBUG")
 file(MAKE_DIRECTORY ${CORE_LIB})
 
+find_program(CCACHE_PROGRAM ccache)
+
+if(CCACHE_PROGRAM)
+    message(STATUS "Using ccache for compilation")
+    list(APPEND CMAKE_ARGS
+        -DCMAKE_C_COMPILER=${CCACHE_PROGRAM}
+        -DCMAKE_C_COMPILER_ARG1=gcc
+        -DCMAKE_CXX_COMPILER=${CCACHE_PROGRAM}
+        -DCMAKE_CXX_COMPILER_ARG1=g++
+    )
+endif()
+
 include(ExternalProject)
 
 if (BUILD_DEPS)
     ExternalProject_Add(stage1
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/1_build_deps_first_pass" # LibZ
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+        CMAKE_ARGS
+            -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            ${CMAKE_ARGS}
     )
 
     ExternalProject_Add(stage2
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/2_build_deps_second_pass" # libpng
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+        CMAKE_ARGS
+            -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            ${CMAKE_ARGS}
         DEPENDS stage1
     )
 
@@ -39,13 +55,24 @@ if (BUILD_DEPS)
         set(ZLIB_LIBRARY ${EXTERN_DIR}/lib/libz.so)
         set(PNG_LIBRARY ${EXTERN_DIR}/lib/libpng.so)
     elseif (WIN32)
-        set(ZLIB_LIBRARY ${EXTERN_DIR}/bin/zlib.dll)
-        set(PNG_LIBRARY ${EXTERN_DIR}/bin/libpng16.dll)
+        set(ZLIB_LIBRARY ${EXTERN_DIR}/bin/zlibd.dll)
+        set(PNG_LIBRARY ${EXTERN_DIR}/bin/libpng16d.dll)
     endif()
 
     ExternalProject_Add(stage3
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/3_build_extern" # GLFW, FreeType, GLM
-        CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR} -DFT_DISABLE_BZIP2=ON -DFT_DISABLE_BROTLI=ON -DGLFW_BUILD_EXAMPLES=OFF -DGLFW_BUILD_TESTS=OFF -DGLFW_BUILD_DOCS=OFF -DZLIB_LIBRARY=${ZLIB_LIBRARY} -DZLIB_INCLUDE_DIR=${EXTERN_DIR}/include -DPNG_LIBRARY=${PNG_LIBRARY} -DPNG_INCLUDE_DIR=${EXTERN_DIR}/include
+        CMAKE_ARGS
+            -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            -DFT_DISABLE_BZIP2=ON
+            -DFT_DISABLE_BROTLI=ON
+            -DGLFW_BUILD_EXAMPLES=OFF
+            -DGLFW_BUILD_TESTS=OFF
+            -DGLFW_BUILD_DOCS=OFF
+            -DZLIB_LIBRARY=${ZLIB_LIBRARY}
+            -DZLIB_INCLUDE_DIR=${EXTERN_DIR}/include
+            -DPNG_LIBRARY=${PNG_LIBRARY}
+            -DPNG_INCLUDE_DIR=${EXTERN_DIR}/include
+            ${CMAKE_ARGS}
         DEPENDS stage2
     )
 endif()
@@ -58,6 +85,8 @@ endif()
 
 ExternalProject_Add(stage4
     SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
-    CMAKE_ARGS -DCMAKE_INSTALL_PREFIX=${ROOT}
+    CMAKE_ARGS
+        -DCMAKE_INSTALL_PREFIX=${ROOT}
+        ${CMAKE_ARGS}
     ${STAGE4_DEPENDS}
 )
