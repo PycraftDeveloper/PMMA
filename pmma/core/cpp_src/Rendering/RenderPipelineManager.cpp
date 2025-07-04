@@ -4,6 +4,7 @@
 
 #include <vector>
 #include <chrono>
+#include <iostream>
 
 #include "Rendering/RenderPipelineManager.hpp"
 #include "PMMA_Core.hpp"
@@ -21,7 +22,11 @@ CPP_RenderPipelineManager::~CPP_RenderPipelineManager() {
 }
 
 void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RadialPolygonShape* TargetPtr) {
-    shape_colors.emplace_back(TargetPtr->RenderPipelineColorData);
+    glm::vec4 Color = TargetPtr->RenderPipelineColorData;
+    shape_colors.emplace_back(Color);
+    if (Color.w != 1) {
+        HasAlpha = true;
+    }
 
     const auto& vertices = TargetPtr->RenderPipelineVertexData;
 
@@ -37,8 +42,8 @@ void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RadialPolygonShape* 
     combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
 }
 
-void CPP_RenderPipelineManager::AddRenderTarget(RenderPipelineDataObject* NewObject) {
-    if (auto actualPtr = std::get_if<CPP_RadialPolygonShape*>(NewObject)) {
+void CPP_RenderPipelineManager::AddRenderTarget(const RenderPipelineDataObject& NewObject) {
+    if (auto actualPtr = std::get_if<CPP_RadialPolygonShape*>(&NewObject)) {
         InternalAddRenderTarget(*actualPtr);
     }
 }
@@ -62,10 +67,19 @@ void CPP_RenderPipelineManager::InternalRender() {
 
     glBindBufferBase(GL_UNIFORM_BUFFER, 0, ubo);
 
+    if (HasAlpha) {
+        glEnable(GL_BLEND);
+        glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    }
+
     glUseProgram(PMMA::RenderPipelineCore->shader);
 
     glBindVertexArray(vao);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, combined_vertexes.size());
 
     glDeleteBuffers(1, &ubo);
+
+    if (HasAlpha) {
+        glDisable(GL_BLEND);
+    }
 }

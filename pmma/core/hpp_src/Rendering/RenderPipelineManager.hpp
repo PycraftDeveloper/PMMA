@@ -29,11 +29,12 @@ class EXPORT CPP_RenderPipelineManager {
         unsigned int type = CPP_Constants::TYPE_RENDER_PIPELINE_MANAGER;
 
         GLuint vao, vbo;
+        bool HasAlpha = false;
 
         CPP_RenderPipelineManager();
         ~CPP_RenderPipelineManager();
 
-        void AddRenderTarget(RenderPipelineDataObject* NewObject);
+        void AddRenderTarget(const RenderPipelineDataObject& NewObject);
 
         void InternalRender();
 

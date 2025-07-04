@@ -59,14 +59,14 @@ void CPP_RenderPipelineCore::Clear() {
     RenderData.clear();
 }
 
-void CPP_RenderPipelineCore::AddObject(RenderPipelineDataObject* RenderObject, bool RenderPipelineCompatable) {
+void CPP_RenderPipelineCore::AddObject(const RenderPipelineDataObject& RenderObject, bool RenderPipelineCompatable) {
     if (RenderData.empty()) {
         if (RenderPipelineCompatable) {
             RenderData.emplace_back(new CPP_RenderPipelineManager());
         } else {
-            std::visit([&](auto* actualPtr) {
+            visit([&](auto* actualPtr) {
                 RenderData.emplace_back(actualPtr);
-            }, *RenderObject);
+            }, RenderObject);
             return;
         }
     }
@@ -96,8 +96,8 @@ void CPP_RenderPipelineCore::AddObject(RenderPipelineDataObject* RenderObject, b
         }
     } else {
         // If not compatible, just add it
-        std::visit([&](auto* actualPtr) {
+        visit([&](auto* actualPtr) {
             RenderData.emplace_back(actualPtr);
-        }, *RenderObject);
+        }, RenderObject);
     }
 }

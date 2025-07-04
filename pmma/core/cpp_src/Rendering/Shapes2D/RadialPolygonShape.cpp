@@ -23,9 +23,15 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
         return;
     }
 
-    bool RenderPipelineCompatible = (HasAlpha == false && UsingGradients == false);
+    bool RenderPipelineCompatible = (UsingGradients == false);
 
     if (RenderPipelineCompatible) {
+        GLuint newColorIndex = PMMA::RenderPipelineCore->GetColorIndex();
+        if (newColorIndex != ColorIndex) {
+            Changed = true;
+            ColorIndex = newColorIndex;
+        }
+
         if (Changed) {
             Changed = false;
 
@@ -37,7 +43,7 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
                 InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
             }
 
-            GLuint ColorIndex = PMMA::RenderPipelineCore->GetColorIndex();
+
             float angleStep = CPP_Constants::TAU / InternalPointCount;
 
             unsigned int outer_radius = Radius;
@@ -99,7 +105,7 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
             RenderPipelineVertexData[vertexCount - 1] = RenderPipelineVertexData[1];
         }
 
-        PMMA::RenderPipelineCore->AddObject(RenderPipelineData, RenderPipelineCompatible);
+        PMMA::RenderPipelineCore->AddObject(*RenderPipelineData, RenderPipelineCompatible);
     } else {
         if (Changed) {
             // Calculate data and add to buffers

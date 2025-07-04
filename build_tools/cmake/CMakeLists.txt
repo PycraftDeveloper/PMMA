@@ -87,6 +87,6 @@ ExternalProject_Add(stage4
     SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${ROOT}
-        ${CMAKE_ARGS}
     ${STAGE4_DEPENDS}
+    BUILD_ALWAYS 1
 )

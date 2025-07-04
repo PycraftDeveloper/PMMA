@@ -24,7 +24,7 @@ class EXPORT CPP_RenderPipelineCore {
 
         void Clear();
 
-        void AddObject(RenderPipelineDataObject* RenderObject, bool RenderPipelineCompatable=true);
+        void AddObject(const RenderPipelineDataObject& RenderObject, bool RenderPipelineCompatable=true);
 
         inline GLuint GetColorIndex() {
             if (RenderData.empty()) {

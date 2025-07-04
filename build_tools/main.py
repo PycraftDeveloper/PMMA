@@ -1,6 +1,7 @@
 #type: ignore
 
 import os, platform, shutil, site, subprocess, multiprocessing, sys
+import random
 
 operating_system_type = platform.system()
 
@@ -256,6 +257,12 @@ else:
     cache_files(cpp_src_dir)
     cache_files(cmake_dir)
     cache_files(pyx_src_dir)
+
+    if random.randint(0, 10) == 0:
+        print("Attempting to refresh cython code.")
+        to_do.append(BUILD_CYTHON)
+        if os.path.exists(build_dir):
+            selective_removal(build_dir, [".pyi"])
 
     if BUILD_CORE in to_do and not BUILD_DEPENDENCIES in to_do:
         print("Configuring PMMA Core.")
