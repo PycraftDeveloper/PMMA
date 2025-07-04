@@ -70,16 +70,16 @@ endforeach()
 find_package(OpenGL REQUIRED)
 
 if (WIN32)
-    add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251)
+    add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /0b2)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
     target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype libpng16 zlib harfbuzz)
 
 elseif(APPLE)
-    add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
+    add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17 -mtune=generic -finline-functions -flto -ftree-vectorize)
     target_link_libraries(${LIB_NAME} PRIVATE "-framework Cocoa" "-framework OpenGL" "-framework IOKit" "-framework CoreVideo" glfw3 freetype png z harfbuzz)
 
 elseif(UNIX)
-    add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17)
+    add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17 -mtune=generic -finline-functions -flto -ftree-vectorize)
     target_link_libraries(${LIB_NAME} PRIVATE glfw3 OpenGL::GL freetype png z harfbuzz)
 endif()
 
@@ -97,3 +97,10 @@ install(TARGETS ${LIB_NAME}
 )
 
 message(STATUS "PMMA_Core & Dependencies code compilation complete!")
+
+# AVX2 MSVC ADD: /arch:AVX2
+# AVX2 GCC/CLANG ADD: -mavx2 -mfma
+# Note: -mfma is enabled automatically on MSVC with AVX2 flag
+
+# AVX512 MSVC ADD: /arch:AVX512
+# AVX512 GCC?CLANG ADD: -mavx512f
