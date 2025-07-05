@@ -37,6 +37,13 @@ CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
 }
 
 CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
+    for (unsigned int i = 0; i < RenderData.size(); ++i) {
+        if (CPP_RenderPipelineManager** newManagerPtr = std::get_if<CPP_RenderPipelineManager*>(&RenderData[i])) {
+            delete (*newManagerPtr);
+        }
+    }
+    RenderData.clear();
+
     glDeleteProgram(shader);
 }
 
@@ -50,13 +57,7 @@ void CPP_RenderPipelineCore::Render() {
     }
 }
 
-void CPP_RenderPipelineCore::Clear() {
-    for (unsigned int i = 0; i < RenderData.size(); ++i) {
-        if (CPP_RenderPipelineManager** newManagerPtr = std::get_if<CPP_RenderPipelineManager*>(&RenderData[i])) {
-            delete (*newManagerPtr);
-        }
-    }
-    RenderData.clear();
+void CPP_RenderPipelineCore::Reset() {
 }
 
 void CPP_RenderPipelineCore::AddObject(const RenderPipelineDataObject& RenderObject, bool RenderPipelineCompatable) {

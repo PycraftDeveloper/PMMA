@@ -43,7 +43,6 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
                 InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
             }
 
-
             float angleStep = CPP_Constants::TAU / InternalPointCount;
 
             unsigned int outer_radius = Radius;

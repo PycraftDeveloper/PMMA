@@ -22,7 +22,7 @@ class EXPORT CPP_RenderPipelineCore {
 
         void Render();
 
-        void Clear();
+        void Reset();
 
         void AddObject(const RenderPipelineDataObject& RenderObject, bool RenderPipelineCompatable=true);
 

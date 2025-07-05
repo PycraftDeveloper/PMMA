@@ -382,7 +382,7 @@ void CPP_Display::Clear(float* in_color) {
     glClearColor(in_color[0], in_color[1], in_color[2], in_color[3]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    PMMA::RenderPipelineCore->Clear();
+    PMMA::RenderPipelineCore->Reset();
 }
 
 void CPP_Display::Clear() {
@@ -395,7 +395,7 @@ void CPP_Display::Clear() {
     glClearColor(out_color[0], out_color[1], out_color[2], out_color[3]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    PMMA::RenderPipelineCore->Clear();
+    PMMA::RenderPipelineCore->Reset();
 }
 
 void CPP_Display::LimitRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery) {
