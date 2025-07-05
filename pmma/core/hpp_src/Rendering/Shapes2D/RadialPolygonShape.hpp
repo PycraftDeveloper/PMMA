@@ -10,17 +10,16 @@
 
 class EXPORT CPP_RadialPolygonShape {
     public:
-        unsigned int type = CPP_Constants::TYPE_RADIAL_POLYGON_SHAPE;
-
         RenderPipelineDataObject* RenderPipelineData;
 
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> RenderPipelineVertexData;
-        glm::vec4 RenderPipelineColorData;
 
+        glm::vec4 RenderPipelineColorData;
         glm::vec2 ShapeCentre;
+
         unsigned int Radius;
         unsigned int Width = 0;
         unsigned int PointCount = 0;
@@ -31,10 +30,10 @@ class EXPORT CPP_RadialPolygonShape {
         bool ColorSet = false;
         bool CentreSet = false;
         bool RadiusSet = false;
-        bool WidthSet = false;
+        bool WidthSet = true;
         bool UsingGradients = false;
         bool HasAlpha = false;
-        bool PointCountSet = false;
+        bool PointCountSet = true;
         bool Changed = true;
 
         CPP_RadialPolygonShape();

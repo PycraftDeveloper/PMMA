@@ -17,6 +17,8 @@ class EXPORT CPP_RenderPipelineCore {
         unsigned int MaxSize;
         GLuint shader;
 
+        unsigned int AverageRenderPipelineManagerSize = 0;
+
         CPP_RenderPipelineCore();
         ~CPP_RenderPipelineCore();
 

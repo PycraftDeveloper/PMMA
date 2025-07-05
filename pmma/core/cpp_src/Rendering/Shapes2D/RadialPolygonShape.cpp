@@ -26,6 +26,10 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
     bool RenderPipelineCompatible = (UsingGradients == false);
 
     if (RenderPipelineCompatible) {
+        if (ColorData[0].w == 0) { // Return if shape not visible
+            return;
+        }
+
         GLuint newColorIndex = PMMA::RenderPipelineCore->GetColorIndex();
         if (newColorIndex != ColorIndex) {
             Changed = true;
@@ -107,7 +111,7 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
         PMMA::RenderPipelineCore->AddObject(*RenderPipelineData, RenderPipelineCompatible);
     } else {
         if (Changed) {
-            // Calculate data and add to buffers
+            // Calculate data and add to buffers, Left intentionally blank for now
         }
         // Do NOTHING.
     }

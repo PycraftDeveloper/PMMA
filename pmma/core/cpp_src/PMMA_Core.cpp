@@ -175,10 +175,6 @@ namespace PMMA {
     string PMMA_Location = "";
     string PathSeparator = "";
 
-    bool GLFW_Initialized = false;
-
-    int GLFW_References = 0;
-
     unsigned int KeyboardEventInstanceCount = 0;
     unsigned int TextEventInstanceCount = 0;
     unsigned int MousePositionEventInstanceCount = 0;
@@ -187,4 +183,8 @@ namespace PMMA {
     unsigned int MouseScrollEventInstanceCount = 0;
     unsigned int ControllerEventInstanceCount = 0;
     unsigned int DropEventInstanceCount = 0;
+
+    int GLFW_References = 0;
+
+    bool GLFW_Initialized = false;
 }

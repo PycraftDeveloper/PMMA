@@ -12,6 +12,7 @@
 using namespace std;
 
 CPP_RenderPipelineManager::CPP_RenderPipelineManager() {
+    combined_vertexes.reserve(PMMA::RenderPipelineCore->AverageRenderPipelineManagerSize);
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
 }
@@ -42,8 +43,31 @@ void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RadialPolygonShape* 
     combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
 }
 
+void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RectangleShape* TargetPtr) {
+    glm::vec4 Color = TargetPtr->RenderPipelineColorData;
+    shape_colors.emplace_back(Color);
+    if (Color.w != 1) {
+        HasAlpha = true;
+    }
+
+    const auto& vertices = TargetPtr->RenderPipelineVertexData;
+
+    // Insert degenerate vertices if this is not the first shape
+    if (!combined_vertexes.empty() && vertices.size() >= 2) {
+        // Repeat last vertex of previous shape
+        combined_vertexes.emplace_back(combined_vertexes.back());
+
+        // Repeat first vertex of new shape
+        combined_vertexes.emplace_back(vertices[0]);
+    }
+
+    combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
+}
+
 void CPP_RenderPipelineManager::AddRenderTarget(const RenderPipelineDataObject& NewObject) {
     if (auto actualPtr = std::get_if<CPP_RadialPolygonShape*>(&NewObject)) {
+        InternalAddRenderTarget(*actualPtr);
+    } else if (auto actualPtr = std::get_if<CPP_RectangleShape*>(&NewObject)) {
         InternalAddRenderTarget(*actualPtr);
     }
 }
@@ -75,7 +99,9 @@ void CPP_RenderPipelineManager::InternalRender() {
     glUseProgram(PMMA::RenderPipelineCore->shader);
 
     glBindVertexArray(vao);
+
     glDrawArrays(GL_TRIANGLE_STRIP, 0, combined_vertexes.size());
+    glDrawArrays(GL_POINTS, 0, combined_vertexes.size());
 
     glDeleteBuffers(1, &ubo);
 

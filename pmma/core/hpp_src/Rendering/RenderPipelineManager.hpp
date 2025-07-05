@@ -26,8 +26,6 @@ class EXPORT CPP_RenderPipelineManager {
         std::vector<Vertex> combined_vertexes;
         std::vector<glm::vec4> shape_colors;
 
-        unsigned int type = CPP_Constants::TYPE_RENDER_PIPELINE_MANAGER;
-
         GLuint vao, vbo;
         bool HasAlpha = false;
 
@@ -39,4 +37,5 @@ class EXPORT CPP_RenderPipelineManager {
         void InternalRender();
 
         void InternalAddRenderTarget(CPP_RadialPolygonShape* TargetPtr);
+        void InternalAddRenderTarget(CPP_RectangleShape* TargetPtr);
 };

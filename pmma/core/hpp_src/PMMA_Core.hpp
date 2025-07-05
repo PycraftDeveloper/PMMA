@@ -190,10 +190,6 @@ namespace PMMA {
     EXPORT extern std::string PMMA_Location;
     EXPORT extern std::string PathSeparator;
 
-    EXPORT extern bool GLFW_Initialized;
-
-    EXPORT extern int GLFW_References;
-
     EXPORT extern unsigned int KeyboardEventInstanceCount;
     EXPORT extern unsigned int TextEventInstanceCount;
     EXPORT extern unsigned int MousePositionEventInstanceCount;
@@ -202,6 +198,10 @@ namespace PMMA {
     EXPORT extern unsigned int MouseScrollEventInstanceCount;
     EXPORT extern unsigned int ControllerEventInstanceCount;
     EXPORT extern unsigned int DropEventInstanceCount;
+
+    EXPORT extern bool GLFW_Initialized;
+
+    EXPORT extern int GLFW_References;
 }
 
 #include "AdvancedMathematics.hpp"

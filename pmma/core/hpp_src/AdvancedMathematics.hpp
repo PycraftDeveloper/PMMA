@@ -131,4 +131,11 @@ namespace CPP_AdvancedMathematics {
         float default_range[2] = {0.0f, 1.0f};
         return CPP_AdvancedMathematics::Ranger(value, default_range, out_range);
     }
+
+    EXPORT inline void Linespace(const float start, const float end, const unsigned int samples, float* out) {
+        float offset = (end - start) / samples;
+        for (unsigned int i = 0; i < samples; i++) {
+            out[i] = start + offset * i;
+        }
+    }
 }

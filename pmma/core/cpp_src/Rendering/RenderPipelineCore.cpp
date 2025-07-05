@@ -50,14 +50,37 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
 void CPP_RenderPipelineCore::Render() {
     glUniformMatrix4fv(glGetUniformLocation(PMMA::RenderPipelineCore->shader, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA::DisplayInstance->GetDisplayProjection()));
 
+    unsigned int RenderPipelineTotalSize = 0;
+    unsigned int Samples = 0;
+
     for (auto& item : RenderData) {
+        if (CPP_RenderPipelineManager** managerPtr = std::get_if<CPP_RenderPipelineManager*>(&item)) {
+            RenderPipelineTotalSize += (*managerPtr)->combined_vertexes.size();
+            Samples++;
+        }
         std::visit([](auto* ptr) {
             ptr->InternalRender();
         }, item);
     }
+
+    if (Samples > 0) {
+        unsigned int Average = RenderPipelineTotalSize / Samples;
+
+        if (Average > AverageRenderPipelineManagerSize * 1.1f) {
+            AverageRenderPipelineManagerSize = Average;
+        } else if (Average < AverageRenderPipelineManagerSize * 0.9f) {
+            AverageRenderPipelineManagerSize = Average;
+        }
+    }
 }
 
 void CPP_RenderPipelineCore::Reset() {
+    for (unsigned int i = 0; i < RenderData.size(); ++i) {
+        if (CPP_RenderPipelineManager** newManagerPtr = std::get_if<CPP_RenderPipelineManager*>(&RenderData[i])) {
+            delete (*newManagerPtr);
+        }
+    }
+    RenderData.clear();
 }
 
 void CPP_RenderPipelineCore::AddObject(const RenderPipelineDataObject& RenderObject, bool RenderPipelineCompatable) {
