@@ -258,7 +258,7 @@ else:
     cache_files(cmake_dir)
     cache_files(pyx_src_dir)
 
-    if random.randint(0, 10) == 0:
+    if random.randint(0, 7) == 0:
         print("Attempting to refresh cython code.")
         to_do.append(BUILD_CYTHON)
         if os.path.exists(build_dir):

@@ -1,15 +1,11 @@
 #include <cmath>
 
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
-#include "Rendering/RenderPipelineManager.hpp"
+#include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "Constants.hpp"
 #include "PMMA_Core.hpp"
 
 using namespace std;
-
-CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
-    RenderPipelineData = new RenderPipelineDataObject(this);
-}
 
 void CPP_RadialPolygonShape::Render(float ShapeQuality) {
     unsigned int DisplayWidth, DisplayHeight;
@@ -30,7 +26,7 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->GetColorIndex();
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex();
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;
@@ -108,7 +104,7 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
             RenderPipelineVertexData[vertexCount - 1] = RenderPipelineVertexData[1];
         }
 
-        PMMA::RenderPipelineCore->AddObject(*RenderPipelineData, RenderPipelineCompatible);
+        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);
     } else {
         if (Changed) {
             // Calculate data and add to buffers, Left intentionally blank for now

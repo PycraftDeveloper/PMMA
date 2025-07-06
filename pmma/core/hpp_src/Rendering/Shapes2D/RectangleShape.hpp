@@ -6,12 +6,10 @@
 #include <glm/glm.hpp>
 
 #include "Constants.hpp"
-#include "Rendering/RenderPipelineManager.hpp"
+#include "Rendering/Shape2DRenderPipelineManager.hpp"
 
 class EXPORT CPP_RectangleShape {
     public:
-        RenderPipelineDataObject* RenderPipelineData;
-
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
@@ -35,8 +33,6 @@ class EXPORT CPP_RectangleShape {
         bool HasAlpha = false;
         bool Changed = true;
         bool CornerRadiusSet = true;
-
-        CPP_RectangleShape();
 
         void Render(float ShapeQuality);
 

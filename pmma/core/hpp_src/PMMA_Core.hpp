@@ -8,7 +8,8 @@
 
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
-#include "Rendering/RenderPipelineManager.hpp"
+#include "Rendering/Shape2DRenderPipelineManager.hpp"
+#include "Rendering/TextRendererPipelineManager.hpp"
 #include "Rendering/RenderPipelineCore.hpp"
 
 #include "Display.hpp"
@@ -208,4 +209,3 @@ namespace PMMA {
 #include "FractalBrownianMotion.hpp"
 #include "PerlinNoise.hpp"
 #include "OpenGL.hpp"
-#include "Rendering/TextRenderer.hpp"

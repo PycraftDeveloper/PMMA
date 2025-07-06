@@ -1,10 +1,14 @@
 #version 330 core
+
 in vec2 TexCoords;
-in vec3 FragColor;
+in vec4 ForegroundColor;
+in vec4 BackgroundColor;
+
 uniform sampler2D textTexture;
+
 out vec4 color;
 
 void main() {
-    float alpha = texture(textTexture, TexCoords).r;
-    color = vec4(FragColor, alpha);
+    float TextAlpha = texture(textTexture, TexCoords).r;
+    color = mix(vec4(ForegroundColor.rgb, TextAlpha * ForegroundColor.a), BackgroundColor, 1-TextAlpha);
 }

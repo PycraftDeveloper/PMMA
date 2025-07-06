@@ -6,12 +6,10 @@
 #include <glm/glm.hpp>
 
 #include "Constants.hpp"
-#include "Rendering/RenderPipelineManager.hpp"
+#include "Rendering/Shape2DRenderPipelineManager.hpp"
 
 class EXPORT CPP_RadialPolygonShape {
     public:
-        RenderPipelineDataObject* RenderPipelineData;
-
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
@@ -35,8 +33,6 @@ class EXPORT CPP_RadialPolygonShape {
         bool HasAlpha = false;
         bool PointCountSet = true;
         bool Changed = true;
-
-        CPP_RadialPolygonShape();
 
         void Render(float ShapeQuality);
 

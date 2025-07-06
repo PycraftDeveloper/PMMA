@@ -6,23 +6,23 @@
 #include <chrono>
 #include <iostream>
 
-#include "Rendering/RenderPipelineManager.hpp"
+#include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "PMMA_Core.hpp"
 
 using namespace std;
 
-CPP_RenderPipelineManager::CPP_RenderPipelineManager() {
-    combined_vertexes.reserve(PMMA::RenderPipelineCore->AverageRenderPipelineManagerSize);
+CPP_Shape2D_RenderPipelineManager::CPP_Shape2D_RenderPipelineManager() {
+    combined_vertexes.reserve(PMMA::RenderPipelineCore->Shape2D_AverageRenderPipelineManagerSize);
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
 }
 
-CPP_RenderPipelineManager::~CPP_RenderPipelineManager() {
+CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
 }
 
-void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RadialPolygonShape* TargetPtr) {
+void CPP_Shape2D_RenderPipelineManager::InternalAddRenderTarget(CPP_RadialPolygonShape* TargetPtr) {
     glm::vec4 Color = TargetPtr->RenderPipelineColorData;
     shape_colors.emplace_back(Color);
     if (Color.w != 1) {
@@ -43,7 +43,7 @@ void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RadialPolygonShape* 
     combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
 }
 
-void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RectangleShape* TargetPtr) {
+void CPP_Shape2D_RenderPipelineManager::InternalAddRenderTarget(CPP_RectangleShape* TargetPtr) {
     glm::vec4 Color = TargetPtr->RenderPipelineColorData;
     shape_colors.emplace_back(Color);
     if (Color.w != 1) {
@@ -64,7 +64,7 @@ void CPP_RenderPipelineManager::InternalAddRenderTarget(CPP_RectangleShape* Targ
     combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
 }
 
-void CPP_RenderPipelineManager::AddRenderTarget(const RenderPipelineDataObject& NewObject) {
+void CPP_Shape2D_RenderPipelineManager::AddRenderTarget(const Shape2D_RenderObject& NewObject) {
     if (auto actualPtr = std::get_if<CPP_RadialPolygonShape*>(&NewObject)) {
         InternalAddRenderTarget(*actualPtr);
     } else if (auto actualPtr = std::get_if<CPP_RectangleShape*>(&NewObject)) {
@@ -72,7 +72,7 @@ void CPP_RenderPipelineManager::AddRenderTarget(const RenderPipelineDataObject& 
     }
 }
 
-void CPP_RenderPipelineManager::InternalRender() {
+void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     glBindVertexArray(vao);
     glBindBuffer(GL_ARRAY_BUFFER, vbo);
     glBufferData(GL_ARRAY_BUFFER, combined_vertexes.size() * sizeof(Vertex), combined_vertexes.data(), GL_STATIC_DRAW);

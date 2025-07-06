@@ -13,26 +13,26 @@
 class CPP_RadialPolygonShape;
 class CPP_RectangleShape;
 
-using RenderPipelineDataObject = std::variant<CPP_RadialPolygonShape*, CPP_RectangleShape*>;
+using Shape2D_RenderObject = std::variant<CPP_RadialPolygonShape*, CPP_RectangleShape*>;
 
 struct Vertex {
     glm::vec2 position;
     GLuint shape_id;
 };
 
-class EXPORT CPP_RenderPipelineManager {
+class EXPORT CPP_Shape2D_RenderPipelineManager {
     public:
-        std::vector<RenderPipelineDataObject> RenderPipelineComponents;
+        std::vector<Shape2D_RenderObject> RenderPipelineComponents;
         std::vector<Vertex> combined_vertexes;
         std::vector<glm::vec4> shape_colors;
 
         GLuint vao, vbo;
         bool HasAlpha = false;
 
-        CPP_RenderPipelineManager();
-        ~CPP_RenderPipelineManager();
+        CPP_Shape2D_RenderPipelineManager();
+        ~CPP_Shape2D_RenderPipelineManager();
 
-        void AddRenderTarget(const RenderPipelineDataObject& NewObject);
+        void AddRenderTarget(const Shape2D_RenderObject& NewObject);
 
         void InternalRender();
 

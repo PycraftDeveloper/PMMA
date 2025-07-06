@@ -1,16 +1,12 @@
 #include <cmath>
 
 #include "Rendering/Shapes2D/RectangleShape.hpp"
-#include "Rendering/RenderPipelineManager.hpp"
+#include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "AdvancedMathematics.hpp"
 #include "Constants.hpp"
 #include "PMMA_Core.hpp"
 
 using namespace std;
-
-CPP_RectangleShape::CPP_RectangleShape() {
-    RenderPipelineData = new RenderPipelineDataObject(this);
-}
 
 void CPP_RectangleShape::Render(float ShapeQuality) {
     unsigned int DisplayWidth, DisplayHeight;
@@ -34,7 +30,7 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->GetColorIndex();
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex();
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;
@@ -163,7 +159,7 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
                 }
             }
         }
-        PMMA::RenderPipelineCore->AddObject(*RenderPipelineData, RenderPipelineCompatible);
+        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);
     } else {
         if (Changed) {
             // Calculate data and add to buffers, Left intentionally blank for now

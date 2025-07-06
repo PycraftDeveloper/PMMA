@@ -30,8 +30,11 @@ set(SOURCES
     "${SRC_DIR}/OpenGL.cpp"
     "${SRC_DIR}/General.cpp"
 
+    "${SRC_DIR}/Utility/FontUtils.cpp"
+
     "${SRC_DIR}/Rendering/RenderPipelineCore.cpp"
-    "${SRC_DIR}/Rendering/RenderPipelineManager.cpp"
+    "${SRC_DIR}/Rendering/Shape2DRenderPipelineManager.cpp"
+    "${SRC_DIR}/Rendering/TextRendererPipelineManager.cpp"
     "${SRC_DIR}/Rendering/TextRenderer.cpp"
 
     "${SRC_DIR}/Rendering/Shapes2D/RectangleShape.cpp"
