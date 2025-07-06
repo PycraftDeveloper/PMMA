@@ -45,108 +45,164 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
 
             RenderPipelineColorData = ColorData[0];
 
+            unsigned int InternalWidth = Width;
+            if (Width == 0) {
+                InternalWidth = max(HalfWidth, HalfHeight);
+            }
+
             if (CornerRadius != 0) {
                 unsigned int minimum_radius = min(CornerRadius, min(HalfWidth, HalfHeight));
                 float minAngle = asin(1.0f / minimum_radius);
-                unsigned int internal_point_count = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality)/4);
+                unsigned int segments = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality)/4);
 
-                size_t vertexCount = internal_point_count * 8 + 2;
+                size_t vertexCount = (segments + 1) * 8 + 2;
                 RenderPipelineVertexData.resize(vertexCount);
 
-                unsigned int outer_radius = CornerRadius;
-                unsigned int inner_radius = CornerRadius - Width;
-                unsigned int outer_width = ShapeSize.x;
-                unsigned int outer_height = ShapeSize.y;
+                int outer_radius = min(CornerRadius, min(HalfWidth, HalfHeight));
+                int inner_radius = max(outer_radius - (int)InternalWidth, 0);
+
+                int outer_width = ShapeSize.x;
+                int outer_height = ShapeSize.y;
+                int inner_width = outer_width - 2 * InternalWidth;
+                int inner_height = outer_height - 2 * InternalWidth;
 
                 ////
 
-                float AngleDelta = (CPP_Constants::PI * 1.5 - CPP_Constants::PI) / internal_point_count;
+                float SA = CPP_Constants::PI;
+                float EA = CPP_Constants::PI * 1.5f;
+                float AngleDelta = (EA-SA) / segments;
                 float cx = -outer_width / 2 + outer_radius;
                 float cy = -outer_height / 2 + outer_radius;
 
+                float icx = -inner_width / 2 + inner_radius;
+                float icy = -inner_height / 2 + inner_radius;
+
                 unsigned int index = 0;
 
-                for (unsigned int i = 0; i <= internal_point_count; i++) {
-                    float angle = CPP_Constants::PI + i * AngleDelta;
+                for (unsigned int i = 0; i <= segments; i++) {
+                    float angle = SA + i * AngleDelta;
                     float px = cx + outer_radius * cos(angle);
                     float py = cy + outer_radius * sin(angle);
                     unsigned int di = i * 2;
-                    RenderPipelineVertexData[index + di] = {glm::vec2(px, py), ColorIndex};
+                    RenderPipelineVertexData[index + di] = {glm::vec2(ShapeCentre.x + px, ShapeCentre.y + py), ColorIndex};
 
-                    px = cx + inner_radius * cos(angle);
-                    py = cy + inner_radius * sin(angle);
-                    RenderPipelineVertexData[index + di + 1] = {glm::vec2(px, py), ColorIndex};
+                    px = icx + inner_radius * cos(angle);
+                    py = icy + inner_radius * sin(angle);
+                    RenderPipelineVertexData[index + di + 1] = {glm::vec2(ShapeCentre.x + px, ShapeCentre.y + py), ColorIndex};
                 }
 
                 ////
 
-                AngleDelta = (CPP_Constants::PI * 2 - CPP_Constants::PI * 1.5) / internal_point_count;
+                SA = CPP_Constants::PI * 1.5f;
+                EA = CPP_Constants::PI * 2;
+                AngleDelta = (EA-SA) / segments;
                 cx = outer_width / 2 - outer_radius;
-                cy = -outer_height / 2 - outer_radius;
+                cy = -outer_height / 2 + outer_radius;
 
-                index = internal_point_count;
+                icx = inner_width / 2 - inner_radius;
+                icy = -inner_height / 2 + inner_radius;
 
-                for (unsigned int i = 0; i <= internal_point_count; i++) {
-                    float angle = CPP_Constants::PI + i * AngleDelta;
+                index = (segments + 1) * 2;
+
+                for (unsigned int i = 0; i <= segments; i++) {
+                    float angle = SA + i * AngleDelta;
                     float px = cx + outer_radius * cos(angle);
                     float py = cy + outer_radius * sin(angle);
                     unsigned int di = i * 2;
-                    RenderPipelineVertexData[index + di] = {glm::vec2(px, py), ColorIndex};
+                    RenderPipelineVertexData[index + di] = {glm::vec2(ShapeCentre.x + px, ShapeCentre.y + py), ColorIndex};
 
-                    px = cx + inner_radius * cos(angle);
-                    py = cy + inner_radius * sin(angle);
-                    RenderPipelineVertexData[index + di + 1] = {glm::vec2(px, py), ColorIndex};
+                    px = icx + inner_radius * cos(angle);
+                    py = icy + inner_radius * sin(angle);
+                    RenderPipelineVertexData[index + di + 1] = {glm::vec2(ShapeCentre.x + px, ShapeCentre.y + py), ColorIndex};
                 }
 
                 ////
 
-                AngleDelta = (CPP_Constants::PI * 0.5 - 0) / internal_point_count;
+                SA = 0;
+                EA = CPP_Constants::PI * 0.5f;
+                AngleDelta = (EA-SA) / segments;
                 cx = outer_width / 2 - outer_radius;
                 cy = outer_height / 2 - outer_radius;
 
-                index = internal_point_count * 2;
+                icx = inner_width / 2 - inner_radius;
+                icy = inner_height / 2 - inner_radius;
 
-                for (unsigned int i = 0; i <= internal_point_count; i++) {
-                    float angle = CPP_Constants::PI + i * AngleDelta;
+                index = (segments + 1) * 4;
+
+                for (unsigned int i = 0; i <= segments; i++) {
+                    float angle = SA + i * AngleDelta;
                     float px = cx + outer_radius * cos(angle);
                     float py = cy + outer_radius * sin(angle);
                     unsigned int di = i * 2;
-                    RenderPipelineVertexData[index + di] = {glm::vec2(px, py), ColorIndex};
+                    RenderPipelineVertexData[index + di] = {glm::vec2(ShapeCentre.x + px, ShapeCentre.y + py), ColorIndex};
 
-                    px = cx + inner_radius * cos(angle);
-                    py = cy + inner_radius * sin(angle);
-                    RenderPipelineVertexData[index + di + 1] = {glm::vec2(px, py), ColorIndex};
+                    px = icx + inner_radius * cos(angle);
+                    py = icy + inner_radius * sin(angle);
+                    RenderPipelineVertexData[index + di + 1] = {glm::vec2(ShapeCentre.x + px, ShapeCentre.y + py), ColorIndex};
                 }
 
                 ////
 
-                AngleDelta = (CPP_Constants::PI - CPP_Constants::PI * 0.5) / internal_point_count;
+                SA = CPP_Constants::PI * 0.5f;
+                EA = CPP_Constants::PI;
+                AngleDelta = (EA-SA) / segments;
                 cx = -outer_width / 2 + outer_radius;
                 cy = outer_height / 2 - outer_radius;
 
-                index = internal_point_count * 3;
+                icx = -inner_width / 2 + inner_radius;
+                icy = inner_height / 2 - inner_radius;
 
-                for (unsigned int i = 0; i <= internal_point_count; i++) {
-                    float angle = CPP_Constants::PI + i * AngleDelta;
+                index = (segments + 1) * 6;
+
+                for (unsigned int i = 0; i <= segments; i++) {
+                    float angle = SA + i * AngleDelta;
                     float px = cx + outer_radius * cos(angle);
                     float py = cy + outer_radius * sin(angle);
                     unsigned int di = i * 2;
-                    RenderPipelineVertexData[index + di] = {glm::vec2(px, py), ColorIndex};
+                    RenderPipelineVertexData[index + di] = {glm::vec2(ShapeCentre.x + px, ShapeCentre.y + py), ColorIndex};
 
-                    px = cx + inner_radius * cos(angle);
-                    py = cy + inner_radius * sin(angle);
-                    RenderPipelineVertexData[index + di + 1] = {glm::vec2(px, py), ColorIndex};
+                    px = icx + inner_radius * cos(angle);
+                    py = icy + inner_radius * sin(angle);
+                    RenderPipelineVertexData[index + di + 1] = {glm::vec2(ShapeCentre.x + px, ShapeCentre.y + py), ColorIndex};
                 }
 
                 RenderPipelineVertexData[vertexCount - 2] = RenderPipelineVertexData[0];
                 RenderPipelineVertexData[vertexCount - 1] = RenderPipelineVertexData[1];
             } else {
-                RenderPipelineVertexData.resize(4);
+                if (Width == 0 || Width >= max(HalfWidth, HalfHeight)) {
+                    cout << "SW" << endl;
+                    RenderPipelineVertexData.resize(4);
 
-                RenderPipelineVertexData[0] = {glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y - HalfHeight), ColorIndex};
-                RenderPipelineVertexData[1] = {glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y - HalfHeight), ColorIndex};
-                RenderPipelineVertexData[2] = {glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y + HalfHeight), ColorIndex};
-                RenderPipelineVertexData[3] = {glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y + HalfHeight), ColorIndex};
+                    RenderPipelineVertexData[0] = {glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y - HalfHeight), ColorIndex};
+                    RenderPipelineVertexData[1] = {glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y - HalfHeight), ColorIndex};
+                    RenderPipelineVertexData[2] = {glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y + HalfHeight), ColorIndex};
+                    RenderPipelineVertexData[3] = {glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y + HalfHeight), ColorIndex};
+                } else {
+                    cout << "CW" << endl;
+                    RenderPipelineVertexData.resize(10);
+
+                    int outer_left   = ShapeCentre.x - HalfWidth;
+                    int outer_right  = ShapeCentre.x + HalfWidth;
+                    int outer_top    = ShapeCentre.y - HalfHeight;
+                    int outer_bottom = ShapeCentre.y + HalfHeight;
+
+                    int inner_left   = outer_left   + Width;
+                    int inner_right  = outer_right  - Width;
+                    int inner_top    = outer_top    + Width;
+                    int inner_bottom = outer_bottom - Width;
+
+                    // GL_TRIANGLE_STRIP order: Outer TL, Inner TL, Outer TR, Inner TR, Outer BR, Inner BR, Outer BL, Inner BL
+                    RenderPipelineVertexData[0] = {glm::vec2(outer_left,  outer_top),    ColorIndex}; // Outer TL
+                    RenderPipelineVertexData[1] = {glm::vec2(inner_left,  inner_top),    ColorIndex}; // Inner TL
+                    RenderPipelineVertexData[2] = {glm::vec2(outer_right, outer_top),    ColorIndex}; // Outer TR
+                    RenderPipelineVertexData[3] = {glm::vec2(inner_right, inner_top),    ColorIndex}; // Inner TR
+                    RenderPipelineVertexData[4] = {glm::vec2(outer_right, outer_bottom), ColorIndex}; // Outer BR
+                    RenderPipelineVertexData[5] = {glm::vec2(inner_right, inner_bottom),ColorIndex}; // Inner BR
+                    RenderPipelineVertexData[6] = {glm::vec2(outer_left,  outer_bottom),ColorIndex}; // Outer BL
+                    RenderPipelineVertexData[7] = {glm::vec2(inner_left,  inner_bottom),ColorIndex}; // Inner BL
+                    RenderPipelineVertexData[8] = RenderPipelineVertexData[0];
+                    RenderPipelineVertexData[9] = RenderPipelineVertexData[1];
+                }
             }
         }
         PMMA::RenderPipelineCore->AddObject(*RenderPipelineData, RenderPipelineCompatible);

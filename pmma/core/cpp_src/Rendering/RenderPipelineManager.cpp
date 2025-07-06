@@ -101,7 +101,7 @@ void CPP_RenderPipelineManager::InternalRender() {
     glBindVertexArray(vao);
 
     glDrawArrays(GL_TRIANGLE_STRIP, 0, combined_vertexes.size());
-    glDrawArrays(GL_POINTS, 0, combined_vertexes.size());
+    //glDrawArrays(GL_POINTS, 0, combined_vertexes.size());
 
     glDeleteBuffers(1, &ubo);
 
