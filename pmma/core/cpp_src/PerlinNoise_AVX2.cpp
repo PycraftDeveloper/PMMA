@@ -316,8 +316,10 @@ void CPP_PerlinNoise::RangeNoise1D_AVX2(const float* x_range, const unsigned int
     float dx = (x_range[1] - x_range[0]) / length;
 
     unsigned int i = 0;
+
+    __m256 offset = _mm256_set_ps(7, 6, 5, 4, 3, 2, 1, 0);
+
     for (; i + 8 <= length; i += 8) {
-        __m256 offset = _mm256_set_ps(7, 6, 5, 4, 3, 2, 1, 0);
         __m256 dx_vec = _mm256_set1_ps(dx);
         __m256 x_base = _mm256_set1_ps(x);
         __m256 x_vec = _mm256_fmadd_ps(offset, dx_vec, x_base);
@@ -341,8 +343,10 @@ void CPP_PerlinNoise::RangeNoise2D_AVX2(const float* x_range, const float* y_ran
     float dy = (y_range[1] - y_range[0]) / length;
 
     unsigned int i = 0;
+
+    __m256 offset = _mm256_set_ps(7, 6, 5, 4, 3, 2, 1, 0);
+
     for (; i + 8 <= length; i += 8) {
-        __m256 offset = _mm256_set_ps(7, 6, 5, 4, 3, 2, 1, 0);
         __m256 dx_vec = _mm256_set1_ps(dx);
         __m256 dy_vec = _mm256_set1_ps(dy);
         __m256 x_vec = _mm256_fmadd_ps(offset, dx_vec, _mm256_set1_ps(x));
@@ -371,8 +375,10 @@ void CPP_PerlinNoise::RangeNoise3D_AVX2(const float* x_range, const float* y_ran
     float dz = (z_range[1] - z_range[0]) / length;
 
     unsigned int i = 0;
+
+    __m256 offset = _mm256_set_ps(7, 6, 5, 4, 3, 2, 1, 0);
+
     for (; i + 8 <= length; i += 8) {
-        __m256 offset = _mm256_set_ps(7, 6, 5, 4, 3, 2, 1, 0);
         __m256 x_vec = _mm256_fmadd_ps(offset, _mm256_set1_ps(dx), _mm256_set1_ps(x));
         __m256 y_vec = _mm256_fmadd_ps(offset, _mm256_set1_ps(dy), _mm256_set1_ps(y));
         __m256 z_vec = _mm256_fmadd_ps(offset, _mm256_set1_ps(dz), _mm256_set1_ps(z));
