@@ -13,6 +13,8 @@
 
 #include "PMMA_Core.hpp"
 
+#include "Utility/CPU_FeatureSetUtils.hpp"
+
 using namespace std;
 
 void CPP_Display::PMMA_Update(GLFWwindow* Window) {
@@ -146,6 +148,8 @@ void CPP_Display::PMMA_Update(GLFWwindow* Window) {
 }
 
 CPP_Display::CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+    cout << "Has AVX2 support: " << CPP_CPU_FeatureSetUtils::SupportsAVX2() << endl;
+
     if (PMMA::DisplayInstance != nullptr) {
         delete PMMA::DisplayInstance;
         PMMA::DisplayInstance = nullptr;

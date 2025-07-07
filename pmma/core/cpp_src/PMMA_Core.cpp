@@ -2,6 +2,7 @@
 #include <glad/gl.h>
 
 #include <vector>
+#include <iostream>
 
 #include "PMMA_Core.hpp"
 

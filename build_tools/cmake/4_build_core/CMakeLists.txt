@@ -31,6 +31,7 @@ set(SOURCES
     "${SRC_DIR}/General.cpp"
 
     "${SRC_DIR}/Utility/FontUtils.cpp"
+    "${SRC_DIR}/Utility/CPU_FeatureSetUtils"
 
     "${SRC_DIR}/Rendering/RenderPipelineCore.cpp"
     "${SRC_DIR}/Rendering/Shape2DRenderPipelineManager.cpp"
