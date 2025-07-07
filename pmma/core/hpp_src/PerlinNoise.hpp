@@ -8,7 +8,7 @@ using namespace std;
 
 class EXPORT CPP_PerlinNoise {
     private:
-        array<uint8_t, 512> Permutations;
+        alignas(64) array<uint32_t, 512> Permutations;
 
         static const float F2;
         static const float F3;
@@ -118,6 +118,42 @@ class EXPORT CPP_PerlinNoise {
 
             return res * F3;
         }
+
+        void ArrayNoise1D_BASE(const float* values, const unsigned int length, float* out) const noexcept;
+
+        void ArrayNoise2D_BASE(const float (*values)[2], const unsigned int length, float* out) const noexcept;
+
+        void ArrayNoise3D_BASE(const float (*values)[3], const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise1D_BASE(const float* x_range, const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise2D_BASE(const float* x_range, const float* y_range, const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise3D_BASE(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const noexcept;
+
+        void ArrayNoise1D_AVX2(const float* values, const unsigned int length, float* out) const noexcept;
+
+        void ArrayNoise2D_AVX2(const float (*values)[2], const unsigned int length, float* out) const noexcept;
+
+        void ArrayNoise3D_AVX2(const float (*values)[3], const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise1D_AVX2(const float* x_range, const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise2D_AVX2(const float* x_range, const float* y_range, const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise3D_AVX2(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const noexcept;
+
+        void ArrayNoise1D_AVX512(const float* values, const unsigned int length, float* out) const noexcept;
+
+        void ArrayNoise2D_AVX512(const float (*values)[2], const unsigned int length, float* out) const noexcept;
+
+        void ArrayNoise3D_AVX512(const float (*values)[3], const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise1D_AVX512(const float* x_range, const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise2D_AVX512(const float* x_range, const float* y_range, const unsigned int length, float* out) const noexcept;
+
+        void RangeNoise3D_AVX512(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const noexcept;
 
         void ArrayNoise1D(const float* values, const unsigned int length, float* out) const noexcept;
 

@@ -26,7 +26,7 @@ set(SOURCES
     "${SRC_DIR}/Display.cpp"
     "${SRC_DIR}/FractalBrownianMotion.cpp"
     "${SRC_DIR}/NumberConverter.cpp"
-    "${SRC_DIR}/PerlinNoise.cpp"
+    "${SRC_DIR}/PerlinNoise_BASE.cpp"
     "${SRC_DIR}/OpenGL.cpp"
     "${SRC_DIR}/General.cpp"
 
@@ -52,7 +52,8 @@ set(SOURCES
 # AVX2 optimized sub-component -----------------------------------------
 # Path to the AVX2-specific file
 set(AVX2_SOURCES
-    "${SRC_DIR}/AdvancedMathematics_AVX2.cpp")
+    "${SRC_DIR}/AdvancedMathematics_AVX2.cpp"
+    "${SRC_DIR}/PerlinNoise_AVX2.cpp")
 
 # Create an object library for myfile.cpp with AVX2 flags
 add_library(AVX2_obj OBJECT ${AVX2_SOURCES})
@@ -81,7 +82,8 @@ target_compile_definitions(AVX2_obj PRIVATE PMMA_CORE_EXPORTS)
 # AVX-512 optimized sub-component --------------------------------------
 # Path to the files
 set(AVX512_SOURCES
-    "${SRC_DIR}/AdvancedMathematics_AVX512.cpp")
+    "${SRC_DIR}/AdvancedMathematics_AVX512.cpp"
+    "${SRC_DIR}/PerlinNoise_AVX512.cpp")
 
 # Create an object library for myfile.cpp with AVX2 flags
 add_library(AVX512_obj OBJECT ${AVX512_SOURCES})

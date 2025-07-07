@@ -44,6 +44,6 @@ void CPP_AdvancedMathematics::ArrayRanger_AVX2(
 
     // Handle remaining values
     for (; i < length; ++i) {
-        out[i] = ((values[i] - old_min) / old_diff) * new_diff + new_min;
+        out[i] = Ranger(values[i], old_range, new_range);
     }
 }

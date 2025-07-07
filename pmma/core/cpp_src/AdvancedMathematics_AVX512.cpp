@@ -39,6 +39,6 @@ void CPP_AdvancedMathematics::ArrayRanger_AVX512(
 
     // Handle remaining elements
     for (; i < length; ++i) {
-        out[i] = CPP_AdvancedMathematics::Ranger(values[i], old_range, new_range);
+        out[i] = Ranger(values[i], old_range, new_range);
     }
 }
