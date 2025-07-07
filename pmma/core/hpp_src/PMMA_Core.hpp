@@ -200,9 +200,11 @@ namespace PMMA {
     EXPORT extern unsigned int ControllerEventInstanceCount;
     EXPORT extern unsigned int DropEventInstanceCount;
 
-    EXPORT extern bool GLFW_Initialized;
-
     EXPORT extern int GLFW_References;
+
+    EXPORT extern bool GLFW_Initialized;
+    EXPORT extern bool CPU_Supports_AVX2;
+    EXPORT extern bool CPU_Supports_AVX512;
 }
 
 #include "AdvancedMathematics.hpp"

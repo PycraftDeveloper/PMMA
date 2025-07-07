@@ -30,17 +30,33 @@ namespace CPP_AdvancedMathematics {
         return new_range[0] + (value - old_range[0]) * (new_range[1] - new_range[0]) / (old_range[1] - old_range[0]);
     }
 
-    EXPORT inline void ArrayRanger(
+    void ArrayRanger_BASE(
             const float* values,
             const unsigned int length,
             const float* old_range,
             const float* new_range,
-            float* out) {
+            float* out);
 
-        for (unsigned int i = 0; i < length; i++) {
-            out[i] = CPP_AdvancedMathematics::Ranger(values[i], old_range, new_range);
-        }
-    }
+    void ArrayRanger_AVX2(
+            const float* values,
+            const unsigned int length,
+            const float* old_range,
+            const float* new_range,
+            float* out);
+
+    void ArrayRanger_AVX512(
+            const float* values,
+            const unsigned int length,
+            const float* old_range,
+            const float* new_range,
+            float* out);
+
+    EXPORT void ArrayRanger(
+            const float* values,
+            const unsigned int length,
+            const float* old_range,
+            const float* new_range,
+            float* out);
 
     EXPORT inline void InPlaceArrayNormalize(float* value) {
         float len = std::sqrt(value[0]*value[0] + value[1]*value[1] + value[2]*value[2]);

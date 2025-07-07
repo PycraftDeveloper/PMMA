@@ -55,3 +55,22 @@ bool CPP_CPU_FeatureSetUtils::SupportsAVX2() {
     cpuid(info, 7, 0);
     return (info[1] & (1 << 5)) != 0;
 }
+
+bool CPP_CPU_FeatureSetUtils::SupportsAVX512() { // AVX512f ONLY for now
+    int32_t info[4];
+    // Leaf 1: check OSXSAVE and AVX bit
+    cpuid(info, 1, 0);
+    bool has_osxsave = (info[2] & (1 << 27)) != 0;
+    bool has_avx     = (info[2] & (1 << 28)) != 0;
+    if (!has_osxsave || !has_avx)
+        return false;
+
+    // For AVX-512, OS must enable opmask, ZMM_Hi, and Hi256 states: XCR0[7:5] == 111b
+    const uint64_t mask512 = (1ULL << 5) | (1ULL << 6) | (1ULL << 7);
+    if ((xgetbv(0) & mask512) != mask512)
+        return false;
+
+    // Leaf 7 subleaf 0: check AVX-512F bit (EBX[16])
+    cpuid(info, 7, 0);
+    return (info[1] & (1 << 16)) != 0;
+}

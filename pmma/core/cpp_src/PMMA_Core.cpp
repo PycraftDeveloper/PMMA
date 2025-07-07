@@ -12,6 +12,8 @@
 #include "Events/WindowEvents.hpp"
 #include "Events/ControllerEvents.hpp"
 
+#include "Utility/CPU_FeatureSetUtils.hpp"
+
 using namespace std;
 
 namespace PMMA {
@@ -188,4 +190,6 @@ namespace PMMA {
     int GLFW_References = 0;
 
     bool GLFW_Initialized = false;
+    bool CPU_Supports_AVX2 = CPP_CPU_FeatureSetUtils::SupportsAVX2();
+    bool CPU_Supports_AVX512 = CPP_CPU_FeatureSetUtils::SupportsAVX512();
 }
