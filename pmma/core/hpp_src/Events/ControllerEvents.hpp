@@ -11,7 +11,7 @@
 
 #include "NumberConverter.hpp"
 #include "Constants.hpp"
-#include "EventsCore.hpp"
+#include "Events/EventsCore.hpp"
 
 class EXPORT CPP_ControllerEvent {
     private:
@@ -79,7 +79,7 @@ class EXPORT CPP_ControllerEvent {
         void Get_Right_Stick_Position_Decimal(float DeadZone, float* out);
 };
 
-class EXPORT CPP_InternalControllerEvent {
+class CPP_InternalControllerEvent {
     public:
         CPP_ButtonPressedEvent* GamePad_A_Button = nullptr;
         CPP_ButtonPressedEvent* GamePad_B_Button = nullptr;

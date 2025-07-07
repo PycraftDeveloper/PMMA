@@ -62,7 +62,7 @@ class EXPORT CPP_RadialPolygonShape {
         };
 
         inline void SetCentre(unsigned int* in_position) {
-            if (CentreSet && in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y) {
+            if (CentreSet && (in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y)) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
                 VertexData.clear();

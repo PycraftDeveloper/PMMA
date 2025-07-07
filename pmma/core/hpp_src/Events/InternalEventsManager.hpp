@@ -1,11 +1,10 @@
 #pragma once
-#include "PMMA_Exports.hpp"
 
 #include <GLFW/glfw3.h>
 
 #include "Events/KeyEvents.hpp"
 
-class EXPORT CPP_InternalKeyEventManager {
+class CPP_InternalKeyEventManager {
     private:
         CPP_KeyEvent_Left_Shift* Left_Shift_Instance = nullptr;
         CPP_KeyEvent_Right_Shift* Right_Shift_Instance = nullptr;
@@ -27,7 +26,7 @@ class EXPORT CPP_InternalKeyEventManager {
         static void KeyCallback(GLFWwindow* window, int key, int scancode, int action, int mods);
 };
 
-class EXPORT CPP_InternalTextEventManager {
+class CPP_InternalTextEventManager {
     public:
         bool Active;
 
@@ -39,7 +38,7 @@ class EXPORT CPP_InternalTextEventManager {
         static void TextCallback(GLFWwindow* window, unsigned int codepoint);
 };
 
-class EXPORT CPP_InternalMousePositionEventManager {
+class CPP_InternalMousePositionEventManager {
     public:
         bool Active;
 
@@ -51,7 +50,7 @@ class EXPORT CPP_InternalMousePositionEventManager {
         static void CursorPositionCallback(GLFWwindow* window, double xpos, double ypos);
 };
 
-class EXPORT CPP_InternalMouseEnterWindowEventManager {
+class CPP_InternalMouseEnterWindowEventManager {
     public:
         bool Active;
 
@@ -63,7 +62,7 @@ class EXPORT CPP_InternalMouseEnterWindowEventManager {
         static void CursorEnterCallback(GLFWwindow* window, int entered);
 };
 
-class EXPORT CPP_InternalMouseButtonEventManager {
+class CPP_InternalMouseButtonEventManager {
     public:
         bool Active;
 
@@ -75,7 +74,7 @@ class EXPORT CPP_InternalMouseButtonEventManager {
         static void MouseButtonCallback(GLFWwindow* window, int button, int action, int mods);
 };
 
-class EXPORT CPP_InternalMouseScrollEventManager {
+class CPP_InternalMouseScrollEventManager {
     public:
         bool Active;
 
@@ -87,7 +86,7 @@ class EXPORT CPP_InternalMouseScrollEventManager {
         static void ScrollCallback(GLFWwindow* window, double xoffset, double yoffset);
 };
 
-class EXPORT CPP_InternalControllerEventManager {
+class CPP_InternalControllerEventManager {
     public:
         bool Active;
 
@@ -99,7 +98,7 @@ class EXPORT CPP_InternalControllerEventManager {
         static void JoystickCallback(int jid, int event);
 };
 
-class EXPORT CPP_InternalDropEventManager {
+class CPP_InternalDropEventManager {
     public:
         bool Active;
 

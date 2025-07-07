@@ -1,5 +1,4 @@
 #pragma once
-#include "PMMA_Exports.hpp"
 
 #include <vector>
 #include <variant>
@@ -20,7 +19,7 @@ struct Vertex {
     GLuint shape_id;
 };
 
-class EXPORT CPP_Shape2D_RenderPipelineManager {
+class CPP_Shape2D_RenderPipelineManager {
     public:
         std::vector<Shape2D_RenderObject> RenderPipelineComponents;
         std::vector<Vertex> combined_vertexes;

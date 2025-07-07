@@ -1,5 +1,4 @@
 #pragma once
-#include "PMMA_Exports.hpp"
 
 #include <vector>
 #include <variant>
@@ -13,7 +12,7 @@
 
 using RawRenderObject = std::variant<CPP_Shape2D_RenderPipelineManager*, CPP_TextRendererPipelineManager*, CPP_RadialPolygonShape*, CPP_RectangleShape*>;
 
-class EXPORT CPP_RenderPipelineCore {
+class CPP_RenderPipelineCore {
     public:
         std::vector<RawRenderObject> RenderData;
         unsigned int MaxSize;
@@ -41,7 +40,7 @@ class EXPORT CPP_RenderPipelineCore {
             // Try to extract the CPP_Shape2D_RenderPipelineManager*
             if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&lastVariant)) {
                 if ((*managerPtr)->shape_colors.size() < MaxSize) {
-                    return (*managerPtr)->shape_colors.size();
+                    return (GLuint)(*managerPtr)->shape_colors.size();
                 } else {
                     return 0;
                 }

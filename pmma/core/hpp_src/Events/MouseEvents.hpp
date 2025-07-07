@@ -1,7 +1,7 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include "EventsCore.hpp"
+#include "Events/EventsCore.hpp"
 
 class EXPORT CPP_MousePositionEvent {
     private:

@@ -98,7 +98,7 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
     target_compile_options(AVX512_obj PRIVATE
         -O3 -ffast-math -funroll-loops -fstrict-aliasing
         -fomit-frame-pointer -std=c++17 -mtune=generic
-        -finline-functions -flto -ftree-vectorize -mavx512f)
+        -finline-functions -flto -ftree-vectorize -mavx512f -mavx512dq)
 endif()
 
 # Inherit include directories and definitions
@@ -156,6 +156,7 @@ elseif(APPLE)
         "-framework Cocoa" "-framework OpenGL" "-framework IOKit"
         "-framework CoreVideo" glfw3 freetype png z harfbuzz)
 
+    target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 elseif(UNIX)
     add_compile_options(
         -O3 -ffast-math -funroll-loops -fstrict-aliasing
@@ -164,6 +165,8 @@ elseif(UNIX)
 
     target_link_libraries(${LIB_NAME} PRIVATE
         glfw3 OpenGL::GL freetype png z harfbuzz)
+
+    target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 endif()
 
 # Set output path
@@ -188,4 +191,4 @@ message(STATUS "PMMA_Core & Dependencies code compilation complete!")
 # AVX512 MSVC ADD: /arch:AVX512
 # AVX512 GCC?CLANG ADD: -mavx512f
 
-# NOTE, PMMA REQUIRES AVX-512 components: "-mavx512f"
+# NOTE, PMMA REQUIRES AVX-512 components: "-mavx512f -mavx512dq"

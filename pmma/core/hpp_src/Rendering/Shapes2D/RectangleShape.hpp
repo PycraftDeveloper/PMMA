@@ -62,7 +62,7 @@ class EXPORT CPP_RectangleShape {
         };
 
         inline void SetCentre(unsigned int* in_position) {
-            if (CentreSet && in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y) {
+            if (CentreSet && (in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y)) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
                 VertexData.clear();
@@ -73,7 +73,7 @@ class EXPORT CPP_RectangleShape {
         };
 
         inline void SetSize(unsigned int* in_size) {
-            if (SizeSet && in_size[0] != ShapeSize.x || in_size[1] != ShapeSize.y) {
+            if (SizeSet && (in_size[0] != ShapeSize.x || in_size[1] != ShapeSize.y)) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
                 VertexData.clear();
@@ -104,7 +104,7 @@ class EXPORT CPP_RectangleShape {
             Rotation = in_rotation;
         }
 
-        inline void SetCornerRadius(float in_corner_radius) {
+        inline void SetCornerRadius(unsigned int in_corner_radius) {
             if (in_corner_radius != CornerRadius) {
                 Changed = true;
                 RenderPipelineVertexData.clear();

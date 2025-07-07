@@ -131,6 +131,7 @@ namespace CPP_AdvancedMathematics {
             float* out_x,
             float* out_y,
             float* out_z) {
+
         CPP_AdvancedMathematics::Subtract(position, target, out_z);
         CPP_AdvancedMathematics::InPlaceArrayNormalize(out_z);
 

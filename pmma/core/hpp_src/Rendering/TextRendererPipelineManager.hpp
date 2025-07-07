@@ -1,5 +1,4 @@
 #pragma once
-#include "PMMA_Exports.hpp"
 
 #include <vector>
 
@@ -13,7 +12,7 @@ typedef unsigned int GLuint;
 
 class CPP_TextRenderer;
 
-class EXPORT CPP_TextRendererPipelineManager {
+class CPP_TextRendererPipelineManager {
     private:
         GLuint quadVAO, quadVBO, instanceVBO;
         GLuint shaderProgram;
