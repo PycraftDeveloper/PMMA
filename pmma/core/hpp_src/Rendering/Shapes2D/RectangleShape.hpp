@@ -2,6 +2,7 @@
 #include "PMMA_Exports.hpp"
 
 #include <vector>
+#include <cstdint>
 
 #include <glm/glm.hpp>
 
@@ -19,11 +20,12 @@ class EXPORT CPP_RectangleShape {
         glm::vec2 ShapeCentre;
         glm::vec2 ShapeSize;
 
+        float Rotation = 0;
+
+        uint64_t ID;
+        GLuint ColorIndex;
         unsigned int Width = 0;
         unsigned int CornerRadius = 0;
-        GLuint ColorIndex;
-
-        float Rotation = 0;
 
         bool ColorSet = false;
         bool CentreSet = false;
@@ -33,6 +35,8 @@ class EXPORT CPP_RectangleShape {
         bool HasAlpha = false;
         bool Changed = true;
         bool CornerRadiusSet = true;
+
+        CPP_RectangleShape();
 
         void Render(float ShapeQuality);
 

@@ -193,6 +193,10 @@ void CPP_TextRendererPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObjec
     }
 }
 
+void CPP_TextRendererPipelineManager::Reset() {
+    glyphs.clear();
+}
+
 void CPP_TextRendererPipelineManager::InternalRender() {
     glUseProgram(shaderProgram);
     glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA::DisplayInstance->GetDisplayProjection()));

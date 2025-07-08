@@ -14,6 +14,8 @@ using RawRenderObject = std::variant<CPP_Shape2D_RenderPipelineManager*, CPP_Tex
 
 class CPP_RenderPipelineCore {
     public:
+        std::vector<CPP_Shape2D_RenderPipelineManager*> Shape_2D_RenderManagerCache;
+        std::vector<CPP_TextRendererPipelineManager*> Text_RenderManagerCache;
         std::vector<RawRenderObject> RenderData;
         unsigned int MaxSize;
         GLuint shader;
@@ -40,7 +42,7 @@ class CPP_RenderPipelineCore {
             // Try to extract the CPP_Shape2D_RenderPipelineManager*
             if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&lastVariant)) {
                 if ((*managerPtr)->shape_colors.size() < MaxSize) {
-                    return (GLuint)(*managerPtr)->shape_colors.size();
+                    return (GLuint)(*managerPtr)->InsertionIndex;
                 } else {
                     return 0;
                 }

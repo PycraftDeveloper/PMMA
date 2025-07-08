@@ -2,6 +2,7 @@
 #include "PMMA_Exports.hpp"
 
 #include <vector>
+#include <cstdint>
 
 #include <glm/glm.hpp>
 
@@ -18,12 +19,13 @@ class EXPORT CPP_RadialPolygonShape {
         glm::vec4 RenderPipelineColorData;
         glm::vec2 ShapeCentre;
 
+        float Rotation = 0;
+
+        uint64_t ID;
+        GLuint ColorIndex;
         unsigned int Radius;
         unsigned int Width = 0;
         unsigned int PointCount = 0;
-        GLuint ColorIndex;
-
-        float Rotation = 0;
 
         bool ColorSet = false;
         bool CentreSet = false;
@@ -33,6 +35,8 @@ class EXPORT CPP_RadialPolygonShape {
         bool HasAlpha = false;
         bool PointCountSet = true;
         bool Changed = true;
+
+        CPP_RadialPolygonShape();
 
         void Render(float ShapeQuality);
 

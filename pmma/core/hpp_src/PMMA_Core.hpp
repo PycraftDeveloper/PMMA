@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <string>
+#include <cstdint>
 
 #include "General.hpp"
 
@@ -189,6 +190,8 @@ namespace PMMA {
 
     extern std::string PMMA_Location;
     extern std::string PathSeparator;
+
+    extern uint64_t ClassObject_ID_System;
 
     extern unsigned int KeyboardEventInstanceCount;
     extern unsigned int TextEventInstanceCount;

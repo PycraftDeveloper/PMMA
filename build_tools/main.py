@@ -72,8 +72,6 @@ def clean_deps():
         if not should_keep(extern_dir) and not os.listdir(extern_dir):
             os.rmdir(extern_dir)
 
-import os
-
 def selective_removal(directory, keep_items):
     # Use a list as a queue to process directories iteratively
     dirs_to_process = [directory]
@@ -167,6 +165,8 @@ if not os.path.exists(temp_platform_cache_dir):
                     shutil.rmtree(full_path)
 
     os.makedirs(temp_platform_cache_dir)
+    if os.path.exists(build_dir):
+        selective_removal(build_dir, [".pyi"])
     to_do = [BUILD_CORE, BUILD_CYTHON, BUILD_DEPENDENCIES]
 else:
     print("Looking for PYX changes.")

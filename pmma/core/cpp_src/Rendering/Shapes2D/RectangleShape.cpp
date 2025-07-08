@@ -8,6 +8,10 @@
 
 using namespace std;
 
+CPP_RectangleShape::CPP_RectangleShape() {
+    ID = PMMA::ClassObject_ID_System++;
+}
+
 void CPP_RectangleShape::Render(float ShapeQuality) {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
@@ -37,8 +41,6 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
         }
 
         if (Changed) {
-            Changed = false;
-
             RenderPipelineColorData = ColorData[0];
 
             unsigned int InternalWidth = Width;
@@ -166,6 +168,8 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
         }
         // Do NOTHING.
     }
+
+    Changed = false;
 }
 
 void CPP_RectangleShape::InternalRender() {

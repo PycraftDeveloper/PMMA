@@ -7,6 +7,10 @@
 
 using namespace std;
 
+CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
+    ID = PMMA::ClassObject_ID_System++;
+}
+
 void CPP_RadialPolygonShape::Render(float ShapeQuality) {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
@@ -33,8 +37,6 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
         }
 
         if (Changed) {
-            Changed = false;
-
             RenderPipelineColorData = ColorData[0];
 
             unsigned int InternalPointCount = PointCount;
@@ -111,6 +113,8 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
         }
         // Do NOTHING.
     }
+
+    Changed = false;
 }
 
 void CPP_RadialPolygonShape::InternalRender() {

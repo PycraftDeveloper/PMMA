@@ -32,4 +32,6 @@ class CPP_TextRendererPipelineManager {
         void InternalRender();
 
         void AddRenderTarget(CPP_TextRenderer* NewObject);
+
+        void Reset();
 };

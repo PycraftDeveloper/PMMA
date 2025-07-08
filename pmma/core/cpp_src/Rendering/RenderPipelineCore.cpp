@@ -78,11 +78,23 @@ void CPP_RenderPipelineCore::Render() {
 }
 
 void CPP_RenderPipelineCore::Reset() {
+    for (unsigned int i = 0; i < Shape_2D_RenderManagerCache.size(); ++i) {
+        delete Shape_2D_RenderManagerCache[i];
+    }
+    Shape_2D_RenderManagerCache.clear();
+
+    for (unsigned int i = 0; i < Text_RenderManagerCache.size(); ++i) {
+        delete Text_RenderManagerCache[i];
+    }
+    Text_RenderManagerCache.clear();
+
     for (unsigned int i = 0; i < RenderData.size(); ++i) {
         if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData[i])) {
-            delete (*newManagerPtr);
+            (*newManagerPtr)->Reset();
+            Shape_2D_RenderManagerCache.emplace_back(*newManagerPtr);
         } else if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&RenderData[i])) {
-            delete (*newManagerPtr);
+            (*newManagerPtr)->Reset();
+            Text_RenderManagerCache.emplace_back(*newManagerPtr);
         }
     }
     RenderData.clear();
@@ -91,7 +103,12 @@ void CPP_RenderPipelineCore::Reset() {
 void CPP_RenderPipelineCore::AddObject(CPP_RadialPolygonShape* RenderObject, bool RenderPipelineCompatable) {
     if (RenderData.empty()) {
         if (RenderPipelineCompatable) {
-            RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+            if (Shape_2D_RenderManagerCache.empty()) {
+                RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+            } else {
+                RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
+                Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
+            }
         } else {
             RenderData.emplace_back(RenderObject);
             return;
@@ -107,7 +124,12 @@ void CPP_RenderPipelineCore::AddObject(CPP_RadialPolygonShape* RenderObject, boo
                 (*managerPtr)->AddRenderTarget(RenderObject);
             } else {
                 // Manager full — add new one and push to it
-                RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+                if (Shape_2D_RenderManagerCache.empty()) {
+                    RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+                } else {
+                    RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
+                    Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
+                }
                 auto& newVariant = RenderData.back();
                 if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
                     (*newManagerPtr)->AddRenderTarget(RenderObject);
@@ -115,7 +137,12 @@ void CPP_RenderPipelineCore::AddObject(CPP_RadialPolygonShape* RenderObject, boo
             }
         } else {
             // Last item is NOT a CPP_Shape2D_RenderPipelineManager — add a new one
-            RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+            if (Shape_2D_RenderManagerCache.empty()) {
+                RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+            } else {
+                RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
+                Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
+            }
             auto& newVariant = RenderData.back();
             if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
                 (*newManagerPtr)->AddRenderTarget(RenderObject);
@@ -129,7 +156,12 @@ void CPP_RenderPipelineCore::AddObject(CPP_RadialPolygonShape* RenderObject, boo
 void CPP_RenderPipelineCore::AddObject(CPP_RectangleShape* RenderObject, bool RenderPipelineCompatable) {
     if (RenderData.empty()) {
         if (RenderPipelineCompatable) {
-            RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+            if (Shape_2D_RenderManagerCache.empty()) {
+                RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+            } else {
+                RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
+                Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
+            }
         } else {
             RenderData.emplace_back(RenderObject);
             return;
@@ -145,7 +177,12 @@ void CPP_RenderPipelineCore::AddObject(CPP_RectangleShape* RenderObject, bool Re
                 (*managerPtr)->AddRenderTarget(RenderObject);
             } else {
                 // Manager full — add new one and push to it
-                RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+                if (Shape_2D_RenderManagerCache.empty()) {
+                    RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+                } else {
+                    RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
+                    Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
+                }
                 auto& newVariant = RenderData.back();
                 if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
                     (*newManagerPtr)->AddRenderTarget(RenderObject);
@@ -153,7 +190,12 @@ void CPP_RenderPipelineCore::AddObject(CPP_RectangleShape* RenderObject, bool Re
             }
         } else {
             // Last item is NOT a CPP_Shape2D_RenderPipelineManager — add a new one
-            RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+            if (Shape_2D_RenderManagerCache.empty()) {
+                RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+            } else {
+                RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
+                Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
+            }
             auto& newVariant = RenderData.back();
             if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
                 (*newManagerPtr)->AddRenderTarget(RenderObject);
@@ -166,37 +208,36 @@ void CPP_RenderPipelineCore::AddObject(CPP_RectangleShape* RenderObject, bool Re
 
 void CPP_RenderPipelineCore::AddObject(CPP_TextRenderer* RenderObject) {
     if (RenderData.empty()) {
-        RenderData.emplace_back(new CPP_TextRendererPipelineManager());
-        auto& newVariant = RenderData.back();
-        if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&newVariant)) {
-            (*newManagerPtr)->DelayedSetup(RenderObject->Font, RenderObject->Size);
-            (*newManagerPtr)->AddRenderTarget(RenderObject);
-            return;
-        }
-    }
-
-    auto& lastVariant = RenderData.back();
-
-    // Try to extract the CPP_TextRendererPipelineManager*
-    if (CPP_TextRendererPipelineManager** managerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&lastVariant)) {
-        if ((*managerPtr)->Font == RenderObject->Font && (*managerPtr)->PixelHeight == RenderObject->Size) {
-            (*managerPtr)->AddRenderTarget(RenderObject);
-        } else {
-            // Manager full — add new one and push to it
+        if (Text_RenderManagerCache.empty()) {
             RenderData.emplace_back(new CPP_TextRendererPipelineManager());
+
             auto& newVariant = RenderData.back();
             if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&newVariant)) {
                 (*newManagerPtr)->DelayedSetup(RenderObject->Font, RenderObject->Size);
                 (*newManagerPtr)->AddRenderTarget(RenderObject);
+                return;
             }
-        }
-    } else {
-        // Last item is NOT a CPP_Shape2D_RenderPipelineManager — add a new one
-        RenderData.emplace_back(new CPP_TextRendererPipelineManager());
-        auto& newVariant = RenderData.back();
-        if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&newVariant)) {
-            (*newManagerPtr)->DelayedSetup(RenderObject->Font, RenderObject->Size);
-            (*newManagerPtr)->AddRenderTarget(RenderObject);
+        } else {
+            for (unsigned int i = 0; i < Text_RenderManagerCache.size(); i++) {
+                if (Text_RenderManagerCache[i]->Font == RenderObject->Font && Text_RenderManagerCache[i]->PixelHeight == RenderObject->Size) {
+                    RenderData.emplace_back(Text_RenderManagerCache[i]);
+                    Text_RenderManagerCache.erase(Text_RenderManagerCache.begin() + i);
+                    auto& newVariant = RenderData.back();
+                    if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&newVariant)) {
+                        (*newManagerPtr)->AddRenderTarget(RenderObject);
+                    }
+                    return;
+                }
+            }
+
+            RenderData.emplace_back(new CPP_TextRendererPipelineManager());
+
+            auto& newVariant = RenderData.back();
+            if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&newVariant)) {
+                (*newManagerPtr)->DelayedSetup(RenderObject->Font, RenderObject->Size);
+                (*newManagerPtr)->AddRenderTarget(RenderObject);
+                return;
+            }
         }
     }
 }

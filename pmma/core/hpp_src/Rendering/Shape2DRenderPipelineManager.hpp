@@ -25,13 +25,20 @@ class CPP_Shape2D_RenderPipelineManager {
         std::vector<Vertex> combined_vertexes;
         std::vector<glm::vec4> shape_colors;
 
-        GLuint vao, vbo;
+        std::vector<std::pair<uint64_t, unsigned int>> PreviousRenderContent;
+        unsigned int InsertionIndex = 0;
+
+        GLuint vao, vbo, ubo;
+
+        bool Changed = true;
         bool HasAlpha = false;
 
         CPP_Shape2D_RenderPipelineManager();
         ~CPP_Shape2D_RenderPipelineManager();
 
         void AddRenderTarget(const Shape2D_RenderObject& NewObject);
+
+        void Reset();
 
         void InternalRender();
 

@@ -3,6 +3,7 @@
 
 #include <vector>
 #include <iostream>
+#include <cstdint>
 
 #include "PMMA_Core.hpp"
 
@@ -177,6 +178,8 @@ namespace PMMA {
 
     string PMMA_Location = "";
     string PathSeparator = "";
+
+    uint64_t ClassObject_ID_System = 0;
 
     unsigned int KeyboardEventInstanceCount = 0;
     unsigned int TextEventInstanceCount = 0;
