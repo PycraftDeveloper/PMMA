@@ -185,12 +185,15 @@ temporary/*
 
 # Ignore everything under extern by default
 pmma/extern/*
+pmma/extern - DEBUG/*
 
 # But don't ignore the 'include' directory itself (so we can control subdirs)
 !pmma/extern/include/
+!pmma/extern - DEBUG/include/
 
 # Ignore everything under 'include'
 pmma/extern/include/*
+pmma/extern - DEBUG/include/*
 
 # Allow only glad and glm folders
 !pmma/extern/include/glad/
@@ -198,3 +201,9 @@ pmma/extern/include/*
 
 !pmma/extern/include/glm/
 !pmma/extern/include/glm/**
+
+!pmma/extern - DEBUG/include/glad/
+!pmma/extern - DEBUG/include/glad/**
+
+!pmma/extern - DEBUG/include/glm/
+!pmma/extern - DEBUG/include/glm/**
