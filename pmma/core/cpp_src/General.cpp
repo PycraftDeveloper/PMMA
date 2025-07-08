@@ -1,5 +1,3 @@
-#include "General.hpp"
-
 #include "PMMA_Core.hpp"
 
 using namespace std;

@@ -1,8 +1,6 @@
-#include <cmath>
 #include <immintrin.h>
-#include <iostream>
 
-#include "AdvancedMathematics.hpp"
+#include "PMMA_Core.hpp"
 
 using namespace std;
 

@@ -1,12 +1,5 @@
-#include <iostream>
-#include <chrono>
-
 #include <glad/gl.h>
 #include <glm/gtc/type_ptr.hpp>
-
-#include "Rendering/RenderPipelineCore.hpp"
-#include "Rendering/Shape2DRenderPipelineManager.hpp"
-#include "Rendering/TextRendererPipelineManager.hpp"
 
 #include "PMMA_Core.hpp"
 

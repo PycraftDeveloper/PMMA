@@ -1,9 +1,3 @@
-#include <cmath>
-
-#include "Rendering/Shapes2D/RectangleShape.hpp"
-#include "Rendering/Shape2DRenderPipelineManager.hpp"
-#include "AdvancedMathematics.hpp"
-#include "Constants.hpp"
 #include "PMMA_Core.hpp"
 
 using namespace std;

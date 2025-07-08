@@ -1,8 +1,4 @@
-#include "Events/ControllerEvents.hpp"
-
 #include "PMMA_Core.hpp"
-
-#include <iostream>
 
 using namespace std;
 

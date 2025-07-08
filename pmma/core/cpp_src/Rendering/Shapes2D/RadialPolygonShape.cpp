@@ -1,8 +1,3 @@
-#include <cmath>
-
-#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
-#include "Rendering/Shape2DRenderPipelineManager.hpp"
-#include "Constants.hpp"
 #include "PMMA_Core.hpp"
 
 using namespace std;

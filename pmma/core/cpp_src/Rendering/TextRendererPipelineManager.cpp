@@ -1,7 +1,3 @@
-#include <iostream>
-#include <map>
-#include <vector>
-
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
@@ -9,10 +5,6 @@
 #include <GLFW/glfw3.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
-
-#include "Rendering/TextRendererPipelineManager.hpp"
-
-#include "OpenGL.hpp"
 
 #include "PMMA_Core.hpp"
 

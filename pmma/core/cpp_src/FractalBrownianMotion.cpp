@@ -1,6 +1,4 @@
-#include "PerlinNoise.hpp"
-
-#include "FractalBrownianMotion.hpp"
+#include "PMMA_Core.hpp"
 
 CPP_FractalBrownianMotion::CPP_FractalBrownianMotion(const uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
     CPP_PerlinNoise_ptr = new CPP_PerlinNoise(new_seed);

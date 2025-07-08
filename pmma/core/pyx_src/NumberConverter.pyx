@@ -27,21 +27,6 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void GetColor_RGB(unsigned int* out_color) except + nogil
         inline void GetColor_rgb(float* out_color) except + nogil
 
-    cdef cppclass CPP_DisplayCoordinatesConverter:
-        CPP_DisplayCoordinatesConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
-
-        inline void GenerateRandomCoordinates() except + nogil
-
-        inline void GeneratePerlinCoordinates(float value) except + nogil
-
-        inline void GenerateFractalBrownianMotionCoordinates(float value) except + nogil
-
-        void SetCoordinates_Pixel(unsigned int* in_coordinates) except + nogil
-        inline void SetCoordinates_Normalized(float* in_coordinates) except + nogil
-
-        void GetCoordinates_Pixel(unsigned int* out_coordinates) except + nogil
-        inline void GetCoordinates_Normalized(float* out_coordinates) except + nogil
-
     cdef cppclass CPP_AngleConverter:
         CPP_AngleConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
 
@@ -56,21 +41,6 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         inline float GetAngle_Degrees() except + nogil
         inline float GetAngle_Radians() except + nogil
-
-    cdef cppclass CPP_DisplayScalarConverter:
-        CPP_DisplayScalarConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
-
-        inline void GenerateRandomScalar() except + nogil
-
-        inline void GeneratePerlinScalar(float value) except + nogil
-
-        inline void GenerateFractalBrownianMotionScalar(float value) except + nogil
-
-        void SetScalar_Pixel(unsigned int in_scalar) except + nogil
-        inline void SetScalar_Normalized(float in_scalar) except + nogil
-
-        unsigned int GetScalar_Pixel() except + nogil
-        inline float GetScalar_Normalized() except + nogil
 
     cdef cppclass CPP_ProportionConverter:
         CPP_ProportionConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
@@ -278,127 +248,6 @@ cdef class ColorConverter:
         else:
             return out_color_np
 
-cdef class DisplayCoordinatesConverter:
-    cdef:
-        CPP_DisplayCoordinatesConverter* cpp_class_ptr
-        bool using_numpy_arrays
-
-        unsigned int seed
-        unsigned int octaves
-        float lacunarity
-        float gain
-
-        bool is_coordinates_set
-
-    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr = new CPP_DisplayCoordinatesConverter(seed, octaves, lacunarity, gain)
-
-        self.using_numpy_arrays = False
-        self.is_coordinates_set = False
-
-    def __dealloc__(self):
-        del self.cpp_class_ptr
-
-    def get_seed(self):
-        return self.seed
-
-    def get_octaves(self):
-        return self.octaves
-
-    def get_lacunarity(self):
-        return self.lacunarity
-
-    def get_gain(self):
-        return self.gain
-
-    def get_coordinates_set(self):
-        return self.is_coordinates_set
-
-    def generate_random_coordinates(self):
-        self.cpp_class_ptr.GenerateRandomCoordinates()
-        self.is_coordinates_set = True
-
-    def generate_coordinates_from_perlin_noise(self, value):
-        self.cpp_class_ptr.GeneratePerlinCoordinates(value)
-        self.is_coordinates_set = True
-
-    def generate_coordinates_from_fractal_brownian_motion(self, value):
-        self.cpp_class_ptr.GenerateFractalBrownianMotionCoordinates(value)
-        self.is_coordinates_set = True
-
-    def set_coordinates_pixel(self, in_coordinates):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_coordinates_np
-            unsigned int* in_coordinates_ptr
-
-        if not isinstance(in_coordinates, np.ndarray) or in_coordinates.dtype != np.uint32 or not in_coordinates.flags['C_CONTIGUOUS']:
-            in_coordinates_np = np.array(in_coordinates, dtype=np.uint32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_coordinates_np = in_coordinates
-            self.using_numpy_arrays = False
-
-        in_coordinates_ptr = <unsigned int*>&in_coordinates_np[0]
-
-        self.cpp_class_ptr.SetCoordinates_Pixel(in_coordinates_ptr)
-        self.is_coordinates_set = True
-
-    def set_coordinates_normalized(self, in_coordinates):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] in_coordinates_np
-            float* in_coordinates_ptr
-
-        if not isinstance(in_coordinates, np.ndarray) or in_coordinates.dtype != np.float32 or not in_coordinates.flags['C_CONTIGUOUS']:
-            in_coordinates_np = np.array(in_coordinates, dtype=np.float32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_coordinates_np = in_coordinates
-            self.using_numpy_arrays = False
-
-        in_coordinates_ptr = <float*>&in_coordinates_np[0]
-
-        self.cpp_class_ptr.SetCoordinates_Normalized(in_coordinates_ptr)
-        self.is_coordinates_set = True
-
-    def get_coordinates_pixel(self, detect_format=True):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_coordinates_np
-            unsigned int* out_coordinates_ptr
-
-        out_coordinates_np = np.empty(2, dtype=np.uint32, order='C')
-        out_coordinates_ptr = <unsigned int*>&out_coordinates_np[0]
-
-        self.cpp_class_ptr.GetCoordinates_Pixel(out_coordinates_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_coordinates_np
-            else:
-                return out_coordinates_np.tolist()
-        else:
-            return out_coordinates_np
-
-    def get_coordinates_normalized(self, detect_format=True):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] out_coordinates_np
-            float* out_coordinates_ptr
-
-        out_coordinates_np = np.empty(2, dtype=np.float32, order='C')
-        out_coordinates_ptr = <float*>&out_coordinates_np[0]
-
-        self.cpp_class_ptr.GetCoordinates_Normalized(out_coordinates_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_coordinates_np
-            else:
-                return out_coordinates_np.tolist()
-        else:
-            return out_coordinates_np
-
 cdef class AngleConverter:
     cdef:
         CPP_AngleConverter* cpp_class_ptr
@@ -463,71 +312,6 @@ cdef class AngleConverter:
 
     def get_angle_radians(self):
         return self.cpp_class_ptr.GetAngle_Radians()
-
-cdef class DisplayScalarConverter:
-    cdef:
-        CPP_DisplayScalarConverter* cpp_class_ptr
-
-        unsigned int seed
-        unsigned int octaves
-        float lacunarity
-        float gain
-
-        bool is_scalar_set
-
-    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr = new CPP_DisplayScalarConverter(seed, octaves, lacunarity, gain)
-
-        self.is_scalar_set = False
-
-    def __dealloc__(self):
-        del self.cpp_class_ptr
-
-    def get_seed(self):
-        return self.seed
-
-    def get_octaves(self):
-        return self.octaves
-
-    def get_lacunarity(self):
-        return self.lacunarity
-
-    def get_gain(self):
-        return self.gain
-
-    def get_scalar_set(self):
-        return self.is_scalar_set
-
-    def generate_random_scalar(self):
-        self.cpp_class_ptr.GenerateRandomScalar()
-        self.is_scalar_set = True
-
-    def generate_scalar_from_perlin_noise(self, value):
-        self.cpp_class_ptr.GeneratePerlinScalar(value)
-        self.is_scalar_set = True
-
-    def generate_scalar_from_fractal_brownian_motion(self, value):
-        self.cpp_class_ptr.GenerateFractalBrownianMotionScalar(value)
-        self.is_scalar_set = True
-
-    def set_scalar_pixel(self, value):
-        cdef unsigned int in_value = <unsigned int>value
-        self.cpp_class_ptr.SetScalar_Pixel(in_value)
-        self.is_scalar_set = True
-
-    def set_scalar_normalized(self, value):
-        cdef float in_value = <float>value
-        self.cpp_class_ptr.SetScalar_Normalized(in_value)
-        self.is_scalar_set = True
-
-    def get_scalar_pixel(self):
-        return self.cpp_class_ptr.GetScalar_Pixel()
-
-    def get_scalar_normalized(self):
-        return self.cpp_class_ptr.GetScalar_Normalized()
 
 cdef class ProportionConverter:
     cdef:

@@ -1,10 +1,4 @@
-#include <iostream>
-#include <string>
-
 #include <GLFW/glfw3.h>
-
-#include "Events/InternalEventsManager.hpp"
-#include "Events/KeyEvents.hpp"
 
 #include "PMMA_Core.hpp"
 

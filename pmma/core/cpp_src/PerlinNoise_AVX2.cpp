@@ -1,9 +1,6 @@
-#include <cmath>
-#include <array>
-#include <cstdint>
 #include <immintrin.h>
 
-#include "PerlinNoise.hpp"
+#include "PMMA_Core.hpp"
 
 using namespace std;
 

@@ -1,7 +1,3 @@
-#include <stdexcept>
-
-#include "Rendering/TextRenderer.hpp"
-
 #include "PMMA_Core.hpp"
 
 using namespace std;

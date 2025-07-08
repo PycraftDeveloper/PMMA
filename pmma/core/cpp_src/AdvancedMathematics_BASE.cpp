@@ -1,7 +1,3 @@
-#include <cmath>
-
-#include "AdvancedMathematics.hpp"
-
 #include "PMMA_Core.hpp"
 
 using namespace std;

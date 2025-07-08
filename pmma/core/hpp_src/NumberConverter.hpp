@@ -8,8 +8,6 @@
 #include "FractalBrownianMotion.hpp"
 #include "AdvancedMathematics.hpp"
 
-class CPP_Display;
-
 class EXPORT CPP_BasicColorConverter {
     protected:
         float InternalColor[4];
@@ -163,92 +161,6 @@ class EXPORT CPP_ColorConverter: public CPP_BasicColorConverter {
         }
 };
 
-class EXPORT CPP_BasicDisplayCoordinatesConverter {
-    protected:
-        float InternalCoordinates[2];
-        bool CoordinatesAreSet = false;
-        CPP_Display* display = nullptr;
-
-    public:
-        CPP_BasicDisplayCoordinatesConverter();
-
-        inline bool GetCoordinatesAreSet() {
-            return CoordinatesAreSet;
-        }
-
-        void SetCoordinates_Pixel(unsigned int* in_coordinates);
-
-        inline void SetCoordinates_Normalized(float* in_coordinates) {
-            InternalCoordinates[0] = in_coordinates[0];
-            InternalCoordinates[1] = in_coordinates[1];
-            CoordinatesAreSet = true;
-        }
-
-        void GetCoordinates_Pixel(unsigned int* out_coordinates);
-
-        inline void GetCoordinates_Normalized(float* out_coordinates) {
-            if (!CoordinatesAreSet) {
-                throw std::runtime_error("Coordinates not set!");
-            }
-            out_coordinates[0] = InternalCoordinates[0];
-            out_coordinates[1] = InternalCoordinates[1];
-        }
-};
-
-class EXPORT CPP_DisplayCoordinatesConverter: public CPP_BasicDisplayCoordinatesConverter {
-    private:
-        uint32_t seed;
-        uint32_t octaves;
-        float frequency;
-        float amplitude;
-
-        CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
-        CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
-
-    public:
-        CPP_DisplayCoordinatesConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
-
-        inline uint32_t GetSeed() {
-            return seed;
-        }
-
-        inline uint32_t GetOctaves() {
-            return octaves;
-        }
-
-        inline float GetFrequency() {
-            return frequency;
-        }
-
-        inline float GetAmplitude() {
-            return amplitude;
-        }
-
-        inline void GenerateRandomCoordinates() {
-            InternalCoordinates[0] = CPP_AdvancedMathematics::RandomFloat(new float[2]{-1, 1});
-            InternalCoordinates[1] = CPP_AdvancedMathematics::RandomFloat(new float[2]{-1, 1});
-            CoordinatesAreSet = true;
-        }
-
-        inline void GeneratePerlinCoordinates(float value) {
-            float BatchedCoordinatesGeneration[2][2] = {{0, value}, {1, value}};
-            float OutputCoordinates[2];
-            PerlinNoiseGenerator->ArrayNoise2D(BatchedCoordinatesGeneration, 3, OutputCoordinates);
-            InternalCoordinates[0] = OutputCoordinates[0];
-            InternalCoordinates[1] = OutputCoordinates[1];
-            CoordinatesAreSet = true;
-        }
-
-        inline void GenerateFractalBrownianMotionCoordinates(float value) {
-            float BatchedCoordinatesGeneration[2][2] = {{0, value}, {1, value}};
-            float OutputCoordinates[2];
-            FractalBrownianMotionGenerator->ArrayNoise2D(BatchedCoordinatesGeneration, 3, OutputCoordinates);
-            InternalCoordinates[0] = OutputCoordinates[0];
-            InternalCoordinates[1] = OutputCoordinates[1];
-            CoordinatesAreSet = true;
-        }
-};
-
 class EXPORT CPP_BasicAngleConverter {
     protected:
         float InternalAngle;
@@ -340,81 +252,6 @@ class EXPORT CPP_AngleConverter: public CPP_BasicAngleConverter {
             InternalAngle = FractalBrownianMotionGenerator->Noise1D(value);
             InternalAngle = CPP_AdvancedMathematics::Ranger(InternalAngle, new float[2]{-1, 1}, new float[2]{0, 3.14159265358979323846f * 2});
             AngleIsSet = true;
-        }
-};
-
-class EXPORT CPP_BasicDisplayScalarConverter {
-    protected:
-        float InternalScalar;
-        bool ScalarIsSet = false;
-        CPP_Display* display = nullptr;
-
-    public:
-        CPP_BasicDisplayScalarConverter();
-
-        inline bool GetScalarIsSet() {
-            return ScalarIsSet;
-        }
-
-        void SetScalar_Pixel(unsigned int in_scalar);
-
-        inline void SetScalar_Normalized(float in_scalar) {
-            InternalScalar = in_scalar;
-            ScalarIsSet = true;
-        }
-
-        unsigned int GetScalar_Pixel();
-
-        inline float GetScalar_Normalized() {
-            if (!ScalarIsSet) {
-                throw std::runtime_error("Scalar not set!");
-            }
-            return InternalScalar;
-        }
-};
-
-class EXPORT CPP_DisplayScalarConverter: public CPP_BasicDisplayScalarConverter{
-    private:
-        uint32_t seed;
-        uint32_t octaves;
-        float frequency;
-        float amplitude;
-
-        CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
-        CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
-
-    public:
-        CPP_DisplayScalarConverter(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
-
-        inline uint32_t GetSeed() {
-            return seed;
-        }
-
-        inline uint32_t GetOctaves() {
-            return octaves;
-        }
-
-        inline float GetFrequency() {
-            return frequency;
-        }
-
-        inline float GetAmplitude() {
-            return amplitude;
-        }
-
-        inline void GenerateRandomScalar() {
-            InternalScalar = CPP_AdvancedMathematics::RandomFloat(new float[2]{-1, 1});
-            ScalarIsSet = true;
-        }
-
-        inline void GeneratePerlinScalar(float value) {
-            InternalScalar = PerlinNoiseGenerator->Noise1D(value);
-            ScalarIsSet = true;
-        }
-
-        inline void GenerateFractalBrownianMotionScalar(float value) {
-            InternalScalar = FractalBrownianMotionGenerator->Noise1D(value);
-            ScalarIsSet = true;
         }
 };
 

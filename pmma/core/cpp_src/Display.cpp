@@ -1,15 +1,5 @@
-#include <iostream>
-#include <string>
-#include <stdexcept>
-#include <chrono>
-#include <thread>
-
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
-
-#include "Display.hpp"
-#include "NumberConverter.hpp"
-#include "Rendering/RenderPipelineCore.hpp"
 
 #include "PMMA_Core.hpp"
 

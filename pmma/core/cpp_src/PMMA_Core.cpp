@@ -1,19 +1,7 @@
 #define GLAD_GL_IMPLEMENTATION
 #include <glad/gl.h>
 
-#include <vector>
-#include <iostream>
-#include <cstdint>
-
 #include "PMMA_Core.hpp"
-
-#include "Events/KeyEvents.hpp"
-#include "Events/KeyPadEvents.hpp"
-#include "Events/MouseEvents.hpp"
-#include "Events/WindowEvents.hpp"
-#include "Events/ControllerEvents.hpp"
-
-#include "Utility/CPU_FeatureSetUtils.hpp"
 
 using namespace std;
 

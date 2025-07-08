@@ -3,6 +3,16 @@
 #include <vector>
 #include <string>
 #include <cstdint>
+#include <cmath>
+#include <iostream>
+#include <stdexcept>
+#include <chrono>
+#include <thread>
+#include <fstream>
+#include <sstream>
+#include <array>
+#include <algorithm>
+#include <map>
 
 #include "General.hpp"
 
@@ -22,6 +32,14 @@
 #include "Events/ControllerEvents.hpp"
 
 #include "Events/InternalEventsManager.hpp"
+
+#include "AdvancedMathematics.hpp"
+#include "FractalBrownianMotion.hpp"
+#include "PerlinNoise.hpp"
+#include "OpenGL.hpp"
+
+#include "Utility/FontUtils.hpp"
+#include "Utility/CPU_FeatureSetUtils.hpp"
 
 /*
 Notes:
@@ -208,8 +226,3 @@ namespace PMMA {
     extern bool CPU_Supports_AVX2;
     extern bool CPU_Supports_AVX512;
 }
-
-#include "AdvancedMathematics.hpp"
-#include "FractalBrownianMotion.hpp"
-#include "PerlinNoise.hpp"
-#include "OpenGL.hpp"

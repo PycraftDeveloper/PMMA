@@ -2,11 +2,6 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <vector>
-#include <chrono>
-#include <iostream>
-
-#include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "PMMA_Core.hpp"
 
 using namespace std;

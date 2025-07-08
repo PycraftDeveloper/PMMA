@@ -25,7 +25,6 @@ set(SOURCES
     "${SRC_DIR}/AdvancedMathematics_BASE.cpp"
     "${SRC_DIR}/Display.cpp"
     "${SRC_DIR}/FractalBrownianMotion.cpp"
-    "${SRC_DIR}/NumberConverter.cpp"
     "${SRC_DIR}/PerlinNoise_BASE.cpp"
     "${SRC_DIR}/OpenGL.cpp"
     "${SRC_DIR}/General.cpp"

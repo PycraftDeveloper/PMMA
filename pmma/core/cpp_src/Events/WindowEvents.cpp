@@ -1,7 +1,3 @@
-#include <stdexcept>
-
-#include "Events/WindowEvents.hpp"
-
 #include "PMMA_Core.hpp"
 
 using namespace std;

@@ -1,11 +1,6 @@
-#include "OpenGL.hpp"
-
-#include <fstream>
-#include <sstream>
-#include <string>
-#include <stdexcept>
-
 #include <glad/gl.h>
+
+#include "PMMA_Core.hpp"
 
 using namespace std;
 
