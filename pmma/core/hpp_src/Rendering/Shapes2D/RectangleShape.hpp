@@ -42,7 +42,7 @@ class EXPORT CPP_RectangleShape {
 
         void InternalRender();
 
-        inline glm::vec2 ApplyRotation(glm::vec2 position, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight) {
+        inline glm::vec2 SimpleApplyRotation(glm::vec2 position, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight) {
             glm::vec2 tl = glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y - HalfHeight);
             glm::vec2 pos = tl - ShapeCentre;
             glm::vec2 rotated = {
@@ -50,6 +50,18 @@ class EXPORT CPP_RectangleShape {
                 RotationSin * pos.x + RotationCos * pos.y
             };
             return ShapeCentre + rotated;
+        }
+
+        inline glm::vec2 ComplexApplyRotation(glm::vec2 point, float RotationSin, float RotationCos) {
+            // Translate point to origin
+            point -= ShapeCentre;
+
+            // Rotate
+            float xnew = point.x * RotationCos - point.y * RotationSin;
+            float ynew = point.x * RotationSin + point.y * RotationCos;
+
+            // Translate back
+            return glm::vec2(xnew, ynew) + ShapeCentre;
         }
 
         inline void SetColor(float* in_color, unsigned int size) {

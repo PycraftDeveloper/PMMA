@@ -138,17 +138,29 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
                 if (Width == 0 || Width >= max(HalfWidth, HalfHeight)) {
                     RenderPipelineVertexData.resize(4);
 
-                    glm::vec2 point = glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y - HalfHeight);
-                    RenderPipelineVertexData[0] = {ApplyRotation(point, RotationSin, RotationCos, HalfWidth, HalfHeight), ColorIndex};
+                    glm::vec2 point = glm::vec2(ShapeCentre.x - HalfWidth,
+                        ShapeCentre.y - HalfHeight);
+                    RenderPipelineVertexData[0] = {
+                        SimpleApplyRotation(point, RotationSin,
+                            RotationCos, HalfWidth, HalfHeight), ColorIndex};
 
-                    point = glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y - HalfHeight);
-                    RenderPipelineVertexData[1] = {ApplyRotation(point, RotationSin, RotationCos, HalfWidth, HalfHeight), ColorIndex};
+                    point = glm::vec2(ShapeCentre.x + HalfWidth,
+                        ShapeCentre.y - HalfHeight);
+                    RenderPipelineVertexData[1] = {
+                        SimpleApplyRotation(point, RotationSin,
+                            RotationCos, HalfWidth, HalfHeight), ColorIndex};
 
-                    point = glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y + HalfHeight);
-                    RenderPipelineVertexData[2] = {ApplyRotation(point, RotationSin, RotationCos, HalfWidth, HalfHeight), ColorIndex};
+                    point = glm::vec2(ShapeCentre.x - HalfWidth,
+                        ShapeCentre.y + HalfHeight);
+                    RenderPipelineVertexData[2] = {
+                        SimpleApplyRotation(point, RotationSin,
+                            RotationCos, HalfWidth, HalfHeight), ColorIndex};
 
-                    point = glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y + HalfHeight);
-                    RenderPipelineVertexData[3] = {ApplyRotation(point, RotationSin, RotationCos, HalfWidth, HalfHeight), ColorIndex};
+                    point = glm::vec2(ShapeCentre.x + HalfWidth,
+                        ShapeCentre.y + HalfHeight);
+                    RenderPipelineVertexData[3] = {
+                        SimpleApplyRotation(point, RotationSin,
+                            RotationCos, HalfWidth, HalfHeight), ColorIndex};
                 } else {
                     RenderPipelineVertexData.resize(10);
 
@@ -163,14 +175,39 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
                     int inner_bottom = outer_bottom - Width;
 
                     // GL_TRIANGLE_STRIP order: Outer TL, Inner TL, Outer TR, Inner TR, Outer BR, Inner BR, Outer BL, Inner BL
-                    RenderPipelineVertexData[0] = {glm::vec2(outer_left,  outer_top), ColorIndex}; // Outer TL
-                    RenderPipelineVertexData[1] = {glm::vec2(inner_left,  inner_top), ColorIndex}; // Inner TL
-                    RenderPipelineVertexData[2] = {glm::vec2(outer_right, outer_top), ColorIndex}; // Outer TR
-                    RenderPipelineVertexData[3] = {glm::vec2(inner_right, inner_top), ColorIndex}; // Inner TR
-                    RenderPipelineVertexData[4] = {glm::vec2(outer_right, outer_bottom), ColorIndex}; // Outer BR
-                    RenderPipelineVertexData[5] = {glm::vec2(inner_right, inner_bottom), ColorIndex}; // Inner BR
-                    RenderPipelineVertexData[6] = {glm::vec2(outer_left,  outer_bottom), ColorIndex}; // Outer BL
-                    RenderPipelineVertexData[7] = {glm::vec2(inner_left,  inner_bottom), ColorIndex}; // Inner BL
+                    RenderPipelineVertexData[0] = {
+                        ComplexApplyRotation(
+                            glm::vec2(outer_left, outer_top),
+                            RotationSin, RotationCos), ColorIndex}; // Outer TL
+                    RenderPipelineVertexData[1] = {
+                        ComplexApplyRotation(
+                            glm::vec2(inner_left, inner_top),
+                            RotationSin, RotationCos), ColorIndex}; // Inner TL
+                    RenderPipelineVertexData[2] = {
+                        ComplexApplyRotation(
+                            glm::vec2(outer_right, outer_top),
+                            RotationSin, RotationCos), ColorIndex}; // Outer TR
+                    RenderPipelineVertexData[3] = {
+                        ComplexApplyRotation(
+                            glm::vec2(inner_right, inner_top),
+                            RotationSin, RotationCos), ColorIndex}; // Inner TR
+                    RenderPipelineVertexData[4] = {
+                        ComplexApplyRotation(
+                            glm::vec2(outer_right, outer_bottom),
+                            RotationSin, RotationCos), ColorIndex}; // Outer BR
+                    RenderPipelineVertexData[5] = {
+                        ComplexApplyRotation(
+                            glm::vec2(inner_right, inner_bottom),
+                            RotationSin, RotationCos), ColorIndex}; // Inner BR
+                    RenderPipelineVertexData[6] = {
+                        ComplexApplyRotation(
+                            glm::vec2(outer_left, outer_bottom),
+                            RotationSin, RotationCos), ColorIndex}; // Outer BL
+                    RenderPipelineVertexData[7] = {
+                        ComplexApplyRotation(
+                            glm::vec2(inner_left, inner_bottom),
+                            RotationSin, RotationCos), ColorIndex}; // Inner BL
+
                     RenderPipelineVertexData[8] = RenderPipelineVertexData[0];
                     RenderPipelineVertexData[9] = RenderPipelineVertexData[1];
                 }
