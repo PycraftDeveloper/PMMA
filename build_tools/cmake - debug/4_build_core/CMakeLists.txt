@@ -39,6 +39,7 @@ set(SOURCES
 
     "${SRC_DIR}/Rendering/Shapes2D/RectangleShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/RadialPolygonShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/PixelShape.cpp"
 
     "${SRC_DIR}/Events/InternalEventsManager.cpp"
     "${SRC_DIR}/Events/KeyPadEvents.cpp"
@@ -60,7 +61,7 @@ add_library(AVX2_obj OBJECT ${AVX2_SOURCES})
 # Apply AVX2 flags depending on the compiler
 if (MSVC)
     target_compile_options(AVX2_obj PRIVATE
-        /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2
+        /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2
         /arch:AVX2)
 
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
@@ -90,7 +91,7 @@ add_library(AVX512_obj OBJECT ${AVX512_SOURCES})
 # Apply AVX2 flags depending on the compiler
 if (MSVC)
     target_compile_options(AVX512_obj PRIVATE
-        /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2
+        /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2
         /arch:AVX512)
 
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
@@ -139,7 +140,7 @@ find_package(OpenGL REQUIRED)
 
 if (WIN32)
     add_compile_options(
-        /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2)
+        /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2)
 
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
     target_link_libraries(${LIB_NAME} PRIVATE

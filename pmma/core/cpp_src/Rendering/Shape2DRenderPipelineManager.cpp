@@ -155,6 +155,74 @@ void CPP_Shape2D_RenderPipelineManager::InternalAddRenderTarget(CPP_RectangleSha
     InsertionIndex++;
 }
 
+void CPP_Shape2D_RenderPipelineManager::InternalAddRenderTarget(CPP_PixelShape* TargetPtr) {
+    const bool shapeChanged = TargetPtr->Changed;
+    const size_t currentIndex = InsertionIndex;
+    size_t insertPos = combined_vertexes.size();
+
+    // Handle update or insertion
+    if (currentIndex < PreviousRenderContent.size()) {
+        const auto& [existingID, existingOffset] = PreviousRenderContent[currentIndex];
+
+        if (TargetPtr->ID == existingID) {
+            if (!shapeChanged) {
+                // Shape hasn't changed, skip
+                InsertionIndex++;
+                return;
+            } else {
+                // Changed shape — erase all after current
+                PreviousRenderContent.erase(PreviousRenderContent.begin() + currentIndex, PreviousRenderContent.end());
+                combined_vertexes.erase(combined_vertexes.begin() + existingOffset, combined_vertexes.end());
+                shape_colors.resize(currentIndex);
+                insertPos = existingOffset;
+            }
+        } else {
+            // Mismatch — treat as new insertion
+            PreviousRenderContent.erase(PreviousRenderContent.begin() + currentIndex, PreviousRenderContent.end());
+            combined_vertexes.erase(combined_vertexes.begin() + existingOffset, combined_vertexes.end());
+            shape_colors.resize(currentIndex);
+            insertPos = existingOffset;
+        }
+    }
+
+    Changed = true;
+
+    const glm::vec4 color = TargetPtr->RenderPipelineColorData;
+
+    // Add or replace color
+    if (currentIndex < shape_colors.size()) {
+        shape_colors[currentIndex] = color;
+    } else {
+        shape_colors.emplace_back(color);
+    }
+
+    const auto& vertices = TargetPtr->RenderPipelineVertexData;
+
+    // Ensure vertex buffer is resized properly
+    if (insertPos < combined_vertexes.size()) {
+        combined_vertexes.resize(insertPos);
+    }
+
+    // Insert degenerate bridge if applicable
+    if (currentIndex > 0 && vertices.size() >= 2 && !combined_vertexes.empty()) {
+        combined_vertexes.emplace_back(combined_vertexes.back()); // Repeat last of previous
+        combined_vertexes.emplace_back(vertices[0]);              // Repeat first of current
+    }
+
+    // Insert current shape's vertices
+    const size_t shapeStartIndex = combined_vertexes.size();
+    combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
+
+    // Update PreviousRenderContent
+    if (currentIndex < PreviousRenderContent.size()) {
+        PreviousRenderContent[currentIndex] = { TargetPtr->ID, static_cast<unsigned int>(shapeStartIndex) };
+    } else {
+        PreviousRenderContent.emplace_back(TargetPtr->ID, static_cast<unsigned int>(shapeStartIndex));
+    }
+
+    InsertionIndex++;
+}
+
 void CPP_Shape2D_RenderPipelineManager::Reset() {
 
 }
@@ -163,6 +231,8 @@ void CPP_Shape2D_RenderPipelineManager::AddRenderTarget(const Shape2D_RenderObje
     if (auto actualPtr = std::get_if<CPP_RadialPolygonShape*>(&NewObject)) {
         InternalAddRenderTarget(*actualPtr);
     } else if (auto actualPtr = std::get_if<CPP_RectangleShape*>(&NewObject)) {
+        InternalAddRenderTarget(*actualPtr);
+    } else if (auto actualPtr = std::get_if<CPP_PixelShape*>(&NewObject)) {
         InternalAddRenderTarget(*actualPtr);
     }
 }

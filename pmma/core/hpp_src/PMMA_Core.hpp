@@ -18,6 +18,8 @@
 
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
+#include "Rendering/Shapes2D/PixelShape.hpp"
+
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "Rendering/TextRendererPipelineManager.hpp"
 #include "Rendering/RenderPipelineCore.hpp"

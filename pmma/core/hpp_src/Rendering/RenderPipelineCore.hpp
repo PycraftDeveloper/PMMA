@@ -10,7 +10,7 @@
 #include "Rendering/TextRendererPipelineManager.hpp"
 #include "Rendering/TextRenderer.hpp"
 
-using RawRenderObject = std::variant<CPP_Shape2D_RenderPipelineManager*, CPP_TextRendererPipelineManager*, CPP_RadialPolygonShape*, CPP_RectangleShape*>;
+using RawRenderObject = std::variant<CPP_Shape2D_RenderPipelineManager*, CPP_TextRendererPipelineManager*, CPP_RadialPolygonShape*, CPP_RectangleShape*, CPP_PixelShape*>;
 
 class CPP_RenderPipelineCore {
     public:
@@ -31,6 +31,7 @@ class CPP_RenderPipelineCore {
 
         void AddObject(CPP_RadialPolygonShape* RenderObject, bool RenderPipelineCompatable);
         void AddObject(CPP_RectangleShape* RenderObject, bool RenderPipelineCompatable);
+        void AddObject(CPP_PixelShape* RenderObject, bool RenderPipelineCompatable);
         void AddObject(CPP_TextRenderer* RenderObject);
 
         inline GLuint Get_Shape2D_ColorIndex() {

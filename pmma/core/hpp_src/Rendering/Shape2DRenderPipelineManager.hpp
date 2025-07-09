@@ -11,8 +11,9 @@
 
 class CPP_RadialPolygonShape;
 class CPP_RectangleShape;
+class CPP_PixelShape;
 
-using Shape2D_RenderObject = std::variant<CPP_RadialPolygonShape*, CPP_RectangleShape*>;
+using Shape2D_RenderObject = std::variant<CPP_RadialPolygonShape*, CPP_RectangleShape*, CPP_PixelShape*>;
 
 struct Vertex {
     glm::vec2 position;
@@ -44,4 +45,5 @@ class CPP_Shape2D_RenderPipelineManager {
 
         void InternalAddRenderTarget(CPP_RadialPolygonShape* TargetPtr);
         void InternalAddRenderTarget(CPP_RectangleShape* TargetPtr);
+        void InternalAddRenderTarget(CPP_PixelShape* TargetPtr);
 };
