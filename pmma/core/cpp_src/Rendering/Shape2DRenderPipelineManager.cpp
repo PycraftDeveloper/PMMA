@@ -30,6 +30,14 @@ void CPP_Shape2D_RenderPipelineManager::AddRenderTarget(const Shape2D_RenderObje
         InternalAddRenderTarget(*actualPtr);
     } else if (auto actualPtr = std::get_if<CPP_PixelShape*>(&NewObject)) {
         InternalAddRenderTarget(*actualPtr);
+    } else if (auto actualPtr = std::get_if<CPP_LineShape*>(&NewObject)) {
+        InternalAddRenderTarget(*actualPtr);
+    } else if (auto actualPtr = std::get_if<CPP_PolygonShape*>(&NewObject)) {
+        InternalAddRenderTarget(*actualPtr);
+    } else if (auto actualPtr = std::get_if<CPP_ArcShape*>(&NewObject)) {
+        InternalAddRenderTarget(*actualPtr);
+    } else if (auto actualPtr = std::get_if<CPP_EllipseShape*>(&NewObject)) {
+        InternalAddRenderTarget(*actualPtr);
     }
 }
 

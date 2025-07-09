@@ -12,8 +12,20 @@
 class CPP_RadialPolygonShape;
 class CPP_RectangleShape;
 class CPP_PixelShape;
+// To-DO:
+class CPP_LineShape;
+class CPP_ArcShape;
+class CPP_EllipseShape;
+class CPP_PolygonShape;
 
-using Shape2D_RenderObject = std::variant<CPP_RadialPolygonShape*, CPP_RectangleShape*, CPP_PixelShape*>;
+using Shape2D_RenderObject = std::variant<
+    CPP_RadialPolygonShape*,
+    CPP_RectangleShape*,
+    CPP_PixelShape*,
+    CPP_LineShape*,
+    CPP_PolygonShape*,
+    CPP_EllipseShape*,
+    CPP_ArcShape*>;
 
 struct Vertex {
     glm::vec2 position;

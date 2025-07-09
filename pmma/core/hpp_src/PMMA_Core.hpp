@@ -19,6 +19,10 @@
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
 #include "Rendering/Shapes2D/PixelShape.hpp"
+#include "Rendering/Shapes2D/PolygonShape.hpp"
+#include "Rendering/Shapes2D/LineShape.hpp"
+#include "Rendering/Shapes2D/ArcShape.hpp"
+#include "Rendering/Shapes2D/EllipseShape.hpp"
 
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "Rendering/TextRendererPipelineManager.hpp"

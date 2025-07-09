@@ -10,7 +10,16 @@
 #include "Rendering/TextRendererPipelineManager.hpp"
 #include "Rendering/TextRenderer.hpp"
 
-using RawRenderObject = std::variant<CPP_Shape2D_RenderPipelineManager*, CPP_TextRendererPipelineManager*, CPP_RadialPolygonShape*, CPP_RectangleShape*, CPP_PixelShape*>;
+using RawRenderObject = std::variant<
+    CPP_Shape2D_RenderPipelineManager*,
+    CPP_TextRendererPipelineManager*,
+    CPP_RadialPolygonShape*,
+    CPP_RectangleShape*,
+    CPP_PixelShape*,
+    CPP_LineShape*,
+    CPP_PolygonShape*,
+    CPP_EllipseShape*,
+    CPP_ArcShape*>;
 
 class CPP_RenderPipelineCore {
     public:

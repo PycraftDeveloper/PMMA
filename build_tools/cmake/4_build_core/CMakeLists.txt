@@ -40,6 +40,10 @@ set(SOURCES
     "${SRC_DIR}/Rendering/Shapes2D/RectangleShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/RadialPolygonShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/PixelShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/LineShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/ArcShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/EllipseShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/PolygonShape.cpp"
 
     "${SRC_DIR}/Events/InternalEventsManager.cpp"
     "${SRC_DIR}/Events/KeyPadEvents.cpp"
