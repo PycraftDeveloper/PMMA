@@ -90,13 +90,13 @@ class EXPORT CPP_ArcShape {
         };
 
         inline void SetEndAngle(float in_end_angle) {
-            if (EndAngleSet && (in_end_angle != EndAngleSet)) {
+            if (EndAngleSet && (in_end_angle != EndAngle)) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
                 VertexData.clear();
             }
 
-            EndAngleSet = in_end_angle;
+            EndAngle = in_end_angle;
             EndAngleSet = true;
         };
 
@@ -130,7 +130,7 @@ class EXPORT CPP_ArcShape {
             Rotation = in_rotation;
         }
 
-        inline void SetPointCount(float in_point_count) {
+        inline void SetPointCount(unsigned int in_point_count) {
             if (in_point_count != PointCount) {
                 Changed = true;
                 RenderPipelineVertexData.clear();

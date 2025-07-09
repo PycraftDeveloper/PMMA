@@ -39,26 +39,26 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_LineShape:
-        inline void SetColor(float* in_color) except + nogil
+        inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetRotation(float rotation) except + nogil
         inline void SetStartPosition(unsigned int* in_start_position) except + nogil
         inline void SetEndPosition(unsigned int* in_end_position) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
 
-        void Render() except + nogil
+        void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_PolygonShape:
-        inline void SetColor(float* in_color) except + nogil
+        inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetRotation(float rotation) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
-        inline void SetPoints(unsigned int* in_points, unsigned int count) except + nogil
+        inline void SetPoints(unsigned int (*in_points)[2], unsigned int count) except + nogil
         inline void SetClosed(bool in_closed) except + nogil
 
-        void Render() except + nogil
+        void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_ArcShape:
-        inline void SetColor(float* in_color) except + nogil
-        inline void SetColor(float* in_color) except + nogil
+        inline void SetColor(float* in_color, unsigned int size) except + nogil
+        inline void SetCentre(unsigned int* in_position) except + nogil
         inline void SetRotation(float rotation) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetStartAngle(float in_start_angle) except + nogil
@@ -66,7 +66,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetPointCount(unsigned int in_point_count) except + nogil
         inline void SetRadius(unsigned int in_radius) except + nogil
 
-        void Render() except + nogil
+        void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_EllipseShape:
         inline void SetColor(float* in_color, unsigned int size) except + nogil
@@ -247,7 +247,7 @@ cdef class Line:
         del self.cpp_class_ptr
 
     def render(self):
-        self.cpp_class_ptr.Render()
+        self.cpp_class_ptr.Render(0.27341772151898736)
 
     def set_start(self, start_position):
         cdef:
@@ -261,7 +261,7 @@ cdef class Line:
 
         start_position_ptr = <unsigned int*>&start_position_np[0]
 
-        self.cpp_class_ptr.SetCentre(start_position_ptr)
+        self.cpp_class_ptr.SetStartPosition(start_position_ptr)
 
     def set_end(self, end_position):
         cdef:
@@ -271,11 +271,11 @@ cdef class Line:
         if not isinstance(end_position, np.ndarray) or end_position.dtype != np.uint32 or not end_position.flags['C_CONTIGUOUS']:
             end_position_np = np.array(end_position, dtype=np.uint32, order='C')
         else:
-            end_position_np = start_position
+            end_position_np = end_position
 
         end_position_ptr = <unsigned int*>&end_position_np[0]
 
-        self.cpp_class_ptr.SetCentre(end_position_ptr)
+        self.cpp_class_ptr.SetEndPosition(end_position_ptr)
 
     def set_color(self, color):
         cdef:
@@ -289,7 +289,7 @@ cdef class Line:
 
         color_ptr = <float*>&color_np[0]
 
-        self.cpp_class_ptr.SetColor(color_ptr)
+        self.cpp_class_ptr.SetColor(color_ptr, 4)
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
@@ -308,21 +308,28 @@ cdef class PolygonShape:
         del self.cpp_class_ptr
 
     def render(self):
-        self.cpp_class_ptr.Render()
+        self.cpp_class_ptr.Render(0.27341772151898736)
 
     def set_points(self, points):
         cdef:
             np.ndarray[np.uint32_t, ndim=2, mode='c'] points_np
             unsigned int* points_ptr
+            Py_ssize_t num_points
 
+        # Ensure input is a C-contiguous NumPy array of shape (N, 2)
         if not isinstance(points, np.ndarray) or points.dtype != np.uint32 or not points.flags['C_CONTIGUOUS']:
-            points_np = np.array(points, dtype=np.uint32, order='C')
+            points_np = np.ascontiguousarray(points, dtype=np.uint32)
         else:
             points_np = points
 
-        points_ptr = <unsigned int*>&points_np[0]
+        # Validate shape
+        if points_np.ndim != 2 or points_np.shape[1] != 2:
+            raise ValueError("Input array must have shape (N, 2)")
 
-        self.cpp_class_ptr.SetPoints(points_ptr, len(points))
+        num_points = points_np.shape[0]
+        points_ptr = <unsigned int*> &points_np[0, 0]
+
+        self.cpp_class_ptr.SetPoints(<unsigned int (*)[2]> points_ptr, num_points)
 
     def set_color(self, color):
         cdef:
@@ -336,7 +343,7 @@ cdef class PolygonShape:
 
         color_ptr = <float*>&color_np[0]
 
-        self.cpp_class_ptr.SetColor(color_ptr)
+        self.cpp_class_ptr.SetColor(color_ptr, 4)
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)

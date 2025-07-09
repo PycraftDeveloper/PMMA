@@ -62,11 +62,11 @@ class EXPORT CPP_PolygonShape {
             ColorData = NewColorData;
         };
 
-        inline void SetPoints(unsigned int* in_points, unsigned int count) {
+        inline void SetPoints(unsigned int (*in_points)[2], unsigned int count) {
             std::vector<glm::vec2> NewShapePoints;
 
             for (unsigned int i = 0; i < count; i += 2) {
-                NewShapePoints.push_back(glm::vec2(in_points[i], in_points[i + 1]));
+                NewShapePoints.push_back(glm::vec2(in_points[i][0], in_points[i + 1][1]));
             }
 
             if (PointsSet && (count != NewShapePoints.size() * 2 || ShapePoints.size() != NewShapePoints.size() || !std::equal(ShapePoints.begin(), ShapePoints.end(), NewShapePoints.begin()))) {
@@ -99,7 +99,7 @@ class EXPORT CPP_PolygonShape {
             Rotation = in_rotation;
         }
 
-        inline void SetClosed(float in_closed) {
+        inline void SetClosed(bool in_closed) {
             if (in_closed != Closed) {
                 Changed = true;
                 RenderPipelineVertexData.clear();
