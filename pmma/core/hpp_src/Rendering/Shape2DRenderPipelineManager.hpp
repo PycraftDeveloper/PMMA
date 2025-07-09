@@ -43,7 +43,63 @@ class CPP_Shape2D_RenderPipelineManager {
 
         void InternalRender();
 
-        void InternalAddRenderTarget(CPP_RadialPolygonShape* TargetPtr);
-        void InternalAddRenderTarget(CPP_RectangleShape* TargetPtr);
-        void InternalAddRenderTarget(CPP_PixelShape* TargetPtr);
+        template<typename T>
+        inline void InternalAddRenderTarget(T* TargetPtr) {
+            const bool shapeChanged = TargetPtr->Changed;
+            const size_t currentIndex = InsertionIndex;
+            size_t insertPos = combined_vertexes.size();
+
+            if (currentIndex < PreviousRenderContent.size()) {
+                const auto& [existingID, existingOffset] = PreviousRenderContent[currentIndex];
+
+                if (TargetPtr->ID == existingID) {
+                    if (!shapeChanged) {
+                        InsertionIndex++;
+                        return;
+                    } else {
+                        PreviousRenderContent.erase(PreviousRenderContent.begin() + currentIndex, PreviousRenderContent.end());
+                        combined_vertexes.erase(combined_vertexes.begin() + existingOffset, combined_vertexes.end());
+                        shape_colors.resize(currentIndex);
+                        insertPos = existingOffset;
+                    }
+                } else {
+                    PreviousRenderContent.erase(PreviousRenderContent.begin() + currentIndex, PreviousRenderContent.end());
+                    combined_vertexes.erase(combined_vertexes.begin() + existingOffset, combined_vertexes.end());
+                    shape_colors.resize(currentIndex);
+                    insertPos = existingOffset;
+                }
+            }
+
+            Changed = true;
+
+            const glm::vec4 color = TargetPtr->RenderPipelineColorData;
+
+            if (currentIndex < shape_colors.size()) {
+                shape_colors[currentIndex] = color;
+            } else {
+                shape_colors.emplace_back(color);
+            }
+
+            const auto& vertices = TargetPtr->RenderPipelineVertexData;
+
+            if (insertPos < combined_vertexes.size()) {
+                combined_vertexes.resize(insertPos);
+            }
+
+            if (currentIndex > 0 && vertices.size() >= 2 && !combined_vertexes.empty()) {
+                combined_vertexes.emplace_back(combined_vertexes.back());
+                combined_vertexes.emplace_back(vertices[0]);
+            }
+
+            const size_t shapeStartIndex = combined_vertexes.size();
+            combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
+
+            if (currentIndex < PreviousRenderContent.size()) {
+                PreviousRenderContent[currentIndex] = { TargetPtr->ID, static_cast<unsigned int>(shapeStartIndex) };
+            } else {
+                PreviousRenderContent.emplace_back(TargetPtr->ID, static_cast<unsigned int>(shapeStartIndex));
+            }
+
+            InsertionIndex++;
+        }
 };
