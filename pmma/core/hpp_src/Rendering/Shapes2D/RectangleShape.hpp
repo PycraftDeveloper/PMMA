@@ -42,6 +42,16 @@ class EXPORT CPP_RectangleShape {
 
         void InternalRender();
 
+        inline glm::vec2 ApplyRotation(glm::vec2 position, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight) {
+            glm::vec2 tl = glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y - HalfHeight);
+            glm::vec2 pos = tl - ShapeCentre;
+            glm::vec2 rotated = {
+                RotationCos * pos.x - RotationSin * pos.y,
+                RotationSin * pos.x + RotationCos * pos.y
+            };
+            return ShapeCentre + rotated;
+        }
+
         inline void SetColor(float* in_color, unsigned int size) {
             UsingGradients = size > 4; // (determine if multiple colors inputted)
 

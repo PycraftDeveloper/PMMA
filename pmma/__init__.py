@@ -64,8 +64,7 @@ from pmma.build.PerlinNoise import PerlinNoise
 from pmma.build.FractalBrownianMotion import FractalBrownianMotion
 from pmma.build.Display import Display
 from pmma.build.NumberConverter import (
-    ColorConverter, DisplayCoordinatesConverter, AngleConverter,
-    DisplayScalarConverter, ProportionConverter)
+    ColorConverter, AngleConverter, ProportionConverter)
 import pmma.build.KeyEvents as KeyEvents
 import pmma.build.KeyPadEvents as KeyPadEvents
 import pmma.build.WindowEvents as WindowEvents

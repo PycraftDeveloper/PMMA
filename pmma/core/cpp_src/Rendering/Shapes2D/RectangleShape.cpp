@@ -42,8 +42,12 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
                 InternalWidth = max(HalfWidth, HalfHeight);
             }
 
+            float RotationSin = sin(Rotation);
+            float RotationCos = cos(Rotation);
+
             if (CornerRadius != 0) {
                 if (CornerRadius != 0) {
+
                     unsigned int radius = min(CornerRadius, min(HalfWidth, HalfHeight));
                     float minAngle = 1.0f / radius;
                     unsigned int segments = max(3u, static_cast<unsigned int>(
@@ -105,8 +109,18 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
                             glm::vec2 outer = outerCenter + vectorized_outer_radius * unit;
                             glm::vec2 inner = innerCenter + vectorized_inner_radius * unit;
 
-                            RenderPipelineVertexData[index + i * 2] = {ShapeCentre + outer, ColorIndex};
-                            RenderPipelineVertexData[index + i * 2 + 1] = {ShapeCentre + inner, ColorIndex};
+                            // Rotate around origin, then offset by ShapeCentre
+                            glm::vec2 rotated_outer = {
+                                RotationCos * outer.x - RotationSin * outer.y,
+                                RotationSin * outer.x + RotationCos * outer.y
+                            };
+                            glm::vec2 rotated_inner = {
+                                RotationCos * inner.x - RotationSin * inner.y,
+                                RotationSin * inner.x + RotationCos * inner.y
+                            };
+
+                            RenderPipelineVertexData[index + i * 2]     = {ShapeCentre + rotated_outer, ColorIndex};
+                            RenderPipelineVertexData[index + i * 2 + 1] = {ShapeCentre + rotated_inner, ColorIndex};
 
                             // rotate (x, y) using rotation matrix
                             float newX = cosD * x - sinD * y;
@@ -124,32 +138,39 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
                 if (Width == 0 || Width >= max(HalfWidth, HalfHeight)) {
                     RenderPipelineVertexData.resize(4);
 
-                    RenderPipelineVertexData[0] = {glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y - HalfHeight), ColorIndex};
-                    RenderPipelineVertexData[1] = {glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y - HalfHeight), ColorIndex};
-                    RenderPipelineVertexData[2] = {glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y + HalfHeight), ColorIndex};
-                    RenderPipelineVertexData[3] = {glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y + HalfHeight), ColorIndex};
+                    glm::vec2 point = glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y - HalfHeight);
+                    RenderPipelineVertexData[0] = {ApplyRotation(point, RotationSin, RotationCos, HalfWidth, HalfHeight), ColorIndex};
+
+                    point = glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y - HalfHeight);
+                    RenderPipelineVertexData[1] = {ApplyRotation(point, RotationSin, RotationCos, HalfWidth, HalfHeight), ColorIndex};
+
+                    point = glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y + HalfHeight);
+                    RenderPipelineVertexData[2] = {ApplyRotation(point, RotationSin, RotationCos, HalfWidth, HalfHeight), ColorIndex};
+
+                    point = glm::vec2(ShapeCentre.x + HalfWidth, ShapeCentre.y + HalfHeight);
+                    RenderPipelineVertexData[3] = {ApplyRotation(point, RotationSin, RotationCos, HalfWidth, HalfHeight), ColorIndex};
                 } else {
                     RenderPipelineVertexData.resize(10);
 
-                    int outer_left   = ShapeCentre.x - HalfWidth;
-                    int outer_right  = ShapeCentre.x + HalfWidth;
-                    int outer_top    = ShapeCentre.y - HalfHeight;
+                    int outer_left = ShapeCentre.x - HalfWidth;
+                    int outer_right = ShapeCentre.x + HalfWidth;
+                    int outer_top = ShapeCentre.y - HalfHeight;
                     int outer_bottom = ShapeCentre.y + HalfHeight;
 
-                    int inner_left   = outer_left   + Width;
-                    int inner_right  = outer_right  - Width;
-                    int inner_top    = outer_top    + Width;
+                    int inner_left = outer_left + Width;
+                    int inner_right = outer_right - Width;
+                    int inner_top = outer_top + Width;
                     int inner_bottom = outer_bottom - Width;
 
                     // GL_TRIANGLE_STRIP order: Outer TL, Inner TL, Outer TR, Inner TR, Outer BR, Inner BR, Outer BL, Inner BL
-                    RenderPipelineVertexData[0] = {glm::vec2(outer_left,  outer_top),    ColorIndex}; // Outer TL
-                    RenderPipelineVertexData[1] = {glm::vec2(inner_left,  inner_top),    ColorIndex}; // Inner TL
-                    RenderPipelineVertexData[2] = {glm::vec2(outer_right, outer_top),    ColorIndex}; // Outer TR
-                    RenderPipelineVertexData[3] = {glm::vec2(inner_right, inner_top),    ColorIndex}; // Inner TR
+                    RenderPipelineVertexData[0] = {glm::vec2(outer_left,  outer_top), ColorIndex}; // Outer TL
+                    RenderPipelineVertexData[1] = {glm::vec2(inner_left,  inner_top), ColorIndex}; // Inner TL
+                    RenderPipelineVertexData[2] = {glm::vec2(outer_right, outer_top), ColorIndex}; // Outer TR
+                    RenderPipelineVertexData[3] = {glm::vec2(inner_right, inner_top), ColorIndex}; // Inner TR
                     RenderPipelineVertexData[4] = {glm::vec2(outer_right, outer_bottom), ColorIndex}; // Outer BR
-                    RenderPipelineVertexData[5] = {glm::vec2(inner_right, inner_bottom),ColorIndex}; // Inner BR
-                    RenderPipelineVertexData[6] = {glm::vec2(outer_left,  outer_bottom),ColorIndex}; // Outer BL
-                    RenderPipelineVertexData[7] = {glm::vec2(inner_left,  inner_bottom),ColorIndex}; // Inner BL
+                    RenderPipelineVertexData[5] = {glm::vec2(inner_right, inner_bottom), ColorIndex}; // Inner BR
+                    RenderPipelineVertexData[6] = {glm::vec2(outer_left,  outer_bottom), ColorIndex}; // Outer BL
+                    RenderPipelineVertexData[7] = {glm::vec2(inner_left,  inner_bottom), ColorIndex}; // Inner BL
                     RenderPipelineVertexData[8] = RenderPipelineVertexData[0];
                     RenderPipelineVertexData[9] = RenderPipelineVertexData[1];
                 }

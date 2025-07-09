@@ -237,7 +237,7 @@ cdef class Display:
             lower_refresh_rate_on_low_battery)
 
     @Utility.require_render_thread
-    def event_refresh(self, refresh_rate=60, max_refresh_rate=60,
+    def event_refresh(self, refresh_rate=0, max_refresh_rate=60,
         lower_refresh_rate_on_minimize=True,
         lower_refresh_rate_on_focus_loss=True,
         lower_refresh_rate_on_low_battery=True):
