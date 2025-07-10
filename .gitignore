@@ -199,3 +199,6 @@ pmma/extern/include/*
 
 !pmma/extern/include/glm/
 !pmma/extern/include/glm/**
+
+# ignore build
+build/*

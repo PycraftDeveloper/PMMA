@@ -27,46 +27,63 @@ void CPP_PolygonShape::Render(float ShapeQuality) {
         if (Changed) {
             RenderPipelineColorData = ColorData[0];
 
-            unsigned int InternalWidth = Width;
-
             float RotationSin = sin(Rotation);
             float RotationCos = cos(Rotation);
-
-            if (Closed) {
-                RenderPipelineVertexData.reserve(2 + ShapePoints.size() * 2);
-            } else {
-                RenderPipelineVertexData.reserve(ShapePoints.size() * 2);
-            }
-
-            vector<glm::vec2> RawShapePoints;
-            RawShapePoints.reserve(ShapePoints.size() * 2);
 
             glm::vec2 Center = {0.0f, 0.0f};
 
             for (unsigned int i = 0; i < ShapePoints.size(); i++) {
-                int index = i * 2;
-                RawShapePoints[index] = ShapePoints[i];
-                RawShapePoints[index + 1] = {ShapePoints[i].x - InternalWidth, ShapePoints[i].y - InternalWidth};
                 Center += ShapePoints[i];
             }
 
-            Center /= ShapePoints.size();
+            Center /= ShapePoints.size(); // calculate center using averages
 
-            for (unsigned int i = 0; i < RawShapePoints.size(); i++) {
-                glm::vec2 Point = RawShapePoints[i];
-                Point -= Center;
+            float HalfWidth = Width * 0.5f;
 
-                Point.x = (Point.x * RotationCos) - (Point.y * RotationSin);
-                Point.y = (Point.x * RotationSin) + (Point.y * RotationCos);
-
-                Point += Center;
-
-                RenderPipelineVertexData[i] = {Point, ColorIndex};
+            unsigned int segmentCount = ShapePoints.size();
+            if (!Closed) {
+                segmentCount--;
             }
+            RenderPipelineVertexData.resize(segmentCount * 6);
 
-            if (Closed) {
-                RenderPipelineVertexData[RenderPipelineVertexData.size() - 2] = RenderPipelineVertexData[0];
-                RenderPipelineVertexData[RenderPipelineVertexData.size() - 1] = RenderPipelineVertexData[1];
+            for (unsigned int i = 0; i < segmentCount; i++) {
+                unsigned int index = i * 6;
+                glm::vec2 P0 = ShapePoints[i];
+                glm::vec2 P1 = ShapePoints[(i + 1) % ShapePoints.size()];
+
+                // Apply rotation to both
+                glm::vec2 local0 = P0 - Center;
+                glm::vec2 local1 = P1 - Center;
+
+                glm::vec2 rot0 = {
+                    local0.x * RotationCos - local0.y * RotationSin,
+                    local0.x * RotationSin + local0.y * RotationCos
+                };
+                glm::vec2 rot1 = {
+                    local1.x * RotationCos - local1.y * RotationSin,
+                    local1.x * RotationSin + local1.y * RotationCos
+                };
+
+                P0 = Center + rot0;
+                P1 = Center + rot1;
+
+                // Direction and normal
+                glm::vec2 D = glm::normalize(P1 - P0);
+                glm::vec2 N = glm::vec2(-D.y, D.x);  // Perpendicular
+
+                glm::vec2 A = P0 + N * HalfWidth;
+                glm::vec2 B = P0 - N * HalfWidth;
+                glm::vec2 C = P1 + N * HalfWidth;
+                glm::vec2 Dp = P1 - N * HalfWidth;
+
+                // Add two triangles: A-B-C and C-B-D
+                RenderPipelineVertexData[index] = {A, ColorIndex};
+                RenderPipelineVertexData[index + 1] = {B, ColorIndex};
+                RenderPipelineVertexData[index + 2] = {C, ColorIndex};
+
+                RenderPipelineVertexData[index + 3] = {C, ColorIndex};
+                RenderPipelineVertexData[index + 4] = {B, ColorIndex};
+                RenderPipelineVertexData[index + 5] = {Dp, ColorIndex};
             }
         }
         PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);

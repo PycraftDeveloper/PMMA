@@ -65,8 +65,8 @@ class EXPORT CPP_PolygonShape {
         inline void SetPoints(unsigned int (*in_points)[2], unsigned int count) {
             std::vector<glm::vec2> NewShapePoints;
 
-            for (unsigned int i = 0; i < count; i += 2) {
-                NewShapePoints.push_back(glm::vec2(in_points[i][0], in_points[i + 1][1]));
+            for (unsigned int i = 0; i < count; i++) {
+                NewShapePoints.push_back(glm::vec2(in_points[i][0], in_points[i][1]));
             }
 
             if (PointsSet && (count != NewShapePoints.size() * 2 || ShapePoints.size() != NewShapePoints.size() || !std::equal(ShapePoints.begin(), ShapePoints.end(), NewShapePoints.begin()))) {
