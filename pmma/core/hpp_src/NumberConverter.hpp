@@ -96,6 +96,12 @@ class EXPORT CPP_ColorConverter: public CPP_BasicColorConverter {
         float frequency;
         float amplitude;
 
+        float out_range[2] = {0.f, 1.f};
+        float r_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
+        float g_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
+        float b_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
+        float a_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
+
         CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
         CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
 
@@ -137,7 +143,12 @@ class EXPORT CPP_ColorConverter: public CPP_BasicColorConverter {
         }
 
         inline void GeneratePerlinColor(float value) {
-            float BatchedColorGeneration[4][2] = {{0, value}, {1, value}, {2, value}, {3, value}};
+            float BatchedColorGeneration[4][2] = {
+                {0, value + r_offset},
+                {1, value + g_offset},
+                {2, value + b_offset},
+                {3, value + a_offset}};
+
             float OutputColor[4];
             PerlinNoiseGenerator->ArrayNoise2D(BatchedColorGeneration, 4, OutputColor);
             CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, new float[2]{-1, 1}, new float[2]{0, 1}, OutputColor);
@@ -149,7 +160,12 @@ class EXPORT CPP_ColorConverter: public CPP_BasicColorConverter {
         }
 
         inline void GenerateFractalBrownianMotionColor(float value) {
-            float BatchedColorGeneration[4][2] = {{0, value}, {1, value}, {2, value}, {3, value}};
+            float BatchedColorGeneration[4][2] = {
+                {0, value + r_offset},
+                {1, value + g_offset},
+                {2, value + b_offset},
+                {3, value + a_offset}};
+
             float OutputColor[4];
             FractalBrownianMotionGenerator->ArrayNoise2D(BatchedColorGeneration, 4, OutputColor);
             CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, new float[2]{-1, 1}, new float[2]{0, 1}, OutputColor);
