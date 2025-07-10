@@ -21,7 +21,7 @@ class EXPORT CPP_PolygonShape {
 
         float Rotation = 0;
 
-        unsigned int Width = 0;
+        unsigned int Width = 1;
 
         uint64_t ID;
         GLuint ColorIndex;

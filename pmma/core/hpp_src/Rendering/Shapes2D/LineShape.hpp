@@ -24,7 +24,7 @@ class EXPORT CPP_LineShape {
 
         uint64_t ID;
         GLuint ColorIndex;
-        unsigned int Width = 0;
+        unsigned int Width = 1;
 
         bool ColorSet = false;
         bool StartPositionSet = false;

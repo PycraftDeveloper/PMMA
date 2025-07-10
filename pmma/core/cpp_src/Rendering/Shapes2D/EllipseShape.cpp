@@ -38,7 +38,7 @@ void CPP_EllipseShape::Render(float ShapeQuality) {
             RenderPipelineColorData = ColorData[0];
 
             unsigned int InternalPointCount = PointCount;
-            unsigned int Radius = ShapeSize.length();
+            unsigned int Radius = CPP_AdvancedMathematics::PythagoreanDistance(ShapeSize.x, ShapeSize.y);
 
             if (PointCount == 0) {
                 float minAngle = asin(1.0f / Radius);

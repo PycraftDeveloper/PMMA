@@ -44,7 +44,7 @@ void CPP_LineShape::Render(float ShapeQuality) {
                 LineCenter.x + (RotationCos * TranslatedEnd.x - RotationSin * TranslatedEnd.y),
                 LineCenter.y + (RotationSin * TranslatedEnd.x + RotationCos * TranslatedEnd.y)};
 
-            glm::vec2 Direction = EndPosition - StartPosition;
+            glm::vec2 Direction = RotatedEnd - RotatedStart;
             Direction = glm::normalize(Direction);
 
             glm::vec2 Normal = {-Direction.y, Direction.x};

@@ -37,7 +37,17 @@ void CPP_ArcShape::Render(float ShapeQuality) {
             unsigned int InternalPointCount = PointCount;
             if (PointCount == 0) {
                 float minAngle = asin(1.0f / Radius);
-                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
+                float angle_scale = (EndAngle - StartAngle)/(CPP_Constants::TAU);
+                if (angle_scale <= 0) {
+                    InternalPointCount = 3;
+                } else {
+                    if (angle_scale > 1) {
+                        angle_scale = 1;
+                    }
+                    InternalPointCount = max(
+                        3,
+                        static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality * angle_scale));
+                }
             }
 
             float angleStep = (EndAngle - StartAngle) / InternalPointCount;
@@ -50,7 +60,7 @@ void CPP_ArcShape::Render(float ShapeQuality) {
             }
 
             // Reserve the exact number of vertices upfront
-            size_t vertexCount = InternalPointCount * 2 + 2;
+            size_t vertexCount = InternalPointCount * 2;
             RenderPipelineVertexData.resize(vertexCount);
 
             float angle = Rotation + StartAngle;
@@ -95,10 +105,6 @@ void CPP_ArcShape::Render(float ShapeQuality) {
                     sinA = new_sinA;
                 }
             }
-
-            // Close the shape by repeating the first pair
-            RenderPipelineVertexData[vertexCount - 2] = RenderPipelineVertexData[0];
-            RenderPipelineVertexData[vertexCount - 1] = RenderPipelineVertexData[1];
         }
 
         PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);
