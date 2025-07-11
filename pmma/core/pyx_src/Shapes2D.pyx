@@ -12,6 +12,19 @@ import pmma.core.py_src.Utility as Utility
 
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
+    cdef cppclass CPP_DisplayCoordinateFormat:
+        inline void GenerateRandomDisplayCoordinate() except + nogil
+        inline void GeneratePerlinDisplayCoordinate(float value) except + nogil
+        inline void GenerateFractalBrownianMotionDisplayCoordinate(float value) except + nogil
+
+        inline void GetDisplayCoordinate(unsigned int* out_coordinate) except + nogil
+        void SetDisplayCoordinate(unsigned int* in_coordinate) except + nogil
+
+        inline unsigned int GetSeed() except + nogil
+        inline unsigned int GetOctaves() except + nogil
+        inline float GetFrequency() except + nogil
+        inline float GetAmplitude() except + nogil
+
     cdef cppclass CPP_RadialPolygonShape:
         inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetCentre(unsigned int* in_position) except + nogil
@@ -57,8 +70,11 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_ArcShape:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat
+
+        CPP_ArcShape(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude)
+
         inline void SetColor(float* in_color, unsigned int size) except + nogil
-        inline void SetCentre(unsigned int* in_position) except + nogil
         inline void SetRotation(float rotation) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetStartAngle(float in_start_angle) except + nogil
@@ -77,6 +93,69 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetSize(unsigned int* in_size) except + nogil
 
         void Render(float ShapeQuality) except + nogil
+
+cdef class DisplayCoordinate:
+    cdef:
+        CPP_DisplayCoordinateFormat* cpp_base_class_ptr
+        bool using_numpy_arrays
+
+    def __cinit__(self):
+        self.using_numpy_arrays = False
+
+    def get_seed(self):
+        return self.cpp_base_class_ptr.GetSeed()
+
+    def get_octaves(self):
+        return self.cpp_base_class_ptr.GetOctaves()
+
+    def get_lacunarity(self):
+        return self.cpp_base_class_ptr.GetFrequency()
+
+    def get_gain(self):
+        return self.cpp_base_class_ptr.GetAmplitude()
+
+    def generate_random_display_coordinate(self):
+        self.cpp_base_class_ptr.GenerateRandomDisplayCoordinate()
+
+    def generate_display_coordinate_from_perlin_noise(self, value):
+        self.cpp_base_class_ptr.GeneratePerlinDisplayCoordinate(value)
+
+    def generate_display_coordinate_from_fractal_brownian_motion(self, value):
+        self.cpp_base_class_ptr.GenerateFractalBrownianMotionDisplayCoordinate(value)
+
+    def get_display_coordinate(self, detect_format=True):
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_coordinate_np
+            unsigned int* out_coordinate_ptr
+
+        out_coordinate_np = np.empty(2, dtype=np.uint32, order='C')
+        out_coordinate_ptr = <unsigned int*>&out_coordinate_np[0]
+
+        self.cpp_base_class_ptr.GetDisplayCoordinate(out_coordinate_ptr)
+
+        if detect_format:
+            if self.using_numpy_arrays:
+                return out_coordinate_np
+            else:
+                return out_coordinate_np.tolist()
+        else:
+            return out_coordinate_np
+
+    def set_display_coordinate(self, in_display_coordinate):
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_coordinate_np
+            unsigned int* in_coordinate_ptr
+
+        if not isinstance(in_display_coordinate, np.ndarray) or in_display_coordinate.dtype != np.uint32 or not in_display_coordinate.flags['C_CONTIGUOUS']:
+            in_coordinate_np = np.array(in_display_coordinate, dtype=np.uint32, order='C')
+            self.using_numpy_arrays = True
+        else:
+            in_coordinate_np = in_display_coordinate
+            self.using_numpy_arrays = False
+
+        in_coordinate_ptr = <unsigned int*>&in_coordinate_np[0]
+
+        self.cpp_base_class_ptr.SetDisplayCoordinate(in_coordinate_ptr)
 
 cdef class RadialPolygon:
     cdef:
@@ -357,29 +436,27 @@ cdef class PolygonShape:
 cdef class Arc:
     cdef:
         CPP_ArcShape* cpp_class_ptr
+        DisplayCoordinate cpp_shape_center_format
 
-    def __cinit__(self):
-        self.cpp_class_ptr = new CPP_ArcShape()
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_ArcShape(seed, octaves, lacunarity, gain)
+
+        self.cpp_shape_center_format = DisplayCoordinate()
+        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
 
+    property shape_center:
+        def __get__(self):
+            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            return self.cpp_shape_center_format
+
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
-
-    def set_centre(self, position):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] position_np
-            unsigned int* position_ptr
-
-        if not isinstance(position, np.ndarray) or position.dtype != np.uint32 or not position.flags['C_CONTIGUOUS']:
-            position_np = np.array(position, dtype=np.uint32, order='C')
-        else:
-            position_np = position
-
-        position_ptr = <unsigned int*>&position_np[0]
-
-        self.cpp_class_ptr.SetCentre(position_ptr)
 
     def set_color(self, color):
         cdef:

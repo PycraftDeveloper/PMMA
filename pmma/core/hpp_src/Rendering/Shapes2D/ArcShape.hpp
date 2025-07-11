@@ -8,16 +8,18 @@
 
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
+#include "NumberFormats.hpp"
 
 class EXPORT CPP_ArcShape {
     public:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> RenderPipelineVertexData;
 
         glm::vec4 RenderPipelineColorData;
-        glm::vec2 ShapeCentre;
 
         float Rotation = 0;
         float StartAngle;
@@ -38,7 +40,12 @@ class EXPORT CPP_ArcShape {
         bool EndAngleSet = false;
         bool RadiusSet = false;
 
-        CPP_ArcShape();
+        CPP_ArcShape(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
+
+        ~CPP_ArcShape() {
+            delete ShapeCentreFormat;
+            ShapeCentreFormat = nullptr;
+        }
 
         void Render(float ShapeQuality);
 
@@ -65,17 +72,6 @@ class EXPORT CPP_ArcShape {
 
             ColorSet = true;
             ColorData = NewColorData;
-        };
-
-        inline void SetCentre(unsigned int* in_position) {
-            if (CentreSet && (in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y)) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            ShapeCentre = glm::vec2(in_position[0], in_position[1]);
-            CentreSet = true;
         };
 
         inline void SetStartAngle(float in_start_angle) {

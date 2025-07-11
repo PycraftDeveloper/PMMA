@@ -10,6 +10,9 @@
 
 class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
     private:
+        CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
+        CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
+
         uint32_t seed;
         uint32_t octaves;
         float frequency;
@@ -20,9 +23,6 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         float g_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
         float b_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
         float a_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
-
-        CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
-        CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
 
     public:
         CPP_ColorFormat(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
@@ -126,7 +126,8 @@ class EXPORT CPP_DisplayCoordinateFormat {
         float x_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
         float y_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
 
-        bool DisplayCoordinateSet = false;
+        bool Set = false;
+        bool Changed = true;
 
     public:
         CPP_DisplayCoordinateFormat(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
@@ -147,6 +148,16 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
             PerlinNoiseGenerator = nullptr;
             FractalBrownianMotionGenerator = nullptr;
+        }
+
+        inline bool GetChangedToggle() {
+            bool OldChanged = Changed;
+            Changed = false;
+            return OldChanged;
+        }
+
+        inline bool GetSet() {
+            return Set;
         }
 
         inline uint32_t GetSeed() {
@@ -172,14 +183,20 @@ class EXPORT CPP_DisplayCoordinateFormat {
         void GenerateFractalBrownianMotionDisplayCoordinate(float value);
 
         inline void SetDisplayCoordinate(unsigned int* in_coordinate) {
-            DisplayCoordinate.x = (float)in_coordinate[0];
-            DisplayCoordinate.y = (float)in_coordinate[1];
+            glm::vec2 converted_in_coordinate;
+            converted_in_coordinate.x = (float)in_coordinate[0];
+            converted_in_coordinate.y = (float)in_coordinate[1];
 
-            DisplayCoordinateSet = true;
+            if (converted_in_coordinate != DisplayCoordinate) {
+                Changed = true;
+                DisplayCoordinate = converted_in_coordinate;
+            }
+
+            Set = true;
         }
 
         inline void GetDisplayCoordinate(unsigned int * out_coordinate) {
-            if (!DisplayCoordinateSet) {
+            if (!Set) {
                 throw std::runtime_error("Display coordinate not set!");
             }
             out_coordinate[0] = (unsigned int)DisplayCoordinate.x;
