@@ -8,15 +8,17 @@
 
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
+#include "NumberFormats.hpp"
 
 class EXPORT CPP_PixelShape {
     public:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+
         std::vector<glm::vec2> VertexData;
 
         std::vector<Vertex> RenderPipelineVertexData;
 
         glm::vec4 RenderPipelineColorData;
-        glm::vec2 ShapeCentre;
         glm::vec2 ShapeSize;
 
         uint64_t ID;
@@ -28,6 +30,11 @@ class EXPORT CPP_PixelShape {
         bool Changed = true;
 
         CPP_PixelShape();
+
+        ~CPP_PixelShape() {
+            delete ShapeCentreFormat;
+            ShapeCentreFormat = nullptr;
+        }
 
         void Render();
 
@@ -50,16 +57,5 @@ class EXPORT CPP_PixelShape {
 
             ColorSet = true;
             RenderPipelineColorData = NewColorData;
-        };
-
-        inline void SetCentre(unsigned int* in_position) {
-            if (CentreSet && (in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y)) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            ShapeCentre = glm::vec2(in_position[0], in_position[1]);
-            CentreSet = true;
         };
 };

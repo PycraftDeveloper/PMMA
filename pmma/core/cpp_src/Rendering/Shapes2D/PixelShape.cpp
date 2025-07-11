@@ -3,6 +3,7 @@
 using namespace std;
 
 CPP_PixelShape::CPP_PixelShape() {
+    ShapeCentreFormat = new CPP_DisplayCoordinateFormat();
     ID = PMMA::ClassObject_ID_System++;
 }
 
@@ -10,6 +11,13 @@ void CPP_PixelShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
+
+    if (!ShapeCentreFormat->GetSet()) {
+        throw std::runtime_error("Shape has no center not set");
+    }
+    glm::vec2 ShapeCentre = ShapeCentreFormat->GetDisplayCoordinate();
+
+    Changed = Changed || ShapeCentreFormat->GetChangedToggle();
 
     if (ShapeCentre.x < 0 ||
             ShapeCentre.x > DisplayWidth ||

@@ -128,26 +128,30 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
         bool Set = false;
         bool Changed = true;
+        bool Configured = false;
 
     public:
-        CPP_DisplayCoordinateFormat(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            srand((unsigned int)time(0));
+        ~CPP_DisplayCoordinateFormat() {
+            if (Configured) {
+                delete PerlinNoiseGenerator;
+                delete FractalBrownianMotionGenerator;
 
+                PerlinNoiseGenerator = nullptr;
+                FractalBrownianMotionGenerator = nullptr;
+            }
+        }
+
+        inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
             PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
             FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+
+            srand(new_seed);
 
             seed = new_seed;
             octaves = new_octaves;
             frequency = new_frequency;
             amplitude = new_amplitude;
-        }
-
-        ~CPP_DisplayCoordinateFormat() {
-            delete PerlinNoiseGenerator;
-            delete FractalBrownianMotionGenerator;
-
-            PerlinNoiseGenerator = nullptr;
-            FractalBrownianMotionGenerator = nullptr;
+            Configured = true;
         }
 
         inline bool GetChangedToggle() {
@@ -161,18 +165,30 @@ class EXPORT CPP_DisplayCoordinateFormat {
         }
 
         inline uint32_t GetSeed() {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
             return seed;
         }
 
         inline uint32_t GetOctaves() {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
             return octaves;
         }
 
         inline float GetFrequency() {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
             return frequency;
         }
 
         inline float GetAmplitude() {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
             return amplitude;
         }
 
@@ -201,6 +217,13 @@ class EXPORT CPP_DisplayCoordinateFormat {
             }
             out_coordinate[0] = (unsigned int)DisplayCoordinate.x;
             out_coordinate[1] = (unsigned int)DisplayCoordinate.y;
+        }
+
+        inline glm::vec2 GetDisplayCoordinate() {
+            if (!Set) {
+                throw std::runtime_error("Display coordinate not set!");
+            }
+            return DisplayCoordinate;
         }
 };
 

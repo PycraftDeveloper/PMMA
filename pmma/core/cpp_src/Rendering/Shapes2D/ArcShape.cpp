@@ -2,8 +2,8 @@
 
 using namespace std;
 
-CPP_ArcShape::CPP_ArcShape(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-    ShapeCentreFormat = new CPP_DisplayCoordinateFormat(new_seed, new_octaves, new_frequency, new_amplitude);
+CPP_ArcShape::CPP_ArcShape() {
+    ShapeCentreFormat = new CPP_DisplayCoordinateFormat();
     ID = PMMA::ClassObject_ID_System++;
 }
 
@@ -12,10 +12,10 @@ void CPP_ArcShape::Render(float ShapeQuality) {
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
 
-    glm::vec2 ShapeCentre;
     if (!ShapeCentreFormat->GetSet()) {
         throw std::runtime_error("Shape has no center not set");
     }
+    glm::vec2 ShapeCentre = ShapeCentreFormat->GetDisplayCoordinate();
 
     Changed = Changed || ShapeCentreFormat->GetChangedToggle();
 

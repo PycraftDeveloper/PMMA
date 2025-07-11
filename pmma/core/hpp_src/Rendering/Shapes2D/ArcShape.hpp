@@ -40,7 +40,7 @@ class EXPORT CPP_ArcShape {
         bool EndAngleSet = false;
         bool RadiusSet = false;
 
-        CPP_ArcShape(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
+        CPP_ArcShape();
 
         ~CPP_ArcShape() {
             delete ShapeCentreFormat;

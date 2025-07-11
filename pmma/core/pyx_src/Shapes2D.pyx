@@ -25,9 +25,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetFrequency() except + nogil
         inline float GetAmplitude() except + nogil
 
+        inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
+
     cdef cppclass CPP_RadialPolygonShape:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat
+
         inline void SetColor(float* in_color, unsigned int size) except + nogil
-        inline void SetCentre(unsigned int* in_position) except + nogil
         inline void SetRadius(unsigned int in_radius) except + nogil
         inline void SetPointCount(unsigned int in_pointCount) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
@@ -46,8 +49,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_PixelShape:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat
+
         inline void SetColor(float* in_color) except + nogil
-        inline void SetCentre(unsigned int* in_position) except + nogil
 
         void Render() except + nogil
 
@@ -71,8 +75,6 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
     cdef cppclass CPP_ArcShape:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat
-
-        CPP_ArcShape(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude)
 
         inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetRotation(float rotation) except + nogil
@@ -113,6 +115,12 @@ cdef class DisplayCoordinate:
 
     def get_gain(self):
         return self.cpp_base_class_ptr.GetAmplitude()
+
+    def configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_base_class_ptr.Configure(seed, octaves, lacunarity, gain)
 
     def generate_random_display_coordinate(self):
         self.cpp_base_class_ptr.GenerateRandomDisplayCoordinate()
@@ -160,9 +168,13 @@ cdef class DisplayCoordinate:
 cdef class RadialPolygon:
     cdef:
         CPP_RadialPolygonShape* cpp_class_ptr
+        DisplayCoordinate cpp_shape_center_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_RadialPolygonShape()
+
+        self.cpp_shape_center_format = DisplayCoordinate()
+        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -170,19 +182,10 @@ cdef class RadialPolygon:
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
 
-    def set_centre(self, position):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] position_np
-            unsigned int* position_ptr
-
-        if not isinstance(position, np.ndarray) or position.dtype != np.uint32 or not position.flags['C_CONTIGUOUS']:
-            position_np = np.array(position, dtype=np.uint32, order='C')
-        else:
-            position_np = position
-
-        position_ptr = <unsigned int*>&position_np[0]
-
-        self.cpp_class_ptr.SetCentre(position_ptr)
+    property shape_center:
+        def __get__(self):
+            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            return self.cpp_shape_center_format
 
     def set_color(self, color):
         cdef:
@@ -277,9 +280,13 @@ cdef class Rectangle:
 cdef class Pixel:
     cdef:
         CPP_PixelShape* cpp_class_ptr
+        DisplayCoordinate cpp_shape_center_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_PixelShape()
+
+        self.cpp_shape_center_format = DisplayCoordinate()
+        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -287,19 +294,10 @@ cdef class Pixel:
     def render(self):
         self.cpp_class_ptr.Render()
 
-    def set_centre(self, position):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] position_np
-            unsigned int* position_ptr
-
-        if not isinstance(position, np.ndarray) or position.dtype != np.uint32 or not position.flags['C_CONTIGUOUS']:
-            position_np = np.array(position, dtype=np.uint32, order='C')
-        else:
-            position_np = position
-
-        position_ptr = <unsigned int*>&position_np[0]
-
-        self.cpp_class_ptr.SetCentre(position_ptr)
+    property shape_center:
+        def __get__(self):
+            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            return self.cpp_shape_center_format
 
     def set_color(self, color):
         cdef:
@@ -438,11 +436,8 @@ cdef class Arc:
         CPP_ArcShape* cpp_class_ptr
         DisplayCoordinate cpp_shape_center_format
 
-    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr = new CPP_ArcShape(seed, octaves, lacunarity, gain)
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_ArcShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
         self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat

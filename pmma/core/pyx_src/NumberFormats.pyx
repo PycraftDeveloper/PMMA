@@ -26,7 +26,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void GetColor_rgb(float* out_color) except + nogil
 
     cdef cppclass CPP_DisplayCoordinateFormat:
-        CPP_DisplayCoordinateFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+        CPP_DisplayCoordinateFormat() except + nogil
+
+        inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
 
         inline void GenerateRandomDisplayCoordinate() except + nogil
         inline void GeneratePerlinDisplayCoordinate(float value) except + nogil
@@ -34,6 +36,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         inline void GetDisplayCoordinate(unsigned int* out_coordinate) except + nogil
         void SetDisplayCoordinate(unsigned int* in_coordinate) except + nogil
+
+        inline unsigned int GetSeed() except + nogil
+        inline unsigned int GetOctaves() except + nogil
+        inline float GetFrequency() except + nogil
+        inline float GetAmplitude() except + nogil
+        inline bool GetSet() except + nogil
 
     cdef cppclass CPP_AngleFormat:
         CPP_AngleFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
@@ -257,51 +265,43 @@ cdef class DisplayCoordinate:
         CPP_DisplayCoordinateFormat* cpp_class_ptr
         bool using_numpy_arrays
 
-        unsigned int seed
-        unsigned int octaves
-        float lacunarity
-        float gain
-
-        bool is_display_coordinate_set
-
-    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr = new CPP_DisplayCoordinateFormat(seed, octaves, lacunarity, gain)
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_DisplayCoordinateFormat()
 
         self.using_numpy_arrays = False
-        self.is_display_coordinate_set = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
 
+    def configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
+
     def get_seed(self):
-        return self.seed
+        return self.cpp_class_ptr.GetSeed()
 
     def get_octaves(self):
-        return self.octaves
+        return self.cpp_class_ptr.GetOctaves()
 
     def get_lacunarity(self):
-        return self.lacunarity
+        return self.cpp_class_ptr.GetFrequency()
 
     def get_gain(self):
-        return self.gain
+        return self.cpp_class_ptr.GetAmplitude()
 
-    def get_color_set(self):
-        return self.is_display_coordinate_set
+    def get_display_coordinate_set(self):
+        return self.self.cpp_class_ptr.GetSet()
 
     def generate_random_display_coordinate(self):
         self.cpp_class_ptr.GenerateRandomDisplayCoordinate()
-        self.is_display_coordinate_set = True
 
     def generate_display_coordinate_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinDisplayCoordinate(value)
-        self.is_display_coordinate_set = True
 
     def generate_display_coordinate_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionDisplayCoordinate(value)
-        self.is_display_coordinate_set = True
 
     def get_display_coordinate(self, detect_format=True):
         cdef:
@@ -336,7 +336,6 @@ cdef class DisplayCoordinate:
         in_coordinate_ptr = <unsigned int*>&in_coordinate_np[0]
 
         self.cpp_class_ptr.SetDisplayCoordinate(in_coordinate_ptr)
-        self.is_display_coordinate_set = True
 
 cdef class Angle:
     cdef:

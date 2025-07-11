@@ -3,7 +3,7 @@ from typing import Iterable, Union
 import numpy as np
 import numpy.typing as npt
 
-import pmma
+from pmma.build.NumberFormats import Color
 
 Integer1D = Union[
     npt.NDArray[np.int_],
@@ -16,7 +16,7 @@ OptionalInteger = Union[
 ]
 
 OptionalColor = Union[
-    pmma.ColorConverter,
+    Color,
     None
 ]
 

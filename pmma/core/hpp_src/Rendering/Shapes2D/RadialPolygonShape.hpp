@@ -8,16 +8,18 @@
 
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
+#include "NumberFormats.hpp"
 
 class EXPORT CPP_RadialPolygonShape {
     public:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> RenderPipelineVertexData;
 
         glm::vec4 RenderPipelineColorData;
-        glm::vec2 ShapeCentre;
 
         float Rotation = 0;
 
@@ -37,6 +39,11 @@ class EXPORT CPP_RadialPolygonShape {
         bool Changed = true;
 
         CPP_RadialPolygonShape();
+
+        ~CPP_RadialPolygonShape() {
+            delete ShapeCentreFormat;
+            ShapeCentreFormat = nullptr;
+        }
 
         void Render(float ShapeQuality);
 
@@ -63,17 +70,6 @@ class EXPORT CPP_RadialPolygonShape {
 
             ColorSet = true;
             ColorData = NewColorData;
-        };
-
-        inline void SetCentre(unsigned int* in_position) {
-            if (CentreSet && (in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y)) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            ShapeCentre = glm::vec2(in_position[0], in_position[1]);
-            CentreSet = true;
         };
 
         inline void SetRadius(unsigned int in_radius) {

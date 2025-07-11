@@ -18,6 +18,9 @@ void CPP_DisplayCoordinateFormat::GeneratePerlinDisplayCoordinate(float value) {
     if (PMMA::DisplayInstance == nullptr) {
         throw runtime_error("Display not created yet!");
     }
+    if (!Configured) {
+        throw runtime_error("You need to configure this component first!");
+    }
 
     glm::vec2 new_coordinate;
     float in_range[2] = {-1, 1};
@@ -41,6 +44,9 @@ void CPP_DisplayCoordinateFormat::GeneratePerlinDisplayCoordinate(float value) {
 void CPP_DisplayCoordinateFormat::GenerateFractalBrownianMotionDisplayCoordinate(float value) {
     if (PMMA::DisplayInstance == nullptr) {
         throw runtime_error("Display not created yet!");
+    }
+    if (!Configured) {
+        throw runtime_error("You need to configure this component first!");
     }
 
     glm::vec2 new_coordinate;
