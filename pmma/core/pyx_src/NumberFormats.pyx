@@ -8,13 +8,11 @@ import numpy as np
 cimport numpy as np
 
 cdef extern from "PMMA_Core.hpp" nogil:
-    cdef cppclass CPP_ColorConverter:
-        CPP_ColorConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+    cdef cppclass CPP_ColorFormat:
+        CPP_ColorFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
 
         inline void GenerateRandomColor() except + nogil
-
         inline void GeneratePerlinColor(float value) except + nogil
-
         inline void GenerateFractalBrownianMotionColor(float value) except + nogil
 
         inline void SetColor_RGBA(unsigned int* in_color) except + nogil
@@ -27,13 +25,21 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void GetColor_RGB(unsigned int* out_color) except + nogil
         inline void GetColor_rgb(float* out_color) except + nogil
 
-    cdef cppclass CPP_AngleConverter:
-        CPP_AngleConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+    cdef cppclass CPP_DisplayCoordinateFormat:
+        CPP_DisplayCoordinateFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+
+        inline void GenerateRandomDisplayCoordinate() except + nogil
+        inline void GeneratePerlinDisplayCoordinate(float value) except + nogil
+        inline void GenerateFractalBrownianMotionDisplayCoordinate(float value) except + nogil
+
+        inline void GetDisplayCoordinate(unsigned int* out_coordinate) except + nogil
+        void SetDisplayCoordinate(unsigned int* in_coordinate) except + nogil
+
+    cdef cppclass CPP_AngleFormat:
+        CPP_AngleFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
 
         inline void GenerateRandomAngle() except + nogil
-
         inline void GeneratePerlinAngle(float value) except + nogil
-
         inline void GenerateFractalBrownianMotionAngle(float value) except + nogil
 
         inline void SetAngle_Degrees(float in_angle) except + nogil
@@ -42,13 +48,11 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetAngle_Degrees() except + nogil
         inline float GetAngle_Radians() except + nogil
 
-    cdef cppclass CPP_ProportionConverter:
-        CPP_ProportionConverter(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+    cdef cppclass CPP_ProportionFormat:
+        CPP_ProportionFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
 
         inline void GenerateRandomProportion() except + nogil
-
         inline void GeneratePerlinProportion(float value) except + nogil
-
         inline void GenerateFractalBrownianMotionProportion(float value) except + nogil
 
         inline void SetProportion_Percentage(float in_proportion) except + nogil
@@ -57,9 +61,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetProportion_Percentage() except + nogil
         inline float GetProportion_Decimal() except + nogil
 
-cdef class ColorConverter:
+cdef class Color:
     cdef:
-        CPP_ColorConverter* cpp_class_ptr
+        CPP_ColorFormat* cpp_class_ptr
         bool using_numpy_arrays
 
         unsigned int seed
@@ -73,7 +77,7 @@ cdef class ColorConverter:
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
-        self.cpp_class_ptr = new CPP_ColorConverter(seed, octaves, lacunarity, gain)
+        self.cpp_class_ptr = new CPP_ColorFormat(seed, octaves, lacunarity, gain)
 
         self.using_numpy_arrays = False
         self.is_color_set = False
@@ -248,9 +252,95 @@ cdef class ColorConverter:
         else:
             return out_color_np
 
-cdef class AngleConverter:
+cdef class DisplayCoordinate:
     cdef:
-        CPP_AngleConverter* cpp_class_ptr
+        CPP_DisplayCoordinateFormat* cpp_class_ptr
+        bool using_numpy_arrays
+
+        unsigned int seed
+        unsigned int octaves
+        float lacunarity
+        float gain
+
+        bool is_display_coordinate_set
+
+    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr = new CPP_DisplayCoordinateFormat(seed, octaves, lacunarity, gain)
+
+        self.using_numpy_arrays = False
+        self.is_display_coordinate_set = False
+
+    def __dealloc__(self):
+        del self.cpp_class_ptr
+
+    def get_seed(self):
+        return self.seed
+
+    def get_octaves(self):
+        return self.octaves
+
+    def get_lacunarity(self):
+        return self.lacunarity
+
+    def get_gain(self):
+        return self.gain
+
+    def get_color_set(self):
+        return self.is_display_coordinate_set
+
+    def generate_random_display_coordinate(self):
+        self.cpp_class_ptr.GenerateRandomDisplayCoordinate()
+        self.is_display_coordinate_set = True
+
+    def generate_display_coordinate_from_perlin_noise(self, value):
+        self.cpp_class_ptr.GeneratePerlinDisplayCoordinate(value)
+        self.is_display_coordinate_set = True
+
+    def generate_display_coordinate_from_fractal_brownian_motion(self, value):
+        self.cpp_class_ptr.GenerateFractalBrownianMotionDisplayCoordinate(value)
+        self.is_display_coordinate_set = True
+
+    def get_display_coordinate(self, detect_format=True):
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_coordinate_np
+            unsigned int* out_coordinate_ptr
+
+        out_coordinate_np = np.empty(2, dtype=np.uint32, order='C')
+        out_coordinate_ptr = <unsigned int*>&out_coordinate_np[0]
+
+        self.cpp_class_ptr.GetDisplayCoordinate(out_coordinate_ptr)
+
+        if detect_format:
+            if self.using_numpy_arrays:
+                return out_coordinate_np
+            else:
+                return out_coordinate_np.tolist()
+        else:
+            return out_coordinate_np
+
+    def set_display_coordinate(self, in_display_coordinate):
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_coordinate_np
+            unsigned int* in_coordinate_ptr
+
+        if not isinstance(in_display_coordinate, np.ndarray) or in_display_coordinate.dtype != np.uint32 or not in_display_coordinate.flags['C_CONTIGUOUS']:
+            in_coordinate_np = np.array(in_display_coordinate, dtype=np.uint32, order='C')
+            self.using_numpy_arrays = True
+        else:
+            in_coordinate_np = in_display_coordinate
+            self.using_numpy_arrays = False
+
+        in_coordinate_ptr = <unsigned int*>&in_coordinate_np[0]
+
+        self.cpp_class_ptr.SetDisplayCoordinate(in_coordinate_ptr)
+        self.is_display_coordinate_set = True
+
+cdef class Angle:
+    cdef:
+        CPP_AngleFormat* cpp_class_ptr
 
         unsigned int seed
         unsigned int octaves
@@ -263,7 +353,7 @@ cdef class AngleConverter:
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
-        self.cpp_class_ptr = new CPP_AngleConverter(seed, octaves, lacunarity, gain)
+        self.cpp_class_ptr = new CPP_AngleFormat(seed, octaves, lacunarity, gain)
 
         self.is_angle_set = False
 
@@ -313,9 +403,9 @@ cdef class AngleConverter:
     def get_angle_radians(self):
         return self.cpp_class_ptr.GetAngle_Radians()
 
-cdef class ProportionConverter:
+cdef class Proportion:
     cdef:
-        CPP_ProportionConverter* cpp_class_ptr
+        CPP_ProportionFormat* cpp_class_ptr
 
         unsigned int seed
         unsigned int octaves
@@ -328,7 +418,7 @@ cdef class ProportionConverter:
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
-        self.cpp_class_ptr = new CPP_ProportionConverter(seed, octaves, lacunarity, gain)
+        self.cpp_class_ptr = new CPP_ProportionFormat(seed, octaves, lacunarity, gain)
 
         self.is_proportion_set = False
 
@@ -376,77 +466,34 @@ cdef class ProportionConverter:
     def get_proportion_decimal(self):
         return self.cpp_class_ptr.GetProportion_Decimal()
 
-cdef class LinkedProportionConverter:
+cdef class LinkedProportion(Proportion):
     cdef:
-        CPP_ProportionConverter* cpp_class_ptr
-
-        unsigned int seed
-        unsigned int octaves
-        float lacunarity
-        float gain
-
-        bool is_proportion_set
-
         object linked_class
         object attr_name
 
     def __cinit__(self, linked_class, attr_name, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr = new CPP_ProportionConverter(seed, octaves, lacunarity, gain)
-
-        self.is_proportion_set = False
+        super().__init__(seed, octaves, lacunarity, gain)
 
     def __init__(self, linked_class, attr_name, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         self.linked_class = linked_class
         self.attr_name = attr_name
 
-    def __dealloc__(self):
-        del self.cpp_class_ptr
-
-    def get_seed(self):
-        return self.seed
-
-    def get_octaves(self):
-        return self.octaves
-
-    def get_lacunarity(self):
-        return self.lacunarity
-
-    def get_gain(self):
-        return self.gain
-
-    def get_proportion_set(self):
-        return self.is_proportion_set
-
     def generate_random_proportion(self):
-        self.cpp_class_ptr.GenerateRandomProportion()
-        self.is_proportion_set = True
-        setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
+        super().generate_random_proportion()
+        setattr(self.linked_class, self.attr_name, super().get_proportion_decimal())
 
     def generate_proportion_from_perlin_noise(self, value):
-        self.cpp_class_ptr.GeneratePerlinProportion(value)
-        self.is_proportion_set = True
-        setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
+        super().GeneratePerlinProportion(value)
+        setattr(self.linked_class, self.attr_name, super().get_proportion_decimal())
 
     def generate_proportion_from_fractal_brownian_motion(self, value):
-        self.cpp_class_ptr.GenerateFractalBrownianMotionProportion(value)
-        self.is_proportion_set = True
-        setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
+        super().GenerateFractalBrownianMotionProportion(value)
+        setattr(self.linked_class, self.attr_name, super().get_proportion_decimal())
 
     def set_proportion_percentage(self, value):
-        self.cpp_class_ptr.SetProportion_Percentage(value)
-        self.is_proportion_set = True
-        setattr(self.linked_class, self.attr_name, self.get_proportion_decimal())
+        super().SetProportion_Percentage(value)
+        setattr(self.linked_class, self.attr_name, super().get_proportion_decimal())
 
     def set_proportion_decimal(self, value):
-        self.cpp_class_ptr.SetProportion_Decimal(value)
-        self.is_proportion_set = True
+        super().SetProportion_Decimal(value)
         setattr(self.linked_class, self.attr_name, value)
-
-    def get_proportion_percentage(self):
-        return self.cpp_class_ptr.GetProportion_Percentage()
-
-    def get_proportion_decimal(self):
-        return self.cpp_class_ptr.GetProportion_Decimal()

@@ -16,7 +16,7 @@
 #include <glm/gtc/matrix_transform.hpp>
 
 #include "Rendering/RenderPipelineCore.hpp"
-#include "NumberConverter.hpp"
+#include "NumberFormats.hpp"
 
 class EXPORT CPP_Display {
     private:
@@ -38,7 +38,7 @@ class EXPORT CPP_Display {
         GLFWmonitor* Monitor = nullptr;
         GLFWwindow* Window = nullptr;
 
-        CPP_ColorConverter* WindowFillColor = nullptr;
+        CPP_ColorFormat* WindowFillColor = nullptr;
 
     public:
         CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);

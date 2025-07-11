@@ -142,7 +142,7 @@ CPP_Display::CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_freq
     }
     PMMA::DisplayInstance = this;
 
-    WindowFillColor = new CPP_ColorConverter(new_seed, new_octaves, new_frequency, new_amplitude);
+    WindowFillColor = new CPP_ColorFormat(new_seed, new_octaves, new_frequency, new_amplitude);
 
     if (!PMMA::GLFW_Initialized) {
         glfwInit();

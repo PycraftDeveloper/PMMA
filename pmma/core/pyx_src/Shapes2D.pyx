@@ -476,3 +476,79 @@ cdef class Ellipse:
 
     def set_rotation(self, rotation):
         self.cpp_class_ptr.SetRotation(rotation)
+
+# Complex shapes
+
+cdef class Circle(RadialPolygon): # Define values to BLOCK
+    def set_point_count(self, point_count):
+        return
+
+    def set_rotation(self, rotation):
+        return
+
+cdef class EquilateralTriangle(RadialPolygon): # Define values to BLOCK
+    def __init__(self):
+        super().__init__()
+
+        super().set_point_count(3)
+
+    def set_point_count(self, point_count):
+        return
+
+cdef class RegularSquare(Rectangle): # Define values to BLOCK
+    def set_size(self, size):
+        super().set_size([size, size])
+
+cdef class RegularPentagon(RadialPolygon): # Define values to BLOCK
+    def __init__(self):
+        super().__init__()
+
+        super().set_point_count(5)
+
+    def set_point_count(self, point_count):
+        return
+
+cdef class RegularHexagon(RadialPolygon): # Define values to BLOCK
+    def __init__(self):
+        super().__init__()
+
+        super().set_point_count(6)
+
+    def set_point_count(self, point_count):
+        return
+
+cdef class RegularHeptagon(RadialPolygon): # Define values to BLOCK
+    def __init__(self):
+        super().__init__()
+
+        super().set_point_count(7)
+
+    def set_point_count(self, point_count):
+        return
+
+cdef class RegularOctagon(RadialPolygon): # Define values to BLOCK
+    def __init__(self):
+        super().__init__()
+
+        super().set_point_count(8)
+
+    def set_point_count(self, point_count):
+        return
+
+cdef class RegularNonagon(RadialPolygon): # Define values to BLOCK
+    def __init__(self):
+        super().__init__()
+
+        super().set_point_count(9)
+
+    def set_point_count(self, point_count):
+        return
+
+cdef class RegularDecagon(RadialPolygon): # Define values to BLOCK
+    def __init__(self):
+        super().__init__()
+
+        super().set_point_count(10)
+
+    def set_point_count(self, point_count):
+        return

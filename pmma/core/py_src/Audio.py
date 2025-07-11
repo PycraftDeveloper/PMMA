@@ -16,7 +16,7 @@ except Exception as _error:
 
     _sounddevice_error = str(_error)
 
-from pmma.build.NumberConverter import ProportionConverter, LinkedProportionConverter
+from pmma.build.NumberFormats import Proportion, LinkedProportion
 
 from pmma.core.py_src.Constants import Constants
 
@@ -42,9 +42,9 @@ https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/linux.md
         self._from_moviepy = False
         self._moviepy_audio_itr = None
 
-        self.volume = ProportionConverter()  # Default volume is 100%
+        self.volume = Proportion()  # Default volume is 100%
         self.volume.set_proportion_decimal(1.0)
-        self.pan = ProportionConverter()  # Pan: -1 (left) to 1 (right), 0 is center
+        self.pan = Proportion()  # Pan: -1 (left) to 1 (right), 0 is center
         self.pan.set_proportion_decimal(0.0)
 
         self._playing = False
@@ -389,20 +389,20 @@ class Chorus(pedalboard.Chorus):
         if mix_format is None:
             mix_format = format
 
-        self.proportion_adjusted_depth = LinkedProportionConverter(self, "depth")
+        self.proportion_adjusted_depth = LinkedProportion(self, "depth")
         if depth_format == Constants.PERCENTAGE:
             self.proportion_adjusted_depth.set_proportion_percentage(depth)
         else:
             self.proportion_adjusted_depth.set_proportion_decimal(depth)
 
-        self.proportion_adjusted_feedback = LinkedProportionConverter(self, "feedback")
+        self.proportion_adjusted_feedback = LinkedProportion(self, "feedback")
 
         if feedback_format == Constants.PERCENTAGE:
             self.proportion_adjusted_feedback.set_proportion_percentage(feedback)
         else:
             self.proportion_adjusted_feedback.set_proportion_decimal(feedback)
 
-        self.proportion_adjusted_mix = LinkedProportionConverter(self, "mix")
+        self.proportion_adjusted_mix = LinkedProportion(self, "mix")
         if mix_format == Constants.PERCENTAGE:
             self.proportion_adjusted_mix.set_proportion_percentage(mix)
         else:
@@ -525,7 +525,7 @@ class Convolution(pedalboard.Convolution):
         if mix_format is None:
             mix_format = format
 
-        self.proportion_adjusted_mix = LinkedProportionConverter(self, "mix")
+        self.proportion_adjusted_mix = LinkedProportion(self, "mix")
 
         if mix_format == Constants.PERCENTAGE:
             self.proportion_adjusted_mix.set_proportion_percentage(mix)
@@ -582,14 +582,14 @@ class Delay(pedalboard.Delay):
         if mix_format is None:
             mix_format = format
 
-        self.proportion_adjusted_feedback = LinkedProportionConverter(self, "feedback")
+        self.proportion_adjusted_feedback = LinkedProportion(self, "feedback")
 
         if feedback_format == Constants.PERCENTAGE:
             self.proportion_adjusted_feedback.set_proportion_percentage(feedback)
         else:
             self.proportion_adjusted_feedback.set_proportion_decimal(feedback)
 
-        self.proportion_adjusted_mix = LinkedProportionConverter(self, "mix")
+        self.proportion_adjusted_mix = LinkedProportion(self, "mix")
         if mix_format == Constants.PERCENTAGE:
             self.proportion_adjusted_mix.set_proportion_percentage(mix)
         else:
@@ -638,19 +638,19 @@ class Phaser(pedalboard.Phaser):
         if mix_format is None:
             mix_format = format
 
-        self.proportion_adjusted_depth = LinkedProportionConverter(self, "depth")
+        self.proportion_adjusted_depth = LinkedProportion(self, "depth")
         if depth_format == Constants.PERCENTAGE:
             self.proportion_adjusted_depth.set_proportion_percentage(depth)
         else:
             self.proportion_adjusted_depth.set_proportion_decimal(depth)
 
-        self.proportion_adjusted_feedback = LinkedProportionConverter(self, "feedback")
+        self.proportion_adjusted_feedback = LinkedProportion(self, "feedback")
         if feedback_format == Constants.PERCENTAGE:
             self.proportion_adjusted_feedback.set_proportion_percentage(feedback)
         else:
             self.proportion_adjusted_feedback.set_proportion_decimal(feedback)
 
-        self.proportion_adjusted_mix = LinkedProportionConverter(self, "mix")
+        self.proportion_adjusted_mix = LinkedProportion(self, "mix")
         if mix_format == Constants.PERCENTAGE:
             self.proportion_adjusted_mix.set_proportion_percentage(mix)
         else:
@@ -720,31 +720,31 @@ class Reverb(pedalboard.Reverb):
         if width_format is None:
             width_format = format
 
-        self.proportion_adjusted_room_size = LinkedProportionConverter(self, "room_size")
+        self.proportion_adjusted_room_size = LinkedProportion(self, "room_size")
         if room_size_format == Constants.PERCENTAGE:
             self.proportion_adjusted_room_size.set_proportion_percentage(room_size)
         else:
             self.proportion_adjusted_room_size.set_proportion_decimal(room_size)
 
-        self.proportion_adjusted_damping = LinkedProportionConverter(self, "damping")
+        self.proportion_adjusted_damping = LinkedProportion(self, "damping")
         if damping_format == Constants.PERCENTAGE:
             self.proportion_adjusted_damping.set_proportion_percentage(damping)
         else:
             self.proportion_adjusted_damping.set_proportion_decimal(damping)
 
-        self.proportion_adjusted_wet_level = LinkedProportionConverter(self, "wet_level")
+        self.proportion_adjusted_wet_level = LinkedProportion(self, "wet_level")
         if wet_level_format == Constants.PERCENTAGE:
             self.proportion_adjusted_wet_level.set_proportion_percentage(wet_level)
         else:
             self.proportion_adjusted_wet_level.set_proportion_decimal(wet_level)
 
-        self.proportion_adjusted_dry_level = LinkedProportionConverter(self, "dry_level")
+        self.proportion_adjusted_dry_level = LinkedProportion(self, "dry_level")
         if dry_level_format == Constants.PERCENTAGE:
             self.proportion_adjusted_dry_level.set_proportion_percentage(dry_level)
         else:
             self.proportion_adjusted_dry_level.set_proportion_decimal(dry_level)
 
-        self.proportion_adjusted_width = LinkedProportionConverter(self, "width")
+        self.proportion_adjusted_width = LinkedProportion(self, "width")
         if width_format == Constants.PERCENTAGE:
             self.proportion_adjusted_width.set_proportion_percentage(width)
         else:

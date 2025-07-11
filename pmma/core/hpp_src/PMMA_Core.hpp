@@ -30,6 +30,7 @@
 
 #include "Display.hpp"
 #include "NumberConverter.hpp"
+#include "NumberFormats.hpp"
 
 #include "Events/KeyEvents.hpp"
 #include "Events/KeyPadEvents.hpp"
