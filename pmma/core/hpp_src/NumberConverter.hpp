@@ -8,6 +8,7 @@
 class EXPORT CPP_BasicColorConverter {
     protected:
         float InternalColor[4];
+
         bool ColorIsSet = false;
 
     public:

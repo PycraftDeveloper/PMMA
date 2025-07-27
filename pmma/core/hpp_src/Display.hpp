@@ -19,29 +19,34 @@
 #include "NumberFormats.hpp"
 
 class EXPORT CPP_Display {
-    private:
-        unsigned int Size[2] = {0, 0};
-        std::string Caption = "PMMA Display";
-        bool FullScreen;
-        bool Resizable;
-        bool NoFrame;
-        bool Vsync;
-        std::string Icon;
-        bool Centered;
-        bool Maximized;
-        float RefreshTime = 0.000001f;
-        std::chrono::high_resolution_clock::time_point StartTime = std::chrono::high_resolution_clock::now();
+    public:
+        CPP_ColorFormat* WindowFillColor = nullptr;
 
-        glm::mat4 OrthographicProjection;
-        bool OrthographicProjectionSet = false;
+    private:
+        std::string Caption = "PMMA Display";
+        std::string Icon;
 
         GLFWmonitor* Monitor = nullptr;
         GLFWwindow* Window = nullptr;
 
-        CPP_ColorFormat* WindowFillColor = nullptr;
+        glm::mat4 OrthographicProjection;
+
+        std::chrono::high_resolution_clock::time_point StartTime = std::chrono::high_resolution_clock::now();
+
+        unsigned int Size[2] = {0, 0};
+
+        float RefreshTime = 0.000001f;
+
+        bool FullScreen;
+        bool Resizable;
+        bool NoFrame;
+        bool Vsync;
+        bool Centered;
+        bool Maximized;
+        bool OrthographicProjectionSet = false;
 
     public:
-        CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
+        CPP_Display();
 
         void PMMA_Update(GLFWwindow* Window);
 
@@ -113,7 +118,6 @@ class EXPORT CPP_Display {
             glfwSetWindowPos(Window, Window_X_Offset, Window_Y_Offset);
         }
 
-        void Clear(float* in_color);
         void Clear();
 
         inline void SetWindowInFocus() {

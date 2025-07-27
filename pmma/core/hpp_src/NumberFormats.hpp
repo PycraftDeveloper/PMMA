@@ -24,25 +24,30 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         float b_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
         float a_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
 
-    public:
-        CPP_ColorFormat(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            srand((unsigned int)time(0));
+        bool Configured = false;
 
+    public:
+        ~CPP_ColorFormat() {
+            if (Configured) {
+                delete PerlinNoiseGenerator;
+                delete FractalBrownianMotionGenerator;
+
+                PerlinNoiseGenerator = nullptr;
+                FractalBrownianMotionGenerator = nullptr;
+            }
+        }
+
+        inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
             PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
             FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+
+            srand(new_seed);
 
             seed = new_seed;
             octaves = new_octaves;
             frequency = new_frequency;
             amplitude = new_amplitude;
-        }
-
-        ~CPP_ColorFormat() {
-            delete PerlinNoiseGenerator;
-            delete FractalBrownianMotionGenerator;
-
-            PerlinNoiseGenerator = nullptr;
-            FractalBrownianMotionGenerator = nullptr;
+            Configured = true;
         }
 
         inline uint32_t GetSeed() {

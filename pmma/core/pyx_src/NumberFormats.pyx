@@ -9,7 +9,9 @@ cimport numpy as np
 
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_ColorFormat:
-        CPP_ColorFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+        CPP_ColorFormat() except + nogil
+
+        inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
 
         inline void GenerateRandomColor() except + nogil
         inline void GeneratePerlinColor(float value) except + nogil
@@ -24,6 +26,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void GetColor_rgba(float* out_color) except + nogil
         inline void GetColor_RGB(unsigned int* out_color) except + nogil
         inline void GetColor_rgb(float* out_color) except + nogil
+
+        inline unsigned int GetSeed() except + nogil
+        inline unsigned int GetOctaves() except + nogil
+        inline float GetFrequency() except + nogil
+        inline float GetAmplitude() except + nogil
+        inline bool GetSet() except + nogil
 
     cdef cppclass CPP_DisplayCoordinateFormat:
         CPP_DisplayCoordinateFormat() except + nogil
@@ -56,6 +64,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetAngle_Degrees() except + nogil
         inline float GetAngle_Radians() except + nogil
 
+        inline unsigned int GetSeed() except + nogil
+        inline unsigned int GetOctaves() except + nogil
+        inline float GetFrequency() except + nogil
+        inline float GetAmplitude() except + nogil
+        inline bool GetSet() except + nogil
+
     cdef cppclass CPP_ProportionFormat:
         CPP_ProportionFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
 
@@ -69,56 +83,54 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetProportion_Percentage() except + nogil
         inline float GetProportion_Decimal() except + nogil
 
+        inline unsigned int GetSeed() except + nogil
+        inline unsigned int GetOctaves() except + nogil
+        inline float GetFrequency() except + nogil
+        inline float GetAmplitude() except + nogil
+        inline bool GetSet() except + nogil
+
 cdef class Color:
     cdef:
         CPP_ColorFormat* cpp_class_ptr
         bool using_numpy_arrays
 
-        unsigned int seed
-        unsigned int octaves
-        float lacunarity
-        float gain
-
-        bool is_color_set
-
-    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr = new CPP_ColorFormat(seed, octaves, lacunarity, gain)
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_ColorFormat()
 
         self.using_numpy_arrays = False
-        self.is_color_set = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
 
+    def configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed == None:
+            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+
+        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
+
     def get_seed(self):
-        return self.seed
+        return self.cpp_class_ptr.GetSeed()
 
     def get_octaves(self):
-        return self.octaves
+        return self.cpp_class_ptr.GetOctaves()
 
     def get_lacunarity(self):
-        return self.lacunarity
+        return self.cpp_class_ptr.GetFrequency()
 
     def get_gain(self):
-        return self.gain
+        return self.cpp_class_ptr.GetAmplitude()
 
     def get_color_set(self):
-        return self.is_color_set
+        return self.self.cpp_class_ptr.GetSet()
 
     def generate_random_color(self):
         self.cpp_class_ptr.GenerateRandomColor()
-        self.is_color_set = True
 
     def generate_color_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinColor(value)
-        self.is_color_set = True
 
     def generate_color_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionColor(value)
-        self.is_color_set = True
 
     def set_color_RGBA(self, in_color):
         cdef:
@@ -135,7 +147,6 @@ cdef class Color:
         in_color_ptr = <unsigned int*>&in_color_np[0]
 
         self.cpp_class_ptr.SetColor_RGBA(in_color_ptr)
-        self.is_color_set = True
 
     def set_color_small_rgba(self, in_color):
         cdef:
@@ -152,7 +163,6 @@ cdef class Color:
         in_color_ptr = <float*>&in_color_np[0]
 
         self.cpp_class_ptr.SetColor_rgba(in_color_ptr)
-        self.is_color_set = True
 
     def set_color_RGB(self, in_color):
         cdef:
@@ -169,7 +179,6 @@ cdef class Color:
         in_color_ptr = <unsigned int*>&in_color_np[0]
 
         self.cpp_class_ptr.SetColor_RGB(in_color_ptr)
-        self.is_color_set = True
 
     def set_color_small_rgb(self, in_color):
         cdef:
@@ -186,7 +195,6 @@ cdef class Color:
         in_color_ptr = <float*>&in_color_np[0]
 
         self.cpp_class_ptr.SetColor_rgb(in_color_ptr)
-        self.is_color_set = True
 
     def get_color_RGBA(self, detect_format=True):
         cdef:
@@ -341,60 +349,46 @@ cdef class Angle:
     cdef:
         CPP_AngleFormat* cpp_class_ptr
 
-        unsigned int seed
-        unsigned int octaves
-        float lacunarity
-        float gain
-
-        bool is_angle_set
-
     def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
         self.cpp_class_ptr = new CPP_AngleFormat(seed, octaves, lacunarity, gain)
 
-        self.is_angle_set = False
-
     def __dealloc__(self):
         del self.cpp_class_ptr
 
     def get_seed(self):
-        return self.seed
+        return self.cpp_class_ptr.GetSeed()
 
     def get_octaves(self):
-        return self.octaves
+        return self.cpp_class_ptr.GetOctaves()
 
     def get_lacunarity(self):
-        return self.lacunarity
+        return self.cpp_class_ptr.GetFrequency()
 
     def get_gain(self):
-        return self.gain
+        return self.cpp_class_ptr.GetAmplitude()
 
     def get_angle_set(self):
-        return self.is_angle_set
+        return self.self.cpp_class_ptr.GetSet()
 
     def generate_random_angle(self):
         self.cpp_class_ptr.GenerateRandomAngle()
-        self.is_angle_set = True
 
     def generate_angle_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinAngle(value)
-        self.is_angle_set = True
 
     def generate_angle_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionAngle(value)
-        self.is_angle_set = True
 
     def set_angle_degrees(self, value):
         cdef float in_value = <float>value
         self.cpp_class_ptr.SetAngle_Degrees(in_value)
-        self.is_angle_set = True
 
     def set_angle_radians(self, value):
         cdef float in_value = <float>value
         self.cpp_class_ptr.SetAngle_Radians(in_value)
-        self.is_angle_set = True
 
     def get_angle_degrees(self):
         return self.cpp_class_ptr.GetAngle_Degrees()
@@ -406,58 +400,44 @@ cdef class Proportion:
     cdef:
         CPP_ProportionFormat* cpp_class_ptr
 
-        unsigned int seed
-        unsigned int octaves
-        float lacunarity
-        float gain
-
-        bool is_proportion_set
-
     def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
         self.cpp_class_ptr = new CPP_ProportionFormat(seed, octaves, lacunarity, gain)
 
-        self.is_proportion_set = False
-
     def __dealloc__(self):
         del self.cpp_class_ptr
 
     def get_seed(self):
-        return self.seed
+        return self.cpp_class_ptr.GetSeed()
 
     def get_octaves(self):
-        return self.octaves
+        return self.cpp_class_ptr.GetOctaves()
 
     def get_lacunarity(self):
-        return self.lacunarity
+        return self.cpp_class_ptr.GetFrequency()
 
     def get_gain(self):
-        return self.gain
+        return self.cpp_class_ptr.GetAmplitude()
 
     def get_proportion_set(self):
-        return self.is_proportion_set
+        return self.self.cpp_class_ptr.GetSet()
 
     def generate_random_proportion(self):
         self.cpp_class_ptr.GenerateRandomProportion()
-        self.is_proportion_set = True
 
     def generate_proportion_from_perlin_noise(self, value):
         self.cpp_class_ptr.GeneratePerlinProportion(value)
-        self.is_proportion_set = True
 
     def generate_proportion_from_fractal_brownian_motion(self, value):
         self.cpp_class_ptr.GenerateFractalBrownianMotionProportion(value)
-        self.is_proportion_set = True
 
     def set_proportion_percentage(self, value):
         self.cpp_class_ptr.SetProportion_Percentage(value)
-        self.is_proportion_set = True
 
     def set_proportion_decimal(self, value):
         self.cpp_class_ptr.SetProportion_Decimal(value)
-        self.is_proportion_set = True
 
     def get_proportion_percentage(self):
         return self.cpp_class_ptr.GetProportion_Percentage()

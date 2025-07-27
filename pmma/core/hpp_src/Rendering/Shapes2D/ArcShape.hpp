@@ -13,6 +13,7 @@
 class EXPORT CPP_ArcShape {
     public:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+        CPP_ColorFormat* ColorFormat;
 
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;

@@ -23,10 +23,20 @@ OptionalColor = Union[
     None
 ]
 
+Float1D = Union[
+    npt.NDArray[np.float32], # preferred
+    npt.NDArray[np.float16],
+    npt.NDArray[np.float64],
+    Iterable[float]]
+
 Numerical = Union[float, int]
+
+NoneInt = Union[int, None]
 
 class Display:
     def __init__(self, seed: OptionalInteger=None, octaves: int=2, lacunarity: float=0.75, gain: float=1.0) -> None: ...
+
+    window_fill_color: Color
 
     def create(self, size: Integer1D=..., caption: str="PMMA Display", fullscreen: bool=True, resizable: bool=False, no_frame: bool=False, vsync: bool = True, icon: str="", centered: bool=True, maximized: bool=False, transparent: bool=False) -> None: ...
 
@@ -40,7 +50,7 @@ class Display:
 
     def center_window(self) -> None: ...
 
-    def clear(self, new_color: OptionalColor=None) -> None: ...
+    def clear(self) -> None: ...
 
     def set_window_in_focus(self) -> None: ...
     def set_window_minimized(self, value: bool) -> None: ...

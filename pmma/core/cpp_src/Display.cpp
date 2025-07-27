@@ -135,14 +135,14 @@ void CPP_Display::PMMA_Update(GLFWwindow* Window) {
     }
 }
 
-CPP_Display::CPP_Display(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+CPP_Display::CPP_Display() {
     if (PMMA::DisplayInstance != nullptr) {
         delete PMMA::DisplayInstance;
         PMMA::DisplayInstance = nullptr;
     }
     PMMA::DisplayInstance = this;
 
-    WindowFillColor = new CPP_ColorFormat(new_seed, new_octaves, new_frequency, new_amplitude);
+    WindowFillColor = new CPP_ColorFormat();
 
     if (!PMMA::GLFW_Initialized) {
         glfwInit();
@@ -363,18 +363,6 @@ visual tearing and improve frame pacing." << endl;
     PMMA::RenderPipelineCore = new CPP_RenderPipelineCore();
 }
 
-void CPP_Display::Clear(float* in_color) {
-    if (Window == nullptr) {
-        throw runtime_error("Display not created yet!");
-    }
-
-    WindowFillColor->SetColor_rgba(in_color);
-    glClearColor(in_color[0], in_color[1], in_color[2], in_color[3]);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    PMMA::RenderPipelineCore->Reset();
-}
-
 void CPP_Display::Clear() {
     if (Window == nullptr) {
         throw runtime_error("Display not created yet!");
@@ -537,4 +525,7 @@ CPP_Display::~CPP_Display() {
     }
 
     PMMA::DisplayInstance = nullptr;
+
+    delete WindowFillColor;
+    WindowFillColor = nullptr;
 }
