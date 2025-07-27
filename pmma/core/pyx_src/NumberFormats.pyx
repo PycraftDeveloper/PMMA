@@ -31,7 +31,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetOctaves() except + nogil
         inline float GetFrequency() except + nogil
         inline float GetAmplitude() except + nogil
-        inline bool GetSet() except + nogil
+        inline bool GetColorIsSet() except + nogil
 
     cdef cppclass CPP_DisplayCoordinateFormat:
         CPP_DisplayCoordinateFormat() except + nogil
@@ -68,7 +68,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetOctaves() except + nogil
         inline float GetFrequency() except + nogil
         inline float GetAmplitude() except + nogil
-        inline bool GetSet() except + nogil
+        inline bool GetAngleIsSet() except + nogil
 
     cdef cppclass CPP_ProportionFormat:
         CPP_ProportionFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
@@ -87,7 +87,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetOctaves() except + nogil
         inline float GetFrequency() except + nogil
         inline float GetAmplitude() except + nogil
-        inline bool GetSet() except + nogil
+        inline bool GetProportionIsSet() except + nogil
 
 cdef class Color:
     cdef:
@@ -121,7 +121,7 @@ cdef class Color:
         return self.cpp_class_ptr.GetAmplitude()
 
     def get_color_set(self):
-        return self.self.cpp_class_ptr.GetSet()
+        return self.cpp_class_ptr.GetColorIsSet()
 
     def generate_random_color(self):
         self.cpp_class_ptr.GenerateRandomColor()
@@ -300,7 +300,7 @@ cdef class DisplayCoordinate:
         return self.cpp_class_ptr.GetAmplitude()
 
     def get_display_coordinate_set(self):
-        return self.self.cpp_class_ptr.GetSet()
+        return self.cpp_class_ptr.GetSet()
 
     def generate_random_display_coordinate(self):
         self.cpp_class_ptr.GenerateRandomDisplayCoordinate()
@@ -371,7 +371,7 @@ cdef class Angle:
         return self.cpp_class_ptr.GetAmplitude()
 
     def get_angle_set(self):
-        return self.self.cpp_class_ptr.GetSet()
+        return self.cpp_class_ptr.GetAngleIsSet()
 
     def generate_random_angle(self):
         self.cpp_class_ptr.GenerateRandomAngle()
@@ -422,7 +422,7 @@ cdef class Proportion:
         return self.cpp_class_ptr.GetAmplitude()
 
     def get_proportion_set(self):
-        return self.self.cpp_class_ptr.GetSet()
+        return self.cpp_class_ptr.GetProportionIsSet()
 
     def generate_random_proportion(self):
         self.cpp_class_ptr.GenerateRandomProportion()
