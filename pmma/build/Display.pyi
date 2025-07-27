@@ -6,7 +6,10 @@ import numpy.typing as npt
 from pmma.build.NumberFormats import Color
 
 Integer1D = Union[
-    npt.NDArray[np.int_],
+    npt.NDArray[np.int32], # preferred
+    npt.NDArray[np.int8],
+    npt.NDArray[np.int16],
+    npt.NDArray[np.int64],
     Iterable[int],
 ]
 

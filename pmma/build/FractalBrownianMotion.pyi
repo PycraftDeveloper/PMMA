@@ -7,24 +7,39 @@ Numerical = Union[float, int]
 NoneInt = Union[None, int]
 
 Numerical1D = Union[
-    npt.NDArray[np.float_],
-    npt.NDArray[np.int_],
-    Iterable[float],
-    Iterable[int],
+    npt.NDArray[np.float32], # preferred
+    npt.NDArray[np.float16],
+    npt.NDArray[np.float64],
+    npt.NDArray[np.int32], # preferred
+    npt.NDArray[np.int8],
+    npt.NDArray[np.int16],
+    npt.NDArray[np.int64],
+    Iterable[float],  # preferred
+    Iterable[int],  # preferred
 ]
 
 Numerical2D = Union[
-    npt.NDArray[np.float_],
-    npt.NDArray[np.int_],
-    Iterable[Iterable[float]],
-    Iterable[Iterable[int]],
+    npt.NDArray[np.float32], # preferred
+    npt.NDArray[np.float16],
+    npt.NDArray[np.float64],
+    npt.NDArray[np.int32], # preferred
+    npt.NDArray[np.int8],
+    npt.NDArray[np.int16],
+    npt.NDArray[np.int64],
+    Iterable[Iterable[float]],  # preferred
+    Iterable[Iterable[int]],  # preferred
 ]
 
 Numerical3D = Union[
-    npt.NDArray[np.float_],
-    npt.NDArray[np.int_],
-    Iterable[Iterable[float]],
-    Iterable[Iterable[int]],
+    npt.NDArray[np.float32], # preferred
+    npt.NDArray[np.float16],
+    npt.NDArray[np.float64],
+    npt.NDArray[np.int32], # preferred
+    npt.NDArray[np.int8],
+    npt.NDArray[np.int16],
+    npt.NDArray[np.int64],
+    Iterable[Iterable[Iterable[float]]],  # preferred
+    Iterable[Iterable[Iterable[int]]],  # preferred
 ]
 
 class FractalBrownianMotion:

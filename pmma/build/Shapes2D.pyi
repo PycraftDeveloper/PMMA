@@ -4,27 +4,38 @@ import numpy as np
 import numpy.typing as npt
 
 Numerical1D = Union[
-    npt.NDArray[np.float_],
-    npt.NDArray[np.int_],
-    Iterable[float],
-    Iterable[int],
+    npt.NDArray[np.float32], # preferred
+    npt.NDArray[np.float16],
+    npt.NDArray[np.float64],
+    npt.NDArray[np.int32], # preferred
+    npt.NDArray[np.int8],
+    npt.NDArray[np.int16],
+    npt.NDArray[np.int64],
+    Iterable[float],  # preferred
+    Iterable[int],  # preferred
 ]
 
 Integer1D = Union[
-    npt.NDArray[np.float_],
-    npt.NDArray[np.int_],
-    Iterable[float],
+    npt.NDArray[np.int32], # preferred
+    npt.NDArray[np.int8],
+    npt.NDArray[np.int16],
+    npt.NDArray[np.int64],
     Iterable[int],
 ]
 
 Integer2D = Union[
-    npt.NDArray[np.float_],
-    npt.NDArray[np.int_],
-    Iterable[float],
-    Iterable[int],
+    npt.NDArray[np.int32], # preferred
+    npt.NDArray[np.int8],
+    npt.NDArray[np.int16],
+    npt.NDArray[np.int64],
+    Iterable[Iterable[int]],
 ]
 
-Float1D = Union[npt.NDArray[np.float32], Iterable[float]]
+Float1D = Union[
+    npt.NDArray[np.float32], # preferred
+    npt.NDArray[np.float16],
+    npt.NDArray[np.float64],
+    Iterable[float]]
 
 Numerical = Union[
     float, int

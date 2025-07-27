@@ -4,10 +4,15 @@ import numpy as np
 import numpy.typing as npt
 
 Numerical1D = Union[
-    npt.NDArray[np.float_],
-    npt.NDArray[np.int_],
-    Iterable[float],
-    Iterable[int],
+    npt.NDArray[np.float32], # preferred
+    npt.NDArray[np.float16],
+    npt.NDArray[np.float64],
+    npt.NDArray[np.int32], # preferred
+    npt.NDArray[np.int8],
+    npt.NDArray[np.int16],
+    npt.NDArray[np.int64],
+    Iterable[float],  # preferred
+    Iterable[int],  # preferred
 ]
 
 Numerical = Union[float, int]
