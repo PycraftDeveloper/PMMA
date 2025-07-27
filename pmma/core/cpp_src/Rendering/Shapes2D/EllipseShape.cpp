@@ -3,6 +3,8 @@
 using namespace std;
 
 CPP_EllipseShape::CPP_EllipseShape() {
+    ShapeCentreFormat = new CPP_DisplayCoordinateFormat();
+
     ID = PMMA::ClassObject_ID_System++;
 }
 
@@ -13,6 +15,13 @@ void CPP_EllipseShape::Render(float ShapeQuality) {
 
     unsigned int HalfWidth = ShapeSize.x / 2;
     unsigned int HalfHeight = ShapeSize.y / 2;
+
+    if (!ShapeCentreFormat->GetSet()) {
+        throw std::runtime_error("Shape has no center not set");
+    }
+    glm::vec2 ShapeCentre = ShapeCentreFormat->GetDisplayCoordinate();
+
+    Changed = Changed || ShapeCentreFormat->GetChangedToggle();
 
     if (ShapeCentre.x + HalfWidth < 0 ||
             ShapeCentre.x - HalfWidth > DisplayWidth ||

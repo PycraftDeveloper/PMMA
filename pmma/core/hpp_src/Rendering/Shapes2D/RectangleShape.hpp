@@ -8,16 +8,18 @@
 
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
+#include "NumberFormats.hpp"
 
 class EXPORT CPP_RectangleShape {
     public:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> RenderPipelineVertexData;
 
         glm::vec4 RenderPipelineColorData;
-        glm::vec2 ShapeCentre;
         glm::vec2 ShapeSize;
 
         float Rotation = 0;
@@ -28,7 +30,6 @@ class EXPORT CPP_RectangleShape {
         unsigned int CornerRadius = 0;
 
         bool ColorSet = false;
-        bool CentreSet = false;
         bool SizeSet = false;
         bool WidthSet = true;
         bool UsingGradients = false;
@@ -38,30 +39,35 @@ class EXPORT CPP_RectangleShape {
 
         CPP_RectangleShape();
 
+        ~CPP_RectangleShape() {
+            delete ShapeCentreFormat;
+            ShapeCentreFormat = nullptr;
+        }
+
         void Render(float ShapeQuality);
 
         void InternalRender();
 
-        inline glm::vec2 SimpleApplyRotation(glm::vec2 position, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight) {
-            glm::vec2 tl = glm::vec2(ShapeCentre.x - HalfWidth, ShapeCentre.y - HalfHeight);
-            glm::vec2 pos = tl - ShapeCentre;
+        inline glm::vec2 SimpleApplyRotation(glm::vec2 position, glm::vec2 shape_center, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight) {
+            glm::vec2 tl = glm::vec2(shape_center.x - HalfWidth, shape_center.y - HalfHeight);
+            glm::vec2 pos = tl - shape_center;
             glm::vec2 rotated = {
                 RotationCos * pos.x - RotationSin * pos.y,
                 RotationSin * pos.x + RotationCos * pos.y
             };
-            return ShapeCentre + rotated;
+            return shape_center + rotated;
         }
 
-        inline glm::vec2 ComplexApplyRotation(glm::vec2 point, float RotationSin, float RotationCos) {
+        inline glm::vec2 ComplexApplyRotation(glm::vec2 point, glm::vec2 shape_center, float RotationSin, float RotationCos) {
             // Translate point to origin
-            point -= ShapeCentre;
+            point -= shape_center;
 
             // Rotate
             float xnew = point.x * RotationCos - point.y * RotationSin;
             float ynew = point.x * RotationSin + point.y * RotationCos;
 
             // Translate back
-            return glm::vec2(xnew, ynew) + ShapeCentre;
+            return glm::vec2(xnew, ynew) + shape_center;
         }
 
         inline void SetColor(float* in_color, unsigned int size) {
@@ -85,17 +91,6 @@ class EXPORT CPP_RectangleShape {
 
             ColorSet = true;
             ColorData = NewColorData;
-        };
-
-        inline void SetCentre(unsigned int* in_position) {
-            if (CentreSet && (in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y)) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            ShapeCentre = glm::vec2(in_position[0], in_position[1]);
-            CentreSet = true;
         };
 
         inline void SetSize(unsigned int* in_size) {

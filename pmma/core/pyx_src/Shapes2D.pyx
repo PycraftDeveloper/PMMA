@@ -39,6 +39,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_RectangleShape:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat
+
         inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetCentre(unsigned int* in_position) except + nogil
         inline void SetCornerRadius(unsigned int in_corner_radius) except + nogil
@@ -87,8 +89,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_EllipseShape:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat
+
         inline void SetColor(float* in_color, unsigned int size) except + nogil
-        inline void SetCentre(unsigned int* in_position) except + nogil
         inline void SetPointCount(unsigned int in_point_count) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetRotation(float rotation) except + nogil
@@ -116,7 +119,7 @@ cdef class DisplayCoordinate:
     def get_gain(self):
         return self.cpp_base_class_ptr.GetAmplitude()
 
-    def configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+    def configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0): # must be configured for generating coordinates
         if seed == None:
             seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
 
@@ -216,9 +219,13 @@ cdef class RadialPolygon:
 cdef class Rectangle:
     cdef:
         CPP_RectangleShape* cpp_class_ptr
+        DisplayCoordinate cpp_shape_center_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_RectangleShape()
+
+        self.cpp_shape_center_format = DisplayCoordinate()
+        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -226,19 +233,10 @@ cdef class Rectangle:
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
 
-    def set_centre(self, position):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] position_np
-            unsigned int* position_ptr
-
-        if not isinstance(position, np.ndarray) or position.dtype != np.uint32 or not position.flags['C_CONTIGUOUS']:
-            position_np = np.array(position, dtype=np.uint32, order='C')
-        else:
-            position_np = position
-
-        position_ptr = <unsigned int*>&position_np[0]
-
-        self.cpp_class_ptr.SetCentre(position_ptr)
+    property shape_center:
+        def __get__(self):
+            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            return self.cpp_shape_center_format
 
     def set_size(self, size):
         cdef:
@@ -488,9 +486,13 @@ cdef class Arc:
 cdef class Ellipse:
     cdef:
         CPP_EllipseShape* cpp_class_ptr
+        DisplayCoordinate cpp_shape_center_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_EllipseShape()
+
+        self.cpp_shape_center_format = DisplayCoordinate()
+        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -498,19 +500,10 @@ cdef class Ellipse:
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
 
-    def set_centre(self, position):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] position_np
-            unsigned int* position_ptr
-
-        if not isinstance(position, np.ndarray) or position.dtype != np.uint32 or not position.flags['C_CONTIGUOUS']:
-            position_np = np.array(position, dtype=np.uint32, order='C')
-        else:
-            position_np = position
-
-        position_ptr = <unsigned int*>&position_np[0]
-
-        self.cpp_class_ptr.SetCentre(position_ptr)
+    property shape_center:
+        def __get__(self):
+            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            return self.cpp_shape_center_format
 
     def set_size(self, size):
         cdef:

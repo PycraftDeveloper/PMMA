@@ -32,7 +32,6 @@ class EXPORT CPP_ArcShape {
         unsigned int Radius;
 
         bool ColorSet = false;
-        bool CentreSet = false;
         bool UsingGradients = false;
         bool HasAlpha = false;
         bool Changed = true;

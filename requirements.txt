@@ -4,6 +4,7 @@ cython
 getostheme
 moviepy
 num2words
+numpy>=2.0
 pedalboard
 Pillow
 pprofile

@@ -8,16 +8,18 @@
 
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
+#include "NumberFormats.hpp"
 
 class EXPORT CPP_EllipseShape {
     public:
+        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> RenderPipelineVertexData;
 
         glm::vec4 RenderPipelineColorData;
-        glm::vec2 ShapeCentre;
         glm::vec2 ShapeSize;
 
         float Rotation = 0;
@@ -28,13 +30,17 @@ class EXPORT CPP_EllipseShape {
         unsigned int PointCount = 0;
 
         bool ColorSet = false;
-        bool CentreSet = false;
         bool SizeSet = false;
         bool UsingGradients = false;
         bool HasAlpha = false;
         bool Changed = true;
 
         CPP_EllipseShape();
+
+        ~CPP_EllipseShape() {
+            delete ShapeCentreFormat;
+            ShapeCentreFormat = nullptr;
+        }
 
         void Render(float ShapeQuality);
 
@@ -61,17 +67,6 @@ class EXPORT CPP_EllipseShape {
 
             ColorSet = true;
             ColorData = NewColorData;
-        };
-
-        inline void SetCentre(unsigned int* in_position) {
-            if (CentreSet && (in_position[0] != ShapeCentre.x || in_position[1] != ShapeCentre.y)) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            ShapeCentre = glm::vec2(in_position[0], in_position[1]);
-            CentreSet = true;
         };
 
         inline void SetSize(unsigned int* in_size) {
