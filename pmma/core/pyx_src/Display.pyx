@@ -9,6 +9,7 @@ import numpy as np
 cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
+from NumberFormats cimport Color, CPP_ColorFormat
 
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
