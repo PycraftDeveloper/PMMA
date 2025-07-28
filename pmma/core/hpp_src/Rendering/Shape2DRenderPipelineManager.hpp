@@ -12,7 +12,6 @@
 class CPP_RadialPolygonShape;
 class CPP_RectangleShape;
 class CPP_PixelShape;
-// To-DO:
 class CPP_LineShape;
 class CPP_ArcShape;
 class CPP_EllipseShape;
@@ -84,7 +83,7 @@ class CPP_Shape2D_RenderPipelineManager {
 
             Changed = true;
 
-            const glm::vec4 color = TargetPtr->RenderPipelineColorData;
+            const glm::vec4 color = TargetPtr->ColorFormat->GetColor_rgba();
 
             if (currentIndex < shape_colors.size()) {
                 shape_colors[currentIndex] = color;

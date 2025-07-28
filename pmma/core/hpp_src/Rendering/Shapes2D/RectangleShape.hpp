@@ -13,13 +13,13 @@
 class EXPORT CPP_RectangleShape {
     public:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+        CPP_ColorFormat* ColorFormat;
 
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> RenderPipelineVertexData;
 
-        glm::vec4 RenderPipelineColorData;
         glm::vec2 ShapeSize;
 
         float Rotation = 0;
@@ -29,10 +29,8 @@ class EXPORT CPP_RectangleShape {
         unsigned int Width = 0;
         unsigned int CornerRadius = 0;
 
-        bool ColorSet = false;
         bool SizeSet = false;
         bool WidthSet = true;
-        bool UsingGradients = false;
         bool HasAlpha = false;
         bool Changed = true;
         bool CornerRadiusSet = true;
@@ -42,6 +40,9 @@ class EXPORT CPP_RectangleShape {
         ~CPP_RectangleShape() {
             delete ShapeCentreFormat;
             ShapeCentreFormat = nullptr;
+
+            delete ColorFormat;
+            ColorFormat = nullptr;
         }
 
         void Render(float ShapeQuality);
@@ -69,29 +70,6 @@ class EXPORT CPP_RectangleShape {
             // Translate back
             return glm::vec2(xnew, ynew) + shape_center;
         }
-
-        inline void SetColor(float* in_color, unsigned int size) {
-            UsingGradients = size > 4; // (determine if multiple colors inputted)
-
-            std::vector<glm::vec4> NewColorData;
-
-            HasAlpha = false;
-            for (unsigned int i = 0; i < size; i += 4) { // Color will be in form rgba
-                NewColorData.push_back(glm::vec4(in_color[i], in_color[i + 1], in_color[i + 2], in_color[i + 3]));
-                if (in_color[i + 3] != 1.0f) {
-                    HasAlpha = true;
-                }
-            }
-
-            if (ColorSet && (size != NewColorData.size() * 4 || ColorData.size() != NewColorData.size() || !std::equal(ColorData.begin(), ColorData.end(), NewColorData.begin()))) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            ColorSet = true;
-            ColorData = NewColorData;
-        };
 
         inline void SetSize(unsigned int* in_size) {
             if (SizeSet && (in_size[0] != ShapeSize.x || in_size[1] != ShapeSize.y)) {

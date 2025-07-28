@@ -4,6 +4,8 @@ using namespace std;
 
 CPP_PixelShape::CPP_PixelShape() {
     ShapeCentreFormat = new CPP_DisplayCoordinateFormat();
+    ColorFormat = new CPP_ColorFormat();
+
     ID = PMMA::ClassObject_ID_System++;
 }
 
@@ -15,9 +17,16 @@ void CPP_PixelShape::Render() {
     if (!ShapeCentreFormat->GetSet()) {
         throw std::runtime_error("Shape has no center not set");
     }
+
+    if (!ColorFormat->GetSet()) {
+        throw std::runtime_error("Shape has no color set");
+    }
+
     glm::vec2 ShapeCentre = ShapeCentreFormat->GetDisplayCoordinate();
 
-    Changed = Changed || ShapeCentreFormat->GetChangedToggle();
+    Changed = Changed ||
+                ShapeCentreFormat->GetChangedToggle() ||
+                ColorFormat->GetChangedToggle();
 
     if (ShapeCentre.x < 0 ||
             ShapeCentre.x > DisplayWidth ||
@@ -26,7 +35,7 @@ void CPP_PixelShape::Render() {
         return;
     }
 
-    if (RenderPipelineColorData.w == 0) { // Return if shape not visible
+    if (ColorFormat->GetColor_rgba().r == 0.0f) { // Return if shape not visible
         return;
     }
 

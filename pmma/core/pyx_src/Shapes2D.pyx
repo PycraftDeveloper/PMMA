@@ -16,8 +16,8 @@ from NumberFormats cimport Color, CPP_ColorFormat, DisplayCoordinate, CPP_Displa
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_RadialPolygonShape:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat
+        CPP_ColorFormat* ColorFormat
 
-        inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetRadius(unsigned int in_radius) except + nogil
         inline void SetPointCount(unsigned int in_pointCount) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
@@ -27,8 +27,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
     cdef cppclass CPP_RectangleShape:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat
+        CPP_ColorFormat* ColorFormat
 
-        inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetCentre(unsigned int* in_position) except + nogil
         inline void SetCornerRadius(unsigned int in_corner_radius) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
@@ -39,13 +39,13 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
     cdef cppclass CPP_PixelShape:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat
-
-        inline void SetColor(float* in_color) except + nogil
+        CPP_ColorFormat* ColorFormat
 
         void Render() except + nogil
 
     cdef cppclass CPP_LineShape:
-        inline void SetColor(float* in_color, unsigned int size) except + nogil
+        CPP_ColorFormat* ColorFormat
+
         inline void SetRotation(float rotation) except + nogil
         inline void SetStartPosition(unsigned int* in_start_position) except + nogil
         inline void SetEndPosition(unsigned int* in_end_position) except + nogil
@@ -54,7 +54,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_PolygonShape:
-        inline void SetColor(float* in_color, unsigned int size) except + nogil
+        CPP_ColorFormat* ColorFormat
+
         inline void SetRotation(float rotation) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetPoints(unsigned int (*in_points)[2], unsigned int count) except + nogil
@@ -64,8 +65,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
     cdef cppclass CPP_ArcShape:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat
+        CPP_ColorFormat* ColorFormat
 
-        inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetRotation(float rotation) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetStartAngle(float in_start_angle) except + nogil
@@ -77,8 +78,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
     cdef cppclass CPP_EllipseShape:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat
+        CPP_ColorFormat* ColorFormat
 
-        inline void SetColor(float* in_color, unsigned int size) except + nogil
         inline void SetPointCount(unsigned int in_point_count) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetRotation(float rotation) except + nogil
@@ -90,12 +91,16 @@ cdef class RadialPolygon:
     cdef:
         CPP_RadialPolygonShape* cpp_class_ptr
         DisplayCoordinate cpp_shape_center_format
+        Color cpp_color_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_RadialPolygonShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
         self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+
+        self.cpp_color_format = Color()
+        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -108,19 +113,10 @@ cdef class RadialPolygon:
             self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
-    def set_color(self, color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
-            float* color_ptr
-
-        if not isinstance(color, np.ndarray) or color.dtype != np.uint32 or not color.flags['C_CONTIGUOUS']:
-            color_np = np.array(color, dtype=np.float32, order='C')
-        else:
-            color_np = color
-
-        color_ptr = <float*>&color_np[0]
-
-        self.cpp_class_ptr.SetColor(color_ptr, 4)
+    property shape_color:
+        def __get__(self):
+            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+            return self.cpp_color_format
 
     def set_radius(self, radius):
         self.cpp_class_ptr.SetRadius(radius)
@@ -138,12 +134,16 @@ cdef class Rectangle:
     cdef:
         CPP_RectangleShape* cpp_class_ptr
         DisplayCoordinate cpp_shape_center_format
+        Color cpp_color_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_RectangleShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
         self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+
+        self.cpp_color_format = Color()
+        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -155,6 +155,11 @@ cdef class Rectangle:
         def __get__(self):
             self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
+
+    property shape_color:
+        def __get__(self):
+            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+            return self.cpp_color_format
 
     def set_size(self, size):
         cdef:
@@ -170,20 +175,6 @@ cdef class Rectangle:
 
         self.cpp_class_ptr.SetSize(size_ptr)
 
-    def set_color(self, color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
-            float* color_ptr
-
-        if not isinstance(color, np.ndarray) or color.dtype != np.uint32 or not color.flags['C_CONTIGUOUS']:
-            color_np = np.array(color, dtype=np.float32, order='C')
-        else:
-            color_np = color
-
-        color_ptr = <float*>&color_np[0]
-
-        self.cpp_class_ptr.SetColor(color_ptr, 4)
-
     def set_corner_radius(self, corner_radius):
         self.cpp_class_ptr.SetCornerRadius(corner_radius)
 
@@ -197,12 +188,16 @@ cdef class Pixel:
     cdef:
         CPP_PixelShape* cpp_class_ptr
         DisplayCoordinate cpp_shape_center_format
+        Color cpp_color_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_PixelShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
         self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+
+        self.cpp_color_format = Color()
+        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -215,32 +210,32 @@ cdef class Pixel:
             self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
-    def set_color(self, color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
-            float* color_ptr
-
-        if not isinstance(color, np.ndarray) or color.dtype != np.uint32 or not color.flags['C_CONTIGUOUS']:
-            color_np = np.array(color, dtype=np.float32, order='C')
-        else:
-            color_np = color
-
-        color_ptr = <float*>&color_np[0]
-
-        self.cpp_class_ptr.SetColor(color_ptr)
+    property shape_color:
+        def __get__(self):
+            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+            return self.cpp_color_format
 
 cdef class Line:
     cdef:
         CPP_LineShape* cpp_class_ptr
+        Color cpp_color_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_LineShape()
+
+        self.cpp_color_format = Color()
+        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
 
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
+
+    property shape_color:
+        def __get__(self):
+            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+            return self.cpp_color_format
 
     def set_start(self, start_position):
         cdef:
@@ -270,20 +265,6 @@ cdef class Line:
 
         self.cpp_class_ptr.SetEndPosition(end_position_ptr)
 
-    def set_color(self, color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
-            float* color_ptr
-
-        if not isinstance(color, np.ndarray) or color.dtype != np.uint32 or not color.flags['C_CONTIGUOUS']:
-            color_np = np.array(color, dtype=np.float32, order='C')
-        else:
-            color_np = color
-
-        color_ptr = <float*>&color_np[0]
-
-        self.cpp_class_ptr.SetColor(color_ptr, 4)
-
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
 
@@ -293,15 +274,24 @@ cdef class Line:
 cdef class PolygonShape:
     cdef:
         CPP_PolygonShape* cpp_class_ptr
+        Color cpp_color_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_PolygonShape()
+
+        self.cpp_color_format = Color()
+        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
 
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
+
+    property shape_color:
+        def __get__(self):
+            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+            return self.cpp_color_format
 
     def set_points(self, points):
         cdef:
@@ -324,20 +314,6 @@ cdef class PolygonShape:
 
         self.cpp_class_ptr.SetPoints(<unsigned int (*)[2]> points_ptr, num_points)
 
-    def set_color(self, color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
-            float* color_ptr
-
-        if not isinstance(color, np.ndarray) or color.dtype != np.uint32 or not color.flags['C_CONTIGUOUS']:
-            color_np = np.array(color, dtype=np.float32, order='C')
-        else:
-            color_np = color
-
-        color_ptr = <float*>&color_np[0]
-
-        self.cpp_class_ptr.SetColor(color_ptr, 4)
-
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
 
@@ -351,12 +327,16 @@ cdef class Arc:
     cdef:
         CPP_ArcShape* cpp_class_ptr
         DisplayCoordinate cpp_shape_center_format
+        Color cpp_color_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_ArcShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
         self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+
+        self.cpp_color_format = Color()
+        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -366,22 +346,13 @@ cdef class Arc:
             self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
+    property shape_color:
+        def __get__(self):
+            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+            return self.cpp_color_format
+
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
-
-    def set_color(self, color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
-            float* color_ptr
-
-        if not isinstance(color, np.ndarray) or color.dtype != np.uint32 or not color.flags['C_CONTIGUOUS']:
-            color_np = np.array(color, dtype=np.float32, order='C')
-        else:
-            color_np = color
-
-        color_ptr = <float*>&color_np[0]
-
-        self.cpp_class_ptr.SetColor(color_ptr, 4)
 
     def set_radius(self, radius):
         self.cpp_class_ptr.SetRadius(radius)
@@ -405,12 +376,16 @@ cdef class Ellipse:
     cdef:
         CPP_EllipseShape* cpp_class_ptr
         DisplayCoordinate cpp_shape_center_format
+        Color cpp_color_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_EllipseShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
         self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+
+        self.cpp_color_format = Color()
+        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -422,6 +397,11 @@ cdef class Ellipse:
         def __get__(self):
             self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
+
+    property shape_color:
+        def __get__(self):
+            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+            return self.cpp_color_format
 
     def set_size(self, size):
         cdef:
@@ -436,20 +416,6 @@ cdef class Ellipse:
         size_ptr = <unsigned int*>&size_np[0]
 
         self.cpp_class_ptr.SetSize(size_ptr)
-
-    def set_color(self, color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] color_np
-            float* color_ptr
-
-        if not isinstance(color, np.ndarray) or color.dtype != np.uint32 or not color.flags['C_CONTIGUOUS']:
-            color_np = np.array(color, dtype=np.float32, order='C')
-        else:
-            color_np = color
-
-        color_ptr = <float*>&color_np[0]
-
-        self.cpp_class_ptr.SetColor(color_ptr, 4)
 
     def set_point_count(self, point_count):
         self.cpp_class_ptr.SetPointCount(point_count)

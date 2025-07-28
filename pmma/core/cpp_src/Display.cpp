@@ -291,16 +291,18 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     }
 
     if (Transparent) {
-        if (!WindowFillColor->GetColorIsSet()) {
-            WindowFillColor->SetColor_rgba(new float[4] {0, 0, 0, 0});
+        if (!WindowFillColor->GetSet()) {
+            float fill_color[4] = {0, 0, 0, 0};
+            WindowFillColor->SetColor_rgba(fill_color);
         }
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
         cout << "You have specified that this window should be transparent. \
 Please note that this isn't guaranteed and relies on the Operating System, \
 GPU/drivers and device settings to be set correctly in order to work." << endl;
     } else {
-        if (!WindowFillColor->GetColorIsSet()) {
-            WindowFillColor->SetColor_rgba(new float[4] {0, 0, 0, 1});
+        if (!WindowFillColor->GetSet()) {
+            float fill_color[4] = {0, 0, 0, 1};
+            WindowFillColor->SetColor_rgba(fill_color);
         }
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
     }

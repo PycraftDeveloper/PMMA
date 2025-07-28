@@ -8,15 +8,17 @@
 
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
+#include "NumberFormats.hpp"
 
 class EXPORT CPP_PolygonShape {
     public:
+        CPP_ColorFormat* ColorFormat;
+
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> RenderPipelineVertexData;
 
-        glm::vec4 RenderPipelineColorData;
         std::vector<glm::vec2> ShapePoints;
 
         float Rotation = 0;
@@ -26,41 +28,21 @@ class EXPORT CPP_PolygonShape {
         uint64_t ID;
         GLuint ColorIndex;
 
-        bool ColorSet = false;
         bool PointsSet = false;
-        bool UsingGradients = false;
         bool HasAlpha = false;
         bool Changed = true;
         bool Closed = false;
 
         CPP_PolygonShape();
 
+        ~CPP_PolygonShape() {
+            delete ColorFormat;
+            ColorFormat = nullptr;
+        }
+
         void Render(float ShapeQuality);
 
         void InternalRender();
-
-        inline void SetColor(float* in_color, unsigned int size) {
-            UsingGradients = size > 4; // (determine if multiple colors inputted)
-
-            std::vector<glm::vec4> NewColorData;
-
-            HasAlpha = false;
-            for (unsigned int i = 0; i < size; i += 4) { // Color will be in form rgba
-                NewColorData.push_back(glm::vec4(in_color[i], in_color[i + 1], in_color[i + 2], in_color[i + 3]));
-                if (in_color[i + 3] != 1.0f) {
-                    HasAlpha = true;
-                }
-            }
-
-            if (ColorSet && (size != NewColorData.size() * 4 || ColorData.size() != NewColorData.size() || !std::equal(ColorData.begin(), ColorData.end(), NewColorData.begin()))) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            ColorSet = true;
-            ColorData = NewColorData;
-        };
 
         inline void SetPoints(unsigned int (*in_points)[2], unsigned int count) {
             std::vector<glm::vec2> NewShapePoints;

@@ -3,6 +3,8 @@
 using namespace std;
 
 CPP_RectangleShape::CPP_RectangleShape() {
+    ColorFormat = new CPP_ColorFormat();
+
     ID = PMMA::ClassObject_ID_System++;
 }
 
@@ -17,9 +19,16 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
     if (!ShapeCentreFormat->GetSet()) {
         throw std::runtime_error("Shape has no center not set");
     }
+
+    if (!ColorFormat->GetSet()) {
+        throw std::runtime_error("Shape has no color set");
+    }
+
     glm::vec2 ShapeCentre = ShapeCentreFormat->GetDisplayCoordinate();
 
-    Changed = Changed || ShapeCentreFormat->GetChangedToggle();
+    Changed = Changed ||
+                ShapeCentreFormat->GetChangedToggle() ||
+                ColorFormat->GetChangedToggle();
 
     if (ShapeCentre.x + HalfWidth < 0 ||
             ShapeCentre.x - HalfWidth > DisplayWidth ||
@@ -28,10 +37,12 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
         return;
     }
 
-    bool RenderPipelineCompatible = (UsingGradients == false);
+    bool RenderPipelineCompatible = true;
+    // check here if the gradient has been set, if has then check it fits into the render pipeline
+    // otherwise render it as a normal shape.
 
     if (RenderPipelineCompatible) {
-        if (ColorData[0].w == 0) { // Return if shape not visible
+        if (ColorFormat->GetColor_rgba().r == 0.0f) { // Return if shape not visible
             return;
         }
 
@@ -42,8 +53,6 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
         }
 
         if (Changed) {
-            RenderPipelineColorData = ColorData[0];
-
             unsigned int InternalWidth = Width;
             if (Width == 0) {
                 InternalWidth = max(HalfWidth, HalfHeight);

@@ -27,7 +27,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetOctaves() except + nogil
         inline float GetFrequency() except + nogil
         inline float GetAmplitude() except + nogil
-        inline bool GetColorIsSet() except + nogil
+        inline bool GetSet() except + nogil
 
     cdef cppclass CPP_DisplayCoordinateFormat:
         CPP_DisplayCoordinateFormat() except +
@@ -60,7 +60,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetOctaves() except + nogil
         inline float GetFrequency() except + nogil
         inline float GetAmplitude() except + nogil
-        inline bool GetAngleIsSet() except + nogil
+        inline bool GetSet() except + nogil
 
     cdef cppclass CPP_ProportionFormat:
         CPP_ProportionFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
@@ -79,7 +79,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetOctaves() except + nogil
         inline float GetFrequency() except + nogil
         inline float GetAmplitude() except + nogil
-        inline bool GetProportionIsSet() except + nogil
+        inline bool GetSet() except + nogil
 
 cdef class Color:
     cdef CPP_ColorFormat* cpp_class_ptr
@@ -90,7 +90,7 @@ cdef class Color:
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
-    cpdef bint get_color_set(self)
+    cpdef bint get_set(self)
     cpdef void generate_random_color(self)
     cpdef void generate_color_from_perlin_noise(self, float value)
     cpdef void generate_color_from_fractal_brownian_motion(self, float value)
@@ -112,7 +112,7 @@ cdef class DisplayCoordinate:
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
-    cpdef bint get_display_coordinate_set(self)
+    cpdef bint get_set(self)
     cpdef void generate_random_display_coordinate(self)
     cpdef void generate_display_coordinate_from_perlin_noise(self, float value)
     cpdef void generate_display_coordinate_from_fractal_brownian_motion(self, float value)
@@ -126,7 +126,7 @@ cdef class Angle:
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
-    cpdef bint get_angle_set(self)
+    cpdef bint get_set(self)
     cpdef void generate_random_angle(self)
     cpdef void generate_angle_from_perlin_noise(self, float value)
     cpdef void generate_angle_from_fractal_brownian_motion(self, float value)
@@ -142,7 +142,7 @@ cdef class Proportion:
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
-    cpdef bint get_proportion_set(self)
+    cpdef bint get_set(self)
     cpdef void generate_random_proportion(self)
     cpdef void generate_proportion_from_perlin_noise(self, float value)
     cpdef void generate_proportion_from_fractal_brownian_motion(self, float value)

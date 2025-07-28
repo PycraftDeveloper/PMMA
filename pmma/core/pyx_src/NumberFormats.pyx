@@ -36,8 +36,8 @@ cdef class Color:
     cpdef float get_gain(self):
         return self.cpp_class_ptr.GetAmplitude()
 
-    cpdef bint get_color_set(self):
-        return self.cpp_class_ptr.GetColorIsSet()
+    cpdef bint get_set(self):
+        return self.cpp_class_ptr.GetSet()
 
     cpdef void generate_random_color(self):
         self.cpp_class_ptr.GenerateRandomColor()
@@ -209,7 +209,7 @@ cdef class DisplayCoordinate:
     cpdef float get_gain(self):
         return self.cpp_class_ptr.GetAmplitude()
 
-    cpdef bint get_display_coordinate_set(self):
+    cpdef bint get_set(self):
         return self.cpp_class_ptr.GetSet()
 
     cpdef void generate_random_display_coordinate(self):
@@ -275,8 +275,8 @@ cdef class Angle:
     cpdef float get_gain(self):
         return self.cpp_class_ptr.GetAmplitude()
 
-    cpdef bint get_angle_set(self):
-        return self.cpp_class_ptr.GetAngleIsSet()
+    cpdef bint get_set(self):
+        return self.cpp_class_ptr.GetSet()
 
     cpdef void generate_random_angle(self):
         self.cpp_class_ptr.GenerateRandomAngle()
@@ -323,8 +323,8 @@ cdef class Proportion:
     cpdef float get_gain(self):
         return self.cpp_class_ptr.GetAmplitude()
 
-    cpdef bint get_proportion_set(self):
-        return self.cpp_class_ptr.GetProportionIsSet()
+    cpdef bint get_set(self):
+        return self.cpp_class_ptr.GetSet()
 
     cpdef void generate_random_proportion(self):
         self.cpp_class_ptr.GenerateRandomProportion()

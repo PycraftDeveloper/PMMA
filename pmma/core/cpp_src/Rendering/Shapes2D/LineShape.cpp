@@ -3,6 +3,8 @@
 using namespace std;
 
 CPP_LineShape::CPP_LineShape() {
+    ColorFormat = new CPP_ColorFormat();
+
     ID = PMMA::ClassObject_ID_System++;
 }
 
@@ -11,10 +13,19 @@ void CPP_LineShape::Render(float ShapeQuality) {
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
 
-    bool RenderPipelineCompatible = (UsingGradients == false);
+    if (!ColorFormat->GetSet()) {
+        throw std::runtime_error("Shape has no color set");
+    }
+
+    Changed = Changed ||
+                ColorFormat->GetChangedToggle();
+
+    bool RenderPipelineCompatible = true;
+    // check here if the gradient has been set, if has then check it fits into the render pipeline
+    // otherwise render it as a normal shape.
 
     if (RenderPipelineCompatible) {
-        if (ColorData[0].w == 0) { // Return if shape not visible
+        if (ColorFormat->GetColor_rgba().r == 0.0f) { // Return if shape not visible
             return;
         }
 
@@ -25,8 +36,6 @@ void CPP_LineShape::Render(float ShapeQuality) {
         }
 
         if (Changed) {
-            RenderPipelineColorData = ColorData[0];
-
             unsigned int InternalWidth = Width;
 
             float RotationSin = sin(Rotation);
