@@ -10,45 +10,10 @@ cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
 
+from NumberFormats cimport Color, CPP_ColorFormat, DisplayCoordinate, CPP_DisplayCoordinateFormat
+
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
-    cdef cppclass CPP_DisplayCoordinateFormat:
-        inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
-
-        inline void GenerateRandomDisplayCoordinate() except + nogil
-        inline void GeneratePerlinDisplayCoordinate(float value) except + nogil
-        inline void GenerateFractalBrownianMotionDisplayCoordinate(float value) except + nogil
-
-        inline void GetDisplayCoordinate(unsigned int* out_coordinate) except + nogil
-        void SetDisplayCoordinate(unsigned int* in_coordinate) except + nogil
-
-        inline unsigned int GetSeed() except + nogil
-        inline unsigned int GetOctaves() except + nogil
-        inline float GetFrequency() except + nogil
-        inline float GetAmplitude() except + nogil
-
-    cdef cppclass CPP_ColorFormat:
-        inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
-
-        inline void GenerateRandomColor() except + nogil
-        inline void GeneratePerlinColor(float value) except + nogil
-        inline void GenerateFractalBrownianMotionColor(float value) except + nogil
-
-        inline void SetColor_RGBA(unsigned int* in_color) except + nogil
-        inline void SetColor_rgba(float* in_color) except + nogil
-        inline void SetColor_RGB(unsigned int* in_color) except + nogil
-        inline void SetColor_rgb(float* in_color) except + nogil
-
-        inline void GetColor_RGBA(unsigned int* out_color) except + nogil
-        inline void GetColor_rgba(float* out_color) except + nogil
-        inline void GetColor_RGB(unsigned int* out_color) except + nogil
-        inline void GetColor_rgb(float* out_color) except + nogil
-
-        inline unsigned int GetSeed() except + nogil
-        inline unsigned int GetOctaves() except + nogil
-        inline float GetFrequency() except + nogil
-        inline float GetAmplitude() except + nogil
-
     cdef cppclass CPP_RadialPolygonShape:
         CPP_DisplayCoordinateFormat* ShapeCentreFormat
 
@@ -121,254 +86,6 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void Render(float ShapeQuality) except + nogil
 
-cdef class Color:
-    cdef:
-        CPP_ColorFormat* cpp_class_ptr
-        bool using_numpy_arrays
-
-    def __cinit__(self):
-        self.cpp_class_ptr = new CPP_ColorFormat()
-
-        self.using_numpy_arrays = False
-
-    def __dealloc__(self):
-        del self.cpp_class_ptr
-
-    def configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
-
-    def get_seed(self):
-        return self.cpp_class_ptr.GetSeed()
-
-    def get_octaves(self):
-        return self.cpp_class_ptr.GetOctaves()
-
-    def get_lacunarity(self):
-        return self.cpp_class_ptr.GetFrequency()
-
-    def get_gain(self):
-        return self.cpp_class_ptr.GetAmplitude()
-
-    def get_color_set(self):
-        return self.self.cpp_class_ptr.GetSet()
-
-    def generate_random_color(self):
-        self.cpp_class_ptr.GenerateRandomColor()
-
-    def generate_color_from_perlin_noise(self, value):
-        self.cpp_class_ptr.GeneratePerlinColor(value)
-
-    def generate_color_from_fractal_brownian_motion(self, value):
-        self.cpp_class_ptr.GenerateFractalBrownianMotionColor(value)
-
-    def set_color_RGBA(self, in_color):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_color_np
-            unsigned int* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.uint32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.uint32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <unsigned int*>&in_color_np[0]
-
-        self.cpp_class_ptr.SetColor_RGBA(in_color_ptr)
-
-    def set_color_small_rgba(self, in_color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] in_color_np
-            float* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.float32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.float32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <float*>&in_color_np[0]
-
-        self.cpp_class_ptr.SetColor_rgba(in_color_ptr)
-
-    def set_color_RGB(self, in_color):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_color_np
-            unsigned int* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.uint32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.uint32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <unsigned int*>&in_color_np[0]
-
-        self.cpp_class_ptr.SetColor_RGB(in_color_ptr)
-
-    def set_color_small_rgb(self, in_color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] in_color_np
-            float* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.float32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.float32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <float*>&in_color_np[0]
-
-        self.cpp_class_ptr.SetColor_rgb(in_color_ptr)
-
-    def get_color_RGBA(self, detect_format=True):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_color_np
-            unsigned int* out_color_ptr
-
-        out_color_np = np.empty(4, dtype=np.uint32, order='C')
-        out_color_ptr = <unsigned int*>&out_color_np[0]
-
-        self.cpp_class_ptr.GetColor_RGBA(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
-    def get_color_small_rgba(self, detect_format=True):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] out_color_np
-            float* out_color_ptr
-
-        out_color_np = np.empty(4, dtype=np.float32, order='C')
-        out_color_ptr = <float*>&out_color_np[0]
-
-        self.cpp_class_ptr.GetColor_rgba(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
-    def get_color_RGB(self, detect_format=True):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_color_np
-            unsigned int* out_color_ptr
-
-        out_color_np = np.empty(3, dtype=np.uint32, order='C')
-        out_color_ptr = <unsigned int*>&out_color_np[0]
-
-        self.cpp_class_ptr.GetColor_RGB(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
-    def get_color_small_rgb(self, detect_format=True):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] out_color_np
-            float* out_color_ptr
-
-        out_color_np = np.empty(3, dtype=np.float32, order='C')
-        out_color_ptr = <float*>&out_color_np[0]
-
-        self.cpp_class_ptr.GetColor_rgb(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
-cdef class DisplayCoordinate:
-    cdef:
-        CPP_DisplayCoordinateFormat* cpp_base_class_ptr
-        bool using_numpy_arrays
-
-    def __cinit__(self):
-        self.using_numpy_arrays = False
-
-    def get_seed(self):
-        return self.cpp_base_class_ptr.GetSeed()
-
-    def get_octaves(self):
-        return self.cpp_base_class_ptr.GetOctaves()
-
-    def get_lacunarity(self):
-        return self.cpp_base_class_ptr.GetFrequency()
-
-    def get_gain(self):
-        return self.cpp_base_class_ptr.GetAmplitude()
-
-    def configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0): # must be configured for generating coordinates
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_base_class_ptr.Configure(seed, octaves, lacunarity, gain)
-
-    def generate_random_display_coordinate(self):
-        self.cpp_base_class_ptr.GenerateRandomDisplayCoordinate()
-
-    def generate_display_coordinate_from_perlin_noise(self, value):
-        self.cpp_base_class_ptr.GeneratePerlinDisplayCoordinate(value)
-
-    def generate_display_coordinate_from_fractal_brownian_motion(self, value):
-        self.cpp_base_class_ptr.GenerateFractalBrownianMotionDisplayCoordinate(value)
-
-    def get_display_coordinate(self, detect_format=True):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_coordinate_np
-            unsigned int* out_coordinate_ptr
-
-        out_coordinate_np = np.empty(2, dtype=np.uint32, order='C')
-        out_coordinate_ptr = <unsigned int*>&out_coordinate_np[0]
-
-        self.cpp_base_class_ptr.GetDisplayCoordinate(out_coordinate_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_coordinate_np
-            else:
-                return out_coordinate_np.tolist()
-        else:
-            return out_coordinate_np
-
-    def set_display_coordinate(self, in_display_coordinate):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_coordinate_np
-            unsigned int* in_coordinate_ptr
-
-        if not isinstance(in_display_coordinate, np.ndarray) or in_display_coordinate.dtype != np.uint32 or not in_display_coordinate.flags['C_CONTIGUOUS']:
-            in_coordinate_np = np.array(in_display_coordinate, dtype=np.uint32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_coordinate_np = in_display_coordinate
-            self.using_numpy_arrays = False
-
-        in_coordinate_ptr = <unsigned int*>&in_coordinate_np[0]
-
-        self.cpp_base_class_ptr.SetDisplayCoordinate(in_coordinate_ptr)
-
 cdef class RadialPolygon:
     cdef:
         CPP_RadialPolygonShape* cpp_class_ptr
@@ -378,7 +95,7 @@ cdef class RadialPolygon:
         self.cpp_class_ptr = new CPP_RadialPolygonShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -388,7 +105,7 @@ cdef class RadialPolygon:
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     def set_color(self, color):
@@ -426,7 +143,7 @@ cdef class Rectangle:
         self.cpp_class_ptr = new CPP_RectangleShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -436,7 +153,7 @@ cdef class Rectangle:
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     def set_size(self, size):
@@ -485,7 +202,7 @@ cdef class Pixel:
         self.cpp_class_ptr = new CPP_PixelShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -495,7 +212,7 @@ cdef class Pixel:
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     def set_color(self, color):
@@ -639,14 +356,14 @@ cdef class Arc:
         self.cpp_class_ptr = new CPP_ArcShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     def render(self):
@@ -693,7 +410,7 @@ cdef class Ellipse:
         self.cpp_class_ptr = new CPP_EllipseShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -703,7 +420,7 @@ cdef class Ellipse:
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_base_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     def set_size(self, size):

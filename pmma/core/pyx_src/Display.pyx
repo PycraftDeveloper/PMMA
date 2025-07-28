@@ -9,32 +9,11 @@ import numpy as np
 cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
+
 from NumberFormats cimport Color, CPP_ColorFormat
 
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
-    cdef cppclass CPP_ColorFormat:
-        inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
-
-        inline void GenerateRandomColor() except + nogil
-        inline void GeneratePerlinColor(float value) except + nogil
-        inline void GenerateFractalBrownianMotionColor(float value) except + nogil
-
-        inline void SetColor_RGBA(unsigned int* in_color) except + nogil
-        inline void SetColor_rgba(float* in_color) except + nogil
-        inline void SetColor_RGB(unsigned int* in_color) except + nogil
-        inline void SetColor_rgb(float* in_color) except + nogil
-
-        inline void GetColor_RGBA(unsigned int* out_color) except + nogil
-        inline void GetColor_rgba(float* out_color) except + nogil
-        inline void GetColor_RGB(unsigned int* out_color) except + nogil
-        inline void GetColor_rgb(float* out_color) except + nogil
-
-        inline unsigned int GetSeed() except + nogil
-        inline unsigned int GetOctaves() except + nogil
-        inline float GetFrequency() except + nogil
-        inline float GetAmplitude() except + nogil
-
     cdef cppclass CPP_Display:
         CPP_ColorFormat* WindowFillColor
 
@@ -84,185 +63,6 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         inline float GetFrameTime() except + nogil
 
-cdef class Color:
-    cdef:
-        CPP_ColorFormat* cpp_base_class_ptr
-        bool using_numpy_arrays
-
-    def __cinit__(self):
-        self.cpp_base_class_ptr = new CPP_ColorFormat()
-
-        self.using_numpy_arrays = False
-
-    def __dealloc__(self):
-        del self.cpp_base_class_ptr
-
-    def configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_base_class_ptr.Configure(seed, octaves, lacunarity, gain)
-
-    def get_seed(self):
-        return self.cpp_base_class_ptr.GetSeed()
-
-    def get_octaves(self):
-        return self.cpp_base_class_ptr.GetOctaves()
-
-    def get_lacunarity(self):
-        return self.cpp_base_class_ptr.GetFrequency()
-
-    def get_gain(self):
-        return self.cpp_base_class_ptr.GetAmplitude()
-
-    def get_color_set(self):
-        return self.self.cpp_base_class_ptr.GetSet()
-
-    def generate_random_color(self):
-        self.cpp_base_class_ptr.GenerateRandomColor()
-
-    def generate_color_from_perlin_noise(self, value):
-        self.cpp_base_class_ptr.GeneratePerlinColor(value)
-
-    def generate_color_from_fractal_brownian_motion(self, value):
-        self.cpp_base_class_ptr.GenerateFractalBrownianMotionColor(value)
-
-    def set_color_RGBA(self, in_color):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_color_np
-            unsigned int* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.uint32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.uint32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <unsigned int*>&in_color_np[0]
-
-        self.cpp_base_class_ptr.SetColor_RGBA(in_color_ptr)
-
-    def set_color_small_rgba(self, in_color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] in_color_np
-            float* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.float32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.float32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <float*>&in_color_np[0]
-
-        self.cpp_base_class_ptr.SetColor_rgba(in_color_ptr)
-
-    def set_color_RGB(self, in_color):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_color_np
-            unsigned int* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.uint32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.uint32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <unsigned int*>&in_color_np[0]
-
-        self.cpp_base_class_ptr.SetColor_RGB(in_color_ptr)
-
-    def set_color_small_rgb(self, in_color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] in_color_np
-            float* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.float32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.float32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <float*>&in_color_np[0]
-
-        self.cpp_base_class_ptr.SetColor_rgb(in_color_ptr)
-
-    def get_color_RGBA(self, detect_format=True):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_color_np
-            unsigned int* out_color_ptr
-
-        out_color_np = np.empty(4, dtype=np.uint32, order='C')
-        out_color_ptr = <unsigned int*>&out_color_np[0]
-
-        self.cpp_base_class_ptr.GetColor_RGBA(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
-    def get_color_small_rgba(self, detect_format=True):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] out_color_np
-            float* out_color_ptr
-
-        out_color_np = np.empty(4, dtype=np.float32, order='C')
-        out_color_ptr = <float*>&out_color_np[0]
-
-        self.cpp_base_class_ptr.GetColor_rgba(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
-    def get_color_RGB(self, detect_format=True):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_color_np
-            unsigned int* out_color_ptr
-
-        out_color_np = np.empty(3, dtype=np.uint32, order='C')
-        out_color_ptr = <unsigned int*>&out_color_np[0]
-
-        self.cpp_base_class_ptr.GetColor_RGB(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
-    def get_color_small_rgb(self, detect_format=True):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] out_color_np
-            float* out_color_ptr
-
-        out_color_np = np.empty(3, dtype=np.float32, order='C')
-        out_color_ptr = <float*>&out_color_np[0]
-
-        self.cpp_base_class_ptr.GetColor_rgb(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
 cdef class Display:
     cdef:
         CPP_Display* cpp_class_ptr
@@ -273,7 +73,7 @@ cdef class Display:
         self.cpp_class_ptr = new CPP_Display()
 
         self.cpp_window_fill_color_format = Color()
-        self.cpp_window_fill_color_format.cpp_base_class_ptr = self.cpp_class_ptr.WindowFillColor
+        self.cpp_window_fill_color_format.cpp_class_ptr = self.cpp_class_ptr.WindowFillColor
 
         self.using_numpy_arrays = False
 
@@ -282,7 +82,7 @@ cdef class Display:
 
     property window_fill_color:
         def __get__(self):
-            self.cpp_window_fill_color_format.cpp_base_class_ptr = self.cpp_class_ptr.WindowFillColor
+            self.cpp_window_fill_color_format.cpp_class_ptr = self.cpp_class_ptr.WindowFillColor
             return self.cpp_window_fill_color_format
 
     def create(self, size=np.array([0, 0], dtype=np.uint32, order='C'), caption="PMMA Display", fullscreen=True, resizable=False, no_frame=False, vsync=True, icon="", centered=True, maximized=False, transparent=False):

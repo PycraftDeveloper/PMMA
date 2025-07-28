@@ -4,10 +4,15 @@ print("Please note, this API is still in early development.")
 import os
 import platform
 import ctypes
+import sys
 
 system = platform.system()
 
 pmma_dir = os.path.dirname(os.path.abspath(__file__))
+
+print("PMMA install dir: ", pmma_dir)
+
+sys.path.append(os.path.join(pmma_dir, "build"))
 
 pmma_lib_dir = os.path.join(pmma_dir, "lib")
 
