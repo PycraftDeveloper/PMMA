@@ -254,14 +254,16 @@ cdef class DisplayCoordinate:
         self.cpp_class_ptr.SetDisplayCoordinate(in_coordinate_ptr)
 
 cdef class Angle:
-    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr = new CPP_AngleFormat(seed, octaves, lacunarity, gain)
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_AngleFormat()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+
+    cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed is None:
+            seed = random.randint(0, 0xFFFFFFFF)
+        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
 
     cpdef unsigned int get_seed(self):
         return self.cpp_class_ptr.GetSeed()
@@ -302,14 +304,16 @@ cdef class Angle:
         return self.cpp_class_ptr.GetAngle_Radians()
 
 cdef class Proportion:
-    def __cinit__(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
-
-        self.cpp_class_ptr = new CPP_ProportionFormat(seed, octaves, lacunarity, gain)
+    def __cinit__(self):
+        self.cpp_class_ptr = new CPP_ProportionFormat()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+
+    cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+        if seed is None:
+            seed = random.randint(0, 0xFFFFFFFF)
+        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
 
     cpdef unsigned int get_seed(self):
         return self.cpp_class_ptr.GetSeed()
@@ -348,10 +352,10 @@ cdef class Proportion:
         return self.cpp_class_ptr.GetProportion_Decimal()
 
 cdef class LinkedProportion(Proportion):
-    def __cinit__(self, linked_class, attr_name, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        super().__init__(seed, octaves, lacunarity, gain)
+    def __cinit__(self, linked_class, attr_name):
+        super().__init__()
 
-    def __init__(self, linked_class, attr_name, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+    def __init__(self, linked_class, attr_name):
         self.linked_class = linked_class
         self.attr_name = attr_name
 

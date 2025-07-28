@@ -84,6 +84,10 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         }
 
         inline void GeneratePerlinColor(float value) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
             float BatchedColorGeneration[4][2] = {
                 {0, value + r_offset},
                 {1, value + g_offset},
@@ -113,6 +117,10 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         }
 
         inline void GenerateFractalBrownianMotionColor(float value) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
             float BatchedColorGeneration[4][2] = {
                 {0, value + r_offset},
                 {1, value + g_offset},
@@ -269,25 +277,28 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
         float frequency;
         float amplitude;
 
+        bool Configured = false;
+
     public:
-        CPP_AngleFormat(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            srand((unsigned int)time(0));
-
-            PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
-
-            seed = new_seed;
-            octaves = new_octaves;
-            frequency = new_frequency;
-            amplitude = new_amplitude;
-        }
-
         ~CPP_AngleFormat() {
             delete PerlinNoiseGenerator;
             delete FractalBrownianMotionGenerator;
 
             PerlinNoiseGenerator = nullptr;
             FractalBrownianMotionGenerator = nullptr;
+        }
+
+        inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+            PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
+            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+
+            srand(new_seed);
+
+            seed = new_seed;
+            octaves = new_octaves;
+            frequency = new_frequency;
+            amplitude = new_amplitude;
+            Configured = true;
         }
 
         inline uint32_t GetSeed() {
@@ -319,6 +330,10 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
         }
 
         inline void GeneratePerlinAngle(float value) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
             InternalAngle = PerlinNoiseGenerator->Noise1D(value);
             float noise_range[] = {-1, 1};
             float angle_range[] = {0, 3.14159265358979323846f * 2};
@@ -333,6 +348,10 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
         }
 
         inline void GenerateFractalBrownianMotionAngle(float value) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
             InternalAngle = FractalBrownianMotionGenerator->Noise1D(value);
             float noise_range[] = {-1, 1};
             float angle_range[] = {0, 3.14159265358979323846f * 2};
@@ -357,25 +376,28 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
         float frequency;
         float amplitude;
 
+        bool Configured = false;
+
     public:
-        CPP_ProportionFormat(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            srand((unsigned int)time(0));
-
-            PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
-
-            seed = new_seed;
-            octaves = new_octaves;
-            frequency = new_frequency;
-            amplitude = new_amplitude;
-        }
-
         ~CPP_ProportionFormat() {
             delete PerlinNoiseGenerator;
             delete FractalBrownianMotionGenerator;
 
             PerlinNoiseGenerator = nullptr;
             FractalBrownianMotionGenerator = nullptr;
+        }
+
+        inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+            PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
+            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+
+            srand(new_seed);
+
+            seed = new_seed;
+            octaves = new_octaves;
+            frequency = new_frequency;
+            amplitude = new_amplitude;
+            Configured = true;
         }
 
         inline uint32_t GetSeed() {
@@ -407,6 +429,10 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
         }
 
         inline void GeneratePerlinProportion(float value) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
             InternalProportion = PerlinNoiseGenerator->Noise1D(value);
             float perlin_range[2] = {-1, 1};
             float proportion_range[2] = {0, 1};
@@ -421,6 +447,10 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
         }
 
         inline void GenerateFractalBrownianMotionProportion(float value) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
             InternalProportion = FractalBrownianMotionGenerator->Noise1D(value);
             float perlin_range[2] = {-1, 1};
             float proportion_range[2] = {0, 1};

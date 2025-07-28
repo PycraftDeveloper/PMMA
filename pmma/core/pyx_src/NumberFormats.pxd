@@ -31,12 +31,16 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
     cdef cppclass CPP_DisplayCoordinateFormat:
         CPP_DisplayCoordinateFormat() except +
+
         void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
+
         void GenerateRandomDisplayCoordinate() except +
         void GeneratePerlinDisplayCoordinate(float value) except +
         void GenerateFractalBrownianMotionDisplayCoordinate(float value) except +
+
         void GetDisplayCoordinate(unsigned int* out_coordinate) except +
         void SetDisplayCoordinate(unsigned int* in_coordinate) except +
+
         unsigned int GetSeed() except +
         unsigned int GetOctaves() except +
         float GetFrequency() except +
@@ -44,7 +48,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetSet() except +
 
     cdef cppclass CPP_AngleFormat:
-        CPP_AngleFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+        CPP_AngleFormat() except + nogil
+
+        void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
 
         inline void GenerateRandomAngle() except + nogil
         inline void GeneratePerlinAngle(float value) except + nogil
@@ -63,7 +69,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline bool GetSet() except + nogil
 
     cdef cppclass CPP_ProportionFormat:
-        CPP_ProportionFormat(unsigned int seed, unsigned int octaves, float frequency, float amplitude) except + nogil
+        CPP_ProportionFormat() except + nogil
+
+        void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
 
         inline void GenerateRandomProportion() except + nogil
         inline void GeneratePerlinProportion(float value) except + nogil
@@ -122,6 +130,7 @@ cdef class DisplayCoordinate:
 cdef class Angle:
     cdef CPP_AngleFormat* cpp_class_ptr
 
+    cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
@@ -138,6 +147,7 @@ cdef class Angle:
 cdef class Proportion:
     cdef CPP_ProportionFormat* cpp_class_ptr
 
+    cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
