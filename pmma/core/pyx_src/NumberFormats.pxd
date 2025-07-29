@@ -92,6 +92,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
 cdef class Color:
     cdef CPP_ColorFormat* cpp_class_ptr
     cdef bool using_numpy_arrays
+    cdef bool owns_cpp_class_ptr
+
+    cdef void set_pointer(self, CPP_ColorFormat* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
     cpdef unsigned int get_seed(self)
@@ -114,6 +117,9 @@ cdef class Color:
 cdef class DisplayCoordinate:
     cdef CPP_DisplayCoordinateFormat* cpp_class_ptr
     cdef bool using_numpy_arrays
+    cdef bool owns_cpp_class_ptr
+
+    cdef void set_pointer(self, CPP_DisplayCoordinateFormat* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
     cpdef unsigned int get_seed(self)
@@ -129,6 +135,9 @@ cdef class DisplayCoordinate:
 
 cdef class Angle:
     cdef CPP_AngleFormat* cpp_class_ptr
+    cdef bool owns_cpp_class_ptr
+
+    cdef void set_pointer(self, CPP_AngleFormat* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
     cpdef unsigned int get_seed(self)
@@ -146,6 +155,9 @@ cdef class Angle:
 
 cdef class Proportion:
     cdef CPP_ProportionFormat* cpp_class_ptr
+    cdef bool owns_cpp_class_ptr
+
+    cdef void set_pointer(self, CPP_ProportionFormat* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
     cpdef unsigned int get_seed(self)

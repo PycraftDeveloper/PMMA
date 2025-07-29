@@ -73,16 +73,16 @@ cdef class Display:
         self.cpp_class_ptr = new CPP_Display()
 
         self.cpp_window_fill_color_format = Color()
-        self.cpp_window_fill_color_format.cpp_class_ptr = self.cpp_class_ptr.WindowFillColor
+        self.cpp_window_fill_color_format.set_pointer(self.cpp_class_ptr.WindowFillColor)
 
         self.using_numpy_arrays = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     property window_fill_color:
         def __get__(self):
-            self.cpp_window_fill_color_format.cpp_class_ptr = self.cpp_class_ptr.WindowFillColor
             return self.cpp_window_fill_color_format
 
     def create(self, size=np.array([0, 0], dtype=np.uint32, order='C'), caption="PMMA Display", fullscreen=True, resizable=False, no_frame=False, vsync=True, icon="", centered=True, maximized=False, transparent=False):

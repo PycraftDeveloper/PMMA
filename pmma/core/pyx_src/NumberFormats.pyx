@@ -14,9 +14,16 @@ cdef class Color:
         self.cpp_class_ptr = new CPP_ColorFormat()
 
         self.using_numpy_arrays = False
+        self.owns_cpp_class_ptr = True
 
     def __dealloc__(self):
-        del self.cpp_class_ptr
+        if self.owns_cpp_class_ptr:
+            del self.cpp_class_ptr
+            self.cpp_class_ptr = NULL
+
+    cdef void set_pointer(self, CPP_ColorFormat* cpp_class_ptr):
+        self.cpp_class_ptr = cpp_class_ptr
+        self.owns_cpp_class_ptr = False
 
     cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed == None:
@@ -188,9 +195,16 @@ cdef class DisplayCoordinate:
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_DisplayCoordinateFormat()
         self.using_numpy_arrays = False
+        self.owns_cpp_class_ptr = True
 
     def __dealloc__(self):
-        del self.cpp_class_ptr
+        if self.owns_cpp_class_ptr:
+            del self.cpp_class_ptr
+            self.cpp_class_ptr = NULL
+
+    cdef void set_pointer(self, CPP_DisplayCoordinateFormat* cpp_class_ptr):
+        self.cpp_class_ptr = cpp_class_ptr
+        self.owns_cpp_class_ptr = False
 
     cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed is None:
@@ -256,9 +270,16 @@ cdef class DisplayCoordinate:
 cdef class Angle:
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_AngleFormat()
+        self.owns_cpp_class_ptr = True
 
     def __dealloc__(self):
-        del self.cpp_class_ptr
+        if self.owns_cpp_class_ptr:
+            del self.cpp_class_ptr
+            self.cpp_class_ptr = NULL
+
+    cdef void set_pointer(self, CPP_AngleFormat* cpp_class_ptr):
+        self.cpp_class_ptr = cpp_class_ptr
+        self.owns_cpp_class_ptr = False
 
     cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed is None:
@@ -306,9 +327,16 @@ cdef class Angle:
 cdef class Proportion:
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_ProportionFormat()
+        self.owns_cpp_class_ptr = True
 
     def __dealloc__(self):
-        del self.cpp_class_ptr
+        if self.owns_cpp_class_ptr:
+            del self.cpp_class_ptr
+            self.cpp_class_ptr = NULL
+
+    cdef void set_pointer(self, CPP_ProportionFormat* cpp_class_ptr):
+        self.cpp_class_ptr = cpp_class_ptr
+        self.owns_cpp_class_ptr = False
 
     cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
         if seed is None:

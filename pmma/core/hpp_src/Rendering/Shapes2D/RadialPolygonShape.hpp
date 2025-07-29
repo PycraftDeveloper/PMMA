@@ -38,16 +38,11 @@ class EXPORT CPP_RadialPolygonShape {
         CPP_RadialPolygonShape();
 
         ~CPP_RadialPolygonShape() {
-            cout << "Z" << endl;
             delete ShapeCentreFormat;
             ShapeCentreFormat = nullptr;
 
-            cout << "X" << endl;
-
             delete ColorFormat;
             ColorFormat = nullptr;
-
-            cout << "Y" << endl;
         }
 
         void Render(float ShapeQuality);

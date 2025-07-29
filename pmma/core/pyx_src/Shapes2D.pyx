@@ -97,25 +97,24 @@ cdef class RadialPolygon:
         self.cpp_class_ptr = new CPP_RadialPolygonShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCentreFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     property shape_color:
         def __get__(self):
-            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
             return self.cpp_color_format
 
     def set_radius(self, radius):
@@ -140,10 +139,10 @@ cdef class Rectangle:
         self.cpp_class_ptr = new CPP_RectangleShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCentreFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -153,12 +152,10 @@ cdef class Rectangle:
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     property shape_color:
         def __get__(self):
-            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
             return self.cpp_color_format
 
     def set_size(self, size):
@@ -194,10 +191,10 @@ cdef class Pixel:
         self.cpp_class_ptr = new CPP_PixelShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCentreFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -207,12 +204,10 @@ cdef class Pixel:
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     property shape_color:
         def __get__(self):
-            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
             return self.cpp_color_format
 
 cdef class Line:
@@ -224,7 +219,7 @@ cdef class Line:
         self.cpp_class_ptr = new CPP_LineShape()
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -234,7 +229,6 @@ cdef class Line:
 
     property shape_color:
         def __get__(self):
-            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
             return self.cpp_color_format
 
     def set_start(self, start_position):
@@ -280,7 +274,7 @@ cdef class PolygonShape:
         self.cpp_class_ptr = new CPP_PolygonShape()
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -290,7 +284,6 @@ cdef class PolygonShape:
 
     property shape_color:
         def __get__(self):
-            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
             return self.cpp_color_format
 
     def set_points(self, points):
@@ -333,22 +326,20 @@ cdef class Arc:
         self.cpp_class_ptr = new CPP_ArcShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCentreFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     property shape_color:
         def __get__(self):
-            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
             return self.cpp_color_format
 
     def render(self):
@@ -382,10 +373,10 @@ cdef class Ellipse:
         self.cpp_class_ptr = new CPP_EllipseShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCentreFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -395,12 +386,10 @@ cdef class Ellipse:
 
     property shape_center:
         def __get__(self):
-            self.cpp_shape_center_format.cpp_class_ptr = self.cpp_class_ptr.ShapeCentreFormat
             return self.cpp_shape_center_format
 
     property shape_color:
         def __get__(self):
-            self.cpp_color_format.cpp_class_ptr = self.cpp_class_ptr.ColorFormat
             return self.cpp_color_format
 
     def set_size(self, size):
