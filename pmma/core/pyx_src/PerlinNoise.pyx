@@ -40,6 +40,7 @@ cdef class PerlinNoise:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def get_seed(self):
         return self.seed

@@ -55,6 +55,7 @@ cdef class TextInput:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def get_text(self):
         cdef string cpp_str = self.cpp_class_ptr.GetText()
@@ -132,6 +133,7 @@ cdef class FileDropped:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def get_file_paths(self):
         cdef const char** paths = self.cpp_class_ptr.GetFilePaths()

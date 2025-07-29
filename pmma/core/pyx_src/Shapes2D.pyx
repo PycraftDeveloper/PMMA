@@ -146,6 +146,7 @@ cdef class Rectangle:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
@@ -198,6 +199,7 @@ cdef class Pixel:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def render(self):
         self.cpp_class_ptr.Render()
@@ -223,6 +225,7 @@ cdef class Line:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
@@ -278,6 +281,7 @@ cdef class PolygonShape:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)
@@ -333,6 +337,7 @@ cdef class Arc:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     property shape_center:
         def __get__(self):
@@ -380,6 +385,7 @@ cdef class Ellipse:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def render(self):
         self.cpp_class_ptr.Render(0.27341772151898736)

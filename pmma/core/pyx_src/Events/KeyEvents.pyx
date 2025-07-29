@@ -386,6 +386,7 @@ cdef class Space(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Apostrophe(ButtonPressedEvent):
     cdef CPP_KeyEvent_Apostrophe* cpp_class_ptr
@@ -396,6 +397,7 @@ cdef class Apostrophe(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Comma(ButtonPressedEvent):
     cdef CPP_KeyEvent_Comma* cpp_class_ptr
@@ -406,6 +408,7 @@ cdef class Comma(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Minus(ButtonPressedEvent):
     cdef CPP_KeyEvent_Minus* cpp_class_ptr
@@ -416,6 +419,7 @@ cdef class Minus(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Period(ButtonPressedEvent):
     cdef CPP_KeyEvent_Period* cpp_class_ptr
@@ -426,6 +430,7 @@ cdef class Period(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Slash(ButtonPressedEvent):
     cdef CPP_KeyEvent_Slash* cpp_class_ptr
@@ -436,6 +441,7 @@ cdef class Slash(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Zero(ButtonPressedEvent):
     cdef CPP_KeyEvent_0* cpp_class_ptr
@@ -446,6 +452,7 @@ cdef class Zero(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class One(ButtonPressedEvent):
     cdef CPP_KeyEvent_1* cpp_class_ptr
@@ -456,6 +463,7 @@ cdef class One(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Two(ButtonPressedEvent):
     cdef CPP_KeyEvent_2* cpp_class_ptr
@@ -466,6 +474,7 @@ cdef class Two(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Three(ButtonPressedEvent):
     cdef CPP_KeyEvent_3* cpp_class_ptr
@@ -476,6 +485,7 @@ cdef class Three(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Four(ButtonPressedEvent):
     cdef CPP_KeyEvent_4* cpp_class_ptr
@@ -486,6 +496,7 @@ cdef class Four(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Five(ButtonPressedEvent):
     cdef CPP_KeyEvent_5* cpp_class_ptr
@@ -496,6 +507,7 @@ cdef class Five(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Six(ButtonPressedEvent):
     cdef CPP_KeyEvent_6* cpp_class_ptr
@@ -506,6 +518,7 @@ cdef class Six(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Seven(ButtonPressedEvent):
     cdef CPP_KeyEvent_7* cpp_class_ptr
@@ -516,6 +529,7 @@ cdef class Seven(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Eight(ButtonPressedEvent):
     cdef CPP_KeyEvent_8* cpp_class_ptr
@@ -526,6 +540,7 @@ cdef class Eight(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Nine(ButtonPressedEvent):
     cdef CPP_KeyEvent_9* cpp_class_ptr
@@ -536,6 +551,7 @@ cdef class Nine(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Semicolon(ButtonPressedEvent):
     cdef CPP_KeyEvent_Semicolon* cpp_class_ptr
@@ -546,6 +562,7 @@ cdef class Semicolon(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Equal(ButtonPressedEvent):
     cdef CPP_KeyEvent_Equal* cpp_class_ptr
@@ -556,6 +573,7 @@ cdef class Equal(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class A(ButtonPressedEvent):
     cdef CPP_KeyEvent_A* cpp_class_ptr
@@ -566,6 +584,7 @@ cdef class A(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class B(ButtonPressedEvent):
     cdef CPP_KeyEvent_B* cpp_class_ptr
@@ -576,6 +595,7 @@ cdef class B(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class C(ButtonPressedEvent):
     cdef CPP_KeyEvent_C* cpp_class_ptr
@@ -586,6 +606,7 @@ cdef class C(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class D(ButtonPressedEvent):
     cdef CPP_KeyEvent_D* cpp_class_ptr
@@ -596,6 +617,7 @@ cdef class D(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class E(ButtonPressedEvent):
     cdef CPP_KeyEvent_E* cpp_class_ptr
@@ -606,6 +628,7 @@ cdef class E(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F(ButtonPressedEvent):
     cdef CPP_KeyEvent_F* cpp_class_ptr
@@ -616,6 +639,7 @@ cdef class F(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class G(ButtonPressedEvent):
     cdef CPP_KeyEvent_G* cpp_class_ptr
@@ -626,6 +650,7 @@ cdef class G(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class H(ButtonPressedEvent):
     cdef CPP_KeyEvent_H* cpp_class_ptr
@@ -636,6 +661,7 @@ cdef class H(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class I(ButtonPressedEvent):
     cdef CPP_KeyEvent_I* cpp_class_ptr
@@ -646,6 +672,7 @@ cdef class I(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class J(ButtonPressedEvent):
     cdef CPP_KeyEvent_J* cpp_class_ptr
@@ -656,6 +683,7 @@ cdef class J(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class K(ButtonPressedEvent):
     cdef CPP_KeyEvent_K* cpp_class_ptr
@@ -666,6 +694,7 @@ cdef class K(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class L(ButtonPressedEvent):
     cdef CPP_KeyEvent_L* cpp_class_ptr
@@ -676,6 +705,7 @@ cdef class L(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class M(ButtonPressedEvent):
     cdef CPP_KeyEvent_M* cpp_class_ptr
@@ -686,6 +716,7 @@ cdef class M(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class N(ButtonPressedEvent):
     cdef CPP_KeyEvent_N* cpp_class_ptr
@@ -696,6 +727,7 @@ cdef class N(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class O(ButtonPressedEvent):
     cdef CPP_KeyEvent_O* cpp_class_ptr
@@ -706,6 +738,7 @@ cdef class O(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class P(ButtonPressedEvent):
     cdef CPP_KeyEvent_P* cpp_class_ptr
@@ -716,6 +749,7 @@ cdef class P(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Q(ButtonPressedEvent):
     cdef CPP_KeyEvent_Q* cpp_class_ptr
@@ -726,6 +760,7 @@ cdef class Q(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class R(ButtonPressedEvent):
     cdef CPP_KeyEvent_R* cpp_class_ptr
@@ -736,6 +771,7 @@ cdef class R(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class S(ButtonPressedEvent):
     cdef CPP_KeyEvent_S* cpp_class_ptr
@@ -746,6 +782,7 @@ cdef class S(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class T(ButtonPressedEvent):
     cdef CPP_KeyEvent_T* cpp_class_ptr
@@ -756,6 +793,7 @@ cdef class T(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class U(ButtonPressedEvent):
     cdef CPP_KeyEvent_U* cpp_class_ptr
@@ -766,6 +804,7 @@ cdef class U(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class V(ButtonPressedEvent):
     cdef CPP_KeyEvent_V* cpp_class_ptr
@@ -776,6 +815,7 @@ cdef class V(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class W(ButtonPressedEvent):
     cdef CPP_KeyEvent_W* cpp_class_ptr
@@ -786,6 +826,7 @@ cdef class W(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class X(ButtonPressedEvent):
     cdef CPP_KeyEvent_X* cpp_class_ptr
@@ -796,6 +837,7 @@ cdef class X(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Y(ButtonPressedEvent):
     cdef CPP_KeyEvent_Y* cpp_class_ptr
@@ -806,6 +848,7 @@ cdef class Y(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Z(ButtonPressedEvent):
     cdef CPP_KeyEvent_Z* cpp_class_ptr
@@ -816,6 +859,7 @@ cdef class Z(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Left_Bracket(ButtonPressedEvent):
     cdef CPP_KeyEvent_Left_Bracket* cpp_class_ptr
@@ -826,6 +870,7 @@ cdef class Left_Bracket(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Backslash(ButtonPressedEvent):
     cdef CPP_KeyEvent_Backslash* cpp_class_ptr
@@ -836,6 +881,7 @@ cdef class Backslash(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Right_Bracket(ButtonPressedEvent):
     cdef CPP_KeyEvent_Right_Bracket* cpp_class_ptr
@@ -846,6 +892,7 @@ cdef class Right_Bracket(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Grave_Accent(ButtonPressedEvent):
     cdef CPP_KeyEvent_Grave_Accent* cpp_class_ptr
@@ -856,6 +903,7 @@ cdef class Grave_Accent(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class World_1(ButtonPressedEvent):
     cdef CPP_KeyEvent_World_1* cpp_class_ptr
@@ -866,6 +914,7 @@ cdef class World_1(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class World_2(ButtonPressedEvent):
     cdef CPP_KeyEvent_World_2* cpp_class_ptr
@@ -876,6 +925,7 @@ cdef class World_2(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Escape(ButtonPressedEvent):
     cdef CPP_KeyEvent_Escape* cpp_class_ptr
@@ -886,6 +936,7 @@ cdef class Escape(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Enter(ButtonPressedEvent):
     cdef CPP_KeyEvent_Enter* cpp_class_ptr
@@ -896,6 +947,7 @@ cdef class Enter(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Tab(ButtonPressedEvent):
     cdef CPP_KeyEvent_Tab* cpp_class_ptr
@@ -906,6 +958,7 @@ cdef class Tab(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Backspace(ButtonPressedEvent):
     cdef CPP_KeyEvent_Backspace* cpp_class_ptr
@@ -916,6 +969,7 @@ cdef class Backspace(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Insert(ButtonPressedEvent):
     cdef CPP_KeyEvent_Insert* cpp_class_ptr
@@ -926,6 +980,7 @@ cdef class Insert(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Delete(ButtonPressedEvent):
     cdef CPP_KeyEvent_Delete* cpp_class_ptr
@@ -936,6 +991,7 @@ cdef class Delete(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Right(ButtonPressedEvent):
     cdef CPP_KeyEvent_Right* cpp_class_ptr
@@ -946,6 +1002,7 @@ cdef class Right(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Left(ButtonPressedEvent):
     cdef CPP_KeyEvent_Left* cpp_class_ptr
@@ -956,6 +1013,7 @@ cdef class Left(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Down(ButtonPressedEvent):
     cdef CPP_KeyEvent_Down* cpp_class_ptr
@@ -966,6 +1024,7 @@ cdef class Down(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Up(ButtonPressedEvent):
     cdef CPP_KeyEvent_Up* cpp_class_ptr
@@ -976,6 +1035,7 @@ cdef class Up(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Page_Up(ButtonPressedEvent):
     cdef CPP_KeyEvent_Page_Up* cpp_class_ptr
@@ -986,6 +1046,7 @@ cdef class Page_Up(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Page_Down(ButtonPressedEvent):
     cdef CPP_KeyEvent_Page_Down* cpp_class_ptr
@@ -996,6 +1057,7 @@ cdef class Page_Down(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Home(ButtonPressedEvent):
     cdef CPP_KeyEvent_Home* cpp_class_ptr
@@ -1006,6 +1068,7 @@ cdef class Home(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class End(ButtonPressedEvent):
     cdef CPP_KeyEvent_End* cpp_class_ptr
@@ -1016,6 +1079,7 @@ cdef class End(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Caps_Lock(ButtonPressedEvent):
     cdef CPP_KeyEvent_Caps_Lock* cpp_class_ptr
@@ -1026,6 +1090,7 @@ cdef class Caps_Lock(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Scroll_Lock(ButtonPressedEvent):
     cdef CPP_KeyEvent_Scroll_Lock* cpp_class_ptr
@@ -1036,6 +1101,7 @@ cdef class Scroll_Lock(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Num_Lock(ButtonPressedEvent):
     cdef CPP_KeyEvent_Num_Lock* cpp_class_ptr
@@ -1046,6 +1112,7 @@ cdef class Num_Lock(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Print_Screen(ButtonPressedEvent):
     cdef CPP_KeyEvent_Print_Screen* cpp_class_ptr
@@ -1056,6 +1123,7 @@ cdef class Print_Screen(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Pause(ButtonPressedEvent):
     cdef CPP_KeyEvent_Pause* cpp_class_ptr
@@ -1066,6 +1134,7 @@ cdef class Pause(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F1(ButtonPressedEvent):
     cdef CPP_KeyEvent_F1* cpp_class_ptr
@@ -1076,6 +1145,7 @@ cdef class F1(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F2(ButtonPressedEvent):
     cdef CPP_KeyEvent_F2* cpp_class_ptr
@@ -1086,6 +1156,7 @@ cdef class F2(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F3(ButtonPressedEvent):
     cdef CPP_KeyEvent_F3* cpp_class_ptr
@@ -1096,6 +1167,7 @@ cdef class F3(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F4(ButtonPressedEvent):
     cdef CPP_KeyEvent_F4* cpp_class_ptr
@@ -1106,6 +1178,7 @@ cdef class F4(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F5(ButtonPressedEvent):
     cdef CPP_KeyEvent_F5* cpp_class_ptr
@@ -1116,6 +1189,7 @@ cdef class F5(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F6(ButtonPressedEvent):
     cdef CPP_KeyEvent_F6* cpp_class_ptr
@@ -1126,6 +1200,7 @@ cdef class F6(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F7(ButtonPressedEvent):
     cdef CPP_KeyEvent_F7* cpp_class_ptr
@@ -1136,6 +1211,7 @@ cdef class F7(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F8(ButtonPressedEvent):
     cdef CPP_KeyEvent_F8* cpp_class_ptr
@@ -1146,6 +1222,7 @@ cdef class F8(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F9(ButtonPressedEvent):
     cdef CPP_KeyEvent_F9* cpp_class_ptr
@@ -1156,6 +1233,7 @@ cdef class F9(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F10(ButtonPressedEvent):
     cdef CPP_KeyEvent_F10* cpp_class_ptr
@@ -1166,6 +1244,7 @@ cdef class F10(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F11(ButtonPressedEvent):
     cdef CPP_KeyEvent_F11* cpp_class_ptr
@@ -1176,6 +1255,7 @@ cdef class F11(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F12(ButtonPressedEvent):
     cdef CPP_KeyEvent_F12* cpp_class_ptr
@@ -1186,6 +1266,7 @@ cdef class F12(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F13(ButtonPressedEvent):
     cdef CPP_KeyEvent_F13* cpp_class_ptr
@@ -1196,6 +1277,7 @@ cdef class F13(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F14(ButtonPressedEvent):
     cdef CPP_KeyEvent_F14* cpp_class_ptr
@@ -1206,6 +1288,7 @@ cdef class F14(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F15(ButtonPressedEvent):
     cdef CPP_KeyEvent_F15* cpp_class_ptr
@@ -1216,6 +1299,7 @@ cdef class F15(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F16(ButtonPressedEvent):
     cdef CPP_KeyEvent_F16* cpp_class_ptr
@@ -1226,6 +1310,7 @@ cdef class F16(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F17(ButtonPressedEvent):
     cdef CPP_KeyEvent_F17* cpp_class_ptr
@@ -1236,6 +1321,7 @@ cdef class F17(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F18(ButtonPressedEvent):
     cdef CPP_KeyEvent_F18* cpp_class_ptr
@@ -1246,6 +1332,7 @@ cdef class F18(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F19(ButtonPressedEvent):
     cdef CPP_KeyEvent_F19* cpp_class_ptr
@@ -1256,6 +1343,7 @@ cdef class F19(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F20(ButtonPressedEvent):
     cdef CPP_KeyEvent_F20* cpp_class_ptr
@@ -1266,6 +1354,7 @@ cdef class F20(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F21(ButtonPressedEvent):
     cdef CPP_KeyEvent_F21* cpp_class_ptr
@@ -1276,6 +1365,7 @@ cdef class F21(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F22(ButtonPressedEvent):
     cdef CPP_KeyEvent_F22* cpp_class_ptr
@@ -1286,6 +1376,7 @@ cdef class F22(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F23(ButtonPressedEvent):
     cdef CPP_KeyEvent_F23* cpp_class_ptr
@@ -1296,6 +1387,7 @@ cdef class F23(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F24(ButtonPressedEvent):
     cdef CPP_KeyEvent_F24* cpp_class_ptr
@@ -1306,6 +1398,7 @@ cdef class F24(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class F25(ButtonPressedEvent):
     cdef CPP_KeyEvent_F25* cpp_class_ptr
@@ -1316,6 +1409,7 @@ cdef class F25(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Left_Shift(ButtonPressedEvent):
     cdef CPP_KeyEvent_Left_Shift* cpp_class_ptr
@@ -1326,6 +1420,7 @@ cdef class Left_Shift(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Left_Control(ButtonPressedEvent):
     cdef CPP_KeyEvent_Left_Control* cpp_class_ptr
@@ -1336,6 +1431,7 @@ cdef class Left_Control(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Left_Alt(ButtonPressedEvent):
     cdef CPP_KeyEvent_Left_Alt* cpp_class_ptr
@@ -1346,6 +1442,7 @@ cdef class Left_Alt(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Left_Super(ButtonPressedEvent):
     cdef CPP_KeyEvent_Left_Super* cpp_class_ptr
@@ -1356,6 +1453,7 @@ cdef class Left_Super(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Right_Shift(ButtonPressedEvent):
     cdef CPP_KeyEvent_Right_Shift* cpp_class_ptr
@@ -1366,6 +1464,7 @@ cdef class Right_Shift(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Right_Control(ButtonPressedEvent):
     cdef CPP_KeyEvent_Right_Control* cpp_class_ptr
@@ -1376,6 +1475,7 @@ cdef class Right_Control(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Right_Alt(ButtonPressedEvent):
     cdef CPP_KeyEvent_Right_Alt* cpp_class_ptr
@@ -1386,6 +1486,7 @@ cdef class Right_Alt(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Right_Super(ButtonPressedEvent):
     cdef CPP_KeyEvent_Right_Super* cpp_class_ptr
@@ -1396,6 +1497,7 @@ cdef class Right_Super(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Shift(ButtonPressedEvent):
     cdef CPP_KeyEvent_Shift* cpp_class_ptr
@@ -1406,6 +1508,7 @@ cdef class Shift(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Control(ButtonPressedEvent):
     cdef CPP_KeyEvent_Control* cpp_class_ptr
@@ -1416,6 +1519,7 @@ cdef class Control(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Alt(ButtonPressedEvent):
     cdef CPP_KeyEvent_Alt* cpp_class_ptr
@@ -1426,6 +1530,7 @@ cdef class Alt(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Super(ButtonPressedEvent):
     cdef CPP_KeyEvent_Super* cpp_class_ptr
@@ -1436,6 +1541,7 @@ cdef class Super(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Menu(ButtonPressedEvent):
     cdef CPP_KeyEvent_Menu* cpp_class_ptr
@@ -1446,3 +1552,4 @@ cdef class Menu(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL

@@ -208,6 +208,7 @@ cdef class Controller:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def get_connected(self):
         return self.cpp_class_ptr.GetConnected()

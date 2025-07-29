@@ -28,6 +28,7 @@ cdef class TextRenderer:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def set_text(self, text):
         cdef string encoded_text = text.encode("utf-8")

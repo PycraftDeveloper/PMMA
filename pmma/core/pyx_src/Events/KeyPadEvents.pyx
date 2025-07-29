@@ -117,6 +117,7 @@ cdef class Zero(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class One(ButtonPressedEvent):
     cdef:
@@ -128,6 +129,7 @@ cdef class One(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Two(ButtonPressedEvent):
     cdef:
@@ -139,6 +141,7 @@ cdef class Two(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Three(ButtonPressedEvent):
     cdef:
@@ -150,6 +153,7 @@ cdef class Three(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Four(ButtonPressedEvent):
     cdef:
@@ -161,6 +165,7 @@ cdef class Four(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Five(ButtonPressedEvent):
     cdef:
@@ -172,6 +177,7 @@ cdef class Five(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Six(ButtonPressedEvent):
     cdef:
@@ -183,6 +189,7 @@ cdef class Six(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Seven(ButtonPressedEvent):
     cdef:
@@ -194,6 +201,7 @@ cdef class Seven(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Eight(ButtonPressedEvent):
     cdef:
@@ -205,6 +213,7 @@ cdef class Eight(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Nine(ButtonPressedEvent):
     cdef:
@@ -216,6 +225,7 @@ cdef class Nine(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Decimal(ButtonPressedEvent):
     cdef:
@@ -227,6 +237,7 @@ cdef class Decimal(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Divide(ButtonPressedEvent):
     cdef:
@@ -238,6 +249,7 @@ cdef class Divide(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Multiply(ButtonPressedEvent):
     cdef:
@@ -249,6 +261,7 @@ cdef class Multiply(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Subtract(ButtonPressedEvent):
     cdef:
@@ -260,6 +273,7 @@ cdef class Subtract(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Add(ButtonPressedEvent):
     cdef:
@@ -271,6 +285,7 @@ cdef class Add(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Enter(ButtonPressedEvent):
     cdef:
@@ -282,6 +297,7 @@ cdef class Enter(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class Equal(ButtonPressedEvent):
     cdef:
@@ -293,3 +309,4 @@ cdef class Equal(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL

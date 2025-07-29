@@ -125,6 +125,7 @@ cdef class MousePosition:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def get_position(self, using_numpy=True):
         cdef:
@@ -189,6 +190,7 @@ cdef class MouseEnterWindow:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def get_entered(self):
         return self.cpp_class_ptr.GetEntered()
@@ -212,6 +214,7 @@ cdef class MouseButton_Left(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class MouseButton_Right(ButtonPressedEvent):
     cdef:
@@ -223,6 +226,7 @@ cdef class MouseButton_Right(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class MouseButton_Middle(ButtonPressedEvent):
     cdef:
@@ -234,6 +238,7 @@ cdef class MouseButton_Middle(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class MouseButton_0(ButtonPressedEvent):
     cdef:
@@ -245,6 +250,7 @@ cdef class MouseButton_0(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class MouseButton_1(ButtonPressedEvent):
     cdef:
@@ -256,6 +262,7 @@ cdef class MouseButton_1(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class MouseButton_2(ButtonPressedEvent):
     cdef:
@@ -267,6 +274,7 @@ cdef class MouseButton_2(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class MouseButton_3(ButtonPressedEvent):
     cdef:
@@ -278,6 +286,7 @@ cdef class MouseButton_3(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class MouseButton_4(ButtonPressedEvent):
     cdef:
@@ -289,6 +298,7 @@ cdef class MouseButton_4(ButtonPressedEvent):
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
 cdef class MouseScroll:
     cdef:
@@ -299,6 +309,7 @@ cdef class MouseScroll:
 
     def __dealloc__(self):
         del self.cpp_class_ptr
+        self.cpp_class_ptr = NULL
 
     def get_position(self, using_numpy=True):
         cdef:
