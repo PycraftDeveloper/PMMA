@@ -25,7 +25,7 @@ void CPP_PolygonShape::Render(float ShapeQuality) {
     // otherwise render it as a normal shape.
 
     if (RenderPipelineCompatible) {
-        if (ColorFormat->GetColor_rgba().r == 0.0f) { // Return if shape not visible
+        if (ColorFormat->Get_rgba().r == 0.0f) { // Return if shape not visible
             return;
         }
 

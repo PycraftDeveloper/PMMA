@@ -66,7 +66,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             return amplitude;
         }
 
-        inline void GenerateRandomColor() {
+        inline void GenerateFromRandom() {
             float color_range[2] = {0, 1};
             glm::vec4 converted_in_color = glm::vec4(
                 CPP_AdvancedMathematics::RandomFloat(color_range),
@@ -80,10 +80,10 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 InternalColor = converted_in_color;
             }
 
-            Set = true;
+            IsSet = true;
         }
 
-        inline void GeneratePerlinColor(float value) {
+        inline void GenerateFromPerlinNoise(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -113,10 +113,10 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 InternalColor = converted_in_color;
             }
 
-            Set = true;
+            IsSet = true;
         }
 
-        inline void GenerateFractalBrownianMotionColor(float value) {
+        inline void GenerateFromFractalBrownianMotion(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -145,7 +145,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 InternalColor = converted_in_color;
             }
 
-            Set = true;
+            IsSet = true;
         }
 };
 
@@ -165,7 +165,7 @@ class EXPORT CPP_DisplayCoordinateFormat {
         float x_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
         float y_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
 
-        bool Set = false;
+        bool IsSet = false;
         bool Changed = true;
         bool Configured = false;
 
@@ -200,7 +200,7 @@ class EXPORT CPP_DisplayCoordinateFormat {
         }
 
         inline bool GetSet() {
-            return Set;
+            return IsSet;
         }
 
         inline uint32_t GetSeed() {
@@ -231,13 +231,13 @@ class EXPORT CPP_DisplayCoordinateFormat {
             return amplitude;
         }
 
-        void GenerateRandomDisplayCoordinate();
+        void GenerateFromRandom();
 
-        void GeneratePerlinDisplayCoordinate(float value);
+        void GenerateFromPerlinNoise(float value);
 
-        void GenerateFractalBrownianMotionDisplayCoordinate(float value);
+        void GenerateFromFractalBrownianMotion(float value);
 
-        inline void SetDisplayCoordinate(unsigned int* in_coordinate) {
+        inline void Set(unsigned int* in_coordinate) {
             glm::vec2 converted_in_coordinate = {
                 (float)in_coordinate[0],
                 (float)in_coordinate[1]
@@ -248,19 +248,19 @@ class EXPORT CPP_DisplayCoordinateFormat {
                 DisplayCoordinate = converted_in_coordinate;
             }
 
-            Set = true;
+            IsSet = true;
         }
 
-        inline void GetDisplayCoordinate(unsigned int * out_coordinate) {
-            if (!Set) {
+        inline void Get(unsigned int * out_coordinate) {
+            if (!IsSet) {
                 throw std::runtime_error("Display coordinate not set!");
             }
             out_coordinate[0] = (unsigned int)DisplayCoordinate.x;
             out_coordinate[1] = (unsigned int)DisplayCoordinate.y;
         }
 
-        inline glm::vec2 GetDisplayCoordinate() {
-            if (!Set) {
+        inline glm::vec2 Get() {
+            if (!IsSet) {
                 throw std::runtime_error("Display coordinate not set!");
             }
             return DisplayCoordinate;
@@ -317,7 +317,7 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
             return amplitude;
         }
 
-        inline void GenerateRandomAngle() {
+        inline void GenerateFromRandom() {
             float angle_range[2] = {0, 3.14159265358979323846f * 2};
             float converted_in_angle = CPP_AdvancedMathematics::RandomFloat(angle_range);
 
@@ -326,10 +326,10 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
                 InternalAngle = converted_in_angle;
             }
 
-            Set = true;
+            IsSet = true;
         }
 
-        inline void GeneratePerlinAngle(float value) {
+        inline void GenerateFromPerlinNoise(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -344,10 +344,10 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
                 InternalAngle = converted_in_angle;
             }
 
-            Set = true;
+            IsSet = true;
         }
 
-        inline void GenerateFractalBrownianMotionAngle(float value) {
+        inline void GenerateFromFractalBrownianMotion(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -362,7 +362,7 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
                 InternalAngle = converted_in_angle;
             }
 
-            Set = true;
+            IsSet = true;
         }
 };
 
@@ -416,7 +416,7 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
             return amplitude;
         }
 
-        inline void GenerateRandomProportion() {
+        inline void GenerateFromRandom() {
             float proportion_range[2] = {0, 1};
             float converted_in_proportion = CPP_AdvancedMathematics::RandomFloat(proportion_range);
 
@@ -425,10 +425,10 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
                 InternalProportion = converted_in_proportion;
             }
 
-            Set = true;
+            IsSet = true;
         }
 
-        inline void GeneratePerlinProportion(float value) {
+        inline void GenerateFromPerlinNoise(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -443,10 +443,10 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
                 InternalProportion = converted_in_proportion;
             }
 
-            Set = true;
+            IsSet = true;
         }
 
-        inline void GenerateFractalBrownianMotionProportion(float value) {
+        inline void GenerateFromFractalBrownianMotion(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -461,6 +461,6 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
                 InternalProportion = converted_in_proportion;
             }
 
-            Set = true;
+            IsSet = true;
         }
 };

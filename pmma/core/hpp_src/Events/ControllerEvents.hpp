@@ -249,7 +249,7 @@ class CPP_InternalControllerEvent {
             if (UpdateRawData) {
                 const float* axes = glfwGetJoystickAxes(ID, &RawAxisCount);
                 for (int i = 0; i < RawAxisCount; i++) {
-                    RawAxesData[i].SetProportion_Decimal(axes[i]);
+                    RawAxesData[i].Set_Decimal(axes[i]);
                 }
 
                 const unsigned char* buttons = glfwGetJoystickButtons(ID, &RawButtonCount);
@@ -313,12 +313,12 @@ class CPP_InternalControllerEvent {
                     GamePad_DPad_Down_Button->Update(state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_DOWN] == GLFW_PRESS);
                     GamePad_DPad_Left_Button->Update(state.buttons[GLFW_GAMEPAD_BUTTON_DPAD_LEFT] == GLFW_PRESS);
 
-                    GamePad_Left_Trigger->SetProportion_Decimal(state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER]);
-                    GamePad_Right_Trigger->SetProportion_Decimal(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER]);
-                    GamePad_Left_Stick_X->SetProportion_Decimal(state.axes[GLFW_GAMEPAD_AXIS_LEFT_X]);
-                    GamePad_Left_Stick_Y->SetProportion_Decimal(state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y]);
-                    GamePad_Right_Stick_X->SetProportion_Decimal(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
-                    GamePad_Right_Stick_Y->SetProportion_Decimal(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
+                    GamePad_Left_Trigger->Set_Decimal(state.axes[GLFW_GAMEPAD_AXIS_LEFT_TRIGGER]);
+                    GamePad_Right_Trigger->Set_Decimal(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER]);
+                    GamePad_Left_Stick_X->Set_Decimal(state.axes[GLFW_GAMEPAD_AXIS_LEFT_X]);
+                    GamePad_Left_Stick_Y->Set_Decimal(state.axes[GLFW_GAMEPAD_AXIS_LEFT_Y]);
+                    GamePad_Right_Stick_X->Set_Decimal(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_X]);
+                    GamePad_Right_Stick_Y->Set_Decimal(state.axes[GLFW_GAMEPAD_AXIS_RIGHT_Y]);
                 }
             }
         };
@@ -375,7 +375,7 @@ class CPP_InternalControllerEvent {
             }
             //std::cout << "Using raw controller data - we always recommend using 'non-raw' data for better performance." << std::endl;
             UpdateRawData = true;
-            return RawAxesData[AxisID].GetProportion_Decimal();
+            return RawAxesData[AxisID].Get_Decimal();
         };
 
         inline float GetRawAxis_Percentage(int AxisID) {
@@ -384,7 +384,7 @@ class CPP_InternalControllerEvent {
             }
             //std::cout << "Using raw controller data - we always recommend using 'non-raw' data for better performance." << std::endl;
             UpdateRawData = true;
-            return RawAxesData[AxisID].GetProportion_Percentage();
+            return RawAxesData[AxisID].Get_Percentage();
         };
 
         inline bool GetRawButtonPressed(int ButtonID) {
@@ -424,56 +424,56 @@ class CPP_InternalControllerEvent {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Trigger->GetProportion_Percentage());
+            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Trigger->Get_Percentage());
         }
 
         inline float Get_Right_Trigger_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Trigger->GetProportion_Percentage());
+            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Trigger->Get_Percentage());
         }
 
         inline float Get_Left_Trigger_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Trigger->GetProportion_Decimal());
+            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Trigger->Get_Decimal());
         }
 
         inline float Get_Right_Trigger_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Trigger->GetProportion_Decimal());
+            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Trigger->Get_Decimal());
         }
 
         inline float Get_Right_Stick_X_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_X->GetProportion_Percentage());
+            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_X->Get_Percentage());
         }
 
         inline float Get_Right_Stick_Y_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_Y->GetProportion_Percentage());
+            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_Y->Get_Percentage());
         }
 
         inline float Get_Right_Stick_X_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Stick_X->GetProportion_Decimal());
+            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Stick_X->Get_Decimal());
         }
 
         inline float Get_Right_Stick_Y_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Stick_Y->GetProportion_Decimal());
+            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Stick_Y->Get_Decimal());
         }
 
 
@@ -481,59 +481,59 @@ class CPP_InternalControllerEvent {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_X->GetProportion_Percentage());
+            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_X->Get_Percentage());
         }
 
         inline float Get_Left_Stick_Y_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_Y->GetProportion_Percentage());
+            return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_Y->Get_Percentage());
         }
 
         inline float Get_Left_Stick_X_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_X->GetProportion_Decimal());
+            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_X->Get_Decimal());
         }
 
         inline float Get_Left_Stick_Y_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_Y->GetProportion_Decimal());
+            return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_Y->Get_Decimal());
         }
 
         inline void Get_Left_Stick_Position_Decimal(float DeadZone, float* out) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            out[0] = AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_X->GetProportion_Decimal());
-            out[1] = AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_Y->GetProportion_Decimal());
+            out[0] = AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_X->Get_Decimal());
+            out[1] = AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_Y->Get_Decimal());
         }
 
         inline void Get_Right_Stick_Position_Decimal(float DeadZone, float* out) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            out[0] = GamePad_Right_Stick_X->GetProportion_Decimal();
-            out[1] = GamePad_Right_Stick_Y->GetProportion_Decimal();
+            out[0] = GamePad_Right_Stick_X->Get_Decimal();
+            out[1] = GamePad_Right_Stick_Y->Get_Decimal();
         }
 
         inline void Get_Left_Stick_Position_Percentage(float DeadZone, float* out) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            out[0] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_X->GetProportion_Percentage());
-            out[1] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_Y->GetProportion_Percentage());
+            out[0] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_X->Get_Percentage());
+            out[1] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_Y->Get_Percentage());
         }
 
         inline void Get_Right_Stick_Position_Percentage(float DeadZone, float* out) {
             if (!Connected) {
                 throw std::runtime_error("Controller is not connected");
             }
-            out[0] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_X->GetProportion_Percentage());
-            out[1] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_Y->GetProportion_Percentage());
+            out[0] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_X->Get_Percentage());
+            out[1] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_Y->Get_Percentage());
         }
 };

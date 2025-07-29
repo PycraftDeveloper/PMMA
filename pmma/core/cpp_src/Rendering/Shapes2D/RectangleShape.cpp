@@ -24,7 +24,7 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
         throw std::runtime_error("Shape has no color set");
     }
 
-    glm::vec2 ShapeCentre = ShapeCentreFormat->GetDisplayCoordinate();
+    glm::vec2 ShapeCentre = ShapeCentreFormat->Get();
 
     Changed = Changed ||
                 ShapeCentreFormat->GetChangedToggle() ||
@@ -42,7 +42,7 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
     // otherwise render it as a normal shape.
 
     if (RenderPipelineCompatible) {
-        if (ColorFormat->GetColor_rgba().r == 0.0f) { // Return if shape not visible
+        if (ColorFormat->Get_rgba().r == 0.0f) { // Return if shape not visible
             return;
         }
 

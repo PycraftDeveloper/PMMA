@@ -83,7 +83,7 @@ class CPP_Shape2D_RenderPipelineManager {
 
             Changed = true;
 
-            const glm::vec4 color = TargetPtr->ColorFormat->GetColor_rgba();
+            const glm::vec4 color = TargetPtr->ColorFormat->Get_rgba();
 
             if (currentIndex < shape_colors.size()) {
                 shape_colors[currentIndex] = color;

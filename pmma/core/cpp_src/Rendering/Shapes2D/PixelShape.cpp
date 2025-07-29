@@ -22,7 +22,7 @@ void CPP_PixelShape::Render() {
         throw std::runtime_error("Shape has no color set");
     }
 
-    glm::vec2 ShapeCentre = ShapeCentreFormat->GetDisplayCoordinate();
+    glm::vec2 ShapeCentre = ShapeCentreFormat->Get();
 
     Changed = Changed ||
                 ShapeCentreFormat->GetChangedToggle() ||
@@ -35,7 +35,7 @@ void CPP_PixelShape::Render() {
         return;
     }
 
-    if (ColorFormat->GetColor_rgba().r == 0.0f) { // Return if shape not visible
+    if (ColorFormat->Get_rgba().r == 0.0f) { // Return if shape not visible
         return;
     }
 

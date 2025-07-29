@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-void CPP_DisplayCoordinateFormat::GenerateRandomDisplayCoordinate() {
+void CPP_DisplayCoordinateFormat::GenerateFromRandom() {
     if (PMMA::DisplayInstance == nullptr) {
         throw runtime_error("Display not created yet!");
     }
@@ -10,11 +10,11 @@ void CPP_DisplayCoordinateFormat::GenerateRandomDisplayCoordinate() {
 
     float y_range[2] = {0, (float)PMMA::DisplayInstance->GetHeight()};
     DisplayCoordinate.y = CPP_AdvancedMathematics::RandomFloat(y_range);
-    Set = true;
+    IsSet = true;
     Changed = true;
 }
 
-void CPP_DisplayCoordinateFormat::GeneratePerlinDisplayCoordinate(float value) {
+void CPP_DisplayCoordinateFormat::GenerateFromPerlinNoise(float value) {
     if (PMMA::DisplayInstance == nullptr) {
         throw runtime_error("Display not created yet!");
     }
@@ -38,10 +38,10 @@ void CPP_DisplayCoordinateFormat::GeneratePerlinDisplayCoordinate(float value) {
         Changed = true;
     }
 
-    Set = true;
+    IsSet = true;
 }
 
-void CPP_DisplayCoordinateFormat::GenerateFractalBrownianMotionDisplayCoordinate(float value) {
+void CPP_DisplayCoordinateFormat::GenerateFromFractalBrownianMotion(float value) {
     if (PMMA::DisplayInstance == nullptr) {
         throw runtime_error("Display not created yet!");
     }
@@ -65,5 +65,5 @@ void CPP_DisplayCoordinateFormat::GenerateFractalBrownianMotionDisplayCoordinate
         Changed = true;
     }
 
-    Set = true;
+    IsSet = true;
 }
