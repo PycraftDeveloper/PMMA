@@ -3,7 +3,7 @@ import subprocess
 
 from pmma.core.py_src.Constants import Constants, InternalConstants
 
-from pmma.core.py_src.General import General
+from pmma.build.General import General
 
 class Executor:
     def __init__(self):

@@ -232,4 +232,6 @@ namespace PMMA {
     extern bool GLFW_Initialized;
     extern bool CPU_Supports_AVX2;
     extern bool CPU_Supports_AVX512;
+
+    extern bool IsPowerSavingModeEnabled;
 }

@@ -159,7 +159,8 @@ elseif(APPLE)
 
     target_link_libraries(${LIB_NAME} PRIVATE
         "-framework Cocoa" "-framework OpenGL" "-framework IOKit"
-        "-framework CoreVideo" glfw3 freetype png z harfbuzz)
+        "-framework CoreVideo" "-framework CoreFoundation" glfw3
+        freetype png z harfbuzz)
 
     target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 

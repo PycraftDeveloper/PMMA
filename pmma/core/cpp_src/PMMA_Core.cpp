@@ -183,4 +183,6 @@ namespace PMMA {
     bool GLFW_Initialized = false;
     bool CPU_Supports_AVX2 = CPP_CPU_FeatureSetUtils::SupportsAVX2();
     bool CPU_Supports_AVX512 = CPP_CPU_FeatureSetUtils::SupportsAVX512();
+
+    bool IsPowerSavingModeEnabled = CPP_General::Is_Power_Saving_Mode_Enabled();
 }

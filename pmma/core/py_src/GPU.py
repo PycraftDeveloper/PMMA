@@ -12,7 +12,7 @@ import json
 
 from pmma.core.py_src.Executor import Executor
 from pmma.core.py_src.Constants import Constants, InternalConstants
-from pmma.core.py_src.General import General
+from pmma.build.General import General
 
 if General.get_operating_system() == Constants.WINDOWS:
     import wmi

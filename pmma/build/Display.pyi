@@ -3,6 +3,7 @@ from typing import Iterable, Union
 import numpy as np
 import numpy.typing as npt
 
+import pmma.core.py_src.Utility as Utility
 from pmma.build.NumberFormats import Color
 
 Integer1D = Union[
@@ -50,6 +51,7 @@ class Display:
 
     def center_window(self) -> None: ...
 
+    @Utility.require_render_thread
     def clear(self) -> None: ...
 
     def set_window_in_focus(self) -> None: ...
@@ -63,12 +65,14 @@ class Display:
 
     def get_aspect_ratio(self) -> float: ...
 
+    @Utility.require_render_thread
     def continuous_refresh(self,
         refresh_rate: int=60,
         lower_refresh_rate_on_minimize: bool=True,
         lower_refresh_rate_on_focus_loss: bool=True,
         lower_refresh_rate_on_low_battery: bool=True) -> None: ...
 
+    @Utility.require_render_thread
     def event_refresh(self, refresh_rate: int=60,
         max_refresh_rate: int=60,
         lower_refresh_rate_on_minimize: bool=True,
