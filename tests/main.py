@@ -196,7 +196,7 @@ effect.quit()
 
 print("Testing CHORUS")
 effect = pmma.Chorus()
-print("Testing CHORUS: Set-Centre-Delay")
+print("Testing CHORUS: Set-Center-Delay")
 effect.set_center_delay(10)
 print("Testing CHORUS: Set-Mix")
 effect.set_mix(100)

@@ -12,7 +12,7 @@
 
 class EXPORT CPP_EllipseShape {
     public:
-        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+        CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
         std::vector<glm::vec2> VertexData;
@@ -35,8 +35,8 @@ class EXPORT CPP_EllipseShape {
         CPP_EllipseShape();
 
         ~CPP_EllipseShape() {
-            delete ShapeCentreFormat;
-            ShapeCentreFormat = nullptr;
+            delete ShapeCenterFormat;
+            ShapeCenterFormat = nullptr;
 
             delete ColorFormat;
             ColorFormat = nullptr;

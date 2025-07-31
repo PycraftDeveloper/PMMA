@@ -12,7 +12,7 @@
 
 class EXPORT CPP_PixelShape {
     public:
-        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+        CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
         std::vector<glm::vec2> VertexData;
@@ -24,15 +24,15 @@ class EXPORT CPP_PixelShape {
         uint64_t ID;
         GLuint ColorIndex;
 
-        bool CentreSet = false;
+        bool CenterSet = false;
         bool HasAlpha = false;
         bool Changed = true;
 
         CPP_PixelShape();
 
         ~CPP_PixelShape() {
-            delete ShapeCentreFormat;
-            ShapeCentreFormat = nullptr;
+            delete ShapeCenterFormat;
+            ShapeCenterFormat = nullptr;
 
             delete ColorFormat;
             ColorFormat = nullptr;

@@ -12,7 +12,7 @@
 
 class EXPORT CPP_RadialPolygonShape {
     public:
-        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+        CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
         std::vector<glm::vec2> VertexData;
@@ -28,7 +28,7 @@ class EXPORT CPP_RadialPolygonShape {
         unsigned int Width = 0;
         unsigned int PointCount = 0;
 
-        bool CentreSet = false;
+        bool CenterSet = false;
         bool RadiusSet = false;
         bool WidthSet = true;
         bool HasAlpha = false;
@@ -38,8 +38,8 @@ class EXPORT CPP_RadialPolygonShape {
         CPP_RadialPolygonShape();
 
         ~CPP_RadialPolygonShape() {
-            delete ShapeCentreFormat;
-            ShapeCentreFormat = nullptr;
+            delete ShapeCenterFormat;
+            ShapeCenterFormat = nullptr;
 
             delete ColorFormat;
             ColorFormat = nullptr;

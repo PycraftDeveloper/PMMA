@@ -3,7 +3,7 @@
 using namespace std;
 
 CPP_EllipseShape::CPP_EllipseShape() {
-    ShapeCentreFormat = new CPP_DisplayCoordinateFormat();
+    ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
     ID = PMMA::ClassObject_ID_System++;
@@ -17,7 +17,7 @@ void CPP_EllipseShape::Render(float ShapeQuality) {
     unsigned int HalfWidth = ShapeSize.x / 2;
     unsigned int HalfHeight = ShapeSize.y / 2;
 
-    if (!ShapeCentreFormat->GetSet()) {
+    if (!ShapeCenterFormat->GetSet()) {
         throw std::runtime_error("Shape has no center not set");
     }
 
@@ -25,16 +25,16 @@ void CPP_EllipseShape::Render(float ShapeQuality) {
         throw std::runtime_error("Shape has no color set");
     }
 
-    glm::vec2 ShapeCentre = ShapeCentreFormat->Get();
+    glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
 
     Changed = Changed ||
-                ShapeCentreFormat->GetChangedToggle() ||
+                ShapeCenterFormat->GetChangedToggle() ||
                 ColorFormat->GetChangedToggle();
 
-    if (ShapeCentre.x + HalfWidth < 0 ||
-            ShapeCentre.x - HalfWidth > DisplayWidth ||
-            ShapeCentre.y + HalfHeight < 0 ||
-            ShapeCentre.y - HalfHeight > DisplayHeight) {
+    if (ShapeCenter.x + HalfWidth < 0 ||
+            ShapeCenter.x - HalfWidth > DisplayWidth ||
+            ShapeCenter.y + HalfHeight < 0 ||
+            ShapeCenter.y - HalfHeight > DisplayHeight) {
         return;
     }
 
@@ -75,8 +75,8 @@ void CPP_EllipseShape::Render(float ShapeQuality) {
             size_t vertexCount = InternalPointCount * 2 + 2;
             RenderPipelineVertexData.resize(vertexCount);
 
-            float cx = ShapeCentre.x;
-            float cy = ShapeCentre.y;
+            float cx = ShapeCenter.x;
+            float cy = ShapeCenter.y;
 
             float a_outer = ShapeSize.x / 2.0f; // semi-major axis (horizontal)
             float b_outer = ShapeSize.y / 2.0f; // semi-minor axis (vertical)

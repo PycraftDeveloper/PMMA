@@ -411,7 +411,7 @@ class Chorus(pedalboard.Chorus):
         super().__init__(
             rate_hz=rate,
             depth=self.proportion_adjusted_depth.get_proportion_decimal(),
-            centre_delay_ms=center_delay * 1000, # s to ms
+            center_delay_ms=center_delay * 1000, # s to ms
             feedback=self.proportion_adjusted_feedback.get_proportion_decimal(),
             mix=self.proportion_adjusted_mix.get_proportion_decimal())
 
@@ -431,13 +431,13 @@ class Chorus(pedalboard.Chorus):
         """
         🟩 **R** -
         """
-        self.centre_delay_ms = center_delay * 1000
+        self.center_delay_ms = center_delay * 1000
 
     def get_center_delay(self):
         """
         🟩 **R** -
         """
-        return self.centre_delay_ms / 1000
+        return self.center_delay_ms / 1000
 
 class Compressor(pedalboard.Compressor):
     """
@@ -659,7 +659,7 @@ class Phaser(pedalboard.Phaser):
         super().__init__(
             rate_hz=rate,
             depth=self.proportion_adjusted_depth.get_proportion_decimal(),
-            centre_frequency_hz=center_frequency,
+            center_frequency_hz=center_frequency,
             feedback=self.proportion_adjusted_feedback.get_proportion_decimal(),
             mix=self.proportion_adjusted_mix.get_proportion_decimal())
 
@@ -679,13 +679,13 @@ class Phaser(pedalboard.Phaser):
         """
         🟩 **R** -
         """
-        self.centre_frequency_hz = center_frequency
+        self.center_frequency_hz = center_frequency
 
     def get_center_frequency(self):
         """
         🟩 **R** -
         """
-        return self.centre_frequency_hz
+        return self.center_frequency_hz
 
 class Reverb(pedalboard.Reverb):
     """

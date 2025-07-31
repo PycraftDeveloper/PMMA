@@ -3,7 +3,7 @@
 using namespace std;
 
 CPP_ArcShape::CPP_ArcShape() {
-    ShapeCentreFormat = new CPP_DisplayCoordinateFormat();
+    ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
     ID = PMMA::ClassObject_ID_System++;
@@ -14,7 +14,7 @@ void CPP_ArcShape::Render(float ShapeQuality) {
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
 
-    if (!ShapeCentreFormat->GetSet()) {
+    if (!ShapeCenterFormat->GetSet()) {
         throw std::runtime_error("Shape has no center not set");
     }
 
@@ -22,16 +22,16 @@ void CPP_ArcShape::Render(float ShapeQuality) {
         throw std::runtime_error("Shape has no color set");
     }
 
-    glm::vec2 ShapeCentre = ShapeCentreFormat->Get();
+    glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
 
     Changed = Changed ||
-                ShapeCentreFormat->GetChangedToggle() ||
+                ShapeCenterFormat->GetChangedToggle() ||
                 ColorFormat->GetChangedToggle();
 
-    if (ShapeCentre.x + Radius < 0 ||
-            ShapeCentre.x - Radius > DisplayWidth ||
-            ShapeCentre.y + Radius < 0 ||
-            ShapeCentre.y - Radius > DisplayHeight) {
+    if (ShapeCenter.x + Radius < 0 ||
+            ShapeCenter.x - Radius > DisplayWidth ||
+            ShapeCenter.y + Radius < 0 ||
+            ShapeCenter.y - Radius > DisplayHeight) {
         return;
     }
 
@@ -81,8 +81,8 @@ void CPP_ArcShape::Render(float ShapeQuality) {
             RenderPipelineVertexData.resize(vertexCount);
 
             float angle = Rotation + StartAngle;
-            float cx = ShapeCentre.x;
-            float cy = ShapeCentre.y;
+            float cx = ShapeCenter.x;
+            float cy = ShapeCenter.y;
             float cosStep = std::cos(angleStep);
             float sinStep = std::sin(angleStep);
             float cosA = std::cos(angle);

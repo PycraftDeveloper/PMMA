@@ -12,7 +12,7 @@
 
 class EXPORT CPP_RectangleShape {
     public:
-        CPP_DisplayCoordinateFormat* ShapeCentreFormat;
+        CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
         std::vector<glm::vec2> VertexData;
@@ -38,8 +38,8 @@ class EXPORT CPP_RectangleShape {
         CPP_RectangleShape();
 
         ~CPP_RectangleShape() {
-            delete ShapeCentreFormat;
-            ShapeCentreFormat = nullptr;
+            delete ShapeCenterFormat;
+            ShapeCenterFormat = nullptr;
 
             delete ColorFormat;
             ColorFormat = nullptr;

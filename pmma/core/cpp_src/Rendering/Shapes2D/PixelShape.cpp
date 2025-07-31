@@ -3,7 +3,7 @@
 using namespace std;
 
 CPP_PixelShape::CPP_PixelShape() {
-    ShapeCentreFormat = new CPP_DisplayCoordinateFormat();
+    ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
     ID = PMMA::ClassObject_ID_System++;
@@ -14,7 +14,7 @@ void CPP_PixelShape::Render() {
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
 
-    if (!ShapeCentreFormat->GetSet()) {
+    if (!ShapeCenterFormat->GetSet()) {
         throw std::runtime_error("Shape has no center not set");
     }
 
@@ -22,16 +22,16 @@ void CPP_PixelShape::Render() {
         throw std::runtime_error("Shape has no color set");
     }
 
-    glm::vec2 ShapeCentre = ShapeCentreFormat->Get();
+    glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
 
     Changed = Changed ||
-                ShapeCentreFormat->GetChangedToggle() ||
+                ShapeCenterFormat->GetChangedToggle() ||
                 ColorFormat->GetChangedToggle();
 
-    if (ShapeCentre.x < 0 ||
-            ShapeCentre.x > DisplayWidth ||
-            ShapeCentre.y < 0 ||
-            ShapeCentre.y > DisplayHeight) {
+    if (ShapeCenter.x < 0 ||
+            ShapeCenter.x > DisplayWidth ||
+            ShapeCenter.y < 0 ||
+            ShapeCenter.y > DisplayHeight) {
         return;
     }
 
@@ -47,8 +47,8 @@ void CPP_PixelShape::Render() {
 
     if (Changed) {
         RenderPipelineVertexData.resize(4);
-        float x = ShapeCentre.x;
-        float y = ShapeCentre.y;
+        float x = ShapeCenter.x;
+        float y = ShapeCenter.y;
         RenderPipelineVertexData[0] = {{x - 0.5f, y - 0.5f}, ColorIndex}; // Top-left
         RenderPipelineVertexData[1] = {{x + 0.5f, y - 0.5f}, ColorIndex}; // Top-right
         RenderPipelineVertexData[2] = {{x - 0.5f, y + 0.5f}, ColorIndex}; // Bottom-left
