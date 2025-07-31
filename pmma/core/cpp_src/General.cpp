@@ -20,18 +20,32 @@ void CPP_General::Set_Path_Separator(std::string& separator) {
     PMMA::PathSeparator = separator;
 }
 
-bool CPP_General::Is_Power_Saving_Mode_Enabled() {
+string CPP_General::Get_PMMA_Location() {
+    return PMMA::PMMA_Location;
+}
+
+bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
+    if (!ForceRefresh) {
+        return PMMA::IsPowerSavingModeEnabled; // Return cached value if not forcing a refresh
+    }
+
     #if defined(_WIN32)
         SYSTEM_POWER_STATUS power_status = {};
         if (GetSystemPowerStatus(&power_status)) {
             if (power_status.SystemStatusFlag == 1) {
+                PMMA::IsPowerSavingModeEnabled = true;
+                PMMA::PowerSavingManagerInstance.updateCounter = 30;
                 return true;
             }
             if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
+                PMMA::IsPowerSavingModeEnabled = true;
+                PMMA::PowerSavingManagerInstance.updateCounter = 30;
                 return true; // Low battery test
             }
         }
 
+        PMMA::IsPowerSavingModeEnabled = false;
+        PMMA::PowerSavingManagerInstance.updateCounter = 15;
         return false;
 
     #elif defined(__linux__)
@@ -43,6 +57,8 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled() {
                     std::ifstream statusFile(entry.path() / "status");
                     std::string status;
                     if (statusFile >> status && status == "Discharging") {
+                        PMMA::IsPowerSavingModeEnabled = true;
+                        PMMA::PowerSavingManagerInstance.updateCounter = 30;
                         return true;
                     }
                 }
@@ -50,6 +66,8 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled() {
         } catch (const std::filesystem::filesystem_error& error) {
             std::cerr << "Filesystem error: " << error.what() << "\n";
         }
+        PMMA::IsPowerSavingModeEnabled = false;
+        PMMA::PowerSavingManagerInstance.updateCounter = 15;
         return false;
 
     #elif defined(__APPLE__)
@@ -57,12 +75,25 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled() {
         kern_return_t kr = IOPMCopyFeatureFlags(kIOMasterPortDefault, &flags);
         if (kr != kIOReturnSuccess) {
             std::cerr << "Failed to get power feature flags: " << kr << "\n";
+            PMMA::IsPowerSavingModeEnabled = false;
+            PMMA::PowerSavingManagerInstance.updateCounter = 15;
             return false;
         }
-        return (flags & kIOPMFeatureLowPowerMode) != 0;
+
+        if (flags & kIOPMFeatureLowPowerMode) {
+            PMMA::IsPowerSavingModeEnabled = true;
+            PMMA::PowerSavingManagerInstance.updateCounter = 30;
+            return true; // Low power mode is enabled
+        }
+        PMMA::IsPowerSavingModeEnabled = false;
+        PMMA::PowerSavingManagerInstance.updateCounter = 15;
+        return false;
 
     #else
         std::cout << "Unknown platform for power saving mode check." << std::endl;
+        PMMA::IsPowerSavingModeEnabled = false;
+        PMMA::PowerSavingManagerInstance.running = false;
+        PMMA::PowerSavingManagerInstance.updateCounter = 5;
         return false;
     #endif
 }

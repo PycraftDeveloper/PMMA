@@ -10,8 +10,6 @@ system = platform.system()
 
 pmma_dir = os.path.dirname(os.path.abspath(__file__))
 
-print("PMMA install dir: ", pmma_dir)
-
 sys.path.append(os.path.join(pmma_dir, "build"))
 
 pmma_lib_dir = os.path.join(pmma_dir, "lib")
@@ -58,6 +56,9 @@ instead.")
     ctypes.CDLL(os.path.join(extern_libs, "zlib.dylib"))
     ctypes.CDLL(os.path.join(extern_libs, "libpng16.dylib"))
     ctypes.CDLL(os.path.join(pmma_lib_dir, "libPMMA_Core.dylib"))
+
+import pmma.build.PMMA_Core as _PMMA_Core
+_PMMA_Core.initialize()
 
 from pmma.build.General import General
 

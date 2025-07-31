@@ -15,7 +15,9 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     void Set_PMMA_Location(string location) except + nogil
     void Set_Path_Separator(string separator) except + nogil
 
-    inline bool Is_Power_Saving_Mode_Enabled() except + nogil
+    string Get_PMMA_Location() except + nogil
+
+    bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh) except + nogil
 
 cdef class General:
     def __cinit__(self):
@@ -36,8 +38,13 @@ cdef class General:
         Set_Path_Separator(encoded_separator)
 
     @staticmethod
-    def is_power_saving_mode_enabled():
-        return Is_Power_Saving_Mode_Enabled()
+    def get_pmma_install_directory():
+        cdef string pmma_location = Get_PMMA_Location()
+        return pmma_location.c_str().decode('utf-8')
+
+    @staticmethod
+    def is_power_saving_mode_enabled(force_refresh=False):
+        return Is_Power_Saving_Mode_Enabled(force_refresh)
 
     @staticmethod
     def get_operating_system():

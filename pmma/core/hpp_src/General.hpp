@@ -9,5 +9,7 @@ namespace CPP_General {
 
     EXPORT void Set_Path_Separator(std::string& out_separator);
 
-    EXPORT bool Is_Power_Saving_Mode_Enabled();
+    EXPORT std::string Get_PMMA_Location();
+
+    EXPORT bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh);
 }

@@ -25,12 +25,11 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Advanced Tkinter
 * ✅ - Finished Events
 * ✅ - Finished Render Pipeline (2D)
+* ⏳ - Working on Shapes 2D (90 %)
 * ⏳ - Working on Display (80 %)
+* ⏳ - Working on General (35 %)
 * ⏳ - Working on OpenGL (30 %)
-* ⏳ - Working on General (30 %)
-* ⏳ - Working on Video (25 %)
 * ⏳ - Working on Logging (25 %)
-* ⏳ - Working on Shapes 2D (30 %)
 * 🛑 - Not started Advanced Threading
 * 🛑 - Not started Camera
 * 🛑 - Not started Complex 2D shapes
@@ -47,3 +46,4 @@ Each entry is worth: (20/7) %
 * 🛑 - Not started Sampler
 * 🛑 - Not started Settings
 * 🛑 - Not started Transitions
+* ⛔ - Temporarily halted progress on Video (Will be added in PMMA 5.x)

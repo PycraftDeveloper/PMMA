@@ -29,6 +29,7 @@ set(SOURCES
     "${SRC_DIR}/OpenGL.cpp"
     "${SRC_DIR}/General.cpp"
     "${SRC_DIR}/NumberFormats.cpp"
+    "${SRC_DIR}/InternalManagement.cpp"
 
     "${SRC_DIR}/Utility/FontUtils.cpp"
     "${SRC_DIR}/Utility/CPU_FeatureSetUtils"

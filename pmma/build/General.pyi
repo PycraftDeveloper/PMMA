@@ -9,3 +9,6 @@ class General:
 
     @staticmethod
     def find_executable_nvidia_smi() -> str: ...
+
+    @staticmethod
+    def get_pmma_install_dir() -> str: ...

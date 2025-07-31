@@ -15,6 +15,7 @@
 #include <map>
 
 #include "General.hpp"
+#include "InternalManagement.hpp"
 
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
@@ -213,6 +214,8 @@ namespace PMMA {
     extern CPP_InternalControllerEventManager* ControllerManagerInstance;
     extern CPP_InternalDropEventManager* DropManagerInstance;
 
+    extern PowerSavingManager PowerSavingManagerInstance;
+
     extern std::string PMMA_Location;
     extern std::string PathSeparator;
 
@@ -235,3 +238,7 @@ namespace PMMA {
 
     extern bool IsPowerSavingModeEnabled;
 }
+
+EXPORT void PMMA_Initialize();
+
+EXPORT void PMMA_Uninitialize();

@@ -164,6 +164,8 @@ namespace PMMA {
     CPP_InternalControllerEventManager* ControllerManagerInstance = nullptr;
     CPP_InternalDropEventManager* DropManagerInstance = nullptr;
 
+    PowerSavingManager PowerSavingManagerInstance;
+
     string PMMA_Location = "";
     string PathSeparator = "";
 
@@ -178,11 +180,28 @@ namespace PMMA {
     unsigned int ControllerEventInstanceCount = 0;
     unsigned int DropEventInstanceCount = 0;
 
+    float PowerSavingModeUpdateCounter = 30.f;
+
     int GLFW_References = 0;
 
     bool GLFW_Initialized = false;
     bool CPU_Supports_AVX2 = CPP_CPU_FeatureSetUtils::SupportsAVX2();
     bool CPU_Supports_AVX512 = CPP_CPU_FeatureSetUtils::SupportsAVX512();
 
-    bool IsPowerSavingModeEnabled = CPP_General::Is_Power_Saving_Mode_Enabled();
+    bool IsPowerSavingModeEnabled = CPP_General::Is_Power_Saving_Mode_Enabled(true);
+}
+
+void PMMA_Initialize() {
+    if (PMMA::IsPowerSavingModeEnabled) {
+        PMMA::PowerSavingModeUpdateCounter = 15.f; // Reset the counter to a lower value if power saving mode is enabled
+    }
+
+    PMMA::PowerSavingManagerInstance.PowerSavingModeCheckingThread = thread(PowerSavingUpdaterThread);
+}
+
+void PMMA_Uninitialize() {
+    PMMA::PowerSavingManagerInstance.running = false;
+    if (PMMA::PowerSavingManagerInstance.PowerSavingModeCheckingThread.joinable()) {
+        PMMA::PowerSavingManagerInstance.PowerSavingModeCheckingThread.join();
+    }
 }
