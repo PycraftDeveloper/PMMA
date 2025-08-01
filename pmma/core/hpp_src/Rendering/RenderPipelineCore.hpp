@@ -61,7 +61,7 @@ class CPP_RenderPipelineCore {
 
         void AddObject(CPP_TextRenderer* RenderObject);
 
-        inline GLuint Get_Shape2D_ColorIndex(glm::vec4 Color) {
+        inline GLuint Get_Shape2D_ColorIndex(glm::vec4 Color, unsigned int ShapeID) {
             if (RenderData.empty()) {
                 if (!Shape_2D_RenderManagerCache.empty()) {
                     RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
@@ -74,7 +74,7 @@ class CPP_RenderPipelineCore {
             auto& lastVariant = RenderData.back();
             if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&lastVariant)) {
                 if ((*managerPtr)->shape_colors.size() < MaxSize) {
-                    return (*managerPtr)->GetColorIndex(Color);
+                    return (*managerPtr)->GetColorIndex(Color, ShapeID);
                 } else {
                     // Too many vertexes — need a new manager
                     if (!Shape_2D_RenderManagerCache.empty()) {
@@ -86,7 +86,7 @@ class CPP_RenderPipelineCore {
 
                     auto& newVariant = RenderData.back();
                     if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
-                        return (*newManagerPtr)->GetColorIndex(Color);
+                        return (*newManagerPtr)->GetColorIndex(Color, ShapeID);
                     }
                 }
             } else {
@@ -100,7 +100,7 @@ class CPP_RenderPipelineCore {
 
                 auto& newVariant = RenderData.back();
                 if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
-                    return (*newManagerPtr)->GetColorIndex(Color);
+                    return (*newManagerPtr)->GetColorIndex(Color, ShapeID);
                 }
             }
 

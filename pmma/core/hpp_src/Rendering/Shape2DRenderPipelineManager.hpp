@@ -3,7 +3,8 @@
 #include <vector>
 #include <variant>
 #include <iostream>
-#include <chrono>
+#include <unordered_map>
+#include <unordered_set>
 
 #include <glm/glm.hpp>
 
@@ -41,12 +42,11 @@ class CPP_Shape2D_RenderPipelineManager {
         std::vector<std::pair<uint64_t, unsigned int>> PreviousRenderContent;
         unsigned int InsertionIndex = 0;
 
+        std::unordered_map<unsigned int, GLuint> ColorSlotID; // objectColorSlot
+        std::unordered_set<unsigned int> SeenThisFrame;
+        std::vector<GLuint> FreeSlots;
+
         GLuint vao, vbo, ubo;
-        float OldProbabilityOfDuplicateColor = 1.0f;
-        float NewProbabilityOfDuplicateColor = 1.0f;
-        unsigned int SamplesOfColor = 0;
-        int ColorSearchSize = 10000;
-        std::chrono::duration<float> TotalColorSearchTime = std::chrono::duration<float>::zero();
 
         bool Changed = true;
         bool HasAlpha = false;
@@ -60,7 +60,7 @@ class CPP_Shape2D_RenderPipelineManager {
 
         void InternalRender();
 
-        GLuint GetColorIndex(glm::vec4 Color);
+        GLuint GetColorIndex(glm::vec4 Color, unsigned int ShapeID);
 
         template<typename T>
         inline void InternalAddRenderTarget(T* TargetPtr) {
