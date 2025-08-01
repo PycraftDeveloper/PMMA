@@ -41,6 +41,9 @@ class CPP_Shape2D_RenderPipelineManager {
         unsigned int InsertionIndex = 0;
 
         GLuint vao, vbo, ubo;
+        float OldProbabilityOfDuplicateColor = 1.0f;
+        float NewProbabilityOfDuplicateColor = 1.0f;
+        unsigned int SamplesOfColor = 0;
 
         bool Changed = true;
         bool HasAlpha = false;
@@ -53,6 +56,8 @@ class CPP_Shape2D_RenderPipelineManager {
         void Reset();
 
         void InternalRender();
+
+        GLuint GetColorIndex(glm::vec4 Color);
 
         template<typename T>
         inline void InternalAddRenderTarget(T* TargetPtr) {

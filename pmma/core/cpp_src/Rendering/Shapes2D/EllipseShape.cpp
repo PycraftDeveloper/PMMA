@@ -28,8 +28,7 @@ void CPP_EllipseShape::Render(float ShapeQuality) {
     glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
 
     Changed = Changed ||
-                ShapeCenterFormat->GetChangedToggle() ||
-                ColorFormat->GetChangedToggle();
+                ShapeCenterFormat->GetChangedToggle();
 
     if (ShapeCenter.x + HalfWidth < 0 ||
             ShapeCenter.x - HalfWidth > DisplayWidth ||
@@ -38,30 +37,30 @@ void CPP_EllipseShape::Render(float ShapeQuality) {
         return;
     }
 
+    unsigned int InternalPointCount = PointCount;
+    unsigned int Radius = CPP_AdvancedMathematics::PythagoreanDistance(ShapeSize.x, ShapeSize.y);
+
+    if (PointCount == 0) {
+        float minAngle = asin(1.0f / Radius);
+        InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
+    }
+
     bool RenderPipelineCompatible = true;
     // check here if the gradient has been set, if has then check it fits into the render pipeline
     // otherwise render it as a normal shape.
 
     if (RenderPipelineCompatible) {
-        if (ColorFormat->Get_rgba().r == 0.0f) { // Return if shape not visible
+        if (ColorFormat->Get_rgba().a == 0.0f) { // Return if shape not visible
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex();
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba(), InternalPointCount * 2 + 2);
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;
         }
 
         if (Changed) {
-            unsigned int InternalPointCount = PointCount;
-            unsigned int Radius = CPP_AdvancedMathematics::PythagoreanDistance(ShapeSize.x, ShapeSize.y);
-
-            if (PointCount == 0) {
-                float minAngle = asin(1.0f / Radius);
-                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
-            }
-
             float angleStep = CPP_Constants::TAU / InternalPointCount;
 
             unsigned int outer_radius = Radius;

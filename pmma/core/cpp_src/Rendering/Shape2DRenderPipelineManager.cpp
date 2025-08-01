@@ -20,7 +20,26 @@ CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
 }
 
 void CPP_Shape2D_RenderPipelineManager::Reset() {
+    OldProbabilityOfDuplicateColor = NewProbabilityOfDuplicateColor / (float)(SamplesOfColor);
+    NewProbabilityOfDuplicateColor = 1.0f;
+}
 
+GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color) {
+    SamplesOfColor++;
+    if (shape_colors.empty()) {
+        shape_colors.emplace_back(Color);
+        return 0;
+    }
+
+    if (OldProbabilityOfDuplicateColor >= 0.05f) {
+        auto it = std::find(shape_colors.begin(), shape_colors.end(), Color);
+        if (it != shape_colors.end()) {
+            NewProbabilityOfDuplicateColor++;
+            return static_cast<GLuint>(std::distance(shape_colors.begin(), it));
+        }
+    }
+
+    return static_cast<GLuint>(shape_colors.size());
 }
 
 void CPP_Shape2D_RenderPipelineManager::AddRenderTarget(const Shape2D_RenderObject& NewObject) {

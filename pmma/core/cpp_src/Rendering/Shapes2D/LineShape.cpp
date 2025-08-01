@@ -25,11 +25,11 @@ void CPP_LineShape::Render(float ShapeQuality) {
     // otherwise render it as a normal shape.
 
     if (RenderPipelineCompatible) {
-        if (ColorFormat->Get_rgba().r == 0.0f) { // Return if shape not visible
+        if (ColorFormat->Get_rgba().a == 0.0f) { // Return if shape not visible
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex();
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba(), 4);
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;

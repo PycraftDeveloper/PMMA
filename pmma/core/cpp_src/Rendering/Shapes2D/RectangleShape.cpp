@@ -27,8 +27,7 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
     glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
 
     Changed = Changed ||
-                ShapeCenterFormat->GetChangedToggle() ||
-                ColorFormat->GetChangedToggle();
+                ShapeCenterFormat->GetChangedToggle();
 
     if (ShapeCenter.x + HalfWidth < 0 ||
             ShapeCenter.x - HalfWidth > DisplayWidth ||
@@ -42,11 +41,28 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
     // otherwise render it as a normal shape.
 
     if (RenderPipelineCompatible) {
-        if (ColorFormat->Get_rgba().r == 0.0f) { // Return if shape not visible
+        if (ColorFormat->Get_rgba().a == 0.0f) { // Return if shape not visible
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex();
+        size_t point_count = 0;
+
+        if (CornerRadius != 0) {
+            unsigned int radius = min(CornerRadius, min(HalfWidth, HalfHeight));
+            float minAngle = 1.0f / radius;
+            unsigned int segments = max(3u, static_cast<unsigned int>(
+                1 + (CPP_Constants::TAU / asin(minAngle)) * ShapeQuality / 4));
+
+            point_count = (segments + 1) * 8 + 2;
+        } else {
+            if (Width == 0 || Width >= max(HalfWidth, HalfHeight)) {
+                point_count = 4;
+            } else {
+                point_count = 10;
+            }
+        }
+
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba(), point_count);
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;
