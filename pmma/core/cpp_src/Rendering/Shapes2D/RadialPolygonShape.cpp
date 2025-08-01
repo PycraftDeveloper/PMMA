@@ -34,12 +34,6 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
         return;
     }
 
-    unsigned int InternalPointCount = PointCount;
-    if (PointCount == 0) {
-        float minAngle = asin(1.0f / Radius);
-        InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
-    }
-
     bool RenderPipelineCompatible = true;
     // check here if the gradient has been set, if has then check it fits into the render pipeline
     // otherwise render it as a normal shape.
@@ -49,14 +43,20 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba(), InternalPointCount * 2 + 2);
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba());
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;
-        } else {
         }
+        cout << "Color Index: " << ColorIndex << endl;
 
         if (Changed) {
+            unsigned int InternalPointCount = PointCount;
+        if (PointCount == 0) {
+            float minAngle = asin(1.0f / Radius);
+            InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
+        }
+
             float angleStep = CPP_Constants::TAU / InternalPointCount;
 
             unsigned int outer_radius = Radius;

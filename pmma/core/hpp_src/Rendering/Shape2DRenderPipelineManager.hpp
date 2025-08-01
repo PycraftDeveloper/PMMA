@@ -3,6 +3,7 @@
 #include <vector>
 #include <variant>
 #include <iostream>
+#include <chrono>
 
 #include <glm/glm.hpp>
 
@@ -44,6 +45,8 @@ class CPP_Shape2D_RenderPipelineManager {
         float OldProbabilityOfDuplicateColor = 1.0f;
         float NewProbabilityOfDuplicateColor = 1.0f;
         unsigned int SamplesOfColor = 0;
+        int ColorSearchSize = 10000;
+        std::chrono::duration<float> TotalColorSearchTime = std::chrono::duration<float>::zero();
 
         bool Changed = true;
         bool HasAlpha = false;

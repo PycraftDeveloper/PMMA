@@ -29,7 +29,7 @@ void CPP_LineShape::Render(float ShapeQuality) {
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba(), 4);
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba());
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;

@@ -45,24 +45,7 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
             return;
         }
 
-        size_t point_count = 0;
-
-        if (CornerRadius != 0) {
-            unsigned int radius = min(CornerRadius, min(HalfWidth, HalfHeight));
-            float minAngle = 1.0f / radius;
-            unsigned int segments = max(3u, static_cast<unsigned int>(
-                1 + (CPP_Constants::TAU / asin(minAngle)) * ShapeQuality / 4));
-
-            point_count = (segments + 1) * 8 + 2;
-        } else {
-            if (Width == 0 || Width >= max(HalfWidth, HalfHeight)) {
-                point_count = 4;
-            } else {
-                point_count = 10;
-            }
-        }
-
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba(), point_count);
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba());
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;

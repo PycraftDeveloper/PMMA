@@ -22,6 +22,27 @@ CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
 void CPP_Shape2D_RenderPipelineManager::Reset() {
     OldProbabilityOfDuplicateColor = NewProbabilityOfDuplicateColor / (float)(SamplesOfColor);
     NewProbabilityOfDuplicateColor = 1.0f;
+
+    if (TotalColorSearchTime.count() != 0) {
+        float frameRate = 1.f / TotalColorSearchTime.count();  // FPS
+        float targetRate = 2250.0f;
+        float dropThreshold = 2000.0f;
+
+        // Larger steps for bigger performance drops
+        if (frameRate < dropThreshold) {
+            int dropAmount = static_cast<int>((dropThreshold - frameRate) / 100.0f) + 1;
+            ColorSearchSize -= dropAmount;
+            if (ColorSearchSize < 0) {
+                ColorSearchSize = 0;
+            } // clamp
+        } else if (frameRate > targetRate) {
+            ColorSearchSize++;
+        }
+
+        TotalColorSearchTime = std::chrono::duration<float>::zero();
+    }
+
+    SamplesOfColor = 0;
 }
 
 GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color) {
@@ -31,12 +52,25 @@ GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color) {
         return 0;
     }
 
-    if (OldProbabilityOfDuplicateColor >= 0.05f) {
-        auto it = std::find(shape_colors.begin(), shape_colors.end(), Color);
+    if (OldProbabilityOfDuplicateColor >= 0.05f && ColorSearchSize > 0) {
+        std::vector<glm::vec4>::iterator EndPosition;
+        if (ColorSearchSize >= shape_colors.size()) {
+            EndPosition = shape_colors.end();
+        } else {
+            EndPosition = shape_colors.begin() + ColorSearchSize;
+        }
+
+        auto start = chrono::high_resolution_clock::now();
+        auto it = find(shape_colors.begin(), EndPosition, Color);
         if (it != shape_colors.end()) {
             NewProbabilityOfDuplicateColor++;
-            return static_cast<GLuint>(std::distance(shape_colors.begin(), it));
+            GLuint index = static_cast<GLuint>(std::distance(shape_colors.begin(), it));
+            auto end = chrono::high_resolution_clock::now();
+            TotalColorSearchTime += chrono::duration<float>(end - start);
+            return index;
         }
+        auto end = chrono::high_resolution_clock::now();
+        TotalColorSearchTime += chrono::duration<float>(end - start);
     }
 
     return static_cast<GLuint>(shape_colors.size());

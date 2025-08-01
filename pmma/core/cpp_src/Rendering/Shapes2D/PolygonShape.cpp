@@ -20,11 +20,6 @@ void CPP_PolygonShape::Render(float ShapeQuality) {
     Changed = Changed ||
                 ColorFormat->GetChangedToggle();
 
-    unsigned int segmentCount = ShapePoints.size();
-    if (!Closed) {
-        segmentCount--;
-    }
-
     bool RenderPipelineCompatible = true;
     // check here if the gradient has been set, if has then check it fits into the render pipeline
     // otherwise render it as a normal shape.
@@ -34,13 +29,18 @@ void CPP_PolygonShape::Render(float ShapeQuality) {
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba(), segmentCount * 6);
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba());
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;
         }
 
         if (Changed) {
+            unsigned int segmentCount = ShapePoints.size();
+            if (!Closed) {
+                segmentCount--;
+            }
+
             float RotationSin = sin(Rotation);
             float RotationCos = cos(Rotation);
 
