@@ -7,7 +7,6 @@
 using namespace std;
 
 CPP_Shape2D_RenderPipelineManager::CPP_Shape2D_RenderPipelineManager() {
-    combined_vertexes.reserve(PMMA::RenderPipelineCore->Shape2D_AverageRenderPipelineManagerSize);
     glGenVertexArrays(1, &vao);
     glGenBuffers(1, &vbo);
     glGenBuffers(1, &ubo);
@@ -43,12 +42,14 @@ void CPP_Shape2D_RenderPipelineManager::Reset() {
     }
 
     SamplesOfColor = 0;
+
+    shape_colors.clear();
 }
 
 GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color) {
     SamplesOfColor++;
     if (shape_colors.empty()) {
-        shape_colors.emplace_back(Color);
+        shape_colors.push_back(Color);
         return 0;
     }
 
@@ -73,6 +74,7 @@ GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color) {
         TotalColorSearchTime += chrono::duration<float>(end - start);
     }
 
+    shape_colors.push_back(Color);
     return static_cast<GLuint>(shape_colors.size());
 }
 

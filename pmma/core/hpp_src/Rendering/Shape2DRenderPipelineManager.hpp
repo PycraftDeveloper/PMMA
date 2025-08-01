@@ -78,26 +78,16 @@ class CPP_Shape2D_RenderPipelineManager {
                     } else {
                         PreviousRenderContent.erase(PreviousRenderContent.begin() + currentIndex, PreviousRenderContent.end());
                         combined_vertexes.erase(combined_vertexes.begin() + existingOffset, combined_vertexes.end());
-                        shape_colors.resize(currentIndex);
                         insertPos = existingOffset;
                     }
                 } else {
                     PreviousRenderContent.erase(PreviousRenderContent.begin() + currentIndex, PreviousRenderContent.end());
                     combined_vertexes.erase(combined_vertexes.begin() + existingOffset, combined_vertexes.end());
-                    shape_colors.resize(currentIndex);
                     insertPos = existingOffset;
                 }
             }
 
             Changed = true;
-
-            const glm::vec4 color = TargetPtr->ColorFormat->Get_rgba();
-
-            if (currentIndex < shape_colors.size()) {
-                shape_colors[currentIndex] = color;
-            } else {
-                shape_colors.emplace_back(color);
-            }
 
             const auto& vertices = TargetPtr->RenderPipelineVertexData;
 

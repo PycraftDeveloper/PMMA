@@ -48,7 +48,6 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
             Changed = true;
             ColorIndex = newColorIndex;
         }
-        cout << "Color Index: " << ColorIndex << endl;
 
         if (Changed) {
             unsigned int InternalPointCount = PointCount;

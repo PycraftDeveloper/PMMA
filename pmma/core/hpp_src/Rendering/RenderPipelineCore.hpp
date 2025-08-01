@@ -29,8 +29,6 @@ class CPP_RenderPipelineCore {
         unsigned int MaxSize;
         GLuint shader;
 
-        unsigned int Shape2D_AverageRenderPipelineManagerSize = 0;
-
         CPP_RenderPipelineCore();
         ~CPP_RenderPipelineCore();
 
@@ -41,14 +39,7 @@ class CPP_RenderPipelineCore {
         template<typename T>
         inline void AddObject(T* RenderObject, bool RenderPipelineCompatable) {
             if (RenderData.empty()) {
-                if (RenderPipelineCompatable) {
-                    if (Shape_2D_RenderManagerCache.empty()) {
-                        RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
-                    } else {
-                        RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
-                        Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
-                    }
-                } else {
+                if (!RenderPipelineCompatable) {
                     RenderData.emplace_back(RenderObject);
                     return;
                 }
@@ -61,30 +52,6 @@ class CPP_RenderPipelineCore {
                 if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&lastVariant)) {
                     if ((*managerPtr)->shape_colors.size() < MaxSize) {
                         (*managerPtr)->AddRenderTarget(RenderObject);
-                    } else {
-                        // Manager full — add new one and push to it
-                        if (Shape_2D_RenderManagerCache.empty()) {
-                            RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
-                        } else {
-                            RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
-                            Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
-                        }
-                        auto& newVariant = RenderData.back();
-                        if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
-                            (*newManagerPtr)->AddRenderTarget(RenderObject);
-                        }
-                    }
-                } else {
-                    // Last item is NOT a CPP_Shape2D_RenderPipelineManager — add a new one
-                    if (Shape_2D_RenderManagerCache.empty()) {
-                        RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
-                    } else {
-                        RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
-                        Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
-                    }
-                    auto& newVariant = RenderData.back();
-                    if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
-                        (*newManagerPtr)->AddRenderTarget(RenderObject);
                     }
                 }
             } else {
@@ -94,7 +61,7 @@ class CPP_RenderPipelineCore {
 
         void AddObject(CPP_TextRenderer* RenderObject);
 
-        inline GLuint Get_Shape2D_ColorIndex(glm::vec4 Color) { // Issue here with colors - trace and diagnose
+        inline GLuint Get_Shape2D_ColorIndex(glm::vec4 Color) {
             if (RenderData.empty()) {
                 if (!Shape_2D_RenderManagerCache.empty()) {
                     RenderData.emplace_back(Shape_2D_RenderManagerCache.front());

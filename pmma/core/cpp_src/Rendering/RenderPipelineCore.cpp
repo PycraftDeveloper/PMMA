@@ -46,27 +46,10 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
 void CPP_RenderPipelineCore::Render() {
     glUniformMatrix4fv(glGetUniformLocation(PMMA::RenderPipelineCore->shader, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA::DisplayInstance->GetDisplayProjection()));
 
-    unsigned int Shape2D_RenderPipelineTotalSize = 0;
-    unsigned int Shape2D_Samples = 0;
-
     for (auto& item : RenderData) {
-        if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&item)) {
-            Shape2D_RenderPipelineTotalSize += (*managerPtr)->combined_vertexes.size();
-            Shape2D_Samples++;
-        }
         std::visit([](auto* ptr) {
             ptr->InternalRender();
         }, item);
-    }
-
-    if (Shape2D_Samples > 0) {
-        unsigned int Average = Shape2D_RenderPipelineTotalSize / Shape2D_Samples;
-
-        if (Average > Shape2D_AverageRenderPipelineManagerSize * 1.1f) {
-            Shape2D_AverageRenderPipelineManagerSize = Average;
-        } else if (Average < Shape2D_AverageRenderPipelineManagerSize * 0.9f) {
-            Shape2D_AverageRenderPipelineManagerSize = Average;
-        }
     }
 }
 
