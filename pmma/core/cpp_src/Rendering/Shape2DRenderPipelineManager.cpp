@@ -30,7 +30,7 @@ void CPP_Shape2D_RenderPipelineManager::Reset() {
 
     unsigned int NumOfObjects = SeenThisFrame.size();
     SeenThisFrame.clear();
-    SeenThisFrame.reserve((unsigned int)(NumOfObjects * 1.1f));
+    SeenThisFrame.reserve(NumOfObjects + 10);
 }
 
 GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color, unsigned int ShapeID) {
