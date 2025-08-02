@@ -61,7 +61,7 @@ class CPP_RenderPipelineCore {
 
         void AddObject(CPP_TextRenderer* RenderObject);
 
-        inline GLuint Get_Shape2D_ColorIndex(glm::vec4 Color, unsigned int ShapeID) {
+        inline GLuint Shape2D_GetColorIndex(glm::vec4 Color, unsigned int ShapeID) {
             if (RenderData.empty()) {
                 if (!Shape_2D_RenderManagerCache.empty()) {
                     RenderData.emplace_back(Shape_2D_RenderManagerCache.front());

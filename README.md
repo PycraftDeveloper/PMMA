@@ -70,6 +70,7 @@ C/C++ projects (used in PMMA 5 and newer)
 * GLM - 0.9.3.2 - https://github.com/icaven/glm
 * GLAD - 2.0.8 - https://github.com/Dav1dde/glad
 * HarfBuzz - 11.2.1 - https://github.com/harfbuzz/harfbuzz
+* flat_hash_map - N/A - https://github.com/skarupke/flat_hash_map
 
 Python projects (used in PMMA 1 and newer)
 * PyAV - latest - https://github.com/PyAV-Org/PyAV

@@ -7,6 +7,7 @@
 #include <unordered_set>
 
 #include <glm/glm.hpp>
+#include <FlatHashMap/flat_hash_map.hpp>
 
 #include "Constants.hpp"
 #include "OpenGL.hpp"
@@ -42,8 +43,8 @@ class CPP_Shape2D_RenderPipelineManager {
         std::vector<std::pair<uint64_t, unsigned int>> PreviousRenderContent;
         unsigned int InsertionIndex = 0;
 
-        std::unordered_map<unsigned int, GLuint> ColorSlotID; // objectColorSlot
-        std::unordered_set<unsigned int> SeenThisFrame;
+        ska::flat_hash_map<unsigned int, GLuint> ColorSlotID; // objectColorSlot
+        ska::flat_hash_set<unsigned int> SeenThisFrame;
         std::vector<GLuint> FreeSlots;
 
         GLuint vao, vbo, ubo;

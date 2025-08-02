@@ -43,7 +43,7 @@ void CPP_ArcShape::Render(float ShapeQuality) {
             return;
         }
 
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Get_Shape2D_ColorIndex(ColorFormat->Get_rgba(), ID);
+        GLuint newColorIndex = PMMA::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
         if (newColorIndex != ColorIndex) {
             Changed = true;
             ColorIndex = newColorIndex;

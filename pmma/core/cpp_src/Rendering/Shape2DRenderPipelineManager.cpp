@@ -19,18 +19,22 @@ CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
 }
 
 void CPP_Shape2D_RenderPipelineManager::Reset() {
-    for (auto it = ColorSlotID.begin(); it != ColorSlotID.end(); ) {
-        if (SeenThisFrame.count(it->first) == 0) {
-            FreeSlots.push_back(it->second);
-            it = ColorSlotID.erase(it);
-        } else {
-            ++it;
+    vector<unsigned int> RecycleList;
+
+    for (const auto& [shapeID, slot] : ColorSlotID) {
+        if (SeenThisFrame.find(shapeID) == SeenThisFrame.end()) {
+            FreeSlots.push_back(slot);
+            RecycleList.push_back(shapeID);
         }
     }
 
-    unsigned int NumOfObjects = SeenThisFrame.size();
+    // Batch erase after iteration
+    for (unsigned int shapeID : RecycleList) {
+        ColorSlotID.erase(shapeID);
+    }
+    RecycleList.clear();
+
     SeenThisFrame.clear();
-    SeenThisFrame.reserve(NumOfObjects + 10);
 }
 
 GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color, unsigned int ShapeID) {
@@ -39,7 +43,8 @@ GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color, unsigne
     auto found = ColorSlotID.find(ShapeID);
     if (found != ColorSlotID.end()) {
         GLuint slot = found->second;
-        shape_colors[slot] = Color;        // update if the color changed
+        if (shape_colors[slot] != Color)
+            shape_colors[slot] = Color; // Avoid unnecessary writes
         return slot;
     }
 
