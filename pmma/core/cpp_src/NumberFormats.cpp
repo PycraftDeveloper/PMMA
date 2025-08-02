@@ -23,15 +23,14 @@ void CPP_DisplayCoordinateFormat::GenerateFromPerlinNoise(float value) {
     }
 
     glm::vec2 new_coordinate;
-    float in_range[2] = {-1, 1};
 
     float x_range[2] = {0, (float)PMMA::DisplayInstance->GetWidth()};
-    float x_value = PerlinNoiseGenerator->Noise2D(0, value + x_offset);
-    new_coordinate.x = CPP_AdvancedMathematics::Ranger(x_value, in_range, x_range);
+    float x_value = X_PerlinNoiseGenerator->Noise1D(value + x_offset);
+    new_coordinate.x = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
 
     float y_range[2] = {1, (float)PMMA::DisplayInstance->GetWidth()};
-    float y_value = PerlinNoiseGenerator->Noise2D(0, value + y_offset);
-    new_coordinate.y = CPP_AdvancedMathematics::Ranger(y_value, in_range, y_range);
+    float y_value = Y_PerlinNoiseGenerator->Noise1D(value + y_offset);
+    new_coordinate.y = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
 
     if (new_coordinate != DisplayCoordinate) {
         DisplayCoordinate = new_coordinate;
@@ -50,15 +49,14 @@ void CPP_DisplayCoordinateFormat::GenerateFromFractalBrownianMotion(float value)
     }
 
     glm::vec2 new_coordinate;
-    float in_range[2] = {-1, 1};
 
     float x_range[2] = {0, (float)PMMA::DisplayInstance->GetWidth()};
-    float x_value = FractalBrownianMotionGenerator->Noise2D(0, value + x_offset);
-    new_coordinate.x = CPP_AdvancedMathematics::Ranger(x_value, in_range, x_range);
+    float x_value = X_FractalBrownianMotionGenerator->Noise1D(value + x_offset);
+    new_coordinate.x = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
 
     float y_range[2] = {1, (float)PMMA::DisplayInstance->GetWidth()};
-    float y_value = FractalBrownianMotionGenerator->Noise2D(0, value + y_offset);
-    new_coordinate.y = CPP_AdvancedMathematics::Ranger(y_value, in_range, y_range);
+    float y_value = Y_FractalBrownianMotionGenerator->Noise1D(value + y_offset);
+    new_coordinate.y = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
 
     if (new_coordinate != DisplayCoordinate) {
         DisplayCoordinate = new_coordinate;

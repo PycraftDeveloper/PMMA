@@ -23,6 +23,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetRotation(float rotation) except + nogil
 
+        inline unsigned int GetRadius() except + nogil
+
         void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_RectangleShape:
@@ -119,6 +121,9 @@ cdef class RadialPolygon:
 
     def set_radius(self, radius):
         self.cpp_class_ptr.SetRadius(radius)
+
+    def get_radius(self):
+        return self.cpp_class_ptr.GetRadius()
 
     def set_point_count(self, point_count):
         self.cpp_class_ptr.SetPointCount(point_count)

@@ -60,6 +60,10 @@ class EXPORT CPP_RadialPolygonShape {
             RadiusSet = true;
         };
 
+        inline unsigned int GetRadius() {
+            return Radius;
+        };
+
         inline void SetPointCount(unsigned int in_pointCount) {
             if (PointCountSet && in_pointCount != PointCount) {
                 Changed = true;

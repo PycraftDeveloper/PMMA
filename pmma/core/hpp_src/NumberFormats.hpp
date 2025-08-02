@@ -10,8 +10,15 @@
 
 class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
     private:
-        CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
-        CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
+        CPP_PerlinNoise* R_PerlinNoiseGenerator = nullptr;
+        CPP_PerlinNoise* G_PerlinNoiseGenerator = nullptr;
+        CPP_PerlinNoise* B_PerlinNoiseGenerator = nullptr;
+        CPP_PerlinNoise* A_PerlinNoiseGenerator = nullptr;
+
+        CPP_FractalBrownianMotion* R_FractalBrownianMotionGenerator = nullptr;
+        CPP_FractalBrownianMotion* G_FractalBrownianMotionGenerator = nullptr;
+        CPP_FractalBrownianMotion* B_FractalBrownianMotionGenerator = nullptr;
+        CPP_FractalBrownianMotion* A_FractalBrownianMotionGenerator = nullptr;
 
         uint32_t seed;
         uint32_t octaves;
@@ -24,22 +31,46 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         float b_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
         float a_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
 
+        const float noise_range[2] = {-1.f, 1.f};
+        const float color_range[2] = {0.f, 1.f};
+
         bool Configured = false;
 
     public:
         ~CPP_ColorFormat() {
             if (Configured) {
-                delete PerlinNoiseGenerator;
-                delete FractalBrownianMotionGenerator;
+                delete R_PerlinNoiseGenerator;
+                delete G_PerlinNoiseGenerator;
+                delete B_PerlinNoiseGenerator;
+                delete A_PerlinNoiseGenerator;
 
-                PerlinNoiseGenerator = nullptr;
-                FractalBrownianMotionGenerator = nullptr;
+                delete R_FractalBrownianMotionGenerator;
+                delete G_FractalBrownianMotionGenerator;
+                delete B_FractalBrownianMotionGenerator;
+                delete A_FractalBrownianMotionGenerator;
+
+                R_PerlinNoiseGenerator = nullptr;
+                G_PerlinNoiseGenerator = nullptr;
+                B_PerlinNoiseGenerator = nullptr;
+                A_PerlinNoiseGenerator = nullptr;
+
+                R_FractalBrownianMotionGenerator = nullptr;
+                G_FractalBrownianMotionGenerator = nullptr;
+                B_FractalBrownianMotionGenerator = nullptr;
+                A_FractalBrownianMotionGenerator = nullptr;
             }
         }
 
         inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+            R_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
+            G_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);
+            B_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 2);
+            A_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 3);
+
+            R_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+            G_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, new_octaves, new_frequency, new_amplitude);
+            B_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 2, new_octaves, new_frequency, new_amplitude);
+            A_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 3, new_octaves, new_frequency, new_amplitude);
 
             srand(new_seed);
 
@@ -67,7 +98,6 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         }
 
         inline void GenerateFromRandom() {
-            float color_range[2] = {0, 1};
             glm::vec4 converted_in_color = glm::vec4(
                 CPP_AdvancedMathematics::RandomFloat(color_range),
                 CPP_AdvancedMathematics::RandomFloat(color_range),
@@ -88,17 +118,12 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 throw runtime_error("You need to configure this component first!");
             }
 
-            float BatchedColorGeneration[4][2] = {
-                {0, value + r_offset},
-                {1, value + g_offset},
-                {2, value + b_offset},
-                {3, value + a_offset}};
-
             float OutputColor[4];
-            PerlinNoiseGenerator->ArrayNoise2D(BatchedColorGeneration, 4, OutputColor);
+            OutputColor[0] = R_PerlinNoiseGenerator->Noise1D(value + r_offset);
+            OutputColor[1] = G_PerlinNoiseGenerator->Noise1D(value + g_offset);
+            OutputColor[2] = B_PerlinNoiseGenerator->Noise1D(value + b_offset);
+            OutputColor[3] = A_PerlinNoiseGenerator->Noise1D(value + a_offset);
 
-            float noise_range[2] = {-1, 1};
-            float color_range[2] = {0, 1};
             CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
 
             glm::vec4 converted_in_color = glm::vec4(
@@ -121,16 +146,12 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 throw runtime_error("You need to configure this component first!");
             }
 
-            float BatchedColorGeneration[4][2] = {
-                {0, value + r_offset},
-                {1, value + g_offset},
-                {2, value + b_offset},
-                {3, value + a_offset}};
-
             float OutputColor[4];
-            FractalBrownianMotionGenerator->ArrayNoise2D(BatchedColorGeneration, 4, OutputColor);
-            float noise_range[2] = {-1, 1};
-            float color_range[2] = {0, 1};
+            OutputColor[0] = R_FractalBrownianMotionGenerator->Noise1D(value + r_offset);
+            OutputColor[1] = G_FractalBrownianMotionGenerator->Noise1D(value + g_offset);
+            OutputColor[2] = B_FractalBrownianMotionGenerator->Noise1D(value + b_offset);
+            OutputColor[3] = A_FractalBrownianMotionGenerator->Noise1D(value + a_offset);
+
             CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
 
             glm::vec4 converted_in_color = glm::vec4(
@@ -151,8 +172,11 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
 class EXPORT CPP_DisplayCoordinateFormat {
     private:
-        CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
-        CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
+        CPP_PerlinNoise* X_PerlinNoiseGenerator = nullptr;
+        CPP_PerlinNoise* Y_PerlinNoiseGenerator = nullptr;
+
+        CPP_FractalBrownianMotion* X_FractalBrownianMotionGenerator = nullptr;
+        CPP_FractalBrownianMotion* Y_FractalBrownianMotionGenerator = nullptr;
 
         glm::vec2 DisplayCoordinate = {0.f, 0.f}; // Default display coordinate is (0, 0)
 
@@ -165,6 +189,8 @@ class EXPORT CPP_DisplayCoordinateFormat {
         float x_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
         float y_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
 
+        const float noise_range[2] = {-1.f, 1.f};
+
         bool IsSet = false;
         bool Changed = true;
         bool Configured = false;
@@ -172,17 +198,26 @@ class EXPORT CPP_DisplayCoordinateFormat {
     public:
         ~CPP_DisplayCoordinateFormat() {
             if (Configured) {
-                delete PerlinNoiseGenerator;
-                delete FractalBrownianMotionGenerator;
+                delete X_PerlinNoiseGenerator;
+                delete Y_PerlinNoiseGenerator;
 
-                PerlinNoiseGenerator = nullptr;
-                FractalBrownianMotionGenerator = nullptr;
+                delete X_FractalBrownianMotionGenerator;
+                delete Y_FractalBrownianMotionGenerator;
+
+                X_PerlinNoiseGenerator = nullptr;
+                Y_PerlinNoiseGenerator = nullptr;
+
+                X_FractalBrownianMotionGenerator = nullptr;
+                Y_FractalBrownianMotionGenerator = nullptr;
             }
         }
 
         inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+            X_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
+            Y_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);
+
+            X_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+            Y_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, new_octaves, new_frequency, new_amplitude);
 
             srand(new_seed);
 
@@ -277,6 +312,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
         float frequency;
         float amplitude;
 
+        const float noise_range[2] = {-1.f, 1.f};
+        const float angle_range[2] = {0.f, 3.14159265358979323846f * 2};
+
         bool Configured = false;
 
     public:
@@ -318,7 +356,6 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
         }
 
         inline void GenerateFromRandom() {
-            float angle_range[2] = {0, 3.14159265358979323846f * 2};
             float converted_in_angle = CPP_AdvancedMathematics::RandomFloat(angle_range);
 
             if (converted_in_angle != InternalAngle) {
@@ -335,8 +372,6 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
             }
 
             InternalAngle = PerlinNoiseGenerator->Noise1D(value);
-            float noise_range[] = {-1, 1};
-            float angle_range[] = {0, 3.14159265358979323846f * 2};
             float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
 
             if (converted_in_angle != InternalAngle) {
@@ -353,8 +388,6 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
             }
 
             InternalAngle = FractalBrownianMotionGenerator->Noise1D(value);
-            float noise_range[] = {-1, 1};
-            float angle_range[] = {0, 3.14159265358979323846f * 2};
             float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
 
             if (converted_in_angle != InternalAngle) {
@@ -375,6 +408,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
         uint32_t octaves;
         float frequency;
         float amplitude;
+
+        const float noise_range[2] = {-1.f, 1.f};
+        const float proportion_range[2] = {0.f, 1.f};
 
         bool Configured = false;
 
@@ -417,7 +453,6 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
         }
 
         inline void GenerateFromRandom() {
-            float proportion_range[2] = {0, 1};
             float converted_in_proportion = CPP_AdvancedMathematics::RandomFloat(proportion_range);
 
             if (converted_in_proportion != InternalProportion) {
@@ -434,9 +469,7 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
             }
 
             InternalProportion = PerlinNoiseGenerator->Noise1D(value);
-            float perlin_range[2] = {-1, 1};
-            float proportion_range[2] = {0, 1};
-            float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, perlin_range, proportion_range);
+            float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
 
             if (converted_in_proportion != InternalProportion) {
                 Changed = true;
@@ -452,9 +485,7 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
             }
 
             InternalProportion = FractalBrownianMotionGenerator->Noise1D(value);
-            float perlin_range[2] = {-1, 1};
-            float proportion_range[2] = {0, 1};
-            float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, perlin_range, proportion_range);
+            float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
 
             if (converted_in_proportion != InternalProportion) {
                 Changed = true;
