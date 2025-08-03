@@ -12,6 +12,8 @@
 
 class EXPORT CPP_LineShape {
     public:
+        CPP_DisplayCoordinateFormat* ShapeStart;
+        CPP_DisplayCoordinateFormat* ShapeEnd;
         CPP_ColorFormat* ColorFormat;
 
         std::vector<glm::vec2> VertexData;
@@ -19,52 +21,30 @@ class EXPORT CPP_LineShape {
 
         std::vector<Vertex> RenderPipelineVertexData;
 
-        glm::vec2 StartPosition;
-        glm::vec2 EndPosition;
-
         float Rotation = 0;
 
         uint64_t ID;
         GLuint ColorIndex;
         unsigned int Width = 1;
 
-        bool StartPositionSet = false;
-        bool EndPositionSet = false;
         bool HasAlpha = false;
         bool Changed = true;
 
         CPP_LineShape();
 
         ~CPP_LineShape() {
+            delete ShapeStart;
+            delete ShapeEnd;
             delete ColorFormat;
+
+            ShapeStart = nullptr;
+            ShapeEnd = nullptr;
             ColorFormat = nullptr;
         }
 
         void Render(float ShapeQuality);
 
         void InternalRender();
-
-        inline void SetStartPosition(unsigned int* in_start_position) {
-            if (StartPositionSet && (in_start_position[0] != StartPosition.x || in_start_position[1] != StartPosition.y)) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            StartPosition = glm::vec2(in_start_position[0], in_start_position[1]);
-            StartPositionSet = true;
-        };
-
-        inline void SetEndPosition(unsigned int* in_end_position) {
-            if (EndPositionSet && (in_end_position[0] != EndPosition.x || in_end_position[1] != EndPosition.y)) {
-                Changed = true;
-                RenderPipelineVertexData.clear();
-                VertexData.clear();
-            }
-
-            EndPosition = glm::vec2(in_end_position[0], in_end_position[1]);
-            EndPositionSet = true;
-        };
 
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
@@ -76,6 +56,10 @@ class EXPORT CPP_LineShape {
             Width = in_width;
         };
 
+        inline unsigned int GetWidth() const {
+            return Width;
+        }
+
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 Changed = true;
@@ -84,5 +68,9 @@ class EXPORT CPP_LineShape {
             }
 
             Rotation = in_rotation;
+        }
+
+        inline float GetRotation() const {
+            return Rotation;
         }
 };

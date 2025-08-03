@@ -9,6 +9,23 @@ CPP_ArcShape::CPP_ArcShape() {
     ID = PMMA::ClassObject_ID_System++;
 }
 
+unsigned int CPP_ArcShape::GetPointCount(float ShapeQuality) {
+    if (PointCount == 0) {
+        float minAngle = asin(1.0f / Radius);
+        float angle_scale = (EndAngle - StartAngle)/(CPP_Constants::TAU);
+        if (angle_scale <= 0) {
+            return 3;
+        }
+        if (angle_scale > 1) {
+            angle_scale = 1;
+        }
+        return max(
+            3,
+            static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality * angle_scale));
+    }
+    return PointCount;
+}
+
 void CPP_ArcShape::Render(float ShapeQuality) {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();

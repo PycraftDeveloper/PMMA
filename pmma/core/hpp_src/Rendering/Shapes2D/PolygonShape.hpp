@@ -61,6 +61,24 @@ class EXPORT CPP_PolygonShape {
             PointsSet = true;
         }
 
+        inline void GetPoints(unsigned int (*out_points)[2]) {
+            if (!PointsSet) {
+                throw std::runtime_error("Points not set!");
+            }
+
+            for (unsigned int i = 0; i < ShapePoints.size(); i++) {
+                out_points[i][0] = static_cast<unsigned int>(ShapePoints[i].x);
+                out_points[i][1] = static_cast<unsigned int>(ShapePoints[i].y);
+            }
+        }
+
+        inline unsigned int GetPointCount() const {
+            if (!PointsSet) {
+                throw std::runtime_error("Points not set!");
+            }
+            return static_cast<unsigned int>(ShapePoints.size());
+        }
+
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
                 Changed = true;
@@ -70,6 +88,10 @@ class EXPORT CPP_PolygonShape {
 
             Width = in_width;
         };
+
+        inline unsigned int GetWidth() const {
+            return Width;
+        }
 
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
@@ -81,6 +103,10 @@ class EXPORT CPP_PolygonShape {
             Rotation = in_rotation;
         }
 
+        inline float GetRotation() const {
+            return Rotation;
+        }
+
         inline void SetClosed(bool in_closed) {
             if (in_closed != Closed) {
                 Changed = true;
@@ -89,5 +115,9 @@ class EXPORT CPP_PolygonShape {
             }
 
             Closed = in_closed;
+        }
+
+        inline bool GetClosed() const {
+            return Closed;
         }
 };

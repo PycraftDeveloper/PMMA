@@ -82,6 +82,15 @@ class EXPORT CPP_RectangleShape {
             SizeSet = true;
         };
 
+        inline void GetSize(unsigned int* out_size) {
+            if (!SizeSet) {
+                throw std::runtime_error("Size not set!");
+            }
+
+            out_size[0] = static_cast<unsigned int>(ShapeSize.x);
+            out_size[1] = static_cast<unsigned int>(ShapeSize.y);
+        }
+
         inline void SetWidth(unsigned int in_width) {
             if (WidthSet && in_width != Width) {
                 Changed = true;
@@ -93,6 +102,10 @@ class EXPORT CPP_RectangleShape {
             WidthSet = true;
         };
 
+        inline unsigned int GetWidth() const {
+            return Width;
+        }
+
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 Changed = true;
@@ -103,6 +116,10 @@ class EXPORT CPP_RectangleShape {
             Rotation = in_rotation;
         }
 
+        inline float GetRotation() const {
+            return Rotation;
+        }
+
         inline void SetCornerRadius(unsigned int in_corner_radius) {
             if (in_corner_radius != CornerRadius) {
                 Changed = true;
@@ -111,5 +128,9 @@ class EXPORT CPP_RectangleShape {
             }
 
             CornerRadius = in_corner_radius;
+        }
+
+        inline unsigned int GetCornerRadius() const {
+            return CornerRadius;
         }
 };

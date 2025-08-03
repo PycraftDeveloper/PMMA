@@ -75,6 +75,8 @@ class EXPORT CPP_RadialPolygonShape {
             PointCountSet = true;
         };
 
+        unsigned int GetPointCount(float ShapeQuality);
+
         inline void SetWidth(unsigned int in_width) {
             if (WidthSet && in_width != Width) {
                 Changed = true;
@@ -86,6 +88,10 @@ class EXPORT CPP_RadialPolygonShape {
             WidthSet = true;
         };
 
+        inline unsigned int GetWidth() const {
+            return Width;
+        }
+
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 Changed = true;
@@ -94,5 +100,9 @@ class EXPORT CPP_RadialPolygonShape {
             }
 
             Rotation = in_rotation;
+        }
+
+        inline float GetRotation() const {
+            return Rotation;
         }
 };

@@ -202,5 +202,8 @@ pmma/extern/include/*
 !pmma/extern/include/glm/
 !pmma/extern/include/glm/**
 
+!pmma/extern/include/FlatHashMap/
+!pmma/extern/include/FlatHashMap/**
+
 # ignore build
 build/*

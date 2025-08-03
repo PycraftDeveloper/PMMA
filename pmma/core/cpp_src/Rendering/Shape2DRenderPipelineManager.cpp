@@ -34,7 +34,9 @@ void CPP_Shape2D_RenderPipelineManager::Reset() {
     }
     RecycleList.clear();
 
+    unsigned int SeenThisFrameSize = SeenThisFrame.size();
     SeenThisFrame.clear();
+    SeenThisFrame.reserve(SeenThisFrameSize + 25);
 }
 
 GLuint CPP_Shape2D_RenderPipelineManager::GetColorIndex(glm::vec4 Color, unsigned int ShapeID) {

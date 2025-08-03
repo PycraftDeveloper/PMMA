@@ -24,6 +24,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetRotation(float rotation) except + nogil
 
         inline unsigned int GetRadius() except + nogil
+        inline unsigned int GetPointCount(float ShapeQuality) except + nogil
+        inline unsigned int GetWidth() except + nogil
+        inline float GetRotation() except + nogil
 
         void Render(float ShapeQuality) except + nogil
 
@@ -31,11 +34,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         CPP_DisplayCoordinateFormat* ShapeCenterFormat
         CPP_ColorFormat* ColorFormat
 
-        inline void SetCenter(unsigned int* in_position) except + nogil
         inline void SetCornerRadius(unsigned int in_corner_radius) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetRotation(float rotation) except + nogil
         inline void SetSize(unsigned int* in_size) except + nogil
+
+        inline unsigned int GetCornerRadius() except + nogil
+        inline unsigned int GetWidth() except + nogil
+        inline float GetRotation() except + nogil
+        inline void GetSize(unsigned int* out_size) except + nogil
 
         void Render(float ShapeQuality) except + nogil
 
@@ -46,12 +53,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_LineShape:
+        CPP_DisplayCoordinateFormat* ShapeStart
+        CPP_DisplayCoordinateFormat* ShapeEnd
         CPP_ColorFormat* ColorFormat
 
         inline void SetRotation(float rotation) except + nogil
-        inline void SetStartPosition(unsigned int* in_start_position) except + nogil
-        inline void SetEndPosition(unsigned int* in_end_position) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
+
+        inline unsigned int GetWidth() except + nogil
+        inline float GetRotation() except + nogil
 
         void Render(float ShapeQuality) except + nogil
 
@@ -62,6 +72,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetPoints(unsigned int (*in_points)[2], unsigned int count) except + nogil
         inline void SetClosed(bool in_closed) except + nogil
+
+        inline unsigned int GetWidth() except + nogil
+        inline float GetRotation() except + nogil
+        inline void GetPoints(unsigned int (*out_points)[2]) except + nogil
+        inline bool GetClosed() except + nogil
+        inline unsigned int GetPointCount() except + nogil
 
         void Render(float ShapeQuality) except + nogil
 
@@ -76,6 +92,13 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetPointCount(unsigned int in_point_count) except + nogil
         inline void SetRadius(unsigned int in_radius) except + nogil
 
+        inline float GetRotation() except + nogil
+        inline unsigned int GetWidth() except + nogil
+        inline float GetStartAngle() except + nogil
+        inline float GetEndAngle() except + nogil
+        inline unsigned int GetPointCount(float ShapeQuality) except + nogil
+        inline unsigned int GetRadius() except + nogil
+
         void Render(float ShapeQuality) except + nogil
 
     cdef cppclass CPP_EllipseShape:
@@ -86,6 +109,11 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetWidth(unsigned int in_width) except + nogil
         inline void SetRotation(float rotation) except + nogil
         inline void SetSize(unsigned int* in_size) except + nogil
+
+        inline unsigned int GetPointCount(float ShapeQuality) except + nogil
+        inline unsigned int GetWidth() except + nogil
+        inline float GetRotation() except + nogil
+        inline void GetSize(unsigned int* out_size) except + nogil
 
         void Render(float ShapeQuality) except + nogil
 
@@ -128,17 +156,27 @@ cdef class RadialPolygon:
     def set_point_count(self, point_count):
         self.cpp_class_ptr.SetPointCount(point_count)
 
+    def get_point_count(self):
+        return self.cpp_class_ptr.GetPointCount(1)
+
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
 
+    def get_width(self):
+        return self.cpp_class_ptr.GetWidth()
+
     def set_rotation(self, rotation):
         self.cpp_class_ptr.SetRotation(rotation)
+
+    def get_rotation(self):
+        return self.cpp_class_ptr.GetRotation()
 
 cdef class Rectangle:
     cdef:
         CPP_RectangleShape* cpp_class_ptr
         DisplayCoordinate cpp_shape_center_format
         Color cpp_color_format
+        bool using_numpy_arrays
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_RectangleShape()
@@ -148,6 +186,8 @@ cdef class Rectangle:
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+
+        self.using_numpy_arrays = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -171,21 +211,47 @@ cdef class Rectangle:
 
         if not isinstance(size, np.ndarray) or size.dtype != np.uint32 or not size.flags['C_CONTIGUOUS']:
             size_np = np.array(size, dtype=np.uint32, order='C')
+            self.using_numpy_arrays = False
         else:
             size_np = size
+            self.using_numpy_arrays = True
 
         size_ptr = <unsigned int*>&size_np[0]
 
         self.cpp_class_ptr.SetSize(size_ptr)
 
+    def get_size(self):
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] size_np
+            unsigned int* size_ptr
+
+        size_np = np.empty(2, dtype=np.uint32, order='C')
+        size_ptr = <unsigned int*>&size_np[0]
+
+        self.cpp_class_ptr.GetSize(size_ptr)
+
+        if self.using_numpy_arrays:
+            return size_np
+        else:
+            return size_np.tolist()
+
     def set_corner_radius(self, corner_radius):
         self.cpp_class_ptr.SetCornerRadius(corner_radius)
+
+    def get_corner_radius(self):
+        return self.cpp_class_ptr.GetCornerRadius()
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
 
+    def get_width(self):
+        return self.cpp_class_ptr.GetWidth()
+
     def set_rotation(self, rotation):
         self.cpp_class_ptr.SetRotation(rotation)
+
+    def get_rotation(self):
+        return self.cpp_class_ptr.GetRotation()
 
 cdef class Pixel:
     cdef:
@@ -220,10 +286,18 @@ cdef class Pixel:
 cdef class Line:
     cdef:
         CPP_LineShape* cpp_class_ptr
+        DisplayCoordinate cpp_shape_start
+        DisplayCoordinate cpp_shape_end
         Color cpp_color_format
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_LineShape()
+
+        self.cpp_shape_start = DisplayCoordinate()
+        self.cpp_shape_start.set_pointer(self.cpp_class_ptr.ShapeStart)
+
+        self.cpp_shape_end = DisplayCoordinate()
+        self.cpp_shape_end.set_pointer(self.cpp_class_ptr.ShapeEnd)
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
@@ -239,50 +313,39 @@ cdef class Line:
         def __get__(self):
             return self.cpp_color_format
 
-    def set_start(self, start_position):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] start_position_np
-            unsigned int* start_position_ptr
+    property shape_start:
+        def __get__(self):
+            return self.cpp_shape_start
 
-        if not isinstance(start_position, np.ndarray) or start_position.dtype != np.uint32 or not start_position.flags['C_CONTIGUOUS']:
-            start_position_np = np.array(start_position, dtype=np.uint32, order='C')
-        else:
-            start_position_np = start_position
-
-        start_position_ptr = <unsigned int*>&start_position_np[0]
-
-        self.cpp_class_ptr.SetStartPosition(start_position_ptr)
-
-    def set_end(self, end_position):
-        cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] end_position_np
-            unsigned int* end_position_ptr
-
-        if not isinstance(end_position, np.ndarray) or end_position.dtype != np.uint32 or not end_position.flags['C_CONTIGUOUS']:
-            end_position_np = np.array(end_position, dtype=np.uint32, order='C')
-        else:
-            end_position_np = end_position
-
-        end_position_ptr = <unsigned int*>&end_position_np[0]
-
-        self.cpp_class_ptr.SetEndPosition(end_position_ptr)
+    property shape_end:
+        def __get__(self):
+            return self.cpp_shape_end
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
 
+    def get_width(self):
+        return self.cpp_class_ptr.GetWidth()
+
     def set_rotation(self, rotation):
         self.cpp_class_ptr.SetRotation(rotation)
+
+    def get_rotation(self):
+        return self.cpp_class_ptr.GetRotation()
 
 cdef class PolygonShape:
     cdef:
         CPP_PolygonShape* cpp_class_ptr
         Color cpp_color_format
+        bool using_numpy_arrays
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_PolygonShape()
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+
+        self.using_numpy_arrays = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -304,8 +367,10 @@ cdef class PolygonShape:
         # Ensure input is a C-contiguous NumPy array of shape (N, 2)
         if not isinstance(points, np.ndarray) or points.dtype != np.uint32 or not points.flags['C_CONTIGUOUS']:
             points_np = np.ascontiguousarray(points, dtype=np.uint32)
+            using_numpy_arrays = False
         else:
             points_np = points
+            using_numpy_arrays = True
 
         # Validate shape
         if points_np.ndim != 2 or points_np.shape[1] != 2:
@@ -316,14 +381,42 @@ cdef class PolygonShape:
 
         self.cpp_class_ptr.SetPoints(<unsigned int (*)[2]> points_ptr, num_points)
 
+    def get_point_count(self):
+        return self.cpp_class_ptr.GetPointCount()
+
+    def get_points(self):
+        cdef:
+            np.ndarray[np.uint32_t, ndim=2, mode='c'] points_np
+            unsigned int (*points_ptr)[2]
+
+        num_points = self.cpp_class_ptr.GetPointCount()
+        points_np = np.empty((num_points, 2), dtype=np.uint32, order='C')
+        points_ptr = <unsigned int (*)[2]> points_np.data
+
+        self.cpp_class_ptr.GetPoints(points_ptr)
+
+        if self.using_numpy_arrays:
+            return points_np
+        else:
+            return points_np.tolist()
+
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
+
+    def get_width(self):
+        return self.cpp_class_ptr.GetWidth()
 
     def set_rotation(self, rotation):
         self.cpp_class_ptr.SetRotation(rotation)
 
+    def get_rotation(self):
+        return self.cpp_class_ptr.GetRotation()
+
     def set_closed(self, closed):
         self.cpp_class_ptr.SetClosed(closed);
+
+    def get_closed(self):
+        return self.cpp_class_ptr.GetClosed()
 
 cdef class Arc:
     cdef:
@@ -358,26 +451,45 @@ cdef class Arc:
     def set_radius(self, radius):
         self.cpp_class_ptr.SetRadius(radius)
 
+    def get_radius(self):
+        return self.cpp_class_ptr.GetRadius()
+
     def set_point_count(self, point_count):
         self.cpp_class_ptr.SetPointCount(point_count)
+
+    def get_point_count(self):
+        return self.cpp_class_ptr.GetPointCount(1)
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
 
+    def get_width(self):
+        return self.cpp_class_ptr.GetWidth()
+
     def set_rotation(self, rotation):
         self.cpp_class_ptr.SetRotation(rotation)
+
+    def get_rotation(self):
+        return self.cpp_class_ptr.GetRotation()
 
     def set_start_angle(self, start_angle):
         self.cpp_class_ptr.SetStartAngle(start_angle)
 
+    def get_start_angle(self):
+        return self.cpp_class_ptr.GetStartAngle()
+
     def set_end_angle(self, end_angle):
         self.cpp_class_ptr.SetEndAngle(end_angle)
+
+    def get_end_angle(self):
+        return self.cpp_class_ptr.GetEndAngle()
 
 cdef class Ellipse:
     cdef:
         CPP_EllipseShape* cpp_class_ptr
         DisplayCoordinate cpp_shape_center_format
         Color cpp_color_format
+        bool using_numpy_arrays
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_EllipseShape()
@@ -387,6 +499,8 @@ cdef class Ellipse:
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+
+        self.using_numpy_arrays = False
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -410,21 +524,47 @@ cdef class Ellipse:
 
         if not isinstance(size, np.ndarray) or size.dtype != np.uint32 or not size.flags['C_CONTIGUOUS']:
             size_np = np.array(size, dtype=np.uint32, order='C')
+            self.using_numpy_arrays = False
         else:
             size_np = size
+            self.using_numpy_arrays = True
 
         size_ptr = <unsigned int*>&size_np[0]
 
         self.cpp_class_ptr.SetSize(size_ptr)
 
+    def get_size(self):
+        cdef:
+            np.ndarray[np.uint32_t, ndim=1, mode='c'] size_np
+            unsigned int* size_ptr
+
+        size_np = np.empty(2, dtype=np.uint32, order='C')
+        size_ptr = <unsigned int*>&size_np[0]
+
+        self.cpp_class_ptr.GetSize(size_ptr)
+
+        if self.using_numpy_arrays:
+            return size_np
+        else:
+            return size_np.tolist()
+
     def set_point_count(self, point_count):
         self.cpp_class_ptr.SetPointCount(point_count)
+
+    def get_point_count(self):
+        return self.cpp_class_ptr.GetPointCount(1)
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
 
+    def get_width(self):
+        return self.cpp_class_ptr.GetWidth()
+
     def set_rotation(self, rotation):
         self.cpp_class_ptr.SetRotation(rotation)
+
+    def get_rotation(self):
+        return self.cpp_class_ptr.GetRotation()
 
 # Complex shapes
 

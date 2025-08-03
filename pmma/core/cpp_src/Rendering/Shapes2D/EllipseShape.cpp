@@ -9,6 +9,15 @@ CPP_EllipseShape::CPP_EllipseShape() {
     ID = PMMA::ClassObject_ID_System++;
 }
 
+unsigned int CPP_EllipseShape::GetPointCount(float ShapeQuality) {
+    if (PointCount == 0) {
+        unsigned int Radius = CPP_AdvancedMathematics::PythagoreanDistance(ShapeSize.x, ShapeSize.y);
+        float minAngle = asin(1.0f / Radius);
+        return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
+    }
+    return PointCount;
+}
+
 void CPP_EllipseShape::Render(float ShapeQuality) {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();

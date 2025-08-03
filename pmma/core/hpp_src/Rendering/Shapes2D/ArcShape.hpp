@@ -60,6 +60,13 @@ class EXPORT CPP_ArcShape {
             StartAngleSet = true;
         };
 
+        inline float GetStartAngle() const {
+            if (!StartAngleSet) {
+                throw std::runtime_error("Start angle not set!");
+            }
+            return StartAngle;
+        }
+
         inline void SetEndAngle(float in_end_angle) {
             if (EndAngleSet && (in_end_angle != EndAngle)) {
                 Changed = true;
@@ -71,6 +78,13 @@ class EXPORT CPP_ArcShape {
             EndAngleSet = true;
         };
 
+        inline float GetEndAngle() const {
+            if (!EndAngleSet) {
+                throw std::runtime_error("End angle not set!");
+            }
+            return EndAngle;
+        }
+
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
                 Changed = true;
@@ -80,6 +94,10 @@ class EXPORT CPP_ArcShape {
 
             Width = in_width;
         };
+
+        inline unsigned int GetWidth() const {
+            return Width;
+        }
 
         inline void SetRadius(unsigned int in_radius) {
             if (in_radius != Radius) {
@@ -91,6 +109,13 @@ class EXPORT CPP_ArcShape {
             Radius = in_radius;
         };
 
+        inline unsigned int GetRadius() const {
+            if (!RadiusSet) {
+                throw std::runtime_error("Radius not set!");
+            }
+            return Radius;
+        }
+
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 Changed = true;
@@ -99,6 +124,10 @@ class EXPORT CPP_ArcShape {
             }
 
             Rotation = in_rotation;
+        }
+
+        inline float GetRotation() const {
+            return Rotation;
         }
 
         inline void SetPointCount(unsigned int in_point_count) {
@@ -110,4 +139,6 @@ class EXPORT CPP_ArcShape {
 
             PointCount = in_point_count;
         }
+
+        unsigned int GetPointCount(float ShapeQuality);
 };

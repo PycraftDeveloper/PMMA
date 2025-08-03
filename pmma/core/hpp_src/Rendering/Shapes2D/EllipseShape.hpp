@@ -57,6 +57,15 @@ class EXPORT CPP_EllipseShape {
             SizeSet = true;
         };
 
+        inline void GetSize(unsigned int* out_size) {
+            if (!SizeSet) {
+                throw std::runtime_error("Size not set!");
+            }
+
+            out_size[0] = (unsigned int)ShapeSize.x;
+            out_size[1] = (unsigned int)ShapeSize.y;
+        }
+
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
                 Changed = true;
@@ -66,6 +75,10 @@ class EXPORT CPP_EllipseShape {
 
             Width = in_width;
         };
+
+        inline unsigned int GetWidth() const {
+            return Width;
+        }
 
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
@@ -77,6 +90,10 @@ class EXPORT CPP_EllipseShape {
             Rotation = in_rotation;
         }
 
+        inline float GetRotation() const {
+            return Rotation;
+        }
+
         inline void SetPointCount(unsigned int in_point_count) {
             if (in_point_count != PointCount) {
                 Changed = true;
@@ -86,4 +103,6 @@ class EXPORT CPP_EllipseShape {
 
             PointCount = in_point_count;
         }
+
+        unsigned int GetPointCount(float ShapeQuality);
 };

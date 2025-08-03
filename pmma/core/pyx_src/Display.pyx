@@ -117,7 +117,6 @@ cdef class Display:
             unsigned int* size_ptr
 
         size_np = np.empty(2, dtype=np.uint32, order='C')
-
         size_ptr = <unsigned int*>&size_np[0]
 
         self.cpp_class_ptr.GetSize(size_ptr)

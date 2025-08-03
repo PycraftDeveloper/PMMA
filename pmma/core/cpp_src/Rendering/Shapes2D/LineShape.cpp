@@ -16,9 +16,17 @@ void CPP_LineShape::Render(float ShapeQuality) {
     if (!ColorFormat->GetSet()) {
         throw std::runtime_error("Shape has no color set");
     }
+    if (!ShapeStart->GetSet()) {
+        throw std::runtime_error("Shape start position not set");
+    }
+    if (!ShapeEnd->GetSet()) {
+        throw std::runtime_error("Shape end position not set");
+    }
 
     Changed = Changed ||
-                ColorFormat->GetChangedToggle();
+                ColorFormat->GetChangedToggle() ||
+                ShapeStart->GetChangedToggle() ||
+                ShapeEnd->GetChangedToggle();
 
     bool RenderPipelineCompatible = true;
     // check here if the gradient has been set, if has then check it fits into the render pipeline
@@ -36,6 +44,9 @@ void CPP_LineShape::Render(float ShapeQuality) {
         }
 
         if (Changed) {
+            glm::vec2 StartPosition = ShapeStart->Get();
+            glm::vec2 EndPosition = ShapeEnd->Get();
+
             unsigned int InternalWidth = Width;
 
             float RotationSin = sin(Rotation);
