@@ -275,7 +275,15 @@ else:
 
         os.makedirs(cmake_temp_dir, exist_ok=True)
 
-        subprocess.run(["cmake", "-DCMAKE_POLICY_VERSION_MINIMUM=3.5", cmake_dir, "-DBUILD_DEPS=OFF"], cwd=cmake_temp_dir, check=True)
+        subprocess.run(
+            ["cmake",
+                "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+                cmake_dir,
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
+                "-DBUILD_DEPS=OFF"],
+            cwd=cmake_temp_dir,
+            check=True)
 
     elif BUILD_DEPENDENCIES in to_do:
         print("Configuring dependencies & PMMA Core")
@@ -290,14 +298,28 @@ else:
 
         clean_deps()
 
-        subprocess.run(["cmake", "-DCMAKE_POLICY_VERSION_MINIMUM=3.5", cmake_dir, "-DBUILD_DEPS=ON"], cwd=cmake_temp_dir, check=True)
+        subprocess.run(
+            ["cmake",
+                "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
+                cmake_dir,
+                "-DCMAKE_BUILD_TYPE=Release",
+                "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
+                "-DBUILD_DEPS=ON"],
+            cwd=cmake_temp_dir,
+            check=True)
 
     if BUILD_CORE in to_do or BUILD_DEPENDENCIES in to_do:
         print("Building.")
 
-        build_command = ["cmake", "--build", ".", "--parallel", str(multiprocessing.cpu_count())]
-        if operating_system_type == "Windows":
-            build_command += ["--config", "Release"]
+        build_command = [
+            "cmake",
+            "--build",
+            ".",
+            "--parallel",
+            str(multiprocessing.cpu_count()),
+            "--config",
+            "Release"]
+
         subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
     if BUILD_CYTHON in to_do:
@@ -316,7 +338,10 @@ else:
             "--build-lib",
             build_dir,
             "--build-temp",
-            temp_dir]
+            temp_dir,
+            "--parallel",
+            str(multiprocessing.cpu_count()),
+            "--no-parallel"] # disable parallel building for easier debugging
 
         subprocess.run(command, check=True)
 

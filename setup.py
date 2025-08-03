@@ -111,6 +111,17 @@ packages = ['pmma']
 
 if __name__ == '__main__':
     multiprocessing.freeze_support()
+
+    use_parallel = True
+    if '--no-parallel' in sys.argv:
+        use_parallel = False
+        sys.argv.remove('--no-parallel')
+
+    if use_parallel:
+        cython_command = cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True, nthreads=multiprocessing.cpu_count())
+    else:
+        cython_command = cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True)
+
     setup(
         name="pmma",
         version="5.0.12",
@@ -132,5 +143,5 @@ if __name__ == '__main__':
         python_requires=">=3.8",
         install_requires=requirements,
         include_package_data=True,
-        ext_modules=cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True, nthreads=multiprocessing.cpu_count()),
+        ext_modules=cython_command, # nthreads=multiprocessing.cpu_count()
     )

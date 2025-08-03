@@ -20,6 +20,12 @@ file(MAKE_DIRECTORY ${CORE_LIB})
 
 find_program(CCACHE_PROGRAM ccache)
 
+include(ProcessorCount)
+ProcessorCount(NPROC)
+if(NOT DEFINED PARALLEL_CORES)
+    set(PARALLEL_CORES ${NPROC})
+endif()
+
 if(CCACHE_PROGRAM)
     message(STATUS "Using ccache for compilation")
     list(APPEND CMAKE_ARGS
@@ -36,15 +42,21 @@ if (BUILD_DEPS)
     ExternalProject_Add(stage1
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/1_build_deps_first_pass" # LibZ
         CMAKE_ARGS
+            -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
             ${CMAKE_ARGS}
+        BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Debug --parallel ${PARALLEL_CORES}
+        INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Debug
     )
 
     ExternalProject_Add(stage2
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/2_build_deps_second_pass" # libpng
         CMAKE_ARGS
+            -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
             ${CMAKE_ARGS}
+        BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Debug --parallel ${PARALLEL_CORES}
+        INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Debug
         DEPENDS stage1
     )
 
@@ -62,6 +74,7 @@ if (BUILD_DEPS)
     ExternalProject_Add(stage3
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/3_build_extern" # GLFW, FreeType, GLM
         CMAKE_ARGS
+            -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
             -DFT_DISABLE_BZIP2=ON
             -DFT_DISABLE_BROTLI=ON
@@ -73,6 +86,8 @@ if (BUILD_DEPS)
             -DPNG_LIBRARY=${PNG_LIBRARY}
             -DPNG_INCLUDE_DIR=${EXTERN_DIR}/include
             ${CMAKE_ARGS}
+        BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Debug --parallel ${PARALLEL_CORES}
+        INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Debug
         DEPENDS stage2
     )
 endif()
@@ -86,7 +101,10 @@ endif()
 ExternalProject_Add(stage4
     SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
     CMAKE_ARGS
+        -DCMAKE_BUILD_TYPE=Debug
         -DCMAKE_INSTALL_PREFIX=${ROOT}
+    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Debug --parallel ${PARALLEL_CORES}
+    INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Debug
     ${STAGE4_DEPENDS}
     BUILD_ALWAYS 1
 )
