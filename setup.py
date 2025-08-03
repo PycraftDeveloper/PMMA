@@ -117,10 +117,14 @@ if __name__ == '__main__':
         use_parallel = False
         sys.argv.remove('--no-parallel')
 
+    annotate_build = "--annotate_build" in sys.argv
+    if annotate_build:
+        sys.argv.remove("--annotate_build")
+
     if use_parallel:
-        cython_command = cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True, nthreads=multiprocessing.cpu_count())
+        cython_command = cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=annotate_build, nthreads=multiprocessing.cpu_count())
     else:
-        cython_command = cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True)
+        cython_command = cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=annotate_build)
 
     setup(
         name="pmma",

@@ -334,9 +334,8 @@ else:
             build_dir,
             "--build-temp",
             temp_dir,
-            "--parallel",
-            str(multiprocessing.cpu_count()),
-            "--no-parallel"] # disable parallel building for easier debugging
+            "--no-parallel", # disable parallel building for easier debugging
+            "--annotate_build"] # enable annotations
 
         subprocess.run(command, check=True)
 
