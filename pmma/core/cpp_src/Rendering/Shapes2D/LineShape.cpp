@@ -8,7 +8,7 @@ CPP_LineShape::CPP_LineShape() {
     ID = PMMA::ClassObject_ID_System++;
 }
 
-void CPP_LineShape::Render(float ShapeQuality) {
+void CPP_LineShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();

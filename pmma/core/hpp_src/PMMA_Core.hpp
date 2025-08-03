@@ -230,6 +230,8 @@ namespace PMMA {
     extern unsigned int ControllerEventInstanceCount;
     extern unsigned int DropEventInstanceCount;
 
+    extern float CurrentShapeQuality;
+
     extern int GLFW_References;
 
     extern bool GLFW_Initialized;

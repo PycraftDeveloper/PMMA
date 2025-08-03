@@ -42,7 +42,7 @@ class EXPORT CPP_EllipseShape {
             ColorFormat = nullptr;
         }
 
-        void Render(float ShapeQuality);
+        void Render();
 
         void InternalRender();
 
@@ -104,5 +104,5 @@ class EXPORT CPP_EllipseShape {
             PointCount = in_point_count;
         }
 
-        unsigned int GetPointCount(float ShapeQuality);
+        unsigned int GetPointCount();
 };

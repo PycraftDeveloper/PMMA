@@ -4,6 +4,7 @@ from setuptools import setup, Extension
 from Cython.Build import cythonize
 import sys, os
 import platform
+import multiprocessing
 
 import numpy
 
@@ -108,26 +109,28 @@ with open("requirements.txt", "r", encoding="utf-8") as req_file:
 
 packages = ['pmma']
 
-setup(
-    name="pmma",
-    version="5.0.12",
-    author="PycraftDev",
-    author_email="thomasjebbo@gmail.com",
-    description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/PycraftDeveloper/PMMA",
-    project_urls={
-        "Bug Tracker": "https://github.com/PycraftDeveloper/PMMA/issues",
-    },
-    classifiers=[
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
-    ],
-    packages=packages,  # Include the pmma package and all its sub-packages
-    python_requires=">=3.8",
-    install_requires=requirements,
-    include_package_data=True,
-    ext_modules=cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True),
-)
+if __name__ == '__main__':
+    multiprocessing.freeze_support()
+    setup(
+        name="pmma",
+        version="5.0.12",
+        author="PycraftDev",
+        author_email="thomasjebbo@gmail.com",
+        description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",
+        long_description=long_description,
+        long_description_content_type="text/markdown",
+        url="https://github.com/PycraftDeveloper/PMMA",
+        project_urls={
+            "Bug Tracker": "https://github.com/PycraftDeveloper/PMMA/issues",
+        },
+        classifiers=[
+            "Programming Language :: Python :: 3",
+            "License :: OSI Approved :: MIT License",
+            "Operating System :: OS Independent",
+        ],
+        packages=packages,  # Include the pmma package and all its sub-packages
+        python_requires=">=3.8",
+        install_requires=requirements,
+        include_package_data=True,
+        ext_modules=cythonize(ext_modules, compiler_directives={"language_level": "3"}, annotate=True, nthreads=multiprocessing.cpu_count()),
+    )

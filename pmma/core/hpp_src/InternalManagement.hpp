@@ -7,7 +7,7 @@
 struct PowerSavingManager {
     std::thread PowerSavingModeCheckingThread;
     std::condition_variable cv;
-    int updateCounter = 30.f; // Update every 30 seconds
+    unsigned int updateCounter = 30; // Update every 30 seconds
     bool running = true;
 };
 

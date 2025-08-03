@@ -45,7 +45,7 @@ class EXPORT CPP_ArcShape {
             ColorFormat = nullptr;
         }
 
-        void Render(float ShapeQuality);
+        void Render();
 
         void InternalRender();
 
@@ -140,5 +140,5 @@ class EXPORT CPP_ArcShape {
             PointCount = in_point_count;
         }
 
-        unsigned int GetPointCount(float ShapeQuality);
+        unsigned int GetPointCount();
 };

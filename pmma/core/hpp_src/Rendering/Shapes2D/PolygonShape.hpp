@@ -40,7 +40,7 @@ class EXPORT CPP_PolygonShape {
             ColorFormat = nullptr;
         }
 
-        void Render(float ShapeQuality);
+        void Render();
 
         void InternalRender();
 

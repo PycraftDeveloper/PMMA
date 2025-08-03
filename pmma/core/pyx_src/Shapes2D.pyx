@@ -24,11 +24,11 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetRotation(float rotation) except + nogil
 
         inline unsigned int GetRadius() except + nogil
-        inline unsigned int GetPointCount(float ShapeQuality) except + nogil
+        inline unsigned int GetPointCount() except + nogil
         inline unsigned int GetWidth() except + nogil
         inline float GetRotation() except + nogil
 
-        void Render(float ShapeQuality) except + nogil
+        void Render() except + nogil
 
     cdef cppclass CPP_RectangleShape:
         CPP_DisplayCoordinateFormat* ShapeCenterFormat
@@ -44,7 +44,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetRotation() except + nogil
         inline void GetSize(unsigned int* out_size) except + nogil
 
-        void Render(float ShapeQuality) except + nogil
+        void Render() except + nogil
 
     cdef cppclass CPP_PixelShape:
         CPP_DisplayCoordinateFormat* ShapeCenterFormat
@@ -63,7 +63,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetWidth() except + nogil
         inline float GetRotation() except + nogil
 
-        void Render(float ShapeQuality) except + nogil
+        void Render() except + nogil
 
     cdef cppclass CPP_PolygonShape:
         CPP_ColorFormat* ColorFormat
@@ -79,7 +79,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline bool GetClosed() except + nogil
         inline unsigned int GetPointCount() except + nogil
 
-        void Render(float ShapeQuality) except + nogil
+        void Render() except + nogil
 
     cdef cppclass CPP_ArcShape:
         CPP_DisplayCoordinateFormat* ShapeCenterFormat
@@ -96,10 +96,10 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetWidth() except + nogil
         inline float GetStartAngle() except + nogil
         inline float GetEndAngle() except + nogil
-        inline unsigned int GetPointCount(float ShapeQuality) except + nogil
+        inline unsigned int GetPointCount() except + nogil
         inline unsigned int GetRadius() except + nogil
 
-        void Render(float ShapeQuality) except + nogil
+        void Render() except + nogil
 
     cdef cppclass CPP_EllipseShape:
         CPP_DisplayCoordinateFormat* ShapeCenterFormat
@@ -110,12 +110,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetRotation(float rotation) except + nogil
         inline void SetSize(unsigned int* in_size) except + nogil
 
-        inline unsigned int GetPointCount(float ShapeQuality) except + nogil
+        inline unsigned int GetPointCount() except + nogil
         inline unsigned int GetWidth() except + nogil
         inline float GetRotation() except + nogil
         inline void GetSize(unsigned int* out_size) except + nogil
 
-        void Render(float ShapeQuality) except + nogil
+        void Render() except + nogil
 
 cdef class RadialPolygon:
     cdef:
@@ -137,7 +137,7 @@ cdef class RadialPolygon:
         self.cpp_class_ptr = NULL
 
     def render(self):
-        self.cpp_class_ptr.Render(0.27341772151898736)
+        self.cpp_class_ptr.Render()
 
     property shape_center:
         def __get__(self):
@@ -157,7 +157,7 @@ cdef class RadialPolygon:
         self.cpp_class_ptr.SetPointCount(point_count)
 
     def get_point_count(self):
-        return self.cpp_class_ptr.GetPointCount(1)
+        return self.cpp_class_ptr.GetPointCount()
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
@@ -194,7 +194,7 @@ cdef class Rectangle:
         self.cpp_class_ptr = NULL
 
     def render(self):
-        self.cpp_class_ptr.Render(0.27341772151898736)
+        self.cpp_class_ptr.Render()
 
     property shape_center:
         def __get__(self):
@@ -307,7 +307,7 @@ cdef class Line:
         self.cpp_class_ptr = NULL
 
     def render(self):
-        self.cpp_class_ptr.Render(0.27341772151898736)
+        self.cpp_class_ptr.Render()
 
     property shape_color:
         def __get__(self):
@@ -352,7 +352,7 @@ cdef class PolygonShape:
         self.cpp_class_ptr = NULL
 
     def render(self):
-        self.cpp_class_ptr.Render(0.27341772151898736)
+        self.cpp_class_ptr.Render()
 
     property shape_color:
         def __get__(self):
@@ -362,7 +362,7 @@ cdef class PolygonShape:
         cdef:
             np.ndarray[np.uint32_t, ndim=2, mode='c'] points_np
             unsigned int* points_ptr
-            Py_ssize_t num_points
+            unsigned int num_points
 
         # Ensure input is a C-contiguous NumPy array of shape (N, 2)
         if not isinstance(points, np.ndarray) or points.dtype != np.uint32 or not points.flags['C_CONTIGUOUS']:
@@ -376,7 +376,7 @@ cdef class PolygonShape:
         if points_np.ndim != 2 or points_np.shape[1] != 2:
             raise ValueError("Input array must have shape (N, 2)")
 
-        num_points = points_np.shape[0]
+        num_points = <unsigned int>points_np.shape[0]
         points_ptr = <unsigned int*> &points_np[0, 0]
 
         self.cpp_class_ptr.SetPoints(<unsigned int (*)[2]> points_ptr, num_points)
@@ -446,7 +446,7 @@ cdef class Arc:
             return self.cpp_color_format
 
     def render(self):
-        self.cpp_class_ptr.Render(0.27341772151898736)
+        self.cpp_class_ptr.Render()
 
     def set_radius(self, radius):
         self.cpp_class_ptr.SetRadius(radius)
@@ -458,7 +458,7 @@ cdef class Arc:
         self.cpp_class_ptr.SetPointCount(point_count)
 
     def get_point_count(self):
-        return self.cpp_class_ptr.GetPointCount(1)
+        return self.cpp_class_ptr.GetPointCount()
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)
@@ -507,7 +507,7 @@ cdef class Ellipse:
         self.cpp_class_ptr = NULL
 
     def render(self):
-        self.cpp_class_ptr.Render(0.27341772151898736)
+        self.cpp_class_ptr.Render()
 
     property shape_center:
         def __get__(self):
@@ -552,7 +552,7 @@ cdef class Ellipse:
         self.cpp_class_ptr.SetPointCount(point_count)
 
     def get_point_count(self):
-        return self.cpp_class_ptr.GetPointCount(1)
+        return self.cpp_class_ptr.GetPointCount()
 
     def set_width(self, width):
         self.cpp_class_ptr.SetWidth(width)

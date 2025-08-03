@@ -9,15 +9,15 @@ CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
     ID = PMMA::ClassObject_ID_System++;
 }
 
-unsigned int CPP_RadialPolygonShape::GetPointCount(float ShapeQuality) {
+unsigned int CPP_RadialPolygonShape::GetPointCount() {
     if (PointCount == 0) {
         float minAngle = asin(1.0f / Radius);
-        return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
+        return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality));
     }
     return PointCount;
 }
 
-void CPP_RadialPolygonShape::Render(float ShapeQuality) {
+void CPP_RadialPolygonShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
@@ -61,7 +61,7 @@ void CPP_RadialPolygonShape::Render(float ShapeQuality) {
             unsigned int InternalPointCount = PointCount;
         if (PointCount == 0) {
             float minAngle = asin(1.0f / Radius);
-            InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
+            InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality));
         }
 
             float angleStep = CPP_Constants::TAU / InternalPointCount;

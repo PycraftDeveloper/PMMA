@@ -8,7 +8,7 @@ CPP_RectangleShape::CPP_RectangleShape() {
     ID = PMMA::ClassObject_ID_System++;
 }
 
-void CPP_RectangleShape::Render(float ShapeQuality) {
+void CPP_RectangleShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
@@ -66,7 +66,7 @@ void CPP_RectangleShape::Render(float ShapeQuality) {
                     unsigned int radius = min(CornerRadius, min(HalfWidth, HalfHeight));
                     float minAngle = 1.0f / radius;
                     unsigned int segments = max(3u, static_cast<unsigned int>(
-                        1 + (CPP_Constants::TAU / asin(minAngle)) * ShapeQuality / 4));
+                        1 + (CPP_Constants::TAU / asin(minAngle)) * PMMA::CurrentShapeQuality / 4));
 
                     size_t vertexCount = (segments + 1) * 8 + 2;
                     RenderPipelineVertexData.resize(vertexCount);

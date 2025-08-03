@@ -9,16 +9,16 @@ CPP_EllipseShape::CPP_EllipseShape() {
     ID = PMMA::ClassObject_ID_System++;
 }
 
-unsigned int CPP_EllipseShape::GetPointCount(float ShapeQuality) {
+unsigned int CPP_EllipseShape::GetPointCount() {
     if (PointCount == 0) {
         unsigned int Radius = CPP_AdvancedMathematics::PythagoreanDistance(ShapeSize.x, ShapeSize.y);
         float minAngle = asin(1.0f / Radius);
-        return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
+        return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality));
     }
     return PointCount;
 }
 
-void CPP_EllipseShape::Render(float ShapeQuality) {
+void CPP_EllipseShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
@@ -67,7 +67,7 @@ void CPP_EllipseShape::Render(float ShapeQuality) {
 
             if (PointCount == 0) {
                 float minAngle = asin(1.0f / Radius);
-                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality));
+                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality));
             }
             float angleStep = CPP_Constants::TAU / InternalPointCount;
 

@@ -180,7 +180,7 @@ namespace PMMA {
     unsigned int ControllerEventInstanceCount = 0;
     unsigned int DropEventInstanceCount = 0;
 
-    float PowerSavingModeUpdateCounter = 30.f;
+    float CurrentShapeQuality = CPP_Constants::ShapeQuality;
 
     int GLFW_References = 0;
 
@@ -193,7 +193,8 @@ namespace PMMA {
 
 void PMMA_Initialize() {
     if (PMMA::IsPowerSavingModeEnabled) {
-        PMMA::PowerSavingModeUpdateCounter = 15.f; // Reset the counter to a lower value if power saving mode is enabled
+        PMMA::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled
+        PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
     }
 
     PMMA::PowerSavingManagerInstance.PowerSavingModeCheckingThread = thread(PowerSavingUpdaterThread);

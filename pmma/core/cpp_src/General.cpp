@@ -35,17 +35,20 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             if (power_status.SystemStatusFlag == 1) {
                 PMMA::IsPowerSavingModeEnabled = true;
                 PMMA::PowerSavingManagerInstance.updateCounter = 30;
+                PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
                 return true;
             }
             if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
                 PMMA::IsPowerSavingModeEnabled = true;
                 PMMA::PowerSavingManagerInstance.updateCounter = 30;
+                PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
                 return true; // Low battery test
             }
         }
 
         PMMA::IsPowerSavingModeEnabled = false;
         PMMA::PowerSavingManagerInstance.updateCounter = 15;
+        PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality;
         return false;
 
     #elif defined(__linux__)
@@ -59,6 +62,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                     if (statusFile >> status && status == "Discharging") {
                         PMMA::IsPowerSavingModeEnabled = true;
                         PMMA::PowerSavingManagerInstance.updateCounter = 30;
+                        PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
                         return true;
                     }
                 }
@@ -68,6 +72,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         }
         PMMA::IsPowerSavingModeEnabled = false;
         PMMA::PowerSavingManagerInstance.updateCounter = 15;
+        PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality;
         return false;
 
     #elif defined(__APPLE__)
@@ -77,16 +82,19 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             std::cerr << "Failed to get power feature flags: " << kr << "\n";
             PMMA::IsPowerSavingModeEnabled = false;
             PMMA::PowerSavingManagerInstance.updateCounter = 15;
+            PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality;
             return false;
         }
 
         if (flags & kIOPMFeatureLowPowerMode) {
             PMMA::IsPowerSavingModeEnabled = true;
             PMMA::PowerSavingManagerInstance.updateCounter = 30;
+            PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
             return true; // Low power mode is enabled
         }
         PMMA::IsPowerSavingModeEnabled = false;
         PMMA::PowerSavingManagerInstance.updateCounter = 15;
+        PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality;
         return false;
 
     #else
@@ -94,6 +102,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         PMMA::IsPowerSavingModeEnabled = false;
         PMMA::PowerSavingManagerInstance.running = false;
         PMMA::PowerSavingManagerInstance.updateCounter = 5;
+        PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality;
         return false;
     #endif
 }

@@ -42,7 +42,7 @@ class EXPORT CPP_LineShape {
             ColorFormat = nullptr;
         }
 
-        void Render(float ShapeQuality);
+        void Render();
 
         void InternalRender();
 

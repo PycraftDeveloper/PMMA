@@ -52,7 +52,7 @@ os.makedirs(pmma_core_lib_dir, exist_ok=True)
 def clean_deps():
     if os.path.exists(extern_dir):
         def should_keep(path):
-            return f'include{os.sep}glm' in path or f'include{os.sep}glad' in path
+            return f'include{os.sep}glm' in path or f'include{os.sep}glad' in path or f'include{os.sep}FlatHashMap' in path
 
         for dirpath, dirnames, filenames in os.walk(extern_dir, topdown=False):
             full_dirpath = os.path.abspath(dirpath)
@@ -295,11 +295,9 @@ else:
     if BUILD_CORE in to_do or BUILD_DEPENDENCIES in to_do:
         print("Building.")
 
-        build_command = ["cmake", "--build", "."]
+        build_command = ["cmake", "--build", ".", "--parallel", str(multiprocessing.cpu_count())]
         if operating_system_type == "Windows":
-            build_command += ["--config", "Release", "--", "/m"]
-        else:
-            build_command += ["--", f"-j{multiprocessing.cpu_count()}"]
+            build_command += ["--config", "Release"]
         subprocess.run(build_command, cwd=cmake_temp_dir, check=True)
 
     if BUILD_CYTHON in to_do:

@@ -9,7 +9,7 @@ CPP_ArcShape::CPP_ArcShape() {
     ID = PMMA::ClassObject_ID_System++;
 }
 
-unsigned int CPP_ArcShape::GetPointCount(float ShapeQuality) {
+unsigned int CPP_ArcShape::GetPointCount() {
     if (PointCount == 0) {
         float minAngle = asin(1.0f / Radius);
         float angle_scale = (EndAngle - StartAngle)/(CPP_Constants::TAU);
@@ -21,12 +21,12 @@ unsigned int CPP_ArcShape::GetPointCount(float ShapeQuality) {
         }
         return max(
             3,
-            static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality * angle_scale));
+            static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality * angle_scale));
     }
     return PointCount;
 }
 
-void CPP_ArcShape::Render(float ShapeQuality) {
+void CPP_ArcShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();
@@ -79,7 +79,7 @@ void CPP_ArcShape::Render(float ShapeQuality) {
                     }
                     InternalPointCount = max(
                         3,
-                        static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * ShapeQuality * angle_scale));
+                        static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality * angle_scale));
                 }
             }
 

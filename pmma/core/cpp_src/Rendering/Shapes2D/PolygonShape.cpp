@@ -8,7 +8,7 @@ CPP_PolygonShape::CPP_PolygonShape() {
     ID = PMMA::ClassObject_ID_System++;
 }
 
-void CPP_PolygonShape::Render(float ShapeQuality) {
+void CPP_PolygonShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
     DisplayWidth = PMMA::DisplayInstance->GetWidth();
     DisplayHeight = PMMA::DisplayInstance->GetHeight();

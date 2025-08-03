@@ -45,7 +45,7 @@ class EXPORT CPP_RectangleShape {
             ColorFormat = nullptr;
         }
 
-        void Render(float ShapeQuality);
+        void Render();
 
         void InternalRender();
 

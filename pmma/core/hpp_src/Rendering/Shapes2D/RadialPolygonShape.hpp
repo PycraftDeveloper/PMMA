@@ -45,7 +45,7 @@ class EXPORT CPP_RadialPolygonShape {
             ColorFormat = nullptr;
         }
 
-        void Render(float ShapeQuality);
+        void Render();
 
         void InternalRender();
 
@@ -75,7 +75,7 @@ class EXPORT CPP_RadialPolygonShape {
             PointCountSet = true;
         };
 
-        unsigned int GetPointCount(float ShapeQuality);
+        unsigned int GetPointCount();
 
         inline void SetWidth(unsigned int in_width) {
             if (WidthSet && in_width != Width) {

@@ -15,4 +15,6 @@ namespace CPP_Constants {
 
     const float PI = 3.141592653589793f;
     const float TAU = 6.283185307179586f;
+
+    const float ShapeQuality = 0.27341772151898736f;
 }
