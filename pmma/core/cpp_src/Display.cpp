@@ -371,6 +371,8 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
             int Window_X_Offset = TargetMonitor_X_Position + (Monitor_Width - Size[0]) / 2;
             int Window_Y_Offset = TargetMonitor_Y_Position + (Monitor_Height - Size[1]) / 2;
         }
+        Position[0] = Window_X_Offset;
+        Position[1] = Window_Y_Offset;
         glfwSetWindowPos(Window, Window_X_Offset, Window_Y_Offset);
     }
 
@@ -549,6 +551,76 @@ void CPP_Display::SetIcon(string IconPath) {
     } else {
         throw runtime_error("Failed to load icon: " + IconPath);
     }
+}
+
+void CPP_Display::ToggleFullScreen() {
+    FullScreen = !FullScreen;
+
+    unsigned int new_width, new_height;
+
+    if (FullScreen) {
+        GLFWmonitor* CurrentMonitor = GetCurrentMonitor(Window);
+        int CurrentMonitor_X_Position, CurrentMonitor_Y_Position;
+        int TemporaryWindow_X_Position, TemporaryWindow_Y_Position;
+        glfwGetWindowPos(
+            Window,
+            &TemporaryWindow_X_Position,
+            &TemporaryWindow_Y_Position);
+
+        glfwGetMonitorPos(
+            CurrentMonitor,
+            &CurrentMonitor_X_Position,
+            &CurrentMonitor_Y_Position);
+
+        unsigned int RelativeWindow_X_Position, RelativeWindow_Y_Position;
+        RelativeWindow_X_Position = TemporaryWindow_X_Position - CurrentMonitor_X_Position;
+        RelativeWindow_Y_Position = TemporaryWindow_Y_Position - CurrentMonitor_Y_Position;
+
+        GLFWmonitor* TargetMonitor = GetTargetMonitor(Window);
+
+        glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
+
+        int TargetMonitor_X_Position, TargetMonitor_Y_Position;
+        glfwGetMonitorPos(
+            TargetMonitor,
+            &TargetMonitor_X_Position,
+            &TargetMonitor_Y_Position);
+
+        const GLFWvidmode* Mode = glfwGetVideoMode(TargetMonitor);
+        int Monitor_Width = Mode->width;
+        int Monitor_Height = Mode->height;
+
+        if (RelativeWindow_X_Position > Monitor_Width - Size[0]) {
+            RelativeWindow_X_Position = Monitor_Width - Size[0];
+        }
+        if (RelativeWindow_Y_Position > Monitor_Height - Size[1]) {
+            RelativeWindow_Y_Position = Monitor_Height - Size[1];
+        }
+        if (RelativeWindow_X_Position < 0) {
+            RelativeWindow_X_Position = 0;
+        }
+        if (RelativeWindow_Y_Position < 0) {
+            RelativeWindow_Y_Position = 0;
+        }
+
+        int Window_X_Offset = TargetMonitor_X_Position + RelativeWindow_X_Position;
+        int Window_Y_Offset = TargetMonitor_Y_Position + RelativeWindow_Y_Position;
+        Position[0] = Window_X_Offset;
+        Position[1] = Window_Y_Offset;
+        Size[0] = GetWidth();
+        Size[1] = GetHeight();
+        const GLFWvidmode* mode = glfwGetVideoMode(CurrentMonitor);
+        glfwSetWindowMonitor(Window, CurrentMonitor, 0, 0, mode->width, mode->height, 0);
+        new_width = mode->width;
+        new_height = mode->height;
+    } else {
+        GLFWmonitor* CurrentMonitor = GetCurrentMonitor(Window);
+        glfwSetWindowMonitor(Window, NULL, Position[0], Position[1], Size[0], Size[1], 0);
+        new_width = Size[0];
+        new_height = Size[1];
+    }
+
+    glViewport(0, 0, new_width, new_height);
 }
 
 CPP_Display::~CPP_Display() {

@@ -34,6 +34,7 @@ class EXPORT CPP_Display {
         std::chrono::high_resolution_clock::time_point StartTime = std::chrono::high_resolution_clock::now();
 
         unsigned int Size[2] = {0, 0};
+        unsigned int Position[2] = {0, 0};
 
         float RefreshTime = 0.000001f;
 
@@ -274,6 +275,8 @@ class EXPORT CPP_Display {
 
         void SetIcon(string IconPath);
 
+        void ToggleFullScreen();
+
         ~CPP_Display();
 
         // WIPs
@@ -281,8 +284,6 @@ class EXPORT CPP_Display {
         void Get_2D_Surface(bool SetToBeUsed=true);
 
         void Get_3D_Surface(bool SetToBeUsed=true);
-
-        void ToggleFullScreen();
 };
 
 #ifdef _MSC_VER

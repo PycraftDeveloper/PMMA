@@ -73,7 +73,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         inline float GetFrameTime() except + nogil
 
-        inline void SetIcon(string IconPath) except + nogil
+        void SetIcon(string IconPath) except + nogil
+
+        void ToggleFullScreen() except + nogil
 
 cdef class Display:
     cdef:
@@ -269,3 +271,6 @@ cdef class Display:
         cdef encoded_icon_path = icon_path.encode('utf-8')
 
         self.cpp_class_ptr.SetIcon(icon_path)
+
+    def toggle_full_screen(self):
+        self.cpp_class_ptr.ToggleFullScreen()
