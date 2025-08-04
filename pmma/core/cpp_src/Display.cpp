@@ -1,5 +1,6 @@
 #include <glad/gl.h>
 #include <GLFW/glfw3.h>
+#include <STB/stb_image.h>
 
 #include "PMMA_Core.hpp"
 
@@ -150,6 +151,8 @@ CPP_Display::CPP_Display() {
     }
 
     PMMA::GLFW_References++;
+
+    DefaultIconPath = PMMA::PMMA_Location + PMMA::PathSeparator + "resources" + PMMA::PathSeparator + "Icon.png";
 }
 
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
@@ -184,7 +187,9 @@ GLFWmonitor* CPP_Display::GetTargetMonitor(GLFWwindow* window) {
     double Mouse_X_Position, Mouse_Y_Position;
     glfwGetCursorPos(window, &Mouse_X_Position, &Mouse_Y_Position);
 
-    unsigned int Point[2] = { (unsigned int)(Mouse_X_Position + Window_X_Position), (unsigned int)(Mouse_Y_Position + Window_Y_Position) };
+    unsigned int Point[2] = {
+        (unsigned int)(Mouse_X_Position + Window_X_Position),
+        (unsigned int)(Mouse_Y_Position + Window_Y_Position) };
 
     return GetMonitorAtPoint(Point);
 }
@@ -212,13 +217,22 @@ GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
     return glfwGetPrimaryMonitor();
 }
 
-void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) {
+void CPP_Display::Create(
+        unsigned int* NewSize,
+        std::string& NewCaption,
+        std::string& NewIcon,
+        bool NewFullScreen,
+        bool NewResizable,
+        bool NewNoFrame,
+        bool NewVsync,
+        bool NewCentered,
+        bool NewMaximized,
+        bool Transparent) {
     Caption = NewCaption;
     FullScreen = NewFullScreen;
     Resizable = NewResizable;
     NoFrame = NewNoFrame;
     Vsync = NewVsync;
-    Icon = NewIcon;
     Centered = NewCentered;
     Maximized = NewMaximized;
 
@@ -228,7 +242,12 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
-    GLFWwindow* TemporaryWindow = glfwCreateWindow(1, 1, Caption.c_str(), NULL, NULL);
+    GLFWwindow* TemporaryWindow = glfwCreateWindow(
+        1,
+        1,
+        Caption.c_str(),
+        NULL,
+        NULL);
     if (!TemporaryWindow) {
         throw runtime_error("Failed to create GLFW window");
 
@@ -241,11 +260,17 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     }
 
     int TemporaryWindow_X_Position, TemporaryWindow_Y_Position;
-    glfwGetWindowPos(TemporaryWindow, &TemporaryWindow_X_Position, &TemporaryWindow_Y_Position);
+    glfwGetWindowPos(
+        TemporaryWindow,
+        &TemporaryWindow_X_Position,
+        &TemporaryWindow_Y_Position);
 
     GLFWmonitor* CurrentMonitor = GetCurrentMonitor(TemporaryWindow);
     int CurrentMonitor_X_Position, CurrentMonitor_Y_Position;
-    glfwGetMonitorPos(CurrentMonitor, &CurrentMonitor_X_Position, &CurrentMonitor_Y_Position);
+    glfwGetMonitorPos(
+        CurrentMonitor,
+        &CurrentMonitor_X_Position,
+        &CurrentMonitor_Y_Position);
 
     unsigned int RelativeWindow_X_Position, RelativeWindow_Y_Position;
     RelativeWindow_X_Position = TemporaryWindow_X_Position - CurrentMonitor_X_Position;
@@ -256,7 +281,10 @@ void CPP_Display::Create(unsigned int* NewSize, std::string& NewCaption, std::st
     glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
 
     int TargetMonitor_X_Position, TargetMonitor_Y_Position;
-    glfwGetMonitorPos(TargetMonitor, &TargetMonitor_X_Position, &TargetMonitor_Y_Position);
+    glfwGetMonitorPos(
+        TargetMonitor,
+        &TargetMonitor_X_Position,
+        &TargetMonitor_Y_Position);
 
     const GLFWvidmode* Mode = glfwGetVideoMode(TargetMonitor);
     int Monitor_Width = Mode->width;
@@ -325,9 +353,19 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
     if (FullScreen) {
-        Window = glfwCreateWindow(Size[0], Size[1], Caption.c_str(), TargetMonitor, NULL);
+        Window = glfwCreateWindow(
+            Size[0],
+            Size[1],
+            Caption.c_str(),
+            TargetMonitor,
+            NULL);
     } else {
-        Window = glfwCreateWindow(Size[0], Size[1], Caption.c_str(), NULL, NULL);
+        Window = glfwCreateWindow(
+            Size[0],
+            Size[1],
+            Caption.c_str(),
+            NULL,
+            NULL);
 
         if (Centered) {
             int Window_X_Offset = TargetMonitor_X_Position + (Monitor_Width - Size[0]) / 2;
@@ -361,6 +399,10 @@ vsync to limit the refresh rate of your window. Doing so will reduce \
 visual tearing and improve frame pacing." << endl;
     }
 
+    if (NewIcon == "") {
+        NewIcon = DefaultIconPath;
+    }
+    SetIcon(NewIcon);
 
     PMMA::RenderPipelineCore = new CPP_RenderPipelineCore();
 }
@@ -378,12 +420,20 @@ void CPP_Display::Clear() {
     PMMA::RenderPipelineCore->Reset();
 }
 
-void CPP_Display::LimitRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery) {
+void CPP_Display::LimitRefreshRate(
+        unsigned int RefreshRate,
+        bool Minimized,
+        bool FocusLoss,
+        bool LowBattery) {
     if (Vsync) {
         return;
     }
 
-    RefreshRate = CPP_Display::CalculateRefreshRate(RefreshRate, Minimized, FocusLoss, LowBattery);
+    RefreshRate = CPP_Display::CalculateRefreshRate(
+        RefreshRate,
+        Minimized,
+        FocusLoss,
+        LowBattery);
 
     float estimate = 0.001f;
     float average = 0.001f;
@@ -456,7 +506,11 @@ void CPP_Display::EventRefresh(
 
     glfwSwapBuffers(Window);
 
-    MaxRefreshRate = CPP_Display::CalculateRefreshRate(MaxRefreshRate, Minimized, FocusLoss, LowBattery);
+    MaxRefreshRate = CPP_Display::CalculateRefreshRate(
+        MaxRefreshRate,
+        Minimized,
+        FocusLoss,
+        LowBattery);
 
     if (RefreshRate == 0) {
         glfwWaitEvents();
@@ -468,6 +522,32 @@ void CPP_Display::EventRefresh(
 
     if (MaxRefreshRate > 0) {
         LimitRefreshRate(MaxRefreshRate, Minimized, FocusLoss, LowBattery);
+    }
+}
+
+void CPP_Display::SetIcon(string IconPath) {
+    if (IconPath == "") {
+        IconPath = DefaultIconPath;
+    }
+
+    int width, height, channels;
+    unsigned char* pixels = stbi_load(
+        IconPath.c_str(),
+        &width,
+        &height,
+        &channels,
+        4);
+
+    if (pixels) {
+        GLFWimage icon;
+        icon.width = width;
+        icon.height = height;
+        icon.pixels = pixels;
+
+        glfwSetWindowIcon(Window, 1, &icon);
+        stbi_image_free(pixels);  // Don’t forget to free the image
+    } else {
+        throw runtime_error("Failed to load icon: " + IconPath);
     }
 }
 

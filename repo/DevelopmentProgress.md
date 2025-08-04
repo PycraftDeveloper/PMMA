@@ -25,7 +25,7 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Advanced Tkinter
 * ✅ - Finished Events
 * ✅ - Finished Render Pipeline (2D)
-* ⏳ - Working on Shapes 2D (90 %)
+* ✅ - Finished Shapes 2D
 * ⏳ - Working on Display (80 %)
 * ⏳ - Working on General (35 %)
 * ⏳ - Working on OpenGL (30 %)

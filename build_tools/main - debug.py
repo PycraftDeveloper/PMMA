@@ -54,7 +54,11 @@ os.makedirs(pmma_core_lib_dir, exist_ok=True)
 def clean_deps():
     if os.path.exists(extern_dir):
         def should_keep(path):
-            return f'include{os.sep}glm' in path or f'include{os.sep}glad' in path or f'include{os.sep}FlatHashMap' in path
+            return (
+                f'include{os.sep}glm' in path or
+                f'include{os.sep}glad' in path or
+                f'include{os.sep}FlatHashMap' in path or
+                f'include{os.sep}STB' in path)
 
         for dirpath, dirnames, filenames in os.walk(extern_dir, topdown=False):
             full_dirpath = os.path.abspath(dirpath)

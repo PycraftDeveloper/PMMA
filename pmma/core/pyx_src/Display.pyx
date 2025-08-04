@@ -17,7 +17,17 @@ cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Display:
         CPP_ColorFormat* WindowFillColor
 
-        void Create(unsigned int* NewSize, string NewCaption, string NewIcon, bool NewFullScreen, bool NewResizable, bool NewNoFrame, bool NewVsync, bool NewCentered, bool NewMaximized, bool Transparent) except + nogil
+        void Create(
+            unsigned int* NewSize,
+            string NewCaption,
+            string NewIcon,
+            bool NewFullScreen,
+            bool NewResizable,
+            bool NewNoFrame,
+            bool NewVsync,
+            bool NewCentered,
+            bool NewMaximized,
+            bool Transparent) except + nogil
 
         inline unsigned int GetWidth() except + nogil
         inline unsigned int GetHeight() except + nogil
@@ -62,6 +72,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline unsigned int GetFrameRate() except + nogil
 
         inline float GetFrameTime() except + nogil
+
+        inline void SetIcon(string IconPath) except + nogil
 
 cdef class Display:
     cdef:
@@ -252,3 +264,8 @@ cdef class Display:
 
     def get_frame_time(self):
         return self.cpp_class_ptr.GetFrameTime()
+
+    def set_icon(self, icon_path):
+        cdef encoded_icon_path = icon_path.encode('utf-8')
+
+        self.cpp_class_ptr.SetIcon(icon_path)

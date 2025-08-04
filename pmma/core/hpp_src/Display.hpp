@@ -24,7 +24,7 @@ class EXPORT CPP_Display {
 
     private:
         std::string Caption = "PMMA Display";
-        std::string Icon;
+        std::string DefaultIconPath;
 
         GLFWmonitor* Monitor = nullptr;
         GLFWwindow* Window = nullptr;
@@ -272,6 +272,8 @@ class EXPORT CPP_Display {
             return RefreshRate;
         }
 
+        void SetIcon(string IconPath);
+
         ~CPP_Display();
 
         // WIPs
@@ -279,8 +281,6 @@ class EXPORT CPP_Display {
         void Get_2D_Surface(bool SetToBeUsed=true);
 
         void Get_3D_Surface(bool SetToBeUsed=true);
-
-        void SetIcon();
 
         void ToggleFullScreen();
 };
