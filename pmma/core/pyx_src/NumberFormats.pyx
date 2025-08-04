@@ -46,14 +46,14 @@ cdef class Color:
     cpdef bint get_set(self):
         return self.cpp_class_ptr.GetSet()
 
-    cpdef void generate_from_random(self):
-        self.cpp_class_ptr.GenerateFromRandom()
+    cpdef void generate_from_random(self, bool generate_alpha=True):
+        self.cpp_class_ptr.GenerateFromRandom(generate_alpha)
 
-    cpdef void generate_from_perlin_noise(self, float value):
-        self.cpp_class_ptr.GenerateFromPerlinNoise(value)
+    cpdef void generate_from_perlin_noise(self, float value, bool generate_alpha=True):
+        self.cpp_class_ptr.GenerateFromPerlinNoise(value, generate_alpha)
 
-    cpdef void generate_from_fractal_brownian_motion(self, float value):
-        self.cpp_class_ptr.GenerateFromFractalBrownianMotion(value)
+    cpdef void generate_from_fractal_brownian_motion(self, float value, bool generate_alpha=True):
+        self.cpp_class_ptr.GenerateFromFractalBrownianMotion(value, generate_alpha)
 
     cpdef void set_RGBA(self, in_color):
         cdef:

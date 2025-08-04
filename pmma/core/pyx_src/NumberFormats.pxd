@@ -9,9 +9,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
 
-        inline void GenerateFromRandom() except + nogil
-        inline void GenerateFromPerlinNoise(float value) except + nogil
-        inline void GenerateFromFractalBrownianMotion(float value) except + nogil
+        inline void GenerateFromRandom(bool GenerateAlpha) except + nogil
+        inline void GenerateFromPerlinNoise(float value, bool GenerateAlpha) except + nogil
+        inline void GenerateFromFractalBrownianMotion(float value, bool GenerateAlpha) except + nogil
 
         inline void Set_RGBA(unsigned int* in_color) except + nogil
         inline void Set_rgba(float* in_color) except + nogil
@@ -102,9 +102,9 @@ cdef class Color:
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
     cpdef bint get_set(self)
-    cpdef void generate_from_random(self)
-    cpdef void generate_from_perlin_noise(self, float value)
-    cpdef void generate_from_fractal_brownian_motion(self, float value)
+    cpdef void generate_from_random(self, bool generate_alpha=?)
+    cpdef void generate_from_perlin_noise(self, float value, bool generate_alpha=?)
+    cpdef void generate_from_fractal_brownian_motion(self, float value, bool generate_alpha=?)
     cpdef void set_RGBA(self, in_color)
     cpdef void set_rgba(self, in_color)
     cpdef void set_RGB(self, in_color)

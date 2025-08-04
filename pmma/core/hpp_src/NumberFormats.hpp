@@ -97,13 +97,23 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             return amplitude;
         }
 
-        inline void GenerateFromRandom() {
-            glm::vec4 converted_in_color = glm::vec4(
-                CPP_AdvancedMathematics::RandomFloat(color_range),
-                CPP_AdvancedMathematics::RandomFloat(color_range),
-                CPP_AdvancedMathematics::RandomFloat(color_range),
-                CPP_AdvancedMathematics::RandomFloat(color_range)
-            );
+        inline void GenerateFromRandom(bool GenerateAlpha=true) {
+            glm::vec4 converted_in_color;
+            if (GenerateAlpha) {
+                converted_in_color = glm::vec4(
+                    CPP_AdvancedMathematics::RandomFloat(color_range),
+                    CPP_AdvancedMathematics::RandomFloat(color_range),
+                    CPP_AdvancedMathematics::RandomFloat(color_range),
+                    CPP_AdvancedMathematics::RandomFloat(color_range)
+                );
+            } else {
+                converted_in_color = glm::vec4(
+                    CPP_AdvancedMathematics::RandomFloat(color_range),
+                    CPP_AdvancedMathematics::RandomFloat(color_range),
+                    CPP_AdvancedMathematics::RandomFloat(color_range),
+                    1.0f
+                );
+            }
 
             if (converted_in_color != InternalColor) {
                 Changed = true;
@@ -113,7 +123,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             IsSet = true;
         }
 
-        inline void GenerateFromPerlinNoise(float value) {
+        inline void GenerateFromPerlinNoise(float value, bool GenerateAlpha=true) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -122,7 +132,11 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             OutputColor[0] = R_PerlinNoiseGenerator->Noise1D(value + r_offset);
             OutputColor[1] = G_PerlinNoiseGenerator->Noise1D(value + g_offset);
             OutputColor[2] = B_PerlinNoiseGenerator->Noise1D(value + b_offset);
-            OutputColor[3] = A_PerlinNoiseGenerator->Noise1D(value + a_offset);
+            if (GenerateAlpha) {
+                OutputColor[3] = A_PerlinNoiseGenerator->Noise1D(value + a_offset);
+            } else {
+                OutputColor[3] = 1.0f;
+            }
 
             CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
 
@@ -141,7 +155,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             IsSet = true;
         }
 
-        inline void GenerateFromFractalBrownianMotion(float value) {
+        inline void GenerateFromFractalBrownianMotion(float value, bool GenerateAlpha=true) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -150,7 +164,11 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             OutputColor[0] = R_FractalBrownianMotionGenerator->Noise1D(value + r_offset);
             OutputColor[1] = G_FractalBrownianMotionGenerator->Noise1D(value + g_offset);
             OutputColor[2] = B_FractalBrownianMotionGenerator->Noise1D(value + b_offset);
-            OutputColor[3] = A_FractalBrownianMotionGenerator->Noise1D(value + a_offset);
+            if (GenerateAlpha) {
+                OutputColor[3] = A_FractalBrownianMotionGenerator->Noise1D(value + a_offset);
+            } else {
+                OutputColor[3] = 1.0f;
+            }
 
             CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
 
