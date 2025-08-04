@@ -17,8 +17,7 @@ void CPP_PolygonShape::Render() {
         throw std::runtime_error("Shape has no color set");
     }
 
-    Changed = Changed ||
-                ColorFormat->GetChangedToggle();
+    Changed = Changed;
 
     bool RenderPipelineCompatible = true;
     // check here if the gradient has been set, if has then check it fits into the render pipeline
@@ -54,7 +53,7 @@ void CPP_PolygonShape::Render() {
 
             float HalfWidth = Width * 0.5f;
 
-            RenderPipelineVertexData.resize(segmentCount * 6);
+            Shape2D_RenderPipelineData.resize(segmentCount * 6);
 
             for (unsigned int i = 0; i < segmentCount; i++) {
                 unsigned int index = i * 6;
@@ -87,13 +86,13 @@ void CPP_PolygonShape::Render() {
                 glm::vec2 Dp = P1 - N * HalfWidth;
 
                 // Add two triangles: A-B-C and C-B-D
-                RenderPipelineVertexData[index] = {A, ColorIndex};
-                RenderPipelineVertexData[index + 1] = {B, ColorIndex};
-                RenderPipelineVertexData[index + 2] = {C, ColorIndex};
+                Shape2D_RenderPipelineData[index] = {A, ColorIndex};
+                Shape2D_RenderPipelineData[index + 1] = {B, ColorIndex};
+                Shape2D_RenderPipelineData[index + 2] = {C, ColorIndex};
 
-                RenderPipelineVertexData[index + 3] = {C, ColorIndex};
-                RenderPipelineVertexData[index + 4] = {B, ColorIndex};
-                RenderPipelineVertexData[index + 5] = {Dp, ColorIndex};
+                Shape2D_RenderPipelineData[index + 3] = {C, ColorIndex};
+                Shape2D_RenderPipelineData[index + 4] = {B, ColorIndex};
+                Shape2D_RenderPipelineData[index + 5] = {Dp, ColorIndex};
             }
         }
         PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);

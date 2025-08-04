@@ -17,7 +17,7 @@ class EXPORT CPP_PixelShape {
 
         std::vector<glm::vec2> VertexData;
 
-        std::vector<Vertex> RenderPipelineVertexData;
+        std::vector<Vertex> Shape2D_RenderPipelineData;
 
         glm::vec2 ShapeSize;
 

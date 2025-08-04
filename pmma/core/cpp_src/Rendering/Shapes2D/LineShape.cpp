@@ -24,7 +24,6 @@ void CPP_LineShape::Render() {
     }
 
     Changed = Changed ||
-                ColorFormat->GetChangedToggle() ||
                 ShapeStart->GetChangedToggle() ||
                 ShapeEnd->GetChangedToggle();
 
@@ -70,11 +69,11 @@ void CPP_LineShape::Render() {
             glm::vec2 Normal = {-Direction.y, Direction.x};
             Normal *= 0.5f * InternalWidth;
 
-            RenderPipelineVertexData.resize(4);
-            RenderPipelineVertexData[0] = {{RotatedStart - Normal}, ColorIndex};
-            RenderPipelineVertexData[1] = {{RotatedStart + Normal}, ColorIndex};
-            RenderPipelineVertexData[2] = {{RotatedEnd - Normal}, ColorIndex};
-            RenderPipelineVertexData[3] = {{RotatedEnd + Normal}, ColorIndex};
+            Shape2D_RenderPipelineData.resize(4);
+            Shape2D_RenderPipelineData[0] = {{RotatedStart - Normal}, ColorIndex};
+            Shape2D_RenderPipelineData[1] = {{RotatedStart + Normal}, ColorIndex};
+            Shape2D_RenderPipelineData[2] = {{RotatedEnd - Normal}, ColorIndex};
+            Shape2D_RenderPipelineData[3] = {{RotatedEnd + Normal}, ColorIndex};
         }
         PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);
     } else {

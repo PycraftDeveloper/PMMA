@@ -80,7 +80,7 @@ void CPP_EllipseShape::Render() {
 
             // Reserve the exact number of vertices upfront
             size_t vertexCount = InternalPointCount * 2 + 2;
-            RenderPipelineVertexData.resize(vertexCount);
+            Shape2D_RenderPipelineData.resize(vertexCount);
 
             float cx = ShapeCenter.x;
             float cy = ShapeCenter.y;
@@ -108,7 +108,7 @@ void CPP_EllipseShape::Render() {
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    RenderPipelineVertexData[i * 2 + 0] = {
+                    Shape2D_RenderPipelineData[i * 2 + 0] = {
                         {cx + x_rot_outer, cy + y_rot_outer}, ColorIndex};
 
                     // Inner point (ring)
@@ -118,7 +118,7 @@ void CPP_EllipseShape::Render() {
                     float x_rot_inner = x_inner * cosRot - y_inner * sinRot;
                     float y_rot_inner = x_inner * sinRot + y_inner * cosRot;
 
-                    RenderPipelineVertexData[i * 2 + 1] = {
+                    Shape2D_RenderPipelineData[i * 2 + 1] = {
                         {cx + x_rot_inner, cy + y_rot_inner}, ColorIndex};
                 }
             } else {
@@ -135,11 +135,11 @@ void CPP_EllipseShape::Render() {
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    RenderPipelineVertexData[i * 2 + 0] = {
+                    Shape2D_RenderPipelineData[i * 2 + 0] = {
                         {cx + x_rot_outer, cy + y_rot_outer}, ColorIndex};
 
                     // Filled ellipse: collapse inner to center
-                    RenderPipelineVertexData[i * 2 + 1] = {{cx, cy}, ColorIndex};
+                    Shape2D_RenderPipelineData[i * 2 + 1] = {{cx, cy}, ColorIndex};
                 }
             }
         }

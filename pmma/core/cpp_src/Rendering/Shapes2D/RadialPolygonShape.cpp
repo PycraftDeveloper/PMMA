@@ -75,7 +75,7 @@ void CPP_RadialPolygonShape::Render() {
 
             // Reserve the exact number of vertices upfront
             size_t vertexCount = InternalPointCount * 2 + 2;
-            RenderPipelineVertexData.resize(vertexCount);
+            Shape2D_RenderPipelineData.resize(vertexCount);
 
             float angle = Rotation;
             float cx = ShapeCenter.x;
@@ -92,8 +92,8 @@ void CPP_RadialPolygonShape::Render() {
 
                     unsigned int index = i * 2;
 
-                    RenderPipelineVertexData[index] = {glm::vec2(ox, oy), ColorIndex};
-                    RenderPipelineVertexData[index + 1] = {glm::vec2(cx, cy), ColorIndex};
+                    Shape2D_RenderPipelineData[index] = {glm::vec2(ox, oy), ColorIndex};
+                    Shape2D_RenderPipelineData[index + 1] = {glm::vec2(cx, cy), ColorIndex};
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
@@ -110,8 +110,8 @@ void CPP_RadialPolygonShape::Render() {
 
                     unsigned int index = i * 2;
 
-                    RenderPipelineVertexData[index] = {glm::vec2(ox, oy), ColorIndex};
-                    RenderPipelineVertexData[index + 1] = {glm::vec2(ix, iy), ColorIndex};
+                    Shape2D_RenderPipelineData[index] = {glm::vec2(ox, oy), ColorIndex};
+                    Shape2D_RenderPipelineData[index + 1] = {glm::vec2(ix, iy), ColorIndex};
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
@@ -121,8 +121,8 @@ void CPP_RadialPolygonShape::Render() {
             }
 
             // Close the shape by repeating the first pair
-            RenderPipelineVertexData[vertexCount - 2] = RenderPipelineVertexData[0];
-            RenderPipelineVertexData[vertexCount - 1] = RenderPipelineVertexData[1];
+            Shape2D_RenderPipelineData[vertexCount - 2] = Shape2D_RenderPipelineData[0];
+            Shape2D_RenderPipelineData[vertexCount - 1] = Shape2D_RenderPipelineData[1];
         }
 
         PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);

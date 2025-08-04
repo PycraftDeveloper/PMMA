@@ -45,13 +45,13 @@ void CPP_PixelShape::Render() {
     }
 
     if (Changed) {
-        RenderPipelineVertexData.resize(4);
+        Shape2D_RenderPipelineData.resize(4);
         float x = ShapeCenter.x;
         float y = ShapeCenter.y;
-        RenderPipelineVertexData[0] = {{x - 0.5f, y - 0.5f}, ColorIndex}; // Top-left
-        RenderPipelineVertexData[1] = {{x + 0.5f, y - 0.5f}, ColorIndex}; // Top-right
-        RenderPipelineVertexData[2] = {{x - 0.5f, y + 0.5f}, ColorIndex}; // Bottom-left
-        RenderPipelineVertexData[3] = {{x + 0.5f, y + 0.5f}, ColorIndex}; // Bottom-right
+        Shape2D_RenderPipelineData[0] = {{x - 0.5f, y - 0.5f}, ColorIndex}; // Top-left
+        Shape2D_RenderPipelineData[1] = {{x + 0.5f, y - 0.5f}, ColorIndex}; // Top-right
+        Shape2D_RenderPipelineData[2] = {{x - 0.5f, y + 0.5f}, ColorIndex}; // Bottom-left
+        Shape2D_RenderPipelineData[3] = {{x + 0.5f, y + 0.5f}, ColorIndex}; // Bottom-right
     }
     PMMA::RenderPipelineCore->AddObject(this, true);
 

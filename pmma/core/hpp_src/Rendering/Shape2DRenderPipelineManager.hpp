@@ -90,15 +90,15 @@ class CPP_Shape2D_RenderPipelineManager {
 
             Changed = true;
 
-            const auto& vertices = TargetPtr->RenderPipelineVertexData;
+            const auto& vertices = TargetPtr->Shape2D_RenderPipelineData;
 
             if (insertPos < combined_vertexes.size()) {
                 combined_vertexes.resize(insertPos);
             }
 
             if (currentIndex > 0 && vertices.size() >= 2 && !combined_vertexes.empty()) {
-                combined_vertexes.emplace_back(combined_vertexes.back());
-                combined_vertexes.emplace_back(vertices[0]);
+                combined_vertexes.push_back(combined_vertexes.back());
+                combined_vertexes.push_back(vertices[0]);
             }
 
             const size_t shapeStartIndex = combined_vertexes.size();

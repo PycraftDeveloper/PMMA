@@ -17,7 +17,7 @@ class EXPORT CPP_ArcShape {
 
         std::vector<glm::vec2> VertexData;
 
-        std::vector<Vertex> RenderPipelineVertexData;
+        std::vector<Vertex> Shape2D_RenderPipelineData;
 
         float Rotation = 0;
         float StartAngle;
@@ -52,7 +52,7 @@ class EXPORT CPP_ArcShape {
         inline void SetStartAngle(float in_start_angle) {
             if (StartAngleSet && (in_start_angle != StartAngle)) {
                 Changed = true;
-                RenderPipelineVertexData.clear();
+                Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
 
@@ -70,7 +70,7 @@ class EXPORT CPP_ArcShape {
         inline void SetEndAngle(float in_end_angle) {
             if (EndAngleSet && (in_end_angle != EndAngle)) {
                 Changed = true;
-                RenderPipelineVertexData.clear();
+                Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
 
@@ -88,7 +88,7 @@ class EXPORT CPP_ArcShape {
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
                 Changed = true;
-                RenderPipelineVertexData.clear();
+                Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
 
@@ -102,7 +102,7 @@ class EXPORT CPP_ArcShape {
         inline void SetRadius(unsigned int in_radius) {
             if (in_radius != Radius) {
                 Changed = true;
-                RenderPipelineVertexData.clear();
+                Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
 
@@ -119,7 +119,7 @@ class EXPORT CPP_ArcShape {
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 Changed = true;
-                RenderPipelineVertexData.clear();
+                Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
 
@@ -133,7 +133,7 @@ class EXPORT CPP_ArcShape {
         inline void SetPointCount(unsigned int in_point_count) {
             if (in_point_count != PointCount) {
                 Changed = true;
-                RenderPipelineVertexData.clear();
+                Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
 
