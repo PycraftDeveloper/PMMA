@@ -51,18 +51,21 @@ void CPP_RadialPolygonShape::Render() {
             return;
         }
 
+        bool ColorIndexChanged = false;
         GLuint newColorIndex = PMMA::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
+
         if (newColorIndex != ColorIndex) {
+            ColorIndexChanged = ColorIndex != 0;
             Changed = true;
             ColorIndex = newColorIndex;
         }
 
         if (Changed) {
             unsigned int InternalPointCount = PointCount;
-        if (PointCount == 0) {
-            float minAngle = asin(1.0f / Radius);
-            InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality));
-        }
+            if (PointCount == 0) {
+                float minAngle = asin(1.0f / Radius);
+                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality));
+            }
 
             float angleStep = CPP_Constants::TAU / InternalPointCount;
 
@@ -125,7 +128,7 @@ void CPP_RadialPolygonShape::Render() {
             Shape2D_RenderPipelineData[vertexCount - 1] = Shape2D_RenderPipelineData[1];
         }
 
-        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);
+        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (Changed) {
             // Calculate data and add to buffers, Left intentionally blank for now

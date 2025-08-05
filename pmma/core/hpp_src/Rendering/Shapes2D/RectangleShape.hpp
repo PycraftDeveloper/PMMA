@@ -50,8 +50,7 @@ class EXPORT CPP_RectangleShape {
         void InternalRender();
 
         inline glm::vec2 SimpleApplyRotation(glm::vec2 position, glm::vec2 shape_center, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight) {
-            glm::vec2 tl = glm::vec2(shape_center.x - HalfWidth, shape_center.y - HalfHeight);
-            glm::vec2 pos = tl - shape_center;
+            glm::vec2 pos = position - shape_center;
             glm::vec2 rotated = {
                 RotationCos * pos.x - RotationSin * pos.y,
                 RotationSin * pos.x + RotationCos * pos.y

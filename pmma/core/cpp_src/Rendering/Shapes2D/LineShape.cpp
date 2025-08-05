@@ -3,6 +3,8 @@
 using namespace std;
 
 CPP_LineShape::CPP_LineShape() {
+    ShapeStart = new CPP_DisplayCoordinateFormat();
+    ShapeEnd = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
     ID = PMMA::ClassObject_ID_System++;
@@ -36,8 +38,11 @@ void CPP_LineShape::Render() {
             return;
         }
 
+        bool ColorIndexChanged = false;
         GLuint newColorIndex = PMMA::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
+
         if (newColorIndex != ColorIndex) {
+            ColorIndexChanged = ColorIndex != 0;
             Changed = true;
             ColorIndex = newColorIndex;
         }
@@ -75,7 +80,7 @@ void CPP_LineShape::Render() {
             Shape2D_RenderPipelineData[2] = {{RotatedEnd - Normal}, ColorIndex};
             Shape2D_RenderPipelineData[3] = {{RotatedEnd + Normal}, ColorIndex};
         }
-        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible);
+        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (Changed) {
             // Calculate data and add to buffers, Left intentionally blank for now

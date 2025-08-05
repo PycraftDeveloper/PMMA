@@ -37,7 +37,7 @@ class CPP_RenderPipelineCore {
         void Reset();
 
         template<typename T>
-        inline void AddObject(T* RenderObject, bool RenderPipelineCompatable) {
+        inline void AddObject(T* RenderObject, bool RenderPipelineCompatable, bool ColorIndexChanged) {
             if (RenderData.empty()) {
                 if (!RenderPipelineCompatable) {
                     RenderData.emplace_back(RenderObject);
@@ -51,7 +51,7 @@ class CPP_RenderPipelineCore {
                 // Try to extract the CPP_Shape2D_RenderPipelineManager*
                 if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&lastVariant)) {
                     if ((*managerPtr)->shape_colors.size() < MaxSize) {
-                        (*managerPtr)->AddRenderTarget(RenderObject);
+                        (*managerPtr)->AddRenderTarget(RenderObject, ColorIndexChanged);
                     }
                 }
             } else {
