@@ -6,13 +6,13 @@ CPP_RectangleShape::CPP_RectangleShape() {
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
-    ID = PMMA::ClassObject_ID_System++;
+    ID = PMMA_Registry::ClassObject_ID_System++;
 }
 
 void CPP_RectangleShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
-    DisplayWidth = PMMA::DisplayInstance->GetWidth();
-    DisplayHeight = PMMA::DisplayInstance->GetHeight();
+    DisplayWidth = PMMA_Core::DisplayInstance->GetWidth();
+    DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
 
     unsigned int HalfWidth = ShapeSize.x / 2;
     unsigned int HalfHeight = ShapeSize.y / 2;
@@ -47,7 +47,7 @@ void CPP_RectangleShape::Render() {
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
+        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
@@ -68,7 +68,7 @@ void CPP_RectangleShape::Render() {
                 unsigned int radius = min(CornerRadius, min(HalfWidth, HalfHeight));
                 float minAngle = 1.0f / radius;
                 unsigned int segments = max(3u, static_cast<unsigned int>(
-                    1 + (CPP_Constants::TAU / asin(minAngle)) * PMMA::CurrentShapeQuality / 4));
+                    1 + (CPP_Constants::TAU / asin(minAngle)) * PMMA_Registry::CurrentShapeQuality / 4));
 
                 size_t vertexCount = (segments + 1) * 8 + 2;
                 Shape2D_RenderPipelineData.resize(vertexCount);
@@ -237,7 +237,7 @@ void CPP_RectangleShape::Render() {
                 }
             }
         }
-        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
+        PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (Changed) {
             // Calculate data and add to buffers, Left intentionally blank for now

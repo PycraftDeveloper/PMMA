@@ -54,7 +54,7 @@ Notes:
     > Internal events MUST have a default 'safe value' to return before the event manager is initialized.
 */
 
-namespace PMMA {
+namespace PMMA_Core {
     extern CPP_Display* DisplayInstance;
 
     extern CPP_RenderPipelineCore* RenderPipelineCore;
@@ -215,7 +215,9 @@ namespace PMMA {
     extern CPP_InternalDropEventManager* DropManagerInstance;
 
     extern PowerSavingManager PowerSavingManagerInstance;
+}
 
+namespace PMMA_Registry {
     extern std::string PMMA_Location;
     extern std::string PathSeparator;
 

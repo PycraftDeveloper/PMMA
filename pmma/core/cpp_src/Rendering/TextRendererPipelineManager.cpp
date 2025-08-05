@@ -14,14 +14,14 @@ CPP_TextRendererPipelineManager::CPP_TextRendererPipelineManager() {
     string vertex_shader_path[] = {"shaders", "text_renderer", "vertex_shader.glsl"};
     string fragment_shader_path[] = {"shaders", "text_renderer", "fragment_shader.glsl"};
 
-    string vertex_shader = PMMA::PMMA_Location;
+    string vertex_shader = PMMA_Registry::PMMA_Location;
     for (const auto& part : vertex_shader_path) {
-        vertex_shader += PMMA::PathSeparator + part;
+        vertex_shader += PMMA_Registry::PathSeparator + part;
     }
 
-    string fragment_shader = PMMA::PMMA_Location;
+    string fragment_shader = PMMA_Registry::PMMA_Location;
     for (const auto& part : fragment_shader_path) {
-        fragment_shader += PMMA::PathSeparator + part;
+        fragment_shader += PMMA_Registry::PathSeparator + part;
     }
 
     CPP_Shader Shader;
@@ -191,7 +191,7 @@ void CPP_TextRendererPipelineManager::Reset() {
 
 void CPP_TextRendererPipelineManager::InternalRender() {
     glUseProgram(shaderProgram);
-    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA::DisplayInstance->GetDisplayProjection()));
+    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA_Core::DisplayInstance->GetDisplayProjection()));
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

@@ -8,7 +8,7 @@
 
 using namespace std;
 
-namespace PMMA {
+namespace PMMA_Core {
     CPP_Display* DisplayInstance = nullptr;
     CPP_RenderPipelineCore* RenderPipelineCore = nullptr;
 
@@ -168,7 +168,9 @@ namespace PMMA {
     CPP_InternalDropEventManager* DropManagerInstance = nullptr;
 
     PowerSavingManager PowerSavingManagerInstance;
+}
 
+namespace PMMA_Registry {
     string PMMA_Location = "";
     string PathSeparator = "";
 
@@ -195,17 +197,17 @@ namespace PMMA {
 }
 
 void PMMA_Initialize() {
-    if (PMMA::IsPowerSavingModeEnabled) {
-        PMMA::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled
-        PMMA::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
+    if (PMMA_Registry::IsPowerSavingModeEnabled) {
+        PMMA_Core::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled
+        PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
     }
 
-    PMMA::PowerSavingManagerInstance.PowerSavingModeCheckingThread = thread(PowerSavingUpdaterThread);
+    PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread = thread(PowerSavingUpdaterThread);
 }
 
 void PMMA_Uninitialize() {
-    PMMA::PowerSavingManagerInstance.running = false;
-    if (PMMA::PowerSavingManagerInstance.PowerSavingModeCheckingThread.joinable()) {
-        PMMA::PowerSavingManagerInstance.PowerSavingModeCheckingThread.join();
+    PMMA_Core::PowerSavingManagerInstance.running = false;
+    if (PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread.joinable()) {
+        PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread.join();
     }
 }

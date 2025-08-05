@@ -54,7 +54,7 @@ void remove_last_utf8_char(string& text) {
 };
 
 CPP_TextEvent::CPP_TextEvent() {
-    PMMA::TextEventInstances.push_back(this);
+    PMMA_Core::TextEventInstances.push_back(this);
 
     Control_KeyEventPtr = new CPP_KeyEvent_Control();
     Shift_KeyEventPtr = new CPP_KeyEvent_Shift();
@@ -63,13 +63,13 @@ CPP_TextEvent::CPP_TextEvent() {
     Delete_KeyEventPtr = new CPP_KeyEvent_Delete();
     Backspace_KeyEventPtr = new CPP_KeyEvent_Backspace();
 
-    PMMA::TextEventInstanceCount++;
+    PMMA_Registry::TextEventInstanceCount++;
 };
 
 CPP_TextEvent::~CPP_TextEvent() {
-    auto it = find(PMMA::TextEventInstances.begin(), PMMA::TextEventInstances.end(), this);
-    if (it != PMMA::TextEventInstances.end()) {
-        PMMA::TextEventInstances.erase(it);
+    auto it = find(PMMA_Core::TextEventInstances.begin(), PMMA_Core::TextEventInstances.end(), this);
+    if (it != PMMA_Core::TextEventInstances.end()) {
+        PMMA_Core::TextEventInstances.erase(it);
     }
 
     Control_KeyEventPtr = nullptr;
@@ -79,7 +79,7 @@ CPP_TextEvent::~CPP_TextEvent() {
     Delete_KeyEventPtr = nullptr;
     Backspace_KeyEventPtr = nullptr;
 
-    PMMA::TextEventInstanceCount--;
+    PMMA_Registry::TextEventInstanceCount--;
 };
 
 void CPP_TextEvent::RemoveBack() {
@@ -137,16 +137,16 @@ void CPP_TextEvent::GenericUpdate(GLFWwindow* window) {
 };
 
 CPP_DropEvent::CPP_DropEvent() {
-    PMMA::DropEvent_Instances.push_back(this);
+    PMMA_Core::DropEvent_Instances.push_back(this);
 
-    PMMA::DropEventInstanceCount++;
+    PMMA_Registry::DropEventInstanceCount++;
 };
 
 CPP_DropEvent::~CPP_DropEvent() {
-    auto it = find(PMMA::DropEvent_Instances.begin(), PMMA::DropEvent_Instances.end(), this);
-    if (it != PMMA::DropEvent_Instances.end()) {
-        PMMA::DropEvent_Instances.erase(it);
+    auto it = find(PMMA_Core::DropEvent_Instances.begin(), PMMA_Core::DropEvent_Instances.end(), this);
+    if (it != PMMA_Core::DropEvent_Instances.end()) {
+        PMMA_Core::DropEvent_Instances.erase(it);
     }
 
-    PMMA::DropEventInstanceCount--;
+    PMMA_Registry::DropEventInstanceCount--;
 };

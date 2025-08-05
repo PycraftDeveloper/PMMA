@@ -5,13 +5,13 @@ using namespace std;
 CPP_PolygonShape::CPP_PolygonShape() {
     ColorFormat = new CPP_ColorFormat();
 
-    ID = PMMA::ClassObject_ID_System++;
+    ID = PMMA_Registry::ClassObject_ID_System++;
 }
 
 void CPP_PolygonShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
-    DisplayWidth = PMMA::DisplayInstance->GetWidth();
-    DisplayHeight = PMMA::DisplayInstance->GetHeight();
+    DisplayWidth = PMMA_Core::DisplayInstance->GetWidth();
+    DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
 
     if (!ColorFormat->GetSet()) {
         throw std::runtime_error("Shape has no color set");
@@ -29,7 +29,7 @@ void CPP_PolygonShape::Render() {
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
+        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
@@ -98,7 +98,7 @@ void CPP_PolygonShape::Render() {
                 Shape2D_RenderPipelineData[index + 5] = {Dp, ColorIndex};
             }
         }
-        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
+        PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (Changed) {
             // Calculate data and add to buffers, Left intentionally blank for now

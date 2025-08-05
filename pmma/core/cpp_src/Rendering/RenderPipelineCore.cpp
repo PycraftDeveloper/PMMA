@@ -13,14 +13,14 @@ CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
     string vertex_shader_path[] = {"shaders", "render_pipeline", "vertex_shader.glsl"};
     string fragment_shader_path[] = {"shaders", "render_pipeline", "fragment_shader.glsl"};
 
-    string vertex_shader = PMMA::PMMA_Location;
+    string vertex_shader = PMMA_Registry::PMMA_Location;
     for (const auto& part : vertex_shader_path) {
-        vertex_shader += PMMA::PathSeparator + part;
+        vertex_shader += PMMA_Registry::PathSeparator + part;
     }
 
-    string fragment_shader = PMMA::PMMA_Location;
+    string fragment_shader = PMMA_Registry::PMMA_Location;
     for (const auto& part : fragment_shader_path) {
-        fragment_shader += PMMA::PathSeparator + part;
+        fragment_shader += PMMA_Registry::PathSeparator + part;
     }
 
     CPP_Shader ShaderObject;
@@ -44,7 +44,7 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
 }
 
 void CPP_RenderPipelineCore::Render() {
-    glUniformMatrix4fv(glGetUniformLocation(PMMA::RenderPipelineCore->shader, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA::DisplayInstance->GetDisplayProjection()));
+    glUniformMatrix4fv(glGetUniformLocation(PMMA_Core::RenderPipelineCore->shader, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA_Core::DisplayInstance->GetDisplayProjection()));
 
     for (auto& item : RenderData) {
         std::visit([](auto* ptr) {

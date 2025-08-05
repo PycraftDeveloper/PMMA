@@ -50,7 +50,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     }
 
-    glUseProgram(PMMA::RenderPipelineCore->shader);
+    glUseProgram(PMMA_Core::RenderPipelineCore->shader);
 
     glBindVertexArray(vao);
 

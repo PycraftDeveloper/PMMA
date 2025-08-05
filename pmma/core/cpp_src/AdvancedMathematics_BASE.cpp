@@ -23,9 +23,9 @@ void CPP_AdvancedMathematics::ArrayRanger(
             const float* new_range,
             float* out) {
 
-    if (PMMA::CPU_Supports_AVX512) {
+    if (PMMA_Registry::CPU_Supports_AVX512) {
         ArrayRanger_AVX512(values, length, old_range, new_range, out);
-    } else if (PMMA::CPU_Supports_AVX2) {
+    } else if (PMMA_Registry::CPU_Supports_AVX2) {
         ArrayRanger_AVX2(values, length, old_range, new_range, out);
     } else {
         ArrayRanger_BASE(values, length, old_range, new_range, out);

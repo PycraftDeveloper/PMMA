@@ -6,21 +6,21 @@ CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
-    ID = PMMA::ClassObject_ID_System++;
+    ID = PMMA_Registry::ClassObject_ID_System++;
 }
 
 unsigned int CPP_RadialPolygonShape::GetPointCount() {
     if (PointCount == 0) {
         float minAngle = asin(1.0f / Radius);
-        return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality));
+        return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
     }
     return PointCount;
 }
 
 void CPP_RadialPolygonShape::Render() {
     unsigned int DisplayWidth, DisplayHeight;
-    DisplayWidth = PMMA::DisplayInstance->GetWidth();
-    DisplayHeight = PMMA::DisplayInstance->GetHeight();
+    DisplayWidth = PMMA_Core::DisplayInstance->GetWidth();
+    DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
 
     if (!ShapeCenterFormat->GetSet()) {
         throw std::runtime_error("Shape has no center not set");
@@ -52,7 +52,7 @@ void CPP_RadialPolygonShape::Render() {
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
+        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
@@ -64,7 +64,7 @@ void CPP_RadialPolygonShape::Render() {
             unsigned int InternalPointCount = PointCount;
             if (PointCount == 0) {
                 float minAngle = asin(1.0f / Radius);
-                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA::CurrentShapeQuality));
+                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
             }
 
             float angleStep = CPP_Constants::TAU / InternalPointCount;
@@ -128,7 +128,7 @@ void CPP_RadialPolygonShape::Render() {
             Shape2D_RenderPipelineData[vertexCount - 1] = Shape2D_RenderPipelineData[1];
         }
 
-        PMMA::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
+        PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (Changed) {
             // Calculate data and add to buffers, Left intentionally blank for now

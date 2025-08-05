@@ -7,152 +7,152 @@
 using namespace std;
 
 void CPP_Display::PMMA_Update(GLFWwindow* Window) {
-    if (PMMA::KeyManagerInstance == nullptr) {
-        if (PMMA::KeyboardEventInstanceCount > 0) {
-            PMMA::KeyManagerInstance = new CPP_InternalKeyEventManager();
+    if (PMMA_Core::KeyManagerInstance == nullptr) {
+        if (PMMA_Registry::KeyboardEventInstanceCount > 0) {
+            PMMA_Core::KeyManagerInstance = new CPP_InternalKeyEventManager();
             glfwSetKeyCallback(Window, CPP_InternalKeyEventManager::KeyCallback);
         }
     } else {
-        if (PMMA::KeyboardEventInstanceCount <= 0) {
+        if (PMMA_Registry::KeyboardEventInstanceCount <= 0) {
             glfwSetKeyCallback(Window, nullptr);
-            delete PMMA::KeyManagerInstance;
-            PMMA::KeyManagerInstance = nullptr;
-            PMMA::KeyboardEventInstanceCount = 0;
+            delete PMMA_Core::KeyManagerInstance;
+            PMMA_Core::KeyManagerInstance = nullptr;
+            PMMA_Registry::KeyboardEventInstanceCount = 0;
         } else {
-            PMMA::KeyManagerInstance->Update(Window);
+            PMMA_Core::KeyManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA::TextManagerInstance == nullptr) {
-        if (PMMA::TextEventInstanceCount > 0) {
-            PMMA::TextManagerInstance = new CPP_InternalTextEventManager();
+    if (PMMA_Core::TextManagerInstance == nullptr) {
+        if (PMMA_Registry::TextEventInstanceCount > 0) {
+            PMMA_Core::TextManagerInstance = new CPP_InternalTextEventManager();
             glfwSetCharCallback(Window, CPP_InternalTextEventManager::TextCallback);
         }
     } else {
-        if (PMMA::TextEventInstanceCount <= 0) {
+        if (PMMA_Registry::TextEventInstanceCount <= 0) {
             glfwSetCharCallback(Window, nullptr);
-            delete PMMA::TextManagerInstance;
-            PMMA::TextManagerInstance = nullptr;
-            PMMA::TextEventInstanceCount = 0;
+            delete PMMA_Core::TextManagerInstance;
+            PMMA_Core::TextManagerInstance = nullptr;
+            PMMA_Registry::TextEventInstanceCount = 0;
         } else {
-            PMMA::TextManagerInstance->Update(Window);
+            PMMA_Core::TextManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA::MousePositionManagerInstance == nullptr) {
-        if (PMMA::MousePositionEventInstanceCount > 0) {
-            PMMA::MousePositionManagerInstance = new CPP_InternalMousePositionEventManager();
+    if (PMMA_Core::MousePositionManagerInstance == nullptr) {
+        if (PMMA_Registry::MousePositionEventInstanceCount > 0) {
+            PMMA_Core::MousePositionManagerInstance = new CPP_InternalMousePositionEventManager();
             glfwSetCursorPosCallback(Window, CPP_InternalMousePositionEventManager::CursorPositionCallback);
         }
     } else {
-        if (PMMA::MousePositionEventInstanceCount <= 0) {
+        if (PMMA_Registry::MousePositionEventInstanceCount <= 0) {
             glfwSetCursorPosCallback(Window, nullptr);
-            delete PMMA::MousePositionManagerInstance;
-            PMMA::MousePositionManagerInstance = nullptr;
-            PMMA::MousePositionEventInstanceCount = 0;
+            delete PMMA_Core::MousePositionManagerInstance;
+            PMMA_Core::MousePositionManagerInstance = nullptr;
+            PMMA_Registry::MousePositionEventInstanceCount = 0;
         } else {
-            PMMA::MousePositionManagerInstance->Update(Window);
+            PMMA_Core::MousePositionManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA::MouseEnterWindowManagerInstance == nullptr) {
-        if (PMMA::MouseEnterWindowEventInstanceCount > 0) {
-            PMMA::MouseEnterWindowManagerInstance = new CPP_InternalMouseEnterWindowEventManager();
+    if (PMMA_Core::MouseEnterWindowManagerInstance == nullptr) {
+        if (PMMA_Registry::MouseEnterWindowEventInstanceCount > 0) {
+            PMMA_Core::MouseEnterWindowManagerInstance = new CPP_InternalMouseEnterWindowEventManager();
             glfwSetCursorEnterCallback(Window, CPP_InternalMouseEnterWindowEventManager::CursorEnterCallback);
         }
     } else {
-        if (PMMA::MouseEnterWindowEventInstanceCount <= 0) {
+        if (PMMA_Registry::MouseEnterWindowEventInstanceCount <= 0) {
             glfwSetCursorEnterCallback(Window, nullptr);
-            delete PMMA::MouseEnterWindowManagerInstance;
-            PMMA::MouseEnterWindowManagerInstance = nullptr;
-            PMMA::MouseEnterWindowEventInstanceCount = 0;
+            delete PMMA_Core::MouseEnterWindowManagerInstance;
+            PMMA_Core::MouseEnterWindowManagerInstance = nullptr;
+            PMMA_Registry::MouseEnterWindowEventInstanceCount = 0;
         } else {
-            PMMA::MouseEnterWindowManagerInstance->Update(Window);
+            PMMA_Core::MouseEnterWindowManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA::MouseButtonManagerInstance == nullptr) {
-        if (PMMA::MouseButtonEventInstanceCount > 0) {
-            PMMA::MouseButtonManagerInstance = new CPP_InternalMouseButtonEventManager();
+    if (PMMA_Core::MouseButtonManagerInstance == nullptr) {
+        if (PMMA_Registry::MouseButtonEventInstanceCount > 0) {
+            PMMA_Core::MouseButtonManagerInstance = new CPP_InternalMouseButtonEventManager();
             glfwSetMouseButtonCallback(Window, CPP_InternalMouseButtonEventManager::MouseButtonCallback);
         }
     } else {
-        if (PMMA::MouseButtonEventInstanceCount <= 0) {
+        if (PMMA_Registry::MouseButtonEventInstanceCount <= 0) {
             glfwSetMouseButtonCallback(Window, nullptr);
-            delete PMMA::MouseButtonManagerInstance;
-            PMMA::MouseButtonManagerInstance = nullptr;
-            PMMA::MouseButtonEventInstanceCount = 0;
+            delete PMMA_Core::MouseButtonManagerInstance;
+            PMMA_Core::MouseButtonManagerInstance = nullptr;
+            PMMA_Registry::MouseButtonEventInstanceCount = 0;
         } else {
-            PMMA::MouseButtonManagerInstance->Update(Window);
+            PMMA_Core::MouseButtonManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA::MouseScrollManagerInstance == nullptr) {
-        if (PMMA::MouseScrollEventInstanceCount > 0) {
-            PMMA::MouseScrollManagerInstance = new CPP_InternalMouseScrollEventManager();
+    if (PMMA_Core::MouseScrollManagerInstance == nullptr) {
+        if (PMMA_Registry::MouseScrollEventInstanceCount > 0) {
+            PMMA_Core::MouseScrollManagerInstance = new CPP_InternalMouseScrollEventManager();
             glfwSetScrollCallback(Window, CPP_InternalMouseScrollEventManager::ScrollCallback);
         }
     } else {
-        if (PMMA::MouseScrollEventInstanceCount <= 0) {
+        if (PMMA_Registry::MouseScrollEventInstanceCount <= 0) {
             glfwSetScrollCallback(Window, nullptr);
-            delete PMMA::MouseScrollManagerInstance;
-            PMMA::MouseScrollManagerInstance = nullptr;
-            PMMA::MouseScrollEventInstanceCount = 0;
+            delete PMMA_Core::MouseScrollManagerInstance;
+            PMMA_Core::MouseScrollManagerInstance = nullptr;
+            PMMA_Registry::MouseScrollEventInstanceCount = 0;
         } else {
-            PMMA::MouseScrollManagerInstance->Update(Window);
+            PMMA_Core::MouseScrollManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA::ControllerManagerInstance == nullptr) {
-        if (PMMA::ControllerEventInstanceCount > 0) {
-            PMMA::ControllerManagerInstance = new CPP_InternalControllerEventManager();
+    if (PMMA_Core::ControllerManagerInstance == nullptr) {
+        if (PMMA_Registry::ControllerEventInstanceCount > 0) {
+            PMMA_Core::ControllerManagerInstance = new CPP_InternalControllerEventManager();
             glfwSetJoystickCallback(CPP_InternalControllerEventManager::JoystickCallback);
         }
     } else {
-        if (PMMA::ControllerEventInstanceCount <= 0) {
+        if (PMMA_Registry::ControllerEventInstanceCount <= 0) {
             glfwSetJoystickCallback(nullptr);
-            delete PMMA::ControllerManagerInstance;
-            PMMA::ControllerManagerInstance = nullptr;
-            PMMA::ControllerEventInstanceCount = 0;
+            delete PMMA_Core::ControllerManagerInstance;
+            PMMA_Core::ControllerManagerInstance = nullptr;
+            PMMA_Registry::ControllerEventInstanceCount = 0;
         } else {
-            PMMA::ControllerManagerInstance->Update(Window);
+            PMMA_Core::ControllerManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA::DropManagerInstance == nullptr) {
-        if (PMMA::DropEventInstanceCount > 0) {
-            PMMA::DropManagerInstance = new CPP_InternalDropEventManager();
+    if (PMMA_Core::DropManagerInstance == nullptr) {
+        if (PMMA_Registry::DropEventInstanceCount > 0) {
+            PMMA_Core::DropManagerInstance = new CPP_InternalDropEventManager();
             glfwSetDropCallback(Window, CPP_InternalDropEventManager::DropCallback);
         }
     } else {
-        if (PMMA::DropEventInstanceCount <= 0) {
+        if (PMMA_Registry::DropEventInstanceCount <= 0) {
             glfwSetDropCallback(Window, nullptr);
-            delete PMMA::DropManagerInstance;
-            PMMA::DropManagerInstance = nullptr;
-            PMMA::DropEventInstanceCount = 0;
+            delete PMMA_Core::DropManagerInstance;
+            PMMA_Core::DropManagerInstance = nullptr;
+            PMMA_Registry::DropEventInstanceCount = 0;
         } else {
-            PMMA::DropManagerInstance->Update(Window);
+            PMMA_Core::DropManagerInstance->Update(Window);
         }
     }
 }
 
 CPP_Display::CPP_Display() {
-    if (PMMA::DisplayInstance != nullptr) {
-        delete PMMA::DisplayInstance;
-        PMMA::DisplayInstance = nullptr;
+    if (PMMA_Core::DisplayInstance != nullptr) {
+        delete PMMA_Core::DisplayInstance;
+        PMMA_Core::DisplayInstance = nullptr;
     }
-    PMMA::DisplayInstance = this;
+    PMMA_Core::DisplayInstance = this;
 
     WindowFillColor = new CPP_ColorFormat();
 
-    if (!PMMA::GLFW_Initialized) {
+    if (!PMMA_Registry::GLFW_Initialized) {
         glfwInit();
-        PMMA::GLFW_Initialized = true;
+        PMMA_Registry::GLFW_Initialized = true;
     }
 
-    PMMA::GLFW_References++;
+    PMMA_Registry::GLFW_References++;
 
-    DefaultIconPath = PMMA::PMMA_Location + PMMA::PathSeparator + "resources" + PMMA::PathSeparator + "Icon.png";
+    DefaultIconPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "resources" + PMMA_Registry::PathSeparator + "Icon.png";
 }
 
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
@@ -251,9 +251,9 @@ void CPP_Display::Create(
     if (!TemporaryWindow) {
         throw runtime_error("Failed to create GLFW window");
 
-        PMMA::GLFW_References--;
-        if (PMMA::GLFW_References <= 0) {
-            PMMA::GLFW_Initialized = false;
+        PMMA_Registry::GLFW_References--;
+        if (PMMA_Registry::GLFW_References <= 0) {
+            PMMA_Registry::GLFW_Initialized = false;
             glfwTerminate();
         }
         return;
@@ -379,9 +379,9 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
     if (!Window) {
         throw runtime_error("Failed to create GLFW window");
 
-        PMMA::GLFW_References--;
-        if (PMMA::GLFW_References <= 0) {
-            PMMA::GLFW_Initialized = false;
+        PMMA_Registry::GLFW_References--;
+        if (PMMA_Registry::GLFW_References <= 0) {
+            PMMA_Registry::GLFW_Initialized = false;
             glfwTerminate();
         }
         return;
@@ -406,7 +406,7 @@ visual tearing and improve frame pacing." << endl;
     }
     SetIcon(NewIcon);
 
-    PMMA::RenderPipelineCore = new CPP_RenderPipelineCore();
+    PMMA_Core::RenderPipelineCore = new CPP_RenderPipelineCore();
 }
 
 void CPP_Display::Clear() {
@@ -419,7 +419,7 @@ void CPP_Display::Clear() {
     glClearColor(out_color[0], out_color[1], out_color[2], out_color[3]);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
-    PMMA::RenderPipelineCore->Reset();
+    PMMA_Core::RenderPipelineCore->Reset();
 }
 
 void CPP_Display::LimitRefreshRate(
@@ -478,7 +478,7 @@ void CPP_Display::ContinuousRefresh(
         throw runtime_error("Display not created yet!");
     }
 
-    PMMA::RenderPipelineCore->Render();
+    PMMA_Core::RenderPipelineCore->Render();
 
     glfwSwapBuffers(Window);
     glfwPollEvents();
@@ -504,7 +504,7 @@ void CPP_Display::EventRefresh(
         throw runtime_error("Display not created yet!");
     }
 
-    PMMA::RenderPipelineCore->Render();
+    PMMA_Core::RenderPipelineCore->Render();
 
     glfwSwapBuffers(Window);
 
@@ -624,61 +624,61 @@ void CPP_Display::ToggleFullScreen() {
 }
 
 CPP_Display::~CPP_Display() {
-    if (PMMA::RenderPipelineCore != nullptr) {
-        delete PMMA::RenderPipelineCore;
-        PMMA::RenderPipelineCore = nullptr;
+    if (PMMA_Core::RenderPipelineCore != nullptr) {
+        delete PMMA_Core::RenderPipelineCore;
+        PMMA_Core::RenderPipelineCore = nullptr;
     }
 
-    if (PMMA::KeyManagerInstance != nullptr) {
-        delete PMMA::KeyManagerInstance;
-        PMMA::KeyManagerInstance = nullptr;
+    if (PMMA_Core::KeyManagerInstance != nullptr) {
+        delete PMMA_Core::KeyManagerInstance;
+        PMMA_Core::KeyManagerInstance = nullptr;
     }
 
-    if (PMMA::TextManagerInstance != nullptr) {
-        delete PMMA::TextManagerInstance;
-        PMMA::TextManagerInstance = nullptr;
+    if (PMMA_Core::TextManagerInstance != nullptr) {
+        delete PMMA_Core::TextManagerInstance;
+        PMMA_Core::TextManagerInstance = nullptr;
     }
 
-    if (PMMA::MousePositionManagerInstance != nullptr) {
-        delete PMMA::MousePositionManagerInstance;
-        PMMA::MousePositionManagerInstance = nullptr;
+    if (PMMA_Core::MousePositionManagerInstance != nullptr) {
+        delete PMMA_Core::MousePositionManagerInstance;
+        PMMA_Core::MousePositionManagerInstance = nullptr;
     }
 
-    if (PMMA::MouseEnterWindowManagerInstance != nullptr) {
-        delete PMMA::MouseEnterWindowManagerInstance;
-        PMMA::MouseEnterWindowManagerInstance = nullptr;
+    if (PMMA_Core::MouseEnterWindowManagerInstance != nullptr) {
+        delete PMMA_Core::MouseEnterWindowManagerInstance;
+        PMMA_Core::MouseEnterWindowManagerInstance = nullptr;
     }
 
-    if (PMMA::MouseButtonManagerInstance != nullptr) {
-        delete PMMA::MouseButtonManagerInstance;
-        PMMA::MouseButtonManagerInstance = nullptr;
+    if (PMMA_Core::MouseButtonManagerInstance != nullptr) {
+        delete PMMA_Core::MouseButtonManagerInstance;
+        PMMA_Core::MouseButtonManagerInstance = nullptr;
     }
 
-    if (PMMA::MouseScrollManagerInstance != nullptr) {
-        delete PMMA::MouseScrollManagerInstance;
-        PMMA::MouseScrollManagerInstance = nullptr;
+    if (PMMA_Core::MouseScrollManagerInstance != nullptr) {
+        delete PMMA_Core::MouseScrollManagerInstance;
+        PMMA_Core::MouseScrollManagerInstance = nullptr;
     }
 
-    if (PMMA::ControllerManagerInstance != nullptr) {
-        delete PMMA::ControllerManagerInstance;
-        PMMA::ControllerManagerInstance = nullptr;
+    if (PMMA_Core::ControllerManagerInstance != nullptr) {
+        delete PMMA_Core::ControllerManagerInstance;
+        PMMA_Core::ControllerManagerInstance = nullptr;
     }
 
-    if (PMMA::DropManagerInstance != nullptr) {
-        delete PMMA::DropManagerInstance;
-        PMMA::DropManagerInstance = nullptr;
+    if (PMMA_Core::DropManagerInstance != nullptr) {
+        delete PMMA_Core::DropManagerInstance;
+        PMMA_Core::DropManagerInstance = nullptr;
     }
 
     glfwDestroyWindow(Window);
     Window = nullptr;
 
-    PMMA::GLFW_References--;
-    if (PMMA::GLFW_References <= 0) {
-        PMMA::GLFW_Initialized = false;
+    PMMA_Registry::GLFW_References--;
+    if (PMMA_Registry::GLFW_References <= 0) {
+        PMMA_Registry::GLFW_Initialized = false;
         glfwTerminate();
     }
 
-    PMMA::DisplayInstance = nullptr;
+    PMMA_Core::DisplayInstance = nullptr;
 
     delete WindowFillColor;
     WindowFillColor = nullptr;
