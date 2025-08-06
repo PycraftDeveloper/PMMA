@@ -167,6 +167,8 @@ namespace PMMA_Core {
     CPP_InternalControllerEventManager* ControllerManagerInstance = nullptr;
     CPP_InternalDropEventManager* DropManagerInstance = nullptr;
 
+    CPP_Passport* PassportInstance = nullptr;
+
     PowerSavingManager PowerSavingManagerInstance;
 }
 

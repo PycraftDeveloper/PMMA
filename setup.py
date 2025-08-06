@@ -96,7 +96,8 @@ ext_modules = [
     make_ext("PMMA_Core.pyx"),
     make_ext("TextRenderer.pyx", add_numpy=True),
     make_ext("General.pyx", add_numpy=True),
-    make_ext("Shapes2D.pyx", add_numpy=True)
+    make_ext("Shapes2D.pyx", add_numpy=True),
+    make_ext("Passport.pyx"),
 ]
 
 # Read the long description from README.md

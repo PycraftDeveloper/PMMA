@@ -49,6 +49,8 @@
 #include "Utility/FontUtils.hpp"
 #include "Utility/CPU_FeatureSetUtils.hpp"
 
+#include "Passport.hpp"
+
 /*
 Notes:
     > Internal events MUST have a default 'safe value' to return before the event manager is initialized.
@@ -213,6 +215,8 @@ namespace PMMA_Core {
     extern CPP_InternalMouseScrollEventManager* MouseScrollManagerInstance;
     extern CPP_InternalControllerEventManager* ControllerManagerInstance;
     extern CPP_InternalDropEventManager* DropManagerInstance;
+
+    extern CPP_Passport* PassportInstance;
 
     extern PowerSavingManager PowerSavingManagerInstance;
 }
