@@ -29,51 +29,50 @@ cdef extern from "PMMA_Core.hpp" nogil:
             bool NewMaximized,
             bool Transparent) except + nogil
 
-        inline unsigned int GetWidth() except + nogil
-        inline unsigned int GetHeight() except + nogil
-
-        inline void GetSize(unsigned int* out) except + nogil
-
-        inline void SetRelativeWindowPosition(unsigned int* Position) except + nogil
-        inline void SetAbsoluteWindowPosition(unsigned int* Position) except + nogil
-
         inline void CenterWindow() except + nogil
 
         void Clear() except + nogil
 
         inline void SetWindowInFocus() except + nogil
-
         inline void SetWindowMinimized(bool IsMinimized) except + nogil
         inline void SetWindowMaximized(bool IsMaximized) except + nogil
-
         inline void SetCaption(string& new_caption) except + nogil
-        inline string GetCaption() except + nogil
+        inline void SetRelativeWindowPosition(unsigned int* Position) except + nogil
+        inline void SetAbsoluteWindowPosition(unsigned int* Position) except + nogil
+        void SetIcon(string IconPath) except + nogil
 
+        inline string GetCaption() except + nogil
         inline void GetCenter_Pixels(unsigned int* out) except + nogil
         inline void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) except + nogil
-
+        inline unsigned int GetWidth() except + nogil
+        inline unsigned int GetHeight() except + nogil
+        inline void GetSize(unsigned int* out) except + nogil
         inline float GetAspectRatio() except + nogil
+        inline unsigned int GetFrameRate() except + nogil
+        inline float GetFrameTime() except + nogil
+        inline bool GetIsWindowInFocus() except + nogil
+        inline bool GetIsWindowMinimized() except + nogil
+        inline bool GetIsWindowResizable() except + nogil
+        inline bool GetIsWindowVisible() except + nogil
+        inline bool GetIsWindowAlwaysOnTop() except + nogil
+        inline bool GetIsWindowAutoMinimize() except + nogil
+        inline bool GetIsWindowMaximized() except + nogil
+        inline unsigned int GetWindow_MSAA_Samples() except + nogil
+        inline bool GetIsWindowUsingVsync() except + nogil
+        inline unsigned int GetCurrentMonitorRefreshRate() except + nogil
 
-        void ContinuousRefresh(unsigned int RefreshRate, bool Minimized,
-            bool FocusLoss, bool LowBattery,
+        void ContinuousRefresh(unsigned int RefreshRate,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery) except + nogil
 
         void EventRefresh(unsigned int RefreshRate,
-            unsigned int MaxRefreshRate, bool Minimized,
-            bool FocusLoss, bool LowBattery,
+            unsigned int MaxRefreshRate,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery) except + nogil
 
         inline void TriggerEventRefresh() except + nogil
-
-        inline unsigned int GetFrameRate() except + nogil
-
-        inline float GetFrameTime() except + nogil
-
-        void SetIcon(string IconPath) except + nogil
 
         void ToggleFullScreen() except + nogil
 
@@ -234,27 +233,39 @@ cdef class Display:
 
     @Utility.require_render_thread
     def continuous_refresh(self,
-        refresh_rate=60,
+        refresh_rate=None,
         lower_refresh_rate_on_minimize=True,
         lower_refresh_rate_on_focus_loss=True,
         lower_refresh_rate_on_low_battery=True):
+
+        if refresh_rate is None:
+            if self.cpp_class_ptr.GetIsWindowUsingVsync():
+                refresh_rate = 0
+            else:
+                refresh_rate = 60
 
         if refresh_rate <= 0:
             refresh_rate = 0
 
-        self.cpp_class_ptr.ContinuousRefresh(refresh_rate, False, False,
-            False, lower_refresh_rate_on_minimize,
+        self.cpp_class_ptr.ContinuousRefresh(refresh_rate,
+            lower_refresh_rate_on_minimize,
             lower_refresh_rate_on_focus_loss,
             lower_refresh_rate_on_low_battery)
 
     @Utility.require_render_thread
-    def event_refresh(self, refresh_rate=0, max_refresh_rate=60,
+    def event_refresh(self, refresh_rate=None, max_refresh_rate=None,
         lower_refresh_rate_on_minimize=True,
         lower_refresh_rate_on_focus_loss=True,
         lower_refresh_rate_on_low_battery=True):
 
+        if max_refresh_rate is None:
+            if self.cpp_class_ptr.GetIsWindowUsingVsync():
+                max_refresh_rate = 0
+            else:
+                max_refresh_rate = 60
+
         self.cpp_class_ptr.EventRefresh(refresh_rate, max_refresh_rate,
-            False, False, False, lower_refresh_rate_on_minimize,
+            lower_refresh_rate_on_minimize,
             lower_refresh_rate_on_focus_loss,
             lower_refresh_rate_on_low_battery)
 
@@ -274,3 +285,33 @@ cdef class Display:
 
     def toggle_full_screen(self):
         self.cpp_class_ptr.ToggleFullScreen()
+
+    def is_window_in_focus(self):
+        return self.cpp_class_ptr.GetIsWindowInFocus()
+
+    def is_window_minimized(self):
+        return self.cpp_class_ptr.GetIsWindowMinimized()
+
+    def is_window_resizable(self):
+        return self.cpp_class_ptr.GetIsWindowResizable()
+
+    def is_window_visible(self):
+        return self.cpp_class_ptr.GetIsWindowVisible()
+
+    def is_window_always_on_top(self):
+        return self.cpp_class_ptr.GetIsWindowAlwaysOnTop()
+
+    def is_window_auto_minimize(self):
+        return self.cpp_class_ptr.GetIsWindowAutoMinimize()
+
+    def is_window_maximized(self):
+        return self.cpp_class_ptr.GetIsWindowMaximized()
+
+    def get_msaa_samples(self):
+        return self.cpp_class_ptr.GetWindow_MSAA_Samples()
+
+    def is_window_using_vsync(self):
+        return self.cpp_class_ptr.GetIsWindowUsingVsync()
+
+    def get_current_monitor_refresh_rate(self):
+        return self.cpp_class_ptr.GetCurrentMonitorRefreshRate()

@@ -422,20 +422,8 @@ void CPP_Display::Clear() {
     PMMA_Core::RenderPipelineCore->Reset();
 }
 
-void CPP_Display::LimitRefreshRate(
-        unsigned int RefreshRate,
-        bool Minimized,
-        bool FocusLoss,
-        bool LowBattery) {
-    if (Vsync) {
-        return;
-    }
-
-    RefreshRate = CPP_Display::CalculateRefreshRate(
-        RefreshRate,
-        Minimized,
-        FocusLoss,
-        LowBattery);
+void CPP_Display::LimitRefreshRate(unsigned int RefreshRate) {
+    RefreshRate = CPP_Display::CalculateRefreshRate(RefreshRate);
 
     float estimate = 0.001f;
     float average = 0.001f;
@@ -443,7 +431,6 @@ void CPP_Display::LimitRefreshRate(
 
     std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
     chrono::duration<float> FrameDuration = EndTime - StartTime;
-    RefreshTime = chrono::duration<float>(EndTime - StartTime).count();
 
     float TargetFrameTime = 1.0f / static_cast<float>(RefreshRate);
     float SleepTime = TargetFrameTime - FrameDuration.count();
@@ -461,15 +448,42 @@ void CPP_Display::LimitRefreshRate(
     std::chrono::high_resolution_clock::time_point s = chrono::high_resolution_clock::now();
     while (chrono::duration<float>(chrono::high_resolution_clock::now() - s).count() < SleepTime) {
     }
+}
 
-    StartTime = chrono::high_resolution_clock::now();
+unsigned int CPP_Display::CalculateRefreshRate(unsigned int RefreshRate) {
+    bool Minimized = glfwGetWindowAttrib(Window, GLFW_ICONIFIED) == GLFW_TRUE;
+    bool FocusLoss = glfwGetWindowAttrib(Window, GLFW_FOCUSED) == GLFW_FALSE;
+    bool LowBattery = PMMA_Registry::IsPowerSavingModeEnabled;
+
+    unsigned int OriginalRefreshRate = RefreshRate;
+
+    if (Minimized) {
+        RefreshRate /= 5;
+    }
+
+    if (FocusLoss) {
+        RefreshRate /= 2;
+    }
+
+    if (LowBattery) {
+        RefreshRate /= 2;
+    }
+
+    if (Minimized) {
+        RefreshRate = max(RefreshRate, 5u);
+    } else {
+        RefreshRate = max(RefreshRate, RefreshRate / 2);
+    }
+
+    if (RefreshRate > OriginalRefreshRate) {
+        RefreshRate = OriginalRefreshRate;
+    }
+
+    return RefreshRate;
 }
 
 void CPP_Display::ContinuousRefresh(
             unsigned int RefreshRate,
-            bool Minimized,
-            bool FocusLoss,
-            bool LowBattery,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery) {
@@ -486,16 +500,19 @@ void CPP_Display::ContinuousRefresh(
     PMMA_Update(Window);
 
     if (RefreshRate > 0) {
-        LimitRefreshRate(RefreshRate, Minimized, FocusLoss, LowBattery);
+        LimitRefreshRate(RefreshRate);
     }
+
+    std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
+    chrono::duration<float> FrameDuration = EndTime - StartTime;
+    RefreshTime = chrono::duration<float>(EndTime - StartTime).count();
+
+    StartTime = chrono::high_resolution_clock::now();
 }
 
 void CPP_Display::EventRefresh(
             unsigned int RefreshRate,
             unsigned int MaxRefreshRate,
-            bool Minimized,
-            bool FocusLoss,
-            bool LowBattery,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery) {
@@ -509,10 +526,7 @@ void CPP_Display::EventRefresh(
     glfwSwapBuffers(Window);
 
     MaxRefreshRate = CPP_Display::CalculateRefreshRate(
-        MaxRefreshRate,
-        Minimized,
-        FocusLoss,
-        LowBattery);
+        MaxRefreshRate);
 
     if (RefreshRate == 0) {
         glfwWaitEvents();
@@ -523,8 +537,14 @@ void CPP_Display::EventRefresh(
     PMMA_Update(Window);
 
     if (MaxRefreshRate > 0) {
-        LimitRefreshRate(MaxRefreshRate, Minimized, FocusLoss, LowBattery);
+        LimitRefreshRate(MaxRefreshRate);
     }
+
+    std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
+    chrono::duration<float> FrameDuration = EndTime - StartTime;
+    RefreshTime = chrono::duration<float>(EndTime - StartTime).count();
+
+    StartTime = chrono::high_resolution_clock::now();
 }
 
 void CPP_Display::SetIcon(string IconPath) {

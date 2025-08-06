@@ -18,6 +18,8 @@
 #include "Rendering/RenderPipelineCore.hpp"
 #include "NumberFormats.hpp"
 
+#include "Events/WindowEvents.hpp"
+
 class EXPORT CPP_Display {
     public:
         CPP_ColorFormat* WindowFillColor = nullptr;
@@ -35,6 +37,7 @@ class EXPORT CPP_Display {
 
         unsigned int Size[2] = {0, 0};
         unsigned int Position[2] = {0, 0};
+        unsigned int CurrentMonitorRefreshRate = 0;
 
         float RefreshTime = 0.000001f;
 
@@ -48,10 +51,30 @@ class EXPORT CPP_Display {
 
     public:
         CPP_Display();
+        ~CPP_Display();
 
         void PMMA_Update(GLFWwindow* Window);
 
         void Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen=true, bool NewResizable=false, bool NewNoFrame=false, bool NewVsync=true, bool NewCentered=true, bool NewMaximized=false, bool Transparent=false);
+
+        inline bool GetIsWindowUsingVsync() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return Vsync;
+        }
+
+        inline unsigned int GetCurrentMonitorRefreshRate() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            GLFWmonitor* CurrentMonitor = GetCurrentMonitor(Window);
+            const GLFWvidmode* Mode = glfwGetVideoMode(CurrentMonitor);
+            CurrentMonitorRefreshRate = Mode->refreshRate;
+            return CurrentMonitorRefreshRate;
+        }
 
         inline unsigned int GetWidth() {
             if (Window == nullptr) {
@@ -155,6 +178,70 @@ class EXPORT CPP_Display {
             }
         }
 
+        inline bool GetIsWindowInFocus() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return glfwGetWindowAttrib(Window, GLFW_FOCUSED) == GLFW_TRUE;
+        }
+
+        inline bool GetIsWindowMinimized() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return glfwGetWindowAttrib(Window, GLFW_ICONIFIED) == GLFW_TRUE;
+        }
+
+        inline bool GetIsWindowResizable() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return glfwGetWindowAttrib(Window, GLFW_RESIZABLE) == GLFW_TRUE;
+        }
+
+        inline bool GetIsWindowVisible() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return glfwGetWindowAttrib(Window, GLFW_VISIBLE) == GLFW_TRUE;
+        }
+
+        inline bool GetIsWindowAlwaysOnTop() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return glfwGetWindowAttrib(Window, GLFW_FLOATING) == GLFW_TRUE;
+        }
+
+        inline bool GetIsWindowAutoMinimize() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return glfwGetWindowAttrib(Window, GLFW_AUTO_ICONIFY) == GLFW_TRUE;
+        }
+
+        inline bool GetIsWindowMaximized() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return glfwGetWindowAttrib(Window, GLFW_MAXIMIZED) == GLFW_TRUE;
+        }
+
+        inline unsigned int GetWindow_MSAA_Samples() {
+            if (Window == nullptr) {
+                throw std::runtime_error("Display not created yet!");
+            }
+
+            return glfwGetWindowAttrib(Window, GLFW_SAMPLES);
+        }
+
         inline void SetCaption(std::string& new_caption) {
             if (Window == nullptr) {
                 throw std::runtime_error("Display not created yet!");
@@ -185,13 +272,10 @@ class EXPORT CPP_Display {
             return (float)Size[0] / (float)Size[1];
         }
 
-        void LimitRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery);
+        void LimitRefreshRate(unsigned int RefreshRate);
 
         void ContinuousRefresh(
             unsigned int RefreshRate,
-            bool Minimized,
-            bool FocusLoss,
-            bool LowBattery,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery);
@@ -199,9 +283,6 @@ class EXPORT CPP_Display {
         void EventRefresh(
             unsigned int RefreshRate,
             unsigned int MaxRefreshRate,
-            bool Minimized,
-            bool FocusLoss,
-            bool LowBattery,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery);
@@ -245,39 +326,11 @@ class EXPORT CPP_Display {
             return OrthographicProjection;
         };
 
-        inline unsigned int CalculateRefreshRate(unsigned int RefreshRate, bool Minimized, bool FocusLoss, bool LowBattery) {
-            unsigned int OriginalRefreshRate = RefreshRate;
-
-            if (Minimized) {
-                RefreshRate /= 5;
-            }
-
-            if (FocusLoss) {
-                RefreshRate /= 2;
-            }
-
-            if (LowBattery) {
-                RefreshRate /= 2;
-            }
-
-            if (Minimized) {
-                RefreshRate = std::max(RefreshRate, 5u);
-            } else {
-                RefreshRate = std::max(RefreshRate, RefreshRate / 2);
-            }
-
-            if (RefreshRate > OriginalRefreshRate) {
-                RefreshRate = OriginalRefreshRate;
-            }
-
-            return RefreshRate;
-        }
+        unsigned int CalculateRefreshRate(unsigned int RefreshRate);
 
         void SetIcon(string IconPath);
 
         void ToggleFullScreen();
-
-        ~CPP_Display();
 
         // WIPs
 
