@@ -50,10 +50,14 @@ else:
 
 shared_name = 'PMMA_Core'
 
-def make_ext(component, extra_cpp=None, add_numpy=False):
+def make_ext(component, extra_cpp=None, add_numpy=False, raw_depends=[]):
     sources = [os.path.join("pmma", "core", "pyx_src", component)]
     if extra_cpp is not None:
         sources.extend(extra_cpp)
+
+    depends = []
+    for item in raw_depends:
+        depends.append(os.path.join("pmma", "core", "pyx_src", item))
 
     lib_dirs = [os.path.join(cwd, "pmma", "lib")]
 
@@ -80,11 +84,12 @@ def make_ext(component, extra_cpp=None, add_numpy=False):
         extra_compile_args=compile_args,
         extra_link_args=link_args,
         define_macros=macros,
+        depends=depends
     )
 
 ext_modules = [
     make_ext("AdvancedMathematics.pyx", add_numpy=True),
-    make_ext("Display.pyx", add_numpy=True),
+    make_ext("Display.pyx", add_numpy=True, raw_depends=["NumberFormats.pyx"]),
     make_ext(os.path.join("Events", "KeyEvents.pyx")),
     make_ext(os.path.join("Events", "KeyPadEvents.pyx")),
     make_ext(os.path.join("Events", "WindowEvents.pyx")),
@@ -96,8 +101,9 @@ ext_modules = [
     make_ext("PMMA_Core.pyx"),
     make_ext("TextRenderer.pyx", add_numpy=True),
     make_ext("General.pyx", add_numpy=True),
-    make_ext("Shapes2D.pyx", add_numpy=True),
-    make_ext("Passport.pyx"),
+    make_ext("Shapes2D.pyx", add_numpy=True, raw_depends=["NumberFormats.pyx"]),
+    make_ext("Passport.pyx", raw_depends=["General.pyx"]),
+    make_ext("Logging.pyx")
 ]
 
 # Read the long description from README.md

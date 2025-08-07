@@ -50,6 +50,8 @@
 #include "Utility/CPU_FeatureSetUtils.hpp"
 
 #include "Passport.hpp"
+#include "Logger.hpp"
+#include "InternalLogger.hpp"
 
 /*
 Notes:
@@ -217,6 +219,7 @@ namespace PMMA_Core {
     extern CPP_InternalDropEventManager* DropManagerInstance;
 
     extern CPP_Passport* PassportInstance;
+    extern CPP_InternalLogger* InternalLoggerInstance;
 
     extern PowerSavingManager PowerSavingManagerInstance;
 }

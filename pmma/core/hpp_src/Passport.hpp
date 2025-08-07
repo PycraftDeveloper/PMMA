@@ -18,26 +18,32 @@ class EXPORT CPP_Passport {
 
         inline void SetProductName(std::string NewProductName) {
             ProductName = NewProductName;
+            IsRegistered = false;
         }
 
         inline void SetProductSubName(std::string NewProductSubName) {
             ProductSubName = NewProductSubName;
+            IsRegistered = false;
         }
 
         inline void SetCompanyName(std::string NewCompanyName) {
             CompanyName = NewCompanyName;
+            IsRegistered = false;
         }
 
         inline void SetProductVersion(std::string NewProductVersion) {
             ProductVersion = NewProductVersion;
+            IsRegistered = false;
         }
 
         inline void SetProductPath(std::string NewProductPath) {
             ProductPath = NewProductPath;
+            IsRegistered = false;
         }
 
         inline void SetLoggingPath(std::string NewLoggingPath) {
             LoggingPath = NewLoggingPath;
+            IsRegistered = false;
         }
 
         inline void Register() {

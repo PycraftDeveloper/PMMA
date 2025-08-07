@@ -168,6 +168,7 @@ namespace PMMA_Core {
     CPP_InternalDropEventManager* DropManagerInstance = nullptr;
 
     CPP_Passport* PassportInstance = nullptr;
+    CPP_InternalLogger* InternalLoggerInstance = nullptr;
 
     PowerSavingManager PowerSavingManagerInstance;
 }
@@ -199,6 +200,8 @@ namespace PMMA_Registry {
 }
 
 void PMMA_Initialize() {
+    PMMA_Core::InternalLoggerInstance = new CPP_InternalLogger();
+
     if (PMMA_Registry::IsPowerSavingModeEnabled) {
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled
         PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;

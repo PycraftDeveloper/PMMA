@@ -131,7 +131,7 @@ cdef class DisplayCoordinate:
     cpdef void generate_from_perlin_noise(self, float value)
     cpdef void generate_from_fractal_brownian_motion(self, float value)
     cpdef get_coords(self, bint detect_format=*)
-    cpdef void set_coords(self, in_display_coordinate)
+    cpdef void set_coords(self, in_coord)
 
 cdef class Angle:
     cdef CPP_AngleFormat* cpp_class_ptr

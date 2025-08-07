@@ -31,6 +31,7 @@ set(SOURCES
     "${SRC_DIR}/NumberFormats.cpp"
     "${SRC_DIR}/InternalManagement.cpp"
     "${SRC_DIR}/Passport.cpp"
+    "${SRC_DIR}/Logger.cpp"
 
     "${SRC_DIR}/Utility/FontUtils.cpp"
     "${SRC_DIR}/Utility/CPU_FeatureSetUtils"

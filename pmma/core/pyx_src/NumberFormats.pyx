@@ -252,16 +252,16 @@ cdef class DisplayCoordinate:
         else:
             return out_coordinate_np
 
-    cpdef void set_coords(self, in_display_coordinate):
+    cpdef void set_coords(self, in_coords):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] in_coordinate_np
             unsigned int* in_coordinate_ptr
 
-        if not isinstance(in_display_coordinate, np.ndarray) or in_display_coordinate.dtype != np.uint32 or not in_display_coordinate.flags['C_CONTIGUOUS']:
-            in_coordinate_np = np.array(in_display_coordinate, dtype=np.uint32, order='C')
+        if not isinstance(in_coords, np.ndarray) or in_coords.dtype != np.uint32 or not in_coords.flags['C_CONTIGUOUS']:
+            in_coordinate_np = np.array(in_coords, dtype=np.uint32, order='C')
             self.using_numpy_arrays = True
         else:
-            in_coordinate_np = in_display_coordinate
+            in_coordinate_np = in_coords
             self.using_numpy_arrays = False
 
         in_coordinate_ptr = <unsigned int*>&in_coordinate_np[0]
