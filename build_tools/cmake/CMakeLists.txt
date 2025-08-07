@@ -2,6 +2,23 @@ cmake_minimum_required(VERSION 3.16)
 project(PMMA_Core LANGUAGES CXX)
 
 option(BUILD_DEPS "Build PMMA_Core's dependencies" ON)
+option(USE_PYTHON "Enable Python integration" OFF)
+
+set(PYTHON_PATH "" CACHE STRING "Path to Python executable")
+
+# If PYTHON_PATH is not set or doesn't exist, try to find Python automatically
+if(PYTHON_PATH STREQUAL "" OR NOT EXISTS ${PYTHON_PATH})
+    message(STATUS "PYTHON_PATH not provided or invalid. Attempting to find Python automatically...")
+
+    # Try to find Python using modern CMake (>= 3.12)
+    find_package(Python3 COMPONENTS Interpreter REQUIRED)
+    set(PYTHON_PATH ${Python3_EXECUTABLE})
+else()
+    message(STATUS "Using provided Python path: ${PYTHON_PATH}")
+endif()
+
+# Final confirmation
+message(STATUS "Final Python path: ${PYTHON_PATH}")
 
 get_filename_component(DIR_ONE_ABOVE "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
 get_filename_component(ROOT "${DIR_ONE_ABOVE}/.." ABSOLUTE)
@@ -101,6 +118,8 @@ endif()
 ExternalProject_Add(stage4
     SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
     CMAKE_ARGS
+        -DINTERNAL_USE_PYTHON=${USE_PYTHON}
+        -DPython3_EXECUTABLE=${PYTHON_PATH}
         -DCMAKE_BUILD_TYPE=Release
         -DCMAKE_INSTALL_PREFIX=${ROOT}
     BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}

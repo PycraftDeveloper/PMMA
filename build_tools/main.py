@@ -284,7 +284,9 @@ else:
                 cmake_dir,
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
-                "-DBUILD_DEPS=OFF"],
+                "-DBUILD_DEPS=OFF",
+                "-DUSE_PYTHON=ON",
+                "-DPYTHON_PATH='C://Users//pamj0//AppData//Local//Programs//Python//Python310//python.exe'"], # using Python310
             cwd=cmake_temp_dir,
             check=True)
 
@@ -307,7 +309,9 @@ else:
                 cmake_dir,
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
-                "-DBUILD_DEPS=ON"],
+                "-DBUILD_DEPS=ON",
+                "-DUSE_PYTHON=ON",
+                "-DPYTHON_PATH='C://Users//pamj0//AppData//Local//Programs//Python//Python310//python.exe'"],
             cwd=cmake_temp_dir,
             check=True)
 

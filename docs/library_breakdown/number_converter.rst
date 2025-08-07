@@ -9,7 +9,7 @@ Create
 .. py:method:: pmma.AngleConverter() -> pmma.AngleConverter
 
     🟩 **R** -
-    
+
 
 Methods
 -------
@@ -17,22 +17,22 @@ Methods
 .. py:method:: AngleConverter.set_angle() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: AngleConverter.get_angle_set() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: AngleConverter.get_angle() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: AngleConverter.quit() -> None
 
     🟩 **R** -
-    
+
 
 Proportion Converter (``pmma.ProportionConverter``)
 ===================================================
@@ -45,7 +45,7 @@ Create
 .. py:method:: pmma.ProportionConverter() -> pmma.ProportionConverter
 
     🟩 **R** -
-    
+
 
 Methods
 -------
@@ -53,22 +53,22 @@ Methods
 .. py:method:: ProportionConverter.set_value() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ProportionConverter.get_proportion_set() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ProportionConverter.get_value() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ProportionConverter.quit() -> None
 
     🟩 **R** -
-    
+
 
 Color Converter (``pmma.ColorConverter``)
 =========================================
@@ -81,7 +81,7 @@ Create
 .. py:method:: pmma.ColorConverter() -> pmma.ColorConverter
 
     🟩 **R** -
-    
+
 
 Methods
 -------
@@ -89,32 +89,32 @@ Methods
 .. py:method:: ColorConverter.set_color() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ColorConverter.get_color_set() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ColorConverter.get_color() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ColorConverter.get_color_format() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ColorConverter.quit() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ColorConverter.generate_random_color() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: ColorConverter.set_seed() -> None
 
@@ -159,7 +159,7 @@ Methods
 .. py:method:: ColorConverter.generate_color_from_perlin_noise() -> None
 
     🟩 **R** -
-    
+
 
 Display Scalar Converter (``pmma.DisplayScalarConverter``)
 ==========================================================
@@ -172,7 +172,7 @@ Create
 .. py:method:: pmma.DisplayScalarConverter() -> pmma.DisplayScalarConverter
 
     🟩 **R** -
-    
+
 
 Methods
 -------
@@ -180,24 +180,24 @@ Methods
 .. py:method:: DisplayScalarConverter.set_point() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: DisplayScalarConverter.get_point_set() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: DisplayScalarConverter.get_point() -> None
 
     🟩 **R** -
-    
+
 
 .. py:method:: DisplayScalarConverter.quit() -> None
 
     🟩 **R** -
-    
 
-Display Coordinates Converter (``pmma.DisplayCoordinatesConverter``)
+
+Display Coordinate Converter (``pmma.DisplayCoordinateConverter``)
 ====================================================================
 
 🟩 **R** -
@@ -205,41 +205,41 @@ Display Coordinates Converter (``pmma.DisplayCoordinatesConverter``)
 Create
 ------
 
-.. py:method:: pmma.DisplayCoordinatesConverter() -> pmma.DisplayCoordinatesConverter
+.. py:method:: pmma.DisplayCoordinateConverter() -> pmma.DisplayCoordinateConverter
 
     🟩 **R** -
-    
+
 
 Methods
 -------
 
-.. py:method:: DisplayCoordinatesConverter.set_coordinates() -> None
+.. py:method:: DisplayCoordinateConverter.set_coordinate() -> None
 
     🟩 **R** -
-    
 
-.. py:method:: DisplayCoordinatesConverter.get_coordinate_set() -> None
 
-    🟩 **R** -
-    
-
-.. py:method:: DisplayCoordinatesConverter.get_coordinates() -> None
+.. py:method:: DisplayCoordinateConverter.get_coordinate_set() -> None
 
     🟩 **R** -
-    
 
-.. py:method:: DisplayCoordinatesConverter.generate_random_coordinate() -> None
 
-    🟩 **R** -
-    
-
-.. py:method:: DisplayCoordinatesConverter.generate_coordinate_from_perlin_noise() -> None
+.. py:method:: DisplayCoordinateConverter.get_coordinate() -> None
 
     🟩 **R** -
-    
 
-.. py:method:: DisplayCoordinatesConverter.quit() -> None
+
+.. py:method:: DisplayCoordinateConverter.generate_random_coordinate() -> None
 
     🟩 **R** -
-    
+
+
+.. py:method:: DisplayCoordinateConverter.generate_coordinate_from_perlin_noise() -> None
+
+    🟩 **R** -
+
+
+.. py:method:: DisplayCoordinateConverter.quit() -> None
+
+    🟩 **R** -
+
 

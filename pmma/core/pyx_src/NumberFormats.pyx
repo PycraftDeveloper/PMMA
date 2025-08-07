@@ -235,7 +235,7 @@ cdef class DisplayCoordinate:
     cpdef void generate_from_fractal_brownian_motion(self, float value):
         self.cpp_class_ptr.GenerateFromFractalBrownianMotion(value)
 
-    cpdef get_coords(self, bint detect_format=True):
+    cpdef get_coord(self, bint detect_format=True):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] out_coordinate_np
             unsigned int* out_coordinate_ptr
@@ -252,16 +252,16 @@ cdef class DisplayCoordinate:
         else:
             return out_coordinate_np
 
-    cpdef void set_coords(self, in_coords):
+    cpdef void set_coord(self, in_coord):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] in_coordinate_np
             unsigned int* in_coordinate_ptr
 
-        if not isinstance(in_coords, np.ndarray) or in_coords.dtype != np.uint32 or not in_coords.flags['C_CONTIGUOUS']:
-            in_coordinate_np = np.array(in_coords, dtype=np.uint32, order='C')
+        if not isinstance(in_coord, np.ndarray) or in_coord.dtype != np.uint32 or not in_coord.flags['C_CONTIGUOUS']:
+            in_coordinate_np = np.array(in_coord, dtype=np.uint32, order='C')
             self.using_numpy_arrays = True
         else:
-            in_coordinate_np = in_coords
+            in_coordinate_np = in_coord
             self.using_numpy_arrays = False
 
         in_coordinate_ptr = <unsigned int*>&in_coordinate_np[0]

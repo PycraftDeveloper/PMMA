@@ -19,6 +19,10 @@ set(EXTERN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/pmma/extern)
 # Output directory for the library
 set(LIB_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/pmma/lib")
 
+set(Python3_EXECUTABLE "" CACHE STRING "Path to Python executable")
+
+option(INTERNAL_USE_PYTHON "Enable Python integration" OFF)
+
 # Collect source files
 set(SOURCES
     "${SRC_DIR}/PMMA_Core.cpp"
@@ -32,6 +36,7 @@ set(SOURCES
     "${SRC_DIR}/InternalManagement.cpp"
     "${SRC_DIR}/Passport.cpp"
     "${SRC_DIR}/Logger.cpp"
+    "${SRC_DIR}/InternalLogger.cpp"
 
     "${SRC_DIR}/Utility/FontUtils.cpp"
     "${SRC_DIR}/Utility/CPU_FeatureSetUtils"
@@ -143,6 +148,13 @@ foreach(libdir ${LIBDIRS})
         target_link_directories(${LIB_NAME} PRIVATE ${libdir})
     endif()
 endforeach()
+
+if(INTERNAL_USE_PYTHON)
+    find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+    target_compile_definitions(${LIB_NAME} PRIVATE INTERNAL_USE_PYTHON)
+    target_include_directories(${LIB_NAME} PRIVATE ${Python3_INCLUDE_DIRS})
+    target_link_libraries(${LIB_NAME} PRIVATE ${Python3_LIBRARIES})
+endif()
 
 find_package(OpenGL REQUIRED)
 

@@ -4,6 +4,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <STB/stb_image.h>
 
+#ifdef INTERNAL_USE_PYTHON
+#include <Python.h>
+#endif
+
 #include "PMMA_Core.hpp"
 
 using namespace std;
@@ -195,11 +199,13 @@ namespace PMMA_Registry {
     bool GLFW_Initialized = false;
     bool CPU_Supports_AVX2 = CPP_CPU_FeatureSetUtils::SupportsAVX2();
     bool CPU_Supports_AVX512 = CPP_CPU_FeatureSetUtils::SupportsAVX512();
-
     bool IsPowerSavingModeEnabled = CPP_General::Is_Power_Saving_Mode_Enabled(true);
 }
 
 void PMMA_Initialize() {
+    #ifdef INTERNAL_USE_PYTHON
+    #endif
+
     PMMA_Core::InternalLoggerInstance = new CPP_InternalLogger();
 
     if (PMMA_Registry::IsPowerSavingModeEnabled) {

@@ -28,7 +28,7 @@ CPP_TextRendererPipelineManager::CPP_TextRendererPipelineManager() {
     shaderProgram = Shader.CreateShaderProgram(vertex_shader, fragment_shader);
 
     float quadVertices[] = {
-        // positions   // texcoords
+        // positions   // texcoord
         0.0f, 1.0f,    0.0f, 1.0f,
         1.0f, 0.0f,    1.0f, 0.0f,
         0.0f, 0.0f,    0.0f, 0.0f,

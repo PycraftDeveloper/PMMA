@@ -204,7 +204,7 @@ __m256 Noise3D_AVX2(const array<uint32_t, 512>& Permutations, const float F3,
     __m256 v = Fade_AVX2(fy);
     __m256 w = Fade_AVX2(fz);
 
-    // Hash coordinates of cube corners
+    // Hash coordinate of cube corners
 
     // perm(X)
     __m256i permX  = GatherPerm_AVX2(Permutations, X);

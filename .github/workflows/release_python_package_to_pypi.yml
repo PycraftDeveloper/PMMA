@@ -46,12 +46,13 @@ jobs:
                 cp -r /PMMA "$dir"
                 cd "$dir"
 
-                /opt/python/$tag/bin/python -m pip install --upgrade pip setuptools wheel cython numpy
+                PYTHON_BIN="/opt/python/$tag/bin/python"
+                $PYTHON_BIN -m pip install --upgrade pip setuptools wheel cython numpy
                 mkdir -p ${{ env.CMAKE_TEMP_DIR }}
-                cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_DEPS=ON
+                cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_DEPS=ON -DUSE_PYTHON=ON -DPYTHON_PATH="$PYTHON_BIN"
                 cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release --parallel $(nproc)
                 rm -rf ${{ env.CMAKE_TEMP_DIR }}
-                /opt/python/$tag/bin/python setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
+                $PYTHON_BIN setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
                 original=$(ls dist/*.whl)
                 renamed=$(echo "$original" | sed "s/linux/manylinux_2_28/")
                 mv "$original" "$renamed"
@@ -81,112 +82,58 @@ jobs:
           name: wheel-linux-all
           path: dist/*.whl
 
-  build-core-macos:
-    name: Build native library (macOS arm64)
-    runs-on: macos-latest
-    env:
-      CMAKE_OSX_ARCHITECTURES: arm64
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install dependencies
-        run: brew install cmake
-
-      - name: Configure & build
-        run: |
-          export MACOSX_DEPLOYMENT_TARGET=14.0
-          export CFLAGS="-arch arm64"
-          export CXXFLAGS="-arch arm64"
-          cmake -S build_tools/cmake -B temporary -DCMAKE_OSX_ARCHITECTURES=arm64 -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_DEPS=ON
-          cmake --build temporary --config Release --parallel $(sysctl -n hw.ncpu)
-
-      - name: Clean up build directory
-        run: rm -rf temporary
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: pmma-macos-arm64
-          path: "${{ github.workspace }}"
-
-  build-core-windows:
-    name: Build native library (Windows x64)
-    runs-on: windows-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Install CMake
-        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
-
-      - name: Configure & build
-        shell: pwsh
-        run: |
-          cmake -S build_tools/cmake -B temporary -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_DEPS=ON
-          cmake --build temporary --config Release --parallel ((Get-CimInstance Win32_Processor).NumberOfLogicalProcessors)
-
-      - name: Clean up build directory
-        shell: pwsh
-        run: Remove-Item -Recurse -Force temporary
-
-      - uses: actions/upload-artifact@v4
-        with:
-          name: pmma-windows-x64
-          path: "${{ github.workspace }}"
-
   # ──────────────────────────────────────
   # 2. Python builds per OS/arch via matrix
   # ──────────────────────────────────────
   build_macos:
-    needs:
-      - build-core-macos
-
     strategy:
       matrix:
         include:
           - os: macos
             runs-on: macos-latest
-            pmma_artifact: pmma-macos-arm64
             python-version: '3.8'
           - os: macos
             runs-on: macos-latest
-            pmma_artifact: pmma-macos-arm64
             python-version: '3.9'
           - os: macos
             runs-on: macos-latest
-            pmma_artifact: pmma-macos-arm64
             python-version: '3.10'
           - os: macos
             runs-on: macos-latest
-            pmma_artifact: pmma-macos-arm64
             python-version: '3.11'
 
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - name: Download pmma directory artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ matrix.pmma_artifact }}
+      - uses: actions/checkout@v3
+
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Setup pip & build tools
-        run: |
-          python -m pip install --upgrade pip setuptools wheel cython numpy twine
+      - name: Install dependencies
+        run: brew install cmake
 
-      - name: Build Python wheel (Windows)
-        if: runner.os == 'Windows'
-        shell: pwsh
+      - name: Install Python build tools
         run: |
-          python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel --parallel ((Get-CimInstance Win32_Processor).NumberOfLogicalProcessors)
+          python -m pip install --upgrade pip setuptools wheel cython numpy
 
-      - name: Build Python wheel (Linux)
-        if: runner.os == 'Linux'
+      - name: Configure and build C++ API via CMake
         run: |
-          python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel --parallel $(nproc)
+          export MACOSX_DEPLOYMENT_TARGET=14.0
+          export CFLAGS="-arch arm64"
+          export CXXFLAGS="-arch arm64"
+          cmake -S build_tools/cmake -B temporary \
+            -DCMAKE_OSX_ARCHITECTURES=arm64 \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+            -DBUILD_DEPS=ON \
+            -DUSE_PYTHON=ON \
+            -DPYTHON_PATH=$(which python)
+          cmake --build temporary --config Release --parallel $(sysctl -n hw.ncpu)
 
-      - name: Build Python wheel (MacOS)
-        if: runner.os == 'macOS'
+      - name: Build Python wheel
         run: |
           python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel --parallel $(sysctl -n hw.ncpu)
 
@@ -197,49 +144,54 @@ jobs:
           path: dist/*.whl
 
   build_windows:
-    needs:
-      - build-core-windows
-
     strategy:
       matrix:
         include:
           - os: windows
             runs-on: windows-latest
-            pmma_artifact: pmma-windows-x64
             python-version: '3.8'
           - os: windows
             runs-on: windows-latest
-            pmma_artifact: pmma-windows-x64
             python-version: '3.9'
           - os: windows
             runs-on: windows-latest
-            pmma_artifact: pmma-windows-x64
             python-version: '3.10'
           - os: windows
             runs-on: windows-latest
-            pmma_artifact: pmma-windows-x64
             python-version: '3.11'
 
     runs-on: ${{ matrix.runs-on }}
     steps:
-      - name: Download pmma directory artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: ${{ matrix.pmma_artifact }}
+      - uses: actions/checkout@v3
 
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Setup pip & build tools
+      - name: Install CMake
+        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+
+      - name: Install Python build tools
         run: |
-          python -m pip install --upgrade pip setuptools wheel cython numpy twine
+          python -m pip install --upgrade pip setuptools wheel cython numpy
+
+      - name: Configure and build C++ API via CMake
+        shell: pwsh
+        run: |
+          $pythonPath = (Get-Command python).Source
+          cmake -S build_tools/cmake -B temporary `
+            -DCMAKE_BUILD_TYPE=Release `
+            -DCMAKE_POSITION_INDEPENDENT_CODE=ON `
+            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 `
+            -DBUILD_DEPS=ON `
+            -DUSE_PYTHON=ON `
+            -DPYTHON_PATH="$pythonPath"
+          cmake --build temporary --config Release --parallel ((Get-CimInstance Win32_Processor).NumberOfLogicalProcessors)
 
       - name: Build Python wheel
         run: |
-          ls -R
-          python setup.py build_ext --build-lib PMMA/pmma/build --build-temp temporary sdist bdist_wheel
+          python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel
 
       - name: Upload wheel
         uses: actions/upload-artifact@v4
