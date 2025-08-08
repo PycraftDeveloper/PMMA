@@ -12,3 +12,9 @@ class General:
 
     @staticmethod
     def get_pmma_install_dir() -> str: ...
+
+    @staticmethod
+    def set_debug_mode(is_debug_mode: bool) -> None: ...
+
+    @staticmethod
+    def is_debug_mode_enabled() -> bool: ...

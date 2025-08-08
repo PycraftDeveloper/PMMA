@@ -9,75 +9,104 @@
 #include <fstream>
 
 class CPP_InternalLogger {
-    std::vector<std::string> ContentToLogToFile;
-    std::vector<std::string> PreviouslyLoggedContent;
+    public:
+        std::vector<std::string> ContentToLogToFile;
+        std::vector<std::string> PreviouslyLoggedContent;
 
-    std::string LogFileLocation;
-    std::string LogFileName;
+        std::string LogFileLocation;
+        std::string LogFileName;
 
-    bool LogToFile = false;
-    bool LogToConsole = true;
+        bool LogToFile = false;
+        bool LogToConsole = true;
 
-    inline void SetLogFileLocation(std::string NewLogFileLocation) {
-        LogFileLocation = NewLogFileLocation;
-        LogToFile = true;
+    private:
+        inline std::string GetDateTimeCode() {
+            auto now = std::chrono::system_clock::now();
 
-        if (ContentToLogToFile.size() > 0) {
-            std::ofstream LogFile(LogFileLocation + LogFileName, std::ios::app);
-            for (unsigned int i = 0; i < ContentToLogToFile.size(); i++) {
-                LogFile << ContentToLogToFile[i] << std::endl;
-            }
-            LogFile.close();
+            std::time_t new_time = std::chrono::system_clock::to_time_t(now);
 
-            ContentToLogToFile.clear();
+            std::tm local_tm;
+
+            #ifdef _WIN32
+                localtime_s(&local_tm, &new_time);
+            #else
+                localtime_r(&new_time, &local_tm);
+            #endif
+
+            auto duration = now.time_since_epoch();
+            auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration) % 1000;
+
+            std::ostringstream oss;
+
+            oss << std::setfill('0')
+            << std::setw(2) << local_tm.tm_mday << "/"
+            << std::setw(2) << local_tm.tm_mon + 1 << "/"
+            << std::setw(4) << local_tm.tm_year + 1900 << " at "
+            << std::setw(2) << local_tm.tm_hour << ":"
+            << std::setw(2) << local_tm.tm_min << ":"
+            << std::setw(2) << local_tm.tm_sec << ":"
+            << std::setw(3) << milliseconds.count();
+
+            return oss.str();
         }
-    }
 
-    inline void SetLogToFile(bool NewLogToFile) {
-        LogToFile = NewLogToFile;
-    }
+        void Log(std::string Content);
 
-    inline void SetLogToConsole(bool NewLogToConsole) {
-        LogToConsole = NewLogToConsole;
-    }
+    public:
+        inline void SetLogFileLocation(std::string NewLogFileLocation) {
+            LogFileLocation = NewLogFileLocation;
+            LogToFile = true;
 
-    inline bool GetLogToFile() {
-        return LogToFile;
-    }
+            if (ContentToLogToFile.size() > 0) {
+                std::ofstream LogFile(LogFileLocation + LogFileName, std::ios::app);
+                for (unsigned int i = 0; i < ContentToLogToFile.size(); i++) {
+                    LogFile << ContentToLogToFile[i] << std::endl;
+                }
+                LogFile.close();
 
-    inline bool GetLogToConsole() {
-        return LogToConsole;
-    }
+                ContentToLogToFile.clear();
+            }
+        }
 
-    inline std::string GetDateCode() {
-        auto now = std::chrono::system_clock::now();
+        inline void SetLogToFile(bool NewLogToFile) {
+            LogToFile = NewLogToFile;
+        }
 
-        std::time_t new_time = std::chrono::system_clock::to_time_t(now);
+        inline void SetLogToConsole(bool NewLogToConsole) {
+            LogToConsole = NewLogToConsole;
+        }
 
-        std::tm local_tm;
+        inline bool GetLogToFile() {
+            return LogToFile;
+        }
 
-        #ifdef _WIN32
-            localtime_s(&local_tm, &new_time);
-        #else
-            localtime_r(&new_time, &local_tm);
-        #endif
+        inline bool GetLogToConsole() {
+            return LogToConsole;
+        }
 
-        auto duration = now.time_since_epoch();
-        auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration) % 1000;
+        void InternalLogDebug(std::string ID, std::string Content);
 
-        std::ostringstream oss;
+        inline void InternalLogWarn(std::string ID, std::string Content) {
+            auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+            if (PreviousIndex == PreviouslyLoggedContent.end()) {
+                PreviouslyLoggedContent.push_back(ID);
+                std::string DateTimeCode = GetDateTimeCode();
+                Log("PMMA (Warn) - " + DateTimeCode + " - " + Content);
+            }
+        }
 
-        oss << std::setfill('0')
-        << std::setw(2) << local_tm.tm_mday << "/"
-        << std::setw(2) << local_tm.tm_mon + 1 << "/"
-        << std::setw(4) << local_tm.tm_year + 1900 << " at "
-        << std::setw(2) << local_tm.tm_hour << ":"
-        << std::setw(2) << local_tm.tm_min << ":"
-        << std::setw(2) << local_tm.tm_sec << ":"
-        << std::setw(3) << milliseconds.count();
+        inline void InternalLogError(std::string ID, std::string Content) {
+            auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+            if (PreviousIndex == PreviouslyLoggedContent.end()) {
+                PreviouslyLoggedContent.push_back(ID);
+                std::string DateTimeCode = GetDateTimeCode();
+                Log("PMMA (Error) - " + DateTimeCode + " - " + Content);
+            }
+        }
 
-        return oss.str();
-    }
+        void ExternalLogDebug(std::string ID, std::string Content, std::string ProductName);
 
-    void InternalLog(std::string Content);
+        void ExternalLogWarn(std::string ID, std::string Content, std::string ProductName);
+
+        void ExternalLogError(std::string ID, std::string Content, std::string ProductName);
 };

@@ -247,6 +247,7 @@ namespace PMMA_Registry {
     extern bool CPU_Supports_AVX2;
     extern bool CPU_Supports_AVX512;
     extern bool IsPowerSavingModeEnabled;
+    extern bool IsDebuggingModeEnabled;
 }
 
 EXPORT void PMMA_Initialize();

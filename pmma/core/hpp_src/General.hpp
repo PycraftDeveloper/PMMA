@@ -12,4 +12,8 @@ namespace CPP_General {
     EXPORT std::string Get_PMMA_Location();
 
     EXPORT bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh);
+
+    EXPORT bool Is_DebugModeEnabled();
+
+    EXPORT void Set_DebugModeEnabled(bool DebugMode);
 }

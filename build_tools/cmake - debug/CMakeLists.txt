@@ -61,6 +61,7 @@ if (BUILD_DEPS)
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
             ${CMAKE_ARGS}
         BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Debug --parallel ${PARALLEL_CORES}
         INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Debug
@@ -71,6 +72,7 @@ if (BUILD_DEPS)
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
             ${CMAKE_ARGS}
         BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Debug --parallel ${PARALLEL_CORES}
         INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Debug
@@ -93,6 +95,7 @@ if (BUILD_DEPS)
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
             -DFT_DISABLE_BZIP2=ON
             -DFT_DISABLE_BROTLI=ON
             -DGLFW_BUILD_EXAMPLES=OFF
@@ -122,6 +125,7 @@ ExternalProject_Add(stage4
         -DPython3_EXECUTABLE=${PYTHON_PATH}
         -DCMAKE_BUILD_TYPE=Debug
         -DCMAKE_INSTALL_PREFIX=${ROOT}
+        -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
     BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Debug --parallel ${PARALLEL_CORES}
     INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Debug
     ${STAGE4_DEPENDS}

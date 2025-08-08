@@ -58,9 +58,11 @@ include(ExternalProject)
 if (BUILD_DEPS)
     ExternalProject_Add(stage1
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/1_build_deps_first_pass" # LibZ
+        CMAKE_GENERATOR Ninja
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Release
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
             ${CMAKE_ARGS}
         BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
         INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
@@ -68,9 +70,11 @@ if (BUILD_DEPS)
 
     ExternalProject_Add(stage2
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/2_build_deps_second_pass" # libpng
+        CMAKE_GENERATOR Ninja
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Release
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
             ${CMAKE_ARGS}
         BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
         INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
@@ -90,9 +94,11 @@ if (BUILD_DEPS)
 
     ExternalProject_Add(stage3
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/3_build_extern" # GLFW, FreeType, GLM
+        CMAKE_GENERATOR Ninja
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Release
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
+            -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
             -DFT_DISABLE_BZIP2=ON
             -DFT_DISABLE_BROTLI=ON
             -DGLFW_BUILD_EXAMPLES=OFF
@@ -117,11 +123,13 @@ endif()
 
 ExternalProject_Add(stage4
     SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
+    CMAKE_GENERATOR Ninja
     CMAKE_ARGS
         -DINTERNAL_USE_PYTHON=${USE_PYTHON}
         -DPython3_EXECUTABLE=${PYTHON_PATH}
         -DCMAKE_BUILD_TYPE=Release
         -DCMAKE_INSTALL_PREFIX=${ROOT}
+        -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
     BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
     INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
     ${STAGE4_DEPENDS}

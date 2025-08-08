@@ -5,7 +5,7 @@
 #include <STB/stb_image.h>
 
 #ifdef INTERNAL_USE_PYTHON
-#include <Python.h>
+    #include <Python.h>
 #endif
 
 #include "PMMA_Core.hpp"
@@ -200,10 +200,13 @@ namespace PMMA_Registry {
     bool CPU_Supports_AVX2 = CPP_CPU_FeatureSetUtils::SupportsAVX2();
     bool CPU_Supports_AVX512 = CPP_CPU_FeatureSetUtils::SupportsAVX512();
     bool IsPowerSavingModeEnabled = CPP_General::Is_Power_Saving_Mode_Enabled(true);
+    bool IsDebuggingModeEnabled = true;
 }
 
 void PMMA_Initialize() {
     #ifdef INTERNAL_USE_PYTHON
+        Py_Initialize();
+        PyEval_InitThreads(); // for support with Python 3.8
     #endif
 
     PMMA_Core::InternalLoggerInstance = new CPP_InternalLogger();
@@ -221,4 +224,8 @@ void PMMA_Uninitialize() {
     if (PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread.joinable()) {
         PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread.join();
     }
+
+    #ifdef INTERNAL_USE_PYTHON
+        Py_Finalize();
+    #endif
 }

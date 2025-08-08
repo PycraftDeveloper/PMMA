@@ -106,3 +106,11 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         return false;
     #endif
 }
+
+bool CPP_General::Is_DebugModeEnabled() {
+    return PMMA_Registry::IsDebuggingModeEnabled;
+}
+
+void CPP_General::Set_DebugModeEnabled(bool DebugMode) {
+    PMMA_Registry::IsDebuggingModeEnabled = DebugMode;
+}

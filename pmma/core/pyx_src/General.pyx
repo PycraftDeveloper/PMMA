@@ -18,6 +18,8 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     string Get_PMMA_Location() except + nogil
 
     bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh) except + nogil
+    bool Is_DebugModeEnabled() except + nogil
+    void Set_DebugModeEnabled(bool DebugMode) except + nogil
 
 cdef class General:
     def __cinit__(self):
@@ -74,3 +76,11 @@ cdef class General:
             nvidia_smi = "nvidia-smi"
 
         return nvidia_smi
+
+    @staticmethod
+    def set_debug_mode(is_debug_mode):
+        Set_DebugModeEnabled(is_debug_mode)
+
+    @staticmethod
+    def is_debug_mode_enabled():
+        return Is_DebugModeEnabled()
