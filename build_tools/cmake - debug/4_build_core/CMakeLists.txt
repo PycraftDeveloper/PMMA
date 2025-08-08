@@ -39,7 +39,7 @@ set(SOURCES
     "${SRC_DIR}/InternalLogger.cpp"
 
     "${SRC_DIR}/Utility/FontUtils.cpp"
-    "${SRC_DIR}/Utility/CPU_FeatureSetUtils"
+    "${SRC_DIR}/Utility/CPU_FeatureSetUtils.cpp"
 
     "${SRC_DIR}/Rendering/RenderPipelineCore.cpp"
     "${SRC_DIR}/Rendering/Shape2DRenderPipelineManager.cpp"

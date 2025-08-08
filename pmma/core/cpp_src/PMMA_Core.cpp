@@ -206,10 +206,16 @@ namespace PMMA_Registry {
 void PMMA_Initialize() {
     #ifdef INTERNAL_USE_PYTHON
         Py_Initialize();
-        PyEval_InitThreads(); // for support with Python 3.8
+        #if PY_VERSION_HEX < 0x03090000 // for support with Python 3.8
+            PyEval_InitThreads();
+        #endif
     #endif
 
     PMMA_Core::InternalLoggerInstance = new CPP_InternalLogger();
+
+    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        "How logs are structured",
+        "PMMA logging initialized, log files are named: 'DD-MM-YYYY at HH-MM-SS.txt'.");
 
     if (PMMA_Registry::IsPowerSavingModeEnabled) {
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled

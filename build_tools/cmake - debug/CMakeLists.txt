@@ -58,6 +58,7 @@ include(ExternalProject)
 if (BUILD_DEPS)
     ExternalProject_Add(stage1
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/1_build_deps_first_pass" # LibZ
+        CMAKE_GENERATOR Ninja
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
@@ -69,6 +70,7 @@ if (BUILD_DEPS)
 
     ExternalProject_Add(stage2
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/2_build_deps_second_pass" # libpng
+        CMAKE_GENERATOR Ninja
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
@@ -92,6 +94,7 @@ if (BUILD_DEPS)
 
     ExternalProject_Add(stage3
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/3_build_extern" # GLFW, FreeType, GLM
+        CMAKE_GENERATOR Ninja
         CMAKE_ARGS
             -DCMAKE_BUILD_TYPE=Debug
             -DCMAKE_INSTALL_PREFIX=${EXTERN_DIR}
@@ -120,6 +123,7 @@ endif()
 
 ExternalProject_Add(stage4
     SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
+    CMAKE_GENERATOR Ninja
     CMAKE_ARGS
         -DINTERNAL_USE_PYTHON=${USE_PYTHON}
         -DPython3_EXECUTABLE=${PYTHON_PATH}

@@ -14,3 +14,17 @@ CPP_Passport::~CPP_Passport() {
         PMMA_Core::PassportInstance = nullptr;
     }
 }
+
+void CPP_Passport::Register() {
+    IsRegistered = true;
+
+    PMMA_Core::InternalLoggerInstance->SetLogFileLocation(LoggingPath);
+}
+
+void CPP_Passport::SetLoggingPath(std::string NewLoggingPath, bool ExplicitlySet) {
+    LoggingPath = NewLoggingPath;
+    IsRegistered = false;
+    if (ExplicitlySet) {
+        PMMA_Core::InternalLoggerInstance->LogFilePathExplicitlySet();
+    }
+}

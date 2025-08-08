@@ -41,14 +41,9 @@ class EXPORT CPP_Passport {
             IsRegistered = false;
         }
 
-        inline void SetLoggingPath(std::string NewLoggingPath) {
-            LoggingPath = NewLoggingPath;
-            IsRegistered = false;
-        }
+        void SetLoggingPath(std::string NewLoggingPath, bool ExplicitlySet);
 
-        inline void Register() {
-            IsRegistered = true;
-        }
+        void Register();
 
         inline bool GetIsRegistered() {
             return IsRegistered;

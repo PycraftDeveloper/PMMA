@@ -16,9 +16,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetCompanyName(string NewCompanyName) except + nogil
         inline void SetProductVersion(string NewProductVersion) except + nogil
         inline void SetProductPath(string NewProductPath) except + nogil
-        inline void SetLoggingPath(string NewLoggingPath) except + nogil
+        void SetLoggingPath(string NewLoggingPath, bool ExplicitlySet) except + nogil
 
-        inline void Register() except + nogil
+        void Register() except + nogil
 
         inline bool GetIsRegistered() except + nogil
         inline string GetProductName() except + nogil
@@ -61,7 +61,7 @@ cdef class Passport:
 
     def set_logging_path(self, logging_path):
         cdef string encoded_logging_path = logging_path.encode("utf-8")
-        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path)
+        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 
     def register(self, auto_prepare_logging_dir=True):
         cdef string raw_product_path = self.cpp_class_ptr.GetProductPath()
@@ -78,7 +78,7 @@ cdef class Passport:
         if logging_path != "" and (not os.path.exists(logging_path)):
             raise IsADirectoryError("This is not a valid path!")
 
-        logging_path_not_set = logging_path == ""
+        logging_path_not_set = logging_path == "" # also check here if logging is currently supposed to be writing to a file!
 
         if logging_path_not_set and product_path != "":
             print("No logging path set - attempting to find a valid location!")
@@ -86,19 +86,19 @@ cdef class Passport:
             if os.path.exists(os.path.join(product_path, "logs")):
                 logging_path = os.path.join(product_path, "logs")
                 encoded_logging_path = logging_path.encode("utf-8")
-                self.cpp_class_ptr.SetLoggingPath(encoded_logging_path)
+                self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, False)
                 print(f"Found location: {logging_path}")
             elif os.path.exists(os.path.join(product_path, "Logs")):
                 logging_path = os.path.join(product_path, "Logs")
                 encoded_logging_path = logging_path.encode("utf-8")
-                self.cpp_class_ptr.SetLoggingPath(encoded_logging_path)
+                self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, False)
                 print(f"Found location: {logging_path}")
             else:
                 for dirpath, _, _ in os.walk(product_path):
                     if "logs" in os.path.basename(dirpath).lower():
                         logging_path = dirpath
                         encoded_logging_path = logging_path.encode("utf-8")
-                        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path)
+                        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, False)
                         print(f"Found location: {logging_path}")
                         break
                 else:
@@ -107,7 +107,7 @@ cdef class Passport:
                     if auto_prepare_logging_dir:
                         logging_path = os.path.join(product_path, "logs")
                         encoded_logging_path = logging_path.encode("utf-8")
-                        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path)
+                        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, False)
                         os.mkdir(logging_path)
 
 

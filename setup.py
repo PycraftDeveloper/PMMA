@@ -103,7 +103,7 @@ ext_modules = [
     make_ext("General.pyx", add_numpy=True),
     make_ext("Shapes2D.pyx", add_numpy=True, raw_depends=["NumberFormats.pyx"]),
     make_ext("Passport.pyx", raw_depends=["General.pyx"]),
-    make_ext("Logging.pyx")
+    make_ext("Logger.pyx")
 ]
 
 # Read the long description from README.md

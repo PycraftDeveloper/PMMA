@@ -5,6 +5,12 @@
 
 class EXPORT CPP_Logger {
     public:
+        void SetLogToFile(bool NewLogToFile);
+        bool GetLogToFile();
+
+        void SetLogToConsole(bool NewLogToConsole);
+        bool GetLogToConsole();
+
         // For public use
         void LogDebug(std::string ID, std::string Content, std::string ProductName);
         void LogWarn(std::string ID, std::string Content, std::string ProductName);
