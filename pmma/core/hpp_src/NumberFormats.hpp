@@ -123,7 +123,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             IsSet = true;
         }
 
-        inline void GenerateFromPerlinNoise(float value, bool GenerateAlpha=true) {
+        inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha=true) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -155,7 +155,71 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             IsSet = true;
         }
 
-        inline void GenerateFromFractalBrownianMotion(float value, bool GenerateAlpha=true) {
+        inline void GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha=true) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            float OutputColor[4];
+            OutputColor[0] = R_PerlinNoiseGenerator->Noise2D(value_one + r_offset, value_two + r_offset);
+            OutputColor[1] = G_PerlinNoiseGenerator->Noise2D(value_one + g_offset, value_two + g_offset);
+            OutputColor[2] = B_PerlinNoiseGenerator->Noise2D(value_one + b_offset, value_two + b_offset);
+            if (GenerateAlpha) {
+                OutputColor[3] = A_PerlinNoiseGenerator->Noise2D(value_one + a_offset, value_two + a_offset);
+            } else {
+                OutputColor[3] = 1.0f;
+            }
+
+            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+
+            glm::vec4 converted_in_color = glm::vec4(
+                OutputColor[0],
+                OutputColor[1],
+                OutputColor[2],
+                OutputColor[3]
+            );
+
+            if (converted_in_color != InternalColor) {
+                Changed = true;
+                InternalColor = converted_in_color;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three, bool GenerateAlpha=true) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            float OutputColor[4];
+            OutputColor[0] = R_PerlinNoiseGenerator->Noise3D(value_one + r_offset, value_two + r_offset, value_three + r_offset);
+            OutputColor[1] = G_PerlinNoiseGenerator->Noise3D(value_one + g_offset, value_two + g_offset, value_three + g_offset);
+            OutputColor[2] = B_PerlinNoiseGenerator->Noise3D(value_one + b_offset, value_two + b_offset, value_three + b_offset);
+            if (GenerateAlpha) {
+                OutputColor[3] = A_PerlinNoiseGenerator->Noise3D(value_one + a_offset, value_two + a_offset, value_three + a_offset);
+            } else {
+                OutputColor[3] = 1.0f;
+            }
+
+            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+
+            glm::vec4 converted_in_color = glm::vec4(
+                OutputColor[0],
+                OutputColor[1],
+                OutputColor[2],
+                OutputColor[3]
+            );
+
+            if (converted_in_color != InternalColor) {
+                Changed = true;
+                InternalColor = converted_in_color;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha=true) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -166,6 +230,70 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             OutputColor[2] = B_FractalBrownianMotionGenerator->Noise1D(value + b_offset);
             if (GenerateAlpha) {
                 OutputColor[3] = A_FractalBrownianMotionGenerator->Noise1D(value + a_offset);
+            } else {
+                OutputColor[3] = 1.0f;
+            }
+
+            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+
+            glm::vec4 converted_in_color = glm::vec4(
+                OutputColor[0],
+                OutputColor[1],
+                OutputColor[2],
+                OutputColor[3]
+            );
+
+            if (converted_in_color != InternalColor) {
+                Changed = true;
+                InternalColor = converted_in_color;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha=true) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            float OutputColor[4];
+            OutputColor[0] = R_FractalBrownianMotionGenerator->Noise2D(value_one + r_offset, value_two + r_offset);
+            OutputColor[1] = G_FractalBrownianMotionGenerator->Noise2D(value_one + g_offset, value_two + g_offset);
+            OutputColor[2] = B_FractalBrownianMotionGenerator->Noise2D(value_one + b_offset, value_two + b_offset);
+            if (GenerateAlpha) {
+                OutputColor[3] = A_FractalBrownianMotionGenerator->Noise2D(value_one + a_offset, value_two + a_offset);
+            } else {
+                OutputColor[3] = 1.0f;
+            }
+
+            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+
+            glm::vec4 converted_in_color = glm::vec4(
+                OutputColor[0],
+                OutputColor[1],
+                OutputColor[2],
+                OutputColor[3]
+            );
+
+            if (converted_in_color != InternalColor) {
+                Changed = true;
+                InternalColor = converted_in_color;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three, bool GenerateAlpha=true) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            float OutputColor[4];
+            OutputColor[0] = R_FractalBrownianMotionGenerator->Noise3D(value_one + r_offset, value_two + r_offset, value_three + r_offset);
+            OutputColor[1] = G_FractalBrownianMotionGenerator->Noise3D(value_one + g_offset, value_two + g_offset, value_three + g_offset);
+            OutputColor[2] = B_FractalBrownianMotionGenerator->Noise3D(value_one + b_offset, value_two + b_offset, value_three + b_offset);
+            if (GenerateAlpha) {
+                OutputColor[3] = A_FractalBrownianMotionGenerator->Noise3D(value_one + a_offset, value_two + a_offset, value_three + a_offset);
             } else {
                 OutputColor[3] = 1.0f;
             }
@@ -286,9 +414,13 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
         void GenerateFromRandom();
 
-        void GenerateFromPerlinNoise(float value);
+        void GenerateFrom1DPerlinNoise(float value);
+        void GenerateFrom2DPerlinNoise(float value_one, float value_two);
+        void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three);
 
-        void GenerateFromFractalBrownianMotion(float value);
+        void GenerateFrom1DFractalBrownianMotion(float value);
+        void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two);
+        void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three);
 
         inline void Set(unsigned int* in_coordinate) {
             glm::vec2 converted_in_coordinate = {
@@ -384,7 +516,7 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
             IsSet = true;
         }
 
-        inline void GenerateFromPerlinNoise(float value) {
+        inline void GenerateFrom1DPerlinNoise(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -400,12 +532,76 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
             IsSet = true;
         }
 
-        inline void GenerateFromFractalBrownianMotion(float value) {
+        inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            InternalAngle = PerlinNoiseGenerator->Noise2D(value_one, value_two);
+            float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+
+            if (converted_in_angle != InternalAngle) {
+                Changed = true;
+                InternalAngle = converted_in_angle;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            InternalAngle = PerlinNoiseGenerator->Noise3D(value_one, value_two, value_three);
+            float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+
+            if (converted_in_angle != InternalAngle) {
+                Changed = true;
+                InternalAngle = converted_in_angle;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom1DFractalBrownianMotion(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
 
             InternalAngle = FractalBrownianMotionGenerator->Noise1D(value);
+            float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+
+            if (converted_in_angle != InternalAngle) {
+                Changed = true;
+                InternalAngle = converted_in_angle;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            InternalAngle = FractalBrownianMotionGenerator->Noise2D(value_one, value_two);
+            float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+
+            if (converted_in_angle != InternalAngle) {
+                Changed = true;
+                InternalAngle = converted_in_angle;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            InternalAngle = FractalBrownianMotionGenerator->Noise3D(value_one, value_two, value_three);
             float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
 
             if (converted_in_angle != InternalAngle) {
@@ -481,7 +677,7 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
             IsSet = true;
         }
 
-        inline void GenerateFromPerlinNoise(float value) {
+        inline void GenerateFrom1DPerlinNoise(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
@@ -497,12 +693,76 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
             IsSet = true;
         }
 
-        inline void GenerateFromFractalBrownianMotion(float value) {
+        inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            InternalProportion = PerlinNoiseGenerator->Noise2D(value_one, value_two);
+            float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+
+            if (converted_in_proportion != InternalProportion) {
+                Changed = true;
+                InternalProportion = converted_in_proportion;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            InternalProportion = PerlinNoiseGenerator->Noise3D(value_one, value_two, value_three);
+            float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+
+            if (converted_in_proportion != InternalProportion) {
+                Changed = true;
+                InternalProportion = converted_in_proportion;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom1DFractalBrownianMotion(float value) {
             if (!Configured) {
                 throw runtime_error("You need to configure this component first!");
             }
 
             InternalProportion = FractalBrownianMotionGenerator->Noise1D(value);
+            float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+
+            if (converted_in_proportion != InternalProportion) {
+                Changed = true;
+                InternalProportion = converted_in_proportion;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            InternalProportion = FractalBrownianMotionGenerator->Noise2D(value_one, value_two);
+            float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+
+            if (converted_in_proportion != InternalProportion) {
+                Changed = true;
+                InternalProportion = converted_in_proportion;
+            }
+
+            IsSet = true;
+        }
+
+        inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
+            if (!Configured) {
+                throw runtime_error("You need to configure this component first!");
+            }
+
+            InternalProportion = FractalBrownianMotionGenerator->Noise3D(value_one, value_two, value_three);
             float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
 
             if (converted_in_proportion != InternalProportion) {

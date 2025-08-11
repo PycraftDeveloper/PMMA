@@ -10,8 +10,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
 
         inline void GenerateFromRandom(bool GenerateAlpha) except + nogil
-        inline void GenerateFromPerlinNoise(float value, bool GenerateAlpha) except + nogil
-        inline void GenerateFromFractalBrownianMotion(float value, bool GenerateAlpha) except + nogil
+        inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha) except + nogil
+        inline void GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha) except + nogil
+        inline void GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha) except + nogil
+        inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha) except + nogil
+        inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_two, bool GenerateAlpha) except + nogil
+        inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_two, bool GenerateAlpha) except + nogil
 
         inline void Set_RGBA(unsigned int* in_color) except + nogil
         inline void Set_rgba(float* in_color) except + nogil
@@ -35,8 +39,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
 
         void GenerateFromRandom() except +
-        void GenerateFromPerlinNoise(float value) except +
-        void GenerateFromFractalBrownianMotion(float value) except +
+        void GenerateFrom1DPerlinNoise(float value) except +
+        void GenerateFrom2DPerlinNoise(float value_one, float value_two) except +
+        void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) except +
+        void GenerateFrom1DFractalBrownianMotion(float value) except +
+        void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) except +
+        void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) except +
 
         void Get(unsigned int* out_coordinate) except +
         void Set(unsigned int* in_coordinate) except +
@@ -53,8 +61,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
 
         inline void GenerateFromRandom() except + nogil
-        inline void GenerateFromPerlinNoise(float value) except + nogil
-        inline void GenerateFromFractalBrownianMotion(float value) except + nogil
+        inline void GenerateFrom1DPerlinNoise(float value) except + nogil
+        inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) except + nogil
+        inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) except + nogil
+        inline void GenerateFrom1DFractalBrownianMotion(float value) except + nogil
+        inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) except + nogil
+        inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) except + nogil
 
         inline void Set_Degrees(float in_angle) except + nogil
         inline void Set_Radians(float in_angle) except + nogil
@@ -74,8 +86,12 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
 
         inline void GenerateFromRandom() except + nogil
-        inline void GenerateFromPerlinNoise(float value) except + nogil
-        inline void GenerateFromFractalBrownianMotion(float value) except + nogil
+        inline void GenerateFrom1DPerlinNoise(float value) except + nogil
+        inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) except + nogil
+        inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) except + nogil
+        inline void GenerateFrom1DFractalBrownianMotion(float value) except + nogil
+        inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) except + nogil
+        inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) except + nogil
 
         inline void Set_Percentage(float in_proportion) except + nogil
         inline void Set_Decimal(float in_proportion) except + nogil
@@ -97,14 +113,23 @@ cdef class Color:
     cdef void set_pointer(self, CPP_ColorFormat* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
+
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
     cpdef bint get_set(self)
+
     cpdef void generate_from_random(self, bool generate_alpha=?)
-    cpdef void generate_from_perlin_noise(self, float value, bool generate_alpha=?)
-    cpdef void generate_from_fractal_brownian_motion(self, float value, bool generate_alpha=?)
+
+    cpdef void generate_from_1D_perlin_noise(self, float value, bool generate_alpha=?)
+    cpdef void generate_from_2D_perlin_noise(self, float value_one, float value_two, bool generate_alpha=?)
+    cpdef void generate_from_3D_perlin_noise(self, float value_one, float value_two, float value_three, bool generate_alpha=?)
+
+    cpdef void generate_from_1D_fractal_brownian_motion(self, float value, bool generate_alpha=?)
+    cpdef void generate_from_2D_fractal_brownian_motion(self, float value_one, float value_two, bool generate_alpha=?)
+    cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three, bool generate_alpha=?)
+
     cpdef void set_RGBA(self, in_color)
     cpdef void set_rgba(self, in_color)
     cpdef void set_RGB(self, in_color)
@@ -122,14 +147,23 @@ cdef class DisplayCoordinate:
     cdef void set_pointer(self, CPP_DisplayCoordinateFormat* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
+
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
     cpdef bint get_set(self)
+
     cpdef void generate_from_random(self)
-    cpdef void generate_from_perlin_noise(self, float value)
-    cpdef void generate_from_fractal_brownian_motion(self, float value)
+
+    cpdef void generate_from_1D_perlin_noise(self, float value)
+    cpdef void generate_from_2D_perlin_noise(self, float value_one, float value_two)
+    cpdef void generate_from_3D_perlin_noise(self, float value_one, float value_two, float value_three)
+
+    cpdef void generate_from_1D_fractal_brownian_motion(self, float value)
+    cpdef void generate_from_2D_fractal_brownian_motion(self, float value_one, float value_two)
+    cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three)
+
     cpdef get_coord(self, bint detect_format=*)
     cpdef void set_coord(self, in_coord)
 
@@ -140,14 +174,23 @@ cdef class Angle:
     cdef void set_pointer(self, CPP_AngleFormat* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
+
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
     cpdef bint get_set(self)
+
     cpdef void generate_from_random(self)
-    cpdef void generate_from_perlin_noise(self, float value)
-    cpdef void generate_from_fractal_brownian_motion(self, float value)
+
+    cpdef void generate_from_1D_perlin_noise(self, float value)
+    cpdef void generate_from_2D_perlin_noise(self, float value_one, float value_two)
+    cpdef void generate_from_3D_perlin_noise(self, float value_one, float value_two, float value_three)
+
+    cpdef void generate_from_1D_fractal_brownian_motion(self, float value)
+    cpdef void generate_from_2D_fractal_brownian_motion(self, float value_one, float value_two)
+    cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three)
+
     cpdef void set_degrees(self, float value)
     cpdef void set_radians(self, float value)
     cpdef get_degrees(self)
@@ -160,14 +203,23 @@ cdef class Proportion:
     cdef void set_pointer(self, CPP_ProportionFormat* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
+
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
     cpdef bint get_set(self)
+
     cpdef void generate_from_random(self)
-    cpdef void generate_from_perlin_noise(self, float value)
-    cpdef void generate_from_fractal_brownian_motion(self, float value)
+
+    cpdef void generate_from_1D_perlin_noise(self, float value)
+    cpdef void generate_from_2D_perlin_noise(self, float value_one, float value_two)
+    cpdef void generate_from_3D_perlin_noise(self, float value_one, float value_two, float value_three)
+
+    cpdef void generate_from_1D_fractal_brownian_motion(self, float value)
+    cpdef void generate_from_2D_fractal_brownian_motion(self, float value_one, float value_two)
+    cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three)
+
     cpdef void set_percentage(self, float value)
     cpdef void set_decimal(self, float value)
     cpdef get_percentage(self)
@@ -176,3 +228,16 @@ cdef class Proportion:
 cdef class LinkedProportion(Proportion):
     cdef object linked_class
     cdef object attr_name
+
+    cpdef void generate_from_random(self)
+
+    cpdef void generate_from_1D_perlin_noise(self, float value)
+    cpdef void generate_from_2D_perlin_noise(self, float value_one, float value_two)
+    cpdef void generate_from_3D_perlin_noise(self, float value_one, float value_two, float value_three)
+
+    cpdef void generate_from_1D_fractal_brownian_motion(self, float value)
+    cpdef void generate_from_2D_fractal_brownian_motion(self, float value_one, float value_two)
+    cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three)
+
+    cpdef void set_percentage(self, float value)
+    cpdef void set_decimal(self, float value)
