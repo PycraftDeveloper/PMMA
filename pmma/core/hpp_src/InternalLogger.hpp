@@ -17,9 +17,15 @@ class CPP_InternalLogger {
         std::string LogFileLocation;
         std::string LogFileName;
 
+        unsigned int KeepCount = 5;
+
         bool LogToFile = false;
         bool LogToConsole = true;
         bool LogToFileSpecifiedByUser = false;
+
+        bool LogDebug = false;
+        bool LogWarn = true;
+        bool LogError = true;
 
     private:
         void FileCatchUp();
@@ -86,6 +92,9 @@ class CPP_InternalLogger {
         void Log(std::string Content);
 
     public:
+        CPP_InternalLogger();
+        ~CPP_InternalLogger();
+
         void LogFilePathExplicitlySet() {
             if (!LogToFileSpecifiedByUser) {
                 LogToFile = true;
@@ -115,9 +124,45 @@ class CPP_InternalLogger {
             return LogToConsole;
         }
 
+        inline void SetKeepCount(unsigned int NewKeepCount) {
+            KeepCount = NewKeepCount;
+        }
+
+        inline unsigned int GetKeepCount() {
+            return KeepCount;
+        }
+
+        inline void SetLogDebug(bool NewLogDebug) {
+            LogDebug = NewLogDebug;
+        }
+
+        inline bool GetLogDebug() {
+            return LogDebug;
+        }
+
+        inline void SetLogWarn(bool NewLogWarn) {
+            LogWarn = NewLogWarn;
+        }
+
+        inline bool GetLogWarn() {
+            return LogWarn;
+        }
+
+        inline void SetLogError(bool NewLogError) {
+            LogError = NewLogError;
+        }
+
+        inline bool GetLogError() {
+            return LogError;
+        }
+
         void InternalLogDebug(std::string ID, std::string Content);
 
         inline void InternalLogWarn(std::string ID, std::string Content) {
+            if (!LogWarn) {
+                return;
+            }
+
             auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
                 PreviouslyLoggedContent.push_back(ID);
@@ -127,6 +172,10 @@ class CPP_InternalLogger {
         }
 
         inline void InternalLogError(std::string ID, std::string Content) {
+            if (!LogError) {
+                return;
+            }
+
             auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
                 PreviouslyLoggedContent.push_back(ID);

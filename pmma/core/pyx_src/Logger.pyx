@@ -6,10 +6,18 @@ from libcpp cimport bool
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Logger:
         void SetLogToFile(bool NewLogToFile) except + nogil
-        bool GetLogToFile() except + nogil
-
         void SetLogToConsole(bool NewLogToConsole) except + nogil
+        void SetKeepCount(unsigned int NewKeepCount) except + nogil
+        void SetLogDebug(bool NewLogDebug) except + nogil
+        void SetLogWarn(bool NewLogWarn) except + nogil
+        void SetLogError(bool NewLogError) except + nogil
+
+        bool GetLogToFile() except + nogil
         bool GetLogToConsole() except + nogil
+        unsigned int GetKeepCount() except + nogil
+        bool GetLogDebug() except + nogil
+        bool GetLogWarn() except + nogil
+        bool GetLogError() except + nogil
 
         void LogDebug(string ID, string Content, string ProductName) except + nogil
         void LogWarn(string ID, string Content, string ProductName) except + nogil
@@ -41,6 +49,30 @@ cdef class Logger:
 
     def is_log_to_console(self):
         return self.cpp_class_ptr.GetLogToConsole()
+
+    def set_max_log_files_to_keep(self, value):
+        self.cpp_class_ptr.SetKeepCount(value)
+
+    def get_max_log_files_to_keep(self):
+        return self.cpp_class_ptr.GetKeepCount()
+
+    def set_log_debug(self, log_debug):
+        self.cpp_class_ptr.SetLogDebug(log_debug)
+
+    def set_log_warn(self, log_warn):
+        self.cpp_class_ptr.SetLogWarn(log_warn)
+
+    def set_log_error(self, log_error):
+        self.cpp_class_ptr.SetLogError(log_error)
+
+    def get_log_debug(self):
+        return self.cpp_class_ptr.GetLogDebug()
+
+    def get_log_warn(self):
+        return self.cpp_class_ptr.GetLogWarn()
+
+    def get_log_error(self):
+        return self.cpp_class_ptr.GetLogError()
 
     def log_debug_with_id(self, log_id, content, product_name=""):
         cdef string encoded_id = log_id.encode("utf-8")

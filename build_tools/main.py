@@ -286,7 +286,8 @@ else:
                 "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
                 "-DBUILD_DEPS=OFF",
                 "-DUSE_PYTHON=ON",
-                "-DPYTHON_PATH='C://Users//pamj0//AppData//Local//Programs//Python//Python310//python.exe'"], # using Python310
+                "-DPYTHON_PATH='C://Users//pamj0//AppData//Local//Programs//Python//Python310//python.exe'", # using Python310
+                "-DUSE_NINJA=OFF"], # For clearer debug messages for PMMA ONLY
             cwd=cmake_temp_dir,
             check=True)
 
@@ -311,7 +312,8 @@ else:
                 "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
                 "-DBUILD_DEPS=ON",
                 "-DUSE_PYTHON=ON",
-                "-DPYTHON_PATH='C://Users//pamj0//AppData//Local//Programs//Python//Python310//python.exe'"],
+                "-DPYTHON_PATH='C://Users//pamj0//AppData//Local//Programs//Python//Python310//python.exe'",
+                "-DUSE_NINJA=OFF"], # For clearer debug messages for PMMA ONLY
             cwd=cmake_temp_dir,
             check=True)
 

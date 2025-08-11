@@ -231,6 +231,9 @@ void PMMA_Uninitialize() {
         PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread.join();
     }
 
+    delete PMMA_Core::InternalLoggerInstance;
+    PMMA_Core::InternalLoggerInstance = nullptr;
+
     #ifdef INTERNAL_USE_PYTHON
         Py_Finalize();
     #endif

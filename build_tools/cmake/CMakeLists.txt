@@ -3,6 +3,7 @@ project(PMMA_Core LANGUAGES CXX)
 
 option(BUILD_DEPS "Build PMMA_Core's dependencies" ON)
 option(USE_PYTHON "Enable Python integration" OFF)
+option(USE_NINJA "Enable Ninja for faster code compilation" ON)
 
 set(PYTHON_PATH "" CACHE STRING "Path to Python executable")
 
@@ -121,17 +122,33 @@ else()
     set(STAGE4_DEPENDS "")
 endif()
 
-ExternalProject_Add(stage4
-    SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
-    CMAKE_GENERATOR Ninja
-    CMAKE_ARGS
-        -DINTERNAL_USE_PYTHON=${USE_PYTHON}
-        -DPython3_EXECUTABLE=${PYTHON_PATH}
-        -DCMAKE_BUILD_TYPE=Release
-        -DCMAKE_INSTALL_PREFIX=${ROOT}
-        -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
-    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
-    INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
-    ${STAGE4_DEPENDS}
-    BUILD_ALWAYS 1
-)
+if (USE_NINJA)
+    ExternalProject_Add(stage4
+        SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
+        CMAKE_GENERATOR Ninja
+        CMAKE_ARGS
+            -DINTERNAL_USE_PYTHON=${USE_PYTHON}
+            -DPython3_EXECUTABLE=${PYTHON_PATH}
+            -DCMAKE_BUILD_TYPE=Release
+            -DCMAKE_INSTALL_PREFIX=${ROOT}
+            -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
+        BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
+        INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
+        ${STAGE4_DEPENDS}
+        BUILD_ALWAYS 1
+    )
+else()
+    ExternalProject_Add(stage4
+        SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
+        CMAKE_ARGS
+            -DINTERNAL_USE_PYTHON=${USE_PYTHON}
+            -DPython3_EXECUTABLE=${PYTHON_PATH}
+            -DCMAKE_BUILD_TYPE=Release
+            -DCMAKE_INSTALL_PREFIX=${ROOT}
+            -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
+        BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
+        INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
+        ${STAGE4_DEPENDS}
+        BUILD_ALWAYS 1
+    )
+endif()
