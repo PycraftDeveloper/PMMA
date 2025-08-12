@@ -19,10 +19,13 @@
 #include "NumberFormats.hpp"
 
 #include "Events/WindowEvents.hpp"
+#include "Events/KeyEvents.hpp"
 
 class EXPORT CPP_Display {
     public:
         CPP_ColorFormat* WindowFillColor = nullptr;
+        CPP_KeyEvent_F11* F11_KeyEvent;
+        CPP_KeyEvent_Escape* Escape_KeyEvent;
 
     private:
         std::string Caption = "PMMA Display";
@@ -331,6 +334,10 @@ class EXPORT CPP_Display {
         void SetIcon(string IconPath);
 
         void ToggleFullScreen();
+
+        inline bool IsWindowCreated() {
+            return Window != nullptr;
+        }
 
         // WIPs
 

@@ -114,3 +114,28 @@ bool CPP_General::Is_DebugModeEnabled() {
 void CPP_General::Set_DebugModeEnabled(bool DebugMode) {
     PMMA_Registry::IsDebuggingModeEnabled = DebugMode;
 }
+
+bool CPP_General::IsWindowCreated() {
+    return (PMMA_Core::DisplayInstance != nullptr && PMMA_Core::DisplayInstance->IsWindowCreated());
+}
+
+bool CPP_General::IsApplicationRunning() {
+    return PMMA_Registry::IsApplicationRunning;
+}
+
+bool CPP_General::IsEscapeKeyToCloseWindow() {
+    return PMMA_Registry::EscapeKeyShouldCloseWindow;
+}
+
+void CPP_General::SetEscapeKeyToCloseWindow(bool EscapeKeyShouldCloseWindow) {
+    PMMA_Registry::EscapeKeyShouldCloseWindow = EscapeKeyShouldCloseWindow;
+    PMMA_Registry::UserSetEscapeKeyShouldCloseWindow = true;
+}
+
+bool CPP_General::IsF11KeyToToggleFullscreen() {
+    return PMMA_Registry::F11KeyShouldToggleFullScreen;
+}
+
+void CPP_General::SetF11KeyToToggleFullscreen(bool F11KeyShouldToggleFullScreen) {
+    PMMA_Registry::F11KeyShouldToggleFullScreen = F11KeyShouldToggleFullScreen;
+}

@@ -24,6 +24,11 @@ OptionalColor = Union[
     None
 ]
 
+OptionalBool = Union[
+    bool,
+    None
+]
+
 Float1D = Union[
     npt.NDArray[np.float32], # preferred
     npt.NDArray[np.float16],
@@ -39,7 +44,7 @@ class Display:
 
     window_fill_color: Color
 
-    def create(self, size: Integer1D=..., caption: str="PMMA Display", fullscreen: bool=True, resizable: bool=False, no_frame: bool=False, vsync: bool = True, icon: str="", centered: bool=True, maximized: bool=False, transparent: bool=False) -> None: ...
+    def create(self, size: Integer1D=..., caption: str="PMMA Display", fullscreen: OptionalBool=True, resizable: bool=False, no_frame: bool=False, vsync: bool = True, icon: str="", centered: bool=True, maximized: bool=False, transparent: bool=False) -> None: ...
 
     def center_window(self) -> None: ...
 

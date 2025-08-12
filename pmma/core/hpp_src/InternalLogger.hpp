@@ -105,12 +105,7 @@ class CPP_InternalLogger {
 
         void SetLogFileLocation(std::string NewLogFileLocation);
 
-        inline void SetLogToFile(bool NewLogToFile) {
-            LogToFile = NewLogToFile;
-            LogToFileSpecifiedByUser = true;
-
-            FileCatchUp();
-        }
+        void SetLogToFile(bool NewLogToFile);
 
         inline void SetLogToConsole(bool NewLogToConsole) {
             LogToConsole = NewLogToConsole;

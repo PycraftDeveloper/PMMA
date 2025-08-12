@@ -16,4 +16,16 @@ namespace CPP_General {
     EXPORT bool Is_DebugModeEnabled();
 
     EXPORT void Set_DebugModeEnabled(bool DebugMode);
+
+    EXPORT bool IsWindowCreated();
+
+    EXPORT bool IsApplicationRunning();
+
+    EXPORT bool IsEscapeKeyToCloseWindow();
+
+    EXPORT void SetEscapeKeyToCloseWindow(bool EscapeKeyToCloseWindow);
+
+    EXPORT bool IsF11KeyToToggleFullscreen();
+
+    EXPORT void SetF11KeyToToggleFullscreen(bool F11KeyToToggleFullscreen);
 }

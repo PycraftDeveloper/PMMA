@@ -248,6 +248,10 @@ namespace PMMA_Registry {
     extern bool CPU_Supports_AVX512;
     extern bool IsPowerSavingModeEnabled;
     extern bool IsDebuggingModeEnabled;
+    extern bool IsApplicationRunning;
+    extern bool EscapeKeyShouldCloseWindow;
+    extern bool UserSetEscapeKeyShouldCloseWindow;
+    extern bool F11KeyShouldToggleFullScreen;
 }
 
 EXPORT void PMMA_Initialize();

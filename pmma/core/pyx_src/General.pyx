@@ -21,6 +21,15 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     bool Is_DebugModeEnabled() except + nogil
     void Set_DebugModeEnabled(bool DebugMode) except + nogil
 
+    bool IsWindowCreated() except + nogil
+    bool IsApplicationRunning() except + nogil
+
+    bool IsEscapeKeyToCloseWindow() except + nogil
+    void SetEscapeKeyToCloseWindow(bool EscapeKeyToCloseWindow) except + nogil
+
+    bool IsF11KeyToToggleFullscreen() except + nogil
+    void SetF11KeyToToggleFullscreen(bool F11KeyToToggleFullscreen) except + nogil
+
 cdef class General:
     def __cinit__(self):
         print("Did you know you don't need to make an instance of this class in order to use it?")
@@ -84,3 +93,27 @@ cdef class General:
     @staticmethod
     def is_debug_mode_enabled():
         return Is_DebugModeEnabled()
+
+    @staticmethod
+    def is_window_created():
+        return IsWindowCreated()
+
+    @staticmethod
+    def is_escape_key_to_close_window():
+        return IsEscapeKeyToCloseWindow();
+
+    @staticmethod
+    def set_escape_key_to_close_window(escape_key_to_close_window):
+        return SetEscapeKeyToCloseWindow(escape_key_to_close_window)
+
+    @staticmethod
+    def is_f11_key_to_toggle_full_screen():
+        return IsF11KeyToToggleFullscreen()
+
+    @staticmethod
+    def set_f11_key_to_toggle_full_screen(f11_key_to_toggle_full_screen):
+        SetF11KeyToToggleFullscreen(f11_key_to_toggle_full_screen)
+
+    @staticmethod
+    def is_application_running():
+        return IsApplicationRunning()

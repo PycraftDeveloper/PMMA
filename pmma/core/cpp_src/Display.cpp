@@ -134,6 +134,22 @@ void CPP_Display::PMMA_Update(GLFWwindow* Window) {
             PMMA_Core::DropManagerInstance->Update(Window);
         }
     }
+
+    if (glfwWindowShouldClose(Window)) {
+        PMMA_Registry::IsApplicationRunning = false;
+    }
+
+    if (!PMMA_Registry::UserSetEscapeKeyShouldCloseWindow) {
+        PMMA_Registry::EscapeKeyShouldCloseWindow = FullScreen;
+    }
+
+    if (PMMA_Registry::EscapeKeyShouldCloseWindow && Escape_KeyEvent->GetPressed()) {
+        PMMA_Registry::IsApplicationRunning = false;
+    }
+
+    if (PMMA_Registry::F11KeyShouldToggleFullScreen && F11_KeyEvent->GetPressed()) {
+        ToggleFullScreen();
+    }
 }
 
 CPP_Display::CPP_Display() {
@@ -153,6 +169,9 @@ CPP_Display::CPP_Display() {
     PMMA_Registry::GLFW_References++;
 
     DefaultIconPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "resources" + PMMA_Registry::PathSeparator + "Icon.png";
+
+    F11_KeyEvent = new CPP_KeyEvent_F11();
+    Escape_KeyEvent = new CPP_KeyEvent_Escape();
 }
 
 GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
@@ -702,4 +721,9 @@ CPP_Display::~CPP_Display() {
 
     delete WindowFillColor;
     WindowFillColor = nullptr;
+
+    delete F11_KeyEvent;
+    F11_KeyEvent = nullptr;
+    delete Escape_KeyEvent;
+    Escape_KeyEvent = nullptr;
 }

@@ -201,6 +201,10 @@ namespace PMMA_Registry {
     bool CPU_Supports_AVX512 = CPP_CPU_FeatureSetUtils::SupportsAVX512();
     bool IsPowerSavingModeEnabled = CPP_General::Is_Power_Saving_Mode_Enabled(true);
     bool IsDebuggingModeEnabled = true;
+    bool IsApplicationRunning = true;
+    bool EscapeKeyShouldCloseWindow = false;
+    bool UserSetEscapeKeyShouldCloseWindow = false;
+    bool F11KeyShouldToggleFullScreen = true;
 }
 
 void PMMA_Initialize() {

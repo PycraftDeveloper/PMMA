@@ -8,6 +8,7 @@ import ctypes, os
 from pmma.core.py_src.Constants import Constants
 
 from pmma.build.General import General
+from Logger cimport Logger
 
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Passport:
@@ -31,9 +32,11 @@ cdef extern from "PMMA_Core.hpp" nogil:
 cdef class Passport:
     cdef:
         CPP_Passport* cpp_class_ptr
+        Logger logger
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_Passport()
+        self.logger = Logger()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -63,7 +66,7 @@ cdef class Passport:
         cdef string encoded_logging_path = logging_path.encode("utf-8")
         self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 
-    def register(self, auto_prepare_logging_dir=True):
+    def register(self):
         cdef string raw_product_path = self.cpp_class_ptr.GetProductPath()
         cdef string raw_logging_path = self.cpp_class_ptr.GetLoggingPath()
         cdef string encoded_logging_path
@@ -81,39 +84,67 @@ cdef class Passport:
         logging_path_not_set = logging_path == "" # also check here if logging is currently supposed to be writing to a file!
 
         if logging_path_not_set and product_path != "":
-            print("No logging path set - attempting to find a valid location!")
+            self.logger.internal_log_debug(
+                "Passport.register - Auto setup log path.",
+                "Passport.register - You have not specified a logging \
+path, which you can do with `Passport.set_logging_path`. Until \
+specified, PMMA will attempt to find a suitable location for your \
+log files should you choose to store these log files to disk.")
 
             if os.path.exists(os.path.join(product_path, "logs")):
                 logging_path = os.path.join(product_path, "logs")
                 encoded_logging_path = logging_path.encode("utf-8")
-                self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, False)
-                print(f"Found location: {logging_path}")
+                self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
+
+                self.logger.internal_log_debug(
+                    "Passport.register - Found location (logs)",
+                    f"Passport.register - A suitable location for your log \
+files has been found at: {logging_path}.")
+
             elif os.path.exists(os.path.join(product_path, "Logs")):
                 logging_path = os.path.join(product_path, "Logs")
                 encoded_logging_path = logging_path.encode("utf-8")
-                self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, False)
-                print(f"Found location: {logging_path}")
+                self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
+
+                self.logger.internal_log_debug(
+                    "Passport.register - Found location (Logs)",
+                    f"Passport.register - A suitable location for your log \
+files has been found at: {logging_path}.")
             else:
                 for dirpath, _, _ in os.walk(product_path):
                     if "logs" in os.path.basename(dirpath).lower():
                         logging_path = dirpath
                         encoded_logging_path = logging_path.encode("utf-8")
-                        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, False)
-                        print(f"Found location: {logging_path}")
+                        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
+
+                        self.logger.internal_log_debug(
+                            "Passport.register - Search found suitable logging location",
+                            f"Passport.register - A suitable location for your log \
+files has been found at: {logging_path} after searching the specified product directory.")
+
                         break
                 else:
-                    print("No valid logging location found.")
-
-                    if auto_prepare_logging_dir:
-                        logging_path = os.path.join(product_path, "logs")
-                        encoded_logging_path = logging_path.encode("utf-8")
-                        self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, False)
-                        os.mkdir(logging_path)
-
+                    self.logger.internal_log_debug(
+                    "Passport.register - Failed to find location",
+                    f"Passport.register - No suitable location for log \
+files could automatically be detected. If you want to have PMMA \
+automatically manage where your log files go when stored to disk \
+please create a designated 'logs' folder in the specified product location \
+or manually specify a location for your log files to go using `Passport.set_logging_path`.")
 
         self.cpp_class_ptr.Register()
 
-        if General.get_operating_system() == Constants.WINDOWS: # Call this BEFORE display.create()
+        if General.get_operating_system() == Constants.WINDOWS:
+            if General.is_window_created():
+                self.logger.internal_log_debug(
+                    "Passport.register - Registered after window creation",
+                    f"Passport.register - You have registered your \
+application after the window has been created. This matters as Windows \
+will not register the change after the window has been created so your \
+application may not appear correctly to the system (most notably taskbar \
+icons will not correctly display). Please make sure to call \
+`Passport.register` before `Display.create`.")
+
             myappid = f"{self.get_company_name()}.{self.get_product_name()}.{self.get_product_sub_name()}.{self.get_product_version()}"
             ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)
 

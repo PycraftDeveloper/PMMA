@@ -65,6 +65,27 @@ CPP_InternalLogger::~CPP_InternalLogger() {
     }
 }
 
+void CPP_InternalLogger::SetLogToFile(bool NewLogToFile) {
+    LogToFile = NewLogToFile;
+    LogToFileSpecifiedByUser = true;
+
+    if (filesystem::exists(LogFileLocation)) {
+        return;
+    }
+
+    string ProductPath = PMMA_Core::PassportInstance->GetProductPath();
+    if (LogToFile && filesystem::exists(ProductPath)) {
+        try {
+            filesystem::create_directory(ProductPath + PMMA_Registry::PathSeparator + "logs");
+            LogFileLocation = ProductPath + PMMA_Registry::PathSeparator + "logs";
+        } catch (const filesystem::filesystem_error& e) {
+            cout << "Error creating directory: " << e.what() << "\n";
+        }
+    }
+
+    FileCatchUp();
+}
+
 void CPP_InternalLogger::Log(std::string Content) {
     if (LogToConsole) {
         #ifdef INTERNAL_USE_PYTHON
