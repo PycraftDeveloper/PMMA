@@ -27,7 +27,7 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Render Pipeline (2D)
 * ✅ - Finished Shapes 2D
 * ✅ - Finished Display
-* ⏳ - Working on Logging (90 %)
+* ✅ - Finished Logging
 * ⏳ - Working on General (35 %)
 * ⏳ - Working on OpenGL (30 %)
 * 🛑 - Not started Advanced Threading

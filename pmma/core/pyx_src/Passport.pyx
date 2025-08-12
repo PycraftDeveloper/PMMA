@@ -98,8 +98,9 @@ log files should you choose to store these log files to disk.")
 
                 self.logger.internal_log_debug(
                     "Passport.register - Found location (logs)",
-                    f"Passport.register - A suitable location for your log \
-files has been found at: {logging_path}.")
+                    ("Passport.register - A suitable location for your log " # NO COMMA
+                        f"files has been found at: '{logging_path}'.")
+                )
 
             elif os.path.exists(os.path.join(product_path, "Logs")):
                 logging_path = os.path.join(product_path, "Logs")
@@ -108,8 +109,9 @@ files has been found at: {logging_path}.")
 
                 self.logger.internal_log_debug(
                     "Passport.register - Found location (Logs)",
-                    f"Passport.register - A suitable location for your log \
-files has been found at: {logging_path}.")
+                    ("Passport.register - A suitable location for your log " # NO COMMA
+                        f"files has been found at: '{logging_path}'.")
+                )
             else:
                 for dirpath, _, _ in os.walk(product_path):
                     if "logs" in os.path.basename(dirpath).lower():
