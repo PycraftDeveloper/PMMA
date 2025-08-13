@@ -224,7 +224,48 @@ void PMMA_Initialize() {
     if (PMMA_Registry::IsPowerSavingModeEnabled) {
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled
         PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
+        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            "Power saving mode is enabled",
+            "Your device is running in power saving mode.", true);
+    } else {
+        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            "Power saving mode is disabled",
+            "Your device is not running in power saving mode.", true);
     }
+
+    if (PMMA_Registry::CPU_Supports_AVX512) {
+        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            "CPU supports AVX-512",
+            "PMMA has detected that your system has AVX-512 support \
+and will automatically use it where applicable. AVX-512 allows for up to \
+16 operations to be performed simultaneously on the CPU.");
+    } else {
+        if (PMMA_Registry::CPU_Supports_AVX2) {
+            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "CPU supports AVX2",
+                "PMMA has detected that your system has AVX2 support \
+and will automatically use it where applicable. AVX2 allows for up to \
+8 operations to be performed simultaneously on the CPU.");
+        } else {
+            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "CPU has no AVX support",
+                "PMMA has detected that your system does not have any \
+support for AVX-512 or AVX2. This will not affect the usability of PMMA \
+but may result in reduced performance.");
+        }
+    }
+
+    #ifdef INTERNAL_USE_PYTHON
+        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "Python build support",
+                "PMMA has been built with compatibility for Python!");
+    #else
+        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "Python build support",
+                "PMMA has not been built with additional compatibility \
+for Python, this does not effect the operation of PMMA but will change \
+how PMMA and Python interact.");
+    #endif
 
     PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread = thread(PowerSavingUpdaterThread);
 }

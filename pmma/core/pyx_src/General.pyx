@@ -10,6 +10,8 @@ import distutils
 
 from pmma.core.py_src.Constants import Constants
 
+from Logger cimport Logger
+
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     void Set_PMMA_Location(string location) except + nogil
@@ -31,8 +33,18 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     void SetF11KeyToToggleFullscreen(bool F11KeyToToggleFullscreen) except + nogil
 
 cdef class General:
+    cdef:
+        Logger logger
+
     def __cinit__(self):
-        print("Did you know you don't need to make an instance of this class in order to use it?")
+        self.logger = Logger()
+
+        self.logger.internal_log_debug(
+            "General.init - Static class no instantiation",
+            ("General.init - You don't need to instantiate "
+                "this class in order to use it."),
+            False
+        )
 
     @staticmethod
     def set_pmma_location(path):

@@ -19,18 +19,18 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool GetLogWarn() except + nogil
         bool GetLogError() except + nogil
 
-        void LogDebug(string ID, string Content, string ProductName) except + nogil
-        void LogWarn(string ID, string Content, string ProductName) except + nogil
-        void LogError(string ID, string Content, string ProductName) except + nogil
+        void LogDebug(string ID, string Content, string ProductName, bool RepeatForEffect) except + nogil
+        void LogWarn(string ID, string Content, string ProductName, bool RepeatForEffect) except + nogil
+        void LogError(string ID, string Content, string ProductName, bool RepeatForEffect) except + nogil
 
-        void InternalLogDebug(string ID, string Content) except + nogil
-        void InternalLogWarn(string ID, string Content) except + nogil
-        void InternalLogError(string ID, string Content) except + nogil
+        void InternalLogDebug(string ID, string Content, bool RepeatForEffect) except + nogil
+        void InternalLogWarn(string ID, string Content, bool RepeatForEffect) except + nogil
+        void InternalLogError(string ID, string Content, bool RepeatForEffect) except + nogil
 
 cdef class Logger:
     cdef:
         CPP_Logger* cpp_class_ptr
 
-    cpdef internal_log_debug(self, string log_id, content)
-    cpdef internal_log_warn(self, string log_id, content)
-    cpdef internal_log_error(self, string log_id, content)
+    cpdef internal_log_debug(self, string log_id, content, RepeatForEffect)
+    cpdef internal_log_warn(self, string log_id, content, RepeatForEffect)
+    cpdef internal_log_error(self, string log_id, content, RepeatForEffect)

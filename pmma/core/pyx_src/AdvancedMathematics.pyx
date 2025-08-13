@@ -3,6 +3,8 @@
 import numpy as np
 cimport numpy as np
 
+from Logger cimport Logger
+
 cdef extern from "PMMA_Core.hpp" namespace "CPP_AdvancedMathematics" nogil:
     float PythagoreanDifference(const float x1, const float y1, const float x2, const float y2) except + nogil
     float PythagoreanDistance(const float x, const float y) except + nogil
@@ -18,8 +20,18 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_AdvancedMathematics" nogil:
     void PerspectiveFOV(const float fov, const float aspect_ratio, const float near_plane, const float far_plane, float (*out)[4]) except + nogil
 
 cdef class AdvancedMathematics:
+    cdef:
+        Logger logger
+
     def __cinit__(self):
-        print("Did you know you don't need to make an instance of this class in order to use it?")
+        self.logger = Logger()
+
+        self.logger.internal_log_debug(
+            "AdvancedMathematics.init - Static class no instantiation",
+            ("AdvancedMathematics.init - You don't need to instantiate "
+                "this class in order to use it."),
+            False
+        )
 
     @staticmethod
     def individual_pythagorean_difference(x1, y1, x2, y2):

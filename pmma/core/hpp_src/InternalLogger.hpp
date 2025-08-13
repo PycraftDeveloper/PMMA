@@ -151,37 +151,47 @@ class CPP_InternalLogger {
             return LogError;
         }
 
-        void InternalLogDebug(std::string ID, std::string Content);
+        void InternalLogDebug(std::string ID, std::string Content, bool RepeatForEffect=false);
 
-        inline void InternalLogWarn(std::string ID, std::string Content) {
+        inline void InternalLogWarn(std::string ID, std::string Content, bool RepeatForEffect=false) {
             if (!LogWarn) {
                 return;
             }
 
-            auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
-            if (PreviousIndex == PreviouslyLoggedContent.end()) {
-                PreviouslyLoggedContent.push_back(ID);
+            if (RepeatForEffect) {
+                auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+                if (PreviousIndex == PreviouslyLoggedContent.end()) {
+                    PreviouslyLoggedContent.push_back(ID);
+                    std::string DateTimeCode = GetDateTimeCode();
+                    Log("PMMA (Warn) - " + DateTimeCode + " - " + Content);
+                }
+            } else {
                 std::string DateTimeCode = GetDateTimeCode();
                 Log("PMMA (Warn) - " + DateTimeCode + " - " + Content);
             }
         }
 
-        inline void InternalLogError(std::string ID, std::string Content) {
+        inline void InternalLogError(std::string ID, std::string Content, bool RepeatForEffect=false) {
             if (!LogError) {
                 return;
             }
 
-            auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
-            if (PreviousIndex == PreviouslyLoggedContent.end()) {
-                PreviouslyLoggedContent.push_back(ID);
+            if (RepeatForEffect) {
+                auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+                if (PreviousIndex == PreviouslyLoggedContent.end()) {
+                    PreviouslyLoggedContent.push_back(ID);
+                    std::string DateTimeCode = GetDateTimeCode();
+                    Log("PMMA (Error) - " + DateTimeCode + " - " + Content);
+                }
+            } else {
                 std::string DateTimeCode = GetDateTimeCode();
                 Log("PMMA (Error) - " + DateTimeCode + " - " + Content);
             }
         }
 
-        void ExternalLogDebug(std::string ID, std::string Content, std::string ProductName);
+        void ExternalLogDebug(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=false);
 
-        void ExternalLogWarn(std::string ID, std::string Content, std::string ProductName);
+        void ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=false);
 
-        void ExternalLogError(std::string ID, std::string Content, std::string ProductName);
+        void ExternalLogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=false);
 };

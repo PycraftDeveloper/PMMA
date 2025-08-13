@@ -33,12 +33,22 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         SYSTEM_POWER_STATUS power_status = {};
         if (GetSystemPowerStatus(&power_status)) {
             if (power_status.SystemStatusFlag == 1) {
+                if (!PMMA_Registry::IsPowerSavingModeEnabled) {
+                    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                        "Power saving mode is enabled",
+                        "Your device is running in power saving mode.", true);
+                }
                 PMMA_Registry::IsPowerSavingModeEnabled = true;
                 PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
                 PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
                 return true;
             }
             if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
+                if (!PMMA_Registry::IsPowerSavingModeEnabled) {
+                    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                        "Power saving mode is enabled",
+                        "Your device is running in power saving mode.", true);
+                }
                 PMMA_Registry::IsPowerSavingModeEnabled = true;
                 PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
                 PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
@@ -46,6 +56,11 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             }
         }
 
+        if (PMMA_Registry::IsPowerSavingModeEnabled) {
+            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "Power saving mode is disabled",
+                "Your device is not running in power saving mode.", true);
+        }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
         PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality;
@@ -60,6 +75,11 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                     std::ifstream statusFile(entry.path() / "status");
                     std::string status;
                     if (statusFile >> status && status == "Discharging") {
+                        if (!PMMA_Registry::IsPowerSavingModeEnabled) {
+                            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                                "Power saving mode is enabled",
+                                "Your device is running in power saving mode.", true);
+                        }
                         PMMA_Registry::IsPowerSavingModeEnabled = true;
                         PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
                         PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
@@ -69,6 +89,11 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             }
         } catch (const std::filesystem::filesystem_error& error) {
             std::cerr << "Filesystem error: " << error.what() << "\n";
+        }
+        if (PMMA_Registry::IsPowerSavingModeEnabled) {
+            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "Power saving mode is disabled",
+                "Your device is not running in power saving mode.", true);
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
@@ -80,6 +105,11 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         kern_return_t kr = IOPMCopyFeatureFlags(kIOMasterPortDefault, &flags);
         if (kr != kIOReturnSuccess) {
             std::cerr << "Failed to get power feature flags: " << kr << "\n";
+            if (PMMA_Registry::IsPowerSavingModeEnabled) {
+                PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                    "Power saving mode is disabled",
+                    "Your device is not running in power saving mode.", true);
+            }
             PMMA_Registry::IsPowerSavingModeEnabled = false;
             PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
             PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality;
@@ -87,10 +117,20 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         }
 
         if (flags & kIOPMFeatureLowPowerMode) {
+            if (!PMMA_Registry::IsPowerSavingModeEnabled) {
+                PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                    "Power saving mode is enabled",
+                    "Your device is running in power saving mode.", true);
+            }
             PMMA_Registry::IsPowerSavingModeEnabled = true;
             PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
             PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
             return true; // Low power mode is enabled
+        }
+        if (PMMA_Registry::IsPowerSavingModeEnabled) {
+            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "Power saving mode is disabled",
+                "Your device is not running in power saving mode.", true);
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
@@ -99,6 +139,16 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
 
     #else
         std::cout << "Unknown platform for power saving mode check." << std::endl;
+        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "Power saving mode not supported on this platform",
+                "Your platform is not supported for power saving mode \
+checking using PMMA.");
+
+        if (PMMA_Registry::IsPowerSavingModeEnabled) {
+            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                "Power saving mode is disabled",
+                "Your device is not running in power saving mode.", true);
+        }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
         PMMA_Core::PowerSavingManagerInstance.running = false;
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 5;

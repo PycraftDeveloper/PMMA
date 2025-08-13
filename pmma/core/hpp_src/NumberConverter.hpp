@@ -5,14 +5,27 @@
 #include <array>
 #include <ctime>
 
+#include "Logger.hpp"
+
 class EXPORT CPP_BasicColorConverter {
     protected:
+        CPP_Logger* Logger;
+
         glm::vec4 InternalColor = glm::vec4(0.f, 0.f, 0.f, 1.f); // Default is black with full opacity
 
         bool IsSet = false;
         bool Changed = true;
 
     public:
+        CPP_BasicColorConverter() {
+            Logger = new CPP_Logger();
+        }
+
+        ~CPP_BasicColorConverter() {
+            delete Logger;
+            Logger = nullptr;
+        }
+
         inline bool GetSet() {
             return IsSet;
         }
@@ -56,6 +69,11 @@ class EXPORT CPP_BasicColorConverter {
         }
 
         inline void Set_RGB(unsigned int* in_color) {
+            Logger->InternalLogDebug(
+                "Setting alpha to opaque",
+                "The alpha channel is automatically set to opaque."
+            );
+
             glm::vec4 converted_in_color = glm::vec4(
                 in_color[0] / 255.f,
                 in_color[1] / 255.f,
@@ -72,6 +90,11 @@ class EXPORT CPP_BasicColorConverter {
         }
 
         inline void Set_rgb(float* in_color) {
+            Logger->InternalLogDebug(
+                "Setting alpha to opaque",
+                "The alpha channel is automatically set to opaque."
+            );
+
             glm::vec4 converted_in_color = glm::vec4(
                 in_color[0],
                 in_color[1],
@@ -89,6 +112,11 @@ class EXPORT CPP_BasicColorConverter {
 
         inline void Get_RGBA(unsigned int* out_color) {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Color not set",
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
                 throw std::runtime_error("Color not set!");
             }
 
@@ -100,6 +128,11 @@ class EXPORT CPP_BasicColorConverter {
 
         inline void Get_rgba(float* out_color) {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Color not set",
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
                 throw std::runtime_error("Color not set!");
             }
 
@@ -111,6 +144,11 @@ class EXPORT CPP_BasicColorConverter {
 
         inline glm::vec4 Get_rgba() {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Color not set",
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
                 throw std::runtime_error("Color not set!");
             }
             return InternalColor;
@@ -118,6 +156,11 @@ class EXPORT CPP_BasicColorConverter {
 
         inline void Get_RGB(unsigned int* out_color) {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Color not set",
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
                 throw std::runtime_error("Color not set!");
             }
 
@@ -128,6 +171,11 @@ class EXPORT CPP_BasicColorConverter {
 
         inline void Get_rgb(float* out_color) {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Color not set",
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
                 throw std::runtime_error("Color not set!");
             }
 
@@ -139,6 +187,8 @@ class EXPORT CPP_BasicColorConverter {
 
 class EXPORT CPP_BasicAngleConverter {
     protected:
+        CPP_Logger* Logger;
+
         float InternalAngle = 0.f; // Default angle is 0 radians
         const float RADIANS_TO_DEGREES = 180.f / 3.14159265358979323846f;
         const float DEGREES_TO_RADIANS = 3.14159265358979323846f / 180.f;
@@ -147,6 +197,15 @@ class EXPORT CPP_BasicAngleConverter {
         bool IsSet = false;
 
     public:
+        CPP_BasicAngleConverter() {
+            Logger = new CPP_Logger();
+        }
+
+        ~CPP_BasicAngleConverter() {
+            delete Logger;
+            Logger = nullptr;
+        }
+
         inline bool GetSet() {
             return IsSet;
         }
@@ -178,6 +237,11 @@ class EXPORT CPP_BasicAngleConverter {
 
         inline float Get_Radians() {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Angle not set",
+                    "You have not set an angle - please set an angle \
+before attempting to get it.");
+
                 throw std::runtime_error("Angle not set!");
             }
             return InternalAngle;
@@ -185,6 +249,11 @@ class EXPORT CPP_BasicAngleConverter {
 
         inline float Get_Degrees() {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Angle not set",
+                    "You have not set an angle - please set an angle \
+before attempting to get it.");
+
                 throw std::runtime_error("Angle not set!");
             }
             return InternalAngle * RADIANS_TO_DEGREES;
@@ -193,12 +262,23 @@ class EXPORT CPP_BasicAngleConverter {
 
 class EXPORT CPP_BasicProportionConverter {
     protected:
+        CPP_Logger* Logger;
+
         float InternalProportion = 0.f; // Default proportion is 0 (0%)
 
         bool IsSet = false;
         bool Changed = true;
 
     public:
+        CPP_BasicProportionConverter() {
+            Logger = new CPP_Logger();
+        }
+
+        ~CPP_BasicProportionConverter() {
+            delete Logger;
+            Logger = nullptr;
+        }
+
         inline bool GetSet() {
             return IsSet;
         }
@@ -231,6 +311,11 @@ class EXPORT CPP_BasicProportionConverter {
 
         inline float Get_Percentage() {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Proportion not set",
+                    "You have not set a proportion - please set a proportion \
+before attempting to get it.");
+
                 throw std::runtime_error("Proportion not set!");
             }
             return InternalProportion * 100;
@@ -238,6 +323,11 @@ class EXPORT CPP_BasicProportionConverter {
 
         inline float Get_Decimal() {
             if (!IsSet) {
+                Logger->InternalLogWarn(
+                    "Proportion not set",
+                    "You have not set a proportion - please set a proportion \
+before attempting to get it.");
+
                 throw std::runtime_error("Proportion not set!");
             }
             return InternalProportion;

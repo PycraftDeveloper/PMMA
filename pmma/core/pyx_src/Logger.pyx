@@ -46,14 +46,14 @@ cdef class Logger:
     def get_log_error(self):
         return self.cpp_class_ptr.GetLogError()
 
-    def log_debug_with_id(self, log_id, content, product_name=""):
+    def log_debug_with_id(self, log_id, content, product_name="", repeat_for_effect=False):
         cdef string encoded_id = log_id.encode("utf-8")
         cdef string encoded_content = content.encode("utf-8")
         cdef string encoded_product_name = product_name.encode("utf-8")
 
-        self.cpp_class_ptr.LogDebug(encoded_id, encoded_content, encoded_product_name)
+        self.cpp_class_ptr.LogDebug(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
 
-    def log_debug(self, content, values=[], product_name=""):
+    def log_debug(self, content, values=[], product_name="", repeat_for_effect=False):
         cdef string encoded_id = content.encode("utf-8")
         cdef string encoded_content
         cdef string encoded_product_name = product_name.encode("utf-8")
@@ -61,16 +61,16 @@ cdef class Logger:
         content = content.format(*values)
         encoded_content = content.encode("utf-8")
 
-        self.cpp_class_ptr.LogDebug(encoded_id, encoded_content, encoded_product_name)
+        self.cpp_class_ptr.LogDebug(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
 
-    def log_warn_with_id(self, log_id, content, product_name=""):
+    def log_warn_with_id(self, log_id, content, product_name="", repeat_for_effect=False):
         cdef string encoded_id = log_id.encode("utf-8")
         cdef string encoded_content = content.encode("utf-8")
         cdef string encoded_product_name = product_name.encode("utf-8")
 
-        self.cpp_class_ptr.LogWarn(encoded_id, encoded_content, encoded_product_name)
+        self.cpp_class_ptr.LogWarn(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
 
-    def log_warn(self, content, values=[], product_name=""):
+    def log_warn(self, content, values=[], product_name="", repeat_for_effect=False):
         cdef string encoded_id = content.encode("utf-8")
         cdef string encoded_content
         cdef string encoded_product_name = product_name.encode("utf-8")
@@ -78,16 +78,16 @@ cdef class Logger:
         content = content.format(*values)
         encoded_content = content.encode("utf-8")
 
-        self.cpp_class_ptr.LogWarn(encoded_id, encoded_content, encoded_product_name)
+        self.cpp_class_ptr.LogWarn(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
 
-    def log_error_with_id(self, log_id, content, product_name=""):
+    def log_error_with_id(self, log_id, content, product_name="", repeat_for_effect=False):
         cdef string encoded_id = log_id.encode("utf-8")
         cdef string encoded_content = content.encode("utf-8")
         cdef string encoded_product_name = product_name.encode("utf-8")
 
-        self.cpp_class_ptr.LogError(encoded_id, encoded_content, encoded_product_name)
+        self.cpp_class_ptr.LogError(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
 
-    def log_error(self, content, values=[], product_name=""):
+    def log_error(self, content, values=[], product_name="", repeat_for_effect=False):
         cdef string encoded_id = content.encode("utf-8")
         cdef string encoded_content
         cdef string encoded_product_name = product_name.encode("utf-8")
@@ -95,19 +95,19 @@ cdef class Logger:
         content = content.format(*values)
         encoded_content = content.encode("utf-8")
 
-        self.cpp_class_ptr.LogError(encoded_id, encoded_content, encoded_product_name)
+        self.cpp_class_ptr.LogError(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
 
-    cpdef internal_log_debug(self, string log_id, content):
+    cpdef internal_log_debug(self, string log_id, content, repeat_for_effect):
         cdef string encoded_content = content.encode("utf-8")
 
-        self.cpp_class_ptr.InternalLogDebug(log_id, encoded_content)
+        self.cpp_class_ptr.InternalLogDebug(log_id, encoded_content, repeat_for_effect)
 
-    cpdef internal_log_warn(self, string log_id, content):
+    cpdef internal_log_warn(self, string log_id, content, repeat_for_effect):
         cdef string encoded_content = content.encode("utf-8")
 
-        self.cpp_class_ptr.InternalLogWarn(log_id, encoded_content)
+        self.cpp_class_ptr.InternalLogWarn(log_id, encoded_content, repeat_for_effect)
 
-    cpdef internal_log_error(self, string log_id, content):
+    cpdef internal_log_error(self, string log_id, content, repeat_for_effect):
         cdef string encoded_content = content.encode("utf-8")
 
-        self.cpp_class_ptr.InternalLogError(log_id, encoded_content)
+        self.cpp_class_ptr.InternalLogError(log_id, encoded_content, repeat_for_effect)

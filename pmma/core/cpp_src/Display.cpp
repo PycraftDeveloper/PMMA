@@ -153,7 +153,16 @@ void CPP_Display::PMMA_Update(GLFWwindow* Window) {
 }
 
 CPP_Display::CPP_Display() {
+    Logger = new CPP_Logger();
+
     if (PMMA_Core::DisplayInstance != nullptr) {
+        Logger->InternalLogDebug(
+            "Display instance already exists",
+            "A display instance already exists. The previous one will \
+be destroyed, closing any windows the application has created. Continue \
+use the current one instead, but consider properly garbage collecting \
+the previous display object. We are looking to support multiple windows \
+in future versions of PMMA, but it is not a priority.", false);
         delete PMMA_Core::DisplayInstance;
         PMMA_Core::DisplayInstance = nullptr;
     }
@@ -726,4 +735,7 @@ CPP_Display::~CPP_Display() {
     F11_KeyEvent = nullptr;
     delete Escape_KeyEvent;
     Escape_KeyEvent = nullptr;
+
+    delete Logger;
+    Logger = nullptr;
 }

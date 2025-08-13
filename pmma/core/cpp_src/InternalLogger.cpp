@@ -23,8 +23,8 @@ tm parseTimestamp(const std::string& name) {
 }
 
 void ClearOldLogs(string LogDirectory, unsigned int KeepCount) {
-    std::regex pattern(R"((\d{2}-\d{2}-\d{4} at \d{2}-\d{2}-\d{2})\.txt)");
-    std::vector<LogFileEntry> files;
+    regex pattern(R"((\d{2}-\d{2}-\d{4} at \d{2}-\d{2}-\d{2})\.txt)");
+    vector<LogFileEntry> files;
 
     for (const auto& entry : filesystem::directory_iterator(LogDirectory)) {
         if (!entry.is_regular_file()) continue;
@@ -40,7 +40,7 @@ void ClearOldLogs(string LogDirectory, unsigned int KeepCount) {
     }
 
     // Sort by timestamp descending
-    std::sort(files.begin(), files.end(), [](const LogFileEntry& a, const LogFileEntry& b) {
+    sort(files.begin(), files.end(), [](const LogFileEntry& a, const LogFileEntry& b) {
         return a.timestamp > b.timestamp;
     });
 
@@ -60,7 +60,7 @@ CPP_InternalLogger::CPP_InternalLogger() {
 }
 
 CPP_InternalLogger::~CPP_InternalLogger() {
-    if (LogToFile && std::filesystem::exists(LogFileLocation)) {
+    if (LogToFile && filesystem::exists(LogFileLocation)) {
         ClearOldLogs(LogFileLocation, KeepCount);
     }
 }
@@ -98,7 +98,7 @@ void CPP_InternalLogger::Log(std::string Content) {
     }
 
     if (LogToFile) {
-        std::ofstream LogFile(LogFileLocation + PMMA_Registry::PathSeparator + LogFileName, std::ios::app);
+        ofstream LogFile(LogFileLocation + PMMA_Registry::PathSeparator + LogFileName, ios::app);
         LogFile << Content << endl;
         LogFile.close();
     } else {
@@ -108,18 +108,18 @@ void CPP_InternalLogger::Log(std::string Content) {
 
 void CPP_InternalLogger::FileCatchUp() {
     if (LogToFile && ContentToLogToFile.size() > 0) {
-        std::string fullPath = LogFileLocation + PMMA_Registry::PathSeparator + LogFileName;
+        string fullPath = LogFileLocation + PMMA_Registry::PathSeparator + LogFileName;
 
-        std::ifstream inputFile(fullPath);
-        std::string originalContents;
+        ifstream inputFile(fullPath);
+        string originalContents;
         if (inputFile.is_open()) {
-            std::ostringstream buffer;
+            ostringstream buffer;
             buffer << inputFile.rdbuf();
             originalContents = buffer.str();
             inputFile.close();
         }
 
-        std::ofstream outputFile(fullPath, std::ios::trunc);
+        ofstream outputFile(fullPath, std::ios::trunc);
         if (outputFile.is_open()) {
             for (const auto& line : ContentToLogToFile) {
                 outputFile << line << std::endl;
@@ -140,35 +140,48 @@ void CPP_InternalLogger::SetLogFileLocation(std::string NewLogFileLocation) {
     FileCatchUp();
 }
 
-void CPP_InternalLogger::InternalLogDebug(std::string ID, std::string Content) {
+void CPP_InternalLogger::InternalLogDebug(std::string ID, std::string Content, bool RepeatForEffect) {
     if (!LogDebug) {
         return;
     }
 
     if (PMMA_Registry::IsDebuggingModeEnabled) {
-        auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
-        if (PreviousIndex == PreviouslyLoggedContent.end()) {
-            PreviouslyLoggedContent.push_back(ID);
-            std::string DateTimeCode = GetDateTimeCode();
+        if (RepeatForEffect) {
+            auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+            if (PreviousIndex == PreviouslyLoggedContent.end()) {
+                PreviouslyLoggedContent.push_back(ID);
+                string DateTimeCode = GetDateTimeCode();
+                Log("PMMA (Debug) - " + DateTimeCode + " - " + Content);
+            }
+        } else {
+            string DateTimeCode = GetDateTimeCode();
             Log("PMMA (Debug) - " + DateTimeCode + " - " + Content);
         }
     }
 }
 
-void CPP_InternalLogger::ExternalLogDebug(std::string ID, std::string Content, std::string ProductName) {
+void CPP_InternalLogger::ExternalLogDebug(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogDebug) {
         return;
     }
 
     if (PMMA_Registry::IsDebuggingModeEnabled) {
-        std::transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
+        transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
         if (ProductName == "pmma") {
             throw runtime_error("The name PMMA or pmma is reserved!");
         }
-        auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
-        if (PreviousIndex == PreviouslyLoggedContent.end()) {
-            PreviouslyLoggedContent.push_back(ID);
-            std::string DateTimeCode = GetDateTimeCode();
+        if (RepeatForEffect) {
+            auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+            if (PreviousIndex == PreviouslyLoggedContent.end()) {
+                PreviouslyLoggedContent.push_back(ID);
+                string DateTimeCode = GetDateTimeCode();
+                if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
+                    ProductName = PMMA_Core::PassportInstance->ProductName + " ";
+                }
+                Log(ProductName + "(Debug) - " + DateTimeCode + " - " + Content);
+            }
+        } else {
+            string DateTimeCode = GetDateTimeCode();
             if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
                 ProductName = PMMA_Core::PassportInstance->ProductName + " ";
             }
@@ -177,19 +190,27 @@ void CPP_InternalLogger::ExternalLogDebug(std::string ID, std::string Content, s
     }
 }
 
-void CPP_InternalLogger::ExternalLogWarn(std::string ID, std::string Content, std::string ProductName) {
+void CPP_InternalLogger::ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogWarn) {
         return;
     }
 
-    std::transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
+    transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
     if (ProductName == "pmma") {
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
-    auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
-    if (PreviousIndex == PreviouslyLoggedContent.end()) {
-        PreviouslyLoggedContent.push_back(ID);
-        std::string DateTimeCode = GetDateTimeCode();
+    if (RepeatForEffect) {
+        auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+        if (PreviousIndex == PreviouslyLoggedContent.end()) {
+            PreviouslyLoggedContent.push_back(ID);
+            string DateTimeCode = GetDateTimeCode();
+            if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
+                ProductName = PMMA_Core::PassportInstance->ProductName + " ";
+            }
+            Log(ProductName + "(Warn) - " + DateTimeCode + " - " + Content);
+        }
+    } else {
+        string DateTimeCode = GetDateTimeCode();
         if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
             ProductName = PMMA_Core::PassportInstance->ProductName + " ";
         }
@@ -197,19 +218,27 @@ void CPP_InternalLogger::ExternalLogWarn(std::string ID, std::string Content, st
     }
 }
 
-void CPP_InternalLogger::ExternalLogError(std::string ID, std::string Content, std::string ProductName) {
+void CPP_InternalLogger::ExternalLogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogError) {
         return;
     }
 
-    std::transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
+    transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
     if (ProductName == "pmma") {
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
-    auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
-    if (PreviousIndex == PreviouslyLoggedContent.end()) {
-        PreviouslyLoggedContent.push_back(ID);
-        std::string DateTimeCode = GetDateTimeCode();
+    if (RepeatForEffect) {
+        auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+        if (PreviousIndex == PreviouslyLoggedContent.end()) {
+            PreviouslyLoggedContent.push_back(ID);
+            string DateTimeCode = GetDateTimeCode();
+            if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
+                ProductName = PMMA_Core::PassportInstance->ProductName + " ";
+            }
+            Log(ProductName + "(Error) - " + DateTimeCode + " - " + Content);
+        }
+    } else {
+        string DateTimeCode = GetDateTimeCode();
         if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
             ProductName = PMMA_Core::PassportInstance->ProductName + " ";
         }

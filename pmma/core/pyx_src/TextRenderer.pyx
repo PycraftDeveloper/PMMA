@@ -5,6 +5,8 @@ from libcpp.string cimport string
 import numpy as np
 cimport numpy as np
 
+from Logger cimport Logger
+
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_TextRenderer:
         inline void SetText(string NewText) except + nogil
@@ -22,9 +24,20 @@ cdef extern from "PMMA_Core.hpp" nogil:
 cdef class TextRenderer:
     cdef:
         CPP_TextRenderer* cpp_class_ptr
+        Logger logger
 
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_TextRenderer()
+        self.logger = Logger()
+
+        self.logger.internal_log_debug(
+            "TextRenderer - Development version",
+            (
+                "The TextRenderer API is currently still in development "
+                "and is likely to change as we continue to refine this "
+                "area of the API in PMMA 5.1."),
+            False
+        )
 
     def __dealloc__(self):
         del self.cpp_class_ptr

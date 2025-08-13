@@ -81,15 +81,18 @@ cdef class Passport:
         if logging_path != "" and (not os.path.exists(logging_path)):
             raise IsADirectoryError("This is not a valid path!")
 
-        logging_path_not_set = logging_path == "" # also check here if logging is currently supposed to be writing to a file!
+        logging_path_not_set = logging_path == ""
 
         if logging_path_not_set and product_path != "":
             self.logger.internal_log_debug(
                 "Passport.register - Auto setup log path.",
-                "Passport.register - You have not specified a logging \
-path, which you can do with `Passport.set_logging_path`. Until \
-specified, PMMA will attempt to find a suitable location for your \
-log files should you choose to store these log files to disk.")
+                ("Passport.register - You have not specified a logging "
+                    "path, which you can do with `Passport.set_logging_path`. "
+                    "Until specified, PMMA will attempt to find a suitable "
+                    "location for your log files should you choose to "
+                    "store these log files to disk."),
+                False
+            )
 
             if os.path.exists(os.path.join(product_path, "logs")):
                 logging_path = os.path.join(product_path, "logs")
@@ -99,7 +102,8 @@ log files should you choose to store these log files to disk.")
                 self.logger.internal_log_debug(
                     "Passport.register - Found location (logs)",
                     ("Passport.register - A suitable location for your log " # NO COMMA
-                        f"files has been found at: '{logging_path}'.")
+                        f"files has been found at: '{logging_path}'."),
+                    False
                 )
 
             elif os.path.exists(os.path.join(product_path, "Logs")):
@@ -110,7 +114,8 @@ log files should you choose to store these log files to disk.")
                 self.logger.internal_log_debug(
                     "Passport.register - Found location (Logs)",
                     ("Passport.register - A suitable location for your log " # NO COMMA
-                        f"files has been found at: '{logging_path}'.")
+                        f"files has been found at: '{logging_path}'."),
+                    False
                 )
             else:
                 for dirpath, _, _ in os.walk(product_path):
@@ -121,18 +126,24 @@ log files should you choose to store these log files to disk.")
 
                         self.logger.internal_log_debug(
                             "Passport.register - Search found suitable logging location",
-                            f"Passport.register - A suitable location for your log \
-files has been found at: {logging_path} after searching the specified product directory.")
+                            ("Passport.register - A suitable location for your log "
+                                f"files has been found at: {logging_path} "
+                                "after searching the specified product directory."),
+                        False
+                        )
 
                         break
                 else:
                     self.logger.internal_log_debug(
-                    "Passport.register - Failed to find location",
-                    f"Passport.register - No suitable location for log \
-files could automatically be detected. If you want to have PMMA \
-automatically manage where your log files go when stored to disk \
-please create a designated 'logs' folder in the specified product location \
-or manually specify a location for your log files to go using `Passport.set_logging_path`.")
+                        "Passport.register - Failed to find location",
+                        ("Passport.register - No suitable location for log "
+                            "files could automatically be detected. If you want to have PMMA "
+                            "automatically manage where your log files go when stored to disk "
+                            "please create a designated 'logs' folder in the specified product location "
+                            "or manually specify a location for your log "
+                            "files to go using `Passport.set_logging_path`."),
+                    False
+                    )
 
         self.cpp_class_ptr.Register()
 
@@ -140,12 +151,16 @@ or manually specify a location for your log files to go using `Passport.set_logg
             if General.is_window_created():
                 self.logger.internal_log_debug(
                     "Passport.register - Registered after window creation",
-                    f"Passport.register - You have registered your \
-application after the window has been created. This matters as Windows \
-will not register the change after the window has been created so your \
-application may not appear correctly to the system (most notably taskbar \
-icons will not correctly display). Please make sure to call \
-`Passport.register` before `Display.create`.")
+                    ("Passport.register - You have registered your "
+                        "application after the window has been created. "
+                        "This matters as Windows will not register the "
+                        "change after the window has been created so your "
+                        "application may not appear correctly to the system "
+                        "(most notably taskbar icons will not correctly "
+                        "display). Please make sure to call `Passport.register` "
+                        "before `Display.create`."),
+                    False
+                )
 
             myappid = f"{self.get_company_name()}.{self.get_product_name()}.{self.get_product_sub_name()}.{self.get_product_version()}"
             ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(myappid)

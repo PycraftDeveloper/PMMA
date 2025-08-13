@@ -98,7 +98,18 @@ cdef class Display:
         def __get__(self):
             return self.cpp_window_fill_color_format
 
-    def create(self, size=np.array([0, 0], dtype=np.uint32, order='C'), caption="PMMA Display", fullscreen=None, resizable=False, no_frame=False, vsync=True, icon="", centered=True, maximized=False, transparent=False):
+    def create(
+            self,
+            size=np.array([0, 0], dtype=np.uint32, order='C'),
+            caption="PMMA Display",
+            fullscreen=None,
+            resizable=False,
+            no_frame=False,
+            vsync=True,
+            icon="",
+            centered=True,
+            maximized=False,
+            transparent=False):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] size_np
             string encoded_caption = caption.encode('utf-8')
@@ -124,7 +135,17 @@ cdef class Display:
             else:
                 fullscreen = False
 
-        self.cpp_class_ptr.Create(size_ptr, encoded_caption, encoded_icon, fullscreen, resizable, no_frame, vsync, centered, maximized, transparent)
+        self.cpp_class_ptr.Create(
+            size_ptr,
+            encoded_caption,
+            encoded_icon,
+            fullscreen,
+            resizable,
+            no_frame,
+            vsync,
+            centered,
+            maximized,
+            transparent)
 
     def get_width(self):
         return self.cpp_class_ptr.GetWidth()
