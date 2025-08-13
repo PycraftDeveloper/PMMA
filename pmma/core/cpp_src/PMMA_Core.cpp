@@ -258,7 +258,7 @@ but may result in reduced performance.");
     #ifdef INTERNAL_USE_PYTHON
         PMMA_Core::InternalLoggerInstance->InternalLogDebug(
                 "Python build support",
-                "PMMA has been built with compatibility for Python!");
+                "PMMA has been built with compatibility for the Python programming language!");
     #else
         PMMA_Core::InternalLoggerInstance->InternalLogDebug(
                 "Python build support",

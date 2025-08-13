@@ -9,9 +9,11 @@
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "NumberFormats.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_ArcShape {
     public:
+        CPP_Logger* Logger;
         CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
@@ -38,6 +40,9 @@ class EXPORT CPP_ArcShape {
         CPP_ArcShape();
 
         ~CPP_ArcShape() {
+            delete Logger;
+            Logger = nullptr;
+
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
 
@@ -62,6 +67,10 @@ class EXPORT CPP_ArcShape {
 
         inline float GetStartAngle() const {
             if (!StartAngleSet) {
+                Logger->InternalLogWarn(
+                    "Start angle not set",
+                    "You have not specified a starting angle for the arc \
+please use `Arc.set_start_angle` to set it before attempting to get it.");
                 throw std::runtime_error("Start angle not set!");
             }
             return StartAngle;
@@ -80,6 +89,10 @@ class EXPORT CPP_ArcShape {
 
         inline float GetEndAngle() const {
             if (!EndAngleSet) {
+                Logger->InternalLogWarn(
+                    "End angle not set",
+                    "You have not specified an ending angle for the arc \
+please use `Arc.set_start_angle` to set it before attempting to get it.");
                 throw std::runtime_error("End angle not set!");
             }
             return EndAngle;
@@ -111,6 +124,10 @@ class EXPORT CPP_ArcShape {
 
         inline unsigned int GetRadius() const {
             if (!RadiusSet) {
+                Logger->InternalLogWarn(
+                    "Radius not set",
+                    "You have not specified a radius for the arc \
+please use `Arc.set_radius` to set it before attempting to get it.");
                 throw std::runtime_error("Radius not set!");
             }
             return Radius;

@@ -3,6 +3,7 @@
 using namespace std;
 
 CPP_ArcShape::CPP_ArcShape() {
+    Logger = new CPP_Logger();
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
@@ -32,10 +33,18 @@ void CPP_ArcShape::Render() {
     DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
 
     if (!ShapeCenterFormat->GetSet()) {
-        throw std::runtime_error("Shape has no center not set");
+        Logger->InternalLogWarn(
+            "Shape has no center set",
+            "This shape has no center set, please use the `Arc.shape_center` \
+API to set it.");
+        throw std::runtime_error("Shape has no center set");
     }
 
     if (!ColorFormat->GetSet()) {
+        Logger->InternalLogWarn(
+            "Shape has no color set",
+            "This shape has no color set, please use the `Arc.shape_color` \
+API to set it.");
         throw std::runtime_error("Shape has no color set");
     }
 

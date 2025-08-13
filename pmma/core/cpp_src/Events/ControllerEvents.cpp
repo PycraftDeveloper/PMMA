@@ -7,7 +7,16 @@ CPP_ControllerEvent::CPP_ControllerEvent(unsigned int NewID) {
 
     PMMA_Registry::ControllerEventInstanceCount++;
     ID = NewID;
-};
+
+    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        "Controller ID may not persist",
+        "Please note that when specifying the ID of the controller you \
+wish to use it is not guaranteed to remain at that ID when the application \
+is restarted. In testing this issue was only present when connecting/disconnecting \
+controllers. We instead recommend querying each controller ID and seeing which \
+ones are connected instead of relying on the ID to persist for improved \
+application reliability.");
+    };
 
 CPP_ControllerEvent::~CPP_ControllerEvent() {
     auto it = find(PMMA_Core::ControllerEvent_Instances.begin(), PMMA_Core::ControllerEvent_Instances.end(), this);

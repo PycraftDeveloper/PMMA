@@ -11,6 +11,7 @@
 
 #include "NumberConverter.hpp"
 #include "Constants.hpp"
+#include "Logger.hpp"
 #include "Events/EventsCore.hpp"
 
 class EXPORT CPP_ControllerEvent {
@@ -98,6 +99,8 @@ class CPP_InternalControllerEvent {
         CPP_ButtonPressedEvent* GamePad_DPad_Left_Button = nullptr;
 
     private:
+        CPP_Logger* Logger;
+
         CPP_BasicProportionConverter* GamePad_Left_Trigger = nullptr;
         CPP_BasicProportionConverter* GamePad_Right_Trigger = nullptr;
         CPP_BasicProportionConverter* GamePad_Left_Stick_X = nullptr;
@@ -152,6 +155,8 @@ class CPP_InternalControllerEvent {
             GamePadName = "";
             RawName = "";
             GUID = "";
+
+            Logger = new CPP_Logger();
         };
 
         ~CPP_InternalControllerEvent() {
@@ -178,6 +183,8 @@ class CPP_InternalControllerEvent {
             delete GamePad_Right_Stick_X;
             delete GamePad_Right_Stick_Y;
 
+            delete Logger;
+
             GamePad_A_Button = nullptr;
             GamePad_B_Button = nullptr;
             GamePad_X_Button = nullptr;
@@ -200,6 +207,8 @@ class CPP_InternalControllerEvent {
             GamePad_Left_Stick_Y = nullptr;
             GamePad_Right_Stick_X = nullptr;
             GamePad_Right_Stick_Y = nullptr;
+
+            Logger = nullptr;
 
             RawAxesData.clear();
             RawButtonData.clear();
@@ -325,6 +334,11 @@ class CPP_InternalControllerEvent {
 
         inline std::string GetRawName() {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return RawName;
@@ -332,6 +346,11 @@ class CPP_InternalControllerEvent {
 
         inline std::string GetGamePadName() {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return GamePadName;
@@ -339,6 +358,11 @@ class CPP_InternalControllerEvent {
 
         inline std::string GetGUID() {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return GUID;
@@ -350,6 +374,11 @@ class CPP_InternalControllerEvent {
 
         inline int GetRawAxisCount() {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return RawAxisCount;
@@ -357,6 +386,11 @@ class CPP_InternalControllerEvent {
 
         inline int GetRawButtonCount() {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return RawButtonCount;
@@ -364,6 +398,11 @@ class CPP_InternalControllerEvent {
 
         inline int GetRawHatCount() {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return RawHatCount;
@@ -371,36 +410,85 @@ class CPP_InternalControllerEvent {
 
         inline float GetRawAxis_Decimal(int AxisID) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
-            //std::cout << "Using raw controller data - we always recommend using 'non-raw' data for better performance." << std::endl;
+
+            Logger->InternalLogDebug(
+                "Using raw controller data",
+                "This function uses raw controller data - we recommend \
+you instead use the pre-mapped controller axis for improved compatibility \
+with other controller models (as they might have a different axis associated with \
+the specified axis ID). If the controller isn't expected to change, or PMMA \
+does not include a pre-mapped API for the target axis then this is the recommended \
+way to get the axis data.");
             UpdateRawData = true;
             return RawAxesData[AxisID].Get_Decimal();
         };
 
         inline float GetRawAxis_Percentage(int AxisID) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
-            //std::cout << "Using raw controller data - we always recommend using 'non-raw' data for better performance." << std::endl;
+            Logger->InternalLogDebug(
+                "Using raw controller data",
+                "This function uses raw controller data - we recommend \
+you instead use the pre-mapped controller axis for improved compatibility \
+with other controller models (as they might have a different axis associated with \
+the specified axis ID). If the controller isn't expected to change, or PMMA \
+does not include a pre-mapped API for the target axis then this is the recommended \
+way to get the axis data.");
             UpdateRawData = true;
             return RawAxesData[AxisID].Get_Percentage();
         };
 
         inline bool GetRawButtonPressed(int ButtonID) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
-            //std::cout << "Using raw controller data - we always recommend using 'non-raw' data for better performance." << std::endl;
+            Logger->InternalLogDebug(
+                "Using raw controller data",
+                "This function uses raw controller data - we recommend \
+you instead use the pre-mapped controller buttons for improved compatibility \
+with other controller models (as they might have a different button associated with \
+the specified button ID). If the controller isn't expected to change, or PMMA \
+does not include a pre-mapped API for the target button then this is the recommended \
+way to get the button data.");
             UpdateRawData = true;
             return RawButtonData[ButtonID];
         };
 
         inline std::string GetRawHatState(int HatID) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
-            //std::cout << "Using raw controller data - we always recommend using 'non-raw' data for better performance." << std::endl;
+            Logger->InternalLogDebug(
+                "Using raw controller data",
+                "This function uses raw controller data - we recommend \
+you instead use the pre-mapped controller hat buttons for improved compatibility \
+with other controller models (as they might have a different hat button associated with \
+the specified hat button ID). If the controller isn't expected to change, or PMMA \
+does not include a pre-mapped API for the target hat button then this is the recommended \
+way to get the hat button data.");
             UpdateRawData = true;
             return RawHatStateData[HatID];
         };
@@ -422,6 +510,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Left_Trigger_Axis_Percentage(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Trigger->Get_Percentage());
@@ -429,6 +522,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Right_Trigger_Axis_Percentage(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Trigger->Get_Percentage());
@@ -436,6 +534,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Left_Trigger_Axis_Decimal(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Trigger->Get_Decimal());
@@ -443,6 +546,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Right_Trigger_Axis_Decimal(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Trigger->Get_Decimal());
@@ -450,6 +558,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Right_Stick_X_Axis_Percentage(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_X->Get_Percentage());
@@ -457,6 +570,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Right_Stick_Y_Axis_Percentage(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_Y->Get_Percentage());
@@ -464,6 +582,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Right_Stick_X_Axis_Decimal(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Stick_X->Get_Decimal());
@@ -471,6 +594,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Right_Stick_Y_Axis_Decimal(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Right_Stick_Y->Get_Decimal());
@@ -479,6 +607,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Left_Stick_X_Axis_Percentage(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_X->Get_Percentage());
@@ -486,6 +619,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Left_Stick_Y_Axis_Percentage(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_Y->Get_Percentage());
@@ -493,6 +631,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Left_Stick_X_Axis_Decimal(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_X->Get_Decimal());
@@ -500,6 +643,11 @@ class CPP_InternalControllerEvent {
 
         inline float Get_Left_Stick_Y_Axis_Decimal(float DeadZone) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             return AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_Y->Get_Decimal());
@@ -507,6 +655,11 @@ class CPP_InternalControllerEvent {
 
         inline void Get_Left_Stick_Position_Decimal(float DeadZone, float* out) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             out[0] = AxisDeadZoneConverter_Decimal(DeadZone, GamePad_Left_Stick_X->Get_Decimal());
@@ -515,6 +668,11 @@ class CPP_InternalControllerEvent {
 
         inline void Get_Right_Stick_Position_Decimal(float DeadZone, float* out) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             out[0] = GamePad_Right_Stick_X->Get_Decimal();
@@ -523,6 +681,11 @@ class CPP_InternalControllerEvent {
 
         inline void Get_Left_Stick_Position_Percentage(float DeadZone, float* out) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             out[0] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Left_Stick_X->Get_Percentage());
@@ -531,6 +694,11 @@ class CPP_InternalControllerEvent {
 
         inline void Get_Right_Stick_Position_Percentage(float DeadZone, float* out) {
             if (!Connected) {
+                Logger->InternalLogWarn(
+                    "Controller not connected",
+                    "The controller with ID: " + std::to_string(ID) + " \
+is not currently connected. Please ensure this is the ID you are expecting \
+and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             out[0] = AxisDeadZoneConverter_Percentage(DeadZone, GamePad_Right_Stick_X->Get_Percentage());

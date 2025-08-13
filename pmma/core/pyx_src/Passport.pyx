@@ -74,26 +74,32 @@ cdef class Passport:
         product_path = raw_product_path.c_str().decode("utf-8")
 
         if product_path != "" and (not os.path.exists(product_path)):
+            self.logger.internal_log_warn(
+                "Invalid product path",
+                (f"The path '{product_path}'' is not a valid path on this "
+                    "system. Please ensure you enter a valid product path "
+                    "using `Passport.set_product_path`."),
+                False
+            )
             raise IsADirectoryError("This is not a valid path!")
 
         logging_path = raw_logging_path.c_str().decode("utf-8")
 
         if logging_path != "" and (not os.path.exists(logging_path)):
+            self.logger.internal_log_warn(
+                "Invalid logging path",
+                (f"The path '{logging_path}'' is not a valid path on this "
+                    "system. Please ensure you enter a valid logging path "
+                    "using `Passport.set_logging_path`. Alternatively you "
+                    "can let PMMA automatically detect a suitable logging "
+                    "location by not specifying a logging path!"),
+                False
+            )
             raise IsADirectoryError("This is not a valid path!")
 
         logging_path_not_set = logging_path == ""
 
         if logging_path_not_set and product_path != "":
-            self.logger.internal_log_debug(
-                "Passport.register - Auto setup log path.",
-                ("Passport.register - You have not specified a logging "
-                    "path, which you can do with `Passport.set_logging_path`. "
-                    "Until specified, PMMA will attempt to find a suitable "
-                    "location for your log files should you choose to "
-                    "store these log files to disk."),
-                False
-            )
-
             if os.path.exists(os.path.join(product_path, "logs")):
                 logging_path = os.path.join(product_path, "logs")
                 encoded_logging_path = logging_path.encode("utf-8")
@@ -101,8 +107,10 @@ cdef class Passport:
 
                 self.logger.internal_log_debug(
                     "Passport.register - Found location (logs)",
-                    ("Passport.register - A suitable location for your log " # NO COMMA
-                        f"files has been found at: '{logging_path}'."),
+                    ("Passport.register - You have not specified a logging "
+                        "path, which you can do with `Passport.set_logging_path`. "
+                        "Until specified PMMA has automatically found a suitable "
+                        f"location for your log files has been found at: '{logging_path}'."),
                     False
                 )
 
@@ -112,9 +120,11 @@ cdef class Passport:
                 self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 
                 self.logger.internal_log_debug(
-                    "Passport.register - Found location (Logs)",
-                    ("Passport.register - A suitable location for your log " # NO COMMA
-                        f"files has been found at: '{logging_path}'."),
+                    "Passport.register - Found location (logs)",
+                    ("Passport.register - You have not specified a logging "
+                        "path, which you can do with `Passport.set_logging_path`. "
+                        "Until specified PMMA has automatically found a suitable "
+                        f"location for your log files has been found at: '{logging_path}'."),
                     False
                 )
             else:
@@ -125,11 +135,13 @@ cdef class Passport:
                         self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 
                         self.logger.internal_log_debug(
-                            "Passport.register - Search found suitable logging location",
-                            ("Passport.register - A suitable location for your log "
-                                f"files has been found at: {logging_path} "
-                                "after searching the specified product directory."),
-                        False
+                            "Passport.register - Found location (logs)",
+                            ("Passport.register - You have not specified a logging "
+                                "path, which you can do with `Passport.set_logging_path`. "
+                                "Until specified PMMA has automatically found a suitable "
+                                f"location for your log files has been found at: '{logging_path}' "
+                                "after searching inside the specified product path."),
+                                False
                         )
 
                         break
