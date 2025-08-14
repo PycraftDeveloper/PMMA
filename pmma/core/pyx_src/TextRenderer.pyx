@@ -31,7 +31,7 @@ cdef class TextRenderer:
         self.logger = Logger()
 
         self.logger.internal_log_debug(
-            "TextRenderer - Development version",
+            29,
             (
                 "The TextRenderer API is currently still in development "
                 "and is likely to change as we continue to refine this "

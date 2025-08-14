@@ -40,7 +40,7 @@ cdef class General:
         self.logger = Logger()
 
         self.logger.internal_log_debug(
-            "General.init - Static class no instantiation",
+            24,
             ("General.init - You don't need to instantiate "
                 "this class in order to use it."),
             False

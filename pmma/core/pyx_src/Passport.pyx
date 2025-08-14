@@ -75,7 +75,7 @@ cdef class Passport:
 
         if product_path != "" and (not os.path.exists(product_path)):
             self.logger.internal_log_warn(
-                "Invalid product path",
+                25,
                 (f"The path '{product_path}'' is not a valid path on this "
                     "system. Please ensure you enter a valid product path "
                     "using `Passport.set_product_path`."),
@@ -87,7 +87,7 @@ cdef class Passport:
 
         if logging_path != "" and (not os.path.exists(logging_path)):
             self.logger.internal_log_warn(
-                "Invalid logging path",
+                25,
                 (f"The path '{logging_path}'' is not a valid path on this "
                     "system. Please ensure you enter a valid logging path "
                     "using `Passport.set_logging_path`. Alternatively you "
@@ -106,7 +106,7 @@ cdef class Passport:
                 self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 
                 self.logger.internal_log_debug(
-                    "Passport.register - Found location (logs)",
+                    26,
                     ("Passport.register - You have not specified a logging "
                         "path, which you can do with `Passport.set_logging_path`. "
                         "Until specified PMMA has automatically found a suitable "
@@ -120,7 +120,7 @@ cdef class Passport:
                 self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 
                 self.logger.internal_log_debug(
-                    "Passport.register - Found location (logs)",
+                    26,
                     ("Passport.register - You have not specified a logging "
                         "path, which you can do with `Passport.set_logging_path`. "
                         "Until specified PMMA has automatically found a suitable "
@@ -135,7 +135,7 @@ cdef class Passport:
                         self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 
                         self.logger.internal_log_debug(
-                            "Passport.register - Found location (logs)",
+                            26,
                             ("Passport.register - You have not specified a logging "
                                 "path, which you can do with `Passport.set_logging_path`. "
                                 "Until specified PMMA has automatically found a suitable "
@@ -147,7 +147,7 @@ cdef class Passport:
                         break
                 else:
                     self.logger.internal_log_debug(
-                        "Passport.register - Failed to find location",
+                        27,
                         ("Passport.register - No suitable location for log "
                             "files could automatically be detected. If you want to have PMMA "
                             "automatically manage where your log files go when stored to disk "
@@ -162,7 +162,7 @@ cdef class Passport:
         if General.get_operating_system() == Constants.WINDOWS:
             if General.is_window_created():
                 self.logger.internal_log_debug(
-                    "Passport.register - Registered after window creation",
+                    28,
                     ("Passport.register - You have registered your "
                         "application after the window has been created. "
                         "This matters as Windows will not register the "

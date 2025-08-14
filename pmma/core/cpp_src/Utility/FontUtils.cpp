@@ -4,17 +4,30 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 FontAtlas::FontAtlas(const string& path, int pixelHeight) {
     FT_Library ft;
     if (FT_Init_FreeType(&ft)) {
-        throw std::runtime_error("Could not init FreeType\n");
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            31,
+            "PMMA could not initialize the FreeType module. If you have \
+compiled PMMA from source yourself, please ensure you followed the build \
+guides correctly. They can be found here: \
+'https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md' \
+If you did not compile PMMA from source, or do not know what this means please \
+feel free to report this as a bug so we can fix this here: \
+'https://github.com/PycraftDeveloper/PMMA/issues'"
+        );
+        throw runtime_error("Could not init FreeType\n");
     }
 
     FT_Face face;
     if (FT_New_Face(ft, path.c_str(), 0, &face)) {
-        throw std::runtime_error("Failed to load font\n");
+        PMMA_Core::InternalLoggerInstance->InternalLogWarn(
+            32,
+            "PMMA was unable to load the font file: '" + path + "'. Please \
+ensure that the specified path is correct."
+        );
+        throw runtime_error("Failed to load font\n");
     }
 
     FT_Set_Pixel_Sizes(face, 0, pixelHeight);

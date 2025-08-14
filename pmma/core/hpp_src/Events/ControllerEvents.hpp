@@ -335,7 +335,7 @@ class CPP_InternalControllerEvent {
         inline std::string GetRawName() {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -347,7 +347,7 @@ and that the controller is connected before calling this function.");
         inline std::string GetGamePadName() {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -359,7 +359,7 @@ and that the controller is connected before calling this function.");
         inline std::string GetGUID() {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -375,7 +375,7 @@ and that the controller is connected before calling this function.");
         inline int GetRawAxisCount() {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -387,7 +387,7 @@ and that the controller is connected before calling this function.");
         inline int GetRawButtonCount() {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -399,7 +399,7 @@ and that the controller is connected before calling this function.");
         inline int GetRawHatCount() {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -411,7 +411,7 @@ and that the controller is connected before calling this function.");
         inline float GetRawAxis_Decimal(int AxisID) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -419,7 +419,7 @@ and that the controller is connected before calling this function.");
             }
 
             Logger->InternalLogDebug(
-                "Using raw controller data",
+                20,
                 "This function uses raw controller data - we recommend \
 you instead use the pre-mapped controller axis for improved compatibility \
 with other controller models (as they might have a different axis associated with \
@@ -433,14 +433,14 @@ way to get the axis data.");
         inline float GetRawAxis_Percentage(int AxisID) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             Logger->InternalLogDebug(
-                "Using raw controller data",
+                20,
                 "This function uses raw controller data - we recommend \
 you instead use the pre-mapped controller axis for improved compatibility \
 with other controller models (as they might have a different axis associated with \
@@ -454,14 +454,14 @@ way to get the axis data.");
         inline bool GetRawButtonPressed(int ButtonID) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             Logger->InternalLogDebug(
-                "Using raw controller data",
+                20,
                 "This function uses raw controller data - we recommend \
 you instead use the pre-mapped controller buttons for improved compatibility \
 with other controller models (as they might have a different button associated with \
@@ -475,14 +475,14 @@ way to get the button data.");
         inline std::string GetRawHatState(int HatID) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
                 throw std::runtime_error("Controller is not connected");
             }
             Logger->InternalLogDebug(
-                "Using raw controller data",
+                20,
                 "This function uses raw controller data - we recommend \
 you instead use the pre-mapped controller hat buttons for improved compatibility \
 with other controller models (as they might have a different hat button associated with \
@@ -511,7 +511,7 @@ way to get the hat button data.");
         inline float Get_Left_Trigger_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -523,7 +523,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Right_Trigger_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -535,7 +535,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Left_Trigger_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -547,7 +547,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Right_Trigger_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -559,7 +559,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Right_Stick_X_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -571,7 +571,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Right_Stick_Y_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -583,7 +583,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Right_Stick_X_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -595,7 +595,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Right_Stick_Y_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -608,7 +608,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Left_Stick_X_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -620,7 +620,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Left_Stick_Y_Axis_Percentage(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -632,7 +632,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Left_Stick_X_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -644,7 +644,7 @@ and that the controller is connected before calling this function.");
         inline float Get_Left_Stick_Y_Axis_Decimal(float DeadZone) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -656,7 +656,7 @@ and that the controller is connected before calling this function.");
         inline void Get_Left_Stick_Position_Decimal(float DeadZone, float* out) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -669,7 +669,7 @@ and that the controller is connected before calling this function.");
         inline void Get_Right_Stick_Position_Decimal(float DeadZone, float* out) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -682,7 +682,7 @@ and that the controller is connected before calling this function.");
         inline void Get_Left_Stick_Position_Percentage(float DeadZone, float* out) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");
@@ -695,7 +695,7 @@ and that the controller is connected before calling this function.");
         inline void Get_Right_Stick_Position_Percentage(float DeadZone, float* out) {
             if (!Connected) {
                 Logger->InternalLogWarn(
-                    "Controller not connected",
+                    19,
                     "The controller with ID: " + std::to_string(ID) + " \
 is not currently connected. Please ensure this is the ID you are expecting \
 and that the controller is connected before calling this function.");

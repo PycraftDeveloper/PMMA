@@ -52,7 +52,6 @@ CPP_TextRendererPipelineManager::CPP_TextRendererPipelineManager() {
 
     glGenBuffers(1, &instanceVBO);
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-    glBufferData(GL_ARRAY_BUFFER, sizeof(GlyphInstance) * 1000, nullptr, GL_DYNAMIC_DRAW);
 
     int attrIndex = 2;
 
@@ -191,13 +190,18 @@ void CPP_TextRendererPipelineManager::Reset() {
 
 void CPP_TextRendererPipelineManager::InternalRender() {
     glUseProgram(shaderProgram);
-    glUniformMatrix4fv(glGetUniformLocation(shaderProgram, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA_Core::DisplayInstance->GetDisplayProjection()));
+    glUniformMatrix4fv(
+        glGetUniformLocation(shaderProgram, "projection"),
+        1, GL_FALSE,
+        glm::value_ptr(PMMA_Core::DisplayInstance->GetDisplayProjection()));
 
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
     glBindBuffer(GL_ARRAY_BUFFER, instanceVBO);
-    glBufferSubData(GL_ARRAY_BUFFER, 0, glyphs.size() * sizeof(GlyphInstance), glyphs.data());
+    glBufferData(GL_ARRAY_BUFFER, glyphs.size() * sizeof(GlyphInstance),
+        glyphs.data(), GL_DYNAMIC_DRAW
+    );
 
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, atlas->textureID);

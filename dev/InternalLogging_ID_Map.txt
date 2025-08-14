@@ -1,0 +1,41 @@
+Notes:
+    > Value must be between 0 and 2_147_483_647 (incl).
+    > Any gaps must be filled with a description of 'EMPTY'.
+    > Each value must be associated with a meaningful name.
+    > Value must be positive or zero (negative values are reserved for automatically making user generated IDs).
+
+////////////////////////////////////////////////////////////////////////
+
+ 0 - How logs are structured
+ 1 - Power saving mode is enabled
+ 2 - Power saving mode is disabled
+ 3 - CPU supports AVX-512
+ 4 - CPU supports AVX2
+ 5 - CPU has no AVX support
+ 6 - Python build support
+ 7 - Platform not supported
+ 8 - Controller ID may not persist
+ 9 - Setting alpha to opaque
+10 - EMPTY
+11 - EMPTY
+12 - EMPTY
+13 - This component needs configuring
+14 - EMPTY
+15 - EMPTY
+16 - EMPTY
+17 - EMPTY
+18 - Display not created yet
+19 - Controller not connected
+20 - Using raw controller data
+21 - Display instance already exists
+22 - EMPTY
+23 - EMPTY
+24 - Static class no instantiation
+25 - Invalid path
+26 - Found suitable logging location
+27 - Failed to find suitable logging location
+28 - Registered after window creation
+29 - Experimental API feature
+30 - No initial value set
+31 - FreeType initialization failed
+32 - The value provided is invalid

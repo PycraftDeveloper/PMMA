@@ -60,14 +60,14 @@ void CPP_Logger::LogError(string ID, string Content, string ProductName, bool Re
     PMMA_Core::InternalLoggerInstance->ExternalLogError(ID, Content, ProductName, RepeatForEffect);
 }
 
-void CPP_Logger::InternalLogDebug(string ID, string Content, bool RepeatForEffect) {
+void CPP_Logger::InternalLogDebug(int ID, string Content, bool RepeatForEffect) {
     PMMA_Core::InternalLoggerInstance->InternalLogDebug(ID, Content, RepeatForEffect);
 }
 
-void CPP_Logger::InternalLogWarn(string ID, string Content, bool RepeatForEffect) {
+void CPP_Logger::InternalLogWarn(int ID, string Content, bool RepeatForEffect) {
     PMMA_Core::InternalLoggerInstance->InternalLogWarn(ID, Content, RepeatForEffect);
 }
 
-void CPP_Logger::InternalLogError(string ID, string Content, bool RepeatForEffect) {
+void CPP_Logger::InternalLogError(int ID, string Content, bool RepeatForEffect) {
     PMMA_Core::InternalLoggerInstance->InternalLogError(ID, Content, RepeatForEffect);
 }

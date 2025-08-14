@@ -25,7 +25,7 @@ class EXPORT CPP_Logger {
         void LogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect);
 
         // For PMMA's Cython and Python API
-        void InternalLogDebug(std::string ID, std::string Content, bool RepeatForEffect=false);
-        void InternalLogWarn(std::string ID, std::string Content, bool RepeatForEffect=false);
-        void InternalLogError(std::string ID, std::string Content, bool RepeatForEffect=false);
+        void InternalLogDebug(int ID, std::string Content, bool RepeatForEffect=false);
+        void InternalLogWarn(int ID, std::string Content, bool RepeatForEffect=true);
+        void InternalLogError(int ID, std::string Content, bool RepeatForEffect=true);
 };

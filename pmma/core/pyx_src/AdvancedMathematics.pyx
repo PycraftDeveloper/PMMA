@@ -27,7 +27,7 @@ cdef class AdvancedMathematics:
         self.logger = Logger()
 
         self.logger.internal_log_debug(
-            "AdvancedMathematics.init - Static class no instantiation",
+            24,
             ("AdvancedMathematics.init - You don't need to instantiate "
                 "this class in order to use it."),
             False

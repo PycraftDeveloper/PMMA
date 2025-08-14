@@ -34,7 +34,7 @@ void CPP_ArcShape::Render() {
 
     if (!ShapeCenterFormat->GetSet()) {
         Logger->InternalLogWarn(
-            "Shape has no center set",
+            30,
             "This shape has no center set, please use the `Arc.shape_center` \
 API to set it.");
         throw std::runtime_error("Shape has no center set");
@@ -42,7 +42,7 @@ API to set it.");
 
     if (!ColorFormat->GetSet()) {
         Logger->InternalLogWarn(
-            "Shape has no color set",
+            30,
             "This shape has no color set, please use the `Arc.shape_color` \
 API to set it.");
         throw std::runtime_error("Shape has no color set");

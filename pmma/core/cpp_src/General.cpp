@@ -35,7 +35,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             if (power_status.SystemStatusFlag == 1) {
                 if (!PMMA_Registry::IsPowerSavingModeEnabled) {
                     PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                        "Power saving mode is enabled",
+                        1,
                         "Your device is running in power saving mode.", true);
                 }
                 PMMA_Registry::IsPowerSavingModeEnabled = true;
@@ -46,7 +46,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
                 if (!PMMA_Registry::IsPowerSavingModeEnabled) {
                     PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                        "Power saving mode is enabled",
+                        1,
                         "Your device is running in power saving mode.", true);
                 }
                 PMMA_Registry::IsPowerSavingModeEnabled = true;
@@ -58,7 +58,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
 
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
             PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                "Power saving mode is disabled",
+                2,
                 "Your device is not running in power saving mode.", true);
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
@@ -77,7 +77,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                     if (statusFile >> status && status == "Discharging") {
                         if (!PMMA_Registry::IsPowerSavingModeEnabled) {
                             PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                                "Power saving mode is enabled",
+                                1,
                                 "Your device is running in power saving mode.", true);
                         }
                         PMMA_Registry::IsPowerSavingModeEnabled = true;
@@ -92,7 +92,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         }
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
             PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                "Power saving mode is disabled",
+                2,
                 "Your device is not running in power saving mode.", true);
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
@@ -107,7 +107,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             std::cerr << "Failed to get power feature flags: " << kr << "\n";
             if (PMMA_Registry::IsPowerSavingModeEnabled) {
                 PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                    "Power saving mode is disabled",
+                    2,
                     "Your device is not running in power saving mode.", true);
             }
             PMMA_Registry::IsPowerSavingModeEnabled = false;
@@ -119,7 +119,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         if (flags & kIOPMFeatureLowPowerMode) {
             if (!PMMA_Registry::IsPowerSavingModeEnabled) {
                 PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                    "Power saving mode is enabled",
+                    1,
                     "Your device is running in power saving mode.", true);
             }
             PMMA_Registry::IsPowerSavingModeEnabled = true;
@@ -129,7 +129,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         }
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
             PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                "Power saving mode is disabled",
+                2,
                 "Your device is not running in power saving mode.", true);
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
@@ -138,15 +138,14 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         return false;
 
     #else
-        std::cout << "Unknown platform for power saving mode check." << std::endl;
         PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                "Power saving mode not supported on this platform",
+                7,
                 "Your platform is not supported for power saving mode \
 checking using PMMA.");
 
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
             PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                "Power saving mode is disabled",
+                2,
                 "Your device is not running in power saving mode.", true);
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;

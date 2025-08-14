@@ -4,6 +4,7 @@
 
 #include <filesystem>
 #include <regex>
+#include <functional>
 
 #include "PMMA_Core.hpp"
 
@@ -140,7 +141,7 @@ void CPP_InternalLogger::SetLogFileLocation(std::string NewLogFileLocation) {
     FileCatchUp();
 }
 
-void CPP_InternalLogger::InternalLogDebug(std::string ID, std::string Content, bool RepeatForEffect) {
+void CPP_InternalLogger::InternalLogDebug(int ID, std::string Content, bool RepeatForEffect) {
     if (!LogDebug) {
         return;
     }
@@ -170,10 +171,16 @@ void CPP_InternalLogger::ExternalLogDebug(std::string ID, std::string Content, s
         if (ProductName == "pmma") {
             throw runtime_error("The name PMMA or pmma is reserved!");
         }
+
         if (RepeatForEffect) {
-            auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+            int InternalID;
+            transform(ID.begin(), ID.end(), ID.begin(), ::tolower);
+            hash<string> hasher;
+            InternalID = -(int)(hasher(ID));
+
+            auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), InternalID);
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
-                PreviouslyLoggedContent.push_back(ID);
+                PreviouslyLoggedContent.push_back(InternalID);
                 string DateTimeCode = GetDateTimeCode();
                 if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
                     ProductName = PMMA_Core::PassportInstance->ProductName + " ";
@@ -199,10 +206,16 @@ void CPP_InternalLogger::ExternalLogWarn(std::string ID, std::string Content, st
     if (ProductName == "pmma") {
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
+
     if (RepeatForEffect) {
-        auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+        int InternalID;
+        transform(ID.begin(), ID.end(), ID.begin(), ::tolower);
+        hash<string> hasher;
+        InternalID = -(int)(hasher(ID));
+
+        auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), InternalID);
         if (PreviousIndex == PreviouslyLoggedContent.end()) {
-            PreviouslyLoggedContent.push_back(ID);
+            PreviouslyLoggedContent.push_back(InternalID);
             string DateTimeCode = GetDateTimeCode();
             if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
                 ProductName = PMMA_Core::PassportInstance->ProductName + " ";
@@ -227,10 +240,16 @@ void CPP_InternalLogger::ExternalLogError(std::string ID, std::string Content, s
     if (ProductName == "pmma") {
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
+
     if (RepeatForEffect) {
-        auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+        int InternalID;
+        transform(ID.begin(), ID.end(), ID.begin(), ::tolower);
+        hash<string> hasher;
+        InternalID = -(int)(hasher(ID));
+
+        auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), InternalID);
         if (PreviousIndex == PreviouslyLoggedContent.end()) {
-            PreviouslyLoggedContent.push_back(ID);
+            PreviouslyLoggedContent.push_back(InternalID);
             string DateTimeCode = GetDateTimeCode();
             if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
                 ProductName = PMMA_Core::PassportInstance->ProductName + " ";

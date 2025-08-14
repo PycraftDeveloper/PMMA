@@ -70,7 +70,7 @@ class EXPORT CPP_BasicColorConverter {
 
         inline void Set_RGB(unsigned int* in_color) {
             Logger->InternalLogDebug(
-                "Setting alpha to opaque",
+                9,
                 "The alpha channel is automatically set to opaque."
             );
 
@@ -91,7 +91,7 @@ class EXPORT CPP_BasicColorConverter {
 
         inline void Set_rgb(float* in_color) {
             Logger->InternalLogDebug(
-                "Setting alpha to opaque",
+                9,
                 "The alpha channel is automatically set to opaque."
             );
 
@@ -113,7 +113,7 @@ class EXPORT CPP_BasicColorConverter {
         inline void Get_RGBA(unsigned int* out_color) {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Color not set",
+                    30,
                     "You have not set a color - please set a color \
 before attempting to get it.");
 
@@ -129,7 +129,7 @@ before attempting to get it.");
         inline void Get_rgba(float* out_color) {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Color not set",
+                    30,
                     "You have not set a color - please set a color \
 before attempting to get it.");
 
@@ -145,7 +145,7 @@ before attempting to get it.");
         inline glm::vec4 Get_rgba() {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Color not set",
+                    30,
                     "You have not set a color - please set a color \
 before attempting to get it.");
 
@@ -157,7 +157,7 @@ before attempting to get it.");
         inline void Get_RGB(unsigned int* out_color) {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Color not set",
+                    30,
                     "You have not set a color - please set a color \
 before attempting to get it.");
 
@@ -172,7 +172,7 @@ before attempting to get it.");
         inline void Get_rgb(float* out_color) {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Color not set",
+                    30,
                     "You have not set a color - please set a color \
 before attempting to get it.");
 
@@ -238,7 +238,7 @@ class EXPORT CPP_BasicAngleConverter {
         inline float Get_Radians() {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Angle not set",
+                    30,
                     "You have not set an angle - please set an angle \
 before attempting to get it.");
 
@@ -250,7 +250,7 @@ before attempting to get it.");
         inline float Get_Degrees() {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Angle not set",
+                    30,
                     "You have not set an angle - please set an angle \
 before attempting to get it.");
 
@@ -312,7 +312,7 @@ class EXPORT CPP_BasicProportionConverter {
         inline float Get_Percentage() {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Proportion not set",
+                    30,
                     "You have not set a proportion - please set a proportion \
 before attempting to get it.");
 
@@ -324,7 +324,7 @@ before attempting to get it.");
         inline float Get_Decimal() {
             if (!IsSet) {
                 Logger->InternalLogWarn(
-                    "Proportion not set",
+                    30,
                     "You have not set a proportion - please set a proportion \
 before attempting to get it.");
 

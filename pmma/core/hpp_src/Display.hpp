@@ -65,8 +65,8 @@ class EXPORT CPP_Display {
 
         inline bool GetIsWindowUsingVsync() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -77,8 +77,8 @@ before you can call this function.");
 
         inline unsigned int GetCurrentMonitorRefreshRate() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -92,8 +92,8 @@ before you can call this function.");
 
         inline unsigned int GetWidth() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -103,8 +103,8 @@ before you can call this function.");
 
         inline unsigned int GetHeight() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -114,8 +114,8 @@ before you can call this function.");
 
         inline void GetSize(unsigned int* out) {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -132,8 +132,8 @@ before you can call this function.");
 
         inline void SetRelativeWindowPosition(unsigned int* NewPosition) {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -144,8 +144,8 @@ before you can call this function.");
 
         inline void SetAbsoluteWindowPosition(unsigned int* NewPosition) {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -160,8 +160,8 @@ before you can call this function.");
 
         inline void CenterWindow() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -184,8 +184,8 @@ before you can call this function.");
 
         inline void SetWindowInFocus() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -196,8 +196,8 @@ before you can call this function.");
 
         inline void SetWindowMinimized(bool IsMinimized) {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -213,8 +213,8 @@ before you can call this function.");
 
         inline void SetWindowMaximized(bool IsMaximized) {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -230,8 +230,8 @@ before you can call this function.");
 
         inline bool GetIsWindowInFocus() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -242,8 +242,8 @@ before you can call this function.");
 
         inline bool GetIsWindowMinimized() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -254,8 +254,8 @@ before you can call this function.");
 
         inline bool GetIsWindowResizable() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -266,8 +266,8 @@ before you can call this function.");
 
         inline bool GetIsWindowVisible() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -278,8 +278,8 @@ before you can call this function.");
 
         inline bool GetIsWindowAlwaysOnTop() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -290,8 +290,8 @@ before you can call this function.");
 
         inline bool GetIsWindowAutoMinimize() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -302,8 +302,8 @@ before you can call this function.");
 
         inline bool GetIsWindowMaximized() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -314,8 +314,8 @@ before you can call this function.");
 
         inline unsigned int GetWindow_MSAA_Samples() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -326,8 +326,8 @@ before you can call this function.");
 
         inline void SetCaption(std::string& new_caption) {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -353,8 +353,8 @@ before you can call this function.");
 
         inline float GetAspectRatio() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -379,8 +379,8 @@ before you can call this function.");
 
         inline void TriggerEventRefresh() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -390,8 +390,8 @@ before you can call this function.");
 
         inline unsigned int GetFrameRate() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -401,8 +401,8 @@ before you can call this function.");
 
         inline float GetFrameTime() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
@@ -412,8 +412,8 @@ before you can call this function.");
 
         inline glm::mat4 GetDisplayProjection() {
             if (Window == nullptr) {
-                Logger->InternalLogWarn(
-                    "Display not created yet",
+                Logger->InternalLogError(
+                    18,
                     "You need to create a display using `Display.create` \
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");

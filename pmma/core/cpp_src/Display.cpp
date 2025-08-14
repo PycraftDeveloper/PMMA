@@ -157,7 +157,7 @@ CPP_Display::CPP_Display() {
 
     if (PMMA_Core::DisplayInstance != nullptr) {
         Logger->InternalLogDebug(
-            "Display instance already exists",
+            21,
             "A display instance already exists. The previous one will \
 be destroyed, closing any windows the application has created. Continue \
 use the current one instead, but consider properly garbage collecting \
@@ -439,6 +439,11 @@ visual tearing and improve frame pacing." << endl;
 
 void CPP_Display::Clear() {
     if (Window == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
 
@@ -517,6 +522,11 @@ void CPP_Display::ContinuousRefresh(
             bool LowerRefreshRate_OnLowBattery) {
 
     if (Window == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
 
@@ -546,6 +556,11 @@ void CPP_Display::EventRefresh(
             bool LowerRefreshRate_OnLowBattery) {
 
     if (Window == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
 

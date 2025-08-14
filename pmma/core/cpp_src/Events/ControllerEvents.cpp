@@ -9,7 +9,7 @@ CPP_ControllerEvent::CPP_ControllerEvent(unsigned int NewID) {
     ID = NewID;
 
     PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-        "Controller ID may not persist",
+        8,
         "Please note that when specifying the ID of the controller you \
 wish to use it is not guaranteed to remain at that ID when the application \
 is restarted. In testing this issue was only present when connecting/disconnecting \

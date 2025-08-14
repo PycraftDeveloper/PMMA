@@ -68,7 +68,7 @@ class EXPORT CPP_ArcShape {
         inline float GetStartAngle() const {
             if (!StartAngleSet) {
                 Logger->InternalLogWarn(
-                    "Start angle not set",
+                    30,
                     "You have not specified a starting angle for the arc \
 please use `Arc.set_start_angle` to set it before attempting to get it.");
                 throw std::runtime_error("Start angle not set!");
@@ -90,7 +90,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
         inline float GetEndAngle() const {
             if (!EndAngleSet) {
                 Logger->InternalLogWarn(
-                    "End angle not set",
+                    30,
                     "You have not specified an ending angle for the arc \
 please use `Arc.set_start_angle` to set it before attempting to get it.");
                 throw std::runtime_error("End angle not set!");
@@ -125,7 +125,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
         inline unsigned int GetRadius() const {
             if (!RadiusSet) {
                 Logger->InternalLogWarn(
-                    "Radius not set",
+                    30,
                     "You have not specified a radius for the arc \
 please use `Arc.set_radius` to set it before attempting to get it.");
                 throw std::runtime_error("Radius not set!");

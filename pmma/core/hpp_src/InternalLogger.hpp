@@ -12,7 +12,7 @@
 class CPP_InternalLogger {
     public:
         std::vector<std::string> ContentToLogToFile;
-        std::vector<std::string> PreviouslyLoggedContent;
+        std::vector<int> PreviouslyLoggedContent;
 
         std::string LogFileLocation;
         std::string LogFileName;
@@ -151,9 +151,9 @@ class CPP_InternalLogger {
             return LogError;
         }
 
-        void InternalLogDebug(std::string ID, std::string Content, bool RepeatForEffect=false);
+        void InternalLogDebug(int ID, std::string Content, bool RepeatForEffect=false);
 
-        inline void InternalLogWarn(std::string ID, std::string Content, bool RepeatForEffect=false) {
+        inline void InternalLogWarn(int ID, std::string Content, bool RepeatForEffect=true) {
             if (!LogWarn) {
                 return;
             }
@@ -171,7 +171,7 @@ class CPP_InternalLogger {
             }
         }
 
-        inline void InternalLogError(std::string ID, std::string Content, bool RepeatForEffect=false) {
+        inline void InternalLogError(int ID, std::string Content, bool RepeatForEffect=true) {
             if (!LogError) {
                 return;
             }
@@ -191,7 +191,7 @@ class CPP_InternalLogger {
 
         void ExternalLogDebug(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=false);
 
-        void ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=false);
+        void ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=true);
 
-        void ExternalLogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=false);
+        void ExternalLogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=true);
 };

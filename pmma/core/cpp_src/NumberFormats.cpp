@@ -2,6 +2,11 @@
 
 void CPP_DisplayCoordinateFormat::GenerateFromRandom() {
     if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
 
@@ -16,9 +21,18 @@ void CPP_DisplayCoordinateFormat::GenerateFromRandom() {
 
 void CPP_DisplayCoordinateFormat::GenerateFrom1DPerlinNoise(float value) {
     if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
     if (!Configured) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this."
+        );
         throw runtime_error("You need to configure this component first!");
     }
 
@@ -42,9 +56,18 @@ void CPP_DisplayCoordinateFormat::GenerateFrom1DPerlinNoise(float value) {
 
 void CPP_DisplayCoordinateFormat::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
     if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
     if (!Configured) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this."
+        );
         throw runtime_error("You need to configure this component first!");
     }
 
@@ -68,9 +91,18 @@ void CPP_DisplayCoordinateFormat::GenerateFrom2DPerlinNoise(float value_one, flo
 
 void CPP_DisplayCoordinateFormat::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
     if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
     if (!Configured) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this."
+        );
         throw runtime_error("You need to configure this component first!");
     }
 
@@ -94,9 +126,18 @@ void CPP_DisplayCoordinateFormat::GenerateFrom3DPerlinNoise(float value_one, flo
 
 void CPP_DisplayCoordinateFormat::GenerateFrom1DFractalBrownianMotion(float value) {
     if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
     if (!Configured) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this."
+        );
         throw runtime_error("You need to configure this component first!");
     }
 
@@ -120,9 +161,18 @@ void CPP_DisplayCoordinateFormat::GenerateFrom1DFractalBrownianMotion(float valu
 
 void CPP_DisplayCoordinateFormat::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
     if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
     if (!Configured) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this."
+        );
         throw runtime_error("You need to configure this component first!");
     }
 
@@ -146,9 +196,18 @@ void CPP_DisplayCoordinateFormat::GenerateFrom2DFractalBrownianMotion(float valu
 
 void CPP_DisplayCoordinateFormat::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
     if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
         throw runtime_error("Display not created yet!");
     }
     if (!Configured) {
+        PMMA_Core::InternalLoggerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this."
+        );
         throw runtime_error("You need to configure this component first!");
     }
 
