@@ -1,6 +1,6 @@
 <div align="center">
 
-  ![PMMA logo](https://github.com/PycraftDeveloper/PMMA/blob/main/docs/_static/logo.png)
+  ![PMMA logo](https://github.com/PycraftDeveloper/PMMA/blob/main/resources/SmallLogo.png)
 </div>
 
 
