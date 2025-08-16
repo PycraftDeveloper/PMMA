@@ -15,16 +15,16 @@ Typically, developing applications in Python necessitates familiarity with a var
 
 * [Development Progress](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#development-progress)
 * [Installation](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation)
-* [Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md#pmma-build-guide)
-* [Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-troubleshooting)
-* [Credits](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-credits)
-* [About](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-about)
+* [Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/intro.md#pmma-build-guide)
+* [Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-troubleshooting)
+* [Credits](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-credits)
+* [About](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-about)
 
 ## Development Progress
 
 ![Progress on PMMA v5.0.0](https://geps.dev/progress/46)
 
-We are currently working on the next major update to PMMA, version 5.x.x. This update features a complete API rework with a significant proportion being re-written in C++ for a significant performance and efficiency improvement. This major update will also introduce all the features lacking from previous iterations of PMMA, including text rendering, aggregated events for text input and improvements to the accuracy and variety of procedural noise generation. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/DevelopmentProgress.md#progress-on-pmma-5)
+We are currently working on the next major update to PMMA, version 5.x.x. This update features a complete API rework with a significant proportion being re-written in C++ for a significant performance and efficiency improvement. This major update will also introduce all the features lacking from previous iterations of PMMA, including text rendering, aggregated events for text input and improvements to the accuracy and variety of procedural noise generation. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
 
 ## Installation
 
@@ -40,7 +40,7 @@ In order to install PMMA 5 and newer, you must ensure you meet the following cri
 | Python Version | `3.8.x`, `3.9.x`, `3.10.x`, `3.11.x` |
 | `pip` Version | `20.3 or newer` |
 
-_Note: If your platform is not listed here then you can attempt to build your own version of PMMA using our [build guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md)!_
+_Note: If your platform is not listed here then you can attempt to build your own version of PMMA using our [build guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/intro.md)!_
 
 <details><summary>Additional Technical Requirements</summary>
 
@@ -56,7 +56,7 @@ _Please note, these requirements are only needed by users installing PMMA onto L
 
 > For older versions of PMMA, there are no hardware requirements.
 
-_If you encounter any issues or problems then check out our [troubleshooting page](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/into.md#pmma-troubleshooting)._
+_If you encounter any issues or problems then check out our [troubleshooting page](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-troubleshooting)._
 
 ## Credits
 
