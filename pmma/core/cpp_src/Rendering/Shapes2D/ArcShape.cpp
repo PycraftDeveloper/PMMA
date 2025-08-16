@@ -37,7 +37,7 @@ void CPP_ArcShape::Render() {
             30,
             "This shape has no center set, please use the `Arc.shape_center` \
 API to set it.");
-        throw std::runtime_error("Shape has no center set");
+        throw runtime_error("Shape has no center set");
     }
 
     if (!ColorFormat->GetSet()) {
@@ -45,7 +45,28 @@ API to set it.");
             30,
             "This shape has no color set, please use the `Arc.shape_color` \
 API to set it.");
-        throw std::runtime_error("Shape has no color set");
+        throw runtime_error("Shape has no color set");
+    }
+
+    if (!StartAngleSet) {
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no start angle set, please use `Arc.set_start_angle` to set it.");
+        throw runtime_error("Shape has no start angle set");
+    }
+
+    if (!EndAngleSet) {
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no end angle set, please use `Arc.set_end_angle` to set it.");
+        throw runtime_error("Shape has no end angle set");
+    }
+
+    if (!RadiusSet) {
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no radius set, please use `Arc.set_radius` to set it.");
+        throw runtime_error("Shape has no radius set");
     }
 
     glm::vec2 ShapeCenter = ShapeCenterFormat->Get();

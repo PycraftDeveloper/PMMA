@@ -9,9 +9,11 @@
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "NumberFormats.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_PolygonShape {
     public:
+        CPP_Logger* Logger;
         CPP_ColorFormat* ColorFormat;
 
         std::vector<glm::vec2> VertexData;
@@ -36,6 +38,9 @@ class EXPORT CPP_PolygonShape {
         CPP_PolygonShape();
 
         ~CPP_PolygonShape() {
+            delete Logger;
+            Logger = nullptr;
+
             delete ColorFormat;
             ColorFormat = nullptr;
         }
@@ -51,7 +56,14 @@ class EXPORT CPP_PolygonShape {
                 NewShapePoints.push_back(glm::vec2(in_points[i][0], in_points[i][1]));
             }
 
-            if (PointsSet && (count != NewShapePoints.size() * 2 || ShapePoints.size() != NewShapePoints.size() || !std::equal(ShapePoints.begin(), ShapePoints.end(), NewShapePoints.begin()))) {
+            if (PointsSet && (
+                    count != NewShapePoints.size() * 2 ||
+                    ShapePoints.size() != NewShapePoints.size() ||
+                    !std::equal(
+                        ShapePoints.begin(),
+                        ShapePoints.end(),
+                        NewShapePoints.begin()))) {
+
                 Changed = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
@@ -63,7 +75,10 @@ class EXPORT CPP_PolygonShape {
 
         inline void GetPoints(unsigned int (*out_points)[2]) {
             if (!PointsSet) {
-                throw std::runtime_error("Points not set!");
+                Logger->InternalLogWarn(
+                    30,
+                    "This shape has no points set, please use `Polygon.set_points` to set it.");
+                throw std::runtime_error("Points not set");
             }
 
             for (unsigned int i = 0; i < ShapePoints.size(); i++) {
@@ -74,7 +89,10 @@ class EXPORT CPP_PolygonShape {
 
         inline unsigned int GetPointCount() const {
             if (!PointsSet) {
-                throw std::runtime_error("Points not set!");
+                Logger->InternalLogWarn(
+                    30,
+                    "This shape has no points set, please use `Polygon.set_points` to set it.");
+                throw std::runtime_error("Points not set");
             }
             return static_cast<unsigned int>(ShapePoints.size());
         }

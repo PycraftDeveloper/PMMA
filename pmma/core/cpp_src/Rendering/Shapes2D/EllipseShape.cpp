@@ -3,6 +3,7 @@
 using namespace std;
 
 CPP_EllipseShape::CPP_EllipseShape() {
+    Logger = new CPP_Logger();
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
@@ -27,11 +28,26 @@ void CPP_EllipseShape::Render() {
     unsigned int HalfHeight = ShapeSize.y / 2;
 
     if (!ShapeCenterFormat->GetSet()) {
-        throw std::runtime_error("Shape has no center not set");
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no center set, please use the `Ellipse.shape_center` \
+API to set it.");
+        throw runtime_error("Shape has no center set");
     }
 
     if (!ColorFormat->GetSet()) {
-        throw std::runtime_error("Shape has no color set");
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no color set, please use the `Ellipse.shape_color` \
+API to set it.");
+        throw runtime_error("Shape has no color set");
+    }
+
+    if (!SizeSet) {
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no size set, please use `Ellipse.`set_size` to set it.");
+        throw runtime_error("Shape has no size set");
     }
 
     glm::vec2 ShapeCenter = ShapeCenterFormat->Get();

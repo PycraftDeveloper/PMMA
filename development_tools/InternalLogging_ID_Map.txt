@@ -39,3 +39,5 @@ Notes:
 30 - No initial value set
 31 - FreeType initialization failed
 32 - The value provided is invalid
+33 - Display not using v-sync
+34 - OpenGL version

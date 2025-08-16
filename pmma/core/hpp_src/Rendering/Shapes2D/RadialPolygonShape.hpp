@@ -9,9 +9,11 @@
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "NumberFormats.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_RadialPolygonShape {
     public:
+        CPP_Logger* Logger;
         CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
@@ -28,7 +30,6 @@ class EXPORT CPP_RadialPolygonShape {
         unsigned int Width = 0;
         unsigned int PointCount = 0;
 
-        bool CenterSet = false;
         bool RadiusSet = false;
         bool WidthSet = true;
         bool HasAlpha = false;
@@ -38,6 +39,9 @@ class EXPORT CPP_RadialPolygonShape {
         CPP_RadialPolygonShape();
 
         ~CPP_RadialPolygonShape() {
+            delete Logger;
+            Logger = nullptr;
+
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
 
@@ -61,6 +65,13 @@ class EXPORT CPP_RadialPolygonShape {
         };
 
         inline unsigned int GetRadius() {
+            if (!RadiusSet) {
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not specified a radius for the arc \
+please use `RadialPolygon.set_radius` to set it before attempting to get it.");
+                throw std::runtime_error("Radius not set");
+            }
             return Radius;
         };
 

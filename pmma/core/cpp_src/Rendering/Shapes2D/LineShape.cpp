@@ -3,6 +3,7 @@
 using namespace std;
 
 CPP_LineShape::CPP_LineShape() {
+    Logger = new CPP_Logger();
     ShapeStart = new CPP_DisplayCoordinateFormat();
     ShapeEnd = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
@@ -16,13 +17,27 @@ void CPP_LineShape::Render() {
     DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
 
     if (!ColorFormat->GetSet()) {
-        throw std::runtime_error("Shape has no color set");
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no color set, please use the `Line.shape_color` \
+API to set it.");
+        throw runtime_error("Shape has no color set");
     }
+
     if (!ShapeStart->GetSet()) {
-        throw std::runtime_error("Shape start position not set");
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no start position set, please use the `Line.shape_start` \
+API to set it.");
+        throw runtime_error("Shape start position not set");
     }
+
     if (!ShapeEnd->GetSet()) {
-        throw std::runtime_error("Shape end position not set");
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no end position set, please use the `Line.shape_end` \
+API to set it.");
+        throw runtime_error("Shape end position not set");
     }
 
     Changed = Changed ||

@@ -9,9 +9,11 @@
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "NumberFormats.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_LineShape {
     public:
+        CPP_Logger* Logger;
         CPP_DisplayCoordinateFormat* ShapeStart;
         CPP_DisplayCoordinateFormat* ShapeEnd;
         CPP_ColorFormat* ColorFormat;
@@ -33,12 +35,16 @@ class EXPORT CPP_LineShape {
         CPP_LineShape();
 
         ~CPP_LineShape() {
-            delete ShapeStart;
-            delete ShapeEnd;
-            delete ColorFormat;
+            delete Logger;
+            Logger = nullptr;
 
+            delete ShapeStart;
             ShapeStart = nullptr;
+
+            delete ShapeEnd;
             ShapeEnd = nullptr;
+
+            delete ColorFormat;
             ColorFormat = nullptr;
         }
 

@@ -418,15 +418,21 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
     glfwMakeContextCurrent(Window);
 
     int version = gladLoadGL(glfwGetProcAddress);
-    cout << "OpenGL version: " << GLAD_VERSION_MAJOR(version) << "." << GLAD_VERSION_MINOR(version) << endl;
+    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        34,
+        "OpenGL version: " + to_string(GLAD_VERSION_MAJOR(version)) + "." + to_string(GLAD_VERSION_MINOR(version))
+    );
 
     if (Vsync) {
         glfwSwapInterval(1);
     } else {
         glfwSwapInterval(0);
-        cout << "You are not using vsync. We strongly recommend using \
+        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            33,
+            "You are not using vsync. We strongly recommend using \
 vsync to limit the refresh rate of your window. Doing so will reduce \
-visual tearing and improve frame pacing." << endl;
+visual tearing and improve frame pacing."
+        );
     }
 
     if (NewIcon == "") {

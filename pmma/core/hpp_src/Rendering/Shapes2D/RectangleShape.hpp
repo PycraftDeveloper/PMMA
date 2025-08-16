@@ -9,9 +9,11 @@
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "NumberFormats.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_RectangleShape {
     public:
+        CPP_Logger* Logger;
         CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
@@ -38,6 +40,9 @@ class EXPORT CPP_RectangleShape {
         CPP_RectangleShape();
 
         ~CPP_RectangleShape() {
+            delete Logger;
+            Logger = nullptr;
+
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
 
@@ -83,7 +88,10 @@ class EXPORT CPP_RectangleShape {
 
         inline void GetSize(unsigned int* out_size) {
             if (!SizeSet) {
-                throw std::runtime_error("Size not set!");
+                Logger->InternalLogWarn(
+                    30,
+                    "This shape has no size set, please use `Rectangle.set_size` to set it.");
+                throw std::runtime_error("Size not set");
             }
 
             out_size[0] = static_cast<unsigned int>(ShapeSize.x);

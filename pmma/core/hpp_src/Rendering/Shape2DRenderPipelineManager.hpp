@@ -209,7 +209,7 @@ class CPP_Shape2D_RenderPipelineManager {
             }
 
             const size_t shapeStartIndex = combined_vertexes.size();
-            combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end());
+            combined_vertexes.insert(combined_vertexes.end(), vertices.begin(), vertices.end()); // very slow
 
             if (currentIndex < PreviousRenderContent.size()) {
                 PreviousRenderContent[currentIndex] = { TargetPtr->ID, static_cast<unsigned int>(shapeStartIndex) };

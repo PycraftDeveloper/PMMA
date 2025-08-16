@@ -9,9 +9,11 @@
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "NumberFormats.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_EllipseShape {
     public:
+        CPP_Logger* Logger;
         CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
@@ -35,6 +37,9 @@ class EXPORT CPP_EllipseShape {
         CPP_EllipseShape();
 
         ~CPP_EllipseShape() {
+            delete Logger;
+            Logger = nullptr;
+
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
 
@@ -59,7 +64,10 @@ class EXPORT CPP_EllipseShape {
 
         inline void GetSize(unsigned int* out_size) {
             if (!SizeSet) {
-                throw std::runtime_error("Size not set!");
+                Logger->InternalLogWarn(
+                    30,
+                    "This shape has no size set, please use `Ellipse.set_size` to set it.");
+                throw std::runtime_error("Size not set");
             }
 
             out_size[0] = (unsigned int)ShapeSize.x;

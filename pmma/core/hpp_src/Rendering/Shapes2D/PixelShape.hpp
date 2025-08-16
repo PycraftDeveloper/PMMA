@@ -9,9 +9,11 @@
 #include "Constants.hpp"
 #include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "NumberFormats.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_PixelShape {
     public:
+        CPP_Logger* Logger;
         CPP_DisplayCoordinateFormat* ShapeCenterFormat;
         CPP_ColorFormat* ColorFormat;
 
@@ -31,6 +33,9 @@ class EXPORT CPP_PixelShape {
         CPP_PixelShape();
 
         ~CPP_PixelShape() {
+            delete Logger;
+            Logger = nullptr;
+
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
 

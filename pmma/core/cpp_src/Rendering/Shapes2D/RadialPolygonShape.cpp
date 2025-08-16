@@ -3,6 +3,7 @@
 using namespace std;
 
 CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
+    Logger = new CPP_Logger();
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
@@ -10,6 +11,13 @@ CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
 }
 
 unsigned int CPP_RadialPolygonShape::GetPointCount() {
+    if (!RadiusSet) {
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no radius set, please use `RadialPolygon.set_radius` to set it.");
+        throw runtime_error("Shape has no radius set");
+    }
+
     if (PointCount == 0) {
         float minAngle = asin(1.0f / Radius);
         return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
@@ -23,11 +31,26 @@ void CPP_RadialPolygonShape::Render() {
     DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
 
     if (!ShapeCenterFormat->GetSet()) {
-        throw std::runtime_error("Shape has no center not set");
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no center set, please use the `RadialPolygon.shape_center` \
+API to set it.");
+        throw runtime_error("Shape has no center set");
     }
 
     if (!ColorFormat->GetSet()) {
-        throw std::runtime_error("Shape has no color set");
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no color set, please use the `RadialPolygon.shape_color` \
+API to set it.");
+        throw runtime_error("Shape has no color set");
+    }
+
+    if (!RadiusSet) {
+        Logger->InternalLogWarn(
+            30,
+            "This shape has no radius set, please use `RadialPolygon.set_radius` to set it.");
+        throw runtime_error("Shape has no radius set");
     }
 
     glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
