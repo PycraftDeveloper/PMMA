@@ -210,3 +210,6 @@ build/*
 
 # ignore vscode configuration
 .vscode/*
+
+# ignore documentation builds
+documentation/docs/_build/*
