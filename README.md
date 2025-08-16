@@ -28,7 +28,7 @@ We are currently working on the next major update to PMMA, version 5.x.x. This u
 
 ## Installation
 
-You can install the latest version of PMMA from PyPi using the command: `pip install pmma' or you can head over to the website here: [PMMA on PyPi](https://pypi.org/project/pmma/) tio select a custom version to install.
+You can install the latest version of PMMA from PyPi using the command: `pip install pmma' or you can head over to the website here: [PMMA on PyPi](https://pypi.org/project/pmma/) to select a custom version to install.
 
 ### Requirements
 
