@@ -207,3 +207,6 @@ pmma/extern/include/*
 
 # ignore build
 build/*
+
+# ignore vscode configuration
+.vscode/*
