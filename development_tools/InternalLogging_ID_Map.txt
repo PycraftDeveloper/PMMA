@@ -16,8 +16,8 @@ Notes:
  7 - Platform not supported
  8 - Controller ID may not persist
  9 - Setting alpha to opaque
-10 - EMPTY
-11 - EMPTY
+10 - No logging file location found or automatically created
+11 - Error creating directory
 12 - EMPTY
 13 - This component needs configuring
 14 - EMPTY

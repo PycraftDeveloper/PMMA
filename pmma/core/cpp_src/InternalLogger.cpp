@@ -74,17 +74,36 @@ void CPP_InternalLogger::SetLogToFile(bool NewLogToFile) {
         return;
     }
 
-    string ProductPath = PMMA_Core::PassportInstance->GetProductPath();
-    if (LogToFile && filesystem::exists(ProductPath)) {
-        try {
-            filesystem::create_directory(ProductPath + PMMA_Registry::PathSeparator + "logs");
-            LogFileLocation = ProductPath + PMMA_Registry::PathSeparator + "logs";
-        } catch (const filesystem::filesystem_error& e) {
-            cout << "Error creating directory: " << e.what() << "\n";
+    if (PMMA_Core::PassportInstance != nullptr) {
+        string ProductPath = PMMA_Core::PassportInstance->GetProductPath();
+
+        if (LogToFile && filesystem::exists(ProductPath)) {
+            try {
+                filesystem::create_directory(ProductPath + PMMA_Registry::PathSeparator + "logs");
+                LogFileLocation = ProductPath + PMMA_Registry::PathSeparator + "logs";
+                FileCatchUp();
+            } catch (const filesystem::filesystem_error& e) {
+                PMMA_Core::InternalLoggerInstance->InternalLogError(
+                    11,
+                    "An error occurred whilst trying to create the \
+directory: '" + ProductPath + PMMA_Registry::PathSeparator + "logs" + "'. \
+The error details are: " + e.what()
+                );
+            }
+
+            return;
         }
     }
-
-    FileCatchUp();
+    PMMA_Core::InternalLoggerInstance->InternalLogWarn(
+        10,
+        "No logging location has been set. Please use: \
+`Passport.set_logging_location` to directly set a directory for the logs \
+to be stored, or use `Passport.set_product_path` to allow PMMA to automatically \
+manage a log file directory in your application. Until such a time, logs \
+cannot be stored and only displayed at runtime."
+    );
+    LogToFile = false;
+    LogToFileSpecifiedByUser = false;
 }
 
 void CPP_InternalLogger::Log(std::string Content) {
