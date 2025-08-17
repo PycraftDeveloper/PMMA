@@ -130,14 +130,23 @@ cdef class Color:
     cpdef void generate_from_2D_fractal_brownian_motion(self, float value_one, float value_two, bool generate_alpha=?)
     cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three, bool generate_alpha=?)
 
-    cpdef void set_RGBA(self, in_color)
-    cpdef void set_rgba(self, in_color)
-    cpdef void set_RGB(self, in_color)
-    cpdef void set_rgb(self, in_color)
-    cpdef get_RGBA(self, bint detect_format=*)
-    cpdef get_rgba(self, bint detect_format=*)
-    cpdef get_RGB(self, bint detect_format=*)
-    cpdef get_rgb(self, bint detect_format=*)
+    cpdef void set_RGBA_array(self, in_color)
+    cpdef void set_rgba_array(self, in_color)
+    cpdef void set_RGB_array(self, in_color)
+    cpdef void set_rgb_array(self, in_color)
+    cpdef get_RGBA_array(self, bint detect_format=*)
+    cpdef get_rgba_array(self, bint detect_format=*)
+    cpdef get_RGB_array(self, bint detect_format=*)
+    cpdef get_rgb_array(self, bint detect_format=*)
+
+    cpdef void set_RGBA(self, unsigned int r, unsigned int g, unsigned int b, unsigned int a)
+    cpdef void set_rgba(self, float r, float g, float b, float a)
+    cpdef void set_RGB(self, unsigned int r, unsigned int g, unsigned int b)
+    cpdef void set_rgb(self, float r, float g, float b)
+    cpdef tuple get_RGBA(self)
+    cpdef tuple get_rgba(self)
+    cpdef tuple get_RGB(self)
+    cpdef tuple get_rgb(self)
 
 cdef class DisplayCoordinate:
     cdef CPP_DisplayCoordinateFormat* cpp_class_ptr
@@ -164,8 +173,11 @@ cdef class DisplayCoordinate:
     cpdef void generate_from_2D_fractal_brownian_motion(self, float value_one, float value_two)
     cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three)
 
-    cpdef get_coord(self, bint detect_format=*)
-    cpdef void set_coord(self, in_coord)
+    cpdef get_coord_array(self, bint detect_format=*)
+    cpdef void set_coord_array(self, in_coord)
+
+    cpdef tuple get_coord(self)
+    cpdef void set_coord(self, unsigned int x, unsigned int y)
 
 cdef class Angle:
     cdef CPP_AngleFormat* cpp_class_ptr

@@ -158,7 +158,7 @@ class CPP_InternalLogger {
                 return;
             }
 
-            if (RepeatForEffect) {
+            if (!RepeatForEffect) {
                 auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
                 if (PreviousIndex == PreviouslyLoggedContent.end()) {
                     PreviouslyLoggedContent.push_back(ID);
@@ -176,7 +176,7 @@ class CPP_InternalLogger {
                 return;
             }
 
-            if (RepeatForEffect) {
+            if (!RepeatForEffect) {
                 auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
                 if (PreviousIndex == PreviouslyLoggedContent.end()) {
                     PreviouslyLoggedContent.push_back(ID);

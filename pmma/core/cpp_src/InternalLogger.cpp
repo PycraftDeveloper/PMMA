@@ -166,7 +166,7 @@ void CPP_InternalLogger::InternalLogDebug(int ID, std::string Content, bool Repe
     }
 
     if (PMMA_Registry::IsDebuggingModeEnabled) {
-        if (RepeatForEffect) {
+        if (!RepeatForEffect) {
             auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
                 PreviouslyLoggedContent.push_back(ID);
@@ -191,7 +191,7 @@ void CPP_InternalLogger::ExternalLogDebug(std::string ID, std::string Content, s
             throw runtime_error("The name PMMA or pmma is reserved!");
         }
 
-        if (RepeatForEffect) {
+        if (!RepeatForEffect) {
             int InternalID;
             transform(ID.begin(), ID.end(), ID.begin(), ::tolower);
             hash<string> hasher;
@@ -226,7 +226,7 @@ void CPP_InternalLogger::ExternalLogWarn(std::string ID, std::string Content, st
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
 
-    if (RepeatForEffect) {
+    if (!RepeatForEffect) {
         int InternalID;
         transform(ID.begin(), ID.end(), ID.begin(), ::tolower);
         hash<string> hasher;
@@ -260,7 +260,7 @@ void CPP_InternalLogger::ExternalLogError(std::string ID, std::string Content, s
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
 
-    if (RepeatForEffect) {
+    if (!RepeatForEffect) {
         int InternalID;
         transform(ID.begin(), ID.end(), ID.begin(), ::tolower);
         hash<string> hasher;
