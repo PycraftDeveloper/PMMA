@@ -146,12 +146,12 @@ class CircularQueue:
 class PriorityQueue:
     def __init__(self):
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
-        self._heap = numpy.array([], dtype=[('priority', numpy.float64), ('value', object)])
+        self._heap = numpy.array([], dtype=[('priority', numpy.int32), ('value', object)])
         self._has_changed = False
 
-    def enqueue(self, value, priority):
+    def enqueue(self, item, priority):
         # Append the new (priority, value) tuple to the heap
-        new_item = numpy.array([(priority, value)], dtype=self._heap.dtype)
+        new_item = numpy.array([(priority, item)], dtype=self._heap.dtype)
         self._heap = numpy.append(self._heap, new_item)
         # Perform up-heap bubbling to maintain the max-heap property based on priority
         self._sift_up(len(self._heap) - 1)
@@ -218,12 +218,12 @@ class PriorityQueue:
 class InvertedPriorityQueue:
     def __init__(self):
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
-        self._heap = numpy.array([], dtype=[('priority', numpy.float64), ('value', object)])
+        self._heap = numpy.array([], dtype=[('priority', numpy.int32), ('value', object)])
         self._has_changed = False
 
-    def enqueue(self, value, priority):
+    def enqueue(self, item, priority):
         # Append the new (priority, value) tuple to the heap
-        new_item = numpy.array([(priority, value)], dtype=self._heap.dtype)
+        new_item = numpy.array([(priority, item)], dtype=self._heap.dtype)
         self._heap = numpy.append(self._heap, new_item)
         # Perform up-heap bubbling to maintain the min-heap property based on priority
         self._sift_up(len(self._heap) - 1)
@@ -290,12 +290,12 @@ class InvertedPriorityQueue:
 class PriorityList:
     def __init__(self):
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
-        self._heap = numpy.array([], dtype=[('priority', numpy.float64), ('value', object)])
+        self._heap = numpy.array([], dtype=[('priority', numpy.int32), ('value', object)])
         self._has_changed = False
 
-    def add(self, value, priority):
+    def add(self, item, priority):
         # Append the new (priority, value) tuple to the heap
-        new_item = numpy.array([(priority, value)], dtype=self._heap.dtype)
+        new_item = numpy.array([(priority, item)], dtype=self._heap.dtype)
         self._heap = numpy.append(self._heap, new_item)
         # Perform up-heap bubbling to maintain the max-heap property based on priority
         self._sift_up(len(self._heap) - 1)
@@ -326,9 +326,9 @@ class PriorityList:
             self._has_changed = True
         return values
 
-    def update_priority(self, value, new_priority):
+    def update_priority(self, item, new_priority):
         for i in range(len(self._heap)):
-            if self._heap[i]['value'] == value:
+            if self._heap[i]['value'] == item:
                 self._heap[i]['priority'] = new_priority
                 self._sift_up(i)
                 self._sift_down(i)
@@ -381,12 +381,12 @@ class PriorityList:
 class InvertedPriorityList:
     def __init__(self):
         # Initialize an empty list to store the heap as an array of tuples (priority, value)
-        self._heap = numpy.array([], dtype=[('priority', numpy.float64), ('value', object)])
+        self._heap = numpy.array([], dtype=[('priority', numpy.int32), ('value', object)])
         self._has_changed = False
 
-    def add(self, value, priority):
+    def add(self, item, priority):
         # Append the new (priority, value) tuple to the heap
-        new_item = numpy.array([(priority, value)], dtype=self._heap.dtype)
+        new_item = numpy.array([(priority, item)], dtype=self._heap.dtype)
         self._heap = numpy.append(self._heap, new_item)
         # Perform up-heap bubbling to maintain the min-heap property based on priority
         self._sift_up(len(self._heap) - 1)
@@ -411,9 +411,9 @@ class InvertedPriorityList:
 
         return values
 
-    def update_priority(self, value, new_priority):
+    def update_priority(self, item, new_priority):
         for i in range(len(self._heap)):
-            if self._heap[i]['value'] == value:
+            if self._heap[i]['value'] == item:
                 self._heap[i]['priority'] = new_priority
                 self._sift_up(i)
                 self._sift_down(i)

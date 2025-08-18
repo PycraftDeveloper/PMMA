@@ -180,6 +180,7 @@ namespace PMMA_Core {
 namespace PMMA_Registry {
     string PMMA_Location = "";
     string PathSeparator = "";
+    string PMMA_Version = "5.0.14";
 
     uint64_t ClassObject_ID_System = 0;
 
@@ -220,6 +221,16 @@ void PMMA_Initialize() {
     PMMA_Core::InternalLoggerInstance->InternalLogDebug(
         0,
         "PMMA logging initialized, log files are named: 'DD-MM-YYYY at HH-MM-SS.txt'.");
+
+    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        12,
+        "Welcome to Python Multi-Media API (PMMA) version: " + PMMA_Registry::PMMA_Version);
+
+    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        14,
+        "Please note that PMMA is currently in a developmental state, \
+meaning that the API is subject to change - we are hoping to remove this \
+warning and improve backwards compatibility in PMMA 6.");
 
     if (PMMA_Registry::IsPowerSavingModeEnabled) {
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled

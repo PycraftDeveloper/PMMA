@@ -31,7 +31,7 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Controller
 * ✅ - Finished Complex 2D shapes
 * ✅ - Finished Advanced Threading
-* ⏳ - Working on Data Structures (90 %)
+* ✅ - Finished Data Structures
 * ⏳ - Working on Constants
 * ⏳ - Working on Registry
 * ⏳ - Working on General (35 %)

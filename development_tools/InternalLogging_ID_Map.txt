@@ -18,9 +18,9 @@ Notes:
  9 - Setting alpha to opaque
 10 - No logging file location found or automatically created
 11 - Error creating directory
-12 - EMPTY
+12 - Welcome to PMMA
 13 - This component needs configuring
-14 - EMPTY
+14 - PMMA is in a developmental stage
 15 - EMPTY
 16 - EMPTY
 17 - EMPTY

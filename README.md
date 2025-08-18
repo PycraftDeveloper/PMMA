@@ -100,3 +100,5 @@ _Note: If you spot a problem in our licensing or distribution of third party dep
 ## About
 
 We have worked on numerous large applications using the Python programming language. Most notably [Pycraft](https://github.com/PycraftDeveloper/Pycraft) which is our flagship project, an OpenGL based game using Python. Every time we write these large projects, we often find ourselves writing the same utility programs - which are small programs that help to eliminate complexity in our larger program files. So we decided to combine all of these utility programs into this project, PMMA which is intended then to make writing these larger applications easier as we don't need to keep re-using the same utility programs. The benefits don't stop there though as we are also ensuring this API is as fast and efficient as possible.
+
+Please note that PMMA is currently in a developmental state, meaning that the API is subject to change - we are hoping to remove this warning and improve backwards compatibility in PMMA 6.
