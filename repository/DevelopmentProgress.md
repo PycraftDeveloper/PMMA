@@ -8,7 +8,7 @@
 
 ## Progress on PMMA 5
 
-![Progress on PMMA 5](https://geps.dev/progress/46)
+![Progress on PMMA 5](https://geps.dev/progress/63)
 
 Each entry is worth: (20/7) %
 
@@ -28,22 +28,22 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Shapes 2D
 * ✅ - Finished Display
 * ✅ - Finished Logging
+* ✅ - Finished Controller
+* ✅ - Finished Complex 2D shapes
+* ⏳ - Working on Constants
+* ⏳ - Working on Registry
 * ⏳ - Working on General (35 %)
 * ⏳ - Working on OpenGL (30 %)
 * 🛑 - Not started Advanced Threading
 * 🛑 - Not started Camera
-* 🛑 - Not started Complex 2D shapes
-* 🛑 - Not started Constants
-* 🛑 - Not started Registry
-* 🛑 - Not started Controller
 * 🛑 - Not started Data Structures
 * 🛑 - Not started Error
 * 🛑 - Not started File
 * 🛑 - Not started Formatters
-* 🛑 - Not started Memory Manager
-* 🛑 - Not started Quick Start
 * 🛑 - Not started Recorder
 * 🛑 - Not started Sampler
 * 🛑 - Not started Settings
 * 🛑 - Not started Transitions
-* ⛔ - Temporarily halted progress on Video (Will be added in PMMA 5.x)
+* ⛔ - Temporarily halted progress on Video (Will be added in PMMA 5.x).
+* ⛔ - Removed Quick Start as its no longer possible to make additional simplifications to the API.
+* ⛔ - Removed memory manager as the API manages its own memory internally.
