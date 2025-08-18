@@ -21,8 +21,8 @@ Notes:
 12 - Welcome to PMMA
 13 - This component needs configuring
 14 - PMMA is in a developmental stage
-15 - EMPTY
-16 - EMPTY
+15 - No audio device found
+16 - Unable to read audio sample
 17 - EMPTY
 18 - Display not created yet
 19 - Controller not connected
