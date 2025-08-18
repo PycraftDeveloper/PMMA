@@ -30,13 +30,13 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Logging
 * ✅ - Finished Controller
 * ✅ - Finished Complex 2D shapes
+* ✅ - Finished Advanced Threading
+* ⏳ - Working on Data Structures (90 %)
 * ⏳ - Working on Constants
 * ⏳ - Working on Registry
 * ⏳ - Working on General (35 %)
 * ⏳ - Working on OpenGL (30 %)
-* 🛑 - Not started Advanced Threading
 * 🛑 - Not started Camera
-* 🛑 - Not started Data Structures
 * 🛑 - Not started Error
 * 🛑 - Not started File
 * 🛑 - Not started Formatters
