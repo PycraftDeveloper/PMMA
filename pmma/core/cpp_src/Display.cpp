@@ -247,8 +247,8 @@ GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
 
 void CPP_Display::Create(
         unsigned int* NewSize,
-        std::string& NewCaption,
-        std::string& NewIcon,
+        std::string NewCaption,
+        std::string NewIcon,
         bool NewFullScreen,
         bool NewResizable,
         bool NewNoFrame,

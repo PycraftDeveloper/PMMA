@@ -61,7 +61,17 @@ class EXPORT CPP_Display {
 
         void PMMA_Update(GLFWwindow* Window);
 
-        void Create(unsigned int* NewSize, std::string& NewCaption, std::string& NewIcon, bool NewFullScreen=true, bool NewResizable=false, bool NewNoFrame=false, bool NewVsync=true, bool NewCentered=true, bool NewMaximized=false, bool Transparent=false);
+        void Create(
+            unsigned int* NewSize,
+            std::string NewCaption,
+            std::string NewIcon,
+            bool NewFullScreen=true,
+            bool NewResizable=false,
+            bool NewNoFrame=false,
+            bool NewVsync=true,
+            bool NewCentered=true,
+            bool NewMaximized=false,
+            bool Transparent=false);
 
         inline bool GetIsWindowUsingVsync() {
             if (Window == nullptr) {
@@ -324,7 +334,7 @@ before you can call this function.");
             return glfwGetWindowAttrib(Window, GLFW_SAMPLES);
         }
 
-        inline void SetCaption(std::string& new_caption) {
+        inline void SetCaption(std::string new_caption) {
             if (Window == nullptr) {
                 Logger->InternalLogError(
                     18,

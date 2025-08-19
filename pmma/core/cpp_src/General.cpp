@@ -12,11 +12,11 @@
 
 #include "PMMA_Core.hpp"
 
-void CPP_General::Set_PMMA_Location(std::string& location) {
+void CPP_General::Set_PMMA_Location(std::string location) {
     PMMA_Registry::PMMA_Location = location;
 }
 
-void CPP_General::Set_Path_Separator(std::string& separator) {
+void CPP_General::Set_Path_Separator(std::string separator) {
     PMMA_Registry::PathSeparator = separator;
 }
 

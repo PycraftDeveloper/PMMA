@@ -1,7 +1,6 @@
 # cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False
 
 from libcpp cimport bool
-from libcpp.string cimport string
 
 import random, threading
 
