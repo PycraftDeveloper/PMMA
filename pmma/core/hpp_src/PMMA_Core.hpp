@@ -227,7 +227,8 @@ namespace PMMA_Core {
 namespace PMMA_Registry {
     extern std::string PMMA_Location;
     extern std::string PathSeparator;
-    extern std::string PMMA_Version;
+    extern std::string Current_PMMA_Version;
+    extern std::string Latest_PMMA_Version;
 
     extern uint64_t ClassObject_ID_System;
 

@@ -5,9 +5,9 @@
 #include <string>
 
 namespace CPP_General {
-    EXPORT void Set_PMMA_Location(std::string& out_location);
+    EXPORT void Set_PMMA_Location(std::string& location);
 
-    EXPORT void Set_Path_Separator(std::string& out_separator);
+    EXPORT void Set_Path_Separator(std::string& separator);
 
     EXPORT std::string Get_PMMA_Location();
 
@@ -28,4 +28,12 @@ namespace CPP_General {
     EXPORT bool IsF11KeyToToggleFullscreen();
 
     EXPORT void SetF11KeyToToggleFullscreen(bool F11KeyToToggleFullscreen);
+
+    EXPORT std::string GetCurrent_PMMA_Version();
+
+    EXPORT std::string GetLatest_PMMA_Version();
+
+    EXPORT void SetLatest_PMMA_Version(std::string& latest_version);
+
+    EXPORT bool IsUpdateAvailable();
 }

@@ -32,18 +32,17 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Complex 2D shapes
 * ✅ - Finished Advanced Threading
 * ✅ - Finished Data Structures
+* ✅ - Finished Sampler
 * ⏳ - Working on Constants
 * ⏳ - Working on Registry
 * ⏳ - Working on General (35 %)
-* ⏳ - Working on OpenGL (30 %)
-* 🛑 - Not started Camera
-* 🛑 - Not started Error
+* ⏳ - Working on Error
 * 🛑 - Not started File
 * 🛑 - Not started Formatters
-* 🛑 - Not started Recorder
-* 🛑 - Not started Sampler
 * 🛑 - Not started Settings
 * 🛑 - Not started Transitions
 * ⛔ - Temporarily halted progress on Video (Will be added in PMMA 5.x).
 * ⛔ - Removed Quick Start as its no longer possible to make additional simplifications to the API.
 * ⛔ - Removed memory manager as the API manages its own memory internally.
+* ⛔ - Camera serves no purpose until PMMA 6 - temporarily halted development on this.
+* ⛔ - Temporarily halted development on the OpenGL interface for PMMA in preparation for a pending transition to BGFX

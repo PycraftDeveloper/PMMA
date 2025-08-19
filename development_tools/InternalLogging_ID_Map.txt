@@ -23,12 +23,12 @@ Notes:
 14 - PMMA is in a developmental stage
 15 - No audio device found
 16 - Unable to read audio sample
-17 - EMPTY
+17 - An update is available to PMMA
 18 - Display not created yet
 19 - Controller not connected
 20 - Using raw controller data
 21 - Display instance already exists
-22 - EMPTY
+22 - Thanks for using an pre-release version of PMMA
 23 - EMPTY
 24 - Static class no instantiation
 25 - Invalid path

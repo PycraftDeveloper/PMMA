@@ -7,8 +7,14 @@ import os
 import platform
 import os
 import distutils
+import json
+import datetime
+import random
+
+import requests
 
 from pmma.core.py_src.Constants import Constants
+from pmma.core.py_src.Utility import Registry
 
 from Logger cimport Logger
 
@@ -31,6 +37,36 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
 
     bool IsF11KeyToToggleFullscreen() except + nogil
     void SetF11KeyToToggleFullscreen(bool F11KeyToToggleFullscreen) except + nogil
+
+    string GetCurrent_PMMA_Version() except + nogil
+    string GetLatest_PMMA_Version() except + nogil
+
+    void SetLatest_PMMA_Version(string latest_version) except + nogil
+
+    bool IsUpdateAvailable() except + nogil
+
+def internal_update_config(update_configuration_location):
+    try:
+        tag_data = requests.get(
+            "https://api.github.com/repos/PycraftDeveloper/PMMA/tags")
+        latest_version = json.loads(tag_data.text)[0]["name"]
+    except Exception as error:
+        return
+
+    current_date_code = datetime.datetime.now().strftime("%Y%m%d")
+    future_date = datetime.datetime.now() + datetime.timedelta(
+        days=random.randint(14, 30))
+    future_date_code = future_date.strftime("%Y%m%d")
+
+    data = {
+        "LastCheckDate": current_date_code,
+        "NextCheckDate": future_date_code,
+        "LatestVersion": latest_version
+    }
+    with open(update_configuration_location, "w") as update_config_file:
+        json.dump(data, update_config_file)
+
+    return latest_version
 
 cdef class General:
     cdef:
@@ -129,3 +165,81 @@ cdef class General:
     @staticmethod
     def is_application_running():
         return IsApplicationRunning()
+
+    @staticmethod
+    def get_current_pmma_version():
+        cdef string cpp_str = GetCurrent_PMMA_Version()
+        return cpp_str.c_str().decode('utf-8')
+
+    @staticmethod
+    def get_latest_pmma_version():
+        if Registry.checking_for_updates and Registry.update_checking_thread is not None:
+            Registry.update_checking_thread.join()
+
+        cdef encoded_latest_version
+        cdef string cpp_str = GetLatest_PMMA_Version()
+
+        return cpp_str.c_str().decode('utf-8')
+
+    @staticmethod
+    def is_update_available():
+        if Registry.checking_for_updates and Registry.update_checking_thread is not None:
+            Registry.update_checking_thread.join()
+        return IsUpdateAvailable()
+
+    @staticmethod
+    def internal_check_for_updates():
+        cdef encoded_latest_version
+        cdef string pmma_location = Get_PMMA_Location()
+        cdef string current_pmma_version_cpp_str = GetCurrent_PMMA_Version()
+
+        current_pmma_version = current_pmma_version_cpp_str.c_str().decode('utf-8')
+
+        pmma_install_location = pmma_location.c_str().decode('utf-8')
+
+        configuration_location = pmma_install_location + os.sep + "config"
+
+        os.makedirs(configuration_location, exist_ok=True)
+
+        update_configuration_location = configuration_location + os.sep + "update_config.json"
+
+        display_update_prompt = False
+
+        if os.path.exists(update_configuration_location):
+            with open(update_configuration_location, "r") as update_config_file:
+                data = json.load(update_config_file)
+
+            current_date_code = datetime.datetime.now().strftime("%Y%m%d")
+
+            if current_date_code >= data["NextCheckDate"]:
+                latest_version = internal_update_config(update_configuration_location)
+                if latest_version is None:
+                    latest_version = data["LatestVersion"]
+                display_update_prompt = True
+
+            else:
+                latest_version = data["LatestVersion"]
+
+        else:
+            latest_version = internal_update_config(update_configuration_location)
+            if latest_version is None:
+                latest_version = "0.0.0"
+            display_update_prompt = True
+
+        encoded_latest_version = latest_version.encode("utf-8")
+        SetLatest_PMMA_Version(encoded_latest_version)
+
+        if display_update_prompt and IsUpdateAvailable():
+            logger = Logger()
+
+            logger.internal_log_debug(
+                17,
+                ("Did you know there is a new version of PMMA? You are "
+f"currently on version: {current_pmma_version} and the latest version is: "
+f"{latest_version}. You can check out the latest features here: "
+"'https://github.com/PycraftDeveloper/PMMA/releases' and use `pip install "
+"--upgrade pmma` to perform the update!"),
+                False
+            )
+
+        Registry.checking_for_updates = False

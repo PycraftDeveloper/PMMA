@@ -188,3 +188,72 @@ bool CPP_General::IsF11KeyToToggleFullscreen() {
 void CPP_General::SetF11KeyToToggleFullscreen(bool F11KeyShouldToggleFullScreen) {
     PMMA_Registry::F11KeyShouldToggleFullScreen = F11KeyShouldToggleFullScreen;
 }
+
+string CPP_General::GetCurrent_PMMA_Version() {
+    return PMMA_Registry::Current_PMMA_Version;
+}
+
+string CPP_General::GetLatest_PMMA_Version() {
+    return PMMA_Registry::Latest_PMMA_Version;
+}
+
+void CPP_General::SetLatest_PMMA_Version(string& latest_version) {
+    PMMA_Registry::Latest_PMMA_Version = latest_version;
+}
+
+string PadVersionString(string item) {
+    unsigned int string_size = item.length();
+    string padded_string = "";
+    for (unsigned int i = 0; i < 4 - string_size; i++) {
+        padded_string += "0";
+    }
+    padded_string += item;
+    return padded_string;
+}
+
+bool CPP_General::IsUpdateAvailable() {
+    string padded_current_version;
+    string split_current_version[3];
+    unsigned int split_count = 0;
+    for (unsigned int i = 0; i < PMMA_Registry::Current_PMMA_Version.length(); i++) {
+        if (PMMA_Registry::Current_PMMA_Version[i] == '.') {
+            split_count++;
+            continue;
+        }
+        split_current_version[split_count] += PMMA_Registry::Current_PMMA_Version[i];
+    }
+
+    for (unsigned int i = 0; i < 3; i++) {
+        padded_current_version += PadVersionString(split_current_version[i]);
+    }
+
+    string padded_latest_version;
+    string split_latest_version[3];
+    split_count = 0;
+    for (unsigned int i = 0; i < PMMA_Registry::Latest_PMMA_Version.length(); i++) {
+        if (PMMA_Registry::Latest_PMMA_Version[i] == '.') {
+            split_count++;
+            continue;
+        }
+        split_latest_version[split_count] += PMMA_Registry::Latest_PMMA_Version[i];
+    }
+
+    for (unsigned int i = 0; i < 3; i++) {
+        padded_latest_version += PadVersionString(split_latest_version[i]);
+    }
+
+    uint64_t numerical_current_version = std::stoull(padded_current_version);
+    uint64_t numerical_latest_version = std::stoull(padded_latest_version);
+
+    if (numerical_current_version > numerical_latest_version) {
+        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            22,
+            "Thank you for using a pre-released version of PMMA! Please \
+note that there will likely be issues or missing/broken features as we work \
+towards creating the next version of the API. If you find any bugs or think \
+something could be improved it would be invaluable for you to let us know \
+by creating a new issue here: 'https://github.com/PycraftDeveloper/PMMA/issues'.");
+    }
+
+    return numerical_current_version < numerical_latest_version;
+}

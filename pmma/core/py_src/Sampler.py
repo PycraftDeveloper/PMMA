@@ -2,6 +2,7 @@ import threading, time
 
 import pyaudio, numpy
 
+import pmma.core.py_src.Error as Error
 from pmma.build.Logger import Logger
 
 class Sampler:
@@ -74,7 +75,7 @@ class Sampler:
         except IOError:
             return
 
-    def sampler(self, wait_time=None):
+    def sampler(self, wait_time):
         self._is_sampling_running = True
 
         try:
@@ -87,10 +88,11 @@ either. Therefore the first step for troubleshooting this is to make sure \
 that you have an input device connected to your current machine. Likewise \
 also make sure that the device is behaving as expected. Should this fail and \
 the operating system has detected your device, consider running the \
-'print_input_devices()' command and manually selecting the device you want to use.",
+'print_input_devices()' command and manually selecting the device you \
+want to use.",
                     True)
 
-                raise Exception("No audio input devices were found!")
+                raise Error.NoInputDevicesFoundError("No audio input devices were found!")
 
             stream = self._pyaudio_instance.open(
                 format=pyaudio.paInt16,
@@ -113,12 +115,13 @@ the operating system has detected your device, consider running the \
                     self.logger.internal_log_error(
                         16,
                         "Unable to read the current audio sample. Whilst \
-the exact cause of this error is unknown, it's likely that the cause for this error \
-was that the audio input device was disconnected without first having had the sampling \
-process stopped. Please use the existing 'stop()' method in order to avoid this error being \
-raised when the audio device is removed.",
+the exact cause of this error is unknown, it's likely that the cause for \
+this error was that the audio input device was disconnected without first \
+having had the sampling process stopped. Please use the existing 'stop()' \
+method in order to avoid this error being raised when the audio device \
+is removed.",
                         True)
-                    raise Exception("Unable to read audio sample!") from error
+                    raise Error.UnableToReadAudioSampleError("Unable to read audio sample!") from error
 
                 data = numpy.frombuffer(
                     stream_data,
@@ -143,12 +146,13 @@ raised when the audio device is removed.",
             self._is_sampling_running = False
             raise error
 
-    def start(self):
+    def start(self, wait_time=None):
         if self._is_sampling_running is False:
             self._do_sampling = True
+            self._is_sampling_running = True
 
             self._sampler_thread = threading.Thread(
-                target=self.sampler)
+                target=self.sampler, args=[wait_time])
             self._sampler_thread.daemon = True
             self._sampler_thread.name = "Sampler:Sampler_Thread"
             self._sampler_thread.start()

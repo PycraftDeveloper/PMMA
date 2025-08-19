@@ -2,6 +2,7 @@ import os
 import platform
 import ctypes
 import sys
+import threading
 
 system = platform.system()
 
@@ -61,6 +62,10 @@ from pmma.build.General import General
 
 General.set_pmma_location(pmma_dir)
 General.set_path_separator()
+
+from pmma.core.py_src.Utility import Registry as _Registry
+_Registry.update_checking_thread = threading.Thread(target=General.internal_check_for_updates, daemon=True)
+_Registry.update_checking_thread.start()
 
 from pmma.build.AdvancedMathematics import AdvancedMathematics
 from pmma.build.PerlinNoise import PerlinNoise

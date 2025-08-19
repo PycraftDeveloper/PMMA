@@ -180,7 +180,8 @@ namespace PMMA_Core {
 namespace PMMA_Registry {
     string PMMA_Location = "";
     string PathSeparator = "";
-    string PMMA_Version = "5.0.14";
+    string Current_PMMA_Version = "5.0.14";
+    string Latest_PMMA_Version = "";
 
     uint64_t ClassObject_ID_System = 0;
 
@@ -224,7 +225,7 @@ void PMMA_Initialize() {
 
     PMMA_Core::InternalLoggerInstance->InternalLogDebug(
         12,
-        "Welcome to Python Multi-Media API (PMMA) version: " + PMMA_Registry::PMMA_Version);
+        "Welcome to Python Multi-Media API (PMMA) version: " + PMMA_Registry::Current_PMMA_Version);
 
     PMMA_Core::InternalLoggerInstance->InternalLogDebug(
         14,
