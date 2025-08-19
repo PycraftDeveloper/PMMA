@@ -33,7 +33,7 @@ namespace CPP_General {
 
     EXPORT std::string GetLatest_PMMA_Version();
 
-    EXPORT void SetLatest_PMMA_Version(std::string& latest_version);
+    EXPORT void SetLatest_PMMA_Version(std::string latest_version);
 
     EXPORT bool IsUpdateAvailable();
 }

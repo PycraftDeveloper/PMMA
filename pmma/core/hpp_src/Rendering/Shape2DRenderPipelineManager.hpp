@@ -5,6 +5,7 @@
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
+#include <cstring>
 
 #include <glm/glm.hpp>
 #include <FlatHashMap/flat_hash_map.hpp>

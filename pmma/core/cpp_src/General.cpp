@@ -197,7 +197,7 @@ string CPP_General::GetLatest_PMMA_Version() {
     return PMMA_Registry::Latest_PMMA_Version;
 }
 
-void CPP_General::SetLatest_PMMA_Version(string& latest_version) {
+void CPP_General::SetLatest_PMMA_Version(string latest_version) {
     PMMA_Registry::Latest_PMMA_Version = latest_version;
 }
 

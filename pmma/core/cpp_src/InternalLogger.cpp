@@ -110,7 +110,7 @@ void CPP_InternalLogger::Log(std::string Content) {
     if (LogToConsole) {
         #ifdef INTERNAL_USE_PYTHON
             PyGILState_STATE gstate = PyGILState_Ensure();
-            PySys_WriteStdout((Content + "\n").c_str());
+            PySys_WriteStdout("%s\n", Content.c_str());
             PyGILState_Release(gstate);
         #else
             cout << Content;
