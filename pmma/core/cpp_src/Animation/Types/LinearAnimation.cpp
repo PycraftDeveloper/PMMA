@@ -7,6 +7,7 @@ CPP_LinearAnimation::CPP_LinearAnimation(CPP_DisplayCoordinateFormat* NewTargetC
 
     StartCoordinatePtr = new CPP_DisplayCoordinateFormat();
     EndCoordinatePtr = new CPP_DisplayCoordinateFormat();
+    Logger = new CPP_Logger();
 }
 
 CPP_LinearAnimation::~CPP_LinearAnimation() {
@@ -24,6 +25,9 @@ CPP_LinearAnimation::~CPP_LinearAnimation() {
         delete EndCoordinatePtr;
         EndCoordinatePtr = nullptr;
     }
+
+    delete Logger;
+    Logger = nullptr;
 }
 
 void CPP_LinearAnimation::Start() {

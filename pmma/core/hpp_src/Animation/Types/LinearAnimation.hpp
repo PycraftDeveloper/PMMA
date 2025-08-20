@@ -7,12 +7,14 @@
 #include "Animation/AnimationCore.hpp"
 #include "NumberFormats.hpp"
 #include "AdvancedMathematics.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
     public:
         CPP_DisplayCoordinateFormat* TargetCoordinatePtr;
         CPP_DisplayCoordinateFormat* StartCoordinatePtr;
         CPP_DisplayCoordinateFormat* EndCoordinatePtr;
+        CPP_Logger* Logger;
 
         std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
         std::chrono::duration<float> Duration;
@@ -41,8 +43,14 @@ class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
             StartCoordinatePtr->Get(start_pos);
             EndCoordinatePtr->Get(end_pos);
 
-            new_location[0] = (unsigned int)CPP_AdvancedMathematics::Lerp((float)start_pos[0], (float)end_pos[0], Duration.count(), RunTime.count());
-            new_location[1] = (unsigned int)CPP_AdvancedMathematics::Lerp((float)start_pos[1], (float)end_pos[1], Duration.count(), RunTime.count());
+            new_location[0] = (unsigned int)CPP_AdvancedMathematics::Lerp(
+                (float)start_pos[0], (float)end_pos[0],
+                Duration.count(), RunTime.count());
+
+            new_location[1] = (unsigned int)CPP_AdvancedMathematics::Lerp(
+                (float)start_pos[1], (float)end_pos[1],
+                Duration.count(), RunTime.count());
+
             TargetCoordinatePtr->Set(new_location);
 
             if (RunTime >= Duration) {
@@ -101,8 +109,14 @@ class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
         }
 
         inline void SetLooping(bool NewLooping) {
-            if (Repeat) {
-                std::cout << "Cannot be looping and repeating, overwriting previous config" << std::endl;
+            if (Repeat && NewLooping) {
+                Logger->InternalLogWarn(
+                    40,
+                    "This animation has already been set to repeat. The \
+looping and repeating modes are mutually exclusive - meaning they cannot be \
+both set - as they customize the same behaviour. We have turned off Repeat \
+as that was what was previous set."
+                );
                 Repeat = false;
             }
             Loop = NewLooping;
@@ -113,8 +127,14 @@ class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
         }
 
         inline void SetRepeating(bool NewRepeating) {
-            if (Loop) {
-                std::cout << "Cannot be looping and repeating, overwriting previous config" << std::endl;
+            if (Loop && NewRepeating) {
+                Logger->InternalLogWarn(
+                    40,
+                    "This animation has already been set to loop. The \
+looping and repeating modes are mutually exclusive - meaning they cannot be \
+both set - as they customize the same behaviour. We have turned off Looping \
+as that was what was previous set."
+                );
                 Loop = false;
             }
             Repeat = NewRepeating;

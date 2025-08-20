@@ -3,9 +3,10 @@
 from libcpp.string cimport string
 from libcpp cimport bool
 
-import ctypes, os
+import ctypes, os, pathlib
 
 from pmma.core.py_src.Constants import Constants
+from pmma.core.py_src.Utility import Registry
 
 from pmma.build.General import General
 from Logger cimport Logger
@@ -38,7 +39,11 @@ cdef class Passport:
         self.cpp_class_ptr = new CPP_Passport()
         self.logger = Logger()
 
+        Registry.passport_instance = self
+
     def __dealloc__(self):
+        Registry.passport_instance = None
+
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
@@ -59,10 +64,12 @@ cdef class Passport:
         self.cpp_class_ptr.SetProductVersion(encoded_product_version)
 
     def set_product_path(self, product_path):
+        product_path = str(pathlib.Path(product_path))
         cdef string encoded_product_path = product_path.encode("utf-8")
         self.cpp_class_ptr.SetProductPath(encoded_product_path)
 
     def set_logging_path(self, logging_path):
+        logging_path = str(pathlib.Path(logging_path))
         cdef string encoded_logging_path = logging_path.encode("utf-8")
         self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 

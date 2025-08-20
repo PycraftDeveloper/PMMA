@@ -8,7 +8,7 @@
 
 ## Progress on PMMA 5
 
-![Progress on PMMA 5](https://geps.dev/progress/86)
+![Progress on PMMA 5](https://geps.dev/progress/90)
 
 Each entry is worth: (20/7) %
 
@@ -35,11 +35,11 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Sampler
 * ✅ - Finished Transitions
 * ✅ - Finished Formatters
+* ✅ - Finished File
 * ⏳ - Working on Constants
 * ⏳ - Working on Registry
 * ⏳ - Working on General (65 %)
 * ⏳ - Working on Error
-* 🛑 - Not started File
 * 🛑 - Not started Settings
 * ⛔ - Temporarily halted progress on Video (Will be added in PMMA 5.x).
 * ⛔ - Removed Quick Start as its no longer possible to make additional simplifications to the API.
