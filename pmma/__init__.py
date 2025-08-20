@@ -90,3 +90,4 @@ from pmma.core.py_src.GPU import GPUs
 from pmma.core.py_src.AdvancedThreading import AdvancedThread
 import pmma.core.py_src.DataStructures as DataStructures
 from pmma.core.py_src.Sampler import Sampler
+from pmma.core.py_src.DateTimeFormatter import TimeFormatter
