@@ -60,6 +60,9 @@ set(SOURCES
     "${SRC_DIR}/Events/WindowEvents.cpp"
     "${SRC_DIR}/Events/ControllerEvents.cpp"
     "${SRC_DIR}/Events/MouseEvents.cpp"
+
+    "${SRC_DIR}/Animation/AnimationManager.cpp"
+    "${SRC_DIR}/Animation/Types/LinearAnimation.cpp"
     )
 
 # AVX2 optimized sub-component -----------------------------------------

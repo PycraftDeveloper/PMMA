@@ -8,7 +8,7 @@
 
 ## Progress on PMMA 5
 
-![Progress on PMMA 5](https://geps.dev/progress/63)
+![Progress on PMMA 5](https://geps.dev/progress/83)
 
 Each entry is worth: (20/7) %
 
@@ -33,14 +33,14 @@ Each entry is worth: (20/7) %
 * ✅ - Finished Advanced Threading
 * ✅ - Finished Data Structures
 * ✅ - Finished Sampler
+* ✅ - Finished Transitions
 * ⏳ - Working on Constants
 * ⏳ - Working on Registry
-* ⏳ - Working on General (35 %)
+* ⏳ - Working on General (65 %)
 * ⏳ - Working on Error
 * 🛑 - Not started File
 * 🛑 - Not started Formatters
 * 🛑 - Not started Settings
-* 🛑 - Not started Transitions
 * ⛔ - Temporarily halted progress on Video (Will be added in PMMA 5.x).
 * ⛔ - Removed Quick Start as its no longer possible to make additional simplifications to the API.
 * ⛔ - Removed memory manager as the API manages its own memory internally.

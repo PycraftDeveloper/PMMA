@@ -175,6 +175,8 @@ namespace PMMA_Core {
     CPP_InternalLogger* InternalLoggerInstance = nullptr;
 
     PowerSavingManager PowerSavingManagerInstance;
+
+    CPP_AnimationManager* AnimationManagerInstance = nullptr;
 }
 
 namespace PMMA_Registry {

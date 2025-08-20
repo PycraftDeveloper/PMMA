@@ -459,6 +459,13 @@ You can do this using `Display.create`."
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     PMMA_Core::RenderPipelineCore->Reset();
+
+    if (PMMA_Core::AnimationManagerInstance != nullptr) {
+        if (PMMA_Core::AnimationManagerInstance->Update()) { // returns true if no longer needed
+            delete PMMA_Core::AnimationManagerInstance;
+            PMMA_Core::AnimationManagerInstance = nullptr;
+        }
+    }
 }
 
 void CPP_Display::LimitRefreshRate(unsigned int RefreshRate) {

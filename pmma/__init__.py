@@ -81,6 +81,7 @@ from pmma.build.TextRenderer import *
 import pmma.build.Shapes2D as Shapes2D
 from pmma.build.Passport import Passport
 from pmma.build.Logger import Logger
+import pmma.build.Animation as Animation
 
 from pmma.core.py_src.Backpack import Backpack
 from pmma.core.py_src.Audio import *

@@ -67,6 +67,18 @@ namespace CPP_AdvancedMathematics {
         }
     }
 
+    EXPORT inline float Lerp(float start, float end, float duration, float current_duration) {
+        if (current_duration > duration) {
+            return end;
+        }
+
+        if (current_duration < 0.0f) {
+            return start;
+        }
+
+        return (end - start) * (current_duration / duration) + start;
+    }
+
     EXPORT inline void ArrayNormalize(const float* value, float* out) {
         out[0] = value[0];
         out[1] = value[1];

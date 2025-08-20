@@ -53,6 +53,10 @@
 #include "Logger.hpp"
 #include "InternalLogger.hpp"
 
+#include "Animation/AnimationManager.hpp"
+#include "Animation/Types/LinearAnimation.hpp"
+#include "Animation/Types/RadialAnimation.hpp"
+
 /*
 Notes:
     > Internal events MUST have a default 'safe value' to return before the event manager is initialized.
@@ -222,6 +226,8 @@ namespace PMMA_Core {
     extern CPP_InternalLogger* InternalLoggerInstance;
 
     extern PowerSavingManager PowerSavingManagerInstance;
+
+    extern CPP_AnimationManager* AnimationManagerInstance;
 }
 
 namespace PMMA_Registry {
