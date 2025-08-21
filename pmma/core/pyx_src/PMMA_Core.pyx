@@ -72,7 +72,7 @@ def uninitialize():
                 now = datetime.datetime.now()
                 file_name = now.strftime("%d-%m-%Y at %H-%M-%S") + ".txt"
                 with open(path + os.sep + file_name, "w") as profile_file:
-                    Registry.profiler_instance.print_stats(stream=f)
+                    Registry.profiler_instance.print_stats(stream=profile_file)
             else:
                 Registry.profiler_instance.print_stats()
     else:
