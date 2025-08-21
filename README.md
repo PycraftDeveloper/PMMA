@@ -5,10 +5,11 @@
 
 
 # PMMA (Python Multi-Media API)
-PMMA is a Python library aimed at improving application development in Python.
-Typically, developing applications in Python necessitates familiarity with a variety of different libraries such as [Pygame](https://github.com/pygame/pygame), [ModernGL](https://github.com/moderngl/moderngl), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy). PMMA aims to simplify the application development process by creating a single interface that provides easy access to simple and advanced pre-written and highly optimised application development utilities, whilst still also allowing these utilities to be expanded upon by exposing their underlying APIs.
 
-🚀 PMMA 5.0.0 will be releasing on Thursday the 21st of August 2025 (tomorrow!) 🚀
+![PyPI - Python Version](https://img.shields.io/pypi/pyversions/pmma) ![PyPI - Wheel](https://img.shields.io/pypi/wheel/pmma) ![GitHub commits since latest release](https://img.shields.io/github/commits-since/PycraftDeveloper/pmma/latest) ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/PycraftDeveloper/pmma) ![Python 3.8](https://img.shields.io/badge/python-3.8-blue) ![Python 3.9](https://img.shields.io/badge/python-3.9-blue) ![Python 3.10](https://img.shields.io/badge/python-3.10-blue) ![Python 3.11](https://img.shields.io/badge/python-3.11-blue) ![Windows](https://img.shields.io/badge/platform-Windows-blue?logo=windows) ![Linux](https://img.shields.io/badge/platform-Linux-yellow?logo=linux) ![macOS](https://img.shields.io/badge/platform-macOS-lightgrey?logo=apple)
+
+
+PMMA is a Python module targeted at helping you build applications in the Python programming language. It does this by providing its own tools covering areas like 2D graphics, noise generation, audio and video playback, event handling, text rendering and much more. The API has two fundamental goals; to make application development in Python easier, whilst also focusing on improving the performance and efficiency of the end result. The API is also being engineered with compatibility with other python modules, like [Pygame](https://github.com/pygame/pygame), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy) and is ideal for prototyping, application development, simulations, graphics intensive tasks and game development.
 
 ## Contents
 
