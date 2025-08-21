@@ -1,22 +1,22 @@
 # Requirements for all systems
-av
-cython
-getostheme
-moviepy
-num2words
+# av
+# cython
+# getostheme
+# moviepy
+# num2words
 numpy>=2.0
 pedalboard
-Pillow
+# Pillow
 pprofile
-psutil
+# psutil
 pyadl
-pyrr
+# pyrr
 requests
 send2trash
 sounddevice
 soundfile
 waiting
-watchdog
+# watchdog
 
 # Windows-specific requirement
 pywin32; sys_platform == 'win32'
