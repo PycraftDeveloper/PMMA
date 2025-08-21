@@ -132,6 +132,33 @@ if(NOT APPLE)
     add_library(${LIB_NAME} SHARED ${SOURCES} $<TARGET_OBJECTS:AVX2_obj> $<TARGET_OBJECTS:AVX512_obj>)
 else()
     message(STATUS "Skipping AVX PMMA extensions for Apple build platform")
+    set(AVX_FILLER_SOURCES
+        "${SRC_DIR}/AVX_Filler.cpp")
+
+    # Create an object library for myfile.cpp with AVX2 flags
+    add_library(AVX_Filler_obj OBJECT ${AVX_FILLER_SOURCES})
+
+    # Apply AVX2 flags depending on the compiler
+    if (MSVC)
+        target_compile_options(AVX_Filler_obj PRIVATE
+            /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2)
+
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+        target_compile_options(AVX512_obj PRIVATE
+            -O3 -ffast-math -funroll-loops -fstrict-aliasing
+            -fomit-frame-pointer -std=c++17 -mtune=generic
+            -finline-functions -flto -ftree-vectorize)
+    endif()
+
+    # Inherit include directories and definitions
+    target_include_directories(AVX_Filler_obj PRIVATE
+        ${INCLUDE_DIR}
+        ${EXTERN_INSTALL_DIR}/include
+        ${EXTERN_INSTALL_DIR}/include/freetype2)
+
+    target_compile_definitions(AVX_Filler_obj PRIVATE PMMA_CORE_EXPORTS)
+
+    add_library(${LIB_NAME} SHARED ${SOURCES} $<TARGET_OBJECTS:AVX_Filler_obj>)
 endif()
 
 include(CheckIPOSupported)
