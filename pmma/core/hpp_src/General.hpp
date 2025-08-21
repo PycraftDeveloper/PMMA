@@ -36,4 +36,18 @@ namespace CPP_General {
     EXPORT void SetLatest_PMMA_Version(std::string latest_version);
 
     EXPORT bool IsUpdateAvailable();
+
+    EXPORT double GetApplicationStartTime();
+
+    EXPORT double GetApplicationRunTime();
+
+    EXPORT float GetShapeQuality();
+
+    EXPORT void SetShapeQuality(float quality);
+
+    EXPORT void Let_PMMA_ControlShapeQuality();
+
+    EXPORT void SetLocale(std::string locale);
+
+    EXPORT std::string GetLocale();
 }

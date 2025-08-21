@@ -18,6 +18,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void SetCompanyName(string NewCompanyName) except + nogil
         inline void SetProductVersion(string NewProductVersion) except + nogil
         inline void SetProductPath(string NewProductPath) except + nogil
+        inline void SetProfilingPath(string NewProfilingPath) except + nogil
         void SetLoggingPath(string NewLoggingPath, bool ExplicitlySet) except + nogil
 
         void Register() except + nogil
@@ -29,6 +30,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline string GetProductVersion() except + nogil
         inline string GetProductPath() except + nogil
         inline string GetLoggingPath() except + nogil
+        inline string GetProfilingPath() except + nogil
 
 cdef class Passport:
     cdef:
@@ -73,10 +75,17 @@ cdef class Passport:
         cdef string encoded_logging_path = logging_path.encode("utf-8")
         self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
 
+    def set_profiling_path(self, profiling_path):
+        profiling_path = str(pathlib.Path(profiling_path))
+        cdef string encoded_profiling_path = profiling_path.encode("utf-8")
+        self.cpp_class_ptr.SetProfilingPath(encoded_profiling_path)
+
     def register(self):
         cdef string raw_product_path = self.cpp_class_ptr.GetProductPath()
         cdef string raw_logging_path = self.cpp_class_ptr.GetLoggingPath()
+        cdef string raw_profiling_path = self.cpp_class_ptr.GetProfilingPath()
         cdef string encoded_logging_path
+        cdef string encoded_profiling_path
 
         product_path = raw_product_path.c_str().decode("utf-8")
 
@@ -104,7 +113,10 @@ cdef class Passport:
             )
             raise IsADirectoryError("This is not a valid path!")
 
+        profiling_path = raw_profiling_path.c_str().decode("utf-8")
+
         logging_path_not_set = logging_path == ""
+        profiling_path_not_set = profiling_path == ""
 
         if logging_path_not_set and product_path != "":
             if os.path.exists(os.path.join(product_path, "logs")):
@@ -136,7 +148,7 @@ cdef class Passport:
                 )
             else:
                 for dirpath, _, _ in os.walk(product_path):
-                    if "logs" in os.path.basename(dirpath).lower():
+                    if "logs" in os.path.basename(dirpath):
                         logging_path = dirpath
                         encoded_logging_path = logging_path.encode("utf-8")
                         self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
@@ -146,23 +158,118 @@ cdef class Passport:
                             ("Passport.register - You have not specified a logging "
                                 "path, which you can do with `Passport.set_logging_path`. "
                                 "Until specified PMMA has automatically found a suitable "
-                                f"location for your log files has been found at: '{logging_path}' "
+                                f"location for your log files at: '{logging_path}' "
                                 "after searching inside the specified product path."),
                                 False
                         )
 
                         break
                 else:
-                    self.logger.internal_log_debug(
-                        27,
-                        ("Passport.register - No suitable location for log "
-                            "files could automatically be detected. If you want to have PMMA "
-                            "automatically manage where your log files go when stored to disk "
-                            "please create a designated 'logs' folder in the specified product location "
-                            "or manually specify a location for your log "
-                            "files to go using `Passport.set_logging_path`."),
+                    for dirpath, _, _ in os.walk(product_path):
+                        if "Logs" in os.path.basename(dirpath):
+                            logging_path = dirpath
+                            encoded_logging_path = logging_path.encode("utf-8")
+                            self.cpp_class_ptr.SetLoggingPath(encoded_logging_path, True)
+
+                            self.logger.internal_log_debug(
+                                26,
+                                ("Passport.register - You have not specified a logging "
+                                    "path, which you can do with `Passport.set_logging_path`. "
+                                    "Until specified PMMA has automatically found a suitable "
+                                    f"location for your log files at: '{logging_path}' "
+                                    "after searching inside the specified product path."),
+                                    False
+                            )
+
+                            break
+                    else:
+                        self.logger.internal_log_debug(
+                            27,
+                            ("Passport.register - No suitable location for log "
+                                "files could automatically be detected. If you want to have PMMA "
+                                "automatically manage where your log files go when stored to disk "
+                                "please create a designated 'logs' folder in the specified product location "
+                                "or manually specify a location for your log "
+                                "files to go using `Passport.set_logging_path`."),
+                        False
+                        )
+
+        if profiling_path_not_set and product_path != "":
+            if os.path.exists(os.path.join(product_path, "profiles")):
+                profiling_path = os.path.join(product_path, "profiles")
+                encoded_profiling_path = profiling_path.encode("utf-8")
+                self.cpp_class_ptr.SetProfilingPath(encoded_profiling_path)
+
+                self.logger.internal_log_debug(
+                    43,
+                    ("Passport.register - You have not specified a profiling "
+                        "path, which you can do with `Passport.set_profiling_path`. "
+                        "Until specified PMMA has automatically found a suitable "
+                        f"location for your profiling files has been found at: '{profiling_path}'."),
                     False
-                    )
+                )
+
+            elif os.path.exists(os.path.join(product_path, "Profiles")):
+                profiling_path = os.path.join(product_path, "Profiles")
+                encoded_profiling_path = profiling_path.encode("utf-8")
+                self.cpp_class_ptr.SetProfilingPath(encoded_profiling_path)
+
+                self.logger.internal_log_debug(
+                    43,
+                    ("Passport.register - You have not specified a profiling "
+                        "path, which you can do with `Passport.set_profiling_path`. "
+                        "Until specified PMMA has automatically found a suitable "
+                        f"location for your profiling files has been found at: '{profiling_path}'."),
+                    False
+                )
+            else:
+                for dirpath, _, _ in os.walk(product_path):
+                    if "profiles" in os.path.basename(dirpath):
+                        profiling_path = dirpath
+                        encoded_profiling_path = profiling_path.encode("utf-8")
+                        self.cpp_class_ptr.SetProfilingPath(encoded_profiling_path)
+
+                        self.logger.internal_log_debug(
+                            43,
+                            ("Passport.register - You have not specified a profiling "
+                                "path, which you can do with `Passport.set_profiling_path`. "
+                                "Until specified PMMA has automatically found a suitable "
+                                f"location for your profiling files at: '{profiling_path}' "
+                                "after searching inside the specified product path."),
+                                False
+                        )
+
+                        break
+
+                else:
+                    for dirpath, _, _ in os.walk(product_path):
+                        if "Profiles" in os.path.basename(dirpath):
+                            profiling_path = dirpath
+                            encoded_profiling_path = profiling_path.encode("utf-8")
+                            self.cpp_class_ptr.SetProfilingPath(encoded_profiling_path)
+
+                            self.logger.internal_log_debug(
+                                43,
+                                ("Passport.register - You have not specified a profiling "
+                                    "path, which you can do with `Passport.set_profiling_path`. "
+                                    "Until specified PMMA has automatically found a suitable "
+                                    f"location for your profiling files at: '{profiling_path}' "
+                                    "after searching inside the specified product path."),
+                                    False
+                            )
+
+                            break
+                    else:
+                        self.logger.internal_log_debug(
+                            44,
+                            ("Passport.register - No suitable location for profiling "
+                                "files could automatically be detected. If you want to have PMMA "
+                                "automatically manage where your profiling files go when stored to disk "
+                                "please create a designated 'profiles' folder in the specified product location "
+                                "or manually specify a location for your profiling "
+                                "files to go using `Passport.set_profiling_path`."),
+                        False
+                        )
 
         self.cpp_class_ptr.Register()
 
@@ -209,4 +316,8 @@ cdef class Passport:
 
     def get_logging_path(self):
         cdef string cpp_string = self.cpp_class_ptr.GetLoggingPath()
+        return cpp_string.c_str().decode("utf-8")
+
+    def get_profiling_path(self):
+        cdef string cpp_string = self.cpp_class_ptr.GetProfilingPath()
         return cpp_string.c_str().decode("utf-8")

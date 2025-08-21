@@ -10,8 +10,12 @@ import distutils
 import json
 import datetime
 import random
+import time
+import subprocess
+import locale
 
 import requests
+from pprofile import Profile
 
 from pmma.core.py_src.Constants import Constants
 from pmma.core.py_src.Utility import Registry
@@ -44,6 +48,16 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     void SetLatest_PMMA_Version(string latest_version) except + nogil
 
     bool IsUpdateAvailable() except + nogil
+
+    double GetApplicationStartTime() except + nogil
+    double GetApplicationRunTime() except + nogil
+
+    float GetShapeQuality() except + nogil
+    void SetShapeQuality(float quality) except + nogil
+    void Let_PMMA_ControlShapeQuality() except + nogil
+
+    string GetLocale() except + nogil
+    void SetLocale(string locale__) except + nogil
 
 def internal_update_config(update_configuration_location):
     try:
@@ -243,3 +257,110 @@ f"{latest_version}. You can check out the latest features here: "
             )
 
         Registry.checking_for_updates = False
+
+    @staticmethod
+    def get_application_start_time():
+        return GetApplicationStartTime()
+
+    @staticmethod
+    def get_application_run_time():
+        return GetApplicationRunTime()
+
+    @staticmethod
+    def get_shape_quality():
+        return GetShapeQuality()
+
+    @staticmethod
+    def set_shape_quality(value=None):
+        if value is None:
+            Let_PMMA_ControlShapeQuality()
+        else:
+            SetShapeQuality(value)
+
+    @staticmethod
+    def get_execution_time(function, *args, **kwargs):
+        start_time = time.perf_counter()
+        result = function(*args, **kwargs)
+        end_time = time.perf_counter()
+        execution_time = end_time - start_time
+        return execution_time, result
+
+    @staticmethod
+    def get_execution_inverse_time(function, *args, **kwargs):
+        start_time = time.perf_counter()
+        result = function(*args, **kwargs)
+        end_time = time.perf_counter()
+        execution_time = end_time - start_time
+        return 1/execution_time, result
+
+    @staticmethod
+    def set_locale(newlocale=None):
+        cdef encoded_locale
+
+        if newlocale is None:
+            if General.get_operating_system() == Constants.WINDOWS:
+                try:
+                    from ctypes import windll
+                    windll = windll.kernel32
+                    detected_language = locale.windows_locale[
+                        windll.GetUserDefaultUILanguage()]
+                except:
+                    try:
+                        result = subprocess.run(
+                            ['locale'],
+                            capture_output=True,
+                            text=True,
+                            check=True)
+
+                        for line in result.stdout.split('\n'):
+                            if line.startswith('LANG='):
+                                detected_language = line.split('=')[1]
+                    except subprocess.CalledProcessError:
+                        detected_language = None
+            else:
+                try:
+                    result = subprocess.run(
+                        ['locale'],
+                        capture_output=True,
+                        text=True,
+                        check=True)
+
+                    for line in result.stdout.split('\n'):
+                        if line.startswith('LANG='):
+                            detected_language = line.split('=')[1]
+                except subprocess.CalledProcessError:
+                    detected_language = None
+
+            if detected_language is None:
+                detected_language = "en_US"
+
+            encoded_locale = detected_language.encode("utf-8")
+        else:
+            encoded_locale = newlocale.encode("utf-8")
+
+        SetLocale(encoded_locale)
+
+    @staticmethod
+    def get_locale():
+        cdef string cpp_str = GetLocale()
+        return cpp_str.c_str().decode("utf-8")
+
+    @staticmethod
+    def profile_start():
+        if Registry.profiler_instance is None:
+            Registry.profiler_instance = Profile()
+        Registry.profiler_instance.enable()
+
+    @staticmethod
+    def profile_end():
+        if Registry.profiler_instance is None:
+            logger = Logger()
+            logger.internal_log_warn(
+                45,
+                "This function call has been ignored as you have not yet \
+started profiling anything. Please call `General.profile_start` to begin \
+profiling a section of your application.",
+                True
+            )
+        else:
+            Registry.profiler_instance.disable()

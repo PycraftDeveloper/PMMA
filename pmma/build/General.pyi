@@ -1,4 +1,7 @@
-from typing import Literal
+from typing import Literal, Union, Tuple, Any, Callable
+
+NoneFloat = Union[float, None]
+NoneString = Union[str, None]
 
 class General:
     @staticmethod
@@ -45,3 +48,33 @@ class General:
 
     @staticmethod
     def is_update_available() -> bool: ...
+
+    @staticmethod
+    def get_application_start_time() -> float: ...
+
+    @staticmethod
+    def get_application_run_time() -> float: ...
+
+    @staticmethod
+    def get_shape_quality() -> float: ...
+
+    @staticmethod
+    def set_shape_quality(value: NoneFloat=None) -> None: ...
+
+    @staticmethod
+    def get_execution_time(function: Callable[..., Any], *args: Any, **kwargs: Any) -> Tuple[float, Any]: ...
+
+    @staticmethod
+    def get_execution_inverse_time(function: Callable[..., Any], *args: Any, **kwargs: Any) -> Tuple[float, Any]: ...
+
+    @staticmethod
+    def set_locale(locale: NoneString=None) -> None: ...
+
+    @staticmethod
+    def get_locale() -> str: ...
+
+    @staticmethod
+    def profile_start() -> None: ...
+
+    @staticmethod
+    def profile_end() -> None: ...

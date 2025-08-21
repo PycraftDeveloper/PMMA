@@ -21,6 +21,9 @@ Numerical = Union[float, int]
 
 class AdvancedMathematics:
     @staticmethod
+    def lerp(x1: float, x2: float, duration: float, current_duration: float) -> float: ...
+
+    @staticmethod
     def individual_pythagorean_difference(x1: Numerical, y1: Numerical, x2: Numerical, y2: Numerical) -> float: ...
 
     @staticmethod

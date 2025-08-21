@@ -40,7 +40,9 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                 }
                 PMMA_Registry::IsPowerSavingModeEnabled = true;
                 PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
-                PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
+                if (!PMMA_Registry::UserDefinedShapeQuality) {
+                    PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+                }
                 return true;
             }
             if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
@@ -51,7 +53,9 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                 }
                 PMMA_Registry::IsPowerSavingModeEnabled = true;
                 PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
-                PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
+                if (!PMMA_Registry::UserDefinedShapeQuality) {
+                    PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+                }
                 return true; // Low battery test
             }
         }
@@ -63,7 +67,9 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality;
+        if (!PMMA_Registry::UserDefinedShapeQuality) {
+            PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        }
         return false;
 
     #elif defined(__linux__)
@@ -82,7 +88,9 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                         }
                         PMMA_Registry::IsPowerSavingModeEnabled = true;
                         PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
-                        PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
+                        if (!PMMA_Registry::UserDefinedShapeQuality) {
+                            PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+                        }
                         return true;
                     }
                 }
@@ -97,7 +105,9 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality;
+        if (!PMMA_Registry::UserDefinedShapeQuality) {
+            PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        }
         return false;
 
     #elif defined(__APPLE__)
@@ -112,7 +122,9 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             }
             PMMA_Registry::IsPowerSavingModeEnabled = false;
             PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-            PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality;
+            if (!PMMA_Registry::UserDefinedShapeQuality) {
+                PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+            }
             return false;
         }
 
@@ -124,7 +136,9 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             }
             PMMA_Registry::IsPowerSavingModeEnabled = true;
             PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
-            PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
+            if (!PMMA_Registry::UserDefinedShapeQuality) {
+                PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+            }
             return true; // Low power mode is enabled
         }
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
@@ -134,7 +148,9 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         }
         PMMA_Registry::IsPowerSavingModeEnabled = false;
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality;
+        if (!PMMA_Registry::UserDefinedShapeQuality) {
+            PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        }
         return false;
 
     #else
@@ -151,7 +167,9 @@ checking using PMMA.");
         PMMA_Registry::IsPowerSavingModeEnabled = false;
         PMMA_Core::PowerSavingManagerInstance.running = false;
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 5;
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality;
+        if (!PMMA_Registry::UserDefinedShapeQuality) {
+            PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        }
         return false;
     #endif
 }
@@ -256,4 +274,48 @@ by creating a new issue here: 'https://github.com/PycraftDeveloper/PMMA/issues'.
     }
 
     return numerical_current_version < numerical_latest_version;
+}
+
+double CPP_General::GetApplicationStartTime() {
+    return PMMA_Registry::StartupTime.time_since_epoch().count() / 1000000000.0;
+}
+
+double CPP_General::GetApplicationRunTime() {
+    chrono::high_resolution_clock::time_point current_time = chrono::high_resolution_clock::now();
+    return (current_time - PMMA_Registry::StartupTime).count() / 1000000000.0;
+}
+
+float CPP_General::GetShapeQuality() {
+    return PMMA_Registry::CurrentShapeQuality;
+}
+
+void CPP_General::SetShapeQuality(float ShapeQuality) {
+    if (ShapeQuality > CPP_Constants::SHAPE_QUALITY) {
+        PMMA_Core::InternalLoggerInstance->InternalLogWarn(
+            41,
+            "You have set the shape quality to a very high value of: " +
+            to_string(ShapeQuality) +
+            ". This is typically not necessary and may cause performance \
+issues. Please consider setting the shape quality to a lower value."
+        );
+    }
+    PMMA_Registry::CurrentShapeQuality = ShapeQuality;
+    PMMA_Registry::UserDefinedShapeQuality = true;
+}
+
+void CPP_General::Let_PMMA_ControlShapeQuality() {
+    if (PMMA_Registry::IsPowerSavingModeEnabled) {
+        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+    } else {
+        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+    }
+    PMMA_Registry::UserDefinedShapeQuality = false;
+}
+
+void CPP_General::SetLocale(string locale) {
+    PMMA_Registry::Locale = locale;
+}
+
+string CPP_General::GetLocale() {
+    return PMMA_Registry::Locale;
 }

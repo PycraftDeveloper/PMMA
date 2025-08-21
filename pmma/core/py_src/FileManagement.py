@@ -70,6 +70,8 @@ location that does not already exist.",
 
         shutil.move(src_path, destination)
 
+        self.file_path = destination.replace(root + os.sep, "")
+
     def copy(self, destination):
         src_path = self.get_absolute_file_path()
         root = Registry.passport_instance.get_product_path()
@@ -116,6 +118,7 @@ registered product location.",
 
     def rename(self, new_name):
         src_path = self.get_absolute_file_path()
+        root = Registry.passport_instance.get_product_path()
         if not os.path.exists(src_path):
             self.logger.internal_log_error(
                 36,
@@ -142,6 +145,8 @@ location that does not already exist.",
         new_path = os.path.join(directory, new_name + extension)
 
         os.rename(src_path, new_path)
+
+        self.file_path = new_path.replace(root + os.sep, "")
 
 class Directory:
     def __init__(self, directory_name):
@@ -206,6 +211,8 @@ location that does not already exist.",
 
         shutil.move(src_path, destination)
 
+        self.directory_name = destination.replace(root + os.sep, "")
+
     def copy(self, destination):
         src_path = self.get_absolute_path()
         root = Registry.passport_instance.get_product_path()
@@ -252,6 +259,7 @@ registered product location.",
 
     def rename(self, new_name):
         src_path = self.get_absolute_path()
+        root = Registry.passport_instance.get_product_path()
         directory = os.path.dirname(src_path)
         destination = os.path.join(directory, new_name)
         if not os.path.exists(src_path):
@@ -275,3 +283,4 @@ not already exist.",
             raise Error.DirectoryAlreadyExistsError
 
         os.rename(src_path, destination)
+        self.directory_name = destination.replace(root + os.sep, "")

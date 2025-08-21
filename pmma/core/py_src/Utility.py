@@ -5,6 +5,8 @@ class Registry:
     checking_for_updates = True
     update_checking_thread = None
     passport_instance = None
+    profiler_instance = None
+
 
 def require_render_thread(func):
     def wrapper(*args, **kwargs):

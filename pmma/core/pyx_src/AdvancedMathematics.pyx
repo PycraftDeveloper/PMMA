@@ -18,6 +18,7 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_AdvancedMathematics" nogil:
     void LookAt(const float* eye, const float* target, const float* up, float* out) except + nogil
     void ComputePosition(const float* position, const float* target, const float* up, float* out_x, float* out_y, float* out_z) except + nogil
     void PerspectiveFOV(const float fov, const float aspect_ratio, const float near_plane, const float far_plane, float (*out)[4]) except + nogil
+    float Lerp(float start, float end, float duration, float current_duration) except + nogil
 
 cdef class AdvancedMathematics:
     cdef:
@@ -32,6 +33,10 @@ cdef class AdvancedMathematics:
                 "this class in order to use it."),
             False
         )
+
+    @staticmethod
+    def lerp(x1, x2, duration, current_duration):
+        return Lerp(x1, x2, duration, current_duration)
 
     @staticmethod
     def individual_pythagorean_difference(x1, y1, x2, y2):

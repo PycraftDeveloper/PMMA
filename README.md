@@ -21,7 +21,7 @@ Typically, developing applications in Python necessitates familiarity with a var
 
 ## Development Progress
 
-![Progress on PMMA v5.0.0](https://geps.dev/progress/90)
+![Progress on PMMA v5.0.0](https://geps.dev/progress/100)
 
 We are currently working on the next major update to PMMA, version 5.x.x. This update features a complete API rework with a significant proportion being re-written in C++ for a significant performance and efficiency improvement. This major update will also introduce all the features lacking from previous iterations of PMMA, including text rendering, aggregated events for text input and improvements to the accuracy and variety of procedural noise generation. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
 

@@ -4,10 +4,6 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <STB/stb_image.h>
 
-#ifdef INTERNAL_USE_PYTHON
-    #include <Python.h>
-#endif
-
 #include "PMMA_Core.hpp"
 
 using namespace std;
@@ -184,6 +180,9 @@ namespace PMMA_Registry {
     string PathSeparator = "";
     string Current_PMMA_Version = "5.0.14";
     string Latest_PMMA_Version = "";
+    string Locale = "en-US";
+
+    chrono::high_resolution_clock::time_point StartupTime = chrono::high_resolution_clock::now();
 
     uint64_t ClassObject_ID_System = 0;
 
@@ -196,7 +195,7 @@ namespace PMMA_Registry {
     unsigned int ControllerEventInstanceCount = 0;
     unsigned int DropEventInstanceCount = 0;
 
-    float CurrentShapeQuality = CPP_Constants::ShapeQuality;
+    float CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
 
     int GLFW_References = 0;
 
@@ -209,16 +208,10 @@ namespace PMMA_Registry {
     bool EscapeKeyShouldCloseWindow = false;
     bool UserSetEscapeKeyShouldCloseWindow = false;
     bool F11KeyShouldToggleFullScreen = true;
+    bool UserDefinedShapeQuality = false;
 }
 
 void PMMA_Initialize() {
-    #ifdef INTERNAL_USE_PYTHON
-        Py_Initialize();
-        #if PY_VERSION_HEX < 0x03090000 // for support with Python 3.8
-            PyEval_InitThreads();
-        #endif
-    #endif
-
     PMMA_Core::InternalLoggerInstance = new CPP_InternalLogger();
 
     PMMA_Core::InternalLoggerInstance->InternalLogDebug(
@@ -237,7 +230,7 @@ warning and improve backwards compatibility in PMMA 6.");
 
     if (PMMA_Registry::IsPowerSavingModeEnabled) {
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::ShapeQuality * 0.5f;
+        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
         PMMA_Core::InternalLoggerInstance->InternalLogDebug(
             1,
             "Your device is running in power saving mode.", true);
@@ -292,8 +285,4 @@ void PMMA_Uninitialize() {
 
     delete PMMA_Core::InternalLoggerInstance;
     PMMA_Core::InternalLoggerInstance = nullptr;
-
-    #ifdef INTERNAL_USE_PYTHON
-        Py_Finalize();
-    #endif
 }

@@ -11,6 +11,7 @@ class EXPORT CPP_Passport {
         std::string ProductVersion = "";
         std::string ProductPath = "";
         std::string LoggingPath = "";
+        std::string ProfilingPath = "";
         bool IsRegistered = false;
 
         CPP_Passport();
@@ -38,6 +39,11 @@ class EXPORT CPP_Passport {
 
         inline void SetProductPath(std::string NewProductPath) {
             ProductPath = NewProductPath;
+            IsRegistered = false;
+        }
+
+        inline void SetProfilingPath(std::string NewProfilingPath) {
+            ProfilingPath = NewProfilingPath;
             IsRegistered = false;
         }
 
@@ -71,5 +77,9 @@ class EXPORT CPP_Passport {
 
         inline std::string GetLoggingPath() {
             return LoggingPath;
+        }
+
+        inline std::string GetProfilingPath() {
+            return ProfilingPath;
         }
 };

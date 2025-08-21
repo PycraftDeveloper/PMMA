@@ -235,6 +235,9 @@ namespace PMMA_Registry {
     extern std::string PathSeparator;
     extern std::string Current_PMMA_Version;
     extern std::string Latest_PMMA_Version;
+    extern std::string Locale;
+
+    extern std::chrono::high_resolution_clock::time_point StartupTime;
 
     extern uint64_t ClassObject_ID_System;
 
@@ -260,6 +263,7 @@ namespace PMMA_Registry {
     extern bool EscapeKeyShouldCloseWindow;
     extern bool UserSetEscapeKeyShouldCloseWindow;
     extern bool F11KeyShouldToggleFullScreen;
+    extern bool UserDefinedShapeQuality;
 }
 
 EXPORT void PMMA_Initialize();

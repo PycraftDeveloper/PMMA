@@ -47,3 +47,8 @@ Notes:
 38 - Directory does not exist
 39 - Directory already exists
 40 - Animation looping and repeating are mutually exclusive
+41 - Shape quality set unnecessarily high
+42 - General profiling is already enabled
+43 - Found suitable profiling location
+44 - Failed to find suitable profiling location
+45 - Profiling cannot be stopped as it was never started

@@ -98,7 +98,7 @@ ext_modules = [
     make_ext("FractalBrownianMotion.pyx", add_numpy=True),
     make_ext("NumberFormats.pyx", add_numpy=True),
     make_ext("PerlinNoise.pyx", add_numpy=True),
-    make_ext("PMMA_Core.pyx"),
+    make_ext("PMMA_Core.pyx", raw_depends=["General.pyx"]),
     make_ext("TextRenderer.pyx", add_numpy=True),
     make_ext("General.pyx", add_numpy=True),
     make_ext("Shapes2D.pyx", add_numpy=True, raw_depends=["NumberFormats.pyx"]),
