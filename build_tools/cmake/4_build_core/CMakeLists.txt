@@ -184,7 +184,7 @@ foreach(libdir ${LIBDIRS})
 endforeach()
 
 if(INTERNAL_USE_PYTHON)
-    find_package(Python3 REQUIRED COMPONENTS Interpreter Development)
+    find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
     target_compile_definitions(${LIB_NAME} PRIVATE INTERNAL_USE_PYTHON)
     target_include_directories(${LIB_NAME} PRIVATE ${Python3_INCLUDE_DIRS})
     target_link_libraries(${LIB_NAME} PRIVATE ${Python3_LIBRARIES})
