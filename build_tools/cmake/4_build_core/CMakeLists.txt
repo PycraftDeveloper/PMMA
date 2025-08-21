@@ -20,8 +20,6 @@ set(EXTERN_INSTALL_DIR ${CMAKE_INSTALL_PREFIX}/pmma/extern)
 # Output directory for the library
 set(LIB_OUTPUT_DIR "${CMAKE_CURRENT_BINARY_DIR}/pmma/lib")
 
-set(Python3_EXECUTABLE "" CACHE STRING "Path to Python executable")
-
 option(INTERNAL_USE_PYTHON "Enable Python integration" OFF)
 
 # Collect source files

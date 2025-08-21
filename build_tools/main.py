@@ -310,7 +310,9 @@ else:
                 "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
                 "-DBUILD_DEPS=ON",
                 "-DUSE_PYTHON=ON",
-                "-DPYTHON_PATH='C://Users//pamj0//AppData//Local//Programs//Python//Python310//python.exe'",
+                "-DPYTHON_EXECUTABLE_PATH='C://Users//pamj0//AppData//Local//Programs//Python//Python310//python.exe'",
+                "-DPYTHON_INCLUDE_DIR='C://Users//pamj0//AppData//Local//Programs//Python//Python310//include'",
+                "-DPYTHON_LIBRARY='C://Users//pamj0//AppData//Local//Programs//Python//Python310//libs//python310.lib'",
                 "-DUSE_NINJA=OFF"], # For clearer debug messages for PMMA ONLY
             cwd=cmake_temp_dir,
             check=True)

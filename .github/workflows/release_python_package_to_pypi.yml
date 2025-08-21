@@ -38,7 +38,7 @@ jobs:
             quay.io/pypa/manylinux_2_28_x86_64 \
             /bin/bash -c '
               set -e
-              yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel ninja-build python3-devel
+              yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel ninja-build
 
               build_for_python() {
                 tag=$1
@@ -47,12 +47,28 @@ jobs:
                 cd "$dir"
 
                 PYTHON_BIN="/opt/python/$tag/bin/python"
+                PYTHON_MAJOR_MINOR=$($PYTHON_BIN -c "import sys; print(f\"{sys.version_info.major}.{sys.version_info.minor}\")")
+                PYTHON_INCLUDE="/opt/python/$tag/include/python${PYTHON_MAJOR_MINOR}m"
+                PYTHON_LIBRARY="/opt/python/$tag/lib/libpython${PYTHON_MAJOR_MINOR}.so"
+
                 $PYTHON_BIN -m pip install --upgrade pip setuptools wheel cython numpy
+
                 mkdir -p ${{ env.CMAKE_TEMP_DIR }}
-                cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DBUILD_DEPS=ON -DUSE_PYTHON=ON -DPYTHON_PATH="$PYTHON_BIN"
+                cmake -S build_tools/cmake \
+                      -B ${{ env.CMAKE_TEMP_DIR }} \
+                      -DCMAKE_BUILD_TYPE=Release \
+                      -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
+                      -DBUILD_DEPS=ON \
+                      -DUSE_PYTHON=ON \
+                      -DPYTHON_EXECUTABLE_PATH="$PYTHON_BIN" \
+                      -DPYTHON_INCLUDE_PATH="$PYTHON_INCLUDE" \
+                      -DPYTHON_LIBRARY_PATH="$PYTHON_LIBRARY"
+
                 cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release --parallel $(nproc)
                 rm -rf ${{ env.CMAKE_TEMP_DIR }}
+
                 $PYTHON_BIN setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
+
                 original=$(ls dist/*.whl)
                 renamed=$(echo "$original" | sed "s/linux/manylinux_2_28/")
                 mv "$original" "$renamed"
@@ -179,12 +195,22 @@ jobs:
         shell: pwsh
         run: |
           $pythonPath = (Get-Command python).Source
+          $pythonInclude = (python -c "import sysconfig; print(sysconfig.get_paths()['include'])")
+          $pythonLib = (python -c "import sysconfig; print(sysconfig.get_config_var('LIBRARY'))")
+          $pythonLibDir = (python -c "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))")
+
+          # Full path to pythonXY.lib
+          $pythonLibrary = Join-Path $pythonLibDir $pythonLib
+
           cmake -S build_tools/cmake -B temporary `
             -DCMAKE_BUILD_TYPE=Release `
             -DCMAKE_POSITION_INDEPENDENT_CODE=ON `
             -DBUILD_DEPS=ON `
             -DUSE_PYTHON=ON `
-            -DPYTHON_PATH="$pythonPath"
+            -DPYTHON_EXECUTABLE_PATH="$pythonPath" `
+            -DPYTHON_INCLUDE_PATH="$pythonInclude" `
+            -DPYTHON_LIBRARY_PATH="$pythonLibrary"
+
           cmake --build temporary --config Release --parallel ((Get-CimInstance Win32_Processor).NumberOfLogicalProcessors)
 
       - name: Build Python wheel

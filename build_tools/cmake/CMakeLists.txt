@@ -6,21 +6,23 @@ option(BUILD_DEPS "Build PMMA_Core's dependencies" ON)
 option(USE_PYTHON "Enable Python integration" OFF)
 option(USE_NINJA "Enable Ninja for faster code compilation" ON)
 
-set(PYTHON_PATH "" CACHE STRING "Path to Python executable")
+set(PYTHON_EXECUTABLE_PATH "" CACHE STRING "Path to Python executable")
+set(PYTHON_INCLUDE_PATH "" CACHE STRING "Path to Python includes")
+set(PYTHON_LIBRARY_PATH "" CACHE STRING "Path to Python library")
 
-# If PYTHON_PATH is not set or doesn't exist, try to find Python automatically
-if(PYTHON_PATH STREQUAL "" OR NOT EXISTS ${PYTHON_PATH})
-    message(STATUS "PYTHON_PATH not provided or invalid. Attempting to find Python automatically...")
+# If PYTHON_EXECUTABLE_PATH is not set or doesn't exist, try to find Python automatically
+if(PYTHON_EXECUTABLE_PATH STREQUAL "" OR NOT EXISTS ${PYTHON_EXECUTABLE_PATH})
+    message(STATUS "PYTHON_EXECUTABLE_PATH not provided or invalid. Attempting to find Python automatically...")
 
     # Try to find Python using modern CMake (>= 3.12)
     find_package(Python3 COMPONENTS Interpreter REQUIRED)
-    set(PYTHON_PATH ${Python3_EXECUTABLE})
+    set(PYTHON_EXECUTABLE_PATH ${Python3_EXECUTABLE})
 else()
-    message(STATUS "Using provided Python path: ${PYTHON_PATH}")
+    message(STATUS "Using provided Python path: ${PYTHON_EXECUTABLE_PATH}")
 endif()
 
 # Final confirmation
-message(STATUS "Final Python path: ${PYTHON_PATH}")
+message(STATUS "Final Python path: ${PYTHON_EXECUTABLE_PATH}")
 
 get_filename_component(DIR_ONE_ABOVE "${CMAKE_CURRENT_SOURCE_DIR}/.." ABSOLUTE)
 get_filename_component(ROOT "${DIR_ONE_ABOVE}/.." ABSOLUTE)
@@ -129,7 +131,9 @@ if (USE_NINJA)
         CMAKE_GENERATOR Ninja
         CMAKE_ARGS
             -DINTERNAL_USE_PYTHON=${USE_PYTHON}
-            -DPython3_EXECUTABLE=${PYTHON_PATH}
+            -DPython3_EXECUTABLE=${PYTHON_EXECUTABLE_PATH}
+            -DPython3_INCLUDE_DIR=${PYTHON_INCLUDE_PATH}
+            -DPython3_LIBRARY=${PYTHON_LIBRARY_PATH}
             -DCMAKE_BUILD_TYPE=Release
             -DCMAKE_INSTALL_PREFIX=${ROOT}
             -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
@@ -143,7 +147,9 @@ else()
         SOURCE_DIR "${CMAKE_SOURCE_DIR}/4_build_core" # PMMA_Core
         CMAKE_ARGS
             -DINTERNAL_USE_PYTHON=${USE_PYTHON}
-            -DPython3_EXECUTABLE=${PYTHON_PATH}
+            -DPython3_EXECUTABLE=${PYTHON_EXECUTABLE_PATH}
+            -DPython3_INCLUDE_DIR=${PYTHON_INCLUDE_PATH}
+            -DPython3_LIBRARY=${PYTHON_LIBRARY_PATH}
             -DCMAKE_BUILD_TYPE=Release
             -DCMAKE_INSTALL_PREFIX=${ROOT}
             -DCMAKE_BUILD_PARALLEL_LEVEL=${PARALLEL_CORES}
