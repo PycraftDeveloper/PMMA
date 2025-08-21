@@ -66,69 +66,73 @@ set(SOURCES
     "${SRC_DIR}/Animation/Types/RadialAnimation.cpp"
     )
 
-# AVX2 optimized sub-component -----------------------------------------
-# Path to the files
-set(AVX2_SOURCES
-    "${SRC_DIR}/AdvancedMathematics_AVX2.cpp"
-    "${SRC_DIR}/PerlinNoise_AVX2.cpp")
+if(NOT APPLE)
+    # AVX2 optimized sub-component -----------------------------------------
+    # Path to the files
+    set(AVX2_SOURCES
+        "${SRC_DIR}/AdvancedMathematics_AVX2.cpp"
+        "${SRC_DIR}/PerlinNoise_AVX2.cpp")
 
-# Create an object library for myfile.cpp with AVX2 flags
-add_library(AVX2_obj OBJECT ${AVX2_SOURCES})
+    # Create an object library for myfile.cpp with AVX2 flags
+    add_library(AVX2_obj OBJECT ${AVX2_SOURCES})
 
-# Apply AVX2 flags depending on the compiler
-if (MSVC)
-    target_compile_options(AVX2_obj PRIVATE
-        /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2
-        /arch:AVX2)
+    # Apply AVX2 flags depending on the compiler
+    if (MSVC)
+        target_compile_options(AVX2_obj PRIVATE
+            /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2
+            /arch:AVX2)
 
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    target_compile_options(AVX2_obj PRIVATE
-        -O3 -ffast-math -funroll-loops -fstrict-aliasing
-        -fomit-frame-pointer -std=c++17 -mtune=generic
-        -finline-functions -flto -ftree-vectorize -mavx2 -mfma)
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+        target_compile_options(AVX2_obj PRIVATE
+            -O3 -ffast-math -funroll-loops -fstrict-aliasing
+            -fomit-frame-pointer -std=c++17 -mtune=generic
+            -finline-functions -flto -ftree-vectorize -mavx2 -mfma)
+    endif()
+
+    # Inherit include directories and definitions
+    target_include_directories(AVX2_obj PRIVATE
+        ${INCLUDE_DIR}
+        ${EXTERN_INSTALL_DIR}/include
+        ${EXTERN_INSTALL_DIR}/include/freetype2)
+
+    target_compile_definitions(AVX2_obj PRIVATE PMMA_CORE_EXPORTS)
+    # END OF AVX2 optimized sub-component ----------------------------------
+    # AVX-512 optimized sub-component --------------------------------------
+    # Path to the files
+    set(AVX512_SOURCES
+        "${SRC_DIR}/AdvancedMathematics_AVX512.cpp"
+        "${SRC_DIR}/PerlinNoise_AVX512.cpp")
+
+    # Create an object library for myfile.cpp with AVX2 flags
+    add_library(AVX512_obj OBJECT ${AVX512_SOURCES})
+
+    # Apply AVX2 flags depending on the compiler
+    if (MSVC)
+        target_compile_options(AVX512_obj PRIVATE
+            /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2
+            /arch:AVX512)
+
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+        target_compile_options(AVX512_obj PRIVATE
+            -O3 -ffast-math -funroll-loops -fstrict-aliasing
+            -fomit-frame-pointer -std=c++17 -mtune=generic
+            -finline-functions -flto -ftree-vectorize -mavx512f -mavx512dq)
+    endif()
+
+    # Inherit include directories and definitions
+    target_include_directories(AVX512_obj PRIVATE
+        ${INCLUDE_DIR}
+        ${EXTERN_INSTALL_DIR}/include
+        ${EXTERN_INSTALL_DIR}/include/freetype2)
+
+    target_compile_definitions(AVX512_obj PRIVATE PMMA_CORE_EXPORTS)
+    # END OF AVX-512 optimized sub-component -------------------------------
+
+    # Add shared library including the AVX objects
+    add_library(${LIB_NAME} SHARED ${SOURCES} $<TARGET_OBJECTS:AVX2_obj> $<TARGET_OBJECTS:AVX512_obj>)
+else()
+    message(STATUS "Skipping AVX PMMA extensions for Apple build platform")
 endif()
-
-# Inherit include directories and definitions
-target_include_directories(AVX2_obj PRIVATE
-    ${INCLUDE_DIR}
-    ${EXTERN_INSTALL_DIR}/include
-    ${EXTERN_INSTALL_DIR}/include/freetype2)
-
-target_compile_definitions(AVX2_obj PRIVATE PMMA_CORE_EXPORTS)
-# END OF AVX2 optimized sub-component ----------------------------------
-# AVX-512 optimized sub-component --------------------------------------
-# Path to the files
-set(AVX512_SOURCES
-    "${SRC_DIR}/AdvancedMathematics_AVX512.cpp"
-    "${SRC_DIR}/PerlinNoise_AVX512.cpp")
-
-# Create an object library for myfile.cpp with AVX2 flags
-add_library(AVX512_obj OBJECT ${AVX512_SOURCES})
-
-# Apply AVX2 flags depending on the compiler
-if (MSVC)
-    target_compile_options(AVX512_obj PRIVATE
-        /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2
-        /arch:AVX512)
-
-elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    target_compile_options(AVX512_obj PRIVATE
-        -O3 -ffast-math -funroll-loops -fstrict-aliasing
-        -fomit-frame-pointer -std=c++17 -mtune=generic
-        -finline-functions -flto -ftree-vectorize -mavx512f -mavx512dq)
-endif()
-
-# Inherit include directories and definitions
-target_include_directories(AVX512_obj PRIVATE
-    ${INCLUDE_DIR}
-    ${EXTERN_INSTALL_DIR}/include
-    ${EXTERN_INSTALL_DIR}/include/freetype2)
-
-target_compile_definitions(AVX512_obj PRIVATE PMMA_CORE_EXPORTS)
-# END OF AVX-512 optimized sub-component -------------------------------
-
-# Add shared library including the AVX objects
-add_library(${LIB_NAME} SHARED ${SOURCES} $<TARGET_OBJECTS:AVX2_obj> $<TARGET_OBJECTS:AVX512_obj>)
 
 include(CheckIPOSupported)
 check_ipo_supported(RESULT lto_supported OUTPUT lto_msg)
