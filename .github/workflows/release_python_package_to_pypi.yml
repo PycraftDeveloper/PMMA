@@ -38,7 +38,7 @@ jobs:
             quay.io/pypa/manylinux_2_28_x86_64 \
             /bin/bash -c '
               set -e
-              yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel ninja-build
+              yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel ninja-build python3-devel
 
               build_for_python() {
                 tag=$1
