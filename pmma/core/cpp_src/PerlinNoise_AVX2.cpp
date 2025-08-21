@@ -257,7 +257,7 @@ __m256 Noise3D_AVX2(const array<uint32_t, 512>& Permutations, const float F3,
     return res;
 }
 
-void CPP_PerlinNoise::ArrayNoise1D_AVX2(const float* values, const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::ArrayNoise1D_AVX2(const float* values, const unsigned int length, float* out) const {
     unsigned int i = 0;
     for (; i + 8 <= length; i += 8) {
         __m256 x = _mm256_loadu_ps(&values[i]);
@@ -270,7 +270,7 @@ void CPP_PerlinNoise::ArrayNoise1D_AVX2(const float* values, const unsigned int 
     }
 }
 
-void CPP_PerlinNoise::ArrayNoise2D_AVX2(const float (*values)[2], const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::ArrayNoise2D_AVX2(const float (*values)[2], const unsigned int length, float* out) const {
     unsigned int i = 0;
     for (; i + 8 <= length; i += 8) {
         __m256 x, y;
@@ -288,7 +288,7 @@ void CPP_PerlinNoise::ArrayNoise2D_AVX2(const float (*values)[2], const unsigned
     }
 }
 
-void CPP_PerlinNoise::ArrayNoise3D_AVX2(const float (*values)[3], const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::ArrayNoise3D_AVX2(const float (*values)[3], const unsigned int length, float* out) const {
     unsigned int i = 0;
     for (; i + 8 <= length; i += 8) {
         __m256 x, y, z;
@@ -308,7 +308,7 @@ void CPP_PerlinNoise::ArrayNoise3D_AVX2(const float (*values)[3], const unsigned
     }
 }
 
-void CPP_PerlinNoise::RangeNoise1D_AVX2(const float* x_range, const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::RangeNoise1D_AVX2(const float* x_range, const unsigned int length, float* out) const {
     float x = x_range[0];
     float dx = (x_range[1] - x_range[0]) / length;
 
@@ -333,7 +333,7 @@ void CPP_PerlinNoise::RangeNoise1D_AVX2(const float* x_range, const unsigned int
     }
 }
 
-void CPP_PerlinNoise::RangeNoise2D_AVX2(const float* x_range, const float* y_range, const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::RangeNoise2D_AVX2(const float* x_range, const float* y_range, const unsigned int length, float* out) const {
     float x = x_range[0];
     float y = y_range[0];
     float dx = (x_range[1] - x_range[0]) / length;
@@ -363,7 +363,7 @@ void CPP_PerlinNoise::RangeNoise2D_AVX2(const float* x_range, const float* y_ran
     }
 }
 
-void CPP_PerlinNoise::RangeNoise3D_AVX2(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const noexcept {
+void CPP_PerlinNoise::RangeNoise3D_AVX2(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const {
     float x = x_range[0];
     float y = y_range[0];
     float z = z_range[0];

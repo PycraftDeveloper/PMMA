@@ -49,7 +49,7 @@ jobs:
                 PYTHON_BIN="/opt/python/$tag/bin/python"
                 $PYTHON_BIN -m pip install --upgrade pip setuptools wheel cython numpy
                 mkdir -p ${{ env.CMAKE_TEMP_DIR }}
-                cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DCMAKE_POLICY_VERSION_MINIMUM=3.5 -DBUILD_DEPS=ON -DUSE_PYTHON=ON -DPYTHON_PATH="$PYTHON_BIN"
+                cmake -S build_tools/cmake -B ${{ env.CMAKE_TEMP_DIR }} -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON -DBUILD_DEPS=ON -DUSE_PYTHON=ON -DPYTHON_PATH="$PYTHON_BIN"
                 cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release --parallel $(nproc)
                 rm -rf ${{ env.CMAKE_TEMP_DIR }}
                 $PYTHON_BIN setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
@@ -127,7 +127,6 @@ jobs:
             -DCMAKE_OSX_ARCHITECTURES=arm64 \
             -DCMAKE_BUILD_TYPE=Release \
             -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
             -DBUILD_DEPS=ON \
             -DUSE_PYTHON=ON \
             -DPYTHON_PATH=$(which python)
@@ -183,7 +182,6 @@ jobs:
           cmake -S build_tools/cmake -B temporary `
             -DCMAKE_BUILD_TYPE=Release `
             -DCMAKE_POSITION_INDEPENDENT_CODE=ON `
-            -DCMAKE_POLICY_VERSION_MINIMUM=3.5 `
             -DBUILD_DEPS=ON `
             -DUSE_PYTHON=ON `
             -DPYTHON_PATH="$pythonPath"

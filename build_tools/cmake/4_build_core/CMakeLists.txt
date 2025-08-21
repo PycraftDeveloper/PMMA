@@ -1,5 +1,6 @@
-cmake_minimum_required(VERSION 3.16)
+cmake_minimum_required(VERSION 3.10...3.27)
 project(PMMA_Core LANGUAGES CXX)
+cmake_policy(VERSION 3.27)
 
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 
@@ -144,7 +145,7 @@ else()
             /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2)
 
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-        target_compile_options(AVX512_obj PRIVATE
+        target_compile_options(AVX_Filler_obj PRIVATE
             -O3 -ffast-math -funroll-loops -fstrict-aliasing
             -fomit-frame-pointer -std=c++17 -mtune=generic
             -finline-functions -flto -ftree-vectorize)

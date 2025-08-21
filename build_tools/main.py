@@ -280,7 +280,6 @@ else:
 
         subprocess.run(
             ["cmake",
-                "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
                 cmake_dir,
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
@@ -306,7 +305,6 @@ else:
 
         subprocess.run(
             ["cmake",
-                "-DCMAKE_POLICY_VERSION_MINIMUM=3.5",
                 cmake_dir,
                 "-DCMAKE_BUILD_TYPE=Release",
                 "-DCMAKE_POSITION_INDEPENDENT_CODE=ON",
