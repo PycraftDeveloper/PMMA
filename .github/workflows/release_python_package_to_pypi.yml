@@ -48,8 +48,8 @@ jobs:
 
                 PYTHON_BIN="/opt/python/$tag/bin/python"
                 PYTHON_MAJOR_MINOR=$($PYTHON_BIN -c "import sys; print(f\"{sys.version_info.major}.{sys.version_info.minor}\")")
-                PYTHON_INCLUDE="/opt/python/$tag/include/python${PYTHON_MAJOR_MINOR}m"
-                PYTHON_LIBRARY="/opt/python/$tag/lib/libpython${PYTHON_MAJOR_MINOR}.so"
+                PYTHON_INCLUDE="/opt/python/$tag/include/python${PYTHON_MAJOR_MINOR}"
+                PYTHON_LIBRARY="/opt/python/$tag/lib/libpython${PYTHON_MAJOR_MINOR}.a"
 
                 $PYTHON_BIN -m pip install --upgrade pip setuptools wheel cython numpy
 
