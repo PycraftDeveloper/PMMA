@@ -178,7 +178,7 @@ namespace PMMA_Core {
 namespace PMMA_Registry {
     string PMMA_Location = "";
     string PathSeparator = "";
-    string Current_PMMA_Version = "5.0.14";
+    string Current_PMMA_Version = "5.0.15";
     string Latest_PMMA_Version = "";
     string Locale = "en-US";
 

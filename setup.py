@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     setup(
         name="pmma",
-        version="5.0.14",
+        version="5.0.15",
         author="PycraftDev",
         author_email="thomasjebbo@gmail.com",
         description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",

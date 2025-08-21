@@ -2,6 +2,8 @@ name: Release Python Package to PyPI
 
 on:
   workflow_dispatch:
+  release:
+    types: [published]
 
 jobs:
   # ──────────────────────────────────────
