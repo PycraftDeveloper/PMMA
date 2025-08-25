@@ -6,7 +6,7 @@
 
 # PMMA (Python Multi-Media API)
 
-![PyPI - Wheel](https://img.shields.io/pypi/wheel/pmma) ![Python 3.8](https://img.shields.io/badge/python-3.8-blue) ![Python 3.9](https://img.shields.io/badge/python-3.9-blue) ![Python 3.10](https://img.shields.io/badge/python-3.10-blue) ![Python 3.11](https://img.shields.io/badge/python-3.11-blue) ![Windows](https://img.shields.io/badge/platform-Windows-blue?logo=windows) ![Linux](https://img.shields.io/badge/platform-Linux-yellow?logo=linux) ![macOS](https://img.shields.io/badge/platform-macOS-lightgrey?logo=apple) ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/PycraftDeveloper/pmma) ![GitHub commits since latest release](https://img.shields.io/github/commits-since/PycraftDeveloper/pmma/latest)
+![PyPI - Wheel](https://img.shields.io/pypi/wheel/pmma) ![Python 3.8](https://img.shields.io/badge/python-3.8-blue) ![Python 3.9](https://img.shields.io/badge/python-3.9-blue) ![Python 3.10](https://img.shields.io/badge/python-3.10-blue) ![Python 3.11](https://img.shields.io/badge/python-3.11-blue) ![Windows](https://img.shields.io/badge/platform-Windows-blue?logo=windows) ![Linux](https://img.shields.io/badge/platform-Linux-yellow?logo=linux) ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/PycraftDeveloper/pmma) ![GitHub commits since latest release](https://img.shields.io/github/commits-since/PycraftDeveloper/pmma/latest)
 
 PMMA is a Python module targeted at helping you build applications in the Python programming language. It does this by providing its own tools covering areas like 2D graphics, noise generation, audio and video playback, event handling, text rendering and much more. The API has two fundamental goals; to make application development in Python easier, whilst also focusing on improving the performance and efficiency of the end result. The API is also being engineered with compatibility with other python modules, like [Pygame](https://github.com/pygame/pygame), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy) and is ideal for prototyping, application development, simulations, graphics intensive tasks and game development.
 
@@ -21,13 +21,13 @@ PMMA is a Python module targeted at helping you build applications in the Python
 
 ## Development Progress
 
-![Progress on PMMA v5.0.0](https://geps.dev/progress/100)
+![Progress on PMMA 5.1](https://geps.dev/progress/25)
 
-We are currently working on the next major update to PMMA, version 5.x.x. This update features a complete API rework with a significant proportion being re-written in C++ for a significant performance and efficiency improvement. This major update will also introduce all the features lacking from previous iterations of PMMA, including text rendering, aggregated events for text input and improvements to the accuracy and variety of procedural noise generation. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
+We are currently working on the next minor update to PMMA, version 5.1.x. This update is targeted at transitioning away from the OpenGL graphics API and into BGFX to better secure the future of the API with the gradual deprecation of the OpenGL API. This update will also bring numerous bug fixes, a major overhaul to the build system for the C++ side of PMMA, and an expansion ans general refinement of the Text and Animation portions of the API. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5.1](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
 
 ## Installation
 
-You can install the latest version of PMMA from PyPi using the command: `pip install pmma' or you can head over to the website here: [PMMA on PyPi](https://pypi.org/project/pmma/) to select a custom version to install.
+You can install the latest version of PMMA from PyPi using the command: `pip install pmma` or you can head over to the website here: [PMMA on PyPi](https://pypi.org/project/pmma/) to select a custom version to install. Alternatively all versions of the API are also available [here, on the releases page](https://github.com/PycraftDeveloper/PMMA/releases) of this GitHub repository!
 
 ### Requirements
 
@@ -35,7 +35,7 @@ In order to install PMMA 5 and newer, you must ensure you meet the following cri
 
 | Category | Requirement |
 | :-------- | :------: |
-| Operating System | `Windows`, `ALT Linux 10+`, `RHEL 9+`, `Debian 11+`, `Fedora 34+`, `Mageia 8+`, `Photon OS 3.0 (with updates)`, `Ubuntu 21.04+` **Architecture**: `64-bit (x64)`<br><br>`MacOS` **Architecture**:  `arm-64` |
+| Operating System | `Windows`, `ALT Linux 10+`, `RHEL 9+`, `Debian 11+`, `Fedora 34+`, `Mageia 8+`, `Photon OS 3.0 (with updates)`, `Ubuntu 21.04+` **Architecture**: `64-bit (x64)`|
 | Python Version | `3.8.x`, `3.9.x`, `3.10.x`, `3.11.x` |
 | `pip` Version | `20.3 or newer` |
 
@@ -59,9 +59,9 @@ _If you encounter any issues or problems then check out our [troubleshooting pag
 
 ## Credits
 
-PMMA is made possible thanks to the following:
+PMMA is made possible thanks to the following third party components.:
 
-C/C++ projects (used in PMMA 5 and newer)
+C/C++ projects:
 * LIBZ - 1.3.1 - https://github.com/madler/zlib
 * Libpng - 1.6.49 - https://github.com/glennrp/libpng
 * GLFW - 3.4 - https://github.com/glfw/glfw
@@ -72,28 +72,23 @@ C/C++ projects (used in PMMA 5 and newer)
 * flat_hash_map - N/A - https://github.com/skarupke/flat_hash_map
 * STB - N/A - https://github.com/nothings/stb
 
-Python projects (used in PMMA 1 and newer)
-* PyAV - latest - https://github.com/PyAV-Org/PyAV
+> _Note: When downloading official compiled versions of PMMA 5 and newer these C++ projects are included by default for an easier installation process._
+
+Python projects:
 * Cython - latest - https://github.com/cython/cython
-* GetOSTheme - latest - https://github.com/FHPythonUtils/GetOSTheme
-* MoviePy - latest - https://github.com/Zulko/moviepy
-* Num2Words - latest - https://github.com/savoirfairelinux/num2words
+* Numpy - >= 2.0 - https://github.com/numpy/numpy
 * Pedalboard - latest - https://github.com/spotify/pedalboard
-* Pillow - latest - https://github.com/python-pillow/Pillow
 * Pprofile - latest - https://github.com/vpelletier/pprofile
-* Psutil - latest - https://github.com/giampaolo/psutil
-* PyADL - latest - https://github.com/nicolargo/pyadl
-* Pyrr - latest - https://github.com/adamlwgriffiths/Pyrr
 * Requests - latest - https://github.com/psf/requests
 * Send2Trash - latest - https://github.com/arsenetar/send2trash
 * SoundDevice - latest - https://github.com/spatialaudio/python-sounddevice/
 * SoundFile - latest - https://github.com/bastibe/python-soundfile
-* Waiting - latest - https://github.com/vmalloc/waiting
-* Watchdog - latest - https://github.com/gorakhargosh/watchdog/
 * PyWin32 - latest - https://github.com/mhammond/pywin32
 * WMI - latest - https://timgolden.me.uk/python/wmi/
 
-NONE of the projects mentioned above are owned or maintained by PycraftDeveloper the maker of this repository, who would also like to say a big thank you to all the teams working on these projects!
+> _Note: These requirements are refined in the `requirements.txt` file for your convenience._
+
+None of the projects mentioned above are owned or maintained by PycraftDeveloper the maker of this repository, who would also like to say a big thank you to all the teams working on these projects!
 
 You can check out our licenses and the licenses of all the C/C++ projects PMMA uses as standard [here](https://github.com/PycraftDeveloper/PMMA/tree/main/pmma/licenses) or on your installed version of PMMA (version 5 or later) under `pmma/licenses`.
 

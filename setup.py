@@ -147,9 +147,36 @@ if __name__ == '__main__':
             "Bug Tracker": "https://github.com/PycraftDeveloper/PMMA/issues",
         },
         classifiers=[
-            "Programming Language :: Python :: 3",
+            "Development Status :: 3 - Alpha", # Becomes beta with release of PMMA 6.
+            "Environment :: Console",
+            "Environment :: Win32 (MS Windows)",
+            "Environment :: X11 Applications",
+            "Intended Audience :: Developers",
+            "Intended Audience :: End Users/Desktop",
+            "Intended Audience :: Information Technology",
+            "Intended Audience :: Other Audience",
+            "Intended Audience :: Science/Research",
             "License :: OSI Approved :: MIT License",
-            "Operating System :: OS Independent",
+            "Natural Language :: English",
+            "Operating System :: Microsoft :: Windows :: Windows 8",
+            "Operating System :: Microsoft :: Windows :: Windows 8.1",
+            "Operating System :: Microsoft :: Windows :: Windows 10",
+            "Operating System :: Microsoft :: Windows :: Windows 11",
+            "Operating System :: POSIX :: Linux",
+            "Programming Language :: C++",
+            "Programming Language :: Python :: 3.8",
+            "Programming Language :: Python :: 3.9",
+            "Programming Language :: Python :: 3.10",
+            "Programming Language :: Python :: 3.11",
+            "Topic :: Artistic Software",
+            "Topic :: Desktop Environment",
+            "Topic :: Games/Entertainment",
+            "Topic :: Multimedia", #definitely this one!
+            "Topic :: Scientific/Engineering :: Visualization",
+            "Topic :: Software Development",
+            "Topic :: System",
+            "Topic :: Utilities",
+            "Typing :: Stubs Only"
         ],
         packages=packages,  # Include the pmma package and all its sub-packages
         python_requires=">=3.8",
@@ -157,3 +184,5 @@ if __name__ == '__main__':
         include_package_data=True,
         ext_modules=cython_command, # nthreads=multiprocessing.cpu_count()
     )
+
+# Use: `python -m trove_classifiers` to see complete list of classifiers.

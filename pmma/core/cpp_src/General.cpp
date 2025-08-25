@@ -1,14 +1,8 @@
 #if defined(_WIN32)
     #include <Windows.h>
-
 #elif defined(__linux__)
     #include <fstream>
     #include <filesystem>
-
-#elif defined(__APPLE__)
-    #include <IOKit/IOKitLib.h>
-    #include <IOKit/pwr_mgt/IOPMLib.h>
-    #include <IOKit/pwr_mgt/IOPowerSources.h>
 #endif
 
 #include "PMMA_Core.hpp"
@@ -99,62 +93,6 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         } catch (const std::filesystem::filesystem_error& error) {
             std::cerr << "Filesystem error: " << error.what() << "\n";
         }
-        if (PMMA_Registry::IsPowerSavingModeEnabled) {
-            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                2,
-                "Your device is not running in power saving mode.", true);
-        }
-        PMMA_Registry::IsPowerSavingModeEnabled = false;
-        PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-        if (!PMMA_Registry::UserDefinedShapeQuality) {
-            PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
-        }
-        return false;
-
-    #elif defined(__APPLE__)
-        IOPMFeatureFlags flags = 0;
-        kern_return_t kr = IOPMCopyFeatureFlags(kIOMainPortDefault, &flags);
-        if (kr != kIOReturnSuccess) {
-            std::cerr << "Failed to get power feature flags: " << kr << "\n";
-            if (PMMA_Registry::IsPowerSavingModeEnabled) {
-                PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                    2,
-                    "Your device is not running in power saving mode.", true);
-            }
-            PMMA_Registry::IsPowerSavingModeEnabled = false;
-            PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-            if (!PMMA_Registry::UserDefinedShapeQuality) {
-                PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
-            }
-            return false;
-        }
-
-        #ifdef kIOPMFeatureLowPowerMode
-            if (flags & kIOPMFeatureLowPowerMode) {
-                if (!PMMA_Registry::IsPowerSavingModeEnabled) {
-                    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                        1,
-                        "Your device is running in power saving mode.", true);
-                }
-                PMMA_Registry::IsPowerSavingModeEnabled = true;
-                PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
-                if (!PMMA_Registry::UserDefinedShapeQuality) {
-                    PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
-                }
-                return true; // Low power mode is enabled
-            }
-        #else
-            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-                2,
-                "Low power mode detection is not supported on this macOS version.", true);
-            PMMA_Registry::IsPowerSavingModeEnabled = false;
-            PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-            if (!PMMA_Registry::UserDefinedShapeQuality) {
-                PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
-            }
-            return false;
-        #endif
-
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
             PMMA_Core::InternalLoggerInstance->InternalLogDebug(
                 2,
