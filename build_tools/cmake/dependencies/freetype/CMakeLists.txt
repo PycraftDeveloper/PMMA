@@ -1,0 +1,37 @@
+# CMAKE general setup --------------------------------------------------
+cmake_minimum_required(VERSION 3.10...3.27)
+project(freetype LANGUAGES CXX)
+cmake_policy(VERSION 3.27)
+
+# CMAKE configuration --------------------------------------------------
+set(CMAKE_POSITION_INDEPENDENT_CODE ON)
+
+include(ProcessorCount)
+ProcessorCount(NPROC)
+if(NOT DEFINED PARALLEL_CORES)
+    set(PARALLEL_CORES ${NPROC})
+endif()
+
+if (NOT DEFINED OUTPUT_DIR)
+    message(FATAL_ERROR "OUTPUT_DIR is not defined. Please define OUTPUT_DIR to specify where to install the built libraries.")
+endif()
+
+include(ExternalProject)
+
+# External Dependency: freetype ----------------------------------------
+ExternalProject_Add(freetype
+    GIT_REPOSITORY https://gitlab.freedesktop.org/freetype/freetype.git
+    GIT_TAG VER-2-13-3
+    CMAKE_GENERATOR Ninja
+    CMAKE_ARGS
+        -DCMAKE_INSTALL_PREFIX=${OUTPUT_DIR}
+        -DCMAKE_BUILD_TYPE=Release
+        -DFT_DISABLE_BZIP2=ON
+        -DFT_DISABLE_BROTLI=ON
+        -DZLIB_LIBRARY=${ZLIB_LIBRARY}
+        -DZLIB_INCLUDE_DIR=${EXTERN_DIR}/include
+        -DPNG_LIBRARY=${PNG_LIBRARY}
+        -DPNG_INCLUDE_DIR=${EXTERN_DIR}/include
+    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
+    INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
+)
