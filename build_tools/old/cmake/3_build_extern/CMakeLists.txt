@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10...3.27)
 project(Stage3 LANGUAGES C)
-cmake_policy(VERSION 3.27)
+cmake_policy(VERSION 3.22)
 
 include(FetchContent)
 

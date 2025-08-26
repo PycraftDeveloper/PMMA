@@ -1,7 +1,7 @@
 # CMAKE general setup --------------------------------------------------
 cmake_minimum_required(VERSION 3.10...3.27)
 project(bgfx LANGUAGES CXX)
-cmake_policy(VERSION 3.27)
+cmake_policy(VERSION 3.22)
 
 # CMAKE configuration --------------------------------------------------
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)

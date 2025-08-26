@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.10...3.27)
 project(PMMA_Core LANGUAGES CXX)
-cmake_policy(VERSION 3.27)
+cmake_policy(VERSION 3.22)
 
 option(BUILD_DEPS "Build PMMA_Core's dependencies" ON)
 option(USE_PYTHON "Enable Python integration" OFF)
