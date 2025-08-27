@@ -26,7 +26,9 @@ ExternalProject_Add(harfbuzz
     # Meson setup command
     CONFIGURE_COMMAND meson setup <BINARY_DIR> <SOURCE_DIR>
         --prefix=${OUTPUT_DIR}
+        --libdir=lib
         --buildtype=release
+        -Ddefault_library=shared
         -Dglib=disabled
         -Dfreetype=disabled
         -Dicu=disabled

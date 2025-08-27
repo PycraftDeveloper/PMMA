@@ -26,6 +26,7 @@ ExternalProject_Add(freetype
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${OUTPUT_DIR}
         -DCMAKE_BUILD_TYPE=Release
+        -DBUILD_SHARED_LIBS=ON
         -DFT_DISABLE_BZIP2=ON
         -DFT_DISABLE_BROTLI=ON
         -DZLIB_LIBRARY=${ZLIB_LIBRARY}

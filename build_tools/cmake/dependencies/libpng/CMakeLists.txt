@@ -26,6 +26,7 @@ ExternalProject_Add(libpng
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${OUTPUT_DIR}
         -DCMAKE_BUILD_TYPE=Release
+        -DBUILD_SHARED_LIBS=ON
         -DPNG_TESTS=OFf
         -DPNG_SHARED=ON
         -DPNG_STATIC=OFF

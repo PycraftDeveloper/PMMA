@@ -202,20 +202,8 @@ if (WIN32)
 
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
     target_link_libraries(${LIB_NAME} PRIVATE
-        glfw3 OpenGL::GL freetype libpng16 zlib harfbuzz)
+        glfw3dll OpenGL::GL freetype libpng16 zlib harfbuzz)
 
-elseif(APPLE)
-    add_compile_options(
-        -O3 -ffast-math -funroll-loops -fstrict-aliasing
-        -fomit-frame-pointer -std=c++17 -mtune=generic
-        -finline-functions -flto -ftree-vectorize)
-
-    target_link_libraries(${LIB_NAME} PRIVATE
-        "-framework Cocoa" "-framework OpenGL" "-framework IOKit"
-        "-framework CoreVideo" "-framework CoreFoundation" glfw3
-        freetype png z harfbuzz)
-
-    target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 elseif(UNIX)
     add_compile_options(
         -O3 -ffast-math -funroll-loops -fstrict-aliasing
@@ -223,17 +211,10 @@ elseif(UNIX)
         -finline-functions -flto -ftree-vectorize)
 
     target_link_libraries(${LIB_NAME} PRIVATE
-        glfw3 OpenGL::GL freetype png z harfbuzz)
+        glfw OpenGL::GL freetype png z harfbuzz)
 
     target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 endif()
-
-# Set output path
-#set_target_properties(${LIB_NAME} PROPERTIES
-#    LIBRARY_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
-#    RUNTIME_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
-#    ARCHIVE_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
-#)
 
 foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
     string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
@@ -243,13 +224,6 @@ foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
         ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
     )
 endforeach()
-
-
-#install(TARGETS ${LIB_NAME}
-#    ARCHIVE DESTINATION ${WORKING_DIR}/pmma/lib
-#    LIBRARY DESTINATION ${WORKING_DIR}/pmma/lib
-#    RUNTIME DESTINATION ${WORKING_DIR}/pmma/lib
-#)
 
 # AVX2 MSVC ADD: /arch:AVX2
 # AVX2 GCC/CLANG ADD: -mavx2 -mfma
