@@ -13,10 +13,22 @@ if(NOT DEFINED PARALLEL_CORES)
 endif()
 
 if (NOT DEFINED OUTPUT_DIR)
-    message(FATAL_ERROR "OUTPUT_DIR is not defined. Please define OUTPUT_DIR to specify where to install the built libraries.")
+    message(FATAL_ERROR "OUTPUT_DIR is not defined. Please define OUTPUT_DIR to specify where to store the built libraries.")
+endif()
+
+if (NOT DEFINED INSTALL_DIR)
+    message(FATAL_ERROR "INSTALL_DIR is not defined. Please define OUTPUT_DIR to specify where to install the built libraries.")
 endif()
 
 include(ExternalProject)
+
+if (UNIX)
+    set(ZLIB_LIBRARY ${INSTALL_DIR}/lib/libz.so)
+    set(PNG_LIBRARY ${INSTALL_DIR}/lib/libpng.so)
+elseif (WIN32)
+    set(ZLIB_LIBRARY ${INSTALL_DIR}/lib/zlib.lib)
+    set(PNG_LIBRARY ${INSTALL_DIR}/lib/libpng16.lib)
+endif()
 
 # External Dependency: freetype ----------------------------------------
 ExternalProject_Add(freetype
@@ -30,9 +42,9 @@ ExternalProject_Add(freetype
         -DFT_DISABLE_BZIP2=ON
         -DFT_DISABLE_BROTLI=ON
         -DZLIB_LIBRARY=${ZLIB_LIBRARY}
-        -DZLIB_INCLUDE_DIR=${EXTERN_DIR}/include
+        -DZLIB_INCLUDE_DIR=${INSTALL_DIR}/include
         -DPNG_LIBRARY=${PNG_LIBRARY}
-        -DPNG_INCLUDE_DIR=${EXTERN_DIR}/include
+        -DPNG_INCLUDE_DIR=${INSTALL_DIR}/include
     BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
     INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
 )

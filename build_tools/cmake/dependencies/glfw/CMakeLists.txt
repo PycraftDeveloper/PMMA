@@ -13,7 +13,11 @@ if(NOT DEFINED PARALLEL_CORES)
 endif()
 
 if (NOT DEFINED OUTPUT_DIR)
-    message(FATAL_ERROR "OUTPUT_DIR is not defined. Please define OUTPUT_DIR to specify where to install the built libraries.")
+    message(FATAL_ERROR "OUTPUT_DIR is not defined. Please define OUTPUT_DIR to specify where to store the built libraries.")
+endif()
+
+if (NOT DEFINED INSTALL_DIR)
+    message(FATAL_ERROR "INSTALL_DIR is not defined. Please define OUTPUT_DIR to specify where to install the built libraries.")
 endif()
 
 include(ExternalProject)

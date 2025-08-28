@@ -216,3 +216,6 @@ build/*
 
 # ignore documentation builds
 documentation/docs/_build/*
+
+# ignore build_cache
+build_tools/cmake/dependencies/**/build/*

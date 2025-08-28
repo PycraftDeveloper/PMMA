@@ -5,6 +5,11 @@ from collections import deque
 import os
 import threading
 import sys
+from pathlib import Path
+import shutil
+import time
+import json
+import hashlib
 
 cwd = os.path.dirname(os.path.dirname(__file__))
 pmma_dir = os.path.join(cwd, "pmma")
@@ -13,9 +18,70 @@ temp_dir = os.path.join(cwd, "temporary")
 cmake_temp_dir = os.path.join(temp_dir, "cmake")
 extern_dir = os.path.join(pmma_dir, "extern")
 temporary_logging_dir = os.path.join(temp_dir, "cmake - logs")
+cmake_dir = os.path.join(cwd, "build_tools", "cmake")
 
 print_lock = threading.Lock()
 abort = False
+components = []
+previous_hashes = {}
+rebuild_control = {}
+hash_path = os.path.join(cwd, "build_tools", "hashes.json")
+if os.path.exists(hash_path):
+    with open(hash_path, "r") as file:
+        previous_hashes = json.load(file)
+
+def hash_component(name):
+    build_tools_dir = os.path.join(cwd, "build_tools")
+    data = ""
+
+    #with open(os.path.join(build_tools_dir, "main.py"), "r", encoding="utf-8") as file:
+        #data += file.read()
+
+    with open(os.path.join(build_tools_dir, "utils.py"), "r", encoding="utf-8") as file:
+        data += file.read()
+
+    with open(os.path.join(cmake_dir, "dependencies", name, "CMakeLists.txt"), "r", encoding="utf-8") as file:
+        data += file.read()
+
+    return hashlib.sha256(data.encode('utf-8')).hexdigest()
+
+def merge_all_subdirs(src_root, dest_root):
+    src_root = Path(src_root)
+    dest_root = Path(dest_root)
+
+    if not src_root.exists():
+        print(f"Source directory {src_root} does not exist.")
+        return
+
+    for src_subdir in src_root.iterdir():
+        if not src_subdir.is_dir():
+            continue  # Skip files at the root level
+
+        dest_subdir = dest_root / src_subdir.name
+        dest_subdir.mkdir(parents=True, exist_ok=True)
+
+        for item in src_subdir.rglob('*'):
+            relative_path = item.relative_to(src_subdir)
+            dest_item = dest_subdir / relative_path
+
+            if item.is_dir():
+                dest_item.mkdir(parents=True, exist_ok=True)
+            else:
+                dest_item.parent.mkdir(parents=True, exist_ok=True)
+                shutil.copy2(item, dest_item)
+
+        print(f"↪️ Merged {src_subdir} → {dest_subdir}")
+
+def get_execution_time(function, *args, **kwargs):
+    start_time = time.perf_counter()
+    result = function(*args, **kwargs)
+    end_time = time.perf_counter()
+    execution_time = end_time - start_time
+    return execution_time, result
+
+def ts_print(content):
+    with print_lock:
+        print(content)
 
 def user_input(prompt, default, timeout):
     result = [default]
@@ -28,6 +94,7 @@ def user_input(prompt, default, timeout):
     thread.daemon = True
     thread.start()
     thread.join(timeout)
+    print("\n", end="")
 
     return result[0]
 
@@ -84,7 +151,7 @@ def selective_removal(directory, keep_items):
                 try:
                     os.rmdir(item_path)
                 except Exception as e:
-                    print("Could not delete directory:", item_path, "-", e)
+                    ts_print(f"Could not delete directory: {item_path} - {e}")
 
 class DependencyBuildManager:
     def __init__(self, base_dir="build_tools/cmake/dependencies"):
@@ -95,6 +162,38 @@ class DependencyBuildManager:
     def add_component(self, name, dependencies=None):
         if dependencies is None:
             dependencies = []
+
+        global components
+        components.append(name)
+
+        rebuild = False
+
+        if not os.path.exists(os.path.join(cmake_dir, 'dependencies', name, 'build')):
+            rebuild = True
+
+        if previous_hashes == {}:
+            rebuild = True
+
+        if not rebuild:
+            for dependant in dependencies:
+                rebuild |= rebuild_control[dependant]
+                if rebuild:
+                    ts_print(f"♻️ {name} needs rebuild because {dependant} was rebuilt.")
+                    break
+
+            if name in previous_hashes:
+                if hash_component(name) == previous_hashes[name]:
+                    ts_print(f"✅ Skipping {name}, no changes detected.")
+                    merge_all_subdirs(
+                        os.path.join(cmake_dir, 'dependencies', name, 'build'),
+                        extern_dir)
+                    rebuild_control[name] = False
+                    return
+
+        shutil.rmtree(os.path.join(cmake_dir, 'dependencies', name, 'build'), ignore_errors=True)
+
+        rebuild_control[name] = True
+
         self.components[name] = dependencies
 
         configure_thread = threading.Thread(target=self.configure, args=(name,))
@@ -104,8 +203,7 @@ class DependencyBuildManager:
     def configure(self, component):
         global abort
         folder = os.path.join(cwd, self.base_dir, component)
-        with print_lock:
-            print(f"⚙️ Configuring {component}...")
+        ts_print(f"⚙️ Configuring {component}...")
 
         config_log_file = os.path.join(temporary_logging_dir, f"dependencies/{component}-config.log")
 
@@ -113,23 +211,24 @@ class DependencyBuildManager:
             configure_result = subprocess.run(
                 [
                     "cmake", "-S", folder, "-B", f"build/{component}",
-                    f"-DOUTPUT_DIR='{extern_dir}'", "-DCMAKE_BUILD_TYPE=Release"
+                    f"-DOUTPUT_DIR='{os.path.join(cmake_dir, 'dependencies', component, 'build')}'",
+                    "-DCMAKE_BUILD_TYPE=Release",
+                    f"-DINSTALL_DIR={extern_dir}"
                 ], check=True, cwd=cmake_temp_dir, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 text=True)
         except subprocess.CalledProcessError as error:
             abort = True
-            print(f"❌ Error configuring {component}: {error}")
-            print("🔍 Output before crash:")
-            print(error.output)
+            ts_print(f"❌ Error configuring {component}: {error}")
+            ts_print("🔍 Output before crash:")
+            ts_print(error.output)
             return
 
         with open(config_log_file, "w") as f:
             f.write("Configuration log:\n")
             f.write(configure_result.stdout)
 
-        with print_lock:
-            print(f"⚙️ Configured {component}")
+        ts_print(f"⚙️ Configured {component}")
 
     def detect_cycles(self):
         """Detect circular dependencies using DFS."""
@@ -160,7 +259,7 @@ class DependencyBuildManager:
         # Check for cycles first
         cycle = self.detect_cycles()
         if cycle:
-            print(f"⚠️ Circular dependency detected: {' -> '.join(cycle)}")
+            ts_print(f"⚠️ Circular dependency detected: {' -> '.join(cycle)}")
             return
 
         # Build reverse dependency graph (who depends on me)
@@ -174,12 +273,10 @@ class DependencyBuildManager:
             global abort
             folder = os.path.join(cwd, self.base_dir, component)
             if self.configured[component].is_alive():
-                with print_lock:
-                    print(f"⏳ Waiting for {component} to finish configuring...")
+                ts_print(f"⏳ Waiting for {component} to finish configuring...")
                 self.configured[component].join()
 
-            with print_lock:
-                print(f"🔨 Building {component} in {folder}...")
+            ts_print(f"🔨 Building {component} in {folder}...")
 
             build_log_file = os.path.join(temporary_logging_dir, f"dependencies/{component}-build.log")
 
@@ -192,17 +289,20 @@ class DependencyBuildManager:
                     text=True)
             except subprocess.CalledProcessError as error:
                 abort = True
-                print(f"❌ Error building {component}: {error}")
-                print("🔍 Output before crash:")
-                print(error.output)
+                ts_print(f"❌ Error building {component}: {error}")
+                ts_print("🔍 Output before crash:")
+                ts_print(error.output)
                 return
 
             with open(build_log_file, "w") as f:
                 f.write("Build log:\n")
                 f.write(build_result.stdout)
 
-            with print_lock:
-                print(f"✅ Finished {component}")
+            merge_all_subdirs(
+                os.path.join(cmake_dir, 'dependencies', component, 'build'),
+                extern_dir)
+
+            ts_print(f"✅ Finished {component}")
 
             # Mark as built and unlock dependents
             with lock:
@@ -222,26 +322,24 @@ class DependencyBuildManager:
                 threads.append(t)
 
             if abort:
-                print("❌ Aborting build due to errors.")
+                ts_print("❌ Aborting build due to errors.")
                 break
 
             # Clean finished threads
             threads = [t for t in threads if t.is_alive()]
 
         if not abort:
-            with print_lock:
-                print("🎉 All dependencies built successfully.")
+            ts_print("🎉 All dependencies built successfully.")
 
 def build_pmma(build_debug):
     if abort:
-        print("❌ Aborting PMMA build due to previous errors.")
+        ts_print("❌ Aborting PMMA build due to previous errors.")
         return
 
     folder = os.path.join(cwd, "build_tools/cmake", "pmma")
 
     # Configure PMMA ---------------------------------------------------
-    with print_lock:
-        print("⚙️ Configuring PMMA...")
+    ts_print("⚙️ Configuring PMMA...")
 
     config_log_file = os.path.join(temporary_logging_dir, f"pmma-config.log")
     try:
@@ -262,9 +360,9 @@ def build_pmma(build_debug):
                 stderr=subprocess.STDOUT,
                 text=True)
     except subprocess.CalledProcessError as error:
-        print(f"❌ Error configuring pmma: {error}")
-        print("🔍 Output before crash:")
-        print(error.output)
+        ts_print(f"❌ Error configuring pmma: {error}")
+        ts_print("🔍 Output before crash:")
+        ts_print(error.output)
         return
 
     with open(config_log_file, "w") as f:
@@ -272,9 +370,8 @@ def build_pmma(build_debug):
         f.write(configure_result.stdout)
 
     # Build PMMA -------------------------------------------------------
-    with print_lock:
-        print("⚙️ Configuring PMMA complete...")
-        print("🔨 Building PMMA...")
+    ts_print("⚙️ Configuring PMMA complete...")
+    ts_print("🔨 Building PMMA...")
 
     build_log_file = os.path.join(temporary_logging_dir, f"pmma-build.log")
 
@@ -296,25 +393,23 @@ def build_pmma(build_debug):
                 stderr=subprocess.STDOUT,
                 text=True)
     except subprocess.CalledProcessError as error:
-        print(f"❌ Error building pmma: {error}")
-        print("🔍 Output before crash:")
-        print(error.output)
+        ts_print(f"❌ Error building pmma: {error}")
+        ts_print("🔍 Output before crash:")
+        ts_print(error.output)
         return
 
     with open(build_log_file, "w") as f:
         f.write("Build log:\n")
         f.write(build_result.stdout)
 
-    with print_lock:
-        print("🎉 Finished PMMA")
+    ts_print("🎉 Finished PMMA")
 
 def run_setup(in_github_workflow):
     if abort:
-        print("❌ Aborting Setup.py due to previous errors.")
+        ts_print("❌ Aborting Setup.py due to previous errors.")
         return
 
-    with print_lock:
-        print("⏳ Started running Setup.py")
+    ts_print("⏳ Started running Setup.py")
 
     setup_log_file = os.path.join(temporary_logging_dir, f"setup.log")
 
@@ -338,15 +433,14 @@ def run_setup(in_github_workflow):
                 stderr=subprocess.STDOUT,
                 text=True)
     except subprocess.CalledProcessError as error:
-        print(f"❌ Error building cython component: {error}")
-        print("🔍 Output before crash:")
-        print(error.output)
+        ts_print(f"❌ Error building cython component: {error}")
+        ts_print("🔍 Output before crash:")
+        ts_print(error.output)
         return
 
     with open(setup_log_file, "w") as f:
         f.write("Setup.py log:\n")
         f.write(result.stdout)
 
-    with print_lock:
-        print("✅ Finished running Setup.py")
-        print("🎉 Finished automated setup process!")
+    ts_print("✅ Finished running Setup.py")
+    ts_print("🎉 Finished automated setup process!")
