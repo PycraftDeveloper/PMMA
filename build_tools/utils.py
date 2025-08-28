@@ -19,13 +19,14 @@ cmake_temp_dir = os.path.join(temp_dir, "cmake")
 extern_dir = os.path.join(pmma_dir, "extern")
 temporary_logging_dir = os.path.join(temp_dir, "cmake - logs")
 cmake_dir = os.path.join(cwd, "build_tools", "cmake")
+build_cache_dir = os.path.join(cwd, "build_cache")
 
 print_lock = threading.Lock()
 abort = False
 components = []
 previous_hashes = {}
 rebuild_control = {}
-hash_path = os.path.join(cwd, "build_tools", "hashes.json")
+hash_path = os.path.join(build_cache_dir, "hashes.json")
 if os.path.exists(hash_path):
     with open(hash_path, "r") as file:
         previous_hashes = json.load(file)
@@ -175,17 +176,21 @@ class DependencyBuildManager:
             rebuild = True
 
         if not rebuild:
-            for dependant in dependencies:
-                rebuild |= rebuild_control[dependant]
-                if rebuild:
-                    ts_print(f"♻️ {name} needs rebuild because {dependant} was rebuilt.")
-                    break
+            copied_dependencies = dependencies
+            dependencies = []
+            for dependant in copied_dependencies:
+                if rebuild_control[dependant]:
+                    rebuild = True
+                    dependencies.append(dependant) # issue where build breaks when only doing portion of it
+
+            if rebuild:
+                ts_print(f"♻️ {name} needs rebuild because {dependant} was rebuilt.")
 
             if name in previous_hashes:
                 if hash_component(name) == previous_hashes[name]:
                     ts_print(f"✅ Skipping {name}, no changes detected.")
                     merge_all_subdirs(
-                        os.path.join(cmake_dir, 'dependencies', name, 'build'),
+                        os.path.join(build_cache_dir, 'cmake', 'dependencies', name, 'build'),
                         extern_dir)
                     rebuild_control[name] = False
                     return
