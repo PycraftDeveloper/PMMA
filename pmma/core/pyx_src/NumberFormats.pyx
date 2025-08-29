@@ -9,6 +9,8 @@ cimport numpy as np
 
 from NumberFormats cimport CPP_ColorFormat, Color, CPP_DisplayCoordinateFormat, DisplayCoordinate
 
+np.import_array()
+
 cdef class Color:
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_ColorFormat()

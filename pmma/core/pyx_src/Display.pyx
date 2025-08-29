@@ -12,6 +12,8 @@ import pmma.core.py_src.Utility as Utility
 
 from NumberFormats cimport Color, CPP_ColorFormat
 
+np.import_array()
+
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Display:

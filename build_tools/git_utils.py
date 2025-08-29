@@ -3,7 +3,6 @@ import subprocess
 import os
 import shutil
 import platform
-import sys
 
 # get the cache branch (or make it if it doesnt exist)
 # ---

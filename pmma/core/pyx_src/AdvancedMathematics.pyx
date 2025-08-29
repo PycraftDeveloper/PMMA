@@ -5,6 +5,8 @@ cimport numpy as np
 
 from Logger cimport Logger
 
+np.import_array()
+
 cdef extern from "PMMA_Core.hpp" namespace "CPP_AdvancedMathematics" nogil:
     float PythagoreanDifference(const float x1, const float y1, const float x2, const float y2) except + nogil
     float PythagoreanDistance(const float x, const float y) except + nogil

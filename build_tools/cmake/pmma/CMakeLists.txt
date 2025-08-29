@@ -24,7 +24,7 @@ set(EXTERN_INSTALL_DIR ${WORKING_DIR}/pmma/extern)
 # Output directory for the library
 set(LIB_OUTPUT_DIR "${WORKING_DIR}/pmma/lib")
 
-option(INTERNAL_USE_PYTHON "Enable Python integration" OFF)
+option(USE_PYTHON "Enable Python integration" OFF)
 
 # Collect source files
 set(SOURCES
@@ -187,9 +187,9 @@ foreach(libdir ${LIBDIRS})
     endif()
 endforeach()
 
-if(INTERNAL_USE_PYTHON)
+if(USE_PYTHON)
     find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
-    target_compile_definitions(${LIB_NAME} PRIVATE INTERNAL_USE_PYTHON)
+    target_compile_definitions(${LIB_NAME} PRIVATE USE_PYTHON)
     target_include_directories(${LIB_NAME} PRIVATE ${Python3_INCLUDE_DIRS})
     target_link_libraries(${LIB_NAME} PRIVATE ${Python3_LIBRARIES})
 endif()
@@ -216,14 +216,22 @@ elseif(UNIX)
     target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 endif()
 
-foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-    string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
+if(CMAKE_CONFIGURATION_TYPES) # Multi-config (MSVC, Xcode)
+    foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+        string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
+        set_target_properties(${LIB_NAME} PROPERTIES
+            RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
+            LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
+            ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
+        )
+    endforeach()
+else() # Single-config (Makefiles, Ninja)
     set_target_properties(${LIB_NAME} PROPERTIES
-        RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
-        LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
-        ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
+        RUNTIME_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
+        LIBRARY_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
+        ARCHIVE_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
     )
-endforeach()
+endif()
 
 # AVX2 MSVC ADD: /arch:AVX2
 # AVX2 GCC/CLANG ADD: -mavx2 -mfma

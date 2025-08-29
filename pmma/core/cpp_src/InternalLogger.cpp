@@ -1,4 +1,4 @@
-#ifdef INTERNAL_USE_PYTHON
+#ifdef USE_PYTHON
     #include <Python.h>
 #endif
 
@@ -108,12 +108,12 @@ cannot be stored and only displayed at runtime."
 
 void CPP_InternalLogger::Log(std::string Content) {
     if (LogToConsole) {
-        #ifdef INTERNAL_USE_PYTHON
+        #ifdef USE_PYTHON
             PyGILState_STATE gstate = PyGILState_Ensure();
             PySys_WriteStdout("%s\n", Content.c_str());
             PyGILState_Release(gstate);
         #else
-            cout << Content;
+            cout << Content << endl;
         #endif
     }
 

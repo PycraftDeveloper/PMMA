@@ -262,7 +262,7 @@ but may result in reduced performance.");
         }
     }
 
-    #ifdef INTERNAL_USE_PYTHON
+    #ifdef USE_PYTHON
         PMMA_Core::InternalLoggerInstance->InternalLogDebug(
                 6,
                 "PMMA has been built with compatibility for the Python programming language!");

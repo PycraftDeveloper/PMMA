@@ -7,6 +7,8 @@ cimport numpy as np
 
 from Logger cimport Logger
 
+np.import_array()
+
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_TextRenderer:
         inline void SetText(string NewText) except + nogil
