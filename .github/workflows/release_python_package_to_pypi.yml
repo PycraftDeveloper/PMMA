@@ -58,7 +58,7 @@ jobs:
             $DOCKER_IMAGE \
             /bin/bash -c '
               set -e
-
+              cd /PMMA
               python3 "build_tools/build_deps.py" -in_github_workflow
             '
 
