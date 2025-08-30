@@ -33,20 +33,21 @@ You can install the latest version of PMMA from PyPi using the command: `pip ins
 
 In order to install PMMA 5 and newer, you must ensure you meet the following criteria:
 
-| Category | Requirement |
-| :-------- | :------: |
-| Operating System | `Windows`, `ALT Linux 10+`, `RHEL 9+`, `Debian 11+`, `Fedora 34+`, `Mageia 8+`, `Photon OS 3.0 (with updates)`, `Ubuntu 21.04+` **Architecture**: `64-bit (x64)`|
-| Python Version | `3.8.x`, `3.9.x`, `3.10.x`, `3.11.x` |
-| `pip` Version | `20.3 or newer` |
+| Category         |                                                                        Requirement                                                                         |
+| :--------------- | :--------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| Operating System | `Windows`, `RHEL 9+`, `Debian 12+`, `Fedora 36+`, `Ubuntu 22.04+`, `AlmaLinux 9+`, `Rocky Linux 9+`, `openSUSE Leap 15.5` **Architecture**: `64-bit (x64)` |
+| Python Version   |                                                            `3.8.x`, `3.9.x`, `3.10.x`, `3.11.x`                                                            |
+| `pip` Version    |                                                                      `20.3 or newer`                                                                       |
 
 _Note: If your platform is not listed here then you can attempt to build your own version of PMMA using our [build guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/intro.md)!_
+_Note: If you do not see your operating system listed above, please check the 'Additional Technical Requirements' section below to see if your operating system is supported._
 
 <details><summary>Additional Technical Requirements</summary>
 
 _Please note, these requirements are only needed by users installing PMMA onto Linux machines and in most cases the operating systems listed above should be compatible._
 
-* In order for PMMA to work as expected, you must be using either X-Lib, or Wayland. This means that Ubuntu 21.04 DESKTOP will work, but Ubuntu 21.04 SERVER is unlikely to.
-* Additionally, you will need `glibc 2.28` or newer, this can be checked on linux using the command `ldd --version` (root not required). The result should be on the first line as shown in the image below:
+* In order for PMMA to work as expected, you must be using either X-Lib, or Wayland. This means that Ubuntu 22.04 DESKTOP will not work, but Ubuntu 22.04 SERVER is unlikely to.
+* Additionally, you will need `glibc 2.31` or newer, this can be checked on linux using the command `ldd --version` (root not required). The result should be on the first line as shown in the image below:
 
 ![Example output](https://github.com/user-attachments/assets/bcd09e5a-8f2e-4a39-b323-dd15f94efe8b)
 
