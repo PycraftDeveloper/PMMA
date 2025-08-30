@@ -53,6 +53,15 @@ def update_cache_branch(in_github_workflow): # done
         shutil.copytree(build_tools_dir, build_cache_dir)
         try:
             subprocess.run(
+                ["git", "config", "user.email", "github-actions@github.com"],
+                check=True, cwd=build_cache_dir
+            )
+            subprocess.run(
+                ["git", "config", "user.name", "GitHub Actions"],
+                check=True, cwd=build_cache_dir
+            )
+
+            subprocess.run(
                 [
                     "git", "add", "."
                 ], check=True, cwd=build_cache_dir, stdout=subprocess.PIPE,
