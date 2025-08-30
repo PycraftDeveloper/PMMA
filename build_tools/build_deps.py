@@ -1,6 +1,6 @@
 # type: ignore
 
-import json, time
+import json, time, argparse
 
 from utils import *
 from deps_utils import *
@@ -11,7 +11,10 @@ program_start = time.perf_counter()
 
 os.system('cls' if os.name == 'nt' else 'clear')
 
-in_github_workflow = os.environ.get("GITHUB_ACTIONS") == "true"
+parser = argparse.ArgumentParser(description="Run in GitHub workflow mode")
+parser.add_argument('-in_github_workflow', action='store_true', help='Run in GitHub workflow mode')
+args = parser.parse_args()
+in_github_workflow = args.in_github_workflow
 
 ts_print("Removing old build and configuration...")
 shutil.rmtree(cmake_temp_dir, ignore_errors=True)

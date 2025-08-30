@@ -1,6 +1,6 @@
 # type: ignore
 
-import subprocess, sys, sysconfig, platform
+import subprocess, sys, sysconfig, platform, argparse
 
 from pmma_utils import *
 from utils import *
@@ -159,7 +159,11 @@ def run_setup(in_github_workflow):
     ts_print("Finished running Setup.py")
     ts_print("Finished automated setup process!")
 
-in_github_workflow = os.environ.get("GITHUB_ACTIONS") == "true"
+parser = argparse.ArgumentParser(description="Run in GitHub workflow mode")
+parser.add_argument('-in_github_workflow', action='store_true', help='Run in GitHub workflow mode')
+args = parser.parse_args()
+in_github_workflow = args.in_github_workflow
+
 build_debug = False
 build_for_python = True
 

@@ -27,10 +27,8 @@ jobs:
         run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
 
       - name: Configure and build C++ API via CMake
-        env:
-          GITHUB_ACTIONS: true
         run: |
-          python "build_tools/build_deps.py"
+          python "build_tools/build_deps.py" -in_github_workflow
 
   build_deps_linux:
     name: Build AnyLinux Dependencies
@@ -52,8 +50,6 @@ jobs:
         run: docker pull $DOCKER_IMAGE
 
       - name: Build Linux wheel inside Docker
-        env:
-          GITHUB_ACTIONS: true
         run: |
           docker run --rm \
             -e TERM=xterm \
@@ -68,7 +64,7 @@ jobs:
               cp -r /PMMA "$dir"
               cd "$dir"
 
-              python3 "build_tools/build_deps.py"
+              python3 "build_tools/build_deps.py" -in_github_workflow
             '
 
   build_linux:
@@ -95,8 +91,6 @@ jobs:
         run: docker pull $DOCKER_IMAGE
 
       - name: Build Linux wheel inside Docker
-        env:
-          GITHUB_ACTIONS: true
         run: |
           docker run --rm \
             -e TERM=xterm \
@@ -112,7 +106,7 @@ jobs:
               cd "$dir"
 
               PYTHON_BIN="/opt/python/$tag/bin/python"
-              python3 "build_tools/workflow_integration.py"
+              python3 "build_tools/workflow_integration.py" -in_github_workflow
               $PYTHON_BIN "build_pmma.py"
 
               original=$(ls dist/*.whl)
@@ -176,11 +170,9 @@ jobs:
           python -m pip install --upgrade pip setuptools wheel cython numpy
 
       - name: Configure and build C++ API via CMake
-        env:
-          GITHUB_ACTIONS: true
         run: |
-          python "build_tools/workflow_integration.py"
-          python "build_tools/build_pmma.py"
+          python "build_tools/workflow_integration.py" -in_github_workflow
+          python "build_tools/build_pmma.py" -in_github_workflow
 
       - name: Upload wheel
         uses: actions/upload-artifact@v4
