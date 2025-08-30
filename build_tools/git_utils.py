@@ -20,6 +20,12 @@ branch_name = f"{platform.system().lower()}_{platform.machine().lower()}_build_c
 def fetch_cache_branch(in_github_workflow):
     if in_github_workflow:
         try:
+            subprocess.run(
+                ["git", "config", "--global", "--add", "safe.directory", cwd],
+                check=True, cwd=build_cache_dir, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True
+            )
             try:
                 subprocess.run(
                     [
@@ -54,13 +60,16 @@ def update_cache_branch(in_github_workflow): # done
         try:
             subprocess.run(
                 ["git", "config", "user.email", "github-actions@github.com"],
-                check=True, cwd=build_cache_dir
+                check=True, cwd=build_cache_dir, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True
             )
             subprocess.run(
                 ["git", "config", "user.name", "GitHub Actions"],
-                check=True, cwd=build_cache_dir
+                check=True, cwd=build_cache_dir, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT,
+                text=True
             )
-
             subprocess.run(
                 [
                     "git", "add", "."
