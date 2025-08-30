@@ -29,7 +29,7 @@ def fetch_cache_branch(in_github_workflow):
             except subprocess.CalledProcessError:
                 subprocess.run(
                     [
-                        "git", "branch", branch_name
+                        "git", "branch", branch_name, "HEAD"
                     ], check=True, cwd=cwd, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT, text=True)
 
@@ -39,7 +39,7 @@ def fetch_cache_branch(in_github_workflow):
                 ], check=True, cwd=cwd, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT, text=True)
         except subprocess.CalledProcessError as error:
-            print(f"Error building {component}: {error}")
+            print(f"Git command failed with error: {error}")
             print("Output before crash:")
             print(error.output)
             sys.exit(-1)
@@ -50,7 +50,7 @@ def fetch_cache_branch(in_github_workflow):
 def update_cache_branch(in_github_workflow): # done
     if in_github_workflow:
         shutil.rmtree(build_cache_dir, ignore_errors=True)
-        shutil.copy2(build_tools_dir, build_cache_dir)
+        shutil.copytree(build_tools_dir, build_cache_dir)
         try:
             subprocess.run(
                 [

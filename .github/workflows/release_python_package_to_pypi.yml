@@ -59,11 +59,6 @@ jobs:
             /bin/bash -c '
               set -e
 
-              tag=${{ matrix.python-tag }}
-              dir="/tmp/build_$tag"
-              cp -r /PMMA "$dir"
-              cd "$dir"
-
               python3 "build_tools/build_deps.py" -in_github_workflow
             '
 
