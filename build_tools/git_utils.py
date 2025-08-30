@@ -1,8 +1,6 @@
 # type: ignore
 import subprocess
-import os
-import shutil
-import platform
+import os, shutil, platform, sys
 
 # get the cache branch (or make it if it doesnt exist)
 # ---
@@ -22,17 +20,29 @@ branch_name = f"{platform.system().lower()}_{platform.machine().lower()}_build_c
 def fetch_cache_branch(in_github_workflow):
     if in_github_workflow:
         try:
+            try:
+                subprocess.run(
+                    [
+                        "git", "rev-parse", "--verify", branch_name
+                    ], check=True, cwd=cwd, stdout=subprocess.PIPE,
+                    stderr=subprocess.STDOUT, text=True)
+            except subprocess.CalledProcessError:
+                subprocess.run(
+                    [
+                        "git", "branch", branch_name
+                    ], check=True, cwd=cwd, stdout=subprocess.PIPE,
+                stderr=subprocess.STDOUT, text=True)
+
             subprocess.run(
                 [
                     "git", "worktree", "add", "../build_cache", branch_name
                 ], check=True, cwd=cwd, stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True)
+                stderr=subprocess.STDOUT, text=True)
         except subprocess.CalledProcessError as error:
             print(f"Error building {component}: {error}")
             print("Output before crash:")
             print(error.output)
-            return
+            sys.exit(-1)
     else:
         shutil.rmtree(build_cache_dir, ignore_errors=True)
         shutil.copytree(build_tools_dir, build_cache_dir)
@@ -64,7 +74,7 @@ def update_cache_branch(in_github_workflow): # done
             print(f"Error updating branch: {error}")
             print("Output before crash:")
             print(error.output)
-            return
+            sys.exit(-1)
     else:
         shutil.rmtree(build_cache_dir, ignore_errors=True)
         shutil.copytree(build_tools_dir, build_cache_dir)
