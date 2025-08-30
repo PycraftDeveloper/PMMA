@@ -6,19 +6,37 @@ on:
     types: [published]
 
 jobs:
-  # ──────────────────────────────────────
-  # 1. Build PMMA_Core for each OS once
-  # ──────────────────────────────────────
+  build_deps_windows:
+    name: Build Windows Dependencies
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          lfs: true
 
-  build-core-linux:
-    name: Build Linux wheels (all versions)
+      # Cache CMake installation
+      - name: Cache CMake
+        id: cache-cmake
+        uses: actions/cache@v4
+        with:
+          path: C:\ProgramData\chocolatey\lib\cmake
+          key: cmake-windows-cache
+
+      - name: Install CMake
+        if: steps.cache-cmake.outputs.cache-hit != 'true'
+        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+
+      - name: Configure and build C++ API via CMake
+        shell: pwsh
+        run: |
+          python "build_tools/build_deps.py"
+
+  build_deps_linux:
+    name: Build AnyLinux Dependencies
     runs-on: ubuntu-latest
     env:
-      PYTHON_TAGS: "cp38-cp38 cp39-cp39 cp310-cp310 cp311-cp311"
-      BUILD_DIR: pmma/build
-      LIB_DIR: pmma/lib
-      TEMP_DIR: temporary
-      CMAKE_TEMP_DIR: temporary/cmake
+        DOCKER_IMAGE: docker.io/pycraftdev/pmma-manylinux:latest
+
     steps:
       - name: Checkout repo
         uses: actions/checkout@v5
@@ -29,135 +47,78 @@ jobs:
       - name: Ensure dist directory exists
         run: mkdir -p dist
 
-      - name: Build all Linux wheels in parallel inside Docker
-        if: runner.os == 'Linux'
+      - name: Pre-pull Docker image (cached by GitHub’s runner)
+        run: docker pull $DOCKER_IMAGE
+
+      - name: Build Linux wheel inside Docker
         run: |
           docker run --rm \
             -v "${{ github.workspace }}:/PMMA" \
             -v "${{ github.workspace }}/dist:/output_dist" \
-            -e PYTHON_TAGS="cp38-cp38 cp39-cp39 cp310-cp310 cp311-cp311" \
-            quay.io/pypa/manylinux_2_28_x86_64 \
+            $DOCKER_IMAGE \
             /bin/bash -c '
               set -e
-              yum install -y cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel ninja-build
 
-              build_for_python() {
-                tag=$1
-                dir="/tmp/build_$tag"
-                cp -r /PMMA "$dir"
-                cd "$dir"
+              tag=${{ matrix.python-tag }}
+              dir="/tmp/build_$tag"
+              cp -r /PMMA "$dir"
+              cd "$dir"
 
-                PYTHON_BIN="/opt/python/$tag/bin/python"
-                PYTHON_MAJOR_MINOR=$($PYTHON_BIN -c "import sys; print(f\"{sys.version_info.major}.{sys.version_info.minor}\")")
-                PYTHON_INCLUDE="/opt/python/$tag/include/python${PYTHON_MAJOR_MINOR}"
-                PYTHON_LIBRARY="/opt/python/$tag/lib/libpython${PYTHON_MAJOR_MINOR}.a"
-
-                $PYTHON_BIN -m pip install --upgrade pip setuptools wheel cython numpy
-
-                mkdir -p ${{ env.CMAKE_TEMP_DIR }}
-                cmake -S build_tools/cmake \
-                      -B ${{ env.CMAKE_TEMP_DIR }} \
-                      -DCMAKE_BUILD_TYPE=Release \
-                      -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-                      -DBUILD_DEPS=ON \
-                      -DUSE_PYTHON=ON \
-                      -DPYTHON_EXECUTABLE_PATH="$PYTHON_BIN" \
-                      -DPYTHON_INCLUDE_PATH="$PYTHON_INCLUDE" \
-                      -DPYTHON_LIBRARY_PATH="$PYTHON_LIBRARY"
-
-                cmake --build ${{ env.CMAKE_TEMP_DIR }} --config Release --parallel $(nproc)
-                rm -rf ${{ env.CMAKE_TEMP_DIR }}
-
-                $PYTHON_BIN setup.py build_ext --build-lib ${{ env.BUILD_DIR }} --build-temp ${{ env.TEMP_DIR }} sdist bdist_wheel
-
-                original=$(ls dist/*.whl)
-                renamed=$(echo "$original" | sed "s/linux/manylinux_2_28/")
-                mv "$original" "$renamed"
-                cp dist/* /output_dist/
-              }
-
-              export -f build_for_python
-              mkdir -p /PMMA/dist
-
-              pids=()
-              for tag in $PYTHON_TAGS; do
-                bash -c "build_for_python $tag" &
-                pids+=($!)
-              done
-
-              # Wait for all and fail if any fail
-              for pid in "${pids[@]}"; do
-                wait "$pid" || exit 1
-              done
-
-              wait
+              python3 "build_tools/build_deps.py"
             '
 
-      - name: Upload all Linux wheels
+  build_linux:
+    name: Build Linux wheels (matrix)
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-tag: ["cp38-cp38", "cp39-cp39", "cp310-cp310", "cp311-cp311"]
+
+    env:
+      DOCKER_IMAGE: docker.io/pycraftdev/pmma-manylinux:latest
+    needs: [build_deps_linux]
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
+          lfs: true
+
+      - name: Ensure dist directory exists
+        run: mkdir -p dist
+
+      - name: Pre-pull Docker image (cached by GitHub’s runner)
+        run: docker pull $DOCKER_IMAGE
+
+      - name: Build Linux wheel inside Docker
+        run: |
+          docker run --rm \
+            -v "${{ github.workspace }}:/PMMA" \
+            -v "${{ github.workspace }}/dist:/output_dist" \
+            $DOCKER_IMAGE \
+            /bin/bash -c '
+              set -e
+
+              tag=${{ matrix.python-tag }}
+              dir="/tmp/build_$tag"
+              cp -r /PMMA "$dir"
+              cd "$dir"
+
+              PYTHON_BIN="/opt/python/$tag/bin/python"
+              python3 "build_tools/workflow_integration.py"
+              $PYTHON_BIN "build_pmma.py"
+
+              original=$(ls dist/*.whl)
+              renamed=$(echo "$original" | sed "s/linux/manylinux_2_28/")
+              mv "$original" "$renamed"
+              cp dist/* /output_dist/
+            '
+
+      - name: Upload wheel
         uses: actions/upload-artifact@v4
         with:
-          name: wheel-linux-all
+          name: wheel-linux-${{ matrix.python-tag }}
           path: dist/*.whl
-
-  # ──────────────────────────────────────
-  # 2. Python builds per OS/arch via matrix
-  # ──────────────────────────────────────
-#  build_macos:
-#    strategy:
-#      matrix:
-#        include:
-#          - os: macos
-#            runs-on: macos-latest
-#            python-version: '3.8'
-#          - os: macos
-#            runs-on: macos-latest
-#            python-version: '3.9'
-#          - os: macos
-#            runs-on: macos-latest
-#            python-version: '3.10'
-#          - os: macos
-#            runs-on: macos-latest
-#            python-version: '3.11'
-#
-#    runs-on: ${{ matrix.runs-on }}
-#    steps:
-#      - uses: actions/checkout@v3
-#
-#      - name: Setup Python
-#        uses: actions/setup-python@v5
-#        with:
-#          python-version: ${{ matrix.python-version }}
-#
-#      - name: Install dependencies
-#        run: brew install cmake
-#
-#      - name: Install Python build tools
-#        run: |
-#          python -m pip install --upgrade pip setuptools wheel cython numpy
-#
-#      - name: Configure and build C++ API via CMake
-#        run: |
-#          export MACOSX_DEPLOYMENT_TARGET=14.0
-#          export CFLAGS="-arch arm64"
-#          export CXXFLAGS="-arch arm64"
-#          cmake -S build_tools/cmake -B temporary \
-#            -DCMAKE_OSX_ARCHITECTURES=arm64 \
-#            -DCMAKE_BUILD_TYPE=Release \
-#            -DCMAKE_POSITION_INDEPENDENT_CODE=ON \
-#            -DBUILD_DEPS=ON \
-#            -DUSE_PYTHON=ON \
-#            -DPYTHON_PATH=$(which python)
-#          cmake --build temporary --config Release --parallel $(sysctl -n hw.ncpu)
-#
-#      - name: Build Python wheel
-#        run: |
-#          python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel --parallel $(sysctl -n hw.ncpu)
-#
-#      - name: Upload wheel
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: wheel-${{ matrix.os }}-${{ matrix.python-version }}
-#          path: dist/*.whl
 
   build_windows:
     strategy:
@@ -177,19 +138,32 @@ jobs:
             python-version: '3.11'
 
     runs-on: ${{ matrix.runs-on }}
+    needs: [build_deps_windows]
     steps:
       - uses: actions/checkout@v5
         with:
           lfs: true
 
+      # Python with built-in pip cache
       - name: Setup Python
         uses: actions/setup-python@v5
         with:
           python-version: ${{ matrix.python-version }}
+          cache: 'pip'
+
+      # Cache CMake installation
+      - name: Cache CMake
+        id: cache-cmake
+        uses: actions/cache@v4
+        with:
+          path: C:\ProgramData\chocolatey\lib\cmake
+          key: cmake-windows-cache
 
       - name: Install CMake
+        if: steps.cache-cmake.outputs.cache-hit != 'true'
         run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
 
+      # Install Python build deps (reuses pip cache above)
       - name: Install Python build tools
         run: |
           python -m pip install --upgrade pip setuptools wheel cython numpy
@@ -197,28 +171,8 @@ jobs:
       - name: Configure and build C++ API via CMake
         shell: pwsh
         run: |
-          $pythonPath = (Get-Command python).Source
-          $pythonInclude = (python -c "import sysconfig; print(sysconfig.get_paths()['include'])")
-          $pythonLib = (python -c "import sysconfig; print(sysconfig.get_config_var('LIBRARY'))")
-          $pythonLibDir = (python -c "import sysconfig; print(sysconfig.get_config_var('LIBDIR'))")
-
-          # Full path to pythonXY.lib
-          $pythonLibrary = Join-Path $pythonLibDir $pythonLib
-
-          cmake -S build_tools/cmake -B temporary `
-            -DCMAKE_BUILD_TYPE=Release `
-            -DCMAKE_POSITION_INDEPENDENT_CODE=ON `
-            -DBUILD_DEPS=ON `
-            -DUSE_PYTHON=ON `
-            -DPYTHON_EXECUTABLE_PATH="$pythonPath" `
-            -DPYTHON_INCLUDE_PATH="$pythonInclude" `
-            -DPYTHON_LIBRARY_PATH="$pythonLibrary"
-
-          cmake --build temporary --config Release --parallel ((Get-CimInstance Win32_Processor).NumberOfLogicalProcessors)
-
-      - name: Build Python wheel
-        run: |
-          python setup.py build_ext --build-lib pmma/build --build-temp temporary sdist bdist_wheel
+          python "build_tools/workflow_integration.py"
+          python "build_tools/build_pmma.py"
 
       - name: Upload wheel
         uses: actions/upload-artifact@v4
@@ -226,9 +180,9 @@ jobs:
           name: wheel-${{ matrix.os }}-${{ matrix.python-version }}
           path: dist/*.whl
 
-  # ──────────────────────────────────────
-  # 3. sdist and publish
-  # ──────────────────────────────────────
+# ──────────────────────────────────────
+# 3. sdist and publish
+# ──────────────────────────────────────
 
   sdist:
     name: Build Source Distribution
@@ -249,9 +203,9 @@ jobs:
   publish:
     name: Publish to PyPI + GitHub Release
     runs-on: ubuntu-latest
-    needs: [build_windows, sdist, build-core-linux]
+    needs: [build_windows, sdist, build_linux]
     steps:
-      - name: Download artifacts
+      - name: Download all artifacts
         uses: actions/download-artifact@v4
         with:
           path: ./artifacts
@@ -262,7 +216,7 @@ jobs:
           find artifacts -type f \( -name "*.whl" -o -name "*.tar.gz" \) -exec mv {} dist/ \;
 
       - name: Publish to PyPI
-        uses: pypa/gh-action-pypi-publish@v1.4.2
+        uses: pypa/gh-action-pypi-publish@v1.12.4
         with:
           user: __token__
           password: ${{ secrets.PYPI_API_TOKEN }}
