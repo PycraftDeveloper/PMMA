@@ -53,7 +53,7 @@ def merge_all_subdirs(src_root, dest_root):
                 dest_item.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(item, dest_item)
 
-        ts_print(f"↪️ Merged {src_subdir} → {dest_subdir}")
+        ts_print(f"Merged {src_subdir} → {dest_subdir}")
 
 def selectively_clean_extern():
     if os.path.exists(extern_dir):

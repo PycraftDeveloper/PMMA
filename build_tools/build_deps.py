@@ -13,7 +13,7 @@ os.system('cls' if os.name == 'nt' else 'clear')
 
 in_github_workflow = os.environ.get("GITHUB_ACTIONS") == "true"
 
-ts_print("🗑️ Removing old build and configuration...")
+ts_print("Removing old build and configuration...")
 shutil.rmtree(cmake_temp_dir, ignore_errors=True)
 shutil.rmtree(os.path.join(extern_dir, "lib"), ignore_errors=True)
 shutil.rmtree(os.path.join(extern_dir, "bin"), ignore_errors=True)
@@ -25,7 +25,7 @@ shutil.rmtree(os.path.join(cwd, "pmma.egg-info"), ignore_errors=True)
 selectively_clean_extern()
 fetch_cache_branch(in_github_workflow)
 
-ts_print("🗑️ Removing old logs...")
+ts_print("Removing old logs...")
 shutil.rmtree(temporary_logging_dir, ignore_errors=True)
 
 os.makedirs(cmake_temp_dir, exist_ok=True)
@@ -46,9 +46,9 @@ bm.add_component("bgfx")
 bm.build()
 
 end = time.perf_counter()
-ts_print(f"🕒 Dependency Build took {end - program_start:.2f} seconds")
+ts_print(f"Dependency Build took {end - program_start:.2f} seconds")
 
-ts_print("✏️ Writing dependency hashes...")
+ts_print("Writing dependency hashes...")
 hashed_data = {}
 for component in components:
     hashed_data[component] = hash_component(component)
@@ -59,8 +59,8 @@ with open(os.path.join(cwd, "build_tools", "hashes.json"), "w") as file:
 update_cache_branch(in_github_workflow)
 
 program_end = time.perf_counter()
-ts_print(f"🕒 Total dependency build took {program_end - program_start:.2f} seconds")
+ts_print(f"Total dependency build took {program_end - program_start:.2f} seconds")
 
 if not in_github_workflow and not abort:
-    ts_print("🤖 Automatically moving on to building PMMA.")
+    ts_print("Automatically moving on to building PMMA.")
     import build_pmma # would be called for each version of python in the github workflow

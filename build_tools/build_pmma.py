@@ -8,13 +8,13 @@ from utils import *
 def build_pmma(build_debug, build_for_python):
     global abort
     if abort:
-        ts_print("❌ Aborting PMMA build due to previous errors.")
+        ts_print("Aborting PMMA build due to previous errors.")
         return
 
     folder = os.path.join(cwd, "build_tools", "cmake", "pmma")
 
     # Configure PMMA ---------------------------------------------------
-    ts_print("⚙️ Configuring PMMA...")
+    ts_print("Configuring PMMA...")
 
     config_log_file = os.path.join(temporary_logging_dir, f"pmma-config.log")
     try:
@@ -22,7 +22,7 @@ def build_pmma(build_debug, build_for_python):
             if build_for_python:
                 python_executable_path = sys.executable
 
-                ts_print(f"🐍 Using '{python_executable_path}'")
+                ts_print(f"Using '{python_executable_path}'")
                 configure_result = subprocess.run(
                     [
                         "cmake", "-S", folder, "-B", f"build/pmma",
@@ -48,7 +48,7 @@ def build_pmma(build_debug, build_for_python):
             if build_for_python:
                 python_executable_path = sys.executable
 
-                ts_print(f"🐍 Using '{python_executable_path}'")
+                ts_print(f"Using '{python_executable_path}'")
                 configure_result = subprocess.run(
                     [
                         "cmake", "-S", folder, "-B", f"build/pmma",
@@ -69,8 +69,8 @@ def build_pmma(build_debug, build_for_python):
                     stderr=subprocess.STDOUT,
                     text=True)
     except subprocess.CalledProcessError as error:
-        ts_print(f"❌ Error configuring pmma: {error}")
-        ts_print("🔍 Output before crash:")
+        ts_print(f"Error configuring pmma: {error}")
+        ts_print("Output before crash:")
         ts_print(error.output)
         abort = True
         return
@@ -80,8 +80,8 @@ def build_pmma(build_debug, build_for_python):
         f.write(configure_result.stdout)
 
     # Build PMMA -------------------------------------------------------
-    ts_print("⚙️ Configuring PMMA complete...")
-    ts_print("🔨 Building PMMA...")
+    ts_print("Configuring PMMA complete...")
+    ts_print("Building PMMA...")
 
     build_log_file = os.path.join(temporary_logging_dir, f"pmma-build.log")
 
@@ -104,8 +104,8 @@ def build_pmma(build_debug, build_for_python):
                 stderr=subprocess.STDOUT,
                 text=True)
     except subprocess.CalledProcessError as error:
-        ts_print(f"❌ Error building pmma: {error}")
-        ts_print("🔍 Output before crash:")
+        ts_print(f"Error building pmma: {error}")
+        ts_print("Output before crash:")
         ts_print(error.output)
         abort = True
         return
@@ -114,15 +114,15 @@ def build_pmma(build_debug, build_for_python):
         f.write("Build log:\n")
         f.write(build_result.stdout)
 
-    ts_print("🎉 Finished PMMA C++ compilation")
+    ts_print("Finished PMMA C++ compilation")
 
 def run_setup(in_github_workflow):
     global abort
     if abort:
-        ts_print("❌ Aborting Setup.py due to previous errors.")
+        ts_print("Aborting Setup.py due to previous errors.")
         return
 
-    ts_print("⏳ Started running Setup.py")
+    ts_print("Started running Setup.py")
 
     setup_log_file = os.path.join(temporary_logging_dir, f"setup.log")
 
@@ -146,8 +146,8 @@ def run_setup(in_github_workflow):
                 stderr=subprocess.STDOUT,
                 text=True)
     except subprocess.CalledProcessError as error:
-        ts_print(f"❌ Error building cython component: {error}")
-        ts_print("🔍 Output before crash:")
+        ts_print(f"Error building cython component: {error}")
+        ts_print("Output before crash:")
         ts_print(error.output)
         abort = True
         return
@@ -156,8 +156,8 @@ def run_setup(in_github_workflow):
         f.write("Setup.py log:\n")
         f.write(result.stdout)
 
-    ts_print("✅ Finished running Setup.py")
-    ts_print("🎉 Finished automated setup process!")
+    ts_print("Finished running Setup.py")
+    ts_print("Finished automated setup process!")
 
 in_github_workflow = os.environ.get("GITHUB_ACTIONS") == "true"
 build_debug = False
@@ -165,7 +165,7 @@ build_for_python = True
 
 if not in_github_workflow:
     response = input(
-        "❓ Do you want to build a DEBUG version of PMMA? [y/n] \
+        "Do you want to build a DEBUG version of PMMA? [y/n] \
 (Recommended: n): ")
     if response == "":
         build_debug = False
@@ -174,7 +174,7 @@ if not in_github_workflow:
 
 if not in_github_workflow:
     response = input(
-        "❓ Do you want to build a C++ only version of PMMA (No Python \
+        "Do you want to build a C++ only version of PMMA (No Python \
 interactions) [y/n] (Recommended: n): ")
 
     if response == "":
@@ -183,24 +183,24 @@ interactions) [y/n] (Recommended: n): ")
         build_for_python = response[0].lower() == "n"
 
 total_time = get_execution_time(build_pmma, build_debug, build_for_python)[0]
-print(f"🕒 PMMA Build took {total_time:.2f} seconds")
+print(f"PMMA Build took {total_time:.2f} seconds")
 
 total_time = get_execution_time(run_setup, in_github_workflow)[0]
-print(f"🕒 Running Setup.py took {total_time:.2f} seconds")
+print(f"Running Setup.py took {total_time:.2f} seconds")
 
 if not in_github_workflow and not abort:
     response = input(
-        "❓ Do you want to automatically refresh the currently installed \
+        "Do you want to automatically refresh the currently installed \
 version of PMMA? [y/n] (Recommended: y): ")
 
     if response == "" or response[0].lower() == "y":
-        ts_print("⬇️ Refreshing the installed version of PMMA.")
+        ts_print("Refreshing the installed version of PMMA.")
         installation_log_file = os.path.join(
             temporary_logging_dir,
             f"installation.log")
 
         try:
-            ts_print("🗑️ Uninstalling PMMA...")
+            ts_print("Uninstalling PMMA...")
             uninstallation_result = subprocess.run(
             [
                 sys.executable, "-m", "pip", "uninstall", "pmma", "-y"
@@ -208,7 +208,7 @@ version of PMMA? [y/n] (Recommended: y): ")
             stderr=subprocess.STDOUT,
             text=True)
 
-            ts_print("🔨 Reinstalling PMMA...")
+            ts_print("Reinstalling PMMA...")
             wheel_path = os.path.join(cwd, "dist")
             for file in os.listdir(wheel_path):
                 if file.endswith(".whl"):
@@ -222,8 +222,8 @@ version of PMMA? [y/n] (Recommended: y): ")
             stderr=subprocess.STDOUT,
             text=True)
         except subprocess.CalledProcessError as error:
-            ts_print(f"❌ Error installing pmma: {error}")
-            ts_print("🔍 Output before crash:")
+            ts_print(f"Error installing pmma: {error}")
+            ts_print("Output before crash:")
             ts_print(error.output)
         else:
             with open(installation_log_file, "w") as f:
@@ -231,5 +231,5 @@ version of PMMA? [y/n] (Recommended: y): ")
                 f.write(uninstallation_result.stdout)
                 f.write(installation_result.stdout)
 
-                ts_print("✅ Finished refreshing the installed version of PMMA.")
-                ts_print("🎉🎉🎉 Finished automated build process! 🎉🎉🎉")
+                ts_print("Finished refreshing the installed version of PMMA.")
+                ts_print("Finished automated build process!")

@@ -29,8 +29,8 @@ def fetch_cache_branch(in_github_workflow):
                 stderr=subprocess.STDOUT,
                 text=True)
         except subprocess.CalledProcessError as error:
-            print(f"❌ Error building {component}: {error}")
-            print("🔍 Output before crash:")
+            print(f"Error building {component}: {error}")
+            print("Output before crash:")
             print(error.output)
             return
     else:
@@ -61,8 +61,8 @@ def update_cache_branch(in_github_workflow): # done
                 stderr=subprocess.STDOUT,
                 text=True)
         except subprocess.CalledProcessError as error:
-            print(f"❌ Error updating branch: {error}")
-            print("🔍 Output before crash:")
+            print(f"Error updating branch: {error}")
+            print("Output before crash:")
             print(error.output)
             return
     else:

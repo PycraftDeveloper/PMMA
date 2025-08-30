@@ -36,11 +36,11 @@ class DependencyBuildManager:
                     dependencies.append(dependant) # issue where build breaks when only doing portion of it
 
             if rebuild:
-                ts_print(f"♻️ {name} needs rebuild because {dependant} was rebuilt.")
+                ts_print(f"{name} needs rebuild because {dependant} was rebuilt.")
 
             if name in previous_hashes:
                 if hash_component(name) == previous_hashes[name]:
-                    ts_print(f"✅ Skipping {name}, no changes detected.")
+                    ts_print(f"Skipping {name}, no changes detected.")
                     merge_all_subdirs(
                         os.path.join(build_cache_dir, 'cmake', 'dependencies', name, 'build'),
                         extern_dir)
@@ -86,7 +86,7 @@ class DependencyBuildManager:
         # Check for cycles first
         cycle = self.detect_cycles()
         if cycle:
-            ts_print(f"⚠️ Circular dependency detected: {' -> '.join(cycle)}")
+            ts_print(f"Circular dependency detected: {' -> '.join(cycle)}")
             return
 
         # Build reverse dependency graph (who depends on me)
@@ -105,11 +105,11 @@ class DependencyBuildManager:
                 threads.append(t)
 
             if abort:
-                ts_print("❌ Aborting build due to errors.")
+                ts_print("Aborting build due to errors.")
                 break
 
             # Clean finished threads
             threads = [t for t in threads if t.is_alive()]
 
         if not abort:
-            ts_print("🎉 All dependencies built successfully.")
+            ts_print("All dependencies built successfully.")

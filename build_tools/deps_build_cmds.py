@@ -8,7 +8,7 @@ from deps_utils import *
 def configure(self, component):
     global abort
     folder = os.path.join(cwd, self.base_dir, component)
-    ts_print(f"⚙️ Configuring {component}...")
+    ts_print(f"Configuring {component}...")
 
     config_log_file = os.path.join(temporary_logging_dir, f"dependencies/{component}-config.log")
 
@@ -25,8 +25,8 @@ def configure(self, component):
             text=True)
     except subprocess.CalledProcessError as error:
         abort = True
-        ts_print(f"❌ Error configuring {component}: {error}")
-        ts_print("🔍 Output before crash:")
+        ts_print(f"Error configuring {component}: {error}")
+        ts_print("Output before crash:")
         ts_print(error.output)
         return
 
@@ -34,16 +34,16 @@ def configure(self, component):
         f.write("Configuration log:\n")
         f.write(configure_result.stdout)
 
-    ts_print(f"⚙️ Configured {component}")
+    ts_print(f"Configured {component}")
 
 def run_build(self, component, built, lock, indegree, ready):
     global abort
     folder = os.path.join(cwd, self.base_dir, component)
     if self.configured[component].is_alive():
-        ts_print(f"⏳ Waiting for {component} to finish configuring...")
+        ts_print(f"Waiting for {component} to finish configuring...")
         self.configured[component].join()
 
-    ts_print(f"🔨 Building {component} in {folder}...")
+    ts_print(f"Building {component} in {folder}...")
 
     build_log_file = os.path.join(temporary_logging_dir, f"dependencies/{component}-build.log")
 
@@ -56,8 +56,8 @@ def run_build(self, component, built, lock, indegree, ready):
             text=True)
     except subprocess.CalledProcessError as error:
         abort = True
-        ts_print(f"❌ Error building {component}: {error}")
-        ts_print("🔍 Output before crash:")
+        ts_print(f"Error building {component}: {error}")
+        ts_print("Output before crash:")
         ts_print(error.output)
         return
 
@@ -69,7 +69,7 @@ def run_build(self, component, built, lock, indegree, ready):
         os.path.join(cmake_dir, 'dependencies', component, 'build'),
         extern_dir)
 
-    ts_print(f"✅ Finished {component}")
+    ts_print(f"Finished {component}")
 
     # Mark as built and unlock dependents
     with lock:
