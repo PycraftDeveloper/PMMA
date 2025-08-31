@@ -19,18 +19,6 @@ jobs:
         with:
           cache: 'pip'
 
-      # Cache CMake installation
-      - name: Cache CMake
-        id: cache-cmake
-        uses: actions/cache@v4
-        with:
-          path: C:\ProgramData\chocolatey\lib\cmake
-          key: cmake-windows-cache
-
-      - name: Install CMake
-        if: steps.cache-cmake.outputs.cache-hit != 'true'
-        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes --limit-output
-
       - name: Install Meson using Python
         run: |
           python -m pip install --upgrade pip meson
@@ -157,17 +145,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
           cache: 'pip'
 
-      # Cache CMake installation
-      - name: Cache CMake
-        id: cache-cmake
-        uses: actions/cache@v4
-        with:
-          path: C:\ProgramData\chocolatey\lib\cmake
-          key: cmake-windows-cache
-
-      - name: Install CMake
-        if: steps.cache-cmake.outputs.cache-hit != 'true'
-        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes --limit-output
 
       # Install Python build deps (reuses pip cache above)
       - name: Install Python build tools
