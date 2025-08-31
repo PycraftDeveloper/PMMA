@@ -23,15 +23,55 @@ jobs:
         run: |
           python -m pip install --upgrade pip meson
 
-      - name: Set up Git credentials
+      - name: Set branch name
+        run: echo "BRANCH_NAME=${{ runner.os }}_${{ runner.arch }}_build_cache" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Configure and build C++ API via CMake
+        shell: pwsh
         run: |
+          $ErrorActionPreference = "Stop"
+
+          try {
+              git clone -b "$env:BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+              Write-Host "Cache branch exists, cloned successfully."
+          } catch {
+              Write-Host "Cache branch missing, creating..."
+              git checkout --orphan $env:BRANCH_NAME
+              git lfs install
+              git rm -rf .
+              git commit --allow-empty -m "Initial commit"
+
+              git config --global user.email "github-actions@github.com"
+              git config --global user.name "GitHub Actions"
+              git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+
+              git push -u origin $env:BRANCH_NAME
+              git checkout main
+              git lfs install
+              git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+          }
+
+          python "build_tools/build_deps.py" -in_github_workflow -github_token
+
+          cd build_cache
+
+          git clean -fdx
+
+          cd ..
+
+          Get-ChildItem "build_tools" -Recurse -Force | Copy-Item -Destination "build_cache" -Recurse -Force
+
+          cd build_cache
+
+          git add .
+          git commit -m "Update Build Cache"
+
           git config --global user.email "github-actions@github.com"
           git config --global user.name "GitHub Actions"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
-      - name: Configure and build C++ API via CMake
-        run: |
-          python "build_tools/build_deps.py" -in_github_workflow -github_token "${{ secrets.GITHUB_TOKEN }}"
+          git push -u origin $env:BRANCH_NAME
 
   build_deps_linux:
     name: Build AnyLinux Dependencies
@@ -43,10 +83,15 @@ jobs:
       - name: Pre-pull Docker image (cached by GitHub’s runner)
         run: docker pull $DOCKER_IMAGE
 
+      - name: Set branch name
+        run: echo "BRANCH_NAME=${{ runner.os }}_${{ runner.arch }}_build_cache" >> $GITHUB_ENV
+        shell: bash
+
       - name: Build Linux wheel inside Docker
         run: |
           docker run --rm \
             -e TERM=xterm \
+            -e BRANCH_NAME=$BRANCH_NAME \
             -v "${{ github.workspace }}/dist:/output_dist" \
             $DOCKER_IMAGE \
             /bin/bash -c '
@@ -54,14 +99,49 @@ jobs:
               git clone https://github.com/${{ github.repository }} /PMMA
               cd /PMMA
 
+              if git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache; then
+                  echo "Cache branch exists, cloned successfully."
+              else
+                  echo "Cache branch missing, creating..."
+                  git checkout --orphan "$BRANCH_NAME"
+                  git lfs install
+                  git rm -rf .
+                  git commit --allow-empty -m "Initial commit"
+
+                  git config --global user.email "github-actions@github.com"
+                  git config --global user.name "GitHub Actions"
+                  git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+
+                  git push -u origin "$BRANCH_NAME"
+                  git checkout main
+                  git lfs install
+                  git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+              fi
+
+              python3 "build_tools/build_deps.py" -in_github_workflow -github_token
+
+              cd build_cache
+
+              git clean -fdx
+
+              cd ..
+
+              cp -r build_tools/* build_cache/
+              cp -r build_tools/.* build_cache/ 2>/dev/null || true
+
+              cd build_cache
+
+              git add .
+              git commit -m "Update Build Cache"
+
               git config --global user.email "github-actions@github.com"
               git config --global user.name "GitHub Actions"
               git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
-              python3 "build_tools/build_deps.py" -in_github_workflow -github_token "${{ secrets.GITHUB_TOKEN }}"
+              git push -u origin "$BRANCH_NAME"
             '
 
-  build_linux:
+  build_linux: # How do I set the environment variable here?
     name: Build Linux wheels
     runs-on: ubuntu-latest
     strategy:
@@ -78,13 +158,17 @@ jobs:
       - name: Pre-pull Docker image (cached by GitHub’s runner)
         run: docker pull $DOCKER_IMAGE
 
+      - name: Set branch name
+        run: echo "BRANCH_NAME=${{ runner.os }}_${{ runner.arch }}_build_cache" >> $GITHUB_ENV
+        shell: bash
+
       - name: Build Linux wheel inside Docker
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           docker run --rm \
             -e TERM=xterm \
-            -e GITHUB_TOKEN=$GITHUB_TOKEN \
+            -e BRANCH_NAME=$BRANCH_NAME \
             -e PYTHON_TAG=${{ matrix.python-tag }} \
             -v "${{ github.workspace }}/dist:/output_dist" \
             $DOCKER_IMAGE \
@@ -97,9 +181,7 @@ jobs:
               git clone https://github.com/${{ github.repository }} "$dir"
               cd "$dir"
 
-              git config --global user.email "github-actions@github.com"
-              git config --global user.name "GitHub Actions"
-              git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+              git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
 
               PYTHON_BIN="/opt/python/$tag/bin/python"
               python3 "build_tools/workflow_integration.py" -in_github_workflow
@@ -154,14 +236,14 @@ jobs:
         run: |
           python -m pip install --upgrade pip setuptools wheel cython numpy meson
 
-      - name: Set up Git credentials
-        run: |
-          git config --global user.email "github-actions@github.com"
-          git config --global user.name "GitHub Actions"
-          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+      - name: Set branch name
+        run: echo "BRANCH_NAME=${{ runner.os }}_${{ runner.arch }}_build_cache" >> $GITHUB_ENV
+        shell: bash
 
       - name: Configure and build C++ API via CMake
         run: |
+          git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+
           python "build_tools/workflow_integration.py" -in_github_workflow
           python "build_tools/build_pmma.py" -in_github_workflow
 
