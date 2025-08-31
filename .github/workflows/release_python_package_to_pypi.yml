@@ -31,7 +31,7 @@ jobs:
 
       - name: Configure and build C++ API via CMake
         run: |
-          python "build_tools/build_deps.py" -in_github_workflow
+          python "build_tools/build_deps.py" -in_github_workflow -github_token "${{ secrets.GITHUB_TOKEN }}"
 
   build_deps_linux:
     name: Build AnyLinux Dependencies
@@ -58,11 +58,11 @@ jobs:
               git config --global user.name "GitHub Actions"
               git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
-              python3 "build_tools/build_deps.py" -in_github_workflow
+              python3 "build_tools/build_deps.py" -in_github_workflow -github_token "${{ secrets.GITHUB_TOKEN }}"
             '
 
   build_linux:
-    name: Build Linux wheels (matrix)
+    name: Build Linux wheels
     runs-on: ubuntu-latest
     strategy:
       matrix:

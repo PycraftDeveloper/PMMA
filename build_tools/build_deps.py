@@ -12,8 +12,11 @@ program_start = time.perf_counter()
 os.system('cls' if os.name == 'nt' else 'clear')
 
 parser = argparse.ArgumentParser(description="Run in GitHub workflow mode")
-parser.add_argument('-in_github_workflow', action='store_true', help='Run in GitHub workflow mode')
+parser.add_argument("-in_github_workflow", action="store_true", help="Run in GitHub workflow mode")
+parser.add_argument("-github_token", type=str, default="")
 args = parser.parse_args()
+
+github_token = args.github_token
 in_github_workflow = args.in_github_workflow
 
 ts_print("Removing old build and configuration...")
@@ -37,7 +40,7 @@ os.makedirs(temporary_logging_dir, exist_ok=True)
 os.makedirs(os.path.join(temporary_logging_dir, "dependencies"), exist_ok=True)
 os.makedirs(pmma_lib_dir, exist_ok=True)
 
-bm = DependencyBuildManager(in_github_workflow)
+bm = DependencyBuildManager(in_github_workflow, github_token)
 
 bm.add_component("zlib")
 bm.add_component("harfbuzz")
@@ -59,7 +62,7 @@ for component in components:
 with open(os.path.join(cwd, "build_tools", "hashes.json"), "w") as file:
     json.dump(hashed_data, file, indent=4)
 
-update_cache_branch(in_github_workflow)
+update_cache_branch(in_github_workflow, github_token)
 
 program_end = time.perf_counter()
 ts_print(f"Total dependency build took {program_end - program_start:.2f} seconds")

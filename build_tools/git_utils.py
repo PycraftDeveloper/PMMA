@@ -23,7 +23,7 @@ def fetch_cache_branch(in_github_workflow):
     if in_github_workflow:
         try:
             subprocess.run(
-                ["git", "clone", "-b", branch_name, "--single-branch", ".", "build_cache"],
+                ["git", "clone", "-b", branch_name, "--single-branch", "https://github.com/PycraftDeveloper/PMMA.git", "build_cache"],
                 check=True, cwd=cwd, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT, text=True)
         except subprocess.CalledProcessError:
@@ -56,13 +56,13 @@ def fetch_cache_branch(in_github_workflow):
                 cwd, None, in_github_workflow
             )
             run(
-                ["git", "clone", "-b", branch_name, "--single-branch", ".", "build_cache"],
+                ["git", "clone", "-b", branch_name, "--single-branch", "https://github.com/PycraftDeveloper/PMMA.git", "build_cache"],
                 cwd, None, in_github_workflow)
     else:
         shutil.rmtree(build_cache_dir, ignore_errors=True)
         shutil.copytree(build_tools_dir, build_cache_dir)
 
-def update_cache_branch(in_github_workflow): # done
+def update_cache_branch(in_github_workflow, github_token): # done
     if in_github_workflow:
         run(
             ["git", "clean", "-fdx"],
@@ -78,6 +78,10 @@ def update_cache_branch(in_github_workflow): # done
             [
                 "git", "commit", "-m",
                 f"Update build cache for {platform.system()} {platform.machine()}"],
+            build_cache_dir, None, in_github_workflow
+        )
+        run(
+            ["git", "remote", "set-url", "origin", f"https://x-access-token:{github_token}@github.com/PycraftDeveloper/PMMA.git"],
             build_cache_dir, None, in_github_workflow
         )
         run(
