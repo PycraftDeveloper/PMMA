@@ -29,7 +29,7 @@ jobs:
 
       - name: Install CMake
         if: steps.cache-cmake.outputs.cache-hit != 'true'
-        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes --limit-output
 
       - name: Install Meson using Python
         run: |
@@ -167,7 +167,7 @@ jobs:
 
       - name: Install CMake
         if: steps.cache-cmake.outputs.cache-hit != 'true'
-        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes
+        run: choco install cmake --installargs 'ADD_CMAKE_TO_PATH=System' --yes --limit-output
 
       # Install Python build deps (reuses pip cache above)
       - name: Install Python build tools
