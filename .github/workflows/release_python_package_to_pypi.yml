@@ -47,7 +47,12 @@ jobs:
               git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
               git push -u origin $env:BRANCH_NAME
-              git checkout main
+
+              cd ..
+              Remove-Item -Path "$env:GITHUB_WORKSPACE\PMMA" -Recurse -Force -ErrorAction SilentlyContinue
+
+              git clone https://github.com/${{ github.repository }} /PMMA
+              cd /PMMA
               git lfs install
               git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
           }
@@ -113,9 +118,14 @@ jobs:
                   git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
                   git push -u origin "$BRANCH_NAME"
-                  git checkout main
+
+                  cd ..
+                  rm -rf /PMMA
+
+                  git clone https://github.com/${{ github.repository }} /PMMA
+                  cd /PMMA
                   git lfs install
-                  git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+                  git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
               fi
 
               python3 "build_tools/build_deps.py" -in_github_workflow -github_token
