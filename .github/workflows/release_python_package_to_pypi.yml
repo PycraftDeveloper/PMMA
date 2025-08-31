@@ -51,11 +51,12 @@ jobs:
             $DOCKER_IMAGE \
             /bin/bash -c '
               set -e
+              git clone https://github.com/${{ github.repository }} /PMMA
+              cd /PMMA
+
               git config --global user.email "github-actions@github.com"
               git config --global user.name "GitHub Actions"
               git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
-              git clone https://github.com/${{ github.repository }} /PMMA
-              cd /PMMA
 
               python3 "build_tools/build_deps.py" -in_github_workflow
             '
@@ -93,15 +94,16 @@ jobs:
               tag=$PYTHON_TAG
               dir="/tmp/build_$tag"
 
-              git config --global user.email "github-actions@github.com"
-              git config --global user.name "GitHub Actions"
-              git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
               git clone https://github.com/${{ github.repository }} "$dir"
               cd "$dir"
 
+              git config --global user.email "github-actions@github.com"
+              git config --global user.name "GitHub Actions"
+              git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+
               PYTHON_BIN="/opt/python/$tag/bin/python"
               python3 "build_tools/workflow_integration.py" -in_github_workflow
-              $PYTHON_BIN "build_pmma.py"
+              $PYTHON_BIN "build_pmma.py" -in_github_workflow
 
               original=$(ls dist/*.whl)
               renamed=$(echo "$original" | sed "s/linux/manylinux_2_28/")
