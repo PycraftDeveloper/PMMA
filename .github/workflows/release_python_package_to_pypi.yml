@@ -40,12 +40,12 @@ jobs:
               git checkout --orphan $env:BRANCH_NAME
               git lfs install
               git rm -rf .
-              git commit --allow-empty -m "Initial commit"
 
               git config --global user.email "github-actions@github.com"
               git config --global user.name "GitHub Actions"
               git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
+              git commit --allow-empty -m "Initial commit"
               git push -u origin $env:BRANCH_NAME
 
               cd ..
@@ -70,12 +70,12 @@ jobs:
           cd build_cache
 
           git add .
-          git commit -m "Update Build Cache"
 
           git config --global user.email "github-actions@github.com"
           git config --global user.name "GitHub Actions"
           git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
+          git commit -m "Update Build Cache"
           git push -u origin $env:BRANCH_NAME
 
   build_deps_linux:
@@ -111,12 +111,12 @@ jobs:
                   git checkout --orphan "$BRANCH_NAME"
                   git lfs install
                   git rm -rf .
-                  git commit --allow-empty -m "Initial commit"
 
                   git config --global user.email "github-actions@github.com"
                   git config --global user.name "GitHub Actions"
                   git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
+                  git commit --allow-empty -m "Initial commit"
                   git push -u origin "$BRANCH_NAME"
 
                   cd ..
@@ -142,12 +142,12 @@ jobs:
               cd build_cache
 
               git add .
-              git commit -m "Update Build Cache"
 
               git config --global user.email "github-actions@github.com"
               git config --global user.name "GitHub Actions"
               git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
+              git commit -m "Update Build Cache"
               git push -u origin "$BRANCH_NAME"
             '
 
