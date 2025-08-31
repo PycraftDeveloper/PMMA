@@ -39,3 +39,14 @@ def run(command, cwd, log_file, in_github_workflow):
         with open(log_file, "a") as f:
             f.write(f"{joined_command} log:\n")
             f.write(result.stdout)
+
+def copy_top_level(src_dir, dst_dir):
+    for item in os.listdir(src_dir):
+        src_path = os.path.join(src_dir, item)
+        dst_path = os.path.join(dst_dir, item)
+
+        if os.path.isfile(src_path):
+            shutil.copy2(src_path, dst_path)
+        elif os.path.isdir(src_path):
+            # Copy the entire subdirectory (recursively)
+            shutil.copytree(src_path, dst_path, dirs_exist_ok=True)

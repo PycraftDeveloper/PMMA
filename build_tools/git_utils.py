@@ -68,7 +68,8 @@ def update_cache_branch(in_github_workflow): # done
             ["git", "clean", "-fdx"],
             build_cache_dir, None, in_github_workflow)
 
-        shutil.copytree(build_tools_dir, build_cache_dir)
+        copy_top_level(build_tools_dir, build_cache_dir)
+
         run(
             ["git", "add", "."],
             build_cache_dir, None, in_github_workflow
