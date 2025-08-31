@@ -38,7 +38,7 @@ os.makedirs(temporary_logging_dir, exist_ok=True)
 os.makedirs(os.path.join(temporary_logging_dir, "dependencies"), exist_ok=True)
 os.makedirs(pmma_lib_dir, exist_ok=True)
 
-bm = DependencyBuildManager(in_github_workflow, github_token)
+bm = DependencyBuildManager(in_github_workflow)
 
 bm.add_component("zlib")
 bm.add_component("harfbuzz")
