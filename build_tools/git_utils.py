@@ -64,7 +64,10 @@ def fetch_cache_branch(in_github_workflow):
 
 def update_cache_branch(in_github_workflow): # done
     if in_github_workflow:
-        shutil.rmtree(build_cache_dir, ignore_errors=True)
+        run(
+            ["git", "clean", "-fdx"],
+            build_cache_dir, None, in_github_workflow)
+
         shutil.copytree(build_tools_dir, build_cache_dir)
         run(
             ["git", "add", "."],
