@@ -32,10 +32,10 @@ jobs:
         run: |
           $ErrorActionPreference = "Stop"
 
-          try {
-              git clone -b "$env:BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
-              Write-Host "Cache branch exists, cloned successfully."
-          } catch {
+          git clone -b "$env:BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+          if ($LASTEXITCODE -ne 0) {
+              Write-Host "Cache branch missing, creating..."
+          } else {
               Write-Host "Cache branch missing, creating..."
               git checkout --orphan $env:BRANCH_NAME
               git lfs install
@@ -57,7 +57,7 @@ jobs:
               git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
           }
 
-          python "build_tools/build_deps.py" -in_github_workflow -github_token
+          python "build_tools/build_deps.py" -in_github_workflow
 
           cd build_cache
 
@@ -125,10 +125,10 @@ jobs:
                   git clone https://github.com/${{ github.repository }} /PMMA
                   cd /PMMA
                   git lfs install
-                  git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+                  git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
               fi
 
-              python3 "build_tools/build_deps.py" -in_github_workflow -github_token
+              python3 "build_tools/build_deps.py" -in_github_workflow
 
               cd build_cache
 
