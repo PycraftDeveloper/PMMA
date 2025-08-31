@@ -1,6 +1,6 @@
 # type: ignore
 import subprocess
-import os, shutil, platform, sys
+import os, shutil, platform
 
 from utils import *
 
@@ -28,19 +28,32 @@ def fetch_cache_branch(in_github_workflow):
 
         try:
             subprocess.run(
-                ["git", "rev-parse", "--verify", branch_name],
+                ["git", "clone", "-b", branch_name, "--single-branch", ".", "build_cache"],
                 check=True, cwd=cwd, stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT, text=True)
         except subprocess.CalledProcessError:
             run(
-                ["git", "branch", branch_name, "HEAD"],
+                ["git", "checkout", "--orphan", branch_name],
                 cwd, None, in_github_workflow
             )
-
-        run(
-            ["git", "worktree", "add", "../build_cache", branch_name],
-            cwd, None, in_github_workflow
-        )
+            run(
+                ["git", "rm", "-rf", "."],
+                cwd, None, in_github_workflow
+            )
+            run(
+                ["git", "commit", "--allow-empty", "-m", "Initial commit"],
+                cwd, None, in_github_workflow
+            )
+            run(
+                ["git", "push", "-u", "origin", branch_name]
+            )
+            run(
+                ["git", "checkout", "main"],
+                cwd, None, in_github_workflow
+            )
+            run(
+                ["git", "clone", "-b", branch_name, "--single-branch", ".", "build_cache"],
+                cwd, None, in_github_workflow)
     else:
         shutil.rmtree(build_cache_dir, ignore_errors=True)
         shutil.copytree(build_tools_dir, build_cache_dir)
@@ -68,7 +81,7 @@ def update_cache_branch(in_github_workflow): # done
             build_cache_dir, None, in_github_workflow
         )
         run(
-            ["git", "push", "origin", branch_name],
+            ["git", "push", "-u", "origin", branch_name],
             build_cache_dir, None, in_github_workflow
         )
     else:
