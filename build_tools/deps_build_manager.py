@@ -7,10 +7,11 @@ from deps_build_cmds import *
 from utils import *
 
 class DependencyBuildManager:
-    def __init__(self, base_dir="build_tools/cmake/dependencies"):
+    def __init__(self, in_github_workflow, base_dir="build_tools/cmake/dependencies"):
         self.base_dir = base_dir
         self.components = {}
         self.configured = {}
+        self.in_github_workflow = in_github_workflow
 
     def add_component(self, name, dependencies=None):
         if dependencies is None:
@@ -53,9 +54,12 @@ class DependencyBuildManager:
 
         self.components[name] = dependencies
 
-        configure_thread = threading.Thread(target=configure, args=(self, name,))
-        self.configured[name] = configure_thread
+        configure_thread = threading.Thread(
+            target=configure,
+            args=(self, name, self.in_github_workflow,))
+
         configure_thread.start()
+        self.configured[name] = configure_thread
 
     def detect_cycles(self):
         """Detect circular dependencies using DFS."""
@@ -100,16 +104,13 @@ class DependencyBuildManager:
         while ready or any(t.is_alive() for t in threads):
             while ready:
                 comp = ready.popleft()
-                t = threading.Thread(target=run_build, args=(self, comp, built, lock, indegree, ready,))
+                t = threading.Thread(
+                    target=run_build,
+                    args=(self, comp, built, lock, indegree, ready, self.in_github_workflow))
                 t.start()
                 threads.append(t)
-
-            if abort:
-                ts_print("Aborting build due to errors.")
-                break
 
             # Clean finished threads
             threads = [t for t in threads if t.is_alive()]
 
-        if not abort:
-            ts_print("All dependencies built successfully.")
+        ts_print("All dependencies built successfully.")

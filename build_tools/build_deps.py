@@ -37,7 +37,7 @@ os.makedirs(temporary_logging_dir, exist_ok=True)
 os.makedirs(os.path.join(temporary_logging_dir, "dependencies"), exist_ok=True)
 os.makedirs(pmma_lib_dir, exist_ok=True)
 
-bm = DependencyBuildManager()
+bm = DependencyBuildManager(in_github_workflow)
 
 bm.add_component("zlib")
 bm.add_component("harfbuzz")
@@ -64,6 +64,6 @@ update_cache_branch(in_github_workflow)
 program_end = time.perf_counter()
 ts_print(f"Total dependency build took {program_end - program_start:.2f} seconds")
 
-if not in_github_workflow and not abort:
+if not in_github_workflow:
     ts_print("Automatically moving on to building PMMA.")
     import build_pmma # would be called for each version of python in the github workflow
