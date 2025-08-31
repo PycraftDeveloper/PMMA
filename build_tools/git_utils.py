@@ -22,6 +22,14 @@ branch_name = f"{platform.system().lower()}_{platform.machine().lower()}_build_c
 def fetch_cache_branch(in_github_workflow):
     if in_github_workflow:
         run(
+            ["git", "config", "user.email", "github-actions@github.com"],
+            build_cache_dir, None, in_github_workflow
+        )
+        run(
+            ["git", "config", "user.name", "GitHub Actions"],
+            build_cache_dir, None, in_github_workflow
+        )
+        run(
             ["git", "config", "--global", "--add", "safe.directory", cwd],
             cwd, None, in_github_workflow
         )
@@ -37,6 +45,10 @@ def fetch_cache_branch(in_github_workflow):
                 cwd, None, in_github_workflow
             )
             run(
+                ["git", "lfs", "install"],
+                cwd, None, in_github_workflow
+            )
+            run(
                 ["git", "rm", "-rf", "."],
                 cwd, None, in_github_workflow
             )
@@ -45,10 +57,15 @@ def fetch_cache_branch(in_github_workflow):
                 cwd, None, in_github_workflow
             )
             run(
-                ["git", "push", "-u", "origin", branch_name]
+                ["git", "push", "-u", "origin", branch_name],
+                cwd, None, in_github_workflow
             )
             run(
                 ["git", "checkout", "main"],
+                cwd, None, in_github_workflow
+            )
+            run(
+                ["git", "lfs", "install"],
                 cwd, None, in_github_workflow
             )
             run(
