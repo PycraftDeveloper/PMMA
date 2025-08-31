@@ -34,15 +34,6 @@ jobs:
         DOCKER_IMAGE: docker.io/pycraftdev/pmma-manylinux:latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-          lfs: true
-
-      - name: Ensure dist directory exists
-        run: mkdir -p dist
-
       - name: Pre-pull Docker image (cached by GitHub’s runner)
         run: docker pull $DOCKER_IMAGE
 
@@ -50,11 +41,11 @@ jobs:
         run: |
           docker run --rm \
             -e TERM=xterm \
-            -v "${{ github.workspace }}:/PMMA" \
             -v "${{ github.workspace }}/dist:/output_dist" \
             $DOCKER_IMAGE \
             /bin/bash -c '
               set -e
+              git clone https://github.com/${{ github.repository }} /PMMA
               cd /PMMA
 
               python3 "build_tools/build_deps.py" -in_github_workflow
@@ -71,12 +62,6 @@ jobs:
       DOCKER_IMAGE: docker.io/pycraftdev/pmma-manylinux:latest
     needs: [build_deps_linux]
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 0
-          lfs: true
-
       - name: Ensure dist directory exists
         run: mkdir -p dist
 
@@ -84,18 +69,22 @@ jobs:
         run: docker pull $DOCKER_IMAGE
 
       - name: Build Linux wheel inside Docker
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           docker run --rm \
             -e TERM=xterm \
-            -v "${{ github.workspace }}:/PMMA" \
+            -e GITHUB_TOKEN=$GITHUB_TOKEN \
+            -e PYTHON_TAG=${{ matrix.python-tag }} \
             -v "${{ github.workspace }}/dist:/output_dist" \
             $DOCKER_IMAGE \
             /bin/bash -c '
               set -e
 
-              tag=${{ matrix.python-tag }}
+              tag=$PYTHON_TAG
               dir="/tmp/build_$tag"
-              cp -r /PMMA "$dir"
+
+              git clone https://github.com/${{ github.repository }} "$dir"
               cd "$dir"
 
               PYTHON_BIN="/opt/python/$tag/bin/python"
