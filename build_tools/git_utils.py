@@ -23,11 +23,11 @@ def fetch_cache_branch(in_github_workflow):
     if in_github_workflow:
         run(
             ["git", "config", "user.email", "github-actions@github.com"],
-            build_cache_dir, None, in_github_workflow
+            cwd, None, in_github_workflow
         )
         run(
             ["git", "config", "user.name", "GitHub Actions"],
-            build_cache_dir, None, in_github_workflow
+            cwd, None, in_github_workflow
         )
         run(
             ["git", "config", "--global", "--add", "safe.directory", cwd],
