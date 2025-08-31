@@ -1,7 +1,7 @@
 #type: ignore
 
 import os, threading
-import subprocess, sys
+import subprocess, sys, shutil
 
 cwd = os.path.dirname(os.path.dirname(__file__))
 pmma_dir = os.path.join(cwd, "pmma")
