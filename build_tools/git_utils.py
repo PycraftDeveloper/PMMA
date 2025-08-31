@@ -21,19 +21,6 @@ branch_name = f"{platform.system().lower()}_{platform.machine().lower()}_build_c
 
 def fetch_cache_branch(in_github_workflow):
     if in_github_workflow:
-        run(
-            ["git", "config", "user.email", "github-actions@github.com"],
-            cwd, None, in_github_workflow
-        )
-        run(
-            ["git", "config", "user.name", "GitHub Actions"],
-            cwd, None, in_github_workflow
-        )
-        run(
-            ["git", "config", "--global", "--add", "safe.directory", cwd],
-            cwd, None, in_github_workflow
-        )
-
         try:
             subprocess.run(
                 ["git", "clone", "-b", branch_name, "--single-branch", ".", "build_cache"],
@@ -79,14 +66,6 @@ def update_cache_branch(in_github_workflow): # done
     if in_github_workflow:
         shutil.rmtree(build_cache_dir, ignore_errors=True)
         shutil.copytree(build_tools_dir, build_cache_dir)
-        run(
-            ["git", "config", "user.email", "github-actions@github.com"],
-            build_cache_dir, None, in_github_workflow
-        )
-        run(
-            ["git", "config", "user.name", "GitHub Actions"],
-            build_cache_dir, None, in_github_workflow
-        )
         run(
             ["git", "add", "."],
             build_cache_dir, None, in_github_workflow

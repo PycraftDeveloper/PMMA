@@ -23,6 +23,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip meson
 
+      - name: Set up Git credentials
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+
       - name: Configure and build C++ API via CMake
         run: |
           python "build_tools/build_deps.py" -in_github_workflow
@@ -45,6 +51,9 @@ jobs:
             $DOCKER_IMAGE \
             /bin/bash -c '
               set -e
+              git config --global user.email "github-actions@github.com"
+              git config --global user.name "GitHub Actions"
+              git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
               git clone https://github.com/${{ github.repository }} /PMMA
               cd /PMMA
 
@@ -84,6 +93,9 @@ jobs:
               tag=$PYTHON_TAG
               dir="/tmp/build_$tag"
 
+              git config --global user.email "github-actions@github.com"
+              git config --global user.name "GitHub Actions"
+              git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
               git clone https://github.com/${{ github.repository }} "$dir"
               cd "$dir"
 
@@ -139,6 +151,12 @@ jobs:
       - name: Install Python build tools
         run: |
           python -m pip install --upgrade pip setuptools wheel cython numpy meson
+
+      - name: Set up Git credentials
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
 
       - name: Configure and build C++ API via CMake
         run: |
