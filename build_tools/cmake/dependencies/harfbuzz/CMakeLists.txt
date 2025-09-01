@@ -32,6 +32,7 @@ ExternalProject_Add(harfbuzz
         --prefix=${OUTPUT_DIR}
         --libdir=lib
         --buildtype=release
+        --unity=on
         -Ddefault_library=shared
         -Dglib=disabled
         -Dfreetype=disabled
@@ -42,6 +43,8 @@ ExternalProject_Add(harfbuzz
         -Dtests=disabled
         -Dbenchmark=disabled
         -Dintrospection=disabled
+        -Db_pch=true
+        -Dutilities=disabled
 
     # Meson compile (uses Ninja)
     BUILD_COMMAND meson compile -C <BINARY_DIR> -j ${PARALLEL_CORES}

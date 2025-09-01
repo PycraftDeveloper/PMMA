@@ -201,7 +201,7 @@ jobs:
               $PYTHON_BIN "build_tools/build_pmma.py" -in_github_workflow
 
               original=$(ls dist/*.whl)
-              renamed=$(echo "$original" | sed "s/linux/manylinux_2_28/")
+              renamed=$(echo "$original" | sed "s/linux/manylinux_2_34/")
               mv "$original" "$renamed"
               cp dist/* /output_dist/
             '

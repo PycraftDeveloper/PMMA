@@ -4,7 +4,6 @@ import os, threading
 import subprocess, sys, shutil, pathlib
 
 def join_path(cwd, *components):
-    print(pathlib.Path(cwd, *components).as_posix())
     return pathlib.Path(cwd, *components).as_posix()
 
 raw_cwd = os.path.dirname(os.path.dirname(__file__))
