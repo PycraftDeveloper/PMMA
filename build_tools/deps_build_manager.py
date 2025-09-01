@@ -36,10 +36,10 @@ class DependencyBuildManager:
             for dependant in copied_dependencies:
                 if rebuild_control[dependant]:
                     rebuild = True
-                    dependencies.append(dependant) # issue where build breaks when only doing portion of it
+                    dependencies.append(dependant)
 
-        if rebuild:
-            ts_print(f"{name} needs rebuild because {dependant} was rebuilt.")
+            if rebuild:
+                ts_print(f"{name} needs rebuild because {dependant} was rebuilt.")
 
         if not rebuild and name in previous_hashes:
             if hash_component(name) == previous_hashes[name]:
