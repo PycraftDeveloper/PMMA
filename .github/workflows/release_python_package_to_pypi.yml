@@ -195,7 +195,7 @@ jobs:
 
               PYTHON_BIN="/opt/python/$tag/bin/python"
               python3 "build_tools/workflow_integration.py" -in_github_workflow
-              $PYTHON_BIN "build_pmma.py" -in_github_workflow
+              $PYTHON_BIN "build_tools/build_pmma.py" -in_github_workflow
 
               original=$(ls dist/*.whl)
               renamed=$(echo "$original" | sed "s/linux/manylinux_2_28/")
