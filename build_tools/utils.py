@@ -7,7 +7,8 @@ def join_path(cwd, *components):
     print(pathlib.Path(cwd, *components).as_posix())
     return pathlib.Path(cwd, *components).as_posix()
 
-cwd = os.path.dirname(os.path.dirname(__file__))
+raw_cwd = os.path.dirname(os.path.dirname(__file__))
+cwd = pathlib.Path(raw_cwd).as_posix()
 pmma_dir = join_path(cwd, "pmma")
 pmma_lib_dir = join_path(pmma_dir, "lib")
 temp_dir = join_path(cwd, "temporary")
