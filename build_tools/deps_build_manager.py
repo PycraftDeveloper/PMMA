@@ -22,11 +22,13 @@ class DependencyBuildManager:
 
         rebuild = False
 
-        if not os.path.exists(join_path(cmake_dir, 'dependencies', name, 'build')):
+        if not os.path.exists(join_path(cmake_build_cache_dir, 'dependencies', name, 'build')):
             rebuild = True
+            ts_print(f"{name} needs rebuild because it has no existing build cached build.")
 
         if previous_hashes == {}:
             rebuild = True
+            ts_print(f"{name} needs rebuild because there is no previous hash data.")
 
         if not rebuild:
             copied_dependencies = dependencies

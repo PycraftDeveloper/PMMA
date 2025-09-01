@@ -17,6 +17,7 @@ extern_dir = join_path(pmma_dir, "extern")
 temporary_logging_dir = join_path(temp_dir, "cmake - logs")
 cmake_dir = join_path(cwd, "build_tools", "cmake")
 build_cache_dir = join_path(cwd, "build_cache")
+cmake_build_cache_dir = join_path(build_cache_dir, "cmake")
 
 print_lock = threading.Lock()
 
