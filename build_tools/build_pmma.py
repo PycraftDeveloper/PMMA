@@ -79,7 +79,7 @@ def build_pmma(build_debug, build_for_python):
     ts_print("Configuring PMMA complete...")
     ts_print("Building PMMA...")
 
-    build_join_path(temporary_logging_dir, f"pmma-build.log")
+    build_log_file = join_path(temporary_logging_dir, f"pmma-build.log")
 
     if build_debug:
         run(
