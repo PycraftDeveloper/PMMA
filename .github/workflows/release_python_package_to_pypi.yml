@@ -65,7 +65,12 @@ jobs:
 
           cd ..
 
-          Get-ChildItem "build_tools" -Recurse -Force | Copy-Item -Destination "build_cache" -Recurse -Force
+          Get-ChildItem -Path "build_tools" -Recurse | ForEach-Object {
+            $destination = $_.FullName -replace [regex]::Escape("build_tools"), "build_cache"
+            if (!(Test-Path $destination)) {
+                Copy-Item -Path $_.FullName -Destination $destination -Recurse
+            }
+          }
 
           cd build_cache
 
@@ -110,7 +115,7 @@ jobs:
                   echo "Cache branch missing, creating..."
                   git checkout --orphan "$BRANCH_NAME"
                   git lfs install
-                  git rm -rf .
+                  rm -rf *
 
                   git config --global user.email "github-actions@github.com"
                   git config --global user.name "GitHub Actions"
@@ -137,7 +142,6 @@ jobs:
               cd ..
 
               cp -r build_tools/* build_cache/
-              cp -r build_tools/.* build_cache/ 2>/dev/null || true
 
               cd build_cache
 
