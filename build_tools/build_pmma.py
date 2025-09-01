@@ -8,16 +8,16 @@ from utils import *
 os.makedirs(cmake_temp_dir, exist_ok=True)
 os.makedirs(extern_dir, exist_ok=True)
 os.makedirs(temporary_logging_dir, exist_ok=True)
-os.makedirs(os.path.join(temporary_logging_dir, "dependencies"), exist_ok=True)
+os.makedirs(join_path(temporary_logging_dir, "dependencies"), exist_ok=True)
 os.makedirs(pmma_lib_dir, exist_ok=True)
 
 def build_pmma(build_debug, build_for_python):
-    folder = os.path.join(cwd, "build_tools", "cmake", "pmma")
+    folder = join_path(cwd, "build_tools", "cmake", "pmma")
 
     # Configure PMMA ---------------------------------------------------
     ts_print("Configuring PMMA...")
 
-    config_log_file = os.path.join(temporary_logging_dir, f"pmma-config.log")
+    config_log_file = join_path(temporary_logging_dir, f"pmma-config.log")
     if build_debug:
         if build_for_python:
             python_executable_path = sys.executable
@@ -79,7 +79,7 @@ def build_pmma(build_debug, build_for_python):
     ts_print("Configuring PMMA complete...")
     ts_print("Building PMMA...")
 
-    build_log_file = os.path.join(temporary_logging_dir, f"pmma-build.log")
+    build_join_path(temporary_logging_dir, f"pmma-build.log")
 
     if build_debug:
         run(
@@ -100,7 +100,7 @@ def build_pmma(build_debug, build_for_python):
 def run_setup(in_github_workflow):
     ts_print("Started running Setup.py")
 
-    setup_log_file = os.path.join(temporary_logging_dir, f"setup.log")
+    setup_log_file = join_path(temporary_logging_dir, f"setup.log")
 
     if in_github_workflow:
         run(
@@ -164,7 +164,7 @@ version of PMMA? [y/n] (Recommended: y): ")
 
     if response == "" or response[0].lower() == "y":
         ts_print("Refreshing the installed version of PMMA.")
-        installation_log_file = os.path.join(
+        installation_log_file = join_path(
             temporary_logging_dir,
             f"installation.log")
 
@@ -176,10 +176,10 @@ version of PMMA? [y/n] (Recommended: y): ")
         )
 
         ts_print("Reinstalling PMMA...")
-        wheel_path = os.path.join(cwd, "dist")
+        wheel_path = join_path(cwd, "dist")
         for file in os.listdir(wheel_path):
             if file.endswith(".whl"):
-                wheel_file = os.path.join(wheel_path, file)
+                wheel_file = join_path(wheel_path, file)
                 break
 
         run(

@@ -1,17 +1,21 @@
 #type: ignore
 
 import os, threading
-import subprocess, sys, shutil
+import subprocess, sys, shutil, pathlib
+
+def join_path(cwd, *components):
+    print(pathlib.Path(cwd, *components).as_posix())
+    return pathlib.Path(cwd, *components).as_posix()
 
 cwd = os.path.dirname(os.path.dirname(__file__))
-pmma_dir = os.path.join(cwd, "pmma")
-pmma_lib_dir = os.path.join(pmma_dir, "lib")
-temp_dir = os.path.join(cwd, "temporary")
-cmake_temp_dir = os.path.join(temp_dir, "cmake")
-extern_dir = os.path.join(pmma_dir, "extern")
-temporary_logging_dir = os.path.join(temp_dir, "cmake - logs")
-cmake_dir = os.path.join(cwd, "build_tools", "cmake")
-build_cache_dir = os.path.join(cwd, "build_cache")
+pmma_dir = join_path(cwd, "pmma")
+pmma_lib_dir = join_path(pmma_dir, "lib")
+temp_dir = join_path(cwd, "temporary")
+cmake_temp_dir = join_path(temp_dir, "cmake")
+extern_dir = join_path(pmma_dir, "extern")
+temporary_logging_dir = join_path(temp_dir, "cmake - logs")
+cmake_dir = join_path(cwd, "build_tools", "cmake")
+build_cache_dir = join_path(cwd, "build_cache")
 
 print_lock = threading.Lock()
 
@@ -42,8 +46,8 @@ def run(command, cwd, log_file, in_github_workflow):
 
 def copy_top_level(src_dir, dst_dir):
     for item in os.listdir(src_dir):
-        src_path = os.path.join(src_dir, item)
-        dst_path = os.path.join(dst_dir, item)
+        src_path = join_path(src_dir, item)
+        dst_path = join_path(dst_dir, item)
 
         if os.path.isfile(src_path):
             shutil.copy2(src_path, dst_path)

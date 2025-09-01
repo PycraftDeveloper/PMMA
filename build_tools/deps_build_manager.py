@@ -22,7 +22,7 @@ class DependencyBuildManager:
 
         rebuild = False
 
-        if not os.path.exists(os.path.join(cmake_dir, 'dependencies', name, 'build')):
+        if not os.path.exists(join_path(cmake_dir, 'dependencies', name, 'build')):
             rebuild = True
 
         if previous_hashes == {}:
@@ -43,12 +43,12 @@ class DependencyBuildManager:
                 if hash_component(name) == previous_hashes[name]:
                     ts_print(f"Skipping {name}, no changes detected.")
                     merge_all_subdirs(
-                        os.path.join(build_cache_dir, 'cmake', 'dependencies', name, 'build'),
+                        join_path(build_cache_dir, 'cmake', 'dependencies', name, 'build'),
                         extern_dir)
                     rebuild_control[name] = False
                     return
 
-        shutil.rmtree(os.path.join(cmake_dir, 'dependencies', name, 'build'), ignore_errors=True)
+        shutil.rmtree(join_path(cmake_dir, 'dependencies', name, 'build'), ignore_errors=True)
 
         rebuild_control[name] = True
 

@@ -9,23 +9,24 @@ from git_utils import *
 
 program_start = time.perf_counter()
 
-os.system('cls' if os.name == 'nt' else 'clear')
-
 parser = argparse.ArgumentParser(description="Run in GitHub workflow mode")
 parser.add_argument("-in_github_workflow", action="store_true", help="Run in GitHub workflow mode")
 args = parser.parse_args()
 
 in_github_workflow = args.in_github_workflow
 
+if not in_github_workflow:
+    os.system('cls' if os.name == 'nt' else 'clear')
+
 ts_print("Removing old build and configuration...")
 shutil.rmtree(cmake_temp_dir, ignore_errors=True)
-shutil.rmtree(os.path.join(extern_dir, "lib"), ignore_errors=True)
-shutil.rmtree(os.path.join(extern_dir, "bin"), ignore_errors=True)
-shutil.rmtree(os.path.join(extern_dir, "share"), ignore_errors=True)
+shutil.rmtree(join_path(extern_dir, "lib"), ignore_errors=True)
+shutil.rmtree(join_path(extern_dir, "bin"), ignore_errors=True)
+shutil.rmtree(join_path(extern_dir, "share"), ignore_errors=True)
 shutil.rmtree(pmma_lib_dir, ignore_errors=True)
-shutil.rmtree(os.path.join(cwd, "dist"), ignore_errors=True)
-shutil.rmtree(os.path.join(cwd, "build"), ignore_errors=True)
-shutil.rmtree(os.path.join(cwd, "pmma.egg-info"), ignore_errors=True)
+shutil.rmtree(join_path(cwd, "dist"), ignore_errors=True)
+shutil.rmtree(join_path(cwd, "build"), ignore_errors=True)
+shutil.rmtree(join_path(cwd, "pmma.egg-info"), ignore_errors=True)
 selectively_clean_extern()
 fetch_cache_branch(in_github_workflow)
 
@@ -35,7 +36,7 @@ shutil.rmtree(temporary_logging_dir, ignore_errors=True)
 os.makedirs(cmake_temp_dir, exist_ok=True)
 os.makedirs(extern_dir, exist_ok=True)
 os.makedirs(temporary_logging_dir, exist_ok=True)
-os.makedirs(os.path.join(temporary_logging_dir, "dependencies"), exist_ok=True)
+os.makedirs(join_path(temporary_logging_dir, "dependencies"), exist_ok=True)
 os.makedirs(pmma_lib_dir, exist_ok=True)
 
 bm = DependencyBuildManager(in_github_workflow)
@@ -57,7 +58,7 @@ hashed_data = {}
 for component in components:
     hashed_data[component] = hash_component(component)
 
-with open(os.path.join(cwd, "build_tools", "hashes.json"), "w") as file:
+with open(join_path(cwd, "build_tools", "hashes.json"), "w") as file:
     json.dump(hashed_data, file, indent=4)
 
 update_cache_branch(in_github_workflow)

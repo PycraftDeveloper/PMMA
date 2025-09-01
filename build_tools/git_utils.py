@@ -14,8 +14,8 @@ from utils import *
 # commit the build cache
 
 cwd = os.path.dirname(os.path.dirname(__file__))
-build_tools_dir = os.path.join(cwd, "build_tools")
-build_cache_dir = os.path.join(cwd, "build_cache")
+build_tools_dir = join_path(cwd, "build_tools")
+build_cache_dir = join_path(cwd, "build_cache")
 
 branch_name = f"{platform.system().lower()}_{platform.machine().lower()}_build_cache"
 

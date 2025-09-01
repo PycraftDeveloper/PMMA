@@ -6,12 +6,12 @@ from utils import *
 from deps_utils import *
 
 def configure(self, component, in_github_workflow):
-    folder = os.path.join(cwd, self.base_dir, component)
+    folder = join_path(cwd, self.base_dir, component)
     ts_print(f"Configuring {component}...")
 
-    config_log_file = os.path.join(temporary_logging_dir, f"dependencies/{component}-config.log")
+    config_log_file = join_path(temporary_logging_dir, f"dependencies/{component}-config.log")
 
-    cmake_dependency_component_build_dir = os.path.join(cmake_dir, 'dependencies', component, 'build')
+    cmake_dependency_component_build_dir = join_path(cmake_dir, 'dependencies', component, 'build')
 
     run(
         [
@@ -25,14 +25,14 @@ def configure(self, component, in_github_workflow):
     ts_print(f"Configured {component}")
 
 def run_build(self, component, built, lock, indegree, ready, in_github_workflow):
-    folder = os.path.join(cwd, self.base_dir, component)
+    folder = join_path(cwd, self.base_dir, component)
     if self.configured[component].is_alive():
         ts_print(f"Waiting for {component} to finish configuring...")
         self.configured[component].join()
 
     ts_print(f"Building {component} in {folder}...")
 
-    build_log_file = os.path.join(temporary_logging_dir, f"dependencies/{component}-build.log")
+    build_log_file = join_path(temporary_logging_dir, f"dependencies/{component}-build.log")
 
     run(
         [
@@ -41,7 +41,7 @@ def run_build(self, component, built, lock, indegree, ready, in_github_workflow)
     )
 
     merge_all_subdirs(
-        os.path.join(cmake_dir, 'dependencies', component, 'build'),
+        join_path(cmake_dir, 'dependencies', component, 'build'),
         extern_dir)
 
     ts_print(f"Finished {component}")

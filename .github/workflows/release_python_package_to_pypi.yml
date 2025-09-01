@@ -247,7 +247,7 @@ jobs:
       # Install Python build deps (reuses pip cache above)
       - name: Install Python build tools
         run: |
-          python -m pip install --upgrade pip setuptools wheel cython numpy meson
+          python -m pip install --upgrade pip setuptools wheel cython numpy
 
       - name: Set branch name
         run: echo "BRANCH_NAME=${{ runner.os }}_${{ runner.arch }}_build_cache" >> $GITHUB_ENV
@@ -255,7 +255,7 @@ jobs:
 
       - name: Configure and build C++ API via CMake
         run: |
-          git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+          git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
 
           python "build_tools/workflow_integration.py" -in_github_workflow
           python "build_tools/build_pmma.py" -in_github_workflow

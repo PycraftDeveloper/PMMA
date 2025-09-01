@@ -7,23 +7,23 @@ from utils import *
 components = []
 rebuild_control = {}
 previous_hashes = {}
-hash_path = os.path.join(build_cache_dir, "hashes.json")
+hash_path = join_path(build_cache_dir, "hashes.json")
 if os.path.exists(hash_path):
     with open(hash_path, "r") as file:
         previous_hashes = json.load(file)
 
 def hash_component(name):
-    build_tools_dir = os.path.join(cwd, "build_tools")
+    build_tools_dir = join_path(cwd, "build_tools")
     data = ""
     data += platform.system()
 
-    #with open(os.path.join(build_tools_dir, "main.py"), "r", encoding="utf-8") as file:
+    #with open(join_path(build_tools_dir, "main.py"), "r", encoding="utf-8") as file:
         #data += file.read()
 
-    with open(os.path.join(build_tools_dir, "deps_build_cmds.py"), "r", encoding="utf-8") as file:
+    with open(join_path(build_tools_dir, "deps_build_cmds.py"), "r", encoding="utf-8") as file:
         data += file.read()
 
-    with open(os.path.join(cmake_dir, "dependencies", name, "CMakeLists.txt"), "r", encoding="utf-8") as file:
+    with open(join_path(cmake_dir, "dependencies", name, "CMakeLists.txt"), "r", encoding="utf-8") as file:
         data += file.read()
 
     return hashlib.sha256(data.encode('utf-8')).hexdigest()
@@ -58,22 +58,22 @@ def merge_all_subdirs(src_root, dest_root):
 def selectively_clean_extern():
     if os.path.exists(extern_dir):
         def should_keep(path):
-            return (f'include{os.sep}glm' in path or
-                    f'include{os.sep}glad' in path or
-                    f'include{os.sep}FlatHashMap' in path or
-                    f'include{os.sep}STB' in path)
+            return (f'glm' in path or
+                    f'glad' in path or
+                    f'FlatHashMap' in path or
+                    f'STB' in path)
 
         for dirpath, dirnames, filenames in os.walk(extern_dir, topdown=False):
             full_dirpath = os.path.abspath(dirpath)
             # Remove files not in keep paths
             for filename in filenames:
-                full_path = os.path.join(full_dirpath, filename)
+                full_path = join_path(full_dirpath, filename)
                 if not should_keep(full_path):
                     os.remove(full_path)
 
             # Remove directories if they're empty and not part of keep paths
             for dirname in dirnames:
-                full_subdir = os.path.join(full_dirpath, dirname)
+                full_subdir = join_path(full_dirpath, dirname)
                 if not should_keep(full_subdir) and not os.listdir(full_subdir):
                     os.rmdir(full_subdir)
 
@@ -89,7 +89,7 @@ def selective_removal(directory, keep_items):
         current_dir = dirs_to_process.pop(0)
 
         for item in os.listdir(current_dir):
-            item_path = os.path.join(current_dir, item)
+            item_path = join_path(current_dir, item)
 
             if os.path.isfile(item_path):
                 # Check if the file should be deleted
@@ -103,7 +103,7 @@ def selective_removal(directory, keep_items):
 
         # After processing, try to remove empty directories
         for item in os.listdir(current_dir):
-            item_path = os.path.join(current_dir, item)
+            item_path = join_path(current_dir, item)
             if os.path.isdir(item_path) and not os.listdir(item_path):
                 try:
                     os.rmdir(item_path)
