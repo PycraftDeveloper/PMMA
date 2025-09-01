@@ -49,6 +49,9 @@ class DependencyBuildManager:
                     extern_dir)
                 rebuild_control[name] = False
                 return
+            else:
+                rebuild = True
+                ts_print(f"{name} needs rebuild because its hash changed.")
 
         shutil.rmtree(join_path(cmake_dir, 'dependencies', name, 'build'), ignore_errors=True)
 
