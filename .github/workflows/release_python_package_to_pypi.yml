@@ -35,8 +35,7 @@ jobs:
           git clone -b "$env:BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
           if ($LASTEXITCODE -ne 0) {
               Write-Host "Cache branch missing, creating..."
-          } else {
-              Write-Host "Cache branch missing, creating..."
+
               git checkout --orphan $env:BRANCH_NAME
               git lfs install
               git rm -rf .

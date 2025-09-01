@@ -5,6 +5,12 @@ import subprocess, sys, sysconfig, platform, argparse
 from pmma_utils import *
 from utils import *
 
+os.makedirs(cmake_temp_dir, exist_ok=True)
+os.makedirs(extern_dir, exist_ok=True)
+os.makedirs(temporary_logging_dir, exist_ok=True)
+os.makedirs(os.path.join(temporary_logging_dir, "dependencies"), exist_ok=True)
+os.makedirs(pmma_lib_dir, exist_ok=True)
+
 def build_pmma(build_debug, build_for_python):
     folder = os.path.join(cwd, "build_tools", "cmake", "pmma")
 
