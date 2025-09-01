@@ -22,7 +22,7 @@ endif()
 
 include(ExternalProject)
 
-# External Dependency: harfbuzz ----------------------------------------
+# External Dependency: harfbuzz ---------------------------------------- --
 ExternalProject_Add(harfbuzz
     GIT_REPOSITORY https://github.com/harfbuzz/harfbuzz.git
     GIT_TAG 11.2.1

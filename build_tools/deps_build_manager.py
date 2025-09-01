@@ -26,7 +26,7 @@ class DependencyBuildManager:
             rebuild = True
             ts_print(f"{name} needs rebuild because it has no existing build cached build.")
 
-        if previous_hashes == {}:
+        if not rebuild and previous_hashes == {}:
             rebuild = True
             ts_print(f"{name} needs rebuild because there is no previous hash data.")
 
@@ -38,17 +38,17 @@ class DependencyBuildManager:
                     rebuild = True
                     dependencies.append(dependant) # issue where build breaks when only doing portion of it
 
-            if rebuild:
-                ts_print(f"{name} needs rebuild because {dependant} was rebuilt.")
+        if rebuild:
+            ts_print(f"{name} needs rebuild because {dependant} was rebuilt.")
 
-            if name in previous_hashes:
-                if hash_component(name) == previous_hashes[name]:
-                    ts_print(f"Skipping {name}, no changes detected.")
-                    merge_all_subdirs(
-                        join_path(build_cache_dir, 'cmake', 'dependencies', name, 'build'),
-                        extern_dir)
-                    rebuild_control[name] = False
-                    return
+        if not rebuild and name in previous_hashes:
+            if hash_component(name) == previous_hashes[name]:
+                ts_print(f"Skipping {name}, no changes detected.")
+                merge_all_subdirs(
+                    join_path(build_cache_dir, 'cmake', 'dependencies', name, 'build'),
+                    extern_dir)
+                rebuild_control[name] = False
+                return
 
         shutil.rmtree(join_path(cmake_dir, 'dependencies', name, 'build'), ignore_errors=True)
 
