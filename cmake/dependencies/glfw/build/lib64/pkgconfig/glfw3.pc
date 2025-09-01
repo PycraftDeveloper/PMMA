@@ -1,0 +1,13 @@
+prefix=/PMMA/build_tools/cmake/dependencies/glfw/build
+exec_prefix=${prefix}
+includedir=/PMMA/build_tools/cmake/dependencies/glfw/build/include
+libdir=/PMMA/build_tools/cmake/dependencies/glfw/build/lib64
+
+Name: GLFW
+Description: A multi-platform library for OpenGL, window and input
+Version: 3.4.0
+URL: https://www.glfw.org/
+Requires.private: 
+Libs: -L${libdir} -lglfw
+Libs.private:  -lrt -lm -ldl
+Cflags: -I${includedir}

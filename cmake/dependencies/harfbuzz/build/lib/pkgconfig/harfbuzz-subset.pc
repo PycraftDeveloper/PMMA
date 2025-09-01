@@ -1,0 +1,11 @@
+prefix=/PMMA/build_tools/cmake/dependencies/harfbuzz/build
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: harfbuzz-subset
+Description: HarfBuzz font subsetter
+Version: 11.2.1
+Requires: harfbuzz =  11.2.1
+Libs: -L${libdir} -lharfbuzz-subset
+Libs.private: -lm
+Cflags: -I${includedir}/harfbuzz

@@ -1,0 +1,10 @@
+prefix=/PMMA/build_tools/cmake/dependencies/harfbuzz/build
+includedir=${prefix}/include
+libdir=${prefix}/lib
+
+Name: harfbuzz
+Description: HarfBuzz text shaping library
+Version: 11.2.1
+Libs: -L${libdir} -lharfbuzz
+Libs.private: -pthread -lm
+Cflags: -I${includedir}/harfbuzz
