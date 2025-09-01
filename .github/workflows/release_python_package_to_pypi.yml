@@ -114,7 +114,7 @@ jobs:
                   echo "Cache branch missing, creating..."
                   git checkout --orphan "$BRANCH_NAME"
                   git lfs install
-                  git rm -rf *
+                  git rm -rf .
 
                   git config --global user.email "github-actions@github.com"
                   git config --global user.name "GitHub Actions"
