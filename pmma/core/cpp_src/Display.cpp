@@ -1,6 +1,21 @@
-#include <glad/gl.h>
 #include <GLFW/glfw3.h>
 #include <STB/stb_image.h>
+#include <bx/platform.h>
+#include <bgfx/bgfx.h>
+#include <bgfx/platform.h>
+
+// For native window handles via GLFW
+#if BX_PLATFORM_WINDOWS
+    #define GLFW_EXPOSE_NATIVE_WIN32
+    #include <GLFW/glfw3native.h>
+#elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
+    #define GLFW_EXPOSE_NATIVE_X11
+    #define GLFW_EXPOSE_NATIVE_WAYLAND
+    #include <GLFW/glfw3native.h>
+#elif BX_PLATFORM_OSX
+    #define GLFW_EXPOSE_NATIVE_COCOA
+    #include <GLFW/glfw3native.h>
+#endif
 
 #include "PMMA_Core.hpp"
 
@@ -375,10 +390,7 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
         glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
     if (FullScreen) {
         Window = glfwCreateWindow(
@@ -415,18 +427,36 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
         return;
     }
 
-    glfwMakeContextCurrent(Window);
+    bgfx::PlatformData pd{};
+    #if BX_PLATFORM_WINDOWS
+        pd.nwh = glfwGetWin32Window(Window);
+    #elif BX_PLATFORM_OSX
+        pd.nwh = glfwGetCocoaWindow(Window);
+    #elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
+        if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+            pd.ndt = glfwGetWaylandDisplay();
+            pd.nwh = (void*)glfwGetWaylandWindow(Window);
+        } else { // X11
+            pd.ndt = glfwGetX11Display();
+            pd.nwh = (void*)(uintptr_t)glfwGetX11Window(Window);
+        }
+    #endif
+        bgfx::setPlatformData(pd);
 
-    int version = gladLoadGL(glfwGetProcAddress);
-    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
-        34,
-        "OpenGL version: " + to_string(GLAD_VERSION_MAJOR(version)) + "." + to_string(GLAD_VERSION_MINOR(version))
-    );
+        bgfx::Init init;
+        init.type = bgfx::RendererType::Count; // auto-detect renderer
+        init.resolution.width  = Size[0];
+        init.resolution.height = Size[1];
+        init.resolution.reset  = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;
 
-    if (Vsync) {
-        glfwSwapInterval(1);
-    } else {
-        glfwSwapInterval(0);
+        if (!bgfx::init(init)) {
+            throw std::runtime_error("Failed to initialize BGFX");
+        }
+
+        bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
+        bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
+
+    if (!Vsync) {
         PMMA_Core::InternalLoggerInstance->InternalLogDebug(
             33,
             "You are not using vsync. We strongly recommend using \
@@ -453,10 +483,22 @@ You can do this using `Display.create`."
         throw runtime_error("Display not created yet!");
     }
 
-    float out_color[4];
-    WindowFillColor->Get_rgba(out_color);
-    glClearColor(out_color[0], out_color[1], out_color[2], out_color[3]);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    unsigned int out_color[4];
+    WindowFillColor->Get_RGBA(out_color);
+
+    uint32_t clearColor =
+    ( (uint8_t)(out_color[3]) << 24 ) | // A
+    ( (uint8_t)(out_color[0]) << 16 ) | // R
+    ( (uint8_t)(out_color[1]) <<  8 ) | // G
+    ( (uint8_t)(out_color[2]) );        // B
+
+    bgfx::setViewClear(
+        0,  // view ID (use 0 for your main screen)
+        BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH,
+        clearColor,
+        1.0f, // depth clear value
+        0     // stencil clear value
+    );
 
     PMMA_Core::RenderPipelineCore->Reset();
 
@@ -545,7 +587,8 @@ You can do this using `Display.create`."
 
     PMMA_Core::RenderPipelineCore->Render();
 
-    glfwSwapBuffers(Window);
+    bgfx::touch(0);   // Ensure view 0 is cleared
+    bgfx::frame();
     glfwPollEvents();
 
     PMMA_Update(Window);
@@ -579,7 +622,8 @@ You can do this using `Display.create`."
 
     PMMA_Core::RenderPipelineCore->Render();
 
-    glfwSwapBuffers(Window);
+    bgfx::touch(0);   // Ensure view 0 is cleared
+    bgfx::frame();
 
     MaxRefreshRate = CPP_Display::CalculateRefreshRate(
         MaxRefreshRate);
@@ -696,7 +740,7 @@ void CPP_Display::ToggleFullScreen() {
         new_height = Size[1];
     }
 
-    glViewport(0, 0, new_width, new_height);
+    bgfx::setViewRect(0, 0, 0, uint16_t(new_width), uint16_t(new_height));
 }
 
 CPP_Display::~CPP_Display() {

@@ -21,7 +21,7 @@ PMMA is a Python module targeted at helping you build applications in the Python
 
 ## Development Progress
 
-![Progress on PMMA 5.1](https://geps.dev/progress/25)
+![Progress on PMMA 5.1](https://geps.dev/progress/35)
 
 We are currently working on the next minor update to PMMA, version 5.1.x. This update is targeted at transitioning away from the OpenGL graphics API and into BGFX to better secure the future of the API with the gradual deprecation of the OpenGL API. This update will also bring numerous bug fixes, a major overhaul to the build system for the C++ side of PMMA, and an expansion ans general refinement of the Text and Animation portions of the API. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5.1](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
 
@@ -67,7 +67,6 @@ C/C++ projects:
 * GLFW - 3.4 - https://github.com/glfw/glfw
 * FreeType - 2-13-3 - https://gitlab.freedesktop.org/freetype/freetype
 * GLM - 0.9.3.2 - https://github.com/icaven/glm
-* GLAD - 2.0.8 - https://github.com/Dav1dde/glad
 * HarfBuzz - 11.2.1 - https://github.com/harfbuzz/harfbuzz
 * flat_hash_map - N/A - https://github.com/skarupke/flat_hash_map
 * STB - N/A - https://github.com/nothings/stb

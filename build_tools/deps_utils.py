@@ -59,7 +59,6 @@ def selectively_clean_extern():
     if os.path.exists(extern_dir):
         def should_keep(path):
             return (f'glm' in path or
-                    f'glad' in path or
                     f'FlatHashMap' in path or
                     f'STB' in path)
 
