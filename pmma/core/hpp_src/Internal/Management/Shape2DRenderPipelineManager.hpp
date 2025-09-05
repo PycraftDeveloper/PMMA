@@ -9,9 +9,10 @@
 
 #include <glm/glm.hpp>
 #include <FlatHashMap/flat_hash_map.hpp>
+#include <bgfx/bgfx.h>
+#include <bgfx/platform.h>
 
 #include "Constants.hpp"
-#include "OpenGL.hpp"
 
 class CPP_RadialPolygonShape;
 class CPP_RectangleShape;
@@ -20,6 +21,8 @@ class CPP_LineShape;
 class CPP_ArcShape;
 class CPP_EllipseShape;
 class CPP_PolygonShape;
+
+class CPP_Shader;
 
 using Shape2D_RenderObject = std::variant<
     CPP_RadialPolygonShape*,
@@ -33,6 +36,11 @@ using Shape2D_RenderObject = std::variant<
 struct Vertex {
     glm::vec2 position;
     GLuint shape_id;
+};
+
+struct BgfxVertex {
+    float x, y;      // position
+    float s, t;      // texcoord (s = shape index as float, t unused)
 };
 
 class CPP_Shape2D_RenderPipelineManager {
@@ -51,7 +59,11 @@ class CPP_Shape2D_RenderPipelineManager {
         ska::flat_hash_set<unsigned int> SeenThisFrame;
         std::vector<GLuint> FreeSlots;
 
-        GLuint vao, vbo, ubo;
+        bgfx::VertexLayout m_layout;
+        bgfx::DynamicVertexBufferHandle m_vbh;
+        bgfx::TextureHandle m_tex;
+        bgfx::UniformHandle s_colorTex;
+        uint32_t m_colorTextureWidth = 0;
 
         bool Changed = true;
         bool HasAlpha = false;

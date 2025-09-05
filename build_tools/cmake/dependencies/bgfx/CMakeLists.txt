@@ -23,6 +23,16 @@ endif()
 include(ExternalProject)
 
 # External Dependency: bgfx --------------------------------------------
+
+set(CMAKE_CXX_FLAGS "")
+
+if (MSVC)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus /std:c++17 /DBX_CONFIG_DEBUG=0")
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -DBX_CONFIG_DEBUG=0")
+endif()
+
+
 ExternalProject_Add(bgfx
     GIT_REPOSITORY https://github.com/bkaradzic/bgfx.cmake.git
     GIT_TAG v1.129.8930-495
@@ -30,6 +40,10 @@ ExternalProject_Add(bgfx
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${OUTPUT_DIR}
         -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
+        -DCMAKE_CXX_STANDARD=17
+        -DCMAKE_CXX_STANDARD_REQUIRED=ON
+        -DCMAKE_CXX_EXTENSIONS=OFF
         -DBX_AMALGAMATED=ON
         -DBGFX_AMALGAMATED=ON
         -DBGFX_BUILD_EXAMPLES=OFF

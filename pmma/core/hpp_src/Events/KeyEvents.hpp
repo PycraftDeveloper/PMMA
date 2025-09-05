@@ -1,7 +1,7 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include "Events/EventsCore.hpp"
+#include "Internal/Management/EventsManager.hpp"
 
 class EXPORT CPP_KeyEvent_Space : public CPP_ButtonPressedEvent {
     public:

@@ -1,4 +1,3 @@
-#include <glad/gl.h>
 #include <glm/gtc/type_ptr.hpp>
 
 #include "PMMA_Core.hpp"
@@ -6,28 +5,12 @@
 using namespace std;
 
 CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
-    GLint max_block_size;
-    glGetIntegerv(GL_MAX_UNIFORM_BLOCK_SIZE, &max_block_size);
-    MaxSize = (unsigned int)max_block_size / sizeof(glm::vec4);
+    string Shape2D_RenderPipelineShaderPath = PMMA_Registry::PMMA_Location
+        + PMMA_Registry::PathSeparator + "shaders"
+        + PMMA_Registry::PathSeparator + "shape_2D_render_pipeline";
 
-    string vertex_shader_path[] = {"shaders", "render_pipeline", "vertex_shader.glsl"};
-    string fragment_shader_path[] = {"shaders", "render_pipeline", "fragment_shader.glsl"};
-
-    string vertex_shader = PMMA_Registry::PMMA_Location;
-    for (const auto& part : vertex_shader_path) {
-        vertex_shader += PMMA_Registry::PathSeparator + part;
-    }
-
-    string fragment_shader = PMMA_Registry::PMMA_Location;
-    for (const auto& part : fragment_shader_path) {
-        fragment_shader += PMMA_Registry::PathSeparator + part;
-    }
-
-    CPP_Shader ShaderObject;
-    shader = ShaderObject.CreateShaderProgram(vertex_shader, fragment_shader);
-
-    GLuint block_index = glGetUniformBlockIndex(shader, "ShapeColors");
-    glUniformBlockBinding(shader, block_index, 0);
+    Shape2D_RenderPipelineShader = new CPP_Shader();
+    Shape2D_RenderPipelineShader->LoadShaderFromFolder(Shape2D_RenderPipelineShaderPath);
 }
 
 CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
@@ -40,12 +23,13 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
     }
     RenderData.clear();
 
-    glDeleteProgram(shader);
+    if (Shape2D_RenderPipelineShader) {
+        delete Shape2D_RenderPipelineShader;
+        Shape2D_RenderPipelineShader = nullptr;
+    }
 }
 
 void CPP_RenderPipelineCore::Render() {
-    glUniformMatrix4fv(glGetUniformLocation(PMMA_Core::RenderPipelineCore->shader, "projection"), 1, GL_FALSE, glm::value_ptr(PMMA_Core::DisplayInstance->GetDisplayProjection()));
-
     for (auto& item : RenderData) {
         std::visit([](auto* ptr) {
             ptr->InternalRender();

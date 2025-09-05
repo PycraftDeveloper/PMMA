@@ -14,8 +14,27 @@
 #include <algorithm>
 #include <map>
 
-#include "General.hpp"
-#include "InternalManagement.hpp"
+#include "Animation/LinearAnimation.hpp"
+#include "Animation/RadialAnimation.hpp"
+
+#include "Events/ControllerEvents.hpp"
+#include "Events/KeyEvents.hpp"
+#include "Events/KeyPadEvents.hpp"
+#include "Events/MouseEvents.hpp"
+#include "Events/WindowEvents.hpp"
+
+#include "Graphics/Shader.hpp"
+
+#include "Internal/Management/AnimationManager.hpp"
+#include "Internal/Management/EventsManager.hpp"
+#include "Internal/Management/InternalManager.hpp"
+#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
+#include "Internal/Management/TextRenderPipelineManager.hpp"
+
+#include "Internal/Utility/CPU_FeatureSetUtils.hpp"
+#include "Internal/Utility/FontUtils.hpp"
+
+#include "Internal/InternalLogger.hpp"
 
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
@@ -25,37 +44,18 @@
 #include "Rendering/Shapes2D/ArcShape.hpp"
 #include "Rendering/Shapes2D/EllipseShape.hpp"
 
-#include "Rendering/Shape2DRenderPipelineManager.hpp"
-#include "Rendering/TextRendererPipelineManager.hpp"
-#include "Rendering/RenderPipelineCore.hpp"
-
-#include "Display.hpp"
-#include "NumberConverter.hpp"
-#include "NumberFormats.hpp"
-
-#include "Events/KeyEvents.hpp"
-#include "Events/KeyPadEvents.hpp"
-#include "Events/MouseEvents.hpp"
-#include "Events/WindowEvents.hpp"
-#include "Events/ControllerEvents.hpp"
-
-#include "Events/InternalEventsManager.hpp"
+#include "Rendering/TextRenderer.hpp"
 
 #include "AdvancedMathematics.hpp"
+#include "Constants.hpp"
+#include "Display.hpp"
 #include "FractalBrownianMotion.hpp"
-#include "PerlinNoise.hpp"
-#include "OpenGL.hpp"
-
-#include "Utility/FontUtils.hpp"
-#include "Utility/CPU_FeatureSetUtils.hpp"
-
-#include "Passport.hpp"
+#include "General.hpp"
 #include "Logger.hpp"
-#include "InternalLogger.hpp"
-
-#include "Animation/AnimationManager.hpp"
-#include "Animation/Types/LinearAnimation.hpp"
-#include "Animation/Types/RadialAnimation.hpp"
+#include "NumberConverter.hpp"
+#include "NumberFormats.hpp"
+#include "Passport.hpp"
+#include "PerlinNoise.hpp"
 
 /*
 Notes:

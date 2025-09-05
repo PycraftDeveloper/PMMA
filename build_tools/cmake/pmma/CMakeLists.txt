@@ -12,7 +12,7 @@ option(USE_PYTHON "Enable Python integration" OFF)
 
 # ---- Paths -------------------------------------------------------------------
 if (NOT DEFINED WORKING_DIR)
-  message(FATAL_ERROR "WORKING_DIR is not defined. Please set it to PMMA's root.")
+    message(FATAL_ERROR "WORKING_DIR is not defined. Please set it to PMMA's root.")
 endif()
 
 set(LIB_NAME            PMMA_Core)
@@ -23,161 +23,185 @@ set(LIB_OUTPUT_DIR      "${WORKING_DIR}/pmma/lib")
 
 # ---- Sources -----------------------------------------------------------------
 set(CORE_SOURCES
-  "${SRC_DIR}/PMMA_Core.cpp"
-  "${SRC_DIR}/AdvancedMathematics_BASE.cpp"
-  "${SRC_DIR}/Display.cpp"
-  "${SRC_DIR}/FractalBrownianMotion.cpp"
-  "${SRC_DIR}/PerlinNoise_BASE.cpp"
-  "${SRC_DIR}/General.cpp"
-  "${SRC_DIR}/NumberFormats.cpp"
-  "${SRC_DIR}/InternalManagement.cpp"
-  "${SRC_DIR}/Passport.cpp"
-  "${SRC_DIR}/Logger.cpp"
-  "${SRC_DIR}/InternalLogger.cpp"
-  "${SRC_DIR}/OpenGL.cpp"
+    "${SRC_DIR}/Animation/LinearAnimation.cpp"
+    "${SRC_DIR}/Animation/RadialAnimation.cpp"
 
-  "${SRC_DIR}/Utility/FontUtils.cpp"
-  "${SRC_DIR}/Utility/CPU_FeatureSetUtils.cpp"
+    "${SRC_DIR}/Events/ControllerEvents.cpp"
+    "${SRC_DIR}/Events/KeyEvents.cpp"
+    "${SRC_DIR}/Events/KeyPadEvents.cpp"
+    "${SRC_DIR}/Events/MouseEvents.cpp"
+    "${SRC_DIR}/Events/WindowEvents.cpp"
 
-  "${SRC_DIR}/Rendering/RenderPipelineCore.cpp"
-  "${SRC_DIR}/Rendering/Shape2DRenderPipelineManager.cpp"
-  "${SRC_DIR}/Rendering/TextRendererPipelineManager.cpp"
-  "${SRC_DIR}/Rendering/TextRenderer.cpp"
+    "${SRC_DIR}/Graphics/Shader.cpp"
 
-  "${SRC_DIR}/Rendering/Shapes2D/RectangleShape.cpp"
-  "${SRC_DIR}/Rendering/Shapes2D/RadialPolygonShape.cpp"
-  "${SRC_DIR}/Rendering/Shapes2D/PixelShape.cpp"
-  "${SRC_DIR}/Rendering/Shapes2D/LineShape.cpp"
-  "${SRC_DIR}/Rendering/Shapes2D/ArcShape.cpp"
-  "${SRC_DIR}/Rendering/Shapes2D/EllipseShape.cpp"
-  "${SRC_DIR}/Rendering/Shapes2D/PolygonShape.cpp"
+    "${SRC_DIR}/Internal/Management/AnimationManager.cpp"
+    "${SRC_DIR}/Internal/Management/CoreRenderPipelineManager.cpp"
+    "${SRC_DIR}/Internal/Management/EventsManager.cpp"
+    "${SRC_DIR}/Internal/Management/InternalManager.cpp"
+    "${SRC_DIR}/Internal/Management/Shape2DRenderPipelineManager.cpp"
+    "${SRC_DIR}/Internal/Management/TextRenderPipelineManager.cpp"
 
-  "${SRC_DIR}/Events/InternalEventsManager.cpp"
-  "${SRC_DIR}/Events/KeyPadEvents.cpp"
-  "${SRC_DIR}/Events/KeyEvents.cpp"
-  "${SRC_DIR}/Events/WindowEvents.cpp"
-  "${SRC_DIR}/Events/ControllerEvents.cpp"
-  "${SRC_DIR}/Events/MouseEvents.cpp"
+    "${SRC_DIR}/Internal/Utility/CPU_FeatureSetUtils.cpp"
+    "${SRC_DIR}/Internal/Utility/FontUtils.cpp"
 
-  "${SRC_DIR}/Animation/AnimationManager.cpp"
-  "${SRC_DIR}/Animation/Types/LinearAnimation.cpp"
-  "${SRC_DIR}/Animation/Types/RadialAnimation.cpp"
+    "${SRC_DIR}/Internal/InternalLogger.cpp"
+
+    "${SRC_DIR}/Rendering/TextRenderer.cpp"
+
+    "${SRC_DIR}/Rendering/Shapes2D/RectangleShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/RadialPolygonShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/PixelShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/LineShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/ArcShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/EllipseShape.cpp"
+    "${SRC_DIR}/Rendering/Shapes2D/PolygonShape.cpp"
+
+    "${SRC_DIR}/AdvancedMathematics_BASE.cpp"
+    "${SRC_DIR}/Display.cpp"
+    "${SRC_DIR}/FractalBrownianMotion.cpp"
+    "${SRC_DIR}/General.cpp"
+    "${SRC_DIR}/Logger.cpp"
+    "${SRC_DIR}/NumberFormats.cpp"
+    "${SRC_DIR}/Passport.cpp"
+    "${SRC_DIR}/PerlinNoise_BASE.cpp"
+    "${SRC_DIR}/PMMA_Core.cpp"
 )
 
 # ---- SIMD subcomponents ------------------------------------------------------
 if(NOT APPLE)
-  # AVX2
-  add_library(AVX2_obj OBJECT
-	"${SRC_DIR}/AdvancedMathematics_AVX2.cpp"
-	"${SRC_DIR}/PerlinNoise_AVX2.cpp")
-  if (MSVC)
-	target_compile_options(AVX2_obj PRIVATE /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /arch:AVX2)
-  elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-	target_compile_options(AVX2_obj PRIVATE -O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17 -mtune=generic -finline-functions -flto -ftree-vectorize -mavx2 -mfma)
-  endif()
-  target_include_directories(AVX2_obj PRIVATE
-	${INCLUDE_DIR}
-	${EXTERN_INSTALL_DIR}/include
-	${EXTERN_INSTALL_DIR}/include/freetype2)
-  target_compile_definitions(AVX2_obj PRIVATE PMMA_CORE_EXPORTS)
+    # AVX2
+    add_library(AVX2_obj OBJECT
+	    "${SRC_DIR}/AdvancedMathematics_AVX2.cpp"
+	    "${SRC_DIR}/PerlinNoise_AVX2.cpp")
 
-  # AVX-512
-  add_library(AVX512_obj OBJECT
-	"${SRC_DIR}/AdvancedMathematics_AVX512.cpp"
-	"${SRC_DIR}/PerlinNoise_AVX512.cpp")
-  if (MSVC)
-	target_compile_options(AVX512_obj PRIVATE /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /arch:AVX512)
-  elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-	target_compile_options(AVX512_obj PRIVATE -O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17 -mtune=generic -finline-functions -flto -ftree-vectorize -mavx512f -mavx512dq)
-  endif()
-  target_include_directories(AVX512_obj PRIVATE
-	${INCLUDE_DIR}
-	${EXTERN_INSTALL_DIR}/include
-	${EXTERN_INSTALL_DIR}/include/freetype2)
-  target_compile_definitions(AVX512_obj PRIVATE PMMA_CORE_EXPORTS)
+    if (MSVC)
+	    target_compile_options(AVX2_obj PRIVATE /O2 /fp:fast /GL /GF /GS-
+        /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /arch:AVX2 /Zc:__cplusplus /Zc:preprocessor)
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+	    target_compile_options(AVX2_obj PRIVATE -O3 -ffast-math
+        -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17
+        -mtune=generic -finline-functions -flto -ftree-vectorize -mavx2
+        -mfma)
+    endif()
 
-  add_library(${LIB_NAME} SHARED ${CORE_SOURCES} $<TARGET_OBJECTS:AVX2_obj> $<TARGET_OBJECTS:AVX512_obj>)
+    target_include_directories(AVX2_obj PRIVATE
+	    ${INCLUDE_DIR}
+	    ${EXTERN_INSTALL_DIR}/include
+	    ${EXTERN_INSTALL_DIR}/include/freetype2)
+    target_compile_definitions(AVX2_obj PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+
+    # AVX-512
+    add_library(AVX512_obj OBJECT
+	    "${SRC_DIR}/AdvancedMathematics_AVX512.cpp"
+	    "${SRC_DIR}/PerlinNoise_AVX512.cpp")
+
+    if (MSVC)
+	    target_compile_options(AVX512_obj PRIVATE /O2 /fp:fast /GL /GF /GS-
+            /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /arch:AVX512 /Zc:__cplusplus /Zc:preprocessor)
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+	    target_compile_options(AVX512_obj PRIVATE -O3 -ffast-math
+            -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17
+            -mtune=generic -finline-functions -flto -ftree-vectorize -mavx512f
+            -mavx512dq)
+    endif()
+
+    target_include_directories(AVX512_obj PRIVATE
+	    ${INCLUDE_DIR}
+	    ${EXTERN_INSTALL_DIR}/include
+        ${EXTERN_INSTALL_DIR}/include/freetype2)
+    target_compile_definitions(AVX512_obj PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+
+    add_library(${LIB_NAME} SHARED ${CORE_SOURCES} $<TARGET_OBJECTS:AVX2_obj> $<TARGET_OBJECTS:AVX512_obj>)
 else()
-  message(STATUS "Skipping AVX extensions on Apple platform")
-  add_library(AVX_Filler_obj OBJECT "${SRC_DIR}/AVX_Filler.cpp")
-  if (MSVC)
-	target_compile_options(AVX_Filler_obj PRIVATE /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2)
-  elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-	target_compile_options(AVX_Filler_obj PRIVATE -O3 -ffast-math -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17 -mtune=generic -finline-functions -flto -ftree-vectorize)
-  endif()
-  target_include_directories(AVX_Filler_obj PRIVATE
-	${INCLUDE_DIR}
-	${EXTERN_INSTALL_DIR}/include
-	${EXTERN_INSTALL_DIR}/include/freetype2)
-  target_compile_definitions(AVX_Filler_obj PRIVATE PMMA_CORE_EXPORTS)
+    message(STATUS "Skipping AVX extensions on Apple platform")
+    add_library(AVX_Filler_obj OBJECT "${SRC_DIR}/AVX_Filler.cpp")
 
-  add_library(${LIB_NAME} SHARED ${CORE_SOURCES} $<TARGET_OBJECTS:AVX_Filler_obj>)
+    if (MSVC)
+	    target_compile_options(AVX_Filler_obj PRIVATE /O2 /fp:fast /GL /GF
+            /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /Zc:__cplusplus /Zc:preprocessor)
+    elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+	    target_compile_options(AVX_Filler_obj PRIVATE -O3 -ffast-math
+            -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17
+            -mtune=generic -finline-functions -flto -ftree-vectorize)
+    endif()
+
+    target_include_directories(AVX_Filler_obj PRIVATE
+	    ${INCLUDE_DIR}
+	    ${EXTERN_INSTALL_DIR}/include
+	    ${EXTERN_INSTALL_DIR}/include/freetype2)
+
+    target_compile_definitions(AVX_Filler_obj PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+
+    add_library(${LIB_NAME} SHARED ${CORE_SOURCES} $<TARGET_OBJECTS:AVX_Filler_obj>)
 endif()
 
 # ---- IPO / LTO ---------------------------------------------------------------
 include(CheckIPOSupported)
 check_ipo_supported(RESULT lto_supported OUTPUT lto_msg)
 if(lto_supported)
-  set_target_properties(${LIB_NAME} PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
+    set_target_properties(${LIB_NAME} PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
 endif()
 
 # ---- Includes / Defines ------------------------------------------------------
-target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS)
+target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
 target_include_directories(${LIB_NAME} PRIVATE
-  ${INCLUDE_DIR}
-  ${EXTERN_INSTALL_DIR}/include
-  ${EXTERN_INSTALL_DIR}/include/freetype2)
+    ${INCLUDE_DIR}
+    ${EXTERN_INSTALL_DIR}/include
+    ${EXTERN_INSTALL_DIR}/include/freetype2)
 
 # ---- Link directories (extern install prefix variations) ---------------------
 file(GLOB LIBDIRS "${EXTERN_INSTALL_DIR}/lib*")
 foreach(libdir ${LIBDIRS})
-  if(IS_DIRECTORY "${libdir}")
-	message(STATUS "Using link directory: ${libdir}")
-	target_link_directories(${LIB_NAME} PRIVATE ${libdir})
-  endif()
+    if(IS_DIRECTORY "${libdir}")
+	    message(STATUS "Using link directory: ${libdir}")
+	    target_link_directories(${LIB_NAME} PRIVATE ${libdir})
+    endif()
 endforeach()
 
 # ---- Python (optional) -------------------------------------------------------
 if(USE_PYTHON)
-  find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
-  target_compile_definitions(${LIB_NAME} PRIVATE USE_PYTHON)
-  target_include_directories(${LIB_NAME} PRIVATE ${Python3_INCLUDE_DIRS})
-  target_link_libraries(${LIB_NAME} PRIVATE ${Python3_LIBRARIES})
+    find_package(Python3 REQUIRED COMPONENTS Interpreter Development.Module)
+    target_compile_definitions(${LIB_NAME} PRIVATE USE_PYTHON)
+    target_include_directories(${LIB_NAME} PRIVATE ${Python3_INCLUDE_DIRS})
+    target_link_libraries(${LIB_NAME} PRIVATE ${Python3_LIBRARIES})
 endif()
 
 # Platform toolkits (glfw kept as your window/input layer)
 # Note: We intentionally do NOT find_package(OpenGL) here—BGFX selects renderers at runtime.
 if (WIN32)
-  add_compile_options(/O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2)
-  set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
+    target_compile_options(${LIB_NAME} PRIVATE
+        /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /Zc:__cplusplus /Zc:preprocessor)
 
-  target_link_libraries(${LIB_NAME} PRIVATE
-	glfw3dll bgfx freetype libpng16 zlib harfbuzz)
+    set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
+
+    target_link_libraries(${LIB_NAME} PRIVATE
+	    glfw3dll bgfx bx freetype libpng16 zlib harfbuzz)
 elseif(UNIX)
-  add_compile_options(-O3 -ffast-math -funroll-loops -fstrict-aliasing
-			  -fomit-frame-pointer -std=c++17 -mtune=generic
-			  -finline-functions -flto -ftree-vectorize)
+    target_compile_options(${LIB_NAME} PRIVATE
+        -O3 -ffast-math -funroll-loops -fstrict-aliasing
+		-fomit-frame-pointer -std=c++17 -mtune=generic
+		-finline-functions -flto -ftree-vectorize)
 
-  target_link_libraries(${LIB_NAME} PRIVATE
-	glfw bgfx freetype png z harfbuzz pthread dl) # common on Linux
+    target_link_libraries(${LIB_NAME} PRIVATE
+	    glfw bgfx bx freetype png z harfbuzz pthread dl) # common on Linux
 
-  target_link_options(${LIB_NAME} PUBLIC -flto=auto)
+    target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 endif()
 
 # ---- Output directories ------------------------------------------------------
 if(CMAKE_CONFIGURATION_TYPES) # Multi-config (MSVC, Xcode)
-  foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
-	string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
-	set_target_properties(${LIB_NAME} PROPERTIES
-	  RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
-	  LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
-	  ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR})
-  endforeach()
+    foreach(OUTPUTCONFIG ${CMAKE_CONFIGURATION_TYPES})
+	    string(TOUPPER ${OUTPUTCONFIG} OUTPUTCONFIG_UPPER)
+	    set_target_properties(${LIB_NAME} PROPERTIES
+	        RUNTIME_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
+	        LIBRARY_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR}
+	         ARCHIVE_OUTPUT_DIRECTORY_${OUTPUTCONFIG_UPPER} ${LIB_OUTPUT_DIR})
+    endforeach()
 else() # Single-config (Makefiles, Ninja)
-  set_target_properties(${LIB_NAME} PROPERTIES
-	RUNTIME_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
-	LIBRARY_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
-	ARCHIVE_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR})
+    set_target_properties(${LIB_NAME} PROPERTIES
+	    RUNTIME_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
+	    LIBRARY_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR}
+	    ARCHIVE_OUTPUT_DIRECTORY ${LIB_OUTPUT_DIR})
 endif()
 
 # ---- Notes -------------------------------------------------------------------

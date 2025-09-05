@@ -1,4 +1,4 @@
-#include "Animation/AnimationCore.hpp"
+#include "Internal/Management/AnimationManager.hpp"
 
 #include "PMMA_Core.hpp"
 

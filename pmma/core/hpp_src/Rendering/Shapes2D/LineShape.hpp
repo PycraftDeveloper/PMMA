@@ -6,8 +6,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Constants.hpp"
-#include "Rendering/Shape2DRenderPipelineManager.hpp"
 #include "NumberFormats.hpp"
 #include "Logger.hpp"
 

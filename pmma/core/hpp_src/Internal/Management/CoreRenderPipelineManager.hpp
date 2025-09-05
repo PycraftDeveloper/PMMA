@@ -4,10 +4,10 @@
 #include <variant>
 #include <iostream>
 
+#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
+#include "Internal/Management/TextRenderPipelineManager.hpp"
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
-#include "Rendering/Shape2DRenderPipelineManager.hpp"
-#include "Rendering/TextRendererPipelineManager.hpp"
 #include "Rendering/TextRenderer.hpp"
 
 using RawRenderObject = std::variant<
@@ -21,13 +21,16 @@ using RawRenderObject = std::variant<
     CPP_EllipseShape*,
     CPP_ArcShape*>;
 
+class CPP_Shader;
+
 class CPP_RenderPipelineCore {
     public:
         std::vector<CPP_Shape2D_RenderPipelineManager*> Shape_2D_RenderManagerCache;
         std::vector<CPP_TextRendererPipelineManager*> Text_RenderManagerCache;
         std::vector<RawRenderObject> RenderData;
+
+        CPP_Shader* Shape2D_RenderPipelineShader = nullptr;
         unsigned int MaxSize;
-        GLuint shader;
 
         CPP_RenderPipelineCore();
         ~CPP_RenderPipelineCore();

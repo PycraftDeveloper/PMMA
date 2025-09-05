@@ -9,10 +9,10 @@
 
 #include <GLFW/glfw3.h>
 
+#include "Internal/Management/EventsManager.hpp"
 #include "NumberConverter.hpp"
 #include "Constants.hpp"
 #include "Logger.hpp"
-#include "Events/EventsCore.hpp"
 
 class EXPORT CPP_ControllerEvent {
     private:

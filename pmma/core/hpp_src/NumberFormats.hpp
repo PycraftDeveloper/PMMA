@@ -5,7 +5,6 @@
 
 #include "FractalBrownianMotion.hpp"
 #include "AdvancedMathematics.hpp"
-
 #include "NumberConverter.hpp"
 #include "Logger.hpp"
 

@@ -15,12 +15,11 @@
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 
-#include "Rendering/RenderPipelineCore.hpp"
-#include "NumberFormats.hpp"
-#include "Logger.hpp"
-
 #include "Events/WindowEvents.hpp"
 #include "Events/KeyEvents.hpp"
+#include "Internal/Management/CoreRenderPipelineManager.hpp"
+#include "NumberFormats.hpp"
+#include "Logger.hpp"
 
 class EXPORT CPP_Display {
     public:

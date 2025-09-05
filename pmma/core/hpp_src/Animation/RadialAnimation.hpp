@@ -4,7 +4,7 @@
 #include <chrono>
 #include <iostream>
 
-#include "Animation/AnimationCore.hpp"
+#include "Internal/Management/AnimationManager.hpp"
 #include "NumberFormats.hpp"
 #include "AdvancedMathematics.hpp"
 

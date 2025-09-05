@@ -4,7 +4,7 @@
 
 #include <glm/glm.hpp>
 
-#include "Utility/FontUtils.hpp"
+#include "Internal/Utility/FontUtils.hpp"
 
 typedef struct FT_LibraryRec_ *FT_Library;
 typedef struct FT_FaceRec_ *FT_Face;
