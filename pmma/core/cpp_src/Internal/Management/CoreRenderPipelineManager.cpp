@@ -10,7 +10,7 @@ CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
         + PMMA_Registry::PathSeparator + "shape_2D_render_pipeline";
 
     Shape2D_RenderPipelineShader = new CPP_Shader();
-    Shape2D_RenderPipelineShader->LoadShaderFromFolder(Shape2D_RenderPipelineShaderPath);
+    Shape2D_RenderPipelineShader->LoadShaderFromFolder(Shape2D_RenderPipelineShaderPath, true);
 }
 
 CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {

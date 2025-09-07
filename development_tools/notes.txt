@@ -1,15 +1,6 @@
 Notes
 -----
-Add typehint for returned classes at least where unclear (for intellicode) - eg:
-
-...
-    def get_controller(self, controller_index) -> 'Controller':
-        return _Registry.pmma_module_spine[Constants.CONTROLLER_INTERMEDIARY_OBJECT].get_controller(controller_index)
-...
-
-When adjusting the number of segments in circular shapes, or shapes with varying numbers of points, make sure to also update color data too!
-
-2 fps particles demo w/ circs instead of pix - temporary benchmark DO NOT COMMIT
+pmma/extern/shader_build_tools must originate from the distributed version of BGFX for everything to work!
 
 Module Initialization Order
 ---------------------------
@@ -29,6 +20,19 @@ Internal Utility (pmma.py_src.utility./)
 Search
 ======
 Search for public attributes of a class: self.([A-Z]|[a-z])+
+
+PMMA 5.1 Notes
+==============
+Convert FontUtils.cpp && TextRenderPipelineManager.cpp to use BGFX instead of GL.
+Write shaders for Shape render pipeline and text render pipeline.
+
+Example shader build command to unpack: W:\Documents\GitHub\PMMA\pmma\extern\bin>shaderc -f "H:\Downloads\New folder (4)\shaders\vs_shape.sc" -o v_simple.bin --platform windows --type vertex -i "H:\Downloads\bgfx.cmake.v1.129.8930-495\bgfx.cmake\bgfx\src" --profile 150 -i "H:\Downloads\bgfx.cmake.v1.129.8930-495\bgfx.cmake\bgfx\examples\common" --varyingdef "H:\Downloads\New folder (4)\shaders\varying.def.sc"
+
+Use BGFX to determine operating system && selected graphics API in General (use to select profile for shader compilation)
+
+TEST everything!
+
+Clean up build process!
 
 Issues
 ======
