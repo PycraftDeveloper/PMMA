@@ -16,12 +16,12 @@ CPP_Shape2D_RenderPipelineManager::CPP_Shape2D_RenderPipelineManager() {
         .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
         .end();
 
-    // create a uniform for the color texture (sampler)
-    s_colorTex = bgfx::createUniform("s_colorTex", bgfx::UniformType::Sampler);
-
     // initial handles are BGFX_INVALID_HANDLE
     m_vbh = BGFX_INVALID_HANDLE;
     m_tex = BGFX_INVALID_HANDLE;
+
+    s_colorTex   = bgfx::createUniform("s_colorTex", bgfx::UniformType::Sampler);
+    u_colorInfo  = bgfx::createUniform("u_colorInfo", bgfx::UniformType::Vec4);
 }
 
 CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
@@ -35,6 +35,10 @@ CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
 
     if (bgfx::isValid(s_colorTex)) {
         bgfx::destroy(s_colorTex);
+    }
+
+    if (bgfx::isValid(u_colorInfo)) {
+        bgfx::destroy(u_colorInfo);
     }
 }
 
@@ -119,6 +123,9 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         // enable alpha blending (src * src_alpha + dst * (1 - src_alpha))
         state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
     }
+
+    float info[4] = { float(m_colorTextureWidth), 0.0f, 0.0f, 0.0f };
+    bgfx::setUniform(u_colorInfo, info);
 
     // Set vertex buffer
     bgfx::setVertexBuffer(0, m_vbh);

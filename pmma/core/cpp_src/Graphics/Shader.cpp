@@ -1,3 +1,6 @@
+#include <bgfx/bgfx.h>
+#include <bgfx/platform.h>
+
 #include "PMMA_Core.hpp"
 
 const bgfx::Memory* InternalLoadShader(const std::string& filePath) {
@@ -10,80 +13,106 @@ const bgfx::Memory* InternalLoadShader(const std::string& filePath) {
     return mem;
 }
 
-bgfx::ProgramHandle CPP_Shader::Use() {
-    if (!IsLoaded) {
-        bgfx::ShaderHandle vsh = BGFX_INVALID_HANDLE;
-        bgfx::ShaderHandle fsh = BGFX_INVALID_HANDLE;
+void CompileShaderComponent(string RawFilePath, string CompiledFilePath, string Type) {
+    bgfx::ShaderHandle shader_component = BGFX_INVALID_HANDLE;
 
-        std::string PlatformName;
-        #if defined(_WIN32)
-            PlatformName = "windows";
-        #elif defined(__linux__)
-            PlatformName = "linux";
-        #else
-            PlatformName = "unknown";
-        #endif
+    string PlatformName;
+    #if defined(_WIN32)
+        PlatformName = "windows";
+    #elif defined(__linux__)
+        PlatformName = "linux";
+    #else
+        PlatformName = "unknown";
+    #endif
 
-        if (RawVertexShaderPath != "") {
-            std::string ShaderName = std::filesystem::path(RawVertexShaderPath).stem().string();
-            std::string CompiledShaderLocation;
-            if (PMMA_Core::PassportInstance->IsRegistered) {
-                CompiledShaderLocation = PMMA_Core::PassportInstance->GetTemporaryPath();
-                CompiledShaderLocation += PMMA_Registry::PathSeparator + "shader_cache";
-                CompiledShaderLocation += PMMA_Registry::PathSeparator + PlatformName;
-                CompiledShaderLocation += PMMA_Registry::PathSeparator + ShaderName + ".bin";
-            }
-
-            std::string Shader_C_Location = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "extern" + PMMA_Registry::PathSeparator + "bin" + PMMA_Registry::PathSeparator + "shaderc";
-            if (PlatformName == "windows") {
-                Shader_C_Location += ".exe";
-            }
-
-            std::string command = Shader_C_Location + " -f " + RawVertexShaderPath + " -o " + CompiledShaderLocation + " --type vertex --platform " + PlatformName;
-            system(command.c_str());
-
-            CompiledVertexShaderPath = CompiledShaderLocation;
-            RawVertexShaderPath = "";
-
-            bgfx::ShaderHandle vsh = bgfx::createShader(InternalLoadShader(CompiledVertexShaderPath));
-        } else if (CompiledVertexShaderPath != "") {
-            // Load compiled shader
-            bgfx::ShaderHandle vsh = bgfx::createShader(InternalLoadShader(CompiledVertexShaderPath));
-        } else {
-            throw std::runtime_error("No vertex shader loaded.");
-        }
-
-        if (RawFragmentShaderPath != "") {
-            std::string ShaderName = std::filesystem::path(RawFragmentShaderPath).stem().string();
-            std::string CompiledShaderLocation;
-            if (PMMA_Core::PassportInstance->IsRegistered) {
-                CompiledShaderLocation = PMMA_Core::PassportInstance->GetTemporaryPath();
-                CompiledShaderLocation += PMMA_Registry::PathSeparator + "shader_cache";
-                CompiledShaderLocation += PMMA_Registry::PathSeparator + PlatformName;
-                CompiledShaderLocation += PMMA_Registry::PathSeparator + ShaderName + ".bin";
-            }
-
-            std::string Shader_C_Location = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "extern" + PMMA_Registry::PathSeparator + "bin" + PMMA_Registry::PathSeparator + "shaderc";
-            if (PlatformName == "windows") {
-                Shader_C_Location += ".exe";
-            }
-
-            std::string command = Shader_C_Location + " -f " + RawFragmentShaderPath + " -o " + CompiledShaderLocation + " --type vertex --platform " + PlatformName;
-            system(command.c_str());
-
-            CompiledFragmentShaderPath = CompiledShaderLocation;
-            RawFragmentShaderPath = "";
-
-            bgfx::ShaderHandle fsh = bgfx::createShader(InternalLoadShader(CompiledFragmentShaderPath));
-        } else if (CompiledFragmentShaderPath != "") {
-            // Load compiled shader
-            bgfx::ShaderHandle fsh = bgfx::createShader(InternalLoadShader(CompiledFragmentShaderPath));
-        } else {
-            throw std::runtime_error("No fragment shader loaded.");
-        }
-
-        ShaderProgram = bgfx::createProgram(vsh, fsh, true);
+    string Shader_C_Location = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "extern" + PMMA_Registry::PathSeparator + "bin" + PMMA_Registry::PathSeparator + "shaderc";
+    if (PlatformName == "windows") {
+        Shader_C_Location += ".exe";
     }
 
-    return ShaderProgram;
+    string command = Shader_C_Location + " -f " + RawFilePath + " -o " + CompiledFilePath + " --type " + Type + " --platform " + PlatformName;
+    system(command.c_str());
+}
+
+void CPP_Shader::CompileShader(bool InternalShader) {
+    std::string PlatformName;
+    #if defined(_WIN32)
+        PlatformName = "windows";
+    #elif defined(__linux__)
+        PlatformName = "linux";
+    #else
+        PlatformName = "unknown";
+    #endif
+
+    if (RawVertexShaderPath != "") {
+        if (CompiledVertexShaderPath == "") {
+            string ShaderName = filesystem::path(RawVertexShaderPath).stem().string();
+            if (InternalShader || !PMMA_Core::PassportInstance->IsRegistered) {
+                CompiledVertexShaderPath = PMMA_Registry::PMMA_Location
+                    + PMMA_Registry::PathSeparator + "temporary"
+                    + PMMA_Registry::PathSeparator + "shader_cache"
+                    + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+            } else {
+                CompiledVertexShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath()
+                    + PMMA_Registry::PathSeparator + "shader_cache"
+                    + PMMA_Registry::PathSeparator + PlatformName
+                    + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+            }
+        }
+    }
+
+    if (RawFragmentShaderPath != "") {
+        if (CompiledFragmentShaderPath == "") {
+            string ShaderName = filesystem::path(RawFragmentShaderPath).stem().string();
+            if (InternalShader || !PMMA_Core::PassportInstance->IsRegistered) {
+                CompiledFragmentShaderPath = PMMA_Registry::PMMA_Location
+                    + PMMA_Registry::PathSeparator + "temporary"
+                    + PMMA_Registry::PathSeparator + "shader_cache"
+                    + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+            } else {
+                CompiledFragmentShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath()
+                    + PMMA_Registry::PathSeparator + "shader_cache"
+                    + PMMA_Registry::PathSeparator + PlatformName
+                    + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+            }
+        }
+    }
+
+    if (!filesystem::exists(CompiledVertexShaderPath)) {
+        if (RawVertexShaderPath != "") {
+            CompileShaderComponent(RawVertexShaderPath, CompiledVertexShaderPath, "vertex");
+        }
+    }
+    if (!filesystem::exists(CompiledFragmentShaderPath)) {
+        if (RawFragmentShaderPath != "") {
+            CompileShaderComponent(RawFragmentShaderPath, CompiledFragmentShaderPath, "fragment");
+        }
+    }
+
+    if (CompiledVertexShaderPath != "" && CompiledFragmentShaderPath != "") {
+        bgfx::ShaderHandle vertex_shader = bgfx::createShader(InternalLoadShader(CompiledVertexShaderPath));
+        bgfx::ShaderHandle fragment_shader = bgfx::createShader(InternalLoadShader(CompiledFragmentShaderPath));
+        ShaderProgram = bgfx::createProgram(
+            vertex_shader,
+            fragment_shader,
+            true
+        );
+        IsCompiled = true;
+    } else {
+        IsCompiled = false;
+    }
+}
+
+bgfx::ProgramHandle CPP_Shader::Use() {
+    if (!IsCompiled) {
+        return ShaderProgram;
+    }
+
+    if (RawVertexShaderPath == "" || CompiledVertexShaderPath == "") {
+        throw std::runtime_error("Vertex shader path is not set");
+    }
+
+    if (RawFragmentShaderPath == "" || CompiledFragmentShaderPath == "") {
+        throw std::runtime_error("Fragment shader path is not set");
+    }
 }

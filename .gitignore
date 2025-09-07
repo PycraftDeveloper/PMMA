@@ -177,7 +177,6 @@ pmma/build/*
 
 # Ignore everything in pmma/lib
 pmma/lib/*
-pmma/lib - DEBUG/*
 
 # annotations
 *.html
@@ -185,9 +184,9 @@ pmma/lib - DEBUG/*
 # Ignore everything in temporary/
 temporary/*
 
-# Ignore everything under extern by default
+# Ignore everything under extern by default (except for shader_build_tools)
 pmma/extern/*
-pmma/extern - DEBUG/*
+!pmma/extern/shader_build_tools
 
 # But don't ignore the 'include' directory itself (so we can control subdirs)
 !pmma/extern/include/

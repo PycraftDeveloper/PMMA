@@ -58,9 +58,10 @@ def merge_all_subdirs(src_root, dest_root):
 def selectively_clean_extern():
     if os.path.exists(extern_dir):
         def should_keep(path):
-            return (f'glm' in path or
-                    f'FlatHashMap' in path or
-                    f'STB' in path)
+            return ('glm' in path or
+                    'FlatHashMap' in path or
+                    'STB' in path or
+                    'shader_build_tools' in path)
 
         for dirpath, dirnames, filenames in os.walk(extern_dir, topdown=False):
             full_dirpath = os.path.abspath(dirpath)

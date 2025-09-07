@@ -63,6 +63,7 @@ class CPP_Shape2D_RenderPipelineManager {
         bgfx::DynamicVertexBufferHandle m_vbh;
         bgfx::TextureHandle m_tex;
         bgfx::UniformHandle s_colorTex;
+        bgfx::UniformHandle u_colorInfo;
         uint32_t m_colorTextureWidth = 0;
 
         bool Changed = true;

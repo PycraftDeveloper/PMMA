@@ -19,59 +19,67 @@ class CPP_Shader {
         std::string CompiledVertexShaderPath = "";
         std::string CompiledFragmentShaderPath = "";
 
-        bool IsLoaded = false;
+        bool IsCompiled = false;
+
+        void CompileShader(bool InternalShader);
 
     public:
-        void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath) {
-            IsLoaded = false;
-
+        void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
             bool IsCompiled;
             if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
                 IsCompiled = true;
                 CompiledVertexShaderPath = VertexShaderPath;
+                RawVertexShaderPath = "";
             } else {
                 IsCompiled = false;
                 RawVertexShaderPath = VertexShaderPath;
+                CompiledVertexShaderPath = "";
             }
 
             if (FragmentShaderPath.size() >= 5 && FragmentShaderPath.substr(FragmentShaderPath.size() - 5) == ".bin") {
                 IsCompiled = true;
                 CompiledFragmentShaderPath = FragmentShaderPath;
+                RawFragmentShaderPath = "";
             } else {
                 IsCompiled = false;
                 RawFragmentShaderPath = FragmentShaderPath;
+                CompiledFragmentShaderPath = "";
             }
+
+            CompileShader(InternalShader);
         }
 
-        void LoadVertexShader(std::string VertexShaderPath) {
-            IsLoaded = false;
-
+        void LoadVertexShader(std::string VertexShaderPath, bool InternalShader) {
             bool IsCompiled;
             if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
                 IsCompiled = true;
                 CompiledVertexShaderPath = VertexShaderPath;
+                RawVertexShaderPath = "";
             } else {
                 IsCompiled = false;
                 RawVertexShaderPath = VertexShaderPath;
+                CompiledVertexShaderPath = "";
             }
+
+            CompileShader(InternalShader);
         }
 
-        void LoadFragmentShader(std::string FragmentShaderPath) {
-            IsLoaded = false;
-
+        void LoadFragmentShader(std::string FragmentShaderPath, bool InternalShader) {
             bool IsCompiled;
             if (FragmentShaderPath.size() >= 5 && FragmentShaderPath.substr(FragmentShaderPath.size() - 5) == ".bin") {
                 IsCompiled = true;
                 CompiledFragmentShaderPath = FragmentShaderPath;
+                RawFragmentShaderPath = "";
             } else {
                 IsCompiled = false;
                 RawFragmentShaderPath = FragmentShaderPath;
+                CompiledFragmentShaderPath = "";
             }
+
+            CompileShader(InternalShader);
         }
 
-        void LoadShaderFromFolder(std::string FolderPath) {
-            IsLoaded = false;
-
+        void LoadShaderFromFolder(std::string FolderPath, bool InternalShader) {
             bool IsCompiled = false;
             try {
                 for (const auto& entry : std::filesystem::directory_iterator(FolderPath)) {
@@ -88,26 +96,34 @@ class CPP_Shader {
                     if (LowerFileName.find("vertex") != std::string::npos) {
                         if (IsCompiled) {
                             CompiledVertexShaderPath = FileName;
+                            RawVertexShaderPath = "";
                         } else {
                             RawVertexShaderPath = FileName;
+                            CompiledVertexShaderPath = "";
                         }
                     } else if (LowerFileName.find("fragment") != std::string::npos) {
                         if (IsCompiled) {
                             CompiledFragmentShaderPath = FileName;
+                            RawFragmentShaderPath = "";
                         } else {
                             RawFragmentShaderPath = FileName;
+                            CompiledFragmentShaderPath = "";
                         }
                     } else if (LowerFileName.substr(0, 3) == "vs_") {
                         if (IsCompiled) {
                             CompiledVertexShaderPath = FileName;
+                            RawVertexShaderPath = "";
                         } else {
                             RawVertexShaderPath = FileName;
+                            CompiledVertexShaderPath = "";
                         }
                     } else if (LowerFileName.substr(0, 3) == "fs_") {
                         if (IsCompiled) {
                             CompiledFragmentShaderPath = FileName;
+                            RawFragmentShaderPath = "";
                         } else {
                             RawFragmentShaderPath = FileName;
+                            CompiledFragmentShaderPath = "";
                         }
                     }
 
@@ -119,6 +135,8 @@ class CPP_Shader {
             } catch (const std::filesystem::filesystem_error& e) {
                 // Handle error (e.g., log it)
             }
+
+            CompileShader(InternalShader);
         }
 
         bgfx::ProgramHandle Use();
