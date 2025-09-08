@@ -488,13 +488,13 @@ You can do this using `Display.create`."
     }
 
     unsigned int out_color[4];
-    WindowFillColor->Get_RGBA(out_color);
+    WindowFillColor->Get_RGBA(out_color); // R (0 - 255), G (0 - 255), B (0 - 255), A (0 - 255)
 
     uint32_t clearColor =
-    ( (uint8_t)(out_color[3]) << 24 ) | // A
-    ( (uint8_t)(out_color[0]) << 16 ) | // R
-    ( (uint8_t)(out_color[1]) <<  8 ) | // G
-    ( (uint8_t)(out_color[2]) );        // B
+    ( (uint8_t)(out_color[0]) << 24 ) | // R
+    ( (uint8_t)(out_color[1]) << 16 ) | // G
+    ( (uint8_t)(out_color[2]) <<  8 ) | // B
+    ( (uint8_t)(out_color[3]) );        // A
 
     bgfx::setViewClear(
         0,  // view ID (use 0 for your main screen)

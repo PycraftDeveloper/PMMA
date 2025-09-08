@@ -71,6 +71,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         // We use a static vertex buffer that we update with bgfx::update.
         // For larger/streaming workloads you can switch to transient or dynamic
         // strategies later.
+
         const bgfx::Memory* mem = bgfx::copy(bgfxVerts.data(), (uint32_t)(bgfxVerts.size()*sizeof(BgfxVertex)));
 
         if (bgfx::isValid(m_vbh)) {
@@ -135,11 +136,6 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     if (bgfx::isValid(m_tex)) {
         bgfx::setTexture(0, s_colorTex, m_tex, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
     }
-
-    // Set transform (identity). If you have a projection/view matrix, set them via uniforms or setTransform.
-    float mtx[16];
-    bx::mtxIdentity(mtx);
-    bgfx::setTransform(mtx);
 
     // Submit the draw call to the provided viewId
     bgfx::setState(state);

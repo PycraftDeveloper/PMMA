@@ -4,6 +4,8 @@
 #include <variant>
 #include <iostream>
 
+#include <bgfx/bgfx.h>
+
 #include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Internal/Management/TextRenderPipelineManager.hpp"
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
@@ -28,6 +30,8 @@ class CPP_RenderPipelineCore {
         std::vector<CPP_Shape2D_RenderPipelineManager*> Shape_2D_RenderManagerCache;
         std::vector<CPP_TextRendererPipelineManager*> Text_RenderManagerCache;
         std::vector<RawRenderObject> RenderData;
+
+        bgfx::UniformHandle u_proj;
 
         CPP_Shader* Shape2D_RenderPipelineShader = nullptr;
 

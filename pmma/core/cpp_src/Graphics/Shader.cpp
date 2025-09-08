@@ -130,8 +130,10 @@ void CPP_Shader::CompileShader(bool InternalShader) {
 }
 
 bgfx::ProgramHandle CPP_Shader::Use() {
-    if (!IsCompiled) {
+    if (IsCompiled) {
         return ShaderProgram;
+    } else {
+        throw std::runtime_error("Shader is not compiled");
     }
 
     if (RawVertexShaderPath == "" || CompiledVertexShaderPath == "") {

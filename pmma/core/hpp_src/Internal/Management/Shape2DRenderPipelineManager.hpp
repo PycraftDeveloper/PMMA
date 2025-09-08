@@ -123,7 +123,7 @@ class CPP_Shape2D_RenderPipelineManager {
 
             bool PreviouslyUsingComplexColorInsertion = UsingComplexColorInsertion;
 
-            if (!ChangedColorModes) {
+            if (!ChangedColorModes && ColorsInserted > 0) {
                 if (ColorIndexesChanged / ColorsInserted > 0.2f) {
                     UsingComplexColorInsertion = true;
                 } else {

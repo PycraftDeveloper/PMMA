@@ -1,4 +1,5 @@
 #include <glm/gtc/type_ptr.hpp>
+#include <bx/math.h>
 
 #include "PMMA_Core.hpp"
 
@@ -11,6 +12,12 @@ CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
 
     Shape2D_RenderPipelineShader = new CPP_Shader();
     Shape2D_RenderPipelineShader->LoadShaderFromFolder(Shape2D_RenderPipelineShaderPath, true);
+
+    u_proj = bgfx::createUniform("screenspace", bgfx::UniformType::Mat4);
+
+    if (!bgfx::isValid(u_proj)) {
+        cout << "Failed to create uniform!!!" << endl;
+    }
 }
 
 CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
@@ -27,9 +34,29 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
         delete Shape2D_RenderPipelineShader;
         Shape2D_RenderPipelineShader = nullptr;
     }
+
+    if (bgfx::isValid(u_proj)) {
+        bgfx::destroy(u_proj);
+    }
 }
 
 void CPP_RenderPipelineCore::Render() {
+    float ortho[16];
+    bx::mtxOrtho(
+        ortho,
+        0.0f, PMMA_Core::DisplayInstance->GetWidth(),     // left, right
+        PMMA_Core::DisplayInstance->GetHeight(), 0.0f,      // bottom, top
+        0.0f, 1.0f,        // near, far
+        0.0f,              // homogeneous depth (0..1 or -1..1 depending on renderer)
+        bgfx::getCaps()->homogeneousDepth
+    );
+
+    if (!bgfx::isValid(u_proj)) {
+        cout << "Uniform is invalid!!!" << endl;
+    }
+
+    bgfx::setUniform(u_proj, ortho); // Error here
+
     for (auto& item : RenderData) {
         std::visit([](auto* ptr) {
             ptr->InternalRender();
