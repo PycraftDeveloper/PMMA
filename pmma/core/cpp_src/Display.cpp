@@ -279,12 +279,8 @@ void CPP_Display::Create(
     Centered = NewCentered;
     Maximized = NewMaximized;
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
     GLFWwindow* TemporaryWindow = glfwCreateWindow(
         1,
         1,
@@ -428,6 +424,12 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
     }
 
     bgfx::PlatformData pd{};
+    pd.ndt          = nullptr;
+    pd.nwh          = nullptr;
+    pd.context      = nullptr;
+    pd.backBuffer   = nullptr;
+    pd.backBufferDS = nullptr;
+
     #if BX_PLATFORM_WINDOWS
         pd.nwh = glfwGetWin32Window(Window);
     #elif BX_PLATFORM_OSX
@@ -441,20 +443,22 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
             pd.nwh = (void*)(uintptr_t)glfwGetX11Window(Window);
         }
     #endif
-        bgfx::setPlatformData(pd);
 
-        bgfx::Init init;
-        init.type = bgfx::RendererType::Count; // auto-detect renderer
-        init.resolution.width  = Size[0];
-        init.resolution.height = Size[1];
-        init.resolution.reset  = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;
+    //bgfx::setPlatformData(pd);
 
-        if (!bgfx::init(init)) {
-            throw std::runtime_error("Failed to initialize BGFX");
-        }
+    bgfx::Init init;
+    init.type = bgfx::RendererType::Count; // auto-detect renderer
+    init.resolution.width  = Size[0];
+    init.resolution.height = Size[1];
+    init.resolution.reset  = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;
+    init.platformData = pd;
 
-        bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
-        bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
+    if (!bgfx::init(init)) {
+        throw std::runtime_error("Failed to initialize BGFX");
+    }
+
+    bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
+    bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
 
     if (!Vsync) {
         PMMA_Core::InternalLoggerInstance->InternalLogDebug(

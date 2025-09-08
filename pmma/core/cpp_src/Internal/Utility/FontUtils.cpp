@@ -1,83 +1,100 @@
-#include <glad/gl.h>
+#include <bgfx/bgfx.h>
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
 #include "PMMA_Core.hpp"
 
-FontAtlas::FontAtlas(const string& path, int pixelHeight) {
+FontAtlas::FontAtlas(const std::string& path, int pixelHeight) {
     FT_Library ft;
     if (FT_Init_FreeType(&ft)) {
         PMMA_Core::InternalLoggerInstance->InternalLogError(
             31,
-            "PMMA could not initialize the FreeType module. If you have \
-compiled PMMA from source yourself, please ensure you followed the build \
-guides correctly. They can be found here: \
-'https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md' \
-If you did not compile PMMA from source, or do not know what this means please \
-feel free to report this as a bug so we can fix this here: \
-'https://github.com/PycraftDeveloper/PMMA/issues'"
+            "PMMA could not initialize the FreeType module. If you have "
+            "compiled PMMA from source yourself, please ensure you followed the build "
+            "guides correctly. They can be found here: "
+            "'https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/intro.md' "
+            "If you did not compile PMMA from source, or do not know what this means please "
+            "feel free to report this as a bug so we can fix this here: "
+            "'https://github.com/PycraftDeveloper/PMMA/issues'"
         );
-        throw runtime_error("Could not init FreeType\n");
+        throw std::runtime_error("Could not init FreeType\n");
     }
 
     FT_Face face;
     if (FT_New_Face(ft, path.c_str(), 0, &face)) {
         PMMA_Core::InternalLoggerInstance->InternalLogWarn(
             32,
-            "PMMA was unable to load the font file: '" + path + "'. Please \
-ensure that the specified path is correct."
+            "PMMA was unable to load the font file: '" + path + "'. Please "
+            "ensure that the specified path is correct."
         );
-        throw runtime_error("Failed to load font\n");
+        throw std::runtime_error("Failed to load font\n");
     }
 
     FT_Set_Pixel_Sizes(face, 0, pixelHeight);
-    BaseLine = face->size->metrics.ascender >> 6; // Convert from 26.6 fixed-point format to pixels
+    BaseLine = face->size->metrics.ascender >> 6; // Convert 26.6 fixed-point → pixels
 
     // Preload ASCII 32-126
     int maxWidth = 0, maxHeight = 0;
     for (char c = 32; c < 127; c++) {
         if (FT_Load_Char(face, c, FT_LOAD_RENDER)) continue;
         maxWidth += face->glyph->bitmap.width;
-        maxHeight = max(maxHeight, (int)face->glyph->bitmap.rows);
+        maxHeight = std::max(maxHeight, (int)face->glyph->bitmap.rows);
     }
     atlasWidth = maxWidth;
     atlasHeight = maxHeight;
 
-    glGenTextures(1, &textureID);
-    glBindTexture(GL_TEXTURE_2D, textureID);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RED, atlasWidth, atlasHeight, 0, GL_RED, GL_UNSIGNED_BYTE, nullptr);
+    // Create empty texture (1-channel grayscale → use R8 format)
+    texture = bgfx::createTexture2D(
+        (uint16_t)atlasWidth,
+        (uint16_t)atlasHeight,
+        false, // no mipmaps
+        1,     // number of layers
+        bgfx::TextureFormat::R8,
+        BGFX_TEXTURE_NONE | BGFX_SAMPLER_MIN_POINT | BGFX_SAMPLER_MAG_POINT
+    );
 
-    glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
-
+    if (!bgfx::isValid(texture)) {
+        FT_Done_Face(face);
+        FT_Done_FreeType(ft);
+        throw std::runtime_error("Failed to create BGFX texture for font atlas.");
+    }
 
     int xOffset = 0;
     for (char c = 32; c < 127; c++) {
         if (FT_Load_Char(face, c, FT_LOAD_RENDER)) continue;
 
-        glTexSubImage2D(GL_TEXTURE_2D, 0, xOffset, 0, face->glyph->bitmap.width, face->glyph->bitmap.rows,
-                        GL_RED, GL_UNSIGNED_BYTE, face->glyph->bitmap.buffer);
+        FT_Bitmap& bmp = face->glyph->bitmap;
+        if (bmp.width > 0 && bmp.rows > 0) {
+            const bgfx::Memory* mem = bgfx::copy(bmp.buffer, bmp.width * bmp.rows);
+
+            bgfx::updateTexture2D(
+                texture,
+                0, // mip
+                0, // layer
+                (uint16_t)xOffset, 0,
+                (uint16_t)bmp.width, (uint16_t)bmp.rows,
+                mem
+            );
+        }
 
         Character ch = {
             glm::vec2((float)xOffset / atlasWidth, 0.0f),
-            glm::vec2((float)face->glyph->bitmap.width / atlasWidth, (float)face->glyph->bitmap.rows / atlasHeight),
-            glm::ivec2(face->glyph->bitmap.width, face->glyph->bitmap.rows),
+            glm::vec2((float)bmp.width / atlasWidth, (float)bmp.rows / atlasHeight),
+            glm::ivec2(bmp.width, bmp.rows),
             glm::ivec2(face->glyph->bitmap_left, face->glyph->bitmap_top),
             (unsigned int)face->glyph->advance.x
         };
 
         characters[c] = ch;
-        xOffset += face->glyph->bitmap.width;
+        xOffset += bmp.width;
     }
-
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     FT_Done_Face(face);
     FT_Done_FreeType(ft);
 }
 
 FontAtlas::~FontAtlas() {
-    glDeleteTextures(1, &textureID);
+    if (bgfx::isValid(texture)) {
+        bgfx::destroy(texture);
+    }
 }

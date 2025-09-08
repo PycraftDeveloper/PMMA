@@ -50,4 +50,8 @@ namespace CPP_General {
     EXPORT void SetLocale(std::string locale);
 
     EXPORT std::string GetLocale();
+
+    EXPORT std::string GetOperatingSystem();
+
+    EXPORT std::string GetGraphicsBackend();
 }

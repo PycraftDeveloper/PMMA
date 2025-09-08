@@ -8,16 +8,23 @@
 
 typedef struct FT_LibraryRec_ *FT_Library;
 typedef struct FT_FaceRec_ *FT_Face;
-typedef unsigned int GLuint;
 
 class CPP_TextRenderer;
+class CPP_Shader;
 
 class CPP_TextRendererPipelineManager {
     private:
-        GLuint quadVAO, quadVBO, instanceVBO;
-        GLuint shaderProgram;
         std::vector<GlyphInstance> glyphs;
         FontAtlas* atlas = nullptr;
+        bgfx::VertexBufferHandle m_vbh = BGFX_INVALID_HANDLE;
+        bgfx::VertexLayout m_vlayout;
+        bgfx::VertexLayout m_instanceDecl;
+
+        bgfx::ProgramHandle m_program = BGFX_INVALID_HANDLE;
+        bgfx::UniformHandle u_proj = BGFX_INVALID_HANDLE;
+        bgfx::UniformHandle s_tex  = BGFX_INVALID_HANDLE;
+
+        CPP_Shader* ShaderProgram = nullptr;
 
     public:
         std::string Font;

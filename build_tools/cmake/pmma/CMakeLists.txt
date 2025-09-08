@@ -3,14 +3,14 @@ cmake_policy(VERSION 3.22)
 
 project(PMMA_Core LANGUAGES CXX)
 
-# ---- Global settings ---------------------------------------------------------
+# ---- Global settings -------------------------------------------------
 set(CMAKE_POSITION_INDEPENDENT_CODE ON)
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 option(USE_PYTHON "Enable Python integration" OFF)
 
-# ---- Paths -------------------------------------------------------------------
+# ---- Paths -----------------------------------------------------------
 if (NOT DEFINED WORKING_DIR)
     message(FATAL_ERROR "WORKING_DIR is not defined. Please set it to PMMA's root.")
 endif()
@@ -21,7 +21,7 @@ set(INCLUDE_DIR         "${WORKING_DIR}/pmma/core/hpp_src")
 set(EXTERN_INSTALL_DIR  "${WORKING_DIR}/pmma/extern")
 set(LIB_OUTPUT_DIR      "${WORKING_DIR}/pmma/lib")
 
-# ---- Sources -----------------------------------------------------------------
+# ---- Sources ---------------------------------------------------------
 set(CORE_SOURCES
     "${SRC_DIR}/Animation/LinearAnimation.cpp"
     "${SRC_DIR}/Animation/RadialAnimation.cpp"
@@ -67,7 +67,24 @@ set(CORE_SOURCES
     "${SRC_DIR}/PMMA_Core.cpp"
 )
 
-# ---- SIMD subcomponents ------------------------------------------------------
+# ---- Shared Compiler Params ------------------------------------------
+
+if (MSVC)
+    set(COMMON_COMPILE_OPTIONS
+        /fp:fast /GL /GF
+        /GS- /std:c++17 /wd4551 /wd4251
+        /Oi /Ob2 /Zc:__cplusplus /Zc:preprocessor
+    )
+elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    set(COMMON_COMPILE_OPTIONS
+        -O3 -ffast-math -funroll-loops
+        -fstrict-aliasing -fomit-frame-pointer
+        -std=c++17 -mtune=generic
+        -finline-functions -flto -ftree-vectorize
+    )
+endif()
+
+# ---- SIMD subcomponents ----------------------------------------------
 if(NOT APPLE)
     # AVX2
     add_library(AVX2_obj OBJECT
@@ -75,13 +92,17 @@ if(NOT APPLE)
 	    "${SRC_DIR}/PerlinNoise_AVX2.cpp")
 
     if (MSVC)
-	    target_compile_options(AVX2_obj PRIVATE /O2 /fp:fast /GL /GF /GS-
-        /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /arch:AVX2 /Zc:__cplusplus /Zc:preprocessor)
+        target_compile_options(AVX2_obj PRIVATE
+            ${COMMON_COMPILE_OPTIONS}
+            $<$<CONFIG:Debug>:/Od /RTC1>
+            $<$<CONFIG:Release>:/O2>
+            /arch:AVX2)
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-	    target_compile_options(AVX2_obj PRIVATE -O3 -ffast-math
-        -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17
-        -mtune=generic -finline-functions -flto -ftree-vectorize -mavx2
-        -mfma)
+	    target_compile_options(AVX2_obj PRIVATE
+            ${COMMON_COMPILE_OPTIONS}
+            $<$<CONFIG:Debug>:/Od /RTC1>
+            $<$<CONFIG:Release>:/O2>
+            -mavx2 -mfma)
     endif()
 
     target_include_directories(AVX2_obj PRIVATE
@@ -96,13 +117,17 @@ if(NOT APPLE)
 	    "${SRC_DIR}/PerlinNoise_AVX512.cpp")
 
     if (MSVC)
-	    target_compile_options(AVX512_obj PRIVATE /O2 /fp:fast /GL /GF /GS-
-            /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /arch:AVX512 /Zc:__cplusplus /Zc:preprocessor)
+        target_compile_options(AVX512_obj PRIVATE
+            ${COMMON_COMPILE_OPTIONS}
+            $<$<CONFIG:Debug>:/Od /RTC1>
+            $<$<CONFIG:Release>:/O2>
+            /arch:AVX512)
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-	    target_compile_options(AVX512_obj PRIVATE -O3 -ffast-math
-            -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17
-            -mtune=generic -finline-functions -flto -ftree-vectorize -mavx512f
-            -mavx512dq)
+	    target_compile_options(AVX512_obj PRIVATE
+            ${COMMON_COMPILE_OPTIONS}
+            $<$<CONFIG:Debug>:/Od /RTC1>
+            $<$<CONFIG:Release>:/O2>
+            -mavx512f -mavx512dq)
     endif()
 
     target_include_directories(AVX512_obj PRIVATE
@@ -113,16 +138,19 @@ if(NOT APPLE)
 
     add_library(${LIB_NAME} SHARED ${CORE_SOURCES} $<TARGET_OBJECTS:AVX2_obj> $<TARGET_OBJECTS:AVX512_obj>)
 else()
-    message(STATUS "Skipping AVX extensions on Apple platform")
+    message(STATUS "Skipping AVX extensions on unsupported platform")
     add_library(AVX_Filler_obj OBJECT "${SRC_DIR}/AVX_Filler.cpp")
 
     if (MSVC)
-	    target_compile_options(AVX_Filler_obj PRIVATE /O2 /fp:fast /GL /GF
-            /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /Zc:__cplusplus /Zc:preprocessor)
+        target_compile_options(AVX_Filler_obj PRIVATE
+            ${COMMON_COMPILE_OPTIONS}
+            $<$<CONFIG:Debug>:/Od /RTC1>
+            $<$<CONFIG:Release>:/O2>)
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-	    target_compile_options(AVX_Filler_obj PRIVATE -O3 -ffast-math
-            -funroll-loops -fstrict-aliasing -fomit-frame-pointer -std=c++17
-            -mtune=generic -finline-functions -flto -ftree-vectorize)
+	    target_compile_options(AVX_Filler_obj PRIVATE
+            ${COMMON_COMPILE_OPTIONS}
+            $<$<CONFIG:Debug>:/Od /RTC1>
+            $<$<CONFIG:Release>:/O2>)
     endif()
 
     target_include_directories(AVX_Filler_obj PRIVATE
@@ -170,20 +198,22 @@ endif()
 # Note: We intentionally do NOT find_package(OpenGL) here—BGFX selects renderers at runtime.
 if (WIN32)
     target_compile_options(${LIB_NAME} PRIVATE
-        /O2 /fp:fast /GL /GF /GS- /std:c++17 /wd4551 /wd4251 /Oi /Ob2 /Zc:__cplusplus /Zc:preprocessor)
+        ${COMMON_COMPILE_OPTIONS}
+        $<$<CONFIG:Debug>:/Od /RTC1>
+        $<$<CONFIG:Release>:/O2>)
 
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
 
     target_link_libraries(${LIB_NAME} PRIVATE
-	    glfw3dll bgfx bx freetype libpng16 zlib harfbuzz)
+	    glfw3dll bgfx bx bimg freetype libpng16 zlib harfbuzz)
 elseif(UNIX)
     target_compile_options(${LIB_NAME} PRIVATE
-        -O3 -ffast-math -funroll-loops -fstrict-aliasing
-		-fomit-frame-pointer -std=c++17 -mtune=generic
-		-finline-functions -flto -ftree-vectorize)
+        ${COMMON_COMPILE_OPTIONS}
+        $<$<CONFIG:Debug>:/Od /RTC1>
+        $<$<CONFIG:Release>:/O2>)
 
     target_link_libraries(${LIB_NAME} PRIVATE
-	    glfw bgfx bx freetype png z harfbuzz pthread dl) # common on Linux
+	    glfw bgfx bx bimg freetype png z harfbuzz pthread dl) # common on Linux
 
     target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 endif()

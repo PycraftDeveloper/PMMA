@@ -10,6 +10,8 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
+#include "General.hpp"
+
 class CPP_Shader {
     private:
         bgfx::ProgramHandle ShaderProgram = BGFX_INVALID_HANDLE;
@@ -22,6 +24,27 @@ class CPP_Shader {
         bool IsCompiled = false;
 
         void CompileShader(bool InternalShader);
+
+        void CompileShaderComponent(string RawFilePath, string CompiledFilePath, string Type);
+
+        std::string GetGraphicsProfile() {
+            string GraphicsBackend = CPP_General::GetGraphicsBackend();
+            if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_OPENGL_ES) {
+                return "100_es";
+            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_DIRECT3D11 || GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_DIRECT3D12) {
+                return "s_4_0";
+            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_METAL) {
+                return "metal";
+            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_GNM) {
+                return "pssl";
+            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_VULKAN) {
+                return "spirv";
+            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_OPENGL) {
+                return "120";
+            } else {
+                throw runtime_error("Cannot compile shader for " + GraphicsBackend + " as its profile is not known.");
+            }
+        }
 
     public:
         void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
@@ -84,6 +107,7 @@ class CPP_Shader {
             try {
                 for (const auto& entry : std::filesystem::directory_iterator(FolderPath)) {
                     std::string FileName = entry.path().filename().string();
+                    std::string FilePath = entry.path().string();
 
                     if (FileName.size() >= 7 && FileName.substr(FileName.size() - 5) == ".bin") {
                         IsCompiled = true;
@@ -95,34 +119,34 @@ class CPP_Shader {
                     std::transform(LowerFileName.begin(), LowerFileName.end(), LowerFileName.begin(), ::tolower);
                     if (LowerFileName.find("vertex") != std::string::npos) {
                         if (IsCompiled) {
-                            CompiledVertexShaderPath = FileName;
+                            CompiledVertexShaderPath = FilePath;
                             RawVertexShaderPath = "";
                         } else {
-                            RawVertexShaderPath = FileName;
+                            RawVertexShaderPath = FilePath;
                             CompiledVertexShaderPath = "";
                         }
                     } else if (LowerFileName.find("fragment") != std::string::npos) {
                         if (IsCompiled) {
-                            CompiledFragmentShaderPath = FileName;
+                            CompiledFragmentShaderPath = FilePath;
                             RawFragmentShaderPath = "";
                         } else {
-                            RawFragmentShaderPath = FileName;
+                            RawFragmentShaderPath = FilePath;
                             CompiledFragmentShaderPath = "";
                         }
                     } else if (LowerFileName.substr(0, 3) == "vs_") {
                         if (IsCompiled) {
-                            CompiledVertexShaderPath = FileName;
+                            CompiledVertexShaderPath = FilePath;
                             RawVertexShaderPath = "";
                         } else {
-                            RawVertexShaderPath = FileName;
+                            RawVertexShaderPath = FilePath;
                             CompiledVertexShaderPath = "";
                         }
                     } else if (LowerFileName.substr(0, 3) == "fs_") {
                         if (IsCompiled) {
-                            CompiledFragmentShaderPath = FileName;
+                            CompiledFragmentShaderPath = FilePath;
                             RawFragmentShaderPath = "";
                         } else {
-                            RawFragmentShaderPath = FileName;
+                            RawFragmentShaderPath = FilePath;
                             CompiledFragmentShaderPath = "";
                         }
                     }

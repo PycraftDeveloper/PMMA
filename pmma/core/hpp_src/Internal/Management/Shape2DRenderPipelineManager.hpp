@@ -22,8 +22,6 @@ class CPP_ArcShape;
 class CPP_EllipseShape;
 class CPP_PolygonShape;
 
-class CPP_Shader;
-
 using Shape2D_RenderObject = std::variant<
     CPP_RadialPolygonShape*,
     CPP_RectangleShape*,

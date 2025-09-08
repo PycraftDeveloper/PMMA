@@ -5,6 +5,9 @@
     #include <filesystem>
 #endif
 
+#include <bx/platform.h>
+#include <bgfx/bgfx.h>
+
 #include "PMMA_Core.hpp"
 
 void CPP_General::Set_PMMA_Location(std::string location) {
@@ -270,4 +273,67 @@ void CPP_General::SetLocale(string locale) {
 
 string CPP_General::GetLocale() {
     return PMMA_Registry::Locale;
+}
+
+string CPP_General::GetOperatingSystem() {
+    #if BX_PLATFORM_ANDROID
+        return CPP_Constants::OS_ANDROID;
+    #elif BX_PLATFORM_BSD
+        return CPP_Constants::OS_BSD;
+    #elif BX_PLATFORM_EMSCRIPTEN
+        return CPP_Constants::OS_EMSCRIPTEN;
+    #elif BX_PLATFORM_HAIKU
+        return CPP_Constants::OS_HAIKU;
+    #elif BX_PLATFORM_HURD
+        return CPP_Constants::OS_HURD;
+    #elif BX_PLATFORM_IOS
+        return CPP_Constants::OS_IOS;
+    #elif BX_PLATFORM_LINUX
+        return CPP_Constants::OS_LINUX;
+    #elif BX_PLATFORM_NX
+        return CPP_Constants::OS_NX;
+    #elif BX_PLATFORM_OSX
+        return CPP_Constants::OS_OSX;
+    #elif BX_PLATFORM_PS4
+        return CPP_Constants::OS_PS4;
+    #elif BX_PLATFORM_PS5
+        return CPP_Constants::OS_PS5;
+    #elif BX_PLATFORM_VISIONOS
+        return CPP_Constants::OS_VISIONOS;
+    #elif BX_PLATFORM_WINDOWS
+        return CPP_Constants::OS_WINDOWS;
+    #elif BX_PLATFORM_WINRT
+        return CPP_Constants::OS_WINRT;
+    #elif BX_PLATFORM_XBOXONE
+        return CPP_Constants::OS_XBOXONE;
+    #else
+        return CPP_Constants::OS_UNKNOWN;
+    #endif
+}
+
+string CPP_General::GetGraphicsBackend() {
+    bgfx::RendererType::Enum backend = bgfx::getRendererType();
+
+    switch (backend) {
+        case bgfx::RendererType::Noop:
+            return CPP_Constants::GRAPHICS_BACKEND_NO_RENDERER;
+        case bgfx::RendererType::Direct3D11:
+            return CPP_Constants::GRAPHICS_BACKEND_DIRECT3D11;
+        case bgfx::RendererType::Direct3D12:
+            return CPP_Constants::GRAPHICS_BACKEND_DIRECT3D12;
+        case bgfx::RendererType::Gnm:
+            return CPP_Constants::GRAPHICS_BACKEND_GNM;
+        case bgfx::RendererType::Metal:
+            return CPP_Constants::GRAPHICS_BACKEND_METAL;
+        case bgfx::RendererType::Nvn:
+            return CPP_Constants::GRAPHICS_BACKEND_NVN;
+        case bgfx::RendererType::OpenGLES:
+            return CPP_Constants::GRAPHICS_BACKEND_OPENGL_ES;
+        case bgfx::RendererType::OpenGL:
+            return CPP_Constants::GRAPHICS_BACKEND_OPENGL;
+        case bgfx::RendererType::Vulkan:
+            return CPP_Constants::GRAPHICS_BACKEND_VULKAN;
+        default:
+            return CPP_Constants::GRAPHICS_BACKEND_UNKNOWN;
+    }
 }

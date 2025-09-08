@@ -23,9 +23,6 @@ Search for public attributes of a class: self.([A-Z]|[a-z])+
 
 PMMA 5.1 Notes
 ==============
-Convert FontUtils.cpp && TextRenderPipelineManager.cpp to use BGFX instead of GL.
-Write shaders for Shape render pipeline and text render pipeline.
-
 Example shader build command to unpack: W:\Documents\GitHub\PMMA\pmma\extern\bin>shaderc -f "H:\Downloads\New folder (4)\shaders\vs_shape.sc" -o v_simple.bin --platform windows --type vertex -i "H:\Downloads\bgfx.cmake.v1.129.8930-495\bgfx.cmake\bgfx\src" --profile 150 -i "H:\Downloads\bgfx.cmake.v1.129.8930-495\bgfx.cmake\bgfx\examples\common" --varyingdef "H:\Downloads\New folder (4)\shaders\varying.def.sc"
 
 Use BGFX to determine operating system && selected graphics API in General (use to select profile for shader compilation)

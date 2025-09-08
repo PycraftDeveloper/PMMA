@@ -13,24 +13,44 @@ const bgfx::Memory* InternalLoadShader(const std::string& filePath) {
     return mem;
 }
 
-void CompileShaderComponent(string RawFilePath, string CompiledFilePath, string Type) {
+void CPP_Shader::CompileShaderComponent(string RawFilePath, string CompiledFilePath, string Type) {
     bgfx::ShaderHandle shader_component = BGFX_INVALID_HANDLE;
 
-    string PlatformName;
-    #if defined(_WIN32)
-        PlatformName = "windows";
-    #elif defined(__linux__)
+    string PlatformName = CPP_General::GetOperatingSystem();
+    if (PlatformName == CPP_Constants::OS_ANDROID) {
+        PlatformName = "android";
+    } else if (PlatformName == CPP_Constants::OS_EMSCRIPTEN) {
+        PlatformName = "asm.js";
+    } else if (PlatformName == CPP_Constants::OS_IOS) {
+        PlatformName = "ios";
+    } else if (PlatformName == CPP_Constants::OS_LINUX) {
         PlatformName = "linux";
-    #else
-        PlatformName = "unknown";
-    #endif
+    } else if (PlatformName == CPP_Constants::OS_PS4) {
+        PlatformName = "orbis";
+    } else if (PlatformName == CPP_Constants::OS_MACOS) {
+        PlatformName = "osx";
+    } else if (PlatformName == CPP_Constants::OS_WINDOWS) {
+        PlatformName = "windows";
+    } else {
+        throw std::runtime_error("Unsupported platform: " + PlatformName);
+    }
 
     string Shader_C_Location = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "extern" + PMMA_Registry::PathSeparator + "bin" + PMMA_Registry::PathSeparator + "shaderc";
     if (PlatformName == "windows") {
         Shader_C_Location += ".exe";
     }
 
-    string command = Shader_C_Location + " -f " + RawFilePath + " -o " + CompiledFilePath + " --type " + Type + " --platform " + PlatformName;
+    string ShaderBuildToolsLocation = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "extern" + PMMA_Registry::PathSeparator + "shader_build_tools";
+    string VaryingDefLocation = filesystem::path(RawFilePath).parent_path().string() + PMMA_Registry::PathSeparator + "varying.def.sc";
+
+    string GraphicsProfile = CPP_Shader::GetGraphicsProfile();
+
+    string command = Shader_C_Location + " -f " + RawFilePath + " -o " + CompiledFilePath + " --type " + Type + " --platform " + PlatformName + " -i " + ShaderBuildToolsLocation + " --varyingdef " + VaryingDefLocation + " --profile " + GraphicsProfile;
+
+    if (!filesystem::exists(CompiledFilePath)) {
+        filesystem::create_directories(filesystem::path(CompiledFilePath).parent_path());
+    }
+
     system(command.c_str());
 }
 
@@ -51,11 +71,14 @@ void CPP_Shader::CompileShader(bool InternalShader) {
                 CompiledVertexShaderPath = PMMA_Registry::PMMA_Location
                     + PMMA_Registry::PathSeparator + "temporary"
                     + PMMA_Registry::PathSeparator + "shader_cache"
+                    + PMMA_Registry::PathSeparator + PlatformName
+                    + PMMA_Registry::PathSeparator + GetGraphicsProfile()
                     + PMMA_Registry::PathSeparator + ShaderName + ".bin";
             } else {
                 CompiledVertexShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath()
                     + PMMA_Registry::PathSeparator + "shader_cache"
                     + PMMA_Registry::PathSeparator + PlatformName
+                    + PMMA_Registry::PathSeparator + GetGraphicsProfile()
                     + PMMA_Registry::PathSeparator + ShaderName + ".bin";
             }
         }
@@ -68,11 +91,14 @@ void CPP_Shader::CompileShader(bool InternalShader) {
                 CompiledFragmentShaderPath = PMMA_Registry::PMMA_Location
                     + PMMA_Registry::PathSeparator + "temporary"
                     + PMMA_Registry::PathSeparator + "shader_cache"
+                    + PMMA_Registry::PathSeparator + PlatformName
+                    + PMMA_Registry::PathSeparator + GetGraphicsProfile()
                     + PMMA_Registry::PathSeparator + ShaderName + ".bin";
             } else {
                 CompiledFragmentShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath()
                     + PMMA_Registry::PathSeparator + "shader_cache"
                     + PMMA_Registry::PathSeparator + PlatformName
+                    + PMMA_Registry::PathSeparator + GetGraphicsProfile()
                     + PMMA_Registry::PathSeparator + ShaderName + ".bin";
             }
         }
