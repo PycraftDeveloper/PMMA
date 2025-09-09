@@ -15,9 +15,10 @@ CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
 
     u_proj = bgfx::createUniform("screenspace", bgfx::UniformType::Mat4);
 
-    if (!bgfx::isValid(u_proj)) {
-        cout << "Failed to create uniform!!!" << endl;
-    }
+    const bgfx::Caps* caps = bgfx::getCaps();
+    // unsigned int MaxSize;
+    MaxWidth = caps->limits.maxTextureSize;
+    MaxSize = static_cast<uint64_t>(caps->limits.maxTextureSize) * caps->limits.maxTextureSize;
 }
 
 CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
@@ -41,21 +42,8 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
 }
 
 void CPP_RenderPipelineCore::Render() {
-    float ortho[16];
-    bx::mtxOrtho(
-        ortho,
-        0.0f, PMMA_Core::DisplayInstance->GetWidth(),     // left, right
-        PMMA_Core::DisplayInstance->GetHeight(), 0.0f,      // bottom, top
-        0.0f, 1.0f,        // near, far
-        0.0f,              // homogeneous depth (0..1 or -1..1 depending on renderer)
-        bgfx::getCaps()->homogeneousDepth
-    );
-
-    if (!bgfx::isValid(u_proj)) {
-        cout << "Uniform is invalid!!!" << endl;
-    }
-
-    bgfx::setUniform(u_proj, ortho); // Error here
+    glm::mat4 proj = PMMA_Core::DisplayInstance->GetDisplayProjection();
+    bgfx::setUniform(u_proj, glm::value_ptr(proj));
 
     for (auto& item : RenderData) {
         std::visit([](auto* ptr) {

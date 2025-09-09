@@ -20,7 +20,6 @@ class CPP_TextRendererPipelineManager {
         bgfx::VertexLayout m_vlayout;
         bgfx::VertexLayout m_instanceDecl;
 
-        bgfx::ProgramHandle m_program = BGFX_INVALID_HANDLE;
         bgfx::UniformHandle u_proj = BGFX_INVALID_HANDLE;
         bgfx::UniformHandle s_tex  = BGFX_INVALID_HANDLE;
 

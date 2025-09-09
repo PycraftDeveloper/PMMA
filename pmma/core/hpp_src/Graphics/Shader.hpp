@@ -47,6 +47,12 @@ class CPP_Shader {
         }
 
     public:
+        ~CPP_Shader() {
+            if (bgfx::isValid(ShaderProgram)) {
+                bgfx::destroy(ShaderProgram);
+            }
+        }
+
         void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
             bool IsCompiled;
             if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {

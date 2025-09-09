@@ -56,17 +56,17 @@ void ClearOldLogs(string LogDirectory, unsigned int KeepCount) {
     }
 }
 
-CPP_InternalLogger::CPP_InternalLogger() {
+CPP_LoggingManager::CPP_LoggingManager() {
     LogDebug = PMMA_Registry::IsDebuggingModeEnabled;
 }
 
-CPP_InternalLogger::~CPP_InternalLogger() {
+CPP_LoggingManager::~CPP_LoggingManager() {
     if (LogToFile && filesystem::exists(LogFileLocation)) {
         ClearOldLogs(LogFileLocation, KeepCount);
     }
 }
 
-void CPP_InternalLogger::SetLogToFile(bool NewLogToFile) {
+void CPP_LoggingManager::SetLogToFile(bool NewLogToFile) {
     LogToFile = NewLogToFile;
     LogToFileSpecifiedByUser = true;
 
@@ -83,7 +83,7 @@ void CPP_InternalLogger::SetLogToFile(bool NewLogToFile) {
                 LogFileLocation = ProductPath + PMMA_Registry::PathSeparator + "logs";
                 FileCatchUp();
             } catch (const filesystem::filesystem_error& e) {
-                PMMA_Core::InternalLoggerInstance->InternalLogError(
+                PMMA_Core::LoggingManagerInstance->InternalLogError(
                     11,
                     "An error occurred whilst trying to create the \
 directory: '" + ProductPath + PMMA_Registry::PathSeparator + "logs" + "'. \
@@ -94,7 +94,7 @@ The error details are: " + e.what()
             return;
         }
     }
-    PMMA_Core::InternalLoggerInstance->InternalLogWarn(
+    PMMA_Core::LoggingManagerInstance->InternalLogWarn(
         10,
         "No logging location has been set. Please use: \
 `Passport.set_logging_location` to directly set a directory for the logs \
@@ -106,7 +106,7 @@ cannot be stored and only displayed at runtime."
     LogToFileSpecifiedByUser = false;
 }
 
-void CPP_InternalLogger::Log(std::string Content) {
+void CPP_LoggingManager::Log(std::string Content) {
     if (LogToConsole) {
         #ifdef USE_PYTHON
             PyGILState_STATE gstate = PyGILState_Ensure();
@@ -126,7 +126,7 @@ void CPP_InternalLogger::Log(std::string Content) {
     }
 }
 
-void CPP_InternalLogger::FileCatchUp() {
+void CPP_LoggingManager::FileCatchUp() {
     if (LogToFile && ContentToLogToFile.size() > 0) {
         string fullPath = LogFileLocation + PMMA_Registry::PathSeparator + LogFileName;
 
@@ -153,14 +153,14 @@ void CPP_InternalLogger::FileCatchUp() {
     }
 }
 
-void CPP_InternalLogger::SetLogFileLocation(std::string NewLogFileLocation) {
+void CPP_LoggingManager::SetLogFileLocation(std::string NewLogFileLocation) {
     LogFileLocation = NewLogFileLocation;
     LogFileName = GenerateLogFileName() + ".txt";
 
     FileCatchUp();
 }
 
-void CPP_InternalLogger::InternalLogDebug(int ID, std::string Content, bool RepeatForEffect) {
+void CPP_LoggingManager::InternalLogDebug(int ID, std::string Content, bool RepeatForEffect) {
     if (!LogDebug) {
         return;
     }
@@ -180,7 +180,7 @@ void CPP_InternalLogger::InternalLogDebug(int ID, std::string Content, bool Repe
     }
 }
 
-void CPP_InternalLogger::ExternalLogDebug(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
+void CPP_LoggingManager::ExternalLogDebug(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogDebug) {
         return;
     }
@@ -216,7 +216,41 @@ void CPP_InternalLogger::ExternalLogDebug(std::string ID, std::string Content, s
     }
 }
 
-void CPP_InternalLogger::ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
+void CPP_LoggingManager::ExternalLogInfo(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
+    if (!LogInfo) {
+        return;
+    }
+
+    transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
+    if (ProductName == "pmma") {
+        throw runtime_error("The name PMMA or pmma is reserved!");
+    }
+
+    if (!RepeatForEffect) {
+        int InternalID;
+        transform(ID.begin(), ID.end(), ID.begin(), ::tolower);
+        hash<string> hasher;
+        InternalID = -(int)(hasher(ID));
+
+        auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), InternalID);
+        if (PreviousIndex == PreviouslyLoggedContent.end()) {
+            PreviouslyLoggedContent.push_back(InternalID);
+            string DateTimeCode = GetDateTimeCode();
+            if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
+                ProductName = PMMA_Core::PassportInstance->ProductName + " ";
+            }
+            Log(ProductName + "(Info) - " + DateTimeCode + " - " + Content);
+        }
+    } else {
+        string DateTimeCode = GetDateTimeCode();
+        if (ProductName == "" && PMMA_Core::PassportInstance->IsRegistered) {
+            ProductName = PMMA_Core::PassportInstance->ProductName + " ";
+        }
+        Log(ProductName + "(Info) - " + DateTimeCode + " - " + Content);
+    }
+}
+
+void CPP_LoggingManager::ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogWarn) {
         return;
     }
@@ -250,7 +284,7 @@ void CPP_InternalLogger::ExternalLogWarn(std::string ID, std::string Content, st
     }
 }
 
-void CPP_InternalLogger::ExternalLogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
+void CPP_LoggingManager::ExternalLogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogError) {
         return;
     }

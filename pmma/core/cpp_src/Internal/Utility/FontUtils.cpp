@@ -7,7 +7,7 @@
 FontAtlas::FontAtlas(const std::string& path, int pixelHeight) {
     FT_Library ft;
     if (FT_Init_FreeType(&ft)) {
-        PMMA_Core::InternalLoggerInstance->InternalLogError(
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
             31,
             "PMMA could not initialize the FreeType module. If you have "
             "compiled PMMA from source yourself, please ensure you followed the build "
@@ -22,7 +22,7 @@ FontAtlas::FontAtlas(const std::string& path, int pixelHeight) {
 
     FT_Face face;
     if (FT_New_Face(ft, path.c_str(), 0, &face)) {
-        PMMA_Core::InternalLoggerInstance->InternalLogWarn(
+        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
             32,
             "PMMA was unable to load the font file: '" + path + "'. Please "
             "ensure that the specified path is correct."

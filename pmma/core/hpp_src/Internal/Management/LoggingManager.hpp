@@ -9,7 +9,7 @@
 #include <fstream>
 #include <iostream>
 
-class CPP_InternalLogger {
+class CPP_LoggingManager {
     public:
         std::vector<std::string> ContentToLogToFile;
         std::vector<int> PreviouslyLoggedContent;
@@ -24,6 +24,7 @@ class CPP_InternalLogger {
         bool LogToFileSpecifiedByUser = false;
 
         bool LogDebug = false;
+        bool LogInfo = true;
         bool LogWarn = true;
         bool LogError = true;
 
@@ -92,8 +93,8 @@ class CPP_InternalLogger {
         void Log(std::string Content);
 
     public:
-        CPP_InternalLogger();
-        ~CPP_InternalLogger();
+        CPP_LoggingManager();
+        ~CPP_LoggingManager();
 
         void LogFilePathExplicitlySet() {
             if (!LogToFileSpecifiedByUser) {
@@ -131,6 +132,14 @@ class CPP_InternalLogger {
             LogDebug = NewLogDebug;
         }
 
+        inline void SetLogInfo(bool NewLogInfo) {
+            LogInfo = NewLogInfo;
+        }
+
+        inline bool GetLogInfo() {
+            return LogInfo;
+        }
+
         inline bool GetLogDebug() {
             return LogDebug;
         }
@@ -152,6 +161,24 @@ class CPP_InternalLogger {
         }
 
         void InternalLogDebug(int ID, std::string Content, bool RepeatForEffect=false);
+
+        inline void InternalLogInfo(int ID, std::string Content, bool RepeatForEffect=false) {
+            if (!LogInfo) {
+                return;
+            }
+
+            if (!RepeatForEffect) {
+                auto PreviousIndex = std::find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
+                if (PreviousIndex == PreviouslyLoggedContent.end()) {
+                    PreviouslyLoggedContent.push_back(ID);
+                    std::string DateTimeCode = GetDateTimeCode();
+                    Log("PMMA (Info) - " + DateTimeCode + " - " + Content);
+                }
+            } else {
+                std::string DateTimeCode = GetDateTimeCode();
+                Log("PMMA (Info) - " + DateTimeCode + " - " + Content);
+            }
+        }
 
         inline void InternalLogWarn(int ID, std::string Content, bool RepeatForEffect=true) {
             if (!LogWarn) {
@@ -190,6 +217,8 @@ class CPP_InternalLogger {
         }
 
         void ExternalLogDebug(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=false);
+
+        void ExternalLogInfo(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=false);
 
         void ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect=true);
 

@@ -1,4 +1,7 @@
 $input v_texcoord, v_fg, v_bg
+
+#include "common.sh"
+
 SAMPLER2D(s_tex, 0);
 
 void main()

@@ -40,7 +40,7 @@ Notes:
 31 - FreeType initialization failed
 32 - The value provided is invalid
 33 - Display not using v-sync
-34 - OpenGL version
+34 - Renderer name
 35 - Passport not registered
 36 - File does not exist
 37 - File already exists
@@ -52,3 +52,5 @@ Notes:
 43 - Found suitable profiling location
 44 - Failed to find suitable profiling location
 45 - Profiling cannot be stopped as it was never started
+46 - Operating System name
+47 - Shader profile

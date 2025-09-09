@@ -35,6 +35,11 @@ void CPP_Shader::CompileShaderComponent(string RawFilePath, string CompiledFileP
         throw std::runtime_error("Unsupported platform: " + PlatformName);
     }
 
+    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+        34,
+        "PMMA is using '" + PlatformName + "' for shaders."
+    );
+
     string Shader_C_Location = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "extern" + PMMA_Registry::PathSeparator + "bin" + PMMA_Registry::PathSeparator + "shaderc";
     if (PlatformName == "windows") {
         Shader_C_Location += ".exe";
@@ -55,14 +60,7 @@ void CPP_Shader::CompileShaderComponent(string RawFilePath, string CompiledFileP
 }
 
 void CPP_Shader::CompileShader(bool InternalShader) {
-    std::string PlatformName;
-    #if defined(_WIN32)
-        PlatformName = "windows";
-    #elif defined(__linux__)
-        PlatformName = "linux";
-    #else
-        PlatformName = "unknown";
-    #endif
+    std::string PlatformName = CPP_General::GetOperatingSystem();
 
     if (RawVertexShaderPath != "") {
         if (CompiledVertexShaderPath == "") {

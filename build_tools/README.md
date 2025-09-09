@@ -1,4 +1,5 @@
-Run: `build_deps.py` to intelligently build pmma's dependencies
-Run: `build_pmma.py` to build PMMA's C++ extensions and Setup.py
+Run: `Release Python Package to PyPI` workflow to update dependencies, compile PMMA Core, compile Cython Python interface and release to PyPi and update release files.
 
-NOTE: When NOT in a github workflow, `build_deps.py` will automatically call `build_pmma.py` for your convenience.
+Run: `Build dependencies` workflow to update dependencies.
+
+Dependencies are cached between each workflow run and automatically updated if changed for improved performance.

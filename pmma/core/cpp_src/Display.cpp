@@ -444,8 +444,6 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
         }
     #endif
 
-    //bgfx::setPlatformData(pd);
-
     bgfx::Init init;
     init.type = bgfx::RendererType::Count; // auto-detect renderer
     init.resolution.width  = Size[0];
@@ -457,11 +455,23 @@ GPU/drivers and device settings to be set correctly in order to work." << endl;
         throw std::runtime_error("Failed to initialize BGFX");
     }
 
+    string OperatingSystem = CPP_General::GetOperatingSystem();
+    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+        46,
+        "You are running on the Operating System: '" + OperatingSystem + "'."
+    );
+
+    string Renderer = CPP_General::GetGraphicsBackend();
+    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+        34,
+        "PMMA is using the '" + Renderer + "' backend for graphics."
+    );
+
     bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
     bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
 
     if (!Vsync) {
-        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        PMMA_Core::LoggingManagerInstance->InternalLogDebug(
             33,
             "You are not using vsync. We strongly recommend using \
 vsync to limit the refresh rate of your window. Doing so will reduce \
@@ -479,7 +489,7 @@ visual tearing and improve frame pacing."
 
 void CPP_Display::Clear() {
     if (Window == nullptr) {
-        PMMA_Core::InternalLoggerInstance->InternalLogError(
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
@@ -581,7 +591,7 @@ void CPP_Display::ContinuousRefresh(
             bool LowerRefreshRate_OnLowBattery) {
 
     if (Window == nullptr) {
-        PMMA_Core::InternalLoggerInstance->InternalLogError(
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
@@ -592,6 +602,7 @@ You can do this using `Display.create`."
     PMMA_Core::RenderPipelineCore->Render();
 
     bgfx::touch(0);   // Ensure view 0 is cleared
+
     bgfx::frame();
     glfwPollEvents();
 
@@ -616,7 +627,7 @@ void CPP_Display::EventRefresh(
             bool LowerRefreshRate_OnLowBattery) {
 
     if (Window == nullptr) {
-        PMMA_Core::InternalLoggerInstance->InternalLogError(
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
@@ -792,6 +803,8 @@ CPP_Display::~CPP_Display() {
         delete PMMA_Core::DropManagerInstance;
         PMMA_Core::DropManagerInstance = nullptr;
     }
+
+    bgfx::shutdown();
 
     glfwDestroyWindow(Window);
     Window = nullptr;

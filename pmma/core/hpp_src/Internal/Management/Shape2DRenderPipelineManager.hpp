@@ -63,6 +63,7 @@ class CPP_Shape2D_RenderPipelineManager {
         bgfx::UniformHandle s_colorTex;
         bgfx::UniformHandle u_colorInfo;
         uint32_t m_colorTextureWidth = 0;
+        uint32_t m_colorTextureHeight = 0;
 
         bool Changed = true;
         bool HasAlpha = false;

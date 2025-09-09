@@ -20,7 +20,7 @@ CPP_Passport::~CPP_Passport() {
 void CPP_Passport::Register() {
     IsRegistered = true;
 
-    PMMA_Core::InternalLoggerInstance->SetLogFileLocation(LoggingPath);
+    PMMA_Core::LoggingManagerInstance->SetLogFileLocation(LoggingPath);
 
     if (TemporaryPath == "") {
         TemporaryPath = ProductPath + PMMA_Registry::PathSeparator + "temporary";
@@ -33,6 +33,6 @@ void CPP_Passport::SetLoggingPath(std::string NewLoggingPath, bool ExplicitlySet
     LoggingPath = NewLoggingPath;
     IsRegistered = false;
     if (ExplicitlySet) {
-        PMMA_Core::InternalLoggerInstance->LogFilePathExplicitlySet();
+        PMMA_Core::LoggingManagerInstance->LogFilePathExplicitlySet();
     }
 }

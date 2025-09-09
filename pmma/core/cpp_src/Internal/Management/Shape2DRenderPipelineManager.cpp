@@ -83,31 +83,50 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
 
         // --- Create / update color texture ---
         // We create a 1 x N texture (height 1, width = number of colors) in RGBA8.
-        const uint32_t width = (uint32_t)shape_colors.size() > 0 ? (uint32_t)shape_colors.size() : 1u;
-        std::vector<uint8_t> colData(width * 4);
-        for (uint32_t i = 0; i < width; ++i) {
-            glm::vec4 c(0.0f);
-            if (i < shape_colors.size()) c = shape_colors[i];
-            // clamp and convert to 0..255
-            colData[i*4 + 0] = static_cast<uint8_t>(glm::clamp(c.r, 0.0f, 1.0f) * 255.0f);
-            colData[i*4 + 1] = static_cast<uint8_t>(glm::clamp(c.g, 0.0f, 1.0f) * 255.0f);
-            colData[i*4 + 2] = static_cast<uint8_t>(glm::clamp(c.b, 0.0f, 1.0f) * 255.0f);
-            colData[i*4 + 3] = static_cast<uint8_t>(glm::clamp(c.a, 0.0f, 1.0f) * 255.0f);
+        uint32_t numColors = (uint32_t)shape_colors.size();
+        uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
+        uint32_t height = (numColors + width - 1) / width;
+
+        std::vector<uint8_t> colData((size_t)width * (size_t)height * 4, 0);
+
+        // fill the texture row-major
+        for (uint32_t i = 0; i < (uint32_t)numColors; ++i) {
+            glm::vec4 c = shape_colors[i];
+            uint32_t x = i % width;
+            uint32_t y = i / width;
+            uint32_t idx = (y * width + x) * 4;
+
+            colData[idx + 0] = static_cast<uint8_t>(glm::clamp(c.r, 0.0f, 1.0f) * 255.0f);
+            colData[idx + 1] = static_cast<uint8_t>(glm::clamp(c.g, 0.0f, 1.0f) * 255.0f);
+            colData[idx + 2] = static_cast<uint8_t>(glm::clamp(c.b, 0.0f, 1.0f) * 255.0f);
+            colData[idx + 3] = static_cast<uint8_t>(glm::clamp(c.a, 0.0f, 1.0f) * 255.0f);
         }
 
         const bgfx::Memory* texMem = bgfx::copy(colData.data(), (uint32_t)colData.size());
 
+        // If texture exists but size changed, destroy and recreate it
         if (bgfx::isValid(m_tex)) {
-            // update existing texture
-            bgfx::updateTexture2D(m_tex, 0, 0, 0, 0, width, 1, texMem, (uint16_t)(4));
-        } else {
-            // create texture: 1 x width (height=1) with RGBA8 format
-            m_tex = bgfx::createTexture2D((uint16_t)width, 1, false, 1, bgfx::TextureFormat::RGBA8, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
-            bgfx::updateTexture2D(m_tex, 0, 0, 0, 0, width, 1, texMem, (uint16_t)(4));
+            if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
+                bgfx::destroy(m_tex);
+                m_tex = BGFX_INVALID_HANDLE;
+            }
         }
 
-        // store width for shader normalization
-        m_colorTextureWidth = width;
+        // create texture if missing
+        if (!bgfx::isValid(m_tex)) {
+            m_tex = bgfx::createTexture2D(
+                (uint16_t)width, (uint16_t)height,
+                false,   // hasMips
+                1,       // num layers
+                bgfx::TextureFormat::RGBA8,
+                BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
+        }
+
+        bgfx::updateTexture2D(m_tex, 0, 0, 0, 0, width, height, texMem, UINT16_MAX);
+
+        // store width/height for shader normalization
+        m_colorTextureWidth  = width;
+        m_colorTextureHeight = height;
 
         // reset changed flag
         Changed = false;
@@ -125,7 +144,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
     }
 
-    float info[4] = { float(m_colorTextureWidth), 0.0f, 0.0f, 0.0f };
+    float info[4] = { float(m_colorTextureWidth), float(m_colorTextureHeight), 0.0f, 0.0f };
     bgfx::setUniform(u_colorInfo, info);
 
     // Set vertex buffer

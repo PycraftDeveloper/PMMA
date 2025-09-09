@@ -57,7 +57,7 @@ CPP_TextRendererPipelineManager::CPP_TextRendererPipelineManager() {
         .end();
 
     // Create uniforms
-    u_proj = bgfx::createUniform("u_proj", bgfx::UniformType::Mat4);
+    u_proj = bgfx::createUniform("screen_space_one", bgfx::UniformType::Mat4);
     s_tex  = bgfx::createUniform("s_tex",  bgfx::UniformType::Sampler);
 
     string TextRendererShaderPath = PMMA_Registry::PMMA_Location
@@ -73,9 +73,6 @@ CPP_TextRendererPipelineManager::CPP_TextRendererPipelineManager() {
 CPP_TextRendererPipelineManager::~CPP_TextRendererPipelineManager() {
     if (bgfx::isValid(m_vbh)) {
         bgfx::destroy(m_vbh);
-    }
-    if (bgfx::isValid(m_program)) {
-        bgfx::destroy(m_program);
     }
     if (bgfx::isValid(u_proj)) {
         bgfx::destroy(u_proj);
@@ -133,7 +130,6 @@ void CPP_TextRendererPipelineManager::Reset() {
 
 void CPP_TextRendererPipelineManager::InternalRender() {
     if (glyphs.empty() || !atlas) return;
-    if (!bgfx::isValid(m_program)) return;
 
     // Allocate instance buffer and fill it
     const uint32_t num = (uint32_t)glyphs.size();
@@ -170,7 +166,7 @@ void CPP_TextRendererPipelineManager::InternalRender() {
 
     // Submit
     bgfx::setState(state);
-    bgfx::submit(view, m_program);
+    bgfx::submit(view, ShaderProgram->Use());
 
     // Clear glyph list - original code kept glyphs until Reset() so keep consistent and don't clear here
 }

@@ -25,10 +25,10 @@ namespace CPP_Constants {
     const std::string OS_HURD = "Hurd";
     const std::string OS_IOS = "iOS";
     const std::string OS_LINUX = "Linux";
-    const std::string OS_NX = "NX";
+    const std::string OS_NX = "Nintendo Switch";
     const std::string OS_MACOS = "MacOS";
-    const std::string OS_PS4 = "PS4";
-    const std::string OS_PS5 = "PS5";
+    const std::string OS_PS4 = "Play Station 4";
+    const std::string OS_PS5 = "Play Station 5";
     const std::string OS_VISIONOS = "VisionOS";
     const std::string OS_WINDOWS = "Windows";
     const std::string OS_WINRT = "WinRT";
@@ -38,7 +38,7 @@ namespace CPP_Constants {
     const std::string GRAPHICS_BACKEND_NO_RENDERER = "No Renderer";
     const std::string GRAPHICS_BACKEND_DIRECT3D11 = "Direct3D 11.0";
     const std::string GRAPHICS_BACKEND_DIRECT3D12 = "Direct3D 12.0";
-    const std::string GRAPHICS_BACKEND_GNM = "GNM"; // PlaySTation (Developer license needed)
+    const std::string GRAPHICS_BACKEND_GNM = "GNM"; // PlayStation (Developer license needed)
     const std::string GRAPHICS_BACKEND_METAL = "Metal";
     const std::string GRAPHICS_BACKEND_NVN = "NVN"; // Nintendo Switch
     const std::string GRAPHICS_BACKEND_OPENGL_ES = "OpenGL ES";

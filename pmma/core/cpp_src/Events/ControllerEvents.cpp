@@ -8,7 +8,7 @@ CPP_ControllerEvent::CPP_ControllerEvent(unsigned int NewID) {
     PMMA_Registry::ControllerEventInstanceCount++;
     ID = NewID;
 
-    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+    PMMA_Core::LoggingManagerInstance->InternalLogDebug(
         8,
         "Please note that when specifying the ID of the controller you \
 wish to use it is not guaranteed to remain at that ID when the application \

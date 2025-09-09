@@ -38,13 +38,12 @@ set(CORE_SOURCES
     "${SRC_DIR}/Internal/Management/CoreRenderPipelineManager.cpp"
     "${SRC_DIR}/Internal/Management/EventsManager.cpp"
     "${SRC_DIR}/Internal/Management/InternalManager.cpp"
+    "${SRC_DIR}/Internal/Management/LoggingManager.cpp"
     "${SRC_DIR}/Internal/Management/Shape2DRenderPipelineManager.cpp"
     "${SRC_DIR}/Internal/Management/TextRenderPipelineManager.cpp"
 
     "${SRC_DIR}/Internal/Utility/CPU_FeatureSetUtils.cpp"
     "${SRC_DIR}/Internal/Utility/FontUtils.cpp"
-
-    "${SRC_DIR}/Internal/InternalLogger.cpp"
 
     "${SRC_DIR}/Rendering/TextRenderer.cpp"
 

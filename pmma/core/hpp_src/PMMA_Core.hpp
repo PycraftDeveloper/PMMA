@@ -30,11 +30,10 @@
 #include "Internal/Management/InternalManager.hpp"
 #include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Internal/Management/TextRenderPipelineManager.hpp"
+#include "Internal/Management/LoggingManager.hpp"
 
 #include "Internal/Utility/CPU_FeatureSetUtils.hpp"
 #include "Internal/Utility/FontUtils.hpp"
-
-#include "Internal/InternalLogger.hpp"
 
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
@@ -223,7 +222,7 @@ namespace PMMA_Core {
     extern CPP_InternalDropEventManager* DropManagerInstance;
 
     extern CPP_Passport* PassportInstance;
-    extern CPP_InternalLogger* InternalLoggerInstance;
+    extern CPP_LoggingManager* LoggingManagerInstance;
 
     extern PowerSavingManager PowerSavingManagerInstance;
 

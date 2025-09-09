@@ -32,7 +32,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         if (GetSystemPowerStatus(&power_status)) {
             if (power_status.SystemStatusFlag == 1) {
                 if (!PMMA_Registry::IsPowerSavingModeEnabled) {
-                    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                         1,
                         "Your device is running in power saving mode.", true);
                 }
@@ -45,7 +45,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             }
             if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
                 if (!PMMA_Registry::IsPowerSavingModeEnabled) {
-                    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                         1,
                         "Your device is running in power saving mode.", true);
                 }
@@ -59,7 +59,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         }
 
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
-            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                 2,
                 "Your device is not running in power saving mode.", true);
         }
@@ -80,7 +80,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                     std::string status;
                     if (statusFile >> status && status == "Discharging") {
                         if (!PMMA_Registry::IsPowerSavingModeEnabled) {
-                            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+                            PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                                 1,
                                 "Your device is running in power saving mode.", true);
                         }
@@ -97,7 +97,7 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             std::cerr << "Filesystem error: " << error.what() << "\n";
         }
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
-            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                 2,
                 "Your device is not running in power saving mode.", true);
         }
@@ -109,13 +109,13 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         return false;
 
     #else
-        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                 7,
                 "Your platform is not supported for power saving mode \
 checking using PMMA.");
 
         if (PMMA_Registry::IsPowerSavingModeEnabled) {
-            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                 2,
                 "Your device is not running in power saving mode.", true);
         }
@@ -219,7 +219,7 @@ bool CPP_General::IsUpdateAvailable() {
     uint64_t numerical_latest_version = std::stoull(padded_latest_version);
 
     if (numerical_current_version > numerical_latest_version) {
-        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        PMMA_Core::LoggingManagerInstance->InternalLogDebug(
             22,
             "Thank you for using a pre-released version of PMMA! Please \
 note that there will likely be issues or missing/broken features as we work \
@@ -246,7 +246,7 @@ float CPP_General::GetShapeQuality() {
 
 void CPP_General::SetShapeQuality(float ShapeQuality) {
     if (ShapeQuality > CPP_Constants::SHAPE_QUALITY) {
-        PMMA_Core::InternalLoggerInstance->InternalLogWarn(
+        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
             41,
             "You have set the shape quality to a very high value of: " +
             to_string(ShapeQuality) +

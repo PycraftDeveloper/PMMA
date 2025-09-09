@@ -165,7 +165,7 @@ namespace PMMA_Core {
     CPP_InternalDropEventManager* DropManagerInstance = nullptr;
 
     CPP_Passport* PassportInstance = nullptr;
-    CPP_InternalLogger* InternalLoggerInstance = nullptr;
+    CPP_LoggingManager* LoggingManagerInstance = nullptr;
 
     PowerSavingManager PowerSavingManagerInstance;
 
@@ -209,17 +209,17 @@ namespace PMMA_Registry {
 }
 
 void PMMA_Initialize() {
-    PMMA_Core::InternalLoggerInstance = new CPP_InternalLogger();
+    PMMA_Core::LoggingManagerInstance = new CPP_LoggingManager();
 
-    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         0,
         "PMMA logging initialized, log files are named: 'DD-MM-YYYY at HH-MM-SS.txt'.");
 
-    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         12,
         "Welcome to Python Multi-Media API (PMMA) version: " + PMMA_Registry::Current_PMMA_Version);
 
-    PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         14,
         "Please note that PMMA is currently in a developmental state, \
 meaning that the API is subject to change - we are hoping to remove this \
@@ -228,30 +228,30 @@ warning and improve backwards compatibility in PMMA 6.");
     if (PMMA_Registry::IsPowerSavingModeEnabled) {
         PMMA_Core::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled
         PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
-        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
             1,
             "Your device is running in power saving mode.", true);
     } else {
-        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
             2,
             "Your device is not running in power saving mode.", true);
     }
 
     if (PMMA_Registry::CPU_Supports_AVX512) {
-        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
             3,
             "PMMA has detected that your system has AVX-512 support \
 and will automatically use it where applicable. AVX-512 allows for up to \
 16 operations to be performed simultaneously on the CPU.");
     } else {
         if (PMMA_Registry::CPU_Supports_AVX2) {
-            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                 4,
                 "PMMA has detected that your system has AVX2 support \
 and will automatically use it where applicable. AVX2 allows for up to \
 8 operations to be performed simultaneously on the CPU.");
         } else {
-            PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+            PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                 5,
                 "PMMA has detected that your system does not have any \
 support for AVX-512 or AVX2. This will not affect the usability of PMMA \
@@ -260,11 +260,11 @@ but may result in reduced performance.");
     }
 
     #ifdef USE_PYTHON
-        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                 6,
                 "PMMA has been built with compatibility for the Python programming language!");
     #else
-        PMMA_Core::InternalLoggerInstance->InternalLogDebug(
+        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
                 6,
                 "PMMA has not been built with additional compatibility \
 for Python, this does not effect the operation of PMMA but will change \
@@ -280,6 +280,6 @@ void PMMA_Uninitialize() {
         PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread.join();
     }
 
-    delete PMMA_Core::InternalLoggerInstance;
-    PMMA_Core::InternalLoggerInstance = nullptr;
+    delete PMMA_Core::LoggingManagerInstance;
+    PMMA_Core::LoggingManagerInstance = nullptr;
 }
