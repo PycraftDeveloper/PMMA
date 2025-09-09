@@ -52,6 +52,7 @@ class CPP_Shape2D_RenderPipelineManager {
 
         unsigned int ColorsInserted = 0;
         unsigned int ColorIndexesChanged = 0;
+        unsigned int m_vertexCount = 0;
 
         ska::flat_hash_map<unsigned int, GLuint> ColorSlotID; // objectColorSlot
         ska::flat_hash_set<unsigned int> SeenThisFrame;

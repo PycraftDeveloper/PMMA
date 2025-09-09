@@ -75,11 +75,16 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         const bgfx::Memory* mem = bgfx::copy(bgfxVerts.data(), (uint32_t)(bgfxVerts.size()*sizeof(BgfxVertex)));
 
         if (bgfx::isValid(m_vbh)) {
-            // Replace contents of existing buffer
-            bgfx::update(m_vbh, 0, mem);
+            if (m_vertexCount != bgfxVerts.size()) {
+                bgfx::destroy(m_vbh);
+                m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
+            } else {
+                bgfx::update(m_vbh, 0, mem);
+            }
         } else {
             m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
         }
+        m_vertexCount = bgfxVerts.size();
 
         // --- Create / update color texture ---
         // We create a 1 x N texture (height 1, width = number of colors) in RGBA8.
@@ -122,7 +127,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
                 BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
         }
 
-        bgfx::updateTexture2D(m_tex, 0, 0, 0, 0, width, height, texMem, UINT16_MAX);
+        bgfx::updateTexture2D(m_tex, 0, 0, 0, 0, width, height, texMem);
 
         // store width/height for shader normalization
         m_colorTextureWidth  = width;
