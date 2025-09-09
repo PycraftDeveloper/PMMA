@@ -6,4 +6,3 @@ build_pmma.py # in charge of building PMMA (C++ and Setup.py)
 - pmma_utils.py # helper functions
 
 utils.py # shared helper functions
-git_utils.py # git helper functions

@@ -5,7 +5,6 @@ import json, time, argparse
 from utils import *
 from deps_utils import *
 from deps_build_manager import *
-from git_utils import *
 
 program_start = time.perf_counter()
 
