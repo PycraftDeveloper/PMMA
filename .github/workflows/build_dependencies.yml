@@ -1,0 +1,160 @@
+name: Build dependencies
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build_deps_windows:
+    name: Build Windows Dependencies
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          lfs: true
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          cache: 'pip'
+
+      - name: Install Meson using Python
+        run: |
+          python -m pip install --upgrade pip meson
+
+      - name: Prepare Vulkan SDK
+        uses: humbletim/setup-vulkan-sdk@v1.2.1
+        with:
+          vulkan-query-version: 1.4.309.0
+          vulkan-components: Vulkan-Headers, Vulkan-Loader
+          vulkan-use-cache: true
+
+      - name: Set branch name
+        run: echo "BRANCH_NAME=${{ runner.os }}_${{ runner.arch }}_build_cache" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Configure and build C++ API via CMake
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+
+          git clone -b "$env:BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+          if ($LASTEXITCODE -ne 0) {
+              Write-Host "Cache branch missing, creating..."
+
+              git checkout --orphan $env:BRANCH_NAME
+              git lfs install
+              git rm -rf .
+
+              git config --global user.email "github-actions@github.com"
+              git config --global user.name "GitHub Actions"
+              git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+
+              git commit --allow-empty -m "Initial commit"
+              git push -u origin $env:BRANCH_NAME
+
+              cd ..
+              Remove-Item -Path "$env:GITHUB_WORKSPACE\PMMA" -Recurse -Force -ErrorAction SilentlyContinue
+
+              git clone https://github.com/${{ github.repository }} /PMMA
+              cd /PMMA
+              git lfs install
+              git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+          }
+
+          python "build_tools/build_deps.py" -in_github_workflow
+
+          cd build_cache
+
+          git clean -fdx
+
+          cd ..
+
+          Get-ChildItem -Path "build_tools" -Recurse | ForEach-Object {
+            $destination = $_.FullName -replace [regex]::Escape("build_tools"), "build_cache"
+            if (!(Test-Path $destination)) {
+                Copy-Item -Path $_.FullName -Destination $destination -Recurse
+            }
+          }
+
+          cd build_cache
+
+          git add -A
+
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+
+          git commit -m "Update Build Cache"
+          git push -u origin $env:BRANCH_NAME
+
+  build_deps_linux:
+    name: Build AnyLinux Dependencies
+    runs-on: ubuntu-latest
+    env:
+        DOCKER_IMAGE: docker.io/pycraftdev/pmma-manylinux:latest
+
+    steps:
+      - name: Pre-pull Docker image (cached by GitHub’s runner)
+        run: docker pull $DOCKER_IMAGE
+
+      - name: Set branch name
+        run: echo "BRANCH_NAME=${{ runner.os }}_${{ runner.arch }}_build_cache" >> $GITHUB_ENV
+        shell: bash
+
+      - name: Build Linux wheel inside Docker
+        run: |
+          docker run --rm \
+            -e TERM=xterm \
+            -e BRANCH_NAME=$BRANCH_NAME \
+            -v "${{ github.workspace }}/dist:/output_dist" \
+            $DOCKER_IMAGE \
+            /bin/bash -c '
+              set -e
+              git clone https://github.com/${{ github.repository }} /PMMA
+              cd /PMMA
+
+              if git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache; then
+                  echo "Cache branch exists, cloned successfully."
+              else
+                  echo "Cache branch missing, creating..."
+                  git checkout --orphan "$BRANCH_NAME"
+                  git lfs install
+                  git rm -rf .
+
+                  git config --global user.email "github-actions@github.com"
+                  git config --global user.name "GitHub Actions"
+                  git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+
+                  git commit --allow-empty -m "Initial commit"
+                  git push -u origin "$BRANCH_NAME"
+
+                  cd ..
+                  rm -rf /PMMA
+
+                  git clone https://github.com/${{ github.repository }} /PMMA
+                  cd /PMMA
+                  git lfs install
+                  git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+              fi
+
+              python3 "build_tools/build_deps.py" -in_github_workflow
+
+              cd build_cache
+
+              git clean -fdx
+
+              cd ..
+
+              cp -r build_tools/* build_cache/
+
+              cd build_cache
+
+              git add -A
+
+              git config --global user.email "github-actions@github.com"
+              git config --global user.name "GitHub Actions"
+              git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/PycraftDeveloper/PMMA.git
+
+              git commit -m "Update Build Cache"
+              git push -u origin "$BRANCH_NAME"
+            '

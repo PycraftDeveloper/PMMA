@@ -13,25 +13,38 @@ parser = argparse.ArgumentParser(description="Run in GitHub workflow mode")
 parser.add_argument("-in_github_workflow", action="store_true", help="Run in GitHub workflow mode")
 args = parser.parse_args()
 
-in_github_workflow = args.in_github_workflow
+Context.in_github_workflow = args.in_github_workflow
 
-if not in_github_workflow:
+if not Context.in_github_workflow:
     os.system('cls' if os.name == 'nt' else 'clear')
 
 ts_print("Removing old build and configuration...")
-shutil.rmtree(cmake_temp_dir, ignore_errors=True)
-shutil.rmtree(join_path(extern_dir, "lib"), ignore_errors=True)
-shutil.rmtree(join_path(extern_dir, "bin"), ignore_errors=True)
-shutil.rmtree(join_path(extern_dir, "share"), ignore_errors=True)
-shutil.rmtree(pmma_lib_dir, ignore_errors=True)
-shutil.rmtree(join_path(cwd, "dist"), ignore_errors=True)
-shutil.rmtree(join_path(cwd, "build"), ignore_errors=True)
-shutil.rmtree(join_path(cwd, "pmma.egg-info"), ignore_errors=True)
-selectively_clean_extern()
-fetch_cache_branch(in_github_workflow)
+threads = []
+paths = [
+    cmake_temp_dir,
+    join_path(extern_dir, "lib"),
+    join_path(extern_dir, "bin"),
+    join_path(extern_dir, "share"),
+    pmma_lib_dir,
+    join_path(cwd, "dist"),
+    join_path(cwd, "build"),
+    join_path(cwd, "pmma.egg-info"),
+    temporary_logging_dir
+]
+for path in paths:
+    thread = CustomThreading(target=ts_rmtree, args=(path,))
+    thread.start()
+    threads.append(thread)
 
-ts_print("Removing old logs...")
-shutil.rmtree(temporary_logging_dir, ignore_errors=True)
+for thread in threads:
+    thread.join()
+CustomThreading(target=ts_rmtree, args=(cmake_temp_dir))
+
+selectively_clean_extern()
+
+if not Context.in_github_workflow:
+    shutil.rmtree(build_cache_dir, ignore_errors=True)
+    shutil.copytree(build_tools_dir, build_cache_dir)
 
 os.makedirs(cmake_temp_dir, exist_ok=True)
 os.makedirs(extern_dir, exist_ok=True)
@@ -39,7 +52,7 @@ os.makedirs(temporary_logging_dir, exist_ok=True)
 os.makedirs(join_path(temporary_logging_dir, "dependencies"), exist_ok=True)
 os.makedirs(pmma_lib_dir, exist_ok=True)
 
-bm = DependencyBuildManager(in_github_workflow)
+bm = DependencyBuildManager()
 
 bm.add_component("zlib")
 bm.add_component("harfbuzz")
@@ -61,11 +74,9 @@ for component in components:
 with open(join_path(cwd, "build_tools", "hashes.json"), "w") as file:
     json.dump(hashed_data, file, indent=4)
 
-update_cache_branch(in_github_workflow)
+if not Context.in_github_workflow:
+    shutil.rmtree(build_cache_dir, ignore_errors=True)
+    shutil.copytree(build_tools_dir, build_cache_dir)
 
 program_end = time.perf_counter()
 ts_print(f"Total dependency build took {program_end - program_start:.2f} seconds")
-
-if not in_github_workflow:
-    ts_print("Automatically moving on to building PMMA.")
-    import build_pmma # would be called for each version of python in the github workflow
