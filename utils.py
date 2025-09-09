@@ -3,6 +3,17 @@
 import os, threading
 import subprocess, sys, shutil, pathlib
 
+class Context:
+    abort = False
+    in_github_workflow = False
+
+class CustomThreading(threading.Thread):
+    def __init__(self, *args, **kwargs):
+        if Context.abort:
+            sys.exit(-1)
+
+        super().__init__(*args, **kwargs)
+
 def join_path(cwd, *components):
     return pathlib.Path(cwd, *components).as_posix()
 
@@ -17,6 +28,7 @@ temporary_logging_dir = join_path(temp_dir, "cmake - logs")
 cmake_dir = join_path(cwd, "build_tools", "cmake")
 build_cache_dir = join_path(cwd, "build_cache")
 cmake_build_cache_dir = join_path(build_cache_dir, "cmake")
+build_tools_dir = join_path(cwd, "build_tools")
 
 print_lock = threading.Lock()
 
@@ -24,7 +36,7 @@ def ts_print(content):
     with print_lock:
         print(content)
 
-def run(command, cwd, log_file, in_github_workflow):
+def run(command, cwd, log_file):
     try:
         result = subprocess.run(
             [*command], check=True, cwd=cwd, stdout=subprocess.PIPE,
@@ -34,9 +46,10 @@ def run(command, cwd, log_file, in_github_workflow):
         ts_print(f"Error running {command}: {error}")
         ts_print("Output before crash:")
         ts_print(error.output)
+        Context.abort = True
         sys.exit(-1)
 
-    if in_github_workflow:
+    if Context.in_github_workflow:
         ts_print(result.stdout)
     else:
         joined_command = " ".join(command)
@@ -55,3 +68,11 @@ def copy_top_level(src_dir, dst_dir):
         elif os.path.isdir(src_path):
             # Copy the entire subdirectory (recursively)
             shutil.copytree(src_path, dst_path, dirs_exist_ok=True)
+
+def ts_rmtree(path, ignore_errors=True):
+    try:
+        shutil.rmtree(path, ignore_errors=ignore_errors)
+    except Exception as error:
+        ts_print(f"Error removing {path}: {error}")
+        Context.abort = True
+        sys.exit(-1)

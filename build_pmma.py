@@ -33,7 +33,6 @@ def build_pmma(build_debug, build_for_python):
                 ],
                 cmake_temp_dir,
                 config_log_file,
-                in_github_workflow
             )
         else:
             run(
@@ -44,7 +43,6 @@ def build_pmma(build_debug, build_for_python):
                 ],
                 cmake_temp_dir,
                 config_log_file,
-                in_github_workflow
             )
     else:
         if build_for_python:
@@ -61,7 +59,6 @@ def build_pmma(build_debug, build_for_python):
                 ],
                 cmake_temp_dir,
                 config_log_file,
-                in_github_workflow
             )
         else:
             run(
@@ -72,7 +69,6 @@ def build_pmma(build_debug, build_for_python):
                 ],
                 cmake_temp_dir,
                 config_log_file,
-                in_github_workflow
             )
 
     # Build PMMA -------------------------------------------------------
@@ -86,30 +82,30 @@ def build_pmma(build_debug, build_for_python):
             [
                 "cmake", "--build", f"build/pmma", "--config", "Debug",
                 "--parallel"
-            ], cmake_temp_dir, build_log_file, in_github_workflow)
+            ], cmake_temp_dir, build_log_file)
     else:
         run(
             [
                 "cmake", "--build", f"build/pmma", "--config", "Release",
                 "--parallel"
-            ], cmake_temp_dir, build_log_file, in_github_workflow
+            ], cmake_temp_dir, build_log_file
         )
 
     ts_print("Finished PMMA C++ compilation")
 
-def run_setup(in_github_workflow):
+def run_setup():
     ts_print("Started running Setup.py")
 
     setup_log_file = join_path(temporary_logging_dir, f"setup.log")
 
-    if in_github_workflow:
+    if Context.in_github_workflow:
         run(
             [
             sys.executable, "setup.py", "build_ext", "--build-lib",
             "pmma/build", "--build-temp", "temporary", "sdist",
             "bdist_wheel"
             ],
-            cwd, setup_log_file, in_github_workflow
+            cwd, setup_log_file
         )
     else:
         run(
@@ -118,7 +114,7 @@ def run_setup(in_github_workflow):
             "pmma/build", "--build-temp", "temporary", "sdist",
             "bdist_wheel", "--no-parallel", "--annotate_build"
             ],
-            cwd, setup_log_file, in_github_workflow
+            cwd, setup_log_file
         )
 
     ts_print("Finished running Setup.py")
@@ -127,12 +123,12 @@ def run_setup(in_github_workflow):
 parser = argparse.ArgumentParser(description="Run in GitHub workflow mode")
 parser.add_argument('-in_github_workflow', action='store_true', help='Run in GitHub workflow mode')
 args = parser.parse_args()
-in_github_workflow = args.in_github_workflow
+Context.in_github_workflow = args.in_github_workflow
 
 build_debug = False
 build_for_python = True
 
-if not in_github_workflow:
+if not Context.in_github_workflow:
     response = input(
         "Do you want to build a DEBUG version of PMMA? [y/n] \
 (Recommended: n): ")
@@ -141,7 +137,7 @@ if not in_github_workflow:
     else:
         build_debug = response[0].lower() == "y"
 
-if not in_github_workflow:
+if not Context.in_github_workflow:
     response = input(
         "Do you want to build a C++ only version of PMMA (No Python \
 interactions) [y/n] (Recommended: n): ")
@@ -154,10 +150,10 @@ interactions) [y/n] (Recommended: n): ")
 total_time = get_execution_time(build_pmma, build_debug, build_for_python)[0]
 print(f"PMMA Build took {total_time:.2f} seconds")
 
-total_time = get_execution_time(run_setup, in_github_workflow)[0]
+total_time = get_execution_time(run_setup)[0]
 print(f"Running Setup.py took {total_time:.2f} seconds")
 
-if not in_github_workflow:
+if not Context.in_github_workflow:
     response = input(
         "Do you want to automatically refresh the currently installed \
 version of PMMA? [y/n] (Recommended: y): ")
@@ -172,7 +168,7 @@ version of PMMA? [y/n] (Recommended: y): ")
         run(
             [
             sys.executable, "-m", "pip", "uninstall", "pmma", "-y"
-            ], cmake_temp_dir, installation_log_file, in_github_workflow
+            ], cmake_temp_dir, installation_log_file
         )
 
         ts_print("Reinstalling PMMA...")
@@ -185,7 +181,7 @@ version of PMMA? [y/n] (Recommended: y): ")
         run(
             [
             sys.executable, "-m", "pip", "install", wheel_file
-            ], cmake_temp_dir, installation_log_file, in_github_workflow
+            ], cmake_temp_dir, installation_log_file
         )
 
         ts_print("Finished refreshing the installed version of PMMA.")

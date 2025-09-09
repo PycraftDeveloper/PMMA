@@ -7,11 +7,10 @@ from deps_build_cmds import *
 from utils import *
 
 class DependencyBuildManager:
-    def __init__(self, in_github_workflow, base_dir="build_tools/cmake/dependencies"):
+    def __init__(self, base_dir="build_tools/cmake/dependencies"):
         self.base_dir = base_dir
         self.components = {}
         self.configured = {}
-        self.in_github_workflow = in_github_workflow
 
     def add_component(self, name, dependencies=None):
         if dependencies is None:
@@ -59,9 +58,9 @@ class DependencyBuildManager:
 
         self.components[name] = dependencies
 
-        configure_thread = threading.Thread(
+        configure_thread = CustomThreading(
             target=configure,
-            args=(self, name, self.in_github_workflow,))
+            args=(self, name,))
 
         configure_thread.start()
         self.configured[name] = configure_thread
@@ -109,9 +108,9 @@ class DependencyBuildManager:
         while ready or any(t.is_alive() for t in threads):
             while ready:
                 comp = ready.popleft()
-                t = threading.Thread(
+                t = CustomThreading(
                     target=run_build,
-                    args=(self, comp, built, lock, indegree, ready, self.in_github_workflow))
+                    args=(self, comp, built, lock, indegree, ready,))
                 t.start()
                 threads.append(t)
 

@@ -5,9 +5,9 @@ import os
 from utils import *
 from deps_utils import *
 
-def configure(self, component, in_github_workflow):
+def configure(self, component):
     folder = join_path(cwd, self.base_dir, component)
-    ts_print(f"Configuring {component}...")
+    ts_print(f"Internally setting up build environment for: {component}...")
 
     config_log_file = join_path(temporary_logging_dir, f"dependencies/{component}-config.log")
 
@@ -19,12 +19,12 @@ def configure(self, component, in_github_workflow):
             f"-DOUTPUT_DIR='{cmake_dependency_component_build_dir}'",
             "-DCMAKE_BUILD_TYPE=Release",
             f"-DINSTALL_DIR={extern_dir}"
-        ], cmake_temp_dir, config_log_file, in_github_workflow
+        ], cmake_temp_dir, config_log_file
     )
 
-    ts_print(f"Configured {component}")
+    ts_print(f"Internally setup build environment for: {component}")
 
-def run_build(self, component, built, lock, indegree, ready, in_github_workflow):
+def run_build(self, component, built, lock, indegree, ready):
     folder = join_path(cwd, self.base_dir, component)
     if self.configured[component].is_alive():
         ts_print(f"Waiting for {component} to finish configuring...")
@@ -37,7 +37,7 @@ def run_build(self, component, built, lock, indegree, ready, in_github_workflow)
     run(
         [
             "cmake", "--build", f"build/{component}", "--config", "Release"
-        ], cmake_temp_dir, build_log_file, in_github_workflow
+        ], cmake_temp_dir, build_log_file
     )
 
     merge_all_subdirs(

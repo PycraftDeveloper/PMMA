@@ -3,6 +3,7 @@
 import json, hashlib, pathlib, shutil, platform
 
 from utils import *
+import sys
 
 components = []
 rebuild_control = {}
@@ -28,18 +29,8 @@ def hash_component(name):
 
     return hashlib.sha256(data.encode('utf-8')).hexdigest()
 
-def merge_all_subdirs(src_root, dest_root):
-    src_root = pathlib.Path(src_root)
-    dest_root = pathlib.Path(dest_root)
-
-    if not src_root.exists():
-        ts_print(f"Source directory {src_root} does not exist.")
-        return
-
-    for src_subdir in src_root.iterdir():
-        if not src_subdir.is_dir():
-            continue  # Skip files at the root level
-
+def merge_subdir(src_subdir, dest_root):
+    try:
         dest_subdir = dest_root / src_subdir.name
         dest_subdir.mkdir(parents=True, exist_ok=True)
 
@@ -54,14 +45,39 @@ def merge_all_subdirs(src_root, dest_root):
                 shutil.copy2(item, dest_item)
 
         ts_print(f"Merged {src_subdir} -> {dest_subdir}")
+    except Exception as error:
+        ts_print(f"Error merging {src_subdir}: {error}")
+        Context.abort = True
+        sys.exit(-1)
+
+def merge_all_subdirs(src_root, dest_root):
+    src_root = pathlib.Path(src_root)
+    dest_root = pathlib.Path(dest_root)
+
+    if not src_root.exists():
+        ts_print(f"Source directory {src_root} does not exist.")
+        return
+
+    threads = []
+
+    for src_subdir in src_root.iterdir():
+        if not src_subdir.is_dir():
+            continue  # Skip files at the root level
+
+        thread = CustomThreading(target=merge_subdir, args=(src_subdir, dest_root))
+        thread.start()
+        threads.append(thread)
+
+    for thread in threads:
+        thread.join()
 
 def selectively_clean_extern():
     if os.path.exists(extern_dir):
         def should_keep(path):
-            return (f'glm' in path or
-                    f'glad' in path or
-                    f'FlatHashMap' in path or
-                    f'STB' in path)
+            return ('glm' in path or
+                    'FlatHashMap' in path or
+                    'STB' in path or
+                    'shader_build_tools' in path)
 
         for dirpath, dirnames, filenames in os.walk(extern_dir, topdown=False):
             full_dirpath = os.path.abspath(dirpath)
