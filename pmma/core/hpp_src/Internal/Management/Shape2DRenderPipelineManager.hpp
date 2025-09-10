@@ -160,8 +160,6 @@ class CPP_Shape2D_RenderPipelineManager {
                 return slot * 4; // byte offset (multiple of 4)
             }
 
-            std::cout << "A" << std::endl;
-
             SeenThisFrame.insert(ShapeID);
 
             auto found = ColorSlotID.find(ShapeID);
