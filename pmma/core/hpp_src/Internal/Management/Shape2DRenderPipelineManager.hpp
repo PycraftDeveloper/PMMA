@@ -64,7 +64,6 @@ class CPP_Shape2D_RenderPipelineManager {
         unsigned int PaddingStartPosition = 0;
 
         bool Changed = true;
-        bool HasAlpha = false;
         bool UsingComplexColorInsertion = false;
         bool ChangedColorModes = true;
 

@@ -75,7 +75,7 @@ API to set it.");
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
@@ -130,8 +130,8 @@ API to set it.");
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    Shape2D_RenderPipelineData[i * 2 + 0] = {
-                        cx + x_rot_outer, cy + y_rot_outer, ColorIndex, 0};
+                    auto &v0 = Shape2D_RenderPipelineData[i * 2 + 0];
+                    v0.x = cx + x_rot_outer; v0.y = cy + y_rot_outer; v0.s = ColorIndex; v0.t = 0.0f;
 
                     // Inner point (ring)
                     float x_inner = a_inner * cosAngle;
@@ -140,8 +140,8 @@ API to set it.");
                     float x_rot_inner = x_inner * cosRot - y_inner * sinRot;
                     float y_rot_inner = x_inner * sinRot + y_inner * cosRot;
 
-                    Shape2D_RenderPipelineData[i * 2 + 1] = {
-                        cx + x_rot_inner, cy + y_rot_inner, ColorIndex, 0};
+                    auto &v1 = Shape2D_RenderPipelineData[i * 2 + 1];
+                    v1.x = cx + x_rot_inner; v1.y = cy + y_rot_inner; v1.s = ColorIndex; v1.t = 0.0f;
                 }
             } else {
                 for (unsigned int i = 0; i <= InternalPointCount; ++i) {
@@ -157,11 +157,11 @@ API to set it.");
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    Shape2D_RenderPipelineData[i * 2 + 0] = {
-                        cx + x_rot_outer, cy + y_rot_outer, ColorIndex, 0};
+                    auto &v0 = Shape2D_RenderPipelineData[i * 2 + 0];
+                    v0.x = cx + x_rot_outer; v0.y = cy + y_rot_outer; v0.s = ColorIndex; v0.t = 0.0f;
 
-                    // Filled ellipse: collapse inner to center
-                    Shape2D_RenderPipelineData[i * 2 + 1] = {cx, cy, ColorIndex, 0};
+                    auto &v1 = Shape2D_RenderPipelineData[i * 2 + 1];
+                    v1.x = cx; v1.y = cy; v1.s = ColorIndex; v1.t = 0.0f;
                 }
             }
         }

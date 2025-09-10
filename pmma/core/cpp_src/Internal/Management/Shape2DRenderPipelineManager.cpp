@@ -46,21 +46,14 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     // If the shape color array changed, upload a new 1D texture containing
     // the color palette. We'll use RGBA8 (unsigned bytes) format.
 
-    // detect alpha presence (for potential blend state later)
-    HasAlpha = false;
-    for (unsigned int i = 3; i < shape_colors.size(); i += 4) { // skip to each alpha
-        if (shape_colors[i] != 255) {
-            HasAlpha = true;
-            break;
-        }
-    }
-
     // Create or update vertex buffer.
     // We use a static vertex buffer that we update with bgfx::update.
     // For larger/streaming workloads you can switch to transient or dynamic
     // strategies later.
 
-    const bgfx::Memory* mem = bgfx::copy(combined_vertexes.data(), (uint32_t)(combined_vertexes.size()*sizeof(Vertex)));
+    const bgfx::Memory* mem = bgfx::makeRef(
+        combined_vertexes.data(),
+        (uint32_t)(combined_vertexes.size()*sizeof(Vertex)));
 
     if (bgfx::isValid(m_vbh)) {
         if (m_vertexCount != combined_vertexes.size()) {
@@ -125,10 +118,9 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
 
     // Setup rendering state
     uint64_t state = BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_PT_TRISTRIP;
-    if (HasAlpha) {
-        // enable alpha blending (src * src_alpha + dst * (1 - src_alpha))
-        state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
-    }
+
+    // enable alpha blending (src * src_alpha + dst * (1 - src_alpha))
+    state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
 
     float info[4] = { float(m_colorTextureWidth), float(m_colorTextureHeight), 0.0f, 0.0f };
     bgfx::setUniform(u_colorInfo, info);

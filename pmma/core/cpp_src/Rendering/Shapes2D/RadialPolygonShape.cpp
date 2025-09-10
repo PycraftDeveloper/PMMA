@@ -78,7 +78,7 @@ API to set it.");
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
@@ -121,8 +121,19 @@ API to set it.");
 
                     unsigned int index = i * 2;
 
-                    Shape2D_RenderPipelineData[index] = {ox, oy, ColorIndex, 0};
-                    Shape2D_RenderPipelineData[index + 1] = {cx, cy, ColorIndex, 0};
+                    // vector<Vertex> Shape2D_RenderPipelineData
+
+                    /*
+                    struct Vertex {
+                        float x, y;      // position
+                        float s, t;      // texcoord (s = shape index as float, t unused)
+                    };
+                    */
+                    auto &v0 = Shape2D_RenderPipelineData[index];
+                    v0.x = ox; v0.y = oy; v0.s = ColorIndex; v0.t = 0.0f;
+
+                    auto &v1 = Shape2D_RenderPipelineData[index + 1];
+                    v1.x = cx; v1.y = cy; v1.s = ColorIndex; v1.t = 0.0f;
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
@@ -139,8 +150,11 @@ API to set it.");
 
                     unsigned int index = i * 2;
 
-                    Shape2D_RenderPipelineData[index] = {ox, oy, ColorIndex, 0};
-                    Shape2D_RenderPipelineData[index + 1] = {ix, iy, ColorIndex, 0};
+                    auto &v0 = Shape2D_RenderPipelineData[index];
+                    v0.x = ox; v0.y = oy; v0.s = ColorIndex; v0.t = 0.0f;
+
+                    auto &v1 = Shape2D_RenderPipelineData[index + 1];
+                    v1.x = cx; v1.y = cy; v1.s = ColorIndex; v1.t = 0.0f;
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
