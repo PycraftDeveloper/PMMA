@@ -8,7 +8,15 @@ class General:
     def is_power_saving_mode_enabled() -> bool: ...
 
     @staticmethod
-    def get_operating_system() -> Literal["windows", "linux", "macOS", "java", "android"]: ...
+    def get_operating_system() -> Literal[
+        "Android", "BSD", "Emscripten","Haiku", "Hurd", "iOS", "Linux",
+        "Nintendo Switch", "MacOS", "Play Station 4", "Play Station 5",
+        "VisionOS", "Windows", "WinRT", "XboxOne", "Unknown"]: ...
+
+    @staticmethod
+    def get_graphics_backend() -> Literal[
+        "No Renderer", "Direct3D 11.0", "Direct3D 12.0", "GNM", "Metal",
+        "NVN", "OpenGL ES", "OpenGL", "Vulkan", "Unknown"]: ...
 
     @staticmethod
     def find_executable_nvidia_smi() -> str: ...

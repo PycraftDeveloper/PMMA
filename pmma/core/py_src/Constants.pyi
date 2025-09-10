@@ -6,11 +6,33 @@ class Constants:
     UPDATING: str
     MANUALLY_SET: str
 
-    WINDOWS: str
-    LINUX: str
-    MACOS: str
-    JAVA: str
-    ANDROID: str
+    OS_ANDROID: str
+    OS_BSD: str
+    OS_EMSCRIPTEN: str
+    OS_HAIKU: str
+    OS_HURD: str
+    OS_IOS: str
+    OS_LINUX: str
+    OS_NX: str
+    OS_MACOS: str
+    OS_PS4: str
+    OS_PS5: str
+    OS_VISIONOS: str
+    OS_WINDOWS: str
+    OS_WINRT: str
+    OS_XBOXONE: str
+    OS_UNKNOWN: str
+
+    GRAPHICS_BACKEND_NO_RENDERER: str
+    GRAPHICS_BACKEND_DIRECT3D11: str
+    GRAPHICS_BACKEND_DIRECT3D12: str
+    GRAPHICS_BACKEND_GNM: str
+    GRAPHICS_BACKEND_METAL: str
+    GRAPHICS_BACKEND_NVN: str
+    GRAPHICS_BACKEND_OPENGL_ES: str
+    GRAPHICS_BACKEND_OPENGL: str
+    GRAPHICS_BACKEND_VULKAN: str
+    GRAPHICS_BACKEND_UNKNOWN: str
 
     TKINTER_STYLE_BUTTON: str
     TKINTER_STYLE_CHECKBUTTON: str

@@ -54,3 +54,4 @@ Notes:
 45 - Profiling cannot be stopped as it was never started
 46 - Operating System name
 47 - Shader profile
+48 - Filesystem error

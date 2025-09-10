@@ -31,6 +31,9 @@ cdef class Logger:
     def set_log_debug(self, log_debug):
         self.cpp_class_ptr.SetLogDebug(log_debug)
 
+    def set_log_info(self, log_info):
+        self.cpp_class_ptr.SetLogInfo(log_info)
+
     def set_log_warn(self, log_warn):
         self.cpp_class_ptr.SetLogWarn(log_warn)
 
@@ -39,6 +42,9 @@ cdef class Logger:
 
     def get_log_debug(self):
         return self.cpp_class_ptr.GetLogDebug()
+
+    def get_log_info(self):
+        return self.cpp_class_ptr.GetLogInfo()
 
     def get_log_warn(self):
         return self.cpp_class_ptr.GetLogWarn()
@@ -62,6 +68,23 @@ cdef class Logger:
         encoded_content = content.encode("utf-8")
 
         self.cpp_class_ptr.LogDebug(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
+
+    def log_info_with_id(self, log_id, content, product_name="", repeat_for_effect=False):
+        cdef string encoded_id = log_id.encode("utf-8")
+        cdef string encoded_content = content.encode("utf-8")
+        cdef string encoded_product_name = product_name.encode("utf-8")
+
+        self.cpp_class_ptr.LogInfo(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
+
+    def log_info(self, content, values=[], product_name="", repeat_for_effect=False):
+        cdef string encoded_id = content.encode("utf-8")
+        cdef string encoded_content
+        cdef string encoded_product_name = product_name.encode("utf-8")
+
+        content = content.format(*values)
+        encoded_content = content.encode("utf-8")
+
+        self.cpp_class_ptr.LogInfo(encoded_id, encoded_content, encoded_product_name, repeat_for_effect)
 
     def log_warn_with_id(self, log_id, content, product_name="", repeat_for_effect=True):
         cdef string encoded_id = log_id.encode("utf-8")
@@ -101,6 +124,11 @@ cdef class Logger:
         cdef string encoded_content = content.encode("utf-8")
 
         self.cpp_class_ptr.InternalLogDebug(log_id, encoded_content, repeat_for_effect)
+
+    cpdef internal_log_info(self, int log_id, content, repeat_for_effect):
+        cdef string encoded_content = content.encode("utf-8")
+
+        self.cpp_class_ptr.InternalLogInfo(log_id, encoded_content, repeat_for_effect)
 
     cpdef internal_log_warn(self, int log_id, content, repeat_for_effect):
         cdef string encoded_content = content.encode("utf-8")

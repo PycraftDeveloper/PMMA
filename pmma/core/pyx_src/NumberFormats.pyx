@@ -354,7 +354,6 @@ cdef class DisplayCoordinate:
         coords[1] = y
         self.cpp_class_ptr.Set(&coords[0])
 
-
 cdef class Angle:
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_AngleFormat()

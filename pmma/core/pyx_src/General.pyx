@@ -59,6 +59,9 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     string GetLocale() except + nogil
     void SetLocale(string locale__) except + nogil
 
+    string GetOperatingSystem() except + nogil
+    string GetGraphicsBackend() except + nogil
+
 def internal_update_config(update_configuration_location):
     try:
         tag_data = requests.get(
@@ -121,16 +124,13 @@ cdef class General:
 
     @staticmethod
     def get_operating_system():
-        if platform.system() == "Windows":
-            return Constants.WINDOWS
-        elif platform.system() == "Linux":
-            if "ANDROID_STORAGE" in os.environ:
-                return Constants.ANDROID
-            return Constants.LINUX
-        elif platform.system() == "Darwin":
-            return Constants.MACOS
-        elif platform.system() == "Java":
-            return Constants.JAVA
+        cdef string operating_system = GetOperatingSystem()
+        return operating_system.c_str().decode('utf-8')
+
+    @staticmethod
+    def get_graphics_backend():
+        cdef string graphics_backend = GetGraphicsBackend()
+        return graphics_backend.c_str().decode('utf-8')
 
     @staticmethod
     def find_executable_nvidia_smi():

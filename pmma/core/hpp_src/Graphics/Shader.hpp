@@ -11,10 +11,12 @@
 #include <bgfx/platform.h>
 
 #include "General.hpp"
+#include "Logger.hpp"
 
 class CPP_Shader {
     private:
         bgfx::ProgramHandle ShaderProgram = BGFX_INVALID_HANDLE;
+        CPP_Logger* Logger;
 
         std::string RawVertexShaderPath = "";
         std::string RawFragmentShaderPath = "";
@@ -47,10 +49,17 @@ class CPP_Shader {
         }
 
     public:
+        CPP_Shader() {
+            Logger = new CPP_Logger();
+        }
+
         ~CPP_Shader() {
             if (bgfx::isValid(ShaderProgram)) {
                 bgfx::destroy(ShaderProgram);
             }
+
+            delete Logger;
+            Logger = nullptr;
         }
 
         void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
@@ -162,8 +171,12 @@ class CPP_Shader {
                         break;
                     }
                 }
-            } catch (const std::filesystem::filesystem_error& e) {
-                // Handle error (e.g., log it)
+            } catch (const std::filesystem::filesystem_error& error) {
+                Logger->InternalLogWarn(
+                    48,
+                    "Whilst looking for shader files in the folder: '" +
+                    FolderPath + "' the following filesystem error occurred: '" +
+                    error.what() + "'");
             }
 
             CompileShader(InternalShader);

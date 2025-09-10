@@ -44,6 +44,10 @@ bool CPP_Logger::GetLogDebug() {
     return PMMA_Core::LoggingManagerInstance->GetLogDebug();
 }
 
+bool CPP_Logger::GetLogInfo() {
+    return PMMA_Core::LoggingManagerInstance->GetLogInfo();
+}
+
 bool CPP_Logger::GetLogWarn() {
     return PMMA_Core::LoggingManagerInstance->GetLogWarn();
 }
