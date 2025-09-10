@@ -26,7 +26,7 @@ class EXPORT CPP_LineShape {
         float Rotation = 0;
 
         uint64_t ID;
-        GLuint ColorIndex;
+        float ColorIndex;
         unsigned int Width = 1;
 
         bool HasAlpha = false;

@@ -24,7 +24,7 @@ class EXPORT CPP_PixelShape {
         glm::vec2 ShapeSize;
 
         uint64_t ID;
-        GLuint ColorIndex;
+        float ColorIndex;
 
         bool CenterSet = false;
         bool HasAlpha = false;

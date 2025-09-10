@@ -55,30 +55,15 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         }
     }
 
-    // --- Build or update vertex buffer data ---
-    // Convert your Vertex -> BgfxVertex
-    std::vector<BgfxVertex> bgfxVerts;
-    bgfxVerts.reserve(combined_vertexes.size());
-    for (const auto &v : combined_vertexes) {
-        BgfxVertex bv;
-        bv.x = v.position.x;
-        bv.y = v.position.y;
-        // Pack shape_id into texcoord.x as a float. Shader will interpret it
-        // as an integer index (via floor() / int()) when sampling.
-        bv.s = static_cast<float>(v.shape_id);
-        bv.t = 0.0f;
-        bgfxVerts.push_back(bv);
-    }
-
     // Create or update vertex buffer.
     // We use a static vertex buffer that we update with bgfx::update.
     // For larger/streaming workloads you can switch to transient or dynamic
     // strategies later.
 
-    const bgfx::Memory* mem = bgfx::copy(bgfxVerts.data(), (uint32_t)(bgfxVerts.size()*sizeof(BgfxVertex)));
+    const bgfx::Memory* mem = bgfx::copy(combined_vertexes.data(), (uint32_t)(combined_vertexes.size()*sizeof(Vertex)));
 
     if (bgfx::isValid(m_vbh)) {
-        if (m_vertexCount != bgfxVerts.size()) {
+        if (m_vertexCount != combined_vertexes.size()) {
             bgfx::destroy(m_vbh);
             m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
         } else {
@@ -87,7 +72,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     } else {
         m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
     }
-    m_vertexCount = bgfxVerts.size();
+    m_vertexCount = combined_vertexes.size();
 
     // --- Create / update color texture ---
     // ONLY RUN WHEN A COLOR HAS CHANGED!!!

@@ -27,7 +27,7 @@ class EXPORT CPP_RectangleShape {
         float Rotation = 0;
 
         uint64_t ID;
-        GLuint ColorIndex;
+        float ColorIndex;
         unsigned int Width = 0;
         unsigned int CornerRadius = 0;
 
@@ -54,25 +54,30 @@ class EXPORT CPP_RectangleShape {
 
         void InternalRender();
 
-        inline glm::vec2 SimpleApplyRotation(glm::vec2 position, glm::vec2 shape_center, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight) {
-            glm::vec2 pos = position - shape_center;
-            glm::vec2 rotated = {
-                RotationCos * pos.x - RotationSin * pos.y,
-                RotationSin * pos.x + RotationCos * pos.y
-            };
-            return shape_center + rotated;
+        inline void SimpleApplyRotation(float* position, glm::vec2 shape_center, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight, float* out) {
+            float pos[2], rotated[2];
+            pos[0] = position[0] - shape_center.x;
+            pos[1] = position[1] - shape_center.y;
+
+            rotated[0] = RotationCos * pos[0] - RotationSin * pos[1];
+            rotated[1] = RotationSin * pos[0] + RotationCos * pos[1];
+
+            out[0] = rotated[0] + shape_center.x;
+            out[1] = rotated[1] + shape_center.y;
         }
 
-        inline glm::vec2 ComplexApplyRotation(glm::vec2 point, glm::vec2 shape_center, float RotationSin, float RotationCos) {
+        inline void ComplexApplyRotation(float* point, glm::vec2 shape_center, float RotationSin, float RotationCos, float* out) {
             // Translate point to origin
-            point -= shape_center;
+            point[0] -= shape_center.x;
+            point[1] -= shape_center.y;
 
             // Rotate
-            float xnew = point.x * RotationCos - point.y * RotationSin;
-            float ynew = point.x * RotationSin + point.y * RotationCos;
+            float xnew = point[0] * RotationCos - point[1] * RotationSin;
+            float ynew = point[0] * RotationSin + point[1] * RotationCos;
 
             // Translate back
-            return glm::vec2(xnew, ynew) + shape_center;
+            out[0] = xnew + shape_center.x;
+            out[1] = ynew + shape_center.y;
         }
 
         inline void SetSize(unsigned int* in_size) {

@@ -26,7 +26,7 @@ class EXPORT CPP_EllipseShape {
         float Rotation = 0;
 
         uint64_t ID;
-        GLuint ColorIndex;
+        float ColorIndex;
         unsigned int Width = 0;
         unsigned int PointCount = 0;
 

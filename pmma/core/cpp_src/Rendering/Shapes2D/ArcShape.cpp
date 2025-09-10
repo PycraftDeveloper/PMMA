@@ -94,7 +94,7 @@ API to set it.");
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
@@ -147,8 +147,8 @@ API to set it.");
 
                     unsigned int index = i * 2;
 
-                    Shape2D_RenderPipelineData[index] = {glm::vec2(ox, oy), ColorIndex};
-                    Shape2D_RenderPipelineData[index + 1] = {glm::vec2(cx, cy), ColorIndex};
+                    Shape2D_RenderPipelineData[index] = {ox, oy, ColorIndex, 0};
+                    Shape2D_RenderPipelineData[index + 1] = {cx, cy, ColorIndex, 0};
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
@@ -165,8 +165,8 @@ API to set it.");
 
                     unsigned int index = i * 2;
 
-                    Shape2D_RenderPipelineData[index] = {glm::vec2(ox, oy), ColorIndex};
-                    Shape2D_RenderPipelineData[index + 1] = {glm::vec2(ix, iy), ColorIndex};
+                    Shape2D_RenderPipelineData[index] = {ox, oy, ColorIndex, 0};
+                    Shape2D_RenderPipelineData[index + 1] = {ix, iy, ColorIndex, 0};
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;

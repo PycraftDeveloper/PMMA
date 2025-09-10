@@ -13,7 +13,8 @@ cdef extern from "PMMA_Core.hpp" namespace "CPP_AdvancedMathematics" nogil:
     float SmoothStep(const float value) except + nogil
     float Ranger(const float value, const float* old_range, const float* new_range) except + nogil
     void ArrayRanger(const float* value, const unsigned int length, const float* old_range, const float* new_range, float* out) except + nogil
-    void ArrayNormalize(const float* value, float* out) except + nogil
+    void ArrayNormalize_2D(const float* value, float* out) except + nogil
+    void ArrayNormalize_3D(const float* value, float* out) except + nogil
     void Cross(const float* a, const float* b, float* out) except + nogil
     void Subtract(const float* a, const float* b, float* out) except + nogil
     float Dot(const float* a, const float* b) except + nogil
@@ -134,7 +135,7 @@ cdef class AdvancedMathematics:
             return out_np.tolist()
 
     @staticmethod
-    def array_normalize(values):
+    def array_normalize_2d(values):
         cdef:
             np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
             np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')
@@ -149,7 +150,30 @@ cdef class AdvancedMathematics:
 
         values_ptr = &values_np[0]
 
-        ArrayNormalize(values_ptr, out_ptr)
+        ArrayNormalize_2D(values_ptr, out_ptr)
+
+        if isinstance(values, np.ndarray):
+            return out_np
+        else:
+            return out_np.tolist()
+
+    @staticmethod
+    def array_normalize_3d(values):
+        cdef:
+            np.ndarray[np.float32_t, ndim=1, mode='c'] values_np
+            np.ndarray[np.float32_t, ndim=1, mode='c'] out_np = np.empty(3, dtype=np.float32, order='C')
+            const float* values_ptr
+            float* out_ptr = &out_np[0]
+
+        # Convert 'values' to numpy float32 contiguous array
+        if not isinstance(values, np.ndarray) or values.dtype != np.float32 or not values.flags['C_CONTIGUOUS']:
+            values_np = np.array(values, dtype=np.float32, order='C')
+        else:
+            values_np = values
+
+        values_ptr = &values_np[0]
+
+        ArrayNormalize_3D(values_ptr, out_ptr)
 
         if isinstance(values, np.ndarray):
             return out_np

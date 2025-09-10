@@ -32,11 +32,6 @@ using Shape2D_RenderObject = std::variant<
     CPP_ArcShape*>;
 
 struct Vertex {
-    glm::vec2 position;
-    GLuint shape_id;
-};
-
-struct BgfxVertex {
     float x, y;      // position
     float s, t;      // texcoord (s = shape index as float, t unused)
 };
@@ -153,11 +148,11 @@ class CPP_Shape2D_RenderPipelineManager {
 
         void InternalRender();
 
-        inline GLuint GetColorIndex(uint8_t* Color, unsigned int ShapeID) {
+        inline float GetColorIndex(uint8_t* Color, unsigned int ShapeID) {
             if (!UsingComplexColorInsertion) {
-                GLuint slot = static_cast<GLuint>(shape_colors.size() / 4); // slot index
+                float index = (float)shape_colors.size();
                 shape_colors.insert(shape_colors.end(), Color, Color + 4);
-                return slot * 4; // byte offset (multiple of 4)
+                return index;
             }
 
             SeenThisFrame.insert(ShapeID);
@@ -179,7 +174,7 @@ class CPP_Shape2D_RenderPipelineManager {
                 }
 
                 ColorIndexesChanged++;
-                return static_cast<GLuint>(offset);
+                return (float)(offset);
             }
 
             GLuint newSlot;
@@ -197,10 +192,9 @@ class CPP_Shape2D_RenderPipelineManager {
                 ColorSlotID[ShapeID] = newSlot;
 
                 ColorIndexesChanged++;
-                return static_cast<GLuint>(offset);
+                return (float)(offset);
             } else {
-                newSlot = static_cast<GLuint>(shape_colors.size() / 4);
-                size_t offset = newSlot * 4;
+                size_t offset = shape_colors.size();
 
                 if (offset < PaddingStartPosition) {
                     // We're still within real data—append as usual
@@ -212,11 +206,11 @@ class CPP_Shape2D_RenderPipelineManager {
                     shape_colors[offset + 2] = Color[2];
                     shape_colors[offset + 3] = Color[3];
 
-                    PaddingStartPosition = offset + 4;
+                    PaddingStartPosition = (unsigned int)offset + 4;
                 }
 
                 ColorSlotID[ShapeID] = newSlot;
-                return static_cast<GLuint>(offset);
+                return (float)(offset);
             }
         }
 

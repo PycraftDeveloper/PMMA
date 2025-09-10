@@ -140,23 +140,24 @@ API to set it.");
                     unsigned int index = corner * (segments + 1) * 2;
 
                     for (unsigned int i = 0; i <= segments; ++i) {
-                        glm::vec2 unit = {x, y};
+                        float unit[2], outer[2], inner[2], rotated_outer[2], rotated_inner[2];
+                        unit[0] = x;
+                        unit[1] = y;
 
-                        glm::vec2 outer = outerCenter + vectorized_outer_radius * unit;
-                        glm::vec2 inner = innerCenter + vectorized_inner_radius * unit;
+                        outer[0] = outerCenter.x + vectorized_outer_radius.x * unit[0];
+                        outer[1] = outerCenter.y + vectorized_outer_radius.y * unit[1];
 
-                        // Rotate around origin, then offset by ShapeCenter
-                        glm::vec2 rotated_outer = {
-                            RotationCos * outer.x - RotationSin * outer.y,
-                            RotationSin * outer.x + RotationCos * outer.y
-                        };
-                        glm::vec2 rotated_inner = {
-                            RotationCos * inner.x - RotationSin * inner.y,
-                            RotationSin * inner.x + RotationCos * inner.y
-                        };
+                        inner[0] = innerCenter.x + vectorized_inner_radius.x * unit[0];
+                        inner[1] = innerCenter.y + vectorized_inner_radius.y * unit[1];
 
-                        Shape2D_RenderPipelineData[index + i * 2]     = {ShapeCenter + rotated_outer, ColorIndex};
-                        Shape2D_RenderPipelineData[index + i * 2 + 1] = {ShapeCenter + rotated_inner, ColorIndex};
+                        rotated_outer[0] = RotationCos * outer[0] - RotationSin * outer[1];
+                        rotated_outer[1] = RotationSin * outer[0] + RotationCos * outer[1];
+
+                        rotated_inner[0] = RotationCos * inner[0] - RotationSin * inner[1];
+                        rotated_inner[1] = RotationSin * inner[0] + RotationCos * inner[1];
+
+                        Shape2D_RenderPipelineData[index + i * 2]     = {ShapeCenter.x + rotated_outer[0], ShapeCenter.y + rotated_outer[1], ColorIndex, 0};
+                        Shape2D_RenderPipelineData[index + i * 2 + 1] = {ShapeCenter.x + rotated_inner[0], ShapeCenter.y + rotated_inner[1], ColorIndex, 0};
 
                         // rotate (x, y) using rotation matrix
                         float newX = cosD * x - sinD * y;
@@ -171,32 +172,49 @@ API to set it.");
                 Shape2D_RenderPipelineData[vertexCount - 1] = Shape2D_RenderPipelineData[1];
             } else {
                 if (Width == 0 || Width >= max(HalfWidth, HalfHeight)) {
+                    float point[2], out[2];
                     Shape2D_RenderPipelineData.resize(4);
 
-                    glm::vec2 point = glm::vec2(ShapeCenter.x - HalfWidth,
-                        ShapeCenter.y - HalfHeight);
+                    point[0] = ShapeCenter.x - HalfWidth;
+                    point[1] = ShapeCenter.y - HalfHeight;
+
+                    SimpleApplyRotation(point, ShapeCenter, RotationSin,
+                        RotationCos, HalfWidth, HalfHeight, out);
+
                     Shape2D_RenderPipelineData[0] = {
-                        SimpleApplyRotation(point, ShapeCenter, RotationSin,
-                            RotationCos, HalfWidth, HalfHeight), ColorIndex};
+                        out[0], out[1], ColorIndex, 0};
 
-                    point = glm::vec2(ShapeCenter.x + HalfWidth,
-                        ShapeCenter.y - HalfHeight);
+
+                    point[0] = ShapeCenter.x + HalfWidth;
+                    point[1] = ShapeCenter.y - HalfHeight;
+
+                    SimpleApplyRotation(point, ShapeCenter, RotationSin,
+                        RotationCos, HalfWidth, HalfHeight, out);
+
                     Shape2D_RenderPipelineData[1] = {
-                        SimpleApplyRotation(point, ShapeCenter, RotationSin,
-                            RotationCos, HalfWidth, HalfHeight), ColorIndex};
+                        out[0], out[1], ColorIndex, 0};
 
-                    point = glm::vec2(ShapeCenter.x - HalfWidth,
-                        ShapeCenter.y + HalfHeight);
+
+                    point[0] = ShapeCenter.x + HalfWidth;
+                    point[1] = ShapeCenter.y + HalfHeight;
+
+                    SimpleApplyRotation(point, ShapeCenter, RotationSin,
+                        RotationCos, HalfWidth, HalfHeight, out);
+
                     Shape2D_RenderPipelineData[2] = {
-                        SimpleApplyRotation(point, ShapeCenter, RotationSin,
-                            RotationCos, HalfWidth, HalfHeight), ColorIndex};
+                        out[0], out[1], ColorIndex, 0};
 
-                    point = glm::vec2(ShapeCenter.x + HalfWidth,
-                        ShapeCenter.y + HalfHeight);
+
+                    point[0] = ShapeCenter.x - HalfWidth;
+                    point[1] = ShapeCenter.y + HalfHeight;
+
+                    SimpleApplyRotation(point, ShapeCenter, RotationSin,
+                        RotationCos, HalfWidth, HalfHeight, out);
+
                     Shape2D_RenderPipelineData[3] = {
-                        SimpleApplyRotation(point, ShapeCenter, RotationSin,
-                            RotationCos, HalfWidth, HalfHeight), ColorIndex};
+                        out[0], out[1], ColorIndex, 0};
                 } else {
+                    float pos[2], out[2];
                     Shape2D_RenderPipelineData.resize(10);
 
                     int outer_left = ShapeCenter.x - HalfWidth;
@@ -210,46 +228,77 @@ API to set it.");
                     int inner_bottom = outer_bottom - Width;
 
                     // GL_TRIANGLE_STRIP order: Outer TL, Inner TL, Outer TR, Inner TR, Outer BR, Inner BR, Outer BL, Inner BL
+                    pos[0] = outer_left;
+                    pos[1] = outer_top;
+
+                    ComplexApplyRotation(pos, ShapeCenter,
+                        RotationSin, RotationCos, out);
+
                     Shape2D_RenderPipelineData[0] = {
-                        ComplexApplyRotation(
-                            glm::vec2(outer_left, outer_top),
-                            ShapeCenter,
-                            RotationSin, RotationCos), ColorIndex}; // Outer TL
+                        out[0], out[1], ColorIndex, 0}; // Outer TL
+
+                    pos[0] = inner_left;
+                    pos[1] = inner_top;
+
+                    ComplexApplyRotation(pos, ShapeCenter,
+                        RotationSin, RotationCos, out);
+
                     Shape2D_RenderPipelineData[1] = {
-                        ComplexApplyRotation(
-                            glm::vec2(inner_left, inner_top),
-                            ShapeCenter,
-                            RotationSin, RotationCos), ColorIndex}; // Inner TL
+                        out[0], out[1], ColorIndex, 0}; // Inner TL
+
+                    pos[0] = outer_right;
+                    pos[1] = outer_top;
+
+                    ComplexApplyRotation(pos, ShapeCenter,
+                        RotationSin, RotationCos, out);
+
                     Shape2D_RenderPipelineData[2] = {
-                        ComplexApplyRotation(
-                            glm::vec2(outer_right, outer_top),
-                            ShapeCenter,
-                            RotationSin, RotationCos), ColorIndex}; // Outer TR
+                        out[0], out[1], ColorIndex, 0}; // Outer TR
+
+                    pos[0] = inner_right;
+                    pos[1] = inner_top;
+
+                    ComplexApplyRotation(pos, ShapeCenter,
+                        RotationSin, RotationCos, out);
+
                     Shape2D_RenderPipelineData[3] = {
-                        ComplexApplyRotation(
-                            glm::vec2(inner_right, inner_top),
-                            ShapeCenter,
-                            RotationSin, RotationCos), ColorIndex}; // Inner TR
+                        out[0], out[1], ColorIndex, 0}; // Inner TR
+
+                    pos[0] = outer_right;
+                    pos[1] = outer_bottom;
+
+                    ComplexApplyRotation(pos, ShapeCenter,
+                        RotationSin, RotationCos, out);
+
                     Shape2D_RenderPipelineData[4] = {
-                        ComplexApplyRotation(
-                            glm::vec2(outer_right, outer_bottom),
-                            ShapeCenter,
-                            RotationSin, RotationCos), ColorIndex}; // Outer BR
+                        out[0], out[1], ColorIndex, 0}; // Outer BR
+
+                    pos[0] = inner_right;
+                    pos[1] = inner_bottom;
+
+                    ComplexApplyRotation(pos, ShapeCenter,
+                        RotationSin, RotationCos, out);
+
                     Shape2D_RenderPipelineData[5] = {
-                        ComplexApplyRotation(
-                            glm::vec2(inner_right, inner_bottom),
-                            ShapeCenter,
-                            RotationSin, RotationCos), ColorIndex}; // Inner BR
+                        out[0], out[1], ColorIndex, 0}; // Inner BR
+
+                    pos[0] = outer_left;
+                    pos[1] = outer_bottom;
+
+                    ComplexApplyRotation(pos, ShapeCenter,
+                        RotationSin, RotationCos, out);
+
                     Shape2D_RenderPipelineData[6] = {
-                        ComplexApplyRotation(
-                            glm::vec2(outer_left, outer_bottom),
-                            ShapeCenter,
-                            RotationSin, RotationCos), ColorIndex}; // Outer BL
+                        out[0], out[1], ColorIndex, 0}; // Outer BL
+
+                    pos[0] = inner_left;
+                    pos[1] = inner_bottom;
+
+                    ComplexApplyRotation(pos, ShapeCenter,
+                        RotationSin, RotationCos, out);
+
                     Shape2D_RenderPipelineData[7] = {
-                        ComplexApplyRotation(
-                            glm::vec2(inner_left, inner_bottom),
-                            ShapeCenter,
-                            RotationSin, RotationCos), ColorIndex}; // Inner BL
+                        out[0], out[1], ColorIndex, 0}; // Inner BL
 
                     Shape2D_RenderPipelineData[8] = Shape2D_RenderPipelineData[0];
                     Shape2D_RenderPipelineData[9] = Shape2D_RenderPipelineData[1];

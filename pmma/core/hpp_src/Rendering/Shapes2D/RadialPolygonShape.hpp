@@ -25,7 +25,7 @@ class EXPORT CPP_RadialPolygonShape {
         float Rotation = 0;
 
         uint64_t ID;
-        GLuint ColorIndex = 0;
+        float ColorIndex = 0;
         unsigned int Radius;
         unsigned int Width = 0;
         unsigned int PointCount = 0;

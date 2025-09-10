@@ -131,7 +131,7 @@ API to set it.");
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
                     Shape2D_RenderPipelineData[i * 2 + 0] = {
-                        {cx + x_rot_outer, cy + y_rot_outer}, ColorIndex};
+                        cx + x_rot_outer, cy + y_rot_outer, ColorIndex, 0};
 
                     // Inner point (ring)
                     float x_inner = a_inner * cosAngle;
@@ -141,7 +141,7 @@ API to set it.");
                     float y_rot_inner = x_inner * sinRot + y_inner * cosRot;
 
                     Shape2D_RenderPipelineData[i * 2 + 1] = {
-                        {cx + x_rot_inner, cy + y_rot_inner}, ColorIndex};
+                        cx + x_rot_inner, cy + y_rot_inner, ColorIndex, 0};
                 }
             } else {
                 for (unsigned int i = 0; i <= InternalPointCount; ++i) {
@@ -158,10 +158,10 @@ API to set it.");
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
                     Shape2D_RenderPipelineData[i * 2 + 0] = {
-                        {cx + x_rot_outer, cy + y_rot_outer}, ColorIndex};
+                        cx + x_rot_outer, cy + y_rot_outer, ColorIndex, 0};
 
                     // Filled ellipse: collapse inner to center
-                    Shape2D_RenderPipelineData[i * 2 + 1] = {{cx, cy}, ColorIndex};
+                    Shape2D_RenderPipelineData[i * 2 + 1] = {cx, cy, ColorIndex, 0};
                 }
             }
         }

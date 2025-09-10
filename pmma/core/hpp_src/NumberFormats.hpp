@@ -474,6 +474,18 @@ display coordinate before attempting to get it.");
             }
             return DisplayCoordinate;
         }
+
+        inline void Get(float* out) {
+            if (!IsSet) {
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not set a display coordinate - please set a \
+display coordinate before attempting to get it.");
+                throw std::runtime_error("Display coordinate not set!");
+            }
+            out[0] = DisplayCoordinate.x;
+            out[1] = DisplayCoordinate.y;
+        }
 };
 
 class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {

@@ -28,7 +28,7 @@ class EXPORT CPP_PolygonShape {
         unsigned int Width = 1;
 
         uint64_t ID;
-        GLuint ColorIndex;
+        float ColorIndex;
 
         bool PointsSet = false;
         bool HasAlpha = false;

@@ -75,43 +75,61 @@ API to set it.");
             Shape2D_RenderPipelineData.resize(segmentCount * 6);
 
             for (unsigned int i = 0; i < segmentCount; i++) {
+                float P0[2], P1[2], local0[2], local1[2], rot0[2], rot1[2], D[2], N[2], A[2], B[2], C[2], Dp[2], PDiff[2];
                 unsigned int index = i * 6;
-                glm::vec2 P0 = ShapePoints[i];
-                glm::vec2 P1 = ShapePoints[(i + 1) % ShapePoints.size()];
+
+                P0[0] = ShapePoints[i].x;
+                P0[1] = ShapePoints[i].y;
+
+                P1[0] = ShapePoints[(i + 1) % ShapePoints.size()].x;
+                P1[1] = ShapePoints[(i + 1) % ShapePoints.size()].y;
 
                 // Apply rotation to both
-                glm::vec2 local0 = P0 - Center;
-                glm::vec2 local1 = P1 - Center;
+                local0[0] = P0[0] - Center.x;
+                local0[1] = P0[1] - Center.y;
 
-                glm::vec2 rot0 = {
-                    local0.x * RotationCos - local0.y * RotationSin,
-                    local0.x * RotationSin + local0.y * RotationCos
-                };
-                glm::vec2 rot1 = {
-                    local1.x * RotationCos - local1.y * RotationSin,
-                    local1.x * RotationSin + local1.y * RotationCos
-                };
+                local1[0] = P1[0] - Center.x;
+                local1[1] = P1[1] - Center.y;
 
-                P0 = Center + rot0;
-                P1 = Center + rot1;
+                rot0[0] = local0[0] * RotationCos - local0[1] * RotationSin;
+                rot0[1] = local0[0] * RotationSin + local0[1] * RotationCos;
 
-                // Direction and normal
-                glm::vec2 D = glm::normalize(P1 - P0);
-                glm::vec2 N = glm::vec2(-D.y, D.x);  // Perpendicular
+                rot1[0] = local1[0] * RotationCos - local1[1] * RotationSin;
+                rot1[1] = local1[0] * RotationSin + local1[1] * RotationCos;
 
-                glm::vec2 A = P0 + N * HalfWidth;
-                glm::vec2 B = P0 - N * HalfWidth;
-                glm::vec2 C = P1 + N * HalfWidth;
-                glm::vec2 Dp = P1 - N * HalfWidth;
+                P0[0] = Center.x + rot0[0];
+                P0[1] = Center.y + rot0[1];
+
+                P1[0] = Center.x + rot1[0];
+                P1[1] = Center.y + rot1[1];
+
+                PDiff[0] = P1[0] - P0[0];
+                PDiff[1] = P1[1] - P0[1];
+
+                CPP_AdvancedMathematics::ArrayNormalize_2D(PDiff, D);
+                N[0] = -D[1];
+                N[1] = D[0];
+
+                A[0] = P0[0] + N[0] * HalfWidth;
+                A[1] = P0[1] + N[1] * HalfWidth;
+
+                B[0] = P0[0] - N[0] * HalfWidth;
+                B[0] = P0[1] - N[1] * HalfWidth;
+
+                C[0] = P1[0] + N[0] * HalfWidth;
+                C[1] = P1[1] + N[1] * HalfWidth;
+
+                Dp[0] = P1[0] - N[0] * HalfWidth;
+                Dp[1] = P1[1] - N[1] * HalfWidth;
 
                 // Add two triangles: A-B-C and C-B-D
-                Shape2D_RenderPipelineData[index] = {A, ColorIndex};
-                Shape2D_RenderPipelineData[index + 1] = {B, ColorIndex};
-                Shape2D_RenderPipelineData[index + 2] = {C, ColorIndex};
+                Shape2D_RenderPipelineData[index] = {A[0], A[1], ColorIndex, 0};
+                Shape2D_RenderPipelineData[index + 1] = {B[0], B[1], ColorIndex, 0};
+                Shape2D_RenderPipelineData[index + 2] = {C[0], C[1], ColorIndex, 0};
 
-                Shape2D_RenderPipelineData[index + 3] = {C, ColorIndex};
-                Shape2D_RenderPipelineData[index + 4] = {B, ColorIndex};
-                Shape2D_RenderPipelineData[index + 5] = {Dp, ColorIndex};
+                Shape2D_RenderPipelineData[index + 3] = {C[0], C[1], ColorIndex, 0};
+                Shape2D_RenderPipelineData[index + 4] = {B[0], B[1], ColorIndex, 0};
+                Shape2D_RenderPipelineData[index + 5] = {Dp[0], Dp[1], ColorIndex, 0};
             }
         }
         PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);

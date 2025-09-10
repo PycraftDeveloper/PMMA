@@ -63,10 +63,10 @@ API to set it.");
         Shape2D_RenderPipelineData.resize(4);
         float x = ShapeCenter.x;
         float y = ShapeCenter.y;
-        Shape2D_RenderPipelineData[0] = {{x - 0.5f, y - 0.5f}, ColorIndex}; // Top-left
-        Shape2D_RenderPipelineData[1] = {{x + 0.5f, y - 0.5f}, ColorIndex}; // Top-right
-        Shape2D_RenderPipelineData[2] = {{x - 0.5f, y + 0.5f}, ColorIndex}; // Bottom-left
-        Shape2D_RenderPipelineData[3] = {{x + 0.5f, y + 0.5f}, ColorIndex}; // Bottom-right
+        Shape2D_RenderPipelineData[0] = {x - 0.5f, y - 0.5f, ColorIndex, 0}; // Top-left
+        Shape2D_RenderPipelineData[1] = {x + 0.5f, y - 0.5f, ColorIndex, 0}; // Top-right
+        Shape2D_RenderPipelineData[2] = {x - 0.5f, y + 0.5f, ColorIndex, 0}; // Bottom-left
+        Shape2D_RenderPipelineData[3] = {x + 0.5f, y + 0.5f, ColorIndex, 0}; // Bottom-right
     }
     PMMA_Core::RenderPipelineCore->AddObject(this, true, ColorIndexChanged);
 

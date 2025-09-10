@@ -26,7 +26,7 @@ class EXPORT CPP_ArcShape {
         float EndAngle;
 
         uint64_t ID;
-        GLuint ColorIndex;
+        float ColorIndex;
         unsigned int Width = 0;
         unsigned int PointCount = 0;
         unsigned int Radius;

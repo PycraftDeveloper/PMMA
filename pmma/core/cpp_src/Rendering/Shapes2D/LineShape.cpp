@@ -57,7 +57,7 @@ API to set it.");
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
@@ -66,37 +66,43 @@ API to set it.");
         }
 
         if (Changed) {
-            glm::vec2 StartPosition = ShapeStart->Get();
-            glm::vec2 EndPosition = ShapeEnd->Get();
+            float StartPosition[2], EndPosition[2], LineCenter[2], TranslatedStart[2], TranslatedEnd[2], RotatedStart[2], RotatedEnd[2], Direction[2], Normal[2];
+            ShapeStart->Get(StartPosition);
+            ShapeEnd->Get(EndPosition);
 
             unsigned int InternalWidth = Width;
 
             float RotationSin = sin(Rotation);
             float RotationCos = cos(Rotation);
 
-            glm::vec2 LineCenter = {(StartPosition.x + EndPosition.x) / 2, (StartPosition.y + EndPosition.y) / 2};
+            LineCenter[0] = (StartPosition[0] + EndPosition[0]) / 2;
+            LineCenter[1] = (StartPosition[1] + EndPosition[1]) / 2;
 
-            glm::vec2 TranslatedStart = {StartPosition.x - LineCenter.x, StartPosition.y - LineCenter.y};
-            glm::vec2 RotatedStart = {
-                LineCenter.x + (RotationCos * TranslatedStart.x - RotationSin * TranslatedStart.y),
-                LineCenter.y + (RotationSin * TranslatedStart.x + RotationCos * TranslatedStart.y)};
+            TranslatedStart[0] = StartPosition[0] - LineCenter[0];
+            TranslatedStart[1] = StartPosition[1] - LineCenter[1];
 
-            glm::vec2 TranslatedEnd = {EndPosition.x - LineCenter.x, EndPosition.y - LineCenter.y};
-            glm::vec2 RotatedEnd = {
-                LineCenter.x + (RotationCos * TranslatedEnd.x - RotationSin * TranslatedEnd.y),
-                LineCenter.y + (RotationSin * TranslatedEnd.x + RotationCos * TranslatedEnd.y)};
+            RotatedStart[0] = LineCenter[0] + (RotationCos * TranslatedStart[0] - RotationSin * TranslatedStart[1]);
+            RotatedStart[1] = LineCenter[1] + (RotationSin * TranslatedStart[0] + RotationCos * TranslatedStart[1]);
 
-            glm::vec2 Direction = RotatedEnd - RotatedStart;
-            Direction = glm::normalize(Direction);
+            TranslatedEnd[0] = EndPosition[0] - LineCenter[0];
+            TranslatedEnd[1] = EndPosition[1] - LineCenter[1];
 
-            glm::vec2 Normal = {-Direction.y, Direction.x};
-            Normal *= 0.5f * InternalWidth;
+            RotatedEnd[0] = LineCenter[0] + (RotationCos * TranslatedEnd[0] - RotationSin * TranslatedEnd[1]);
+            RotatedEnd[1] = LineCenter[1] + (RotationSin * TranslatedEnd[0] + RotationCos * TranslatedEnd[1]);
+
+            Direction[0] = RotatedEnd[0] - RotatedStart[0];
+            Direction[1] = RotatedEnd[1] - RotatedStart[1];
+
+            CPP_AdvancedMathematics::InPlaceArrayNormalize2D(Direction);
+
+            Normal[0] = (-Direction[1]) * 0.5f * InternalWidth;
+            Normal[1] = Direction[0] * 0.5f * InternalWidth;
 
             Shape2D_RenderPipelineData.resize(4);
-            Shape2D_RenderPipelineData[0] = {{RotatedStart - Normal}, ColorIndex};
-            Shape2D_RenderPipelineData[1] = {{RotatedStart + Normal}, ColorIndex};
-            Shape2D_RenderPipelineData[2] = {{RotatedEnd - Normal}, ColorIndex};
-            Shape2D_RenderPipelineData[3] = {{RotatedEnd + Normal}, ColorIndex};
+            Shape2D_RenderPipelineData[0] = {RotatedStart[0] - Normal[0], RotatedStart[1] - Normal[1], ColorIndex, 0};
+            Shape2D_RenderPipelineData[1] = {RotatedStart[0] + Normal[0], RotatedStart[1] + Normal[1], ColorIndex, 0};
+            Shape2D_RenderPipelineData[2] = {RotatedEnd[0] - Normal[0], RotatedEnd[1] - Normal[1], ColorIndex, 0};
+            Shape2D_RenderPipelineData[3] = {RotatedEnd[0] + Normal[0], RotatedEnd[1] + Normal[1], ColorIndex, 0};
         }
         PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {

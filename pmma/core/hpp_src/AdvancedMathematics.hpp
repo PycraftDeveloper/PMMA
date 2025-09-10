@@ -58,12 +58,20 @@ namespace CPP_AdvancedMathematics {
             const float* new_range,
             float* out);
 
-    EXPORT inline void InPlaceArrayNormalize(float* value) {
+    EXPORT inline void InPlaceArrayNormalize3D(float* value) {
         float len = std::sqrt(value[0]*value[0] + value[1]*value[1] + value[2]*value[2]);
         if (len > 1e-6f) {
             value[0] /= len;
             value[1] /= len;
             value[2] /= len;
+        }
+    }
+
+    EXPORT inline void InPlaceArrayNormalize2D(float* value) {
+        float len = std::sqrt(value[0]*value[0] + value[1]*value[1]);
+        if (len > 1e-6f) {
+            value[0] /= len;
+            value[1] /= len;
         }
     }
 
@@ -79,7 +87,7 @@ namespace CPP_AdvancedMathematics {
         return (end - start) * (current_duration / duration) + start;
     }
 
-    EXPORT inline void ArrayNormalize(const float* value, float* out) {
+    EXPORT inline void ArrayNormalize_3D(const float* value, float* out) {
         out[0] = value[0];
         out[1] = value[1];
         out[2] = value[2];
@@ -88,6 +96,16 @@ namespace CPP_AdvancedMathematics {
             out[0] /= len;
             out[1] /= len;
             out[2] /= len;
+        }
+    }
+
+    EXPORT inline void ArrayNormalize_2D(const float* value, float* out) {
+        out[0] = value[0];
+        out[1] = value[1];
+        float len = std::sqrt(out[0]*out[0] + out[1]*out[1]);
+        if (len > 1e-6f) {
+            out[0] /= len;
+            out[1] /= len;
         }
     }
 
@@ -115,14 +133,14 @@ namespace CPP_AdvancedMathematics {
 
         float f[3];
         CPP_AdvancedMathematics::Subtract(target, eye, f);
-        CPP_AdvancedMathematics::InPlaceArrayNormalize(f);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize3D(f);
 
         float upn[3] = {up[0], up[1], up[2]};
-        CPP_AdvancedMathematics::InPlaceArrayNormalize(upn);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize3D(upn);
 
         float s[3];
         CPP_AdvancedMathematics::Cross(f, upn, s);
-        CPP_AdvancedMathematics::InPlaceArrayNormalize(s);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize3D(s);
 
         float u[3];
         CPP_AdvancedMathematics::Cross(s, f, u);
@@ -145,10 +163,10 @@ namespace CPP_AdvancedMathematics {
             float* out_z) {
 
         CPP_AdvancedMathematics::Subtract(position, target, out_z);
-        CPP_AdvancedMathematics::InPlaceArrayNormalize(out_z);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize3D(out_z);
 
         CPP_AdvancedMathematics::Cross(up, out_z, out_x);
-        CPP_AdvancedMathematics::InPlaceArrayNormalize(out_x);
+        CPP_AdvancedMathematics::InPlaceArrayNormalize3D(out_x);
 
         CPP_AdvancedMathematics::Cross(out_z, out_x, out_y);
     }
