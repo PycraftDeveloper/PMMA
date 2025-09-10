@@ -1,6 +1,7 @@
 # cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False
 
 from libcpp cimport bool
+from libc.stdint cimport uint8_t
 cimport numpy as np
 
 cdef extern from "PMMA_Core.hpp" nogil:
@@ -17,15 +18,11 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_two, bool GenerateAlpha) except + nogil
         inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_two, bool GenerateAlpha) except + nogil
 
-        inline void Set_RGBA(unsigned int* in_color) except + nogil
-        inline void Set_rgba(float* in_color) except + nogil
-        inline void Set_RGB(unsigned int* in_color) except + nogil
-        inline void Set_rgb(float* in_color) except + nogil
+        inline void Set_RGBA(uint8_t* in_color) except + nogil
+        inline void Set_RGB(uint8_t* in_color) except + nogil
 
-        inline void Get_RGBA(unsigned int* out_color) except + nogil
-        inline void Get_rgba(float* out_color) except + nogil
-        inline void Get_RGB(unsigned int* out_color) except + nogil
-        inline void Get_rgb(float* out_color) except + nogil
+        inline void Get_RGBA(uint8_t* out_color) except + nogil
+        inline void Get_RGB(uint8_t* out_color) except + nogil
 
         inline unsigned int GetSeed() except + nogil
         inline unsigned int GetOctaves() except + nogil
@@ -131,22 +128,14 @@ cdef class Color:
     cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three, bool generate_alpha=?)
 
     cpdef void set_RGBA_array(self, in_color)
-    cpdef void set_rgba_array(self, in_color)
     cpdef void set_RGB_array(self, in_color)
-    cpdef void set_rgb_array(self, in_color)
     cpdef get_RGBA_array(self, bint detect_format=*)
-    cpdef get_rgba_array(self, bint detect_format=*)
     cpdef get_RGB_array(self, bint detect_format=*)
-    cpdef get_rgb_array(self, bint detect_format=*)
 
-    cpdef void set_RGBA(self, unsigned int r, unsigned int g, unsigned int b, unsigned int a)
-    cpdef void set_rgba(self, float r, float g, float b, float a)
-    cpdef void set_RGB(self, unsigned int r, unsigned int g, unsigned int b)
-    cpdef void set_rgb(self, float r, float g, float b)
+    cpdef void set_RGBA(self, uint8_t r, uint8_t g, uint8_t b, uint8_t a)
+    cpdef void set_RGB(self, uint8_t r, uint8_t g, uint8_t b)
     cpdef tuple get_RGBA(self)
-    cpdef tuple get_rgba(self)
     cpdef tuple get_RGB(self)
-    cpdef tuple get_rgb(self)
 
 cdef class DisplayCoordinate:
     cdef CPP_DisplayCoordinateFormat* cpp_class_ptr

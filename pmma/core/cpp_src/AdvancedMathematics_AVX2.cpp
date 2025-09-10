@@ -5,11 +5,11 @@
 using namespace std;
 
 void CPP_AdvancedMathematics::ArrayRanger_AVX2(
-            const float* values,
-            const unsigned int length,
-            const float* old_range,
-            const float* new_range,
-            float* out) {
+        const float* values,
+        const unsigned int length,
+        const float* old_range,
+        const float* new_range,
+        float* out) {
 
     const float old_min = old_range[0];
     const float old_max = old_range[1];

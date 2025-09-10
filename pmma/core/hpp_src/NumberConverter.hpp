@@ -11,7 +11,7 @@ class EXPORT CPP_BasicColorConverter {
     protected:
         CPP_Logger* Logger;
 
-        glm::vec4 InternalColor = glm::vec4(0.f, 0.f, 0.f, 1.f); // Default is black with full opacity
+        uint8_t InternalColor[4] = {0, 0, 0, 0}; // Default is black with full opacity
 
         bool IsSet = false;
         bool Changed = true;
@@ -36,81 +36,50 @@ class EXPORT CPP_BasicColorConverter {
             return OldChanged;
         }
 
-        inline void Set_RGBA(unsigned int* in_color) {
-            glm::vec4 converted_in_color = glm::vec4(
-                in_color[0] / 255.f,
-                in_color[1] / 255.f,
-                in_color[2] / 255.f,
-                in_color[3] / 255.f
-            );
-
-            if (converted_in_color != InternalColor) {
+        inline void Set_RGBA(uint8_t* in_color) {
+            bool Different = false;
+            for (int i = 0; i < 4; i++) {
+                if (in_color[i] != InternalColor[i]) {
+                    Different = true;
+                    break;
+                }
+            }
+            if (Different) {
                 Changed = true;
-                InternalColor = converted_in_color;
+                InternalColor[0] = in_color[0];
+                InternalColor[1] = in_color[1];
+                InternalColor[2] = in_color[2];
+                InternalColor[3] = in_color[3];
             }
 
             IsSet = true;
         }
 
-        inline void Set_rgba(float* in_color) {
-            glm::vec4 converted_in_color = glm::vec4(
-                in_color[0],
-                in_color[1],
-                in_color[2],
-                in_color[3]
-            );
-
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
-        }
-
-        inline void Set_RGB(unsigned int* in_color) {
+        inline void Set_RGB(uint8_t* in_color) {
             Logger->InternalLogDebug(
                 9,
                 "The alpha channel is automatically set to opaque."
             );
 
-            glm::vec4 converted_in_color = glm::vec4(
-                in_color[0] / 255.f,
-                in_color[1] / 255.f,
-                in_color[2] / 255.f,
-                1.f // Default alpha is 1 (fully opaque)
-            );
-
-            if (converted_in_color != InternalColor) {
+            bool Different = false;
+            for (int i = 0; i < 3; i++) {
+                if (in_color[i] != InternalColor[i]) {
+                    Different = true;
+                    break;
+                }
+            }
+            if (Different) {
                 Changed = true;
-                InternalColor = converted_in_color;
+                InternalColor[0] = in_color[0];
+                InternalColor[1] = in_color[1];
+                InternalColor[2] = in_color[2];
+                InternalColor[3] = 255;
             }
 
             IsSet = true;
         }
 
-        inline void Set_rgb(float* in_color) {
-            Logger->InternalLogDebug(
-                9,
-                "The alpha channel is automatically set to opaque."
-            );
-
-            glm::vec4 converted_in_color = glm::vec4(
-                in_color[0],
-                in_color[1],
-                in_color[2],
-                1.f // Default alpha is 1 (fully opaque)
-            );
-
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
-        }
-
-        inline void Get_RGBA(unsigned int* out_color) {
+        inline void Get_RGBA(uint8_t* out_color) {
             if (!IsSet) {
                 Logger->InternalLogWarn(
                     30,
@@ -120,13 +89,13 @@ before attempting to get it.");
                 throw std::runtime_error("Color not set!");
             }
 
-            out_color[0] = (unsigned int)(InternalColor.r * 255);
-            out_color[1] = (unsigned int)(InternalColor.g * 255);
-            out_color[2] = (unsigned int)(InternalColor.b * 255);
-            out_color[3] = (unsigned int)(InternalColor.a * 255);
+            out_color[0] = InternalColor[0];
+            out_color[1] = InternalColor[1];
+            out_color[2] = InternalColor[2];
+            out_color[3] = InternalColor[3];
         }
 
-        inline void Get_rgba(float* out_color) {
+        inline void Get_RGB(uint8_t* out_color) {
             if (!IsSet) {
                 Logger->InternalLogWarn(
                     30,
@@ -136,52 +105,9 @@ before attempting to get it.");
                 throw std::runtime_error("Color not set!");
             }
 
-            out_color[0] = InternalColor.r;
-            out_color[1] = InternalColor.g;
-            out_color[2] = InternalColor.b;
-            out_color[3] = InternalColor.a;
-        }
-
-        inline glm::vec4 Get_rgba() {
-            if (!IsSet) {
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not set a color - please set a color \
-before attempting to get it.");
-
-                throw std::runtime_error("Color not set!");
-            }
-            return InternalColor;
-        }
-
-        inline void Get_RGB(unsigned int* out_color) {
-            if (!IsSet) {
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not set a color - please set a color \
-before attempting to get it.");
-
-                throw std::runtime_error("Color not set!");
-            }
-
-            out_color[0] = (unsigned int)(InternalColor.r * 255);
-            out_color[1] = (unsigned int)(InternalColor.g * 255);
-            out_color[2] = (unsigned int)(InternalColor.b * 255);
-        }
-
-        inline void Get_rgb(float* out_color) {
-            if (!IsSet) {
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not set a color - please set a color \
-before attempting to get it.");
-
-                throw std::runtime_error("Color not set!");
-            }
-
-            out_color[0] = InternalColor.r;
-            out_color[1] = InternalColor.g;
-            out_color[2] = InternalColor.b;
+            out_color[0] = InternalColor[0];
+            out_color[1] = InternalColor[1];
+            out_color[2] = InternalColor[2];
         }
 };
 

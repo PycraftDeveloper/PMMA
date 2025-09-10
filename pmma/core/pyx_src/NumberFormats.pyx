@@ -1,6 +1,7 @@
 # cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False
 
 from libcpp cimport bool
+from libc.stdint cimport uint8_t
 
 import random
 
@@ -71,75 +72,43 @@ cdef class Color:
 
     cpdef void set_RGBA_array(self, in_color):
         cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_color_np
-            unsigned int* in_color_ptr
+            np.ndarray[np.uint8_t, ndim=1, mode='c'] in_color_np
+            uint8_t* in_color_ptr
 
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.uint32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.uint32, order='C')
+        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.uint8 or not in_color.flags['C_CONTIGUOUS']:
+            in_color_np = np.array(in_color, dtype=np.uint8, order='C')
             self.using_numpy_arrays = True
         else:
             in_color_np = in_color
             self.using_numpy_arrays = False
 
-        in_color_ptr = <unsigned int*>&in_color_np[0]
+        in_color_ptr = <uint8_t*>&in_color_np[0]
 
         self.cpp_class_ptr.Set_RGBA(in_color_ptr)
 
-    cpdef void set_rgba_array(self, in_color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] in_color_np
-            float* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.float32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.float32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <float*>&in_color_np[0]
-
-        self.cpp_class_ptr.Set_rgba(in_color_ptr)
-
     cpdef void set_RGB_array(self, in_color):
         cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_color_np
-            unsigned int* in_color_ptr
+            np.ndarray[np.uint8_t, ndim=1, mode='c'] in_color_np
+            uint8_t* in_color_ptr
 
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.uint32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.uint32, order='C')
+        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.uint8 or not in_color.flags['C_CONTIGUOUS']:
+            in_color_np = np.array(in_color, dtype=np.uint8, order='C')
             self.using_numpy_arrays = True
         else:
             in_color_np = in_color
             self.using_numpy_arrays = False
 
-        in_color_ptr = <unsigned int*>&in_color_np[0]
+        in_color_ptr = <uint8_t*>&in_color_np[0]
 
         self.cpp_class_ptr.Set_RGB(in_color_ptr)
 
-    cpdef void set_rgb_array(self, in_color):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] in_color_np
-            float* in_color_ptr
-
-        if not isinstance(in_color, np.ndarray) or in_color.dtype != np.float32 or not in_color.flags['C_CONTIGUOUS']:
-            in_color_np = np.array(in_color, dtype=np.float32, order='C')
-            self.using_numpy_arrays = True
-        else:
-            in_color_np = in_color
-            self.using_numpy_arrays = False
-
-        in_color_ptr = <float*>&in_color_np[0]
-
-        self.cpp_class_ptr.Set_rgb(in_color_ptr)
-
     cpdef get_RGBA_array(self, bint detect_format=True):
         cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_color_np
-            unsigned int* out_color_ptr
+            np.ndarray[np.uint8_t, ndim=1, mode='c'] out_color_np
+            uint8_t* out_color_ptr
 
-        out_color_np = np.empty(4, dtype=np.uint32, order='C')
-        out_color_ptr = <unsigned int*>&out_color_np[0]
+        out_color_np = np.empty(4, dtype=np.uint8, order='C')
+        out_color_ptr = <uint8_t*>&out_color_np[0]
 
         self.cpp_class_ptr.Get_RGBA(out_color_ptr)
 
@@ -151,31 +120,13 @@ cdef class Color:
         else:
             return out_color_np
 
-    cpdef get_rgba_array(self, bint detect_format=True):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] out_color_np
-            float* out_color_ptr
-
-        out_color_np = np.empty(4, dtype=np.float32, order='C')
-        out_color_ptr = <float*>&out_color_np[0]
-
-        self.cpp_class_ptr.Get_rgba(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
     cpdef get_RGB_array(self, bint detect_format=True):
         cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_color_np
-            unsigned int* out_color_ptr
+            np.ndarray[np.uint8_t, ndim=1, mode='c'] out_color_np
+            uint8_t* out_color_ptr
 
-        out_color_np = np.empty(3, dtype=np.uint32, order='C')
-        out_color_ptr = <unsigned int*>&out_color_np[0]
+        out_color_np = np.empty(3, dtype=np.uint8, order='C')
+        out_color_ptr = <uint8_t*>&out_color_np[0]
 
         self.cpp_class_ptr.Get_RGB(out_color_ptr)
 
@@ -187,72 +138,29 @@ cdef class Color:
         else:
             return out_color_np
 
-    cpdef get_rgb_array(self, bint detect_format=True):
-        cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] out_color_np
-            float* out_color_ptr
-
-        out_color_np = np.empty(3, dtype=np.float32, order='C')
-        out_color_ptr = <float*>&out_color_np[0]
-
-        self.cpp_class_ptr.Get_rgb(out_color_ptr)
-
-        if detect_format:
-            if self.using_numpy_arrays:
-                return out_color_np
-            else:
-                return out_color_np.tolist()
-        else:
-            return out_color_np
-
-    cpdef void set_RGBA(self, unsigned int r, unsigned int g, unsigned int b, unsigned int a):
-        cdef unsigned int color[4]
+    cpdef void set_RGBA(self, uint8_t r, uint8_t g, uint8_t b, uint8_t a):
+        cdef uint8_t color[4]
         color[0] = r
         color[1] = g
         color[2] = b
         color[3] = a
         self.cpp_class_ptr.Set_RGBA(&color[0])
 
-    cpdef void set_rgba(self, float r, float g, float b, float a):
-        cdef float color[4]
-        color[0] = r
-        color[1] = g
-        color[2] = b
-        color[3] = a
-        self.cpp_class_ptr.Set_rgba(&color[0])
-
-    cpdef void set_RGB(self, unsigned int r, unsigned int g, unsigned int b):
-        cdef unsigned int color[3]
+    cpdef void set_RGB(self, uint8_t r, uint8_t g, uint8_t b):
+        cdef uint8_t color[3]
         color[0] = r
         color[1] = g
         color[2] = b
         self.cpp_class_ptr.Set_RGB(&color[0])
 
-    cpdef void set_rgb(self, float r, float g, float b):
-        cdef float color[3]
-        color[0] = r
-        color[1] = g
-        color[2] = b
-        self.cpp_class_ptr.Set_rgb(&color[0])
-
     cpdef tuple get_RGBA(self):
-        cdef unsigned int color[4]
+        cdef uint8_t color[4]
         self.cpp_class_ptr.Get_RGBA(&color[0])
         return color[0], color[1], color[2], color[3]
 
-    cpdef tuple get_rgba(self):
-        cdef float color[4]
-        self.cpp_class_ptr.Get_rgba(&color[0])
-        return color[0], color[1], color[2], color[3]
-
     cpdef tuple get_RGB(self):
-        cdef unsigned int color[3]
+        cdef uint8_t color[3]
         self.cpp_class_ptr.Get_RGB(&color[0])
-        return color[0], color[1], color[2]
-
-    cpdef tuple get_rgb(self):
-        cdef float color[3]
-        self.cpp_class_ptr.Get_rgb(&color[0])
         return color[0], color[1], color[2]
 
 cdef class DisplayCoordinate:

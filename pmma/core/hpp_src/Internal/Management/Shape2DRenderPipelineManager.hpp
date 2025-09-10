@@ -45,7 +45,7 @@ class CPP_Shape2D_RenderPipelineManager {
     public:
         std::vector<Shape2D_RenderObject> RenderPipelineComponents;
         std::vector<Vertex> combined_vertexes;
-        std::vector<glm::vec4> shape_colors;
+        std::vector<uint8_t> shape_colors;
 
         std::vector<std::pair<uint64_t, unsigned int>> PreviousRenderContent;
         unsigned int InsertionIndex = 0;
@@ -65,6 +65,8 @@ class CPP_Shape2D_RenderPipelineManager {
         bgfx::UniformHandle u_colorInfo;
         uint32_t m_colorTextureWidth = 0;
         uint32_t m_colorTextureHeight = 0;
+
+        unsigned int PaddingStartPosition = 0;
 
         bool Changed = true;
         bool HasAlpha = false;
@@ -151,37 +153,73 @@ class CPP_Shape2D_RenderPipelineManager {
 
         void InternalRender();
 
-        inline GLuint GetColorIndex(glm::vec4 Color, unsigned int ShapeID) {
+        inline GLuint GetColorIndex(uint8_t* Color, unsigned int ShapeID) {
             if (!UsingComplexColorInsertion) {
-                GLuint size = (GLuint)shape_colors.size();
-                shape_colors.push_back(Color);
-                return size;
+                GLuint slot = static_cast<GLuint>(shape_colors.size() / 4); // slot index
+                shape_colors.insert(shape_colors.end(), Color, Color + 4);
+                return slot * 4; // byte offset (multiple of 4)
             }
+
+            std::cout << "A" << std::endl;
 
             SeenThisFrame.insert(ShapeID);
 
             auto found = ColorSlotID.find(ShapeID);
             if (found != ColorSlotID.end()) {
                 GLuint slot = found->second;
-                if (shape_colors[slot] != Color)
-                    shape_colors[slot] = Color; // Avoid unnecessary writes
-                ColorIndexesChanged++; // Would otherwise have changed
-                return slot;
+                size_t offset = slot * 4;
+
+                if (shape_colors[offset + 0] != Color[0] ||
+                    shape_colors[offset + 1] != Color[1] ||
+                    shape_colors[offset + 2] != Color[2] ||
+                    shape_colors[offset + 3] != Color[3])
+                {
+                    shape_colors[offset + 0] = Color[0];
+                    shape_colors[offset + 1] = Color[1];
+                    shape_colors[offset + 2] = Color[2];
+                    shape_colors[offset + 3] = Color[3];
+                }
+
+                ColorIndexesChanged++;
+                return static_cast<GLuint>(offset);
             }
 
             GLuint newSlot;
             if (!FreeSlots.empty()) {
                 newSlot = FreeSlots.back();
                 FreeSlots.pop_back();
-                shape_colors[newSlot] = Color;
-                ColorIndexesChanged++; // Would otherwise have changed
-            } else {
-                newSlot = static_cast<GLuint>(shape_colors.size());
-                shape_colors.push_back(Color);
-            }
+                size_t offset = newSlot * 4;
 
-            ColorSlotID[ShapeID] = newSlot;
-            return newSlot;
+                // Overwrite existing slot (whether real or padded)
+                shape_colors[offset + 0] = Color[0];
+                shape_colors[offset + 1] = Color[1];
+                shape_colors[offset + 2] = Color[2];
+                shape_colors[offset + 3] = Color[3];
+
+                ColorSlotID[ShapeID] = newSlot;
+
+                ColorIndexesChanged++;
+                return static_cast<GLuint>(offset);
+            } else {
+                newSlot = static_cast<GLuint>(shape_colors.size() / 4);
+                size_t offset = newSlot * 4;
+
+                if (offset < PaddingStartPosition) {
+                    // We're still within real data—append as usual
+                    shape_colors.insert(shape_colors.end(), Color, Color + 4);
+                } else {
+                    // We're inside padded region—overwrite instead
+                    shape_colors[offset + 0] = Color[0];
+                    shape_colors[offset + 1] = Color[1];
+                    shape_colors[offset + 2] = Color[2];
+                    shape_colors[offset + 3] = Color[3];
+
+                    PaddingStartPosition = offset + 4;
+                }
+
+                ColorSlotID[ShapeID] = newSlot;
+                return static_cast<GLuint>(offset);
+            }
         }
 
         template<typename T>

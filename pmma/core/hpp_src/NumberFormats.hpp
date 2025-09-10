@@ -26,15 +26,16 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         uint32_t octaves;
         float frequency;
         float amplitude;
+        float half_color_max = 255.f / 2.f;
 
-        float out_range[2] = {0.f, 1.f};
-        float r_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
-        float g_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
-        float b_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
-        float a_offset = CPP_AdvancedMathematics::RandomFloat(out_range);
+        float offset_range[2] = {0.f, 1.f};
+        float r_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
+        float g_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
+        float b_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
+        float a_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
 
         const float noise_range[2] = {-1.f, 1.f};
-        const float color_range[2] = {0.f, 1.f};
+        const float color_range[2] = {0, 255};
 
         bool Configured = false;
 
@@ -131,29 +132,20 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         }
 
         inline void GenerateFromRandom(bool GenerateAlpha=true) {
-            glm::vec4 converted_in_color;
+            uint8_t in_color[4];
             if (GenerateAlpha) {
-                converted_in_color = glm::vec4(
-                    CPP_AdvancedMathematics::RandomFloat(color_range),
-                    CPP_AdvancedMathematics::RandomFloat(color_range),
-                    CPP_AdvancedMathematics::RandomFloat(color_range),
-                    CPP_AdvancedMathematics::RandomFloat(color_range)
-                );
+                in_color[0] = (uint8_t)rand() % 255;
+                in_color[1] = (uint8_t)rand() % 255;
+                in_color[2] = (uint8_t)rand() % 255;
+                in_color[3] = (uint8_t)rand() % 255;
             } else {
-                converted_in_color = glm::vec4(
-                    CPP_AdvancedMathematics::RandomFloat(color_range),
-                    CPP_AdvancedMathematics::RandomFloat(color_range),
-                    CPP_AdvancedMathematics::RandomFloat(color_range),
-                    1.0f
-                );
+                in_color[0] = (uint8_t)rand() % 255;
+                in_color[1] = (uint8_t)rand() % 255;
+                in_color[2] = (uint8_t)rand() % 255;
+                in_color[3] = 255;
             }
 
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
+            Set_RGBA(in_color);
         }
 
         inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha=true) {
@@ -174,21 +166,13 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 OutputColor[3] = 1.0f;
             }
 
-            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+            uint8_t in_color[4];
+            in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+            in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+            in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+            in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
 
-            glm::vec4 converted_in_color = glm::vec4(
-                OutputColor[0],
-                OutputColor[1],
-                OutputColor[2],
-                OutputColor[3]
-            );
-
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
+            Set_RGBA(in_color);
         }
 
         inline void GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha=true) {
@@ -209,21 +193,13 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 OutputColor[3] = 1.0f;
             }
 
-            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+            uint8_t in_color[4];
+            in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+            in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+            in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+            in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
 
-            glm::vec4 converted_in_color = glm::vec4(
-                OutputColor[0],
-                OutputColor[1],
-                OutputColor[2],
-                OutputColor[3]
-            );
-
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
+            Set_RGBA(in_color);
         }
 
         inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three, bool GenerateAlpha=true) {
@@ -244,21 +220,13 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 OutputColor[3] = 1.0f;
             }
 
-            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+            uint8_t in_color[4];
+            in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+            in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+            in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+            in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
 
-            glm::vec4 converted_in_color = glm::vec4(
-                OutputColor[0],
-                OutputColor[1],
-                OutputColor[2],
-                OutputColor[3]
-            );
-
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
+            Set_RGBA(in_color);
         }
 
         inline void GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha=true) {
@@ -279,21 +247,13 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 OutputColor[3] = 1.0f;
             }
 
-            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+            uint8_t in_color[4];
+            in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+            in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+            in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+            in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
 
-            glm::vec4 converted_in_color = glm::vec4(
-                OutputColor[0],
-                OutputColor[1],
-                OutputColor[2],
-                OutputColor[3]
-            );
-
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
+            Set_RGBA(in_color);
         }
 
         inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha=true) {
@@ -314,21 +274,13 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 OutputColor[3] = 1.0f;
             }
 
-            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+            uint8_t in_color[4];
+            in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+            in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+            in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+            in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
 
-            glm::vec4 converted_in_color = glm::vec4(
-                OutputColor[0],
-                OutputColor[1],
-                OutputColor[2],
-                OutputColor[3]
-            );
-
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
+            Set_RGBA(in_color);
         }
 
         inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three, bool GenerateAlpha=true) {
@@ -349,21 +301,13 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 OutputColor[3] = 1.0f;
             }
 
-            CPP_AdvancedMathematics::ArrayRanger(OutputColor, 4, noise_range, color_range, OutputColor);
+            uint8_t in_color[4];
+            in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+            in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+            in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+            in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
 
-            glm::vec4 converted_in_color = glm::vec4(
-                OutputColor[0],
-                OutputColor[1],
-                OutputColor[2],
-                OutputColor[3]
-            );
-
-            if (converted_in_color != InternalColor) {
-                Changed = true;
-                InternalColor = converted_in_color;
-            }
-
-            IsSet = true;
+            Set_RGBA(in_color);
         }
 };
 

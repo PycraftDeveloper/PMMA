@@ -273,7 +273,7 @@ cdef class Passport:
 
         self.cpp_class_ptr.Register()
 
-        if General.get_operating_system() == Constants.WINDOWS:
+        if General.get_operating_system() == Constants.OS_WINDOWS:
             if General.is_window_created():
                 self.logger.internal_log_debug(
                     28,

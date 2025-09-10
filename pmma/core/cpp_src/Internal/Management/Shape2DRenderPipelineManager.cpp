@@ -48,8 +48,11 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     if (Changed) {
         // detect alpha presence (for potential blend state later)
         HasAlpha = false;
-        for (const auto &c : shape_colors) {
-            if (c.a < 1.0f) { HasAlpha = true; break; }
+        for (unsigned int i = 3; i < shape_colors.size(); i += 4) { // skip to each alpha
+            if (shape_colors[i] != 255) {
+                HasAlpha = true;
+                break;
+            }
         }
 
         // --- Build or update vertex buffer data ---
@@ -87,27 +90,21 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         m_vertexCount = bgfxVerts.size();
 
         // --- Create / update color texture ---
+        // ONLY RUN WHEN A COLOR HAS CHANGED!!!
         // We create a 1 x N texture (height 1, width = number of colors) in RGBA8.
-        uint32_t numColors = (uint32_t)shape_colors.size();
+        // vector<uint8_t> shape_colors;
+        uint32_t numColors = (uint32_t)shape_colors.size() / 4;
         uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
         uint32_t height = (numColors + width - 1) / width;
 
-        std::vector<uint8_t> colData((size_t)width * (size_t)height * 4, 0);
+        PaddingStartPosition = shape_colors.size();
 
-        // fill the texture row-major
-        for (uint32_t i = 0; i < (uint32_t)numColors; ++i) {
-            glm::vec4 c = shape_colors[i];
-            uint32_t x = i % width;
-            uint32_t y = i / width;
-            uint32_t idx = (y * width + x) * 4;
-
-            colData[idx + 0] = static_cast<uint8_t>(glm::clamp(c.r, 0.0f, 1.0f) * 255.0f);
-            colData[idx + 1] = static_cast<uint8_t>(glm::clamp(c.g, 0.0f, 1.0f) * 255.0f);
-            colData[idx + 2] = static_cast<uint8_t>(glm::clamp(c.b, 0.0f, 1.0f) * 255.0f);
-            colData[idx + 3] = static_cast<uint8_t>(glm::clamp(c.a, 0.0f, 1.0f) * 255.0f);
+        size_t expectedSize = width * height * 4;
+        if (shape_colors.size() < expectedSize) {
+            shape_colors.resize(expectedSize, 0); // Pad with transparent black
         }
 
-        const bgfx::Memory* texMem = bgfx::copy(colData.data(), (uint32_t)colData.size());
+        const bgfx::Memory* texMem = bgfx::copy(shape_colors.data(), (uint32_t)shape_colors.size() * sizeof(uint8_t)); // Use make reference to avoid unnecessary copy
 
         // If texture exists but size changed, destroy and recreate it
         if (bgfx::isValid(m_tex)) {

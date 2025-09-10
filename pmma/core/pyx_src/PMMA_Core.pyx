@@ -22,7 +22,7 @@ def initialize():
 
     PMMA_Initialize()
 
-    if General.get_operating_system() == Constants.WINDOWS:
+    if General.get_operating_system() == Constants.OS_WINDOWS:
         try:
             from ctypes import windll
             windll = windll.kernel32

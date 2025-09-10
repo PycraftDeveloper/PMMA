@@ -57,13 +57,16 @@ API to set it.");
     // check here if the gradient has been set, if has then check it fits into the render pipeline
     // otherwise render it as a normal shape.
 
+    uint8_t ColorData[4];
+    ColorFormat->Get_RGBA(ColorData);
+
     if (RenderPipelineCompatible) {
-        if (ColorFormat->Get_rgba().a == 0.0f) { // Return if shape not visible
+        if (ColorData == 0) { // Return if shape not visible
             return;
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorFormat->Get_rgba(), ID);
+        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;

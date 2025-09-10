@@ -359,8 +359,8 @@ void CPP_Display::Create(
 
     if (Transparent) {
         if (!WindowFillColor->GetSet()) {
-            float fill_color[4] = {0, 0, 0, 0};
-            WindowFillColor->Set_rgba(fill_color);
+            uint8_t fill_color[4] = {0, 0, 0, 0};
+            WindowFillColor->Set_RGBA(fill_color);
         }
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
         cout << "You have specified that this window should be transparent. \
@@ -368,8 +368,8 @@ Please note that this isn't guaranteed and relies on the Operating System, \
 GPU/drivers and device settings to be set correctly in order to work." << endl;
     } else {
         if (!WindowFillColor->GetSet()) {
-            float fill_color[4] = {0, 0, 0, 1};
-            WindowFillColor->Set_rgba(fill_color);
+            uint8_t fill_color[4] = {0, 0, 0, 255};
+            WindowFillColor->Set_RGBA(fill_color);
         }
         glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
     }
@@ -497,14 +497,14 @@ You can do this using `Display.create`."
         throw runtime_error("Display not created yet!");
     }
 
-    unsigned int out_color[4];
+    uint8_t out_color[4];
     WindowFillColor->Get_RGBA(out_color); // R (0 - 255), G (0 - 255), B (0 - 255), A (0 - 255)
 
     uint32_t clearColor =
-    ( (uint8_t)(out_color[0]) << 24 ) | // R
-    ( (uint8_t)(out_color[1]) << 16 ) | // G
-    ( (uint8_t)(out_color[2]) <<  8 ) | // B
-    ( (uint8_t)(out_color[3]) );        // A
+    ( out_color[0]) << 24 | // R
+    ( out_color[1]) << 16 | // G
+    ( out_color[2]) <<  8 | // B
+    ( out_color[3]);        // A
 
     bgfx::setViewClear(
         0,  // view ID (use 0 for your main screen)
