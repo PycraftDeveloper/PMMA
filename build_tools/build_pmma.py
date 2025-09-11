@@ -137,6 +137,9 @@ if not Context.in_github_workflow:
     else:
         build_debug = response[0].lower() == "y"
 
+if build_debug:
+    ts_print("When building PMMA in debug mode, please ensure that you are building BGFX also in debug mode.")
+
 if not Context.in_github_workflow:
     response = input(
         "Do you want to build a C++ only version of PMMA (No Python \
