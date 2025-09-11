@@ -30,7 +30,8 @@ class EXPORT CPP_LineShape {
         unsigned int Width = 1;
 
         bool HasAlpha = false;
-        bool Changed = true;
+        bool VertexDataChanged = true;
+        bool ColorDataChanged = true;
 
         CPP_LineShape();
 
@@ -54,7 +55,7 @@ class EXPORT CPP_LineShape {
 
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
@@ -68,7 +69,7 @@ class EXPORT CPP_LineShape {
 
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }

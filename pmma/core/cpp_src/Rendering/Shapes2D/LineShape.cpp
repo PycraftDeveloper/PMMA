@@ -40,9 +40,10 @@ API to set it.");
         throw runtime_error("Shape end position not set");
     }
 
-    Changed = Changed ||
+    VertexDataChanged = VertexDataChanged ||
                 ShapeStart->GetChangedToggle() ||
-                ShapeEnd->GetChangedToggle();
+                ShapeEnd->GetChangedToggle() ||
+                PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     bool RenderPipelineCompatible = true;
     // check here if the gradient has been set, if has then check it fits into the render pipeline
@@ -50,6 +51,8 @@ API to set it.");
 
     uint8_t ColorData[4];
     ColorFormat->Get_RGBA(ColorData);
+
+    ColorDataChanged = ColorDataChanged || ColorFormat->GetInternalChangedToggle();
 
     if (RenderPipelineCompatible) {
         if (ColorData[3] == 0) { // Return if shape not visible
@@ -61,11 +64,11 @@ API to set it.");
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
-            Changed = true;
+            VertexDataChanged = true;
             ColorIndex = newColorIndex;
         }
 
-        if (Changed) {
+        if (VertexDataChanged) {
             float StartPosition[2], EndPosition[2], LineCenter[2], TranslatedStart[2], TranslatedEnd[2], RotatedStart[2], RotatedEnd[2], Direction[2], Normal[2];
             ShapeStart->Get(StartPosition);
             ShapeEnd->Get(EndPosition);
@@ -113,13 +116,14 @@ API to set it.");
         }
         PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
-        if (Changed) {
+        if (VertexDataChanged) {
             // Calculate data and add to buffers, Left intentionally blank for now
         }
         // Do NOTHING.
     }
 
-    Changed = false;
+    VertexDataChanged = false;
+    ColorDataChanged = false;
 }
 
 void CPP_LineShape::InternalRender() {

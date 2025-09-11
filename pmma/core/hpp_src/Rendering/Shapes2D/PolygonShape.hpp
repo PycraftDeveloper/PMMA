@@ -32,7 +32,8 @@ class EXPORT CPP_PolygonShape {
 
         bool PointsSet = false;
         bool HasAlpha = false;
-        bool Changed = true;
+        bool VertexDataChanged = true;
+        bool ColorDataChanged = true;
         bool Closed = false;
 
         CPP_PolygonShape();
@@ -64,7 +65,7 @@ class EXPORT CPP_PolygonShape {
                         ShapePoints.end(),
                         NewShapePoints.begin()))) {
 
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
@@ -99,7 +100,7 @@ class EXPORT CPP_PolygonShape {
 
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
@@ -113,7 +114,7 @@ class EXPORT CPP_PolygonShape {
 
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
@@ -127,7 +128,7 @@ class EXPORT CPP_PolygonShape {
 
         inline void SetClosed(bool in_closed) {
             if (in_closed != Closed) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }

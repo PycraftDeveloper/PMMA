@@ -34,7 +34,8 @@ class EXPORT CPP_RectangleShape {
         bool SizeSet = false;
         bool WidthSet = true;
         bool HasAlpha = false;
-        bool Changed = true;
+        bool VertexDataChanged = true;
+        bool ColorDataChanged = true;
         bool CornerRadiusSet = true;
 
         CPP_RectangleShape();
@@ -82,7 +83,7 @@ class EXPORT CPP_RectangleShape {
 
         inline void SetSize(unsigned int* in_size) {
             if (SizeSet && (in_size[0] != ShapeSize.x || in_size[1] != ShapeSize.y)) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
@@ -105,7 +106,7 @@ class EXPORT CPP_RectangleShape {
 
         inline void SetWidth(unsigned int in_width) {
             if (WidthSet && in_width != Width) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
@@ -120,7 +121,7 @@ class EXPORT CPP_RectangleShape {
 
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }
@@ -134,7 +135,7 @@ class EXPORT CPP_RectangleShape {
 
         inline void SetCornerRadius(unsigned int in_corner_radius) {
             if (in_corner_radius != CornerRadius) {
-                Changed = true;
+                VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
                 VertexData.clear();
             }

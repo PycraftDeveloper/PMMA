@@ -165,6 +165,21 @@ void CPP_Display::PMMA_Update(GLFWwindow* Window) {
     if (PMMA_Registry::F11KeyShouldToggleFullScreen && F11_KeyEvent->GetPressed()) {
         ToggleFullScreen();
     }
+
+    int DisplaySize[2];
+    GetSize(DisplaySize);
+
+    DisplaySizeChanged = false;
+
+    if (DisplaySize[0] != PreviousDisplaySize[0] || DisplaySize[1] != PreviousDisplaySize[1]) {
+        OrthographicProjectionSet = false;
+        DisplaySizeChanged = true;
+        bgfx::reset(DisplaySize[0], DisplaySize[1], BGFX_RESET_NONE);
+        bgfx::setViewRect(0, 0, 0, DisplaySize[0], DisplaySize[1]);
+
+        PreviousDisplaySize[0] = DisplaySize[0];
+        PreviousDisplaySize[1] = DisplaySize[1];
+    }
 }
 
 CPP_Display::CPP_Display() {
@@ -485,6 +500,9 @@ visual tearing and improve frame pacing."
     SetIcon(NewIcon);
 
     PMMA_Core::RenderPipelineCore = new CPP_RenderPipelineCore();
+
+    PreviousDisplaySize[0] = Size[0];
+    PreviousDisplaySize[1] = Size[1];
 }
 
 void CPP_Display::Clear() {
@@ -620,11 +638,11 @@ You can do this using `Display.create`."
 }
 
 void CPP_Display::EventRefresh(
-            unsigned int RefreshRate,
-            unsigned int MaxRefreshRate,
-            bool LowerRefreshRate_OnMinimize,
-            bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery) {
+        unsigned int RefreshRate,
+        unsigned int MaxRefreshRate,
+        bool LowerRefreshRate_OnMinimize,
+        bool LowerRefreshRate_OnFocusLoss,
+        bool LowerRefreshRate_OnLowBattery) {
 
     if (Window == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
@@ -754,8 +772,6 @@ void CPP_Display::ToggleFullScreen() {
         new_width = Size[0];
         new_height = Size[1];
     }
-
-    bgfx::setViewRect(0, 0, 0, uint16_t(new_width), uint16_t(new_height));
 }
 
 CPP_Display::~CPP_Display() {

@@ -43,77 +43,64 @@ CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
 }
 
 void CPP_Shape2D_RenderPipelineManager::InternalRender() {
-    // If the shape color array changed, upload a new 1D texture containing
-    // the color palette. We'll use RGBA8 (unsigned bytes) format.
+    if (VertexDataChanged) {
+        const bgfx::Memory* mem = bgfx::copy( // Need to use copy here due to large sizes.
+            combined_vertexes.data(),
+            (uint32_t)(combined_vertexes.size()*sizeof(Vertex)));
 
-    // Create or update vertex buffer.
-    // We use a static vertex buffer that we update with bgfx::update.
-    // For larger/streaming workloads you can switch to transient or dynamic
-    // strategies later.
-
-    const bgfx::Memory* mem = bgfx::makeRef(
-        combined_vertexes.data(),
-        (uint32_t)(combined_vertexes.size()*sizeof(Vertex)));
-
-    if (bgfx::isValid(m_vbh)) {
-        if (m_vertexCount != combined_vertexes.size()) {
-            bgfx::destroy(m_vbh);
-            m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
+        if (bgfx::isValid(m_vbh)) {
+            if (m_vertexCount != combined_vertexes.size()) {
+                bgfx::destroy(m_vbh);
+                m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
+            } else {
+                bgfx::update(m_vbh, 0, mem);
+            }
         } else {
-            bgfx::update(m_vbh, 0, mem);
+            m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
         }
-    } else {
-        m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
-    }
-    m_vertexCount = combined_vertexes.size();
-
-    // --- Create / update color texture ---
-    // ONLY RUN WHEN A COLOR HAS CHANGED!!!
-    // We create a 1 x N texture (height 1, width = number of colors) in RGBA8.
-    // vector<uint8_t> shape_colors;
-    uint32_t numColors = (uint32_t)shape_colors.size() / 4;
-    uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
-    uint32_t height = (numColors + width - 1) / width;
-
-    PaddingStartPosition = shape_colors.size();
-
-    size_t expectedSize = width * height * 4;
-    if (shape_colors.size() < expectedSize) {
-        shape_colors.resize(expectedSize, 0); // Pad with transparent black
+        m_vertexCount = combined_vertexes.size();
     }
 
-    const bgfx::Memory* texMem = bgfx::makeRef(
-        shape_colors.data(),
-        static_cast<uint32_t>(shape_colors.size() * sizeof(uint8_t))
-    );
+    if (ColorDataChanged) {
+        uint32_t numColors = (uint32_t)shape_colors.size() / 4;
+        uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
+        uint32_t height = (numColors + width - 1) / width;
 
-    // If texture exists but size changed, destroy and recreate it
-    if (bgfx::isValid(m_tex)) {
-        if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
-            bgfx::destroy(m_tex);
-            m_tex = BGFX_INVALID_HANDLE;
+        PaddingStartPosition = shape_colors.size();
+
+        size_t expectedSize = width * height * 4;
+        if (shape_colors.size() < expectedSize) {
+            shape_colors.resize(expectedSize, 0); // Pad with transparent black
         }
-    }
 
-    // create texture if missing
-    if (!bgfx::isValid(m_tex)) {
-        m_tex = bgfx::createTexture2D(
-            (uint16_t)width, (uint16_t)height,
-            false,   // hasMips
-            1,       // num layers
-            bgfx::TextureFormat::RGBA8,
-            BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
-    }
+        const bgfx::Memory* texMem = bgfx::makeRef(
+            shape_colors.data(),
+            static_cast<uint32_t>(shape_colors.size() * sizeof(uint8_t))
+        );
 
-    bgfx::updateTexture2D(m_tex, 0, 0, 0, 0, width, height, texMem);
+        // If texture exists but size changed, destroy and recreate it
+        if (bgfx::isValid(m_tex)) {
+            if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
+                bgfx::destroy(m_tex);
+                m_tex = BGFX_INVALID_HANDLE;
+            }
+        }
 
-    // store width/height for shader normalization
-    m_colorTextureWidth  = width;
-    m_colorTextureHeight = height;
+        // create texture if missing
+        if (!bgfx::isValid(m_tex)) {
+            m_tex = bgfx::createTexture2D(
+                (uint16_t)width, (uint16_t)height,
+                false,   // hasMips
+                1,       // num layers
+                bgfx::TextureFormat::RGBA8,
+                BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
+        }
 
-    if (!bgfx::isValid(m_vbh) || combined_vertexes.empty()) {
-        InsertionIndex = 0;
-        return;
+        bgfx::updateTexture2D(m_tex, 0, 0, 0, 0, width, height, texMem);
+
+        // store width/height for shader normalization
+        m_colorTextureWidth  = width;
+        m_colorTextureHeight = height;
     }
 
     // Setup rendering state
@@ -130,9 +117,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
 
     // Bind the color texture sampler to the fragment shader.
     // Use BGFX_SAMPLER_POINT when setting the texture to ensure exact nearest sampling.
-    if (bgfx::isValid(m_tex)) {
-        bgfx::setTexture(0, s_colorTex, m_tex, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
-    }
+    bgfx::setTexture(0, s_colorTex, m_tex, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
 
     // Submit the draw call to the provided viewId
     bgfx::setState(state);

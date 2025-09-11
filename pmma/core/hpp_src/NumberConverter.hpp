@@ -15,6 +15,7 @@ class EXPORT CPP_BasicColorConverter {
 
         bool IsSet = false;
         bool Changed = true;
+        bool InternalChanged = true;
 
     public:
         CPP_BasicColorConverter() {
@@ -36,6 +37,12 @@ class EXPORT CPP_BasicColorConverter {
             return OldChanged;
         }
 
+        inline bool GetInternalChangedToggle() {
+            bool OldChanged = InternalChanged;
+            InternalChanged = false;
+            return OldChanged;
+        }
+
         inline void Set_RGBA(uint8_t* in_color) {
             bool Different = false;
             for (int i = 0; i < 4; i++) {
@@ -46,6 +53,7 @@ class EXPORT CPP_BasicColorConverter {
             }
             if (Different) {
                 Changed = true;
+                InternalChanged = true;
                 InternalColor[0] = in_color[0];
                 InternalColor[1] = in_color[1];
                 InternalColor[2] = in_color[2];
@@ -70,6 +78,7 @@ class EXPORT CPP_BasicColorConverter {
             }
             if (Different) {
                 Changed = true;
+                InternalChanged = true;
                 InternalColor[0] = in_color[0];
                 InternalColor[1] = in_color[1];
                 InternalColor[2] = in_color[2];

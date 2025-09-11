@@ -38,6 +38,8 @@ class EXPORT CPP_Display {
 
         glm::mat4 OrthographicProjection;
 
+        unsigned int PreviousDisplaySize[2];
+
         std::chrono::high_resolution_clock::time_point StartTime = std::chrono::high_resolution_clock::now();
 
         unsigned int Size[2] = {0, 0};
@@ -55,6 +57,8 @@ class EXPORT CPP_Display {
         bool OrthographicProjectionSet = false;
 
     public:
+        bool DisplaySizeChanged = true;
+
         CPP_Display();
         ~CPP_Display();
 
@@ -107,7 +111,9 @@ before you can call this function.");
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
             }
-            return Size[0];
+            int CurrentSize[2];
+            glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
+            return CurrentSize[0];
         };
 
         inline unsigned int GetHeight() {
@@ -118,10 +124,13 @@ before you can call this function.");
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
             }
-            return Size[1];
+
+            int CurrentSize[2];
+            glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
+            return CurrentSize[1];
         };
 
-        inline void GetSize(unsigned int* out) {
+        inline void GetSize(int* out) {
             if (Window == nullptr) {
                 Logger->InternalLogError(
                     18,
@@ -129,8 +138,8 @@ before you can call this function.");
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
             }
-            out[0] = Size[0];
-            out[1] = Size[1];
+
+            glfwGetWindowSize(Window, &out[0], &out[1]);
         };
 
         GLFWmonitor* GetMonitorAtPoint(unsigned int* Point);
@@ -368,6 +377,8 @@ before you can call this function.");
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
             }
+            int Size[2];
+            GetSize(Size);
             return (float)Size[0] / (float)Size[1];
         }
 
@@ -431,6 +442,9 @@ before you can call this function.");
             if (OrthographicProjectionSet) {
                 return OrthographicProjection;
             }
+
+            int Size[2];
+            GetSize(Size);
 
             OrthographicProjection = glm::ortho(
                 0.0f, static_cast<float>(Size[0]),        // Left to Right

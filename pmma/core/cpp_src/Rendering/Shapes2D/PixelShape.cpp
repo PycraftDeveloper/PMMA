@@ -33,8 +33,9 @@ API to set it.");
 
     glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
 
-    Changed = Changed ||
-                ShapeCenterFormat->GetChangedToggle();
+    VertexDataChanged = VertexDataChanged ||
+                ShapeCenterFormat->GetChangedToggle() ||
+                PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenter.x < 0 ||
             ShapeCenter.x > DisplayWidth ||
@@ -50,16 +51,18 @@ API to set it.");
         return;
     }
 
+    ColorDataChanged = ColorDataChanged || ColorFormat->GetInternalChangedToggle();
+
     bool ColorIndexChanged = false;
     float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
     if (newColorIndex != ColorIndex) {
         ColorIndexChanged = ColorIndex != 0;
-        Changed = true;
+        VertexDataChanged = true;
         ColorIndex = newColorIndex;
     }
 
-    if (Changed) {
+    if (VertexDataChanged) {
         Shape2D_RenderPipelineData.resize(4);
         float x = ShapeCenter.x;
         float y = ShapeCenter.y;
@@ -78,7 +81,8 @@ API to set it.");
     }
     PMMA_Core::RenderPipelineCore->AddObject(this, true, ColorIndexChanged);
 
-    Changed = false;
+    VertexDataChanged = false;
+    ColorDataChanged = false;
 }
 
 void CPP_PixelShape::InternalRender() {

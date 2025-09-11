@@ -48,7 +48,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) except + nogil
         inline unsigned int GetWidth() except + nogil
         inline unsigned int GetHeight() except + nogil
-        inline void GetSize(unsigned int* out) except + nogil
+        inline void GetSize(int* out) except + nogil
         inline float GetAspectRatio() except + nogil
         inline unsigned int GetFrameRate() except + nogil
         inline float GetFrameTime() except + nogil
@@ -157,11 +157,11 @@ cdef class Display:
 
     def get_size(self):
         cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] size_np
-            unsigned int* size_ptr
+            np.ndarray[np.int32_t, ndim=1, mode='c'] size_np
+            int* size_ptr
 
-        size_np = np.empty(2, dtype=np.uint32, order='C')
-        size_ptr = <unsigned int*>&size_np[0]
+        size_np = np.empty(2, dtype=np.int32, order='C')
+        size_ptr = <int*>&size_np[0]
 
         self.cpp_class_ptr.GetSize(size_ptr)
 

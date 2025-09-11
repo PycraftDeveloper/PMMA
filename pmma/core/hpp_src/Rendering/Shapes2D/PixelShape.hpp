@@ -28,7 +28,8 @@ class EXPORT CPP_PixelShape {
 
         bool CenterSet = false;
         bool HasAlpha = false;
-        bool Changed = true;
+        bool VertexDataChanged = true;
+        bool ColorDataChanged = true;
 
         CPP_PixelShape();
 

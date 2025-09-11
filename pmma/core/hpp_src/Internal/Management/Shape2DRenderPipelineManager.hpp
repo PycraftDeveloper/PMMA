@@ -63,7 +63,8 @@ class CPP_Shape2D_RenderPipelineManager {
 
         unsigned int PaddingStartPosition = 0;
 
-        bool Changed = true;
+        bool VertexDataChanged = true;
+        bool ColorDataChanged = true;
         bool UsingComplexColorInsertion = false;
         bool ChangedColorModes = true;
 
@@ -94,6 +95,9 @@ class CPP_Shape2D_RenderPipelineManager {
         }
 
         inline void Reset() {
+            VertexDataChanged = false;
+            ColorDataChanged = false;
+
             if (UsingComplexColorInsertion) {
                 std::vector<unsigned int> RecycleList;
 
@@ -215,7 +219,10 @@ class CPP_Shape2D_RenderPipelineManager {
 
         template<typename T>
         inline void InternalAddRenderTarget(T* TargetPtr) {
-            const bool shapeChanged = TargetPtr->Changed;
+            const bool ShapeVertexDataChanged = TargetPtr->VertexDataChanged;
+            VertexDataChanged |= ShapeVertexDataChanged;
+            ColorDataChanged |= TargetPtr->ColorDataChanged;
+
             const size_t currentIndex = InsertionIndex;
             size_t insertPos = combined_vertexes.size();
 
@@ -223,7 +230,7 @@ class CPP_Shape2D_RenderPipelineManager {
                 const auto& [existingID, existingOffset] = PreviousRenderContent[currentIndex];
 
                 if (TargetPtr->ID == existingID) {
-                    if (!shapeChanged) {
+                    if (!ShapeVertexDataChanged) {
                         InsertionIndex++;
                         return;
                     } else {
@@ -237,8 +244,6 @@ class CPP_Shape2D_RenderPipelineManager {
                     insertPos = existingOffset;
                 }
             }
-
-            Changed = true;
 
             const auto& vertices = TargetPtr->Shape2D_RenderPipelineData;
 
