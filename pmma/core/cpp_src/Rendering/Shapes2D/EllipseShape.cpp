@@ -130,7 +130,7 @@ API to set it.");
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    auto &v0 = Shape2D_RenderPipelineData[i * 2 + 0];
+                    auto &v0 = Shape2D_RenderPipelineData[i * 2];
                     v0.x = cx + x_rot_outer; v0.y = cy + y_rot_outer; v0.s = ColorIndex; v0.t = 0.0f;
 
                     // Inner point (ring)
@@ -157,7 +157,7 @@ API to set it.");
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    auto &v0 = Shape2D_RenderPipelineData[i * 2 + 0];
+                    auto &v0 = Shape2D_RenderPipelineData[i * 2];
                     v0.x = cx + x_rot_outer; v0.y = cy + y_rot_outer; v0.s = ColorIndex; v0.t = 0.0f;
 
                     auto &v1 = Shape2D_RenderPipelineData[i * 2 + 1];
