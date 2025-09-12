@@ -50,16 +50,17 @@ API to set it.");
         throw runtime_error("Shape has no size set");
     }
 
-    glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
+    float ShapeCenter[2];
+    ShapeCenterFormat->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
                 ShapeCenterFormat->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
-    if (ShapeCenter.x + HalfWidth < 0 ||
-            ShapeCenter.x - HalfWidth > DisplayWidth ||
-            ShapeCenter.y + HalfHeight < 0 ||
-            ShapeCenter.y - HalfHeight > DisplayHeight) {
+    if (ShapeCenter[0] + HalfWidth < 0 ||
+            ShapeCenter[0] - HalfWidth > DisplayWidth ||
+            ShapeCenter[1] + HalfHeight < 0 ||
+            ShapeCenter[1] - HalfHeight > DisplayHeight) {
         return;
     }
 
@@ -107,8 +108,8 @@ API to set it.");
             size_t vertexCount = InternalPointCount * 2 + 2;
             Shape2D_RenderPipelineData.resize(vertexCount);
 
-            float cx = ShapeCenter.x;
-            float cy = ShapeCenter.y;
+            float cx = ShapeCenter[0];
+            float cy = ShapeCenter[1];
 
             float a_outer = ShapeSize.x / 2.0f; // semi-major axis (horizontal)
             float b_outer = ShapeSize.y / 2.0f; // semi-minor axis (vertical)

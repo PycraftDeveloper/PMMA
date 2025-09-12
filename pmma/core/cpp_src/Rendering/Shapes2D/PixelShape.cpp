@@ -31,16 +31,17 @@ API to set it.");
         throw runtime_error("Shape has no color set");
     }
 
-    glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
+    float ShapeCenter[2];
+    ShapeCenterFormat->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
                 ShapeCenterFormat->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
-    if (ShapeCenter.x < 0 ||
-            ShapeCenter.x > DisplayWidth ||
-            ShapeCenter.y < 0 ||
-            ShapeCenter.y > DisplayHeight) {
+    if (ShapeCenter[0] + 0.5f < 0 ||
+            ShapeCenter[0] - 0.5f > DisplayWidth ||
+            ShapeCenter[1] + 0.5f < 0 ||
+            ShapeCenter[1] - 0.5f > DisplayHeight) {
         return;
     }
 
@@ -64,8 +65,8 @@ API to set it.");
 
     if (VertexDataChanged) {
         Shape2D_RenderPipelineData.resize(4);
-        float x = ShapeCenter.x;
-        float y = ShapeCenter.y;
+        float x = ShapeCenter[0];
+        float y = ShapeCenter[1];
 
         auto &v0 = Shape2D_RenderPipelineData[0];
         v0.x = x - 0.5f; v0.y = y - 0.5f; v0.s = ColorIndex; v0.t = 0.0f;

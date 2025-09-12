@@ -44,6 +44,9 @@ CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
 
 void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     if (VertexDataChanged) {
+        combined_vertexes.resize(LiveVertexCount);
+        PreviousRenderContent.resize(InsertionIndex);
+
         const bgfx::Memory* mem = bgfx::copy( // Need to use copy here due to large sizes.
             combined_vertexes.data(),
             (uint32_t)(combined_vertexes.size()*sizeof(Vertex)));
@@ -122,6 +125,4 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     // Submit the draw call to the provided viewId
     bgfx::setState(state);
     bgfx::submit(0, PMMA_Core::RenderPipelineCore->Shape2D_RenderPipelineShader->Use());
-
-    InsertionIndex = 0;
 }

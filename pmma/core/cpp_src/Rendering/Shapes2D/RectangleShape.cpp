@@ -41,16 +41,17 @@ API to set it.");
         throw runtime_error("Shape has no size set");
     }
 
-    glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
+    float ShapeCenter[2];
+    ShapeCenterFormat->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
         ShapeCenterFormat->GetChangedToggle() ||
         PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
-    if (ShapeCenter.x + HalfWidth < 0 ||
-            ShapeCenter.x - HalfWidth > DisplayWidth ||
-            ShapeCenter.y + HalfHeight < 0 ||
-            ShapeCenter.y - HalfHeight > DisplayHeight) {
+    if (ShapeCenter[0] + HalfWidth < 0 ||
+            ShapeCenter[0] - HalfWidth > DisplayWidth ||
+            ShapeCenter[1] + HalfHeight < 0 ||
+            ShapeCenter[1] - HalfHeight > DisplayHeight) {
         return;
     }
 
@@ -160,10 +161,10 @@ API to set it.");
                         rotated_inner[1] = RotationSin * inner[0] + RotationCos * inner[1];
 
                         auto &v0 = Shape2D_RenderPipelineData[index + i * 2];
-                        v0.x = ShapeCenter.x + rotated_outer[0]; v0.y = ShapeCenter.y + rotated_outer[1]; v0.s = ColorIndex; v0.t = 0.0f;
+                        v0.x = ShapeCenter[0] + rotated_outer[0]; v0.y = ShapeCenter[1] + rotated_outer[1]; v0.s = ColorIndex; v0.t = 0.0f;
 
                         auto &v1 = Shape2D_RenderPipelineData[index + i * 2 + 1];
-                        v1.x = ShapeCenter.x + rotated_inner[0]; v1.y = ShapeCenter.y + rotated_inner[1]; v1.s = ColorIndex; v1.t = 0.0f;
+                        v1.x = ShapeCenter[0] + rotated_inner[0]; v1.y = ShapeCenter[1] + rotated_inner[1]; v1.s = ColorIndex; v1.t = 0.0f;
 
                         // rotate (x, y) using rotation matrix
                         float newX = cosD * x - sinD * y;
@@ -181,8 +182,8 @@ API to set it.");
                     float point[2], out[2];
                     Shape2D_RenderPipelineData.resize(4);
 
-                    point[0] = ShapeCenter.x - HalfWidth;
-                    point[1] = ShapeCenter.y - HalfHeight;
+                    point[0] = ShapeCenter[0] - HalfWidth;
+                    point[1] = ShapeCenter[1] - HalfHeight;
 
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
@@ -190,8 +191,8 @@ API to set it.");
                     auto &v0 = Shape2D_RenderPipelineData[0];
                     v0.x = out[0]; v0.y = out[1]; v0.s = ColorIndex; v0.t = 0.0f;
 
-                    point[0] = ShapeCenter.x + HalfWidth;
-                    point[1] = ShapeCenter.y - HalfHeight;
+                    point[0] = ShapeCenter[0] + HalfWidth;
+                    point[1] = ShapeCenter[1] - HalfHeight;
 
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
@@ -199,8 +200,8 @@ API to set it.");
                     auto &v1 = Shape2D_RenderPipelineData[1];
                     v1.x = out[0]; v1.y = out[1]; v1.s = ColorIndex; v1.t = 0.0f;
 
-                    point[0] = ShapeCenter.x + HalfWidth;
-                    point[1] = ShapeCenter.y + HalfHeight;
+                    point[0] = ShapeCenter[0] + HalfWidth;
+                    point[1] = ShapeCenter[1] + HalfHeight;
 
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
@@ -208,8 +209,8 @@ API to set it.");
                     auto &v2 = Shape2D_RenderPipelineData[2];
                     v2.x = out[0]; v2.y = out[1]; v2.s = ColorIndex; v2.t = 0.0f;
 
-                    point[0] = ShapeCenter.x - HalfWidth;
-                    point[1] = ShapeCenter.y + HalfHeight;
+                    point[0] = ShapeCenter[0] - HalfWidth;
+                    point[1] = ShapeCenter[1] + HalfHeight;
 
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
@@ -220,10 +221,10 @@ API to set it.");
                     float pos[2], out[2];
                     Shape2D_RenderPipelineData.resize(10);
 
-                    int outer_left = ShapeCenter.x - HalfWidth;
-                    int outer_right = ShapeCenter.x + HalfWidth;
-                    int outer_top = ShapeCenter.y - HalfHeight;
-                    int outer_bottom = ShapeCenter.y + HalfHeight;
+                    int outer_left = ShapeCenter[0] - HalfWidth;
+                    int outer_right = ShapeCenter[0] + HalfWidth;
+                    int outer_top = ShapeCenter[1] - HalfHeight;
+                    int outer_bottom = ShapeCenter[1] + HalfHeight;
 
                     int inner_left = outer_left + Width;
                     int inner_right = outer_right - Width;

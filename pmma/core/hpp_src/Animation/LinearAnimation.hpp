@@ -36,18 +36,18 @@ class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
 
             RunTime += FrameTime;
 
-            unsigned int new_location[2];
-            unsigned int start_pos[2];
-            unsigned int end_pos[2];
+            float new_location[2];
+            float start_pos[2];
+            float end_pos[2];
 
             StartCoordinatePtr->Get(start_pos);
             EndCoordinatePtr->Get(end_pos);
 
-            new_location[0] = (unsigned int)CPP_AdvancedMathematics::Lerp(
+            new_location[0] = CPP_AdvancedMathematics::Lerp(
                 (float)start_pos[0], (float)end_pos[0],
                 Duration.count(), RunTime.count());
 
-            new_location[1] = (unsigned int)CPP_AdvancedMathematics::Lerp(
+            new_location[1] = CPP_AdvancedMathematics::Lerp(
                 (float)start_pos[1], (float)end_pos[1],
                 Duration.count(), RunTime.count());
 

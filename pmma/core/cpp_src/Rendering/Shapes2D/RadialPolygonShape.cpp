@@ -53,16 +53,17 @@ API to set it.");
         throw runtime_error("Shape has no radius set");
     }
 
-    glm::vec2 ShapeCenter = ShapeCenterFormat->Get();
+    float ShapeCenter[2];
+    ShapeCenterFormat->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
                 ShapeCenterFormat->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
-    if (ShapeCenter.x + Radius < 0 ||
-            ShapeCenter.x - Radius > DisplayWidth ||
-            ShapeCenter.y + Radius < 0 ||
-            ShapeCenter.y - Radius > DisplayHeight) {
+    if (ShapeCenter[0] + Radius < 0 ||
+            ShapeCenter[0] - Radius > DisplayWidth ||
+            ShapeCenter[1] + Radius < 0 ||
+            ShapeCenter[1] - Radius > DisplayHeight) {
         return;
     }
 
@@ -110,8 +111,8 @@ API to set it.");
             Shape2D_RenderPipelineData.resize(vertexCount);
 
             float angle = Rotation;
-            float cx = ShapeCenter.x;
-            float cy = ShapeCenter.y;
+            float cx = ShapeCenter[0];
+            float cy = ShapeCenter[1];
             float cosStep = std::cos(angleStep);
             float sinStep = std::sin(angleStep);
             float cosA = std::cos(angle);

@@ -55,30 +55,30 @@ class EXPORT CPP_RectangleShape {
 
         void InternalRender();
 
-        inline void SimpleApplyRotation(float* position, glm::vec2 shape_center, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight, float* out) {
+        inline void SimpleApplyRotation(float* position, float* shape_center, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight, float* out) {
             float pos[2], rotated[2];
-            pos[0] = position[0] - shape_center.x;
-            pos[1] = position[1] - shape_center.y;
+            pos[0] = position[0] - shape_center[0];
+            pos[1] = position[1] - shape_center[1];
 
             rotated[0] = RotationCos * pos[0] - RotationSin * pos[1];
             rotated[1] = RotationSin * pos[0] + RotationCos * pos[1];
 
-            out[0] = rotated[0] + shape_center.x;
-            out[1] = rotated[1] + shape_center.y;
+            out[0] = rotated[0] + shape_center[0];
+            out[1] = rotated[1] + shape_center[1];
         }
 
-        inline void ComplexApplyRotation(float* point, glm::vec2 shape_center, float RotationSin, float RotationCos, float* out) {
+        inline void ComplexApplyRotation(float* point, float* shape_center, float RotationSin, float RotationCos, float* out) {
             // Translate point to origin
-            point[0] -= shape_center.x;
-            point[1] -= shape_center.y;
+            point[0] -= shape_center[0];
+            point[1] -= shape_center[1];
 
             // Rotate
             float xnew = point[0] * RotationCos - point[1] * RotationSin;
             float ynew = point[0] * RotationSin + point[1] * RotationCos;
 
             // Translate back
-            out[0] = xnew + shape_center.x;
-            out[1] = ynew + shape_center.y;
+            out[0] = xnew + shape_center[0];
+            out[1] = ynew + shape_center[1];
         }
 
         inline void SetSize(unsigned int* in_size) {

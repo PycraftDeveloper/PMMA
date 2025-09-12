@@ -140,52 +140,58 @@ if not Context.in_github_workflow:
 if build_debug:
     ts_print("When building PMMA in debug mode, please ensure that you are building BGFX also in debug mode.")
 
-if not Context.in_github_workflow:
-    response = input(
-        "Do you want to build a C++ only version of PMMA (No Python \
-interactions) [y/n] (Recommended: n): ")
+if build_debug:
+    print("Building a C++ only version of PMMA.")
+    build_for_python = False
+else:
+    if not Context.in_github_workflow:
+        response = input(
+            "Do you want to build a C++ only version of PMMA (No Python \
+    interactions) [y/n] (Recommended: n): ")
 
-    if response == "":
-        build_for_python = True
-    else:
-        build_for_python = response[0].lower() == "n"
+        if response == "":
+            build_for_python = True
+        else:
+            build_for_python = response[0].lower() == "n"
 
 total_time = get_execution_time(build_pmma, build_debug, build_for_python)[0]
 print(f"PMMA Build took {total_time:.2f} seconds")
 
-total_time = get_execution_time(run_setup)[0]
-print(f"Running Setup.py took {total_time:.2f} seconds")
+if build_for_python:
+    total_time = get_execution_time(run_setup)[0]
+    print(f"Running Setup.py took {total_time:.2f} seconds")
 
-if not Context.in_github_workflow:
-    response = input(
-        "Do you want to automatically refresh the currently installed \
-version of PMMA? [y/n] (Recommended: y): ")
+    if not Context.in_github_workflow:
+        response = input(
+            "Do you want to automatically refresh the currently installed \
+    version of PMMA? [y/n] (Recommended: y): ")
 
-    if response == "" or response[0].lower() == "y":
-        ts_print("Refreshing the installed version of PMMA.")
-        installation_log_file = join_path(
-            temporary_logging_dir,
-            f"installation.log")
+        if response == "" or response[0].lower() == "y":
+            ts_print("Refreshing the installed version of PMMA.")
+            installation_log_file = join_path(
+                temporary_logging_dir,
+                f"installation.log")
 
-        ts_print("Uninstalling PMMA...")
-        run(
-            [
-            sys.executable, "-m", "pip", "uninstall", "pmma", "-y"
-            ], cmake_temp_dir, installation_log_file
-        )
+            ts_print("Uninstalling PMMA...")
+            run(
+                [
+                sys.executable, "-m", "pip", "uninstall", "pmma", "-y"
+                ], cmake_temp_dir, installation_log_file
+            )
 
-        ts_print("Reinstalling PMMA...")
-        wheel_path = join_path(cwd, "dist")
-        for file in os.listdir(wheel_path):
-            if file.endswith(".whl"):
-                wheel_file = join_path(wheel_path, file)
-                break
+            ts_print("Reinstalling PMMA...")
+            wheel_path = join_path(cwd, "dist")
+            for file in os.listdir(wheel_path):
+                if file.endswith(".whl"):
+                    wheel_file = join_path(wheel_path, file)
+                    break
 
-        run(
-            [
-            sys.executable, "-m", "pip", "install", wheel_file
-            ], cmake_temp_dir, installation_log_file
-        )
+            run(
+                [
+                sys.executable, "-m", "pip", "install", wheel_file
+                ], cmake_temp_dir, installation_log_file
+            )
 
-        ts_print("Finished refreshing the installed version of PMMA.")
-        ts_print("Finished automated build process!")
+            ts_print("Finished refreshing the installed version of PMMA.")
+
+ts_print("Finished automated build process!")

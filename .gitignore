@@ -218,4 +218,5 @@ documentation/docs/_build/*
 
 # ignore build cache and build tools build content
 build_tools/cmake/dependencies/**/build/*
+build_tools/hashes.json
 build_cache/*

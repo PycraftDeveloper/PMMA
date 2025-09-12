@@ -46,7 +46,7 @@ void CPP_LinearAnimation::Start() {
     StartTime = chrono::high_resolution_clock::now();
     RunTime = chrono::seconds(0);
 
-    unsigned int start_position[2];
+    float start_position[2];
     StartCoordinatePtr->Get(start_position);
     TargetCoordinatePtr->Set(start_position);
 }

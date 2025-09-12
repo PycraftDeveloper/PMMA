@@ -34,8 +34,8 @@ class EXPORT CPP_RadialAnimation: public CPP_AnimationCore {
 
             RunTime += FrameTime;
 
-            unsigned int start_pos[2];
-            unsigned int center_pos[2];
+            float start_pos[2];
+            float center_pos[2];
             StartCoordinatePtr->Get(start_pos);
             CenterCoordinatePtr->Get(center_pos); // Now the "center" of orbit
 
@@ -55,9 +55,9 @@ class EXPORT CPP_RadialAnimation: public CPP_AnimationCore {
             float angle = initial_angle + sweep;
 
             // Compute new position
-            unsigned int new_location[2];
-            new_location[0] = static_cast<unsigned int>(center_pos[0] + std::cos(angle) * radius);
-            new_location[1] = static_cast<unsigned int>(center_pos[1] + std::sin(angle) * radius);
+            float new_location[2];
+            new_location[0] = static_cast<float>(center_pos[0] + std::cos(angle) * radius);
+            new_location[1] = static_cast<float>(center_pos[1] + std::sin(angle) * radius);
 
             TargetCoordinatePtr->Set(new_location);
 

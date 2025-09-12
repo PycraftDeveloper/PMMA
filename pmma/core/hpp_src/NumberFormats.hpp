@@ -2,6 +2,8 @@
 #include "PMMA_Exports.hpp"
 
 #include <glm/glm.hpp>
+#include <random>
+#include <thread>
 
 #include "FractalBrownianMotion.hpp"
 #include "AdvancedMathematics.hpp"
@@ -22,6 +24,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         CPP_FractalBrownianMotion* B_FractalBrownianMotionGenerator = nullptr;
         CPP_FractalBrownianMotion* A_FractalBrownianMotionGenerator = nullptr;
 
+        std::mt19937 generator;
+        std::uniform_int_distribution<uint32_t> distribution;
+
         uint32_t seed;
         uint32_t octaves;
         float frequency;
@@ -40,7 +45,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         bool Configured = false;
 
     public:
-        CPP_ColorFormat() {
+        CPP_ColorFormat() : generator(std::random_device{}()) {
             Logger = new CPP_Logger();
         }
 
@@ -82,7 +87,8 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             B_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 2, new_octaves, new_frequency, new_amplitude);
             A_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 3, new_octaves, new_frequency, new_amplitude);
 
-            srand(new_seed);
+            generator.seed(new_seed);
+            distribution = std::uniform_int_distribution<uint32_t>(0, 255);
 
             seed = new_seed;
             octaves = new_octaves;
@@ -133,20 +139,20 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFromRandom(bool GenerateAlpha=true) {
             uint8_t in_color[4];
+            uint32_t packedColor = generator();
+
+            in_color[0] = static_cast<uint8_t>((packedColor >> 24) & 0xFF); // R
+            in_color[1] = static_cast<uint8_t>((packedColor >> 16) & 0xFF); // G
+            in_color[2] = static_cast<uint8_t>((packedColor >> 8)  & 0xFF); // B
+
             if (GenerateAlpha) {
-                in_color[0] = (uint8_t)rand() % 255;
-                in_color[1] = (uint8_t)rand() % 255;
-                in_color[2] = (uint8_t)rand() % 255;
-                in_color[3] = (uint8_t)rand() % 255;
+                in_color[3] = static_cast<uint8_t>(packedColor & 0xFF);
             } else {
-                in_color[0] = (uint8_t)rand() % 255;
-                in_color[1] = (uint8_t)rand() % 255;
-                in_color[2] = (uint8_t)rand() % 255;
                 in_color[3] = 255;
             }
 
             Set_RGBA(in_color);
-        }
+            }
 
         inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha=true) {
             if (!Configured) {
@@ -321,14 +327,18 @@ class EXPORT CPP_DisplayCoordinateFormat {
         CPP_FractalBrownianMotion* X_FractalBrownianMotionGenerator = nullptr;
         CPP_FractalBrownianMotion* Y_FractalBrownianMotionGenerator = nullptr;
 
-        glm::vec2 DisplayCoordinate = {0.f, 0.f}; // Default display coordinate is (0, 0)
+        float DisplayCoordinate[2] = {0.f, 0.f}; // Default display coordinate is (0, 0)
+
+        std::mt19937 generator;
+        std::uniform_int_distribution<int> x_distribution;
+        std::uniform_int_distribution<int> y_distribution;
 
         uint32_t seed;
         uint32_t octaves;
         float frequency;
         float amplitude;
 
-        float offset_range[2] = {0, 1};
+        float offset_range[2] = {0.f, 1.f};
         float x_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
         float y_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
 
@@ -339,7 +349,7 @@ class EXPORT CPP_DisplayCoordinateFormat {
         bool Configured = false;
 
     public:
-        CPP_DisplayCoordinateFormat() {
+        CPP_DisplayCoordinateFormat() : generator(std::random_device{}()) {
             Logger = new CPP_Logger();
         }
 
@@ -362,21 +372,7 @@ class EXPORT CPP_DisplayCoordinateFormat {
             Logger = nullptr;
         }
 
-        inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
-            X_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            Y_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);
-
-            X_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
-            Y_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, new_octaves, new_frequency, new_amplitude);
-
-            srand(new_seed);
-
-            seed = new_seed;
-            octaves = new_octaves;
-            frequency = new_frequency;
-            amplitude = new_amplitude;
-            Configured = true;
-        }
+        void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
 
         inline bool GetChangedToggle() {
             bool OldChanged = Changed;
@@ -438,41 +434,14 @@ class EXPORT CPP_DisplayCoordinateFormat {
         void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two);
         void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three);
 
-        inline void Set(unsigned int* in_coordinate) {
-            glm::vec2 converted_in_coordinate = {
-                (float)in_coordinate[0],
-                (float)in_coordinate[1]
-            };
-
-            if (converted_in_coordinate != DisplayCoordinate) {
+        inline void Set(float* in_coordinate) {
+            if (in_coordinate[0] != DisplayCoordinate[0] || in_coordinate[1] != DisplayCoordinate[1]) {
                 Changed = true;
-                DisplayCoordinate = converted_in_coordinate;
+                DisplayCoordinate[0] = in_coordinate[0];
+                DisplayCoordinate[1] = in_coordinate[1];
             }
 
             IsSet = true;
-        }
-
-        inline void Get(unsigned int * out_coordinate) {
-            if (!IsSet) {
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not set a display coordinate - please set a \
-display coordinate before attempting to get it.");
-                throw std::runtime_error("Display coordinate not set!");
-            }
-            out_coordinate[0] = (unsigned int)DisplayCoordinate.x;
-            out_coordinate[1] = (unsigned int)DisplayCoordinate.y;
-        }
-
-        inline glm::vec2 Get() {
-            if (!IsSet) {
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not set a display coordinate - please set a \
-display coordinate before attempting to get it.");
-                throw std::runtime_error("Display coordinate not set!");
-            }
-            return DisplayCoordinate;
         }
 
         inline void Get(float* out) {
@@ -483,8 +452,8 @@ display coordinate before attempting to get it.");
 display coordinate before attempting to get it.");
                 throw std::runtime_error("Display coordinate not set!");
             }
-            out[0] = DisplayCoordinate.x;
-            out[1] = DisplayCoordinate.y;
+            out[0] = static_cast<float>(DisplayCoordinate[0]);
+            out[1] = static_cast<float>(DisplayCoordinate[1]);
         }
 };
 
