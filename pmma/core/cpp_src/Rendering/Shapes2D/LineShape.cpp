@@ -103,16 +103,16 @@ API to set it.");
 
             Shape2D_RenderPipelineData.resize(4);
             auto &v0 = Shape2D_RenderPipelineData[0];
-            v0.x = RotatedStart[0] - Normal[0]; v0.y = RotatedStart[1] - Normal[1]; v0.s = ColorIndex; v0.t = 0.0f;
+            v0.x = RotatedStart[0] - Normal[0]; v0.y = RotatedStart[1] - Normal[1]; v0.s = ColorIndex;
 
             auto &v1 = Shape2D_RenderPipelineData[1];
-            v1.x = RotatedStart[0] + Normal[0]; v1.y = RotatedStart[1] + Normal[1]; v1.s = ColorIndex; v1.t = 0.0f;
+            v1.x = RotatedStart[0] + Normal[0]; v1.y = RotatedStart[1] + Normal[1]; v1.s = ColorIndex;
 
             auto &v2 = Shape2D_RenderPipelineData[2];
-            v2.x = RotatedEnd[0] - Normal[0]; v2.y = RotatedEnd[1] - Normal[1]; v2.s = ColorIndex; v2.t = 0.0f;
+            v2.x = RotatedEnd[0] - Normal[0]; v2.y = RotatedEnd[1] - Normal[1]; v2.s = ColorIndex;
 
             auto &v3 = Shape2D_RenderPipelineData[3];
-            v3.x = RotatedEnd[0] + Normal[0]; v3.y = RotatedEnd[1] + Normal[1]; v3.s = ColorIndex; v3.t = 0.0f;
+            v3.x = RotatedEnd[0] + Normal[0]; v3.y = RotatedEnd[1] + Normal[1]; v3.s = ColorIndex;
         }
         PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {

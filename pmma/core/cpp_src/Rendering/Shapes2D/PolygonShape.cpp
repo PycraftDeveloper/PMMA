@@ -126,22 +126,22 @@ API to set it.");
                 Dp[1] = P1[1] - N[1] * HalfWidth;
 
                 auto &v0 = Shape2D_RenderPipelineData[index];
-                v0.x = A[0]; v0.y = A[1]; v0.s = ColorIndex; v0.t = 0.0f;
+                v0.x = A[0]; v0.y = A[1]; v0.s = ColorIndex;
 
                 auto &v1 = Shape2D_RenderPipelineData[index + 1];
-                v1.x = B[0]; v1.y = B[1]; v1.s = ColorIndex; v1.t = 0.0f;
+                v1.x = B[0]; v1.y = B[1]; v1.s = ColorIndex;
 
                 auto &v2 = Shape2D_RenderPipelineData[index + 2];
-                v2.x = C[0]; v2.y = C[1]; v2.s = ColorIndex; v2.t = 0.0f;
+                v2.x = C[0]; v2.y = C[1]; v2.s = ColorIndex;
 
                 auto &v3 = Shape2D_RenderPipelineData[index + 3];
-                v3.x = C[0]; v3.y = C[1]; v3.s = ColorIndex; v3.t = 0.0f;
+                v3.x = C[0]; v3.y = C[1]; v3.s = ColorIndex;
 
                 auto &v4 = Shape2D_RenderPipelineData[index + 2];
-                v4.x = B[0]; v4.y = B[1]; v4.s = ColorIndex; v4.t = 0.0f;
+                v4.x = B[0]; v4.y = B[1]; v4.s = ColorIndex;
 
                 auto &v5 = Shape2D_RenderPipelineData[index + 3];
-                v5.x = Dp[0]; v5.y = Dp[1]; v5.s = ColorIndex; v5.t = 0.0f;
+                v5.x = Dp[0]; v5.y = Dp[1]; v5.s = ColorIndex;
             }
         }
         PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);

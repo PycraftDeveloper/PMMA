@@ -69,16 +69,16 @@ API to set it.");
         float y = ShapeCenter[1];
 
         auto &v0 = Shape2D_RenderPipelineData[0];
-        v0.x = x - 0.5f; v0.y = y - 0.5f; v0.s = ColorIndex; v0.t = 0.0f;
+        v0.x = x - 0.5f; v0.y = y - 0.5f; v0.s = ColorIndex;
 
         auto &v1 = Shape2D_RenderPipelineData[1];
-        v1.x = x + 0.5f; v1.y = y - 0.5f; v1.s = ColorIndex; v1.t = 0.0f;
+        v1.x = x + 0.5f; v1.y = y - 0.5f; v1.s = ColorIndex;
 
         auto &v2 = Shape2D_RenderPipelineData[2];
-        v2.x = x - 0.5f; v2.y = y + 0.5f; v2.s = ColorIndex; v2.t = 0.0f;
+        v2.x = x - 0.5f; v2.y = y + 0.5f; v2.s = ColorIndex;
 
         auto &v3 = Shape2D_RenderPipelineData[3];
-        v3.x = x + 0.5f; v3.y = y + 0.5f; v3.s = ColorIndex; v3.t = 0.0f;
+        v3.x = x + 0.5f; v3.y = y + 0.5f; v3.s = ColorIndex;
     }
     PMMA_Core::RenderPipelineCore->AddObject(this, true, ColorIndexChanged);
 

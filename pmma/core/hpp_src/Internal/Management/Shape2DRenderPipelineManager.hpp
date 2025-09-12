@@ -33,7 +33,7 @@ using Shape2D_RenderObject = std::variant<
 
 struct Vertex {
     float x, y;      // position
-    float s, t;      // texcoord (s = shape index as float, t unused)
+    float s; float t = 0.f;      // texcoord (s = shape index as float, t unused)
 };
 
 class CPP_Shape2D_RenderPipelineManager {
