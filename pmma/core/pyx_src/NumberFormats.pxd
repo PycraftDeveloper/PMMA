@@ -43,8 +43,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) except +
         void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) except +
 
-        void Get(unsigned int* out_coordinate) except +
-        void Set(unsigned int* in_coordinate) except +
+        void Get(float* out_coordinate) except +
+        void Set(float* in_coordinate) except +
 
         unsigned int GetSeed() except +
         unsigned int GetOctaves() except +
@@ -166,7 +166,7 @@ cdef class DisplayCoordinate:
     cpdef void set_coord_array(self, in_coord)
 
     cpdef tuple get_coord(self)
-    cpdef void set_coord(self, unsigned int x, unsigned int y)
+    cpdef void set_coord(self, float x, float y)
 
 cdef class Angle:
     cdef CPP_AngleFormat* cpp_class_ptr

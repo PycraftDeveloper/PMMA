@@ -147,7 +147,7 @@ else:
     if not Context.in_github_workflow:
         response = input(
             "Do you want to build a C++ only version of PMMA (No Python \
-    interactions) [y/n] (Recommended: n): ")
+interactions) [y/n] (Recommended: n): ")
 
         if response == "":
             build_for_python = True
@@ -164,7 +164,7 @@ if build_for_python:
     if not Context.in_github_workflow:
         response = input(
             "Do you want to automatically refresh the currently installed \
-    version of PMMA? [y/n] (Recommended: y): ")
+version of PMMA? [y/n] (Recommended: y): ")
 
         if response == "" or response[0].lower() == "y":
             ts_print("Refreshing the installed version of PMMA.")

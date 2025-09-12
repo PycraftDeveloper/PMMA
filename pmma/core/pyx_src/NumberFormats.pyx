@@ -221,11 +221,11 @@ cdef class DisplayCoordinate:
 
     cpdef get_coord_array(self, bint detect_format=True):
         cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] out_coordinate_np
-            unsigned int* out_coordinate_ptr
+            np.ndarray[np.float32_t, ndim=1, mode='c'] out_coordinate_np
+            float* out_coordinate_ptr
 
-        out_coordinate_np = np.empty(2, dtype=np.uint32, order='C')
-        out_coordinate_ptr = <unsigned int*>&out_coordinate_np[0]
+        out_coordinate_np = np.empty(2, dtype=np.float32, order='C')
+        out_coordinate_ptr = <float*>&out_coordinate_np[0]
         self.cpp_class_ptr.Get(out_coordinate_ptr)
 
         if detect_format:
@@ -238,26 +238,26 @@ cdef class DisplayCoordinate:
 
     cpdef void set_coord_array(self, in_coord):
         cdef:
-            np.ndarray[np.uint32_t, ndim=1, mode='c'] in_coordinate_np
-            unsigned int* in_coordinate_ptr
+            np.ndarray[np.float32_t, ndim=1, mode='c'] in_coordinate_np
+            float* in_coordinate_ptr
 
-        if not isinstance(in_coord, np.ndarray) or in_coord.dtype != np.uint32 or not in_coord.flags['C_CONTIGUOUS']:
-            in_coordinate_np = np.array(in_coord, dtype=np.uint32, order='C')
+        if not isinstance(in_coord, np.ndarray) or in_coord.dtype != np.float32 or not in_coord.flags['C_CONTIGUOUS']:
+            in_coordinate_np = np.array(in_coord, dtype=np.float32, order='C')
             self.using_numpy_arrays = True
         else:
             in_coordinate_np = in_coord
             self.using_numpy_arrays = False
 
-        in_coordinate_ptr = <unsigned int*>&in_coordinate_np[0]
+        in_coordinate_ptr = <float*>&in_coordinate_np[0]
         self.cpp_class_ptr.Set(in_coordinate_ptr)
 
     cpdef tuple get_coord(self):
-        cdef unsigned int coords[2]
+        cdef float coords[2]
         self.cpp_class_ptr.Get(&coords[0])
         return coords[0], coords[1]
 
-    cpdef void set_coord(self, unsigned int x, unsigned int y):
-        cdef unsigned int coords[2]
+    cpdef void set_coord(self, float x, float y):
+        cdef float coords[2]
         coords[0] = x
         coords[1] = y
         self.cpp_class_ptr.Set(&coords[0])
