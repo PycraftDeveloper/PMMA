@@ -76,7 +76,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
             shape_colors.resize(expectedSize, 0); // Pad with transparent black
         }
 
-        const bgfx::Memory* texMem = bgfx::makeRef(
+        const bgfx::Memory* texMem = bgfx::copy(
             shape_colors.data(),
             static_cast<uint32_t>(shape_colors.size() * sizeof(uint8_t))
         );

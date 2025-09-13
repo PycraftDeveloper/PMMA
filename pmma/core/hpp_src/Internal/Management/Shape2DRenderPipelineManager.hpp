@@ -162,13 +162,9 @@ class CPP_Shape2D_RenderPipelineManager {
                 size_t size_of_shape_colors = (size_t)shape_colors.size();
 
                 float index = (float)size_of_shape_colors;
-                // Grow vector by 4 bytes
-                shape_colors.resize(size_of_shape_colors + 4);
 
-                // Store 4 bytes in one shot
-                *reinterpret_cast<uint32_t*>(&shape_colors[size_of_shape_colors]) =
-                    *reinterpret_cast<const uint32_t*>(Color);
-                return index;
+                shape_colors.insert(shape_colors.end(), Color, Color + 4);
+                return index / 4.0f;
             }
 
             SeenThisFrame.insert(ShapeID);
@@ -190,7 +186,7 @@ class CPP_Shape2D_RenderPipelineManager {
                 }
 
                 ColorIndexesChanged++;
-                return (float)(offset);
+                return (float)(slot);
             }
 
             GLuint newSlot;
@@ -208,18 +204,12 @@ class CPP_Shape2D_RenderPipelineManager {
                 ColorSlotID[ShapeID] = newSlot;
 
                 ColorIndexesChanged++;
-                return (float)(offset);
+                return (float)(newSlot);
             } else {
                 size_t offset = shape_colors.size();
 
                 if (offset < PaddingStartPosition) {
-                    // We're still within real data—append as usual
-                    // Grow vector by 4 bytes
-                    shape_colors.resize(offset + 4);
-
-                    // Store 4 bytes in one shot
-                    *reinterpret_cast<uint32_t*>(&shape_colors[offset]) =
-                        *reinterpret_cast<const uint32_t*>(Color);
+                    shape_colors.insert(shape_colors.end(), Color, Color + 4);
                 } else {
                     // We're inside padded region—overwrite instead
                     shape_colors[offset + 0] = Color[0];
@@ -249,6 +239,7 @@ class CPP_Shape2D_RenderPipelineManager {
                 const auto& [existingID, existingOffset] = PreviousRenderContent[currentIndex];
                 if (TargetPtr->ID == existingID && !ShapeVertexDataChanged && PreviousFrameDataValid) {
                     InsertionIndex++;
+                    LiveVertexCount = (unsigned int)(existingOffset + TargetPtr->Shape2D_RenderPipelineData.size());
                     return;
                 }
             }
@@ -284,6 +275,6 @@ class CPP_Shape2D_RenderPipelineManager {
             }
 
             InsertionIndex++;
-            LiveVertexCount = std::max(LiveVertexCount, (unsigned int)(writePos + vertices.size()));
+            LiveVertexCount = (unsigned int)(writePos + vertices.size());
         }
 };
