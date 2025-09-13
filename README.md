@@ -8,22 +8,20 @@
 
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/pmma) ![Python 3.8](https://img.shields.io/badge/python-3.8-blue) ![Python 3.9](https://img.shields.io/badge/python-3.9-blue) ![Python 3.10](https://img.shields.io/badge/python-3.10-blue) ![Python 3.11](https://img.shields.io/badge/python-3.11-blue) ![Windows](https://img.shields.io/badge/platform-Windows-blue?logo=windows) ![Linux](https://img.shields.io/badge/platform-Linux-yellow?logo=linux) ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/PycraftDeveloper/pmma) ![GitHub commits since latest release](https://img.shields.io/github/commits-since/PycraftDeveloper/pmma/latest)
 
+<p align="center">
+    <a href="https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/intro.md#pmma-build-guide">Build Guide</a> •
+    <a href="https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/intro.md#pmma-troubleshooting">Troubleshooting</a> •
+    <a href="https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Roadmap.md#pmma-roadmap">Roadmap</a>
+</p>
+
 PMMA is a Python module targeted at helping you build applications in the Python programming language. It does this by providing its own tools covering areas like 2D graphics, noise generation, audio and video playback, event handling, text rendering and much more. The API has two fundamental goals; to make application development in Python easier, whilst also focusing on improving the performance and efficiency of the end result. The API is also being engineered with compatibility with other python modules, like [Pygame](https://github.com/pygame/pygame), [PIL](https://github.com/python-pillow/Pillow) and [Numpy](https://github.com/numpy/numpy) and is ideal for prototyping, application development, simulations, graphics intensive tasks and game development.
 
 ## Contents
 
-* [Development Progress](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#development-progress)
 * [Installation](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation)
-* [Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/intro.md#pmma-build-guide)
-* [Troubleshooting](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-troubleshooting)
+* [Development Progress](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#development-progress)
 * [Credits](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-credits)
 * [About](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-about)
-
-## Development Progress
-
-![Progress on PMMA 5.1](https://geps.dev/progress/35)
-
-We are currently working on the next minor update to PMMA, version 5.1.x. This update is targeted at transitioning away from the OpenGL graphics API and into BGFX to better secure the future of the API with the gradual deprecation of the OpenGL API. This update will also bring numerous bug fixes, a major overhaul to the build system for the C++ side of PMMA, and an expansion ans general refinement of the Text and Animation portions of the API. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5.1](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
 
 ## Installation
 
@@ -56,6 +54,12 @@ _Please note, these requirements are only needed by users installing PMMA onto L
 > For older versions of PMMA, there are no hardware requirements.
 
 _If you encounter any issues or problems then check out our [troubleshooting page](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-troubleshooting)._
+
+## Development Progress
+
+![Progress on PMMA 5.1](https://geps.dev/progress/35)
+
+We are currently working on the next minor update to PMMA, version 5.1.x. This update is targeted at transitioning away from the OpenGL graphics API and into BGFX to better secure the future of the API with the gradual deprecation of the OpenGL API. This update will also bring numerous bug fixes, a major overhaul to the build system for the C++ side of PMMA, and an expansion ans general refinement of the Text and Animation portions of the API. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5.1](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
 
 ## Credits
 
