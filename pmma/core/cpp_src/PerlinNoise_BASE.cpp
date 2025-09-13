@@ -1,3 +1,5 @@
+#include <random>
+
 #include "PMMA_Core.hpp"
 
 using namespace std;
@@ -11,9 +13,10 @@ CPP_PerlinNoise::CPP_PerlinNoise(const uint32_t seed) {
         perm[i] = i;
     }
 
-    srand(seed);
+    std::mt19937 rng(seed);
     for (int i = 255; i > 0; --i) {
-        swap(perm[i], perm[rand() % (i + 1)]);
+        std::uniform_int_distribution<int> dist(0, i);
+        swap(perm[i], perm[dist(rng)]);
     }
 
     for (int i = 0; i < 256; ++i) {
