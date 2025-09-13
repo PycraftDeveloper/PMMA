@@ -1,12 +1,12 @@
-Events (``pmma.Events``)
-========================
+C++ Events (``pmma.Events``)
+============================
 
 🟩 **R** -
 
 Create
 ------
 
-.. py:method:: pmma.Events() -> pmma.Events
+.. cpp:function:: pmma::Events pmma::Events()
 
     🟩 **R** -
 
@@ -14,11 +14,11 @@ Create
 Methods
 -------
 
-.. py:method:: Events.quit() -> None
+.. cpp:function:: pmma::quit pmma::Quit()
 
     🟩 **R** -
 
 
-.. py:method:: Events.handle() -> None
+.. cpp:function:: pmma::handle pmma::Handle()
 
     🟩 **R** -
