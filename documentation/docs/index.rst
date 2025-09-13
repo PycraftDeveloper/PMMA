@@ -25,3 +25,5 @@ Contents
     overview/index.rst
     python_api/index.rst
     cpp_api/index.rst
+    python_examples/index.rst
+    cpp_examples/index.rst
