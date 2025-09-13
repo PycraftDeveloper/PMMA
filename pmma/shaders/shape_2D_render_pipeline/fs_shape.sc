@@ -8,7 +8,7 @@ uniform vec4 u_colorInfo;
 
 void main()
 {
-    float idxF = floor(v_shapeIndex.x + 0.5);
+    float idxF = floor(v_shapeIndex + 0.5);
     int idx = int(idxF);
 
     float w = u_colorInfo.x;
