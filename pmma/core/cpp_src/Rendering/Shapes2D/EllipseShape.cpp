@@ -120,7 +120,12 @@ API to set it.");
             float cosRot = cos(Rotation);
             float sinRot = sin(Rotation);
 
-            if (Width > 0) {
+            Vertex* v = Shape2D_RenderPipelineData.data();
+            if (Width < 0) {
+                auto &v1 = Shape2D_RenderPipelineData[1];
+                v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+
+                const Vertex Center = Shape2D_RenderPipelineData[1];
                 for (unsigned int i = 0; i <= InternalPointCount; ++i) {
                     float angle = i * angleStep;
 
@@ -134,18 +139,16 @@ API to set it.");
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    auto &v0 = Shape2D_RenderPipelineData[i * 2];
-                    v0.x = cx + x_rot_outer; v0.y = cy + y_rot_outer; v0.s = ColorIndex;
-
-                    // Inner point (ring)
-                    float x_inner = a_inner * cosAngle;
-                    float y_inner = b_inner * sinAngle;
-
-                    float x_rot_inner = x_inner * cosRot - y_inner * sinRot;
-                    float y_rot_inner = x_inner * sinRot + y_inner * cosRot;
-
                     auto &v1 = Shape2D_RenderPipelineData[i * 2 + 1];
-                    v1.x = cx + x_rot_inner; v1.y = cy + y_rot_inner; v1.s = ColorIndex;
+                    v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+
+                    v[0].x = cx + x_rot_outer;
+                    v[0].y = cy + y_rot_outer;
+                    v[0].s = ColorIndex;
+
+                    v[1] = Center; // center vertex
+
+                    v += 2;
                 }
             } else {
                 for (unsigned int i = 0; i <= InternalPointCount; ++i) {
@@ -161,11 +164,22 @@ API to set it.");
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    auto &v0 = Shape2D_RenderPipelineData[i * 2];
-                    v0.x = cx + x_rot_outer; v0.y = cy + y_rot_outer; v0.s = ColorIndex;
+                    // Inner point (ring)
+                    float x_inner = a_inner * cosAngle;
+                    float y_inner = b_inner * sinAngle;
 
-                    auto &v1 = Shape2D_RenderPipelineData[i * 2 + 1];
-                    v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+                    float x_rot_inner = x_inner * cosRot - y_inner * sinRot;
+                    float y_rot_inner = x_inner * sinRot + y_inner * cosRot;
+
+                    v[0].x = cx + x_rot_outer;
+                    v[0].y = cy + y_rot_outer;
+                    v[0].s = ColorIndex;
+
+                    v[1].x = cx + x_rot_inner;
+                    v[1].y = cy + y_rot_inner;
+                    v[1].s = ColorIndex;
+
+                    v += 2;
                 }
             }
         }

@@ -117,7 +117,7 @@ API to set it.");
                 A[1] = P0[1] + N[1] * HalfWidth;
 
                 B[0] = P0[0] - N[0] * HalfWidth;
-                B[0] = P0[1] - N[1] * HalfWidth;
+                B[1] = P0[1] - N[1] * HalfWidth;
 
                 C[0] = P1[0] + N[0] * HalfWidth;
                 C[1] = P1[1] + N[1] * HalfWidth;
@@ -137,10 +137,10 @@ API to set it.");
                 auto &v3 = Shape2D_RenderPipelineData[index + 3];
                 v3.x = C[0]; v3.y = C[1]; v3.s = ColorIndex;
 
-                auto &v4 = Shape2D_RenderPipelineData[index + 2];
+                auto &v4 = Shape2D_RenderPipelineData[index + 4];
                 v4.x = B[0]; v4.y = B[1]; v4.s = ColorIndex;
 
-                auto &v5 = Shape2D_RenderPipelineData[index + 3];
+                auto &v5 = Shape2D_RenderPipelineData[index + 5];
                 v5.x = Dp[0]; v5.y = Dp[1]; v5.s = ColorIndex;
             }
         }

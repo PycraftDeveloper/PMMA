@@ -200,7 +200,7 @@ API to set it.");
                     auto &v1 = Shape2D_RenderPipelineData[1];
                     v1.x = out[0]; v1.y = out[1]; v1.s = ColorIndex;
 
-                    point[0] = ShapeCenter[0] + HalfWidth;
+                    point[0] = ShapeCenter[0] - HalfWidth;
                     point[1] = ShapeCenter[1] + HalfHeight;
 
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
@@ -209,7 +209,7 @@ API to set it.");
                     auto &v2 = Shape2D_RenderPipelineData[2];
                     v2.x = out[0]; v2.y = out[1]; v2.s = ColorIndex;
 
-                    point[0] = ShapeCenter[0] - HalfWidth;
+                    point[0] = ShapeCenter[0] + HalfWidth;
                     point[1] = ShapeCenter[1] + HalfHeight;
 
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,

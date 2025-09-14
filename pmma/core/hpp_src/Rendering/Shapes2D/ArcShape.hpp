@@ -120,6 +120,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
                 VertexData.clear();
             }
 
+            RadiusSet = true;
             Radius = in_radius;
         };
 

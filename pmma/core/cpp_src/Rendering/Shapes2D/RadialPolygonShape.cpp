@@ -118,20 +118,11 @@ API to set it.");
             float cosA = std::cos(angle);
             float sinA = std::sin(angle);
 
-            /*
-            vector<Vertex> Shape2D_RenderPipelineData;
-            struct Vertex {
-                float x, y;
-                float s;
-                float t = 0;
-            }
-            */
-
+            Vertex* v = Shape2D_RenderPipelineData.data();
             if (inner_radius == 0) {
                 auto &v1 = Shape2D_RenderPipelineData[1];
                 v1.x = cx; v1.y = cy; v1.s = ColorIndex;
 
-                Vertex* v = Shape2D_RenderPipelineData.data();
                 const Vertex Center = Shape2D_RenderPipelineData[1];
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
                     v[0].x = outer_radius * cosA + cx;
@@ -147,7 +138,6 @@ API to set it.");
                     sinA = new_sinA;
                 }
             } else {
-                Vertex* v = Shape2D_RenderPipelineData.data();
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
                     v[0].x = outer_radius * cosA + cx;
                     v[0].y = outer_radius * sinA + cy;

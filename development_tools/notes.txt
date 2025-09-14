@@ -21,15 +21,15 @@ Search
 ======
 Search for public attributes of a class: self.([A-Z]|[a-z])+
 
-PMMA 5.1 Notes
+PMMA 5.1 Release Notes
 ==============
-TEST everything!
+Bug Fix: Arc shape now properly renders and doesn't raise 'shape has no radius set' even when it is.
+Switched from OpenGL to BGFX
+More aggressive optimizations to 2D shape rendering.
 
 Issues
 ======
 Transparent display not working with opengl, potentially signs of a bigger problem.
-GENERATING FROM PERLIN NOISE USES SAME SEED FOR ALL AXIS, WHICH IS WRONG! ALLOW FOR CUSTOM SEEDS, PASS THIS EVERYWHERE. IS NONE THEN USE +1 OFFSETS
-ALSO ALLOW FOR THIS CUSTOMISATION IN SHAPES!!!
 
 UNCONFIRMED RELEASE SCHEDULE
 ============================

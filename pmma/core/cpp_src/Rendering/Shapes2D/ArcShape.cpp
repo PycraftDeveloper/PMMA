@@ -144,18 +144,19 @@ API to set it.");
             float cosA = std::cos(angle);
             float sinA = std::sin(angle);
 
+            Vertex* v = Shape2D_RenderPipelineData.data();
             if (inner_radius == 0) {
+                auto &v1 = Shape2D_RenderPipelineData[1];
+                v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+
+                const Vertex Center = Shape2D_RenderPipelineData[1];
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
-                    float ox = outer_radius * cosA + cx;
-                    float oy = outer_radius * sinA + cy;
+                    v[0].x = outer_radius * cosA + cx;
+                    v[0].y = outer_radius * sinA + cy;
+                    v[0].s = ColorIndex;
 
-                    unsigned int index = i * 2;
-
-                    auto &v0 = Shape2D_RenderPipelineData[index];
-                    v0.x = ox; v0.y = oy; v0.s = ColorIndex;
-
-                    auto &v1 = Shape2D_RenderPipelineData[index + 1];
-                    v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+                    v[1] = Center; // center vertex
+                    v += 2;
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
@@ -164,19 +165,15 @@ API to set it.");
                 }
             } else {
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
-                    float ox = outer_radius * cosA + cx;
-                    float oy = outer_radius * sinA + cy;
+                    v[0].x = outer_radius * cosA + cx;
+                    v[0].y = outer_radius * sinA + cy;
+                    v[0].s = ColorIndex;
 
-                    float ix = inner_radius * cosA + cx;
-                    float iy = inner_radius * sinA + cy;
+                    v[1].x = inner_radius * cosA + cx;
+                    v[1].y = inner_radius * sinA + cy;
+                    v[1].s = ColorIndex;
 
-                    unsigned int index = i * 2;
-
-                    auto &v0 = Shape2D_RenderPipelineData[index];
-                    v0.x = ox; v0.y = oy; v0.s = ColorIndex;
-
-                    auto &v1 = Shape2D_RenderPipelineData[index + 1];
-                    v1.x = ix; v1.y = iy; v1.s = ColorIndex;
+                    v += 2;
 
                     float new_cosA = cosA * cosStep - sinA * sinStep;
                     float new_sinA = sinA * cosStep + cosA * sinStep;
