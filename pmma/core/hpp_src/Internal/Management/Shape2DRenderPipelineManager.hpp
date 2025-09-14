@@ -49,9 +49,9 @@ class CPP_Shape2D_RenderPipelineManager {
         unsigned int ColorIndexesChanged = 0;
         unsigned int m_vertexCount = 0;
 
-        ska::flat_hash_map<unsigned int, GLuint> ColorSlotID; // objectColorSlot
+        ska::flat_hash_map<unsigned int, float> ColorSlotID; // objectColorSlot
         ska::flat_hash_set<unsigned int> SeenThisFrame;
-        std::vector<GLuint> FreeSlots;
+        std::vector<float> FreeSlots;
 
         bgfx::VertexLayout m_layout;
         bgfx::DynamicVertexBufferHandle m_vbh;
@@ -63,6 +63,7 @@ class CPP_Shape2D_RenderPipelineManager {
 
         unsigned int PaddingStartPosition = 0;
         unsigned int LiveVertexCount = 0;
+        unsigned int LiveColorCount = 0;
 
         bool VertexDataChanged = true;
         bool ColorDataChanged = true;
@@ -101,6 +102,7 @@ class CPP_Shape2D_RenderPipelineManager {
             ColorDataChanged = false;
             PreviousFrameDataValid = true;
             LiveVertexCount = 0;
+            LiveColorCount = 0;
 
             InsertionIndex = 0;
 
@@ -123,10 +125,6 @@ class CPP_Shape2D_RenderPipelineManager {
                 unsigned int SeenThisFrameSize = (unsigned int)SeenThisFrame.size();
                 SeenThisFrame.clear();
                 SeenThisFrame.reserve(SeenThisFrameSize + 25);
-            } else {
-                unsigned int size = (unsigned int)shape_colors.size();
-                shape_colors.clear();
-                shape_colors.reserve(size + 25);
             }
 
             bool PreviouslyUsingComplexColorInsertion = UsingComplexColorInsertion;
@@ -163,17 +161,31 @@ class CPP_Shape2D_RenderPipelineManager {
 
                 float index = (float)size_of_shape_colors;
 
-                shape_colors.insert(shape_colors.end(), Color, Color + 4);
+                if (size_of_shape_colors > LiveColorCount + 4) {
+                    shape_colors[LiveColorCount] = Color[0];
+                    shape_colors[LiveColorCount + 1] = Color[1];
+                    shape_colors[LiveColorCount + 2] = Color[2];
+                    shape_colors[LiveColorCount + 3] = Color[3];
+                } else {
+                    shape_colors.resize(size_of_shape_colors + 4);
 
-                return index / 4.0f;
+                    shape_colors[LiveColorCount] = Color[0];
+                    shape_colors[LiveColorCount + 1] = Color[1];
+                    shape_colors[LiveColorCount + 2] = Color[2];
+                    shape_colors[LiveColorCount + 3] = Color[3];
+                }
+
+                LiveColorCount += 4;
+
+                return LiveColorCount / 4.0f;
             }
 
             SeenThisFrame.insert(ShapeID);
 
             auto found = ColorSlotID.find(ShapeID);
             if (found != ColorSlotID.end()) {
-                GLuint slot = found->second;
-                size_t offset = slot * 4;
+                float slot = found->second;
+                size_t offset = static_cast<size_t>(slot) * 4;
 
                 if (shape_colors[offset + 0] != Color[0] ||
                     shape_colors[offset + 1] != Color[1] ||
@@ -190,11 +202,11 @@ class CPP_Shape2D_RenderPipelineManager {
                 return (float)(slot);
             }
 
-            GLuint newSlot;
+            float newSlot;
             if (!FreeSlots.empty()) {
                 newSlot = FreeSlots.back();
                 FreeSlots.pop_back();
-                size_t offset = newSlot * 4;
+                size_t offset = static_cast<size_t>(newSlot) * 4;
 
                 // Overwrite existing slot (whether real or padded)
                 shape_colors[offset + 0] = Color[0];
@@ -205,7 +217,7 @@ class CPP_Shape2D_RenderPipelineManager {
                 ColorSlotID[ShapeID] = newSlot;
 
                 ColorIndexesChanged++;
-                return (float)(newSlot);
+                return newSlot;
             } else {
                 size_t offset = shape_colors.size();
 

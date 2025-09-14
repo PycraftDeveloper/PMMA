@@ -70,7 +70,7 @@ API to set it.");
         }
 
         bool ColorIndexChanged = false;
-        GLuint newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = ColorIndex != 0;
