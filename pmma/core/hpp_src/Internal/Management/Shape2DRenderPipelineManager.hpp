@@ -164,6 +164,7 @@ class CPP_Shape2D_RenderPipelineManager {
                 float index = (float)size_of_shape_colors;
 
                 shape_colors.insert(shape_colors.end(), Color, Color + 4);
+
                 return index / 4.0f;
             }
 

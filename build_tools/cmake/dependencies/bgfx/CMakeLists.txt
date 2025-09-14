@@ -39,7 +39,7 @@ ExternalProject_Add(bgfx
     CMAKE_GENERATOR Ninja
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${OUTPUT_DIR}
-        -DCMAKE_BUILD_TYPE=Release
+        -DCMAKE_BUILD_TYPE=Debug
         -DCMAKE_CXX_FLAGS=${CMAKE_CXX_FLAGS}
         -DCMAKE_CXX_STANDARD=17
         -DCMAKE_CXX_STANDARD_REQUIRED=ON
@@ -47,6 +47,6 @@ ExternalProject_Add(bgfx
         -DBX_AMALGAMATED=ON
         -DBGFX_AMALGAMATED=ON
         -DBGFX_BUILD_EXAMPLES=OFF
-    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Release --parallel ${PARALLEL_CORES}
-    INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Release
+    BUILD_COMMAND ${CMAKE_COMMAND} --build <BINARY_DIR> --config Debug --parallel ${PARALLEL_CORES}
+    INSTALL_COMMAND ${CMAKE_COMMAND} --install <BINARY_DIR> --config Debug
 )
