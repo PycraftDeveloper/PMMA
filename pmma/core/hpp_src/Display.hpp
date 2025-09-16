@@ -36,7 +36,7 @@ class EXPORT CPP_Display {
         GLFWmonitor* Monitor = nullptr;
         GLFWwindow* Window = nullptr;
 
-        glm::mat4 OrthographicProjection;
+        float OrthographicProjection[16] = {0.0f};
 
         unsigned int PreviousDisplaySize[2];
 
@@ -430,7 +430,7 @@ before you can call this function.");
             return RefreshTime;
         }
 
-        inline glm::mat4 GetDisplayProjection() {
+        inline void GetDisplayProjection(float* out) {
             if (Window == nullptr) {
                 Logger->InternalLogError(
                     18,
@@ -440,19 +440,36 @@ before you can call this function.");
             }
 
             if (OrthographicProjectionSet) {
-                return OrthographicProjection;
+                out[0] = OrthographicProjection[0];
+                out[1] = OrthographicProjection[1];
+                out[2] = OrthographicProjection[2];
+                out[3] = OrthographicProjection[3];
+                out[4] = OrthographicProjection[4];
+                out[5] = OrthographicProjection[5];
+                out[6] = OrthographicProjection[6];
+                out[7] = OrthographicProjection[7];
+                out[8] = OrthographicProjection[8];
+                out[9] = OrthographicProjection[9];
+                out[10] = OrthographicProjection[10];
+                out[11] = OrthographicProjection[11];
+                out[12] = OrthographicProjection[12];
+                out[13] = OrthographicProjection[13];
+                out[14] = OrthographicProjection[14];
+                out[15] = OrthographicProjection[15];
+                return;
             }
 
             int Size[2];
             GetSize(Size);
 
-            OrthographicProjection = glm::ortho(
-                0.0f, static_cast<float>(Size[0]),        // Left to Right
-                static_cast<float>(Size[1]), 0.0f,        // Top to Bottom (invert Y)
-                -1.0f, 1.0f                               // Near and Far
-            );
+            OrthographicProjection[0] = 2.0f / Size[0];
+            OrthographicProjection[5] = 2.0f / Size[1];
+            OrthographicProjection[10] = -1.0f;
+            OrthographicProjection[12] = -1.0f;
+            OrthographicProjection[13] = -1.0f;
+            OrthographicProjection[15] = 1.0f;
+
             OrthographicProjectionSet = true;
-            return OrthographicProjection;
         };
 
         unsigned int CalculateRefreshRate(unsigned int RefreshRate);

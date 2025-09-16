@@ -13,7 +13,7 @@ CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
     Shape2D_RenderPipelineShader = new CPP_Shader();
     Shape2D_RenderPipelineShader->LoadShaderFromFolder(Shape2D_RenderPipelineShaderPath, true);
 
-    u_proj = bgfx::createUniform("screenspace", bgfx::UniformType::Mat4);
+    OrthDisplayProj = bgfx::createUniform("OrthDisplayProj", bgfx::UniformType::Mat4);
 
     const bgfx::Caps* caps = bgfx::getCaps();
     // unsigned int MaxSize;
@@ -36,14 +36,15 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
         Shape2D_RenderPipelineShader = nullptr;
     }
 
-    if (bgfx::isValid(u_proj)) {
-        bgfx::destroy(u_proj);
+    if (bgfx::isValid(OrthDisplayProj)) {
+        bgfx::destroy(OrthDisplayProj);
     }
 }
 
 void CPP_RenderPipelineCore::Render() {
-    glm::mat4 proj = PMMA_Core::DisplayInstance->GetDisplayProjection();
-    bgfx::setUniform(u_proj, glm::value_ptr(proj));
+    float proj[16];
+    PMMA_Core::DisplayInstance->GetDisplayProjection(proj);
+    bgfx::setUniform(OrthDisplayProj, proj);
 
     for (auto& item : RenderData) {
         std::visit([](auto* ptr) {

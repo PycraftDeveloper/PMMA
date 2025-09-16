@@ -8,4 +8,8 @@ prune pmma/core/cpp_src
 prune pmma/core/pyx_src
 prune pmma/core/hpp_src
 
+prune pmma/temporary
+prune pmma/.mypy_cache
+prune pmma/config
+
 global-exclude *.pyc

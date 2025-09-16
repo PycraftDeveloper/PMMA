@@ -57,7 +57,6 @@ CPP_TextRendererPipelineManager::CPP_TextRendererPipelineManager() {
         .end();
 
     // Create uniforms
-    u_proj = bgfx::createUniform("screen_space_one", bgfx::UniformType::Mat4);
     s_tex  = bgfx::createUniform("s_tex",  bgfx::UniformType::Sampler);
 
     string TextRendererShaderPath = PMMA_Registry::PMMA_Location
@@ -73,9 +72,6 @@ CPP_TextRendererPipelineManager::CPP_TextRendererPipelineManager() {
 CPP_TextRendererPipelineManager::~CPP_TextRendererPipelineManager() {
     if (bgfx::isValid(m_vbh)) {
         bgfx::destroy(m_vbh);
-    }
-    if (bgfx::isValid(u_proj)) {
-        bgfx::destroy(u_proj);
     }
     if (bgfx::isValid(s_tex)) {
         bgfx::destroy(s_tex);
@@ -129,7 +125,9 @@ void CPP_TextRendererPipelineManager::Reset() {
 }
 
 void CPP_TextRendererPipelineManager::InternalRender() {
-    if (glyphs.empty() || !atlas) return;
+    if (glyphs.empty() || !atlas) {
+        return;
+    }
 
     // Allocate instance buffer and fill it
     const uint32_t num = (uint32_t)glyphs.size();
@@ -147,26 +145,16 @@ void CPP_TextRendererPipelineManager::InternalRender() {
     // Set state: blend (alpha), no culling, write RGB + A
     uint64_t state = BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_BLEND_ALPHA;
 
-    // Set view (assume view 0; adapt if you use multiple views)
-    const uint16_t view = 0;
-
     // Set vertex buffer (quad)
     bgfx::setVertexBuffer(0, m_vbh);
 
     // Set instance data
     bgfx::setInstanceDataBuffer(&idb);
 
-    // Set projection uniform: expect projection matrix in pixel-space to put glyphs directly
-    // We expect PMMA_Core::DisplayInstance->GetDisplayProjection() returns glm::mat4
-    glm::mat4 proj = PMMA_Core::DisplayInstance->GetDisplayProjection();
-    bgfx::setUniform(u_proj, glm::value_ptr(proj));
-
     // Bind texture (atlas texture handle) to slot 0
     bgfx::setTexture(0, s_tex, atlas->texture);
 
     // Submit
     bgfx::setState(state);
-    bgfx::submit(view, ShaderProgram->Use());
-
-    // Clear glyph list - original code kept glyphs until Reset() so keep consistent and don't clear here
+    bgfx::submit(0, ShaderProgram->Use());
 }

@@ -31,7 +31,7 @@ class CPP_RenderPipelineCore {
         std::vector<CPP_TextRendererPipelineManager*> Text_RenderManagerCache;
         std::vector<RawRenderObject> RenderData;
 
-        bgfx::UniformHandle u_proj;
+        bgfx::UniformHandle OrthDisplayProj;
 
         CPP_Shader* Shape2D_RenderPipelineShader = nullptr;
 

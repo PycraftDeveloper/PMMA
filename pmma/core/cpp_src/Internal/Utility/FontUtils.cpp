@@ -65,12 +65,16 @@ FontAtlas::FontAtlas(const std::string& path, int pixelHeight) {
 
         FT_Bitmap& bmp = face->glyph->bitmap;
         if (bmp.width > 0 && bmp.rows > 0) {
-            const bgfx::Memory* mem = bgfx::copy(bmp.buffer, bmp.width * bmp.rows);
-
-            bgfx::updateTexture2D(
-                texture,
-                0, // mip
-                0, // layer
+            std::vector<uint8_t> buffer(bmp.width * bmp.rows);
+            for (int row = 0; row < bmp.rows; ++row) {
+                memcpy(
+                    buffer.data() + row * bmp.width,
+                    bmp.buffer + row * bmp.pitch,
+                    bmp.width
+                );
+            }
+            const bgfx::Memory* mem = bgfx::copy(buffer.data(), buffer.size());
+            bgfx::updateTexture2D(texture, 0, 0,
                 (uint16_t)xOffset, 0,
                 (uint16_t)bmp.width, (uint16_t)bmp.rows,
                 mem
