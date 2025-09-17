@@ -463,10 +463,10 @@ before you can call this function.");
             GetSize(Size);
 
             OrthographicProjection[0] = 2.0f / Size[0];
-            OrthographicProjection[5] = 2.0f / Size[1];
+            OrthographicProjection[5] = -2.0f / Size[1];
             OrthographicProjection[10] = -1.0f;
             OrthographicProjection[12] = -1.0f;
-            OrthographicProjection[13] = -1.0f;
+            OrthographicProjection[13] = 1.0f;
             OrthographicProjection[15] = 1.0f;
 
             OrthographicProjectionSet = true;
