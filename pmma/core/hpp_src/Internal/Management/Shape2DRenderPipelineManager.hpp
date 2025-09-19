@@ -175,12 +175,8 @@ class CPP_Shape2D_RenderPipelineManager {
 
                 LiveColorCount += 4;
 
-                std::cout << "A" << std::endl;
-
                 return static_cast<float>(slotIndex);
             }
-
-            std::cout << "B" << std::endl;
 
             // --- Complex insertion path: try to preserve indexes ---
             SeenThisFrame.insert(ShapeID);
