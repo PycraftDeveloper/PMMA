@@ -198,7 +198,6 @@ class CPP_Shape2D_RenderPipelineManager {
                     shape_colors[offset + 3] = Color[3];
                 }
 
-                ColorIndexesChanged++;
                 return (float)(slot);
             }
 
@@ -216,7 +215,6 @@ class CPP_Shape2D_RenderPipelineManager {
 
                 ColorSlotID[ShapeID] = newSlot;
 
-                ColorIndexesChanged++;
                 return newSlot;
             } else {
                 size_t offset = shape_colors.size();
@@ -251,6 +249,16 @@ class CPP_Shape2D_RenderPipelineManager {
             if (currentIndex < PreviousRenderContent.size()) {
                 const auto& [existingID, existingOffset] = PreviousRenderContent[currentIndex];
                 if (TargetPtr->ID == existingID && !ShapeVertexDataChanged && PreviousFrameDataValid) {
+
+                    if (currentIndex > 0 && TargetPtr->Shape2D_RenderPipelineData.size() >= 2 && LiveVertexCount > 0) {
+                        const auto& vertices = TargetPtr->Shape2D_RenderPipelineData;
+                        if (combined_vertexes.size() < LiveVertexCount + 2) {
+                            combined_vertexes.resize(LiveVertexCount + 2);
+                        }
+                        combined_vertexes[LiveVertexCount++] = combined_vertexes[LiveVertexCount - 1];
+                        combined_vertexes[LiveVertexCount++] = vertices[0];
+                    }
+
                     InsertionIndex++;
                     LiveVertexCount = (unsigned int)(existingOffset + TargetPtr->Shape2D_RenderPipelineData.size());
                     return;

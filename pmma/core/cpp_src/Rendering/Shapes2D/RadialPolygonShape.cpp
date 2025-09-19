@@ -85,7 +85,7 @@ API to set it.");
         float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
-            ColorIndexChanged = ColorIndex != 0;
+            ColorIndexChanged = true;
             VertexDataChanged = true;
             ColorIndex = newColorIndex;
         }
