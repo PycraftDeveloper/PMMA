@@ -179,6 +179,10 @@ namespace PMMA_Registry {
     string Latest_PMMA_Version = "";
     string Locale = "en-US";
 
+    std::mutex SeedGeneratorLock;
+    std::mt19937 RandomSeedGenerator;
+    std::uniform_int_distribution<uint32_t> SeedDistribution;
+
     chrono::high_resolution_clock::time_point StartupTime = chrono::high_resolution_clock::now();
 
     uint64_t ClassObject_ID_System = 0;
@@ -209,6 +213,8 @@ namespace PMMA_Registry {
 }
 
 void PMMA_Initialize() {
+    PMMA_Registry::RandomSeedGenerator.seed(std::random_device{}());
+
     PMMA_Core::LoggingManagerInstance = new CPP_LoggingManager();
 
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
@@ -282,4 +288,9 @@ void PMMA_Uninitialize() {
 
     delete PMMA_Core::LoggingManagerInstance;
     PMMA_Core::LoggingManagerInstance = nullptr;
+}
+
+uint32_t GetRandomSeed() {
+    std::lock_guard<std::mutex> lock(PMMA_Registry::SeedGeneratorLock);
+    return PMMA_Registry::SeedDistribution(PMMA_Registry::RandomSeedGenerator);
 }

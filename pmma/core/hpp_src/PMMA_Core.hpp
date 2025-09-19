@@ -13,6 +13,8 @@
 #include <array>
 #include <algorithm>
 #include <map>
+#include <random>
+#include <thread>
 
 #include "Animation/LinearAnimation.hpp"
 #include "Animation/RadialAnimation.hpp"
@@ -236,6 +238,10 @@ namespace PMMA_Registry {
     extern std::string Latest_PMMA_Version;
     extern std::string Locale;
 
+    extern std::mutex SeedGeneratorLock;
+    extern std::mt19937 RandomSeedGenerator;
+    extern std::uniform_int_distribution<uint32_t> SeedDistribution;
+
     extern std::chrono::high_resolution_clock::time_point StartupTime;
 
     extern uint64_t ClassObject_ID_System;
@@ -268,3 +274,5 @@ namespace PMMA_Registry {
 EXPORT void PMMA_Initialize();
 
 EXPORT void PMMA_Uninitialize();
+
+uint32_t GetRandomSeed();

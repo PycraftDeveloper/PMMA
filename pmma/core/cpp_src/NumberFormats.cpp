@@ -1,5 +1,15 @@
 #include "PMMA_Core.hpp"
 
+CPP_ColorFormat::CPP_ColorFormat() {
+    generator.seed(GetRandomSeed());
+    Logger = new CPP_Logger();
+}
+
+CPP_DisplayCoordinateFormat::CPP_DisplayCoordinateFormat() {
+    generator.seed(GetRandomSeed());
+    Logger = new CPP_Logger();
+}
+
 void CPP_DisplayCoordinateFormat::Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
     X_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
     Y_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);

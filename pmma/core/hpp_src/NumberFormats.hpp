@@ -45,9 +45,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         bool Configured = false;
 
     public:
-        CPP_ColorFormat() : generator(std::random_device{}()) {
-            Logger = new CPP_Logger();
-        }
+        CPP_ColorFormat();
 
         ~CPP_ColorFormat() {
             if (Configured) {
@@ -139,7 +137,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFromRandom(bool GenerateAlpha=true) {
             uint8_t in_color[4];
-            uint32_t packedColor = generator();
+            uint32_t packedColor = distribution(generator);
 
             in_color[0] = static_cast<uint8_t>((packedColor >> 24) & 0xFF); // R
             in_color[1] = static_cast<uint8_t>((packedColor >> 16) & 0xFF); // G
@@ -349,9 +347,7 @@ class EXPORT CPP_DisplayCoordinateFormat {
         bool Configured = false;
 
     public:
-        CPP_DisplayCoordinateFormat() : generator(std::random_device{}()) {
-            Logger = new CPP_Logger();
-        }
+        CPP_DisplayCoordinateFormat();
 
         ~CPP_DisplayCoordinateFormat() {
             if (Configured) {
