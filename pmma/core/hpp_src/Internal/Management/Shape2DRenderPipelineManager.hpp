@@ -49,9 +49,9 @@ class CPP_Shape2D_RenderPipelineManager {
         unsigned int ColorIndexesChanged = 0;
         unsigned int m_vertexCount = 0;
 
-        ska::flat_hash_map<unsigned int, float> ColorSlotID; // objectColorSlot
-        ska::flat_hash_set<unsigned int> SeenThisFrame;
-        std::vector<float> FreeSlots;
+        ska::flat_hash_map<uint64_t, float> ColorSlotID; // objectColorSlot
+        ska::flat_hash_set<uint64_t> SeenThisFrame;
+        std::vector<size_t> FreeSlots;
 
         bgfx::VertexLayout m_layout;
         bgfx::DynamicVertexBufferHandle m_vbh;
@@ -61,7 +61,6 @@ class CPP_Shape2D_RenderPipelineManager {
         uint32_t m_colorTextureWidth = 0;
         uint32_t m_colorTextureHeight = 0;
 
-        unsigned int PaddingStartPosition = 0;
         unsigned int LiveVertexCount = 0;
         unsigned int LiveColorCount = 0;
 
@@ -155,85 +154,93 @@ class CPP_Shape2D_RenderPipelineManager {
 
         void InternalRender();
 
-        inline float GetColorIndex(uint8_t* Color, unsigned int ShapeID) {
+        inline float GetColorIndex(uint8_t* Color, uint64_t ShapeID) {
             if (!UsingComplexColorInsertion) {
-                size_t size_of_shape_colors = (size_t)shape_colors.size();
+                // fast path: append (or overwrite if capacity exists) and return next index
+                size_t needBytes = (size_t)LiveColorCount + 4;
 
-                float index = (float)size_of_shape_colors;
-
-                if (size_of_shape_colors > LiveColorCount + 4) {
-                    shape_colors[LiveColorCount] = Color[0];
-                    shape_colors[LiveColorCount + 1] = Color[1];
-                    shape_colors[LiveColorCount + 2] = Color[2];
-                    shape_colors[LiveColorCount + 3] = Color[3];
-                } else {
-                    shape_colors.resize(size_of_shape_colors + 4);
-
-                    shape_colors[LiveColorCount] = Color[0];
-                    shape_colors[LiveColorCount + 1] = Color[1];
-                    shape_colors[LiveColorCount + 2] = Color[2];
-                    shape_colors[LiveColorCount + 3] = Color[3];
+                if (shape_colors.size() < needBytes) {
+                    // ensure there's space for the 4 bytes we will write
+                    shape_colors.resize(needBytes);
                 }
+
+                // write the 4 color bytes
+                shape_colors[LiveColorCount]     = Color[0];
+                shape_colors[LiveColorCount + 1] = Color[1];
+                shape_colors[LiveColorCount + 2] = Color[2];
+                shape_colors[LiveColorCount + 3] = Color[3];
+
+                // compute slot index (slot is number of color entries before this write)
+                unsigned int slotIndex = static_cast<unsigned int>(LiveColorCount / 4);
 
                 LiveColorCount += 4;
 
-                return LiveColorCount / 4.0f;
+                std::cout << "A" << std::endl;
+
+                return static_cast<float>(slotIndex);
             }
 
+            std::cout << "B" << std::endl;
+
+            // --- Complex insertion path: try to preserve indexes ---
             SeenThisFrame.insert(ShapeID);
 
             auto found = ColorSlotID.find(ShapeID);
             if (found != ColorSlotID.end()) {
-                float slot = found->second;
-                size_t offset = static_cast<size_t>(slot) * 4;
-
-                if (shape_colors[offset + 0] != Color[0] ||
-                    shape_colors[offset + 1] != Color[1] ||
-                    shape_colors[offset + 2] != Color[2] ||
-                    shape_colors[offset + 3] != Color[3])
-                {
-                    shape_colors[offset + 0] = Color[0];
-                    shape_colors[offset + 1] = Color[1];
-                    shape_colors[offset + 2] = Color[2];
-                    shape_colors[offset + 3] = Color[3];
+                // already have a slot for this shape: overwrite it
+                unsigned int slotIndex = found->second;
+                size_t offset = static_cast<size_t>(slotIndex) * 4;
+                if (shape_colors.size() < offset + 4) {
+                    shape_colors.resize(offset + 4);
                 }
 
-                return (float)(slot);
+                shape_colors[offset]     = Color[0];
+                shape_colors[offset + 1] = Color[1];
+                shape_colors[offset + 2] = Color[2];
+                shape_colors[offset + 3] = Color[3];
+
+                LiveColorCount += 4;
+                return static_cast<float>(slotIndex);
             }
 
-            float newSlot;
+            // not seen before: reuse a free slot if available
             if (!FreeSlots.empty()) {
-                newSlot = FreeSlots.back();
+                unsigned int newSlot = FreeSlots.back();
                 FreeSlots.pop_back();
-                size_t offset = static_cast<size_t>(newSlot) * 4;
 
-                // Overwrite existing slot (whether real or padded)
-                shape_colors[offset + 0] = Color[0];
+                size_t offset = static_cast<size_t>(newSlot) * 4;
+                if (shape_colors.size() < offset + 4) {
+                    // pad vector so the slot exists (could be reusing a previously freed high index)
+                    shape_colors.resize(offset + 4);
+                }
+
+                shape_colors[offset]     = Color[0];
                 shape_colors[offset + 1] = Color[1];
                 shape_colors[offset + 2] = Color[2];
                 shape_colors[offset + 3] = Color[3];
 
                 ColorSlotID[ShapeID] = newSlot;
 
-                return newSlot;
-            } else {
-                size_t offset = shape_colors.size();
-
-                if (offset < PaddingStartPosition) {
-                    shape_colors.insert(shape_colors.end(), Color, Color + 4);
-                } else {
-                    // We're inside padded region—overwrite instead
-                    shape_colors[offset + 0] = Color[0];
-                    shape_colors[offset + 1] = Color[1];
-                    shape_colors[offset + 2] = Color[2];
-                    shape_colors[offset + 3] = Color[3];
-
-                    PaddingStartPosition = (unsigned int)offset + 4;
-                }
-
-                ColorSlotID[ShapeID] = newSlot;
-                return (float)(offset);
+                LiveColorCount += 4;
+                return static_cast<float>(newSlot);
             }
+
+            // no free slots: append at the end
+            size_t needBytes = (size_t)LiveColorCount + 4;
+            if (shape_colors.size() < needBytes) {
+                shape_colors.resize(needBytes);
+            }
+
+            shape_colors[LiveColorCount]     = Color[0];
+            shape_colors[LiveColorCount + 1] = Color[1];
+            shape_colors[LiveColorCount + 2] = Color[2];
+            shape_colors[LiveColorCount + 3] = Color[3];
+
+            unsigned int slotIndex = static_cast<unsigned int>(LiveColorCount / 4);
+            ColorSlotID[ShapeID] = slotIndex;
+
+            LiveColorCount += 4;
+            return static_cast<float>(slotIndex);
         }
 
         template<typename T>

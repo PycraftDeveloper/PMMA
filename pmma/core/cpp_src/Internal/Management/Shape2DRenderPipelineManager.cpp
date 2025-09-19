@@ -65,14 +65,11 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     }
 
     if (ColorDataChanged) {
-        if (!UsingComplexColorInsertion) {
-            shape_colors.resize(LiveColorCount);
-        }
+        shape_colors.resize(LiveColorCount);
+
         uint32_t numColors = (uint32_t)shape_colors.size() / 4;
         uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
         uint32_t height = (numColors + width - 1) / width;
-
-        PaddingStartPosition = shape_colors.size();
 
         size_t expectedSize = width * height * 4;
         if (shape_colors.size() < expectedSize) {
