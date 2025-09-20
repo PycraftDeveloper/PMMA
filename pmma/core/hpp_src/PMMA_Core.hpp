@@ -57,6 +57,7 @@
 #include "NumberFormats.hpp"
 #include "Passport.hpp"
 #include "PerlinNoise.hpp"
+#include "Random.hpp"
 
 /*
 Notes:

@@ -64,6 +64,7 @@ set(CORE_SOURCES
     "${SRC_DIR}/Passport.cpp"
     "${SRC_DIR}/PerlinNoise_BASE.cpp"
     "${SRC_DIR}/PMMA_Core.cpp"
+    "${SRC_DIR}/Random.cpp"
 )
 
 # ---- Shared Compiler Params ------------------------------------------

@@ -9,10 +9,11 @@
 #include "AdvancedMathematics.hpp"
 #include "NumberConverter.hpp"
 #include "Logger.hpp"
+#include "Random.hpp"
 
 class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
     private:
-        CPP_Logger* Logger;
+        CPP_Logger* Logger = nullptr;
 
         CPP_PerlinNoise* R_PerlinNoiseGenerator = nullptr;
         CPP_PerlinNoise* G_PerlinNoiseGenerator = nullptr;
@@ -24,8 +25,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         CPP_FractalBrownianMotion* B_FractalBrownianMotionGenerator = nullptr;
         CPP_FractalBrownianMotion* A_FractalBrownianMotionGenerator = nullptr;
 
-        std::mt19937 generator;
-        std::uniform_int_distribution<uint32_t> distribution;
+        CPP_FastRandom* RandomColorGenerator = nullptr;
 
         uint32_t seed;
         uint32_t octaves;
@@ -70,6 +70,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
                 A_FractalBrownianMotionGenerator = nullptr;
             }
 
+            delete RandomColorGenerator;
+            RandomColorGenerator = nullptr;
+
             delete Logger;
             Logger = nullptr;
         }
@@ -85,8 +88,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             B_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 2, new_octaves, new_frequency, new_amplitude);
             A_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 3, new_octaves, new_frequency, new_amplitude);
 
-            generator.seed(new_seed);
-            distribution = std::uniform_int_distribution<uint32_t>(0, 255);
+            RandomColorGenerator->SetSeed(new_seed);
 
             seed = new_seed;
             octaves = new_octaves;
@@ -137,7 +139,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFromRandom(bool GenerateAlpha=true) {
             uint8_t in_color[4];
-            uint32_t packedColor = distribution(generator);
+            uint32_t packedColor = RandomColorGenerator->Next();
 
             in_color[0] = static_cast<uint8_t>((packedColor >> 24) & 0xFF); // R
             in_color[1] = static_cast<uint8_t>((packedColor >> 16) & 0xFF); // G
@@ -150,7 +152,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             }
 
             Set_RGBA(in_color);
-            }
+        }
 
         inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha=true) {
             if (!Configured) {
@@ -317,7 +319,7 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
 class EXPORT CPP_DisplayCoordinateFormat {
     private:
-        CPP_Logger* Logger;
+        CPP_Logger* Logger = nullptr;
 
         CPP_PerlinNoise* X_PerlinNoiseGenerator = nullptr;
         CPP_PerlinNoise* Y_PerlinNoiseGenerator = nullptr;
@@ -327,9 +329,8 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
         float DisplayCoordinate[2] = {0.f, 0.f}; // Default display coordinate is (0, 0)
 
-        std::mt19937 generator;
-        std::uniform_int_distribution<int> x_distribution;
-        std::uniform_int_distribution<int> y_distribution;
+        CPP_FastRandom* RandomCoordGenerator = nullptr;
+        int DisplaySize[2];
 
         uint32_t seed;
         uint32_t octaves;
@@ -363,6 +364,9 @@ class EXPORT CPP_DisplayCoordinateFormat {
                 X_FractalBrownianMotionGenerator = nullptr;
                 Y_FractalBrownianMotionGenerator = nullptr;
             }
+
+            delete RandomCoordGenerator;
+            RandomCoordGenerator = nullptr;
 
             delete Logger;
             Logger = nullptr;

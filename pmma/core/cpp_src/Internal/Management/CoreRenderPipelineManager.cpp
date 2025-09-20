@@ -81,33 +81,29 @@ void CPP_RenderPipelineCore::AddObject(CPP_TextRenderer* RenderObject) {
         if (Text_RenderManagerCache.empty()) {
             RenderData.emplace_back(new CPP_TextRendererPipelineManager());
 
-            auto& newVariant = RenderData.back();
-            if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&newVariant)) {
-                (*newManagerPtr)->DelayedSetup(RenderObject->Font, RenderObject->Size);
-                (*newManagerPtr)->AddRenderTarget(RenderObject);
-                return;
-            }
+            auto& manager = *std::get<CPP_TextRendererPipelineManager*>(RenderData.back());
+            manager.DelayedSetup(RenderObject->Font, RenderObject->Size);
+            manager.AddRenderTarget(RenderObject);
+            return;
         } else {
             for (unsigned int i = 0; i < Text_RenderManagerCache.size(); i++) {
                 if (Text_RenderManagerCache[i]->Font == RenderObject->Font && Text_RenderManagerCache[i]->PixelHeight == RenderObject->Size) {
                     RenderData.emplace_back(Text_RenderManagerCache[i]);
                     Text_RenderManagerCache.erase(Text_RenderManagerCache.begin() + i);
-                    auto& newVariant = RenderData.back();
-                    if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&newVariant)) {
-                        (*newManagerPtr)->AddRenderTarget(RenderObject);
-                    }
+
+                    auto& manager = *std::get<CPP_TextRendererPipelineManager*>(RenderData.back());
+                    manager.AddRenderTarget(RenderObject);
+
                     return;
                 }
             }
 
             RenderData.emplace_back(new CPP_TextRendererPipelineManager());
 
-            auto& newVariant = RenderData.back();
-            if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&newVariant)) {
-                (*newManagerPtr)->DelayedSetup(RenderObject->Font, RenderObject->Size);
-                (*newManagerPtr)->AddRenderTarget(RenderObject);
-                return;
-            }
+            auto& manager = *std::get<CPP_TextRendererPipelineManager*>(RenderData.back());
+            manager.DelayedSetup(RenderObject->Font, RenderObject->Size);
+            manager.AddRenderTarget(RenderObject);
+            return;
         }
     }
 }

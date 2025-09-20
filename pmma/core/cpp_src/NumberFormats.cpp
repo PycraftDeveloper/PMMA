@@ -1,13 +1,24 @@
 #include "PMMA_Core.hpp"
 
 CPP_ColorFormat::CPP_ColorFormat() {
-    generator.seed(GetRandomSeed());
+    RandomColorGenerator = new CPP_FastRandom();
     Logger = new CPP_Logger();
 }
 
 CPP_DisplayCoordinateFormat::CPP_DisplayCoordinateFormat() {
-    generator.seed(GetRandomSeed());
+    if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
+        throw runtime_error("Display not created yet!");
+    }
+
+    RandomCoordGenerator = new CPP_FastRandom();
     Logger = new CPP_Logger();
+
+    PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 }
 
 void CPP_DisplayCoordinateFormat::Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
@@ -17,9 +28,7 @@ void CPP_DisplayCoordinateFormat::Configure(uint32_t new_seed, uint32_t new_octa
     X_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
     Y_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, new_octaves, new_frequency, new_amplitude);
 
-    generator.seed(new_seed);
-    x_distribution = std::uniform_int_distribution<int>(0, PMMA_Core::DisplayInstance->GetWidth());
-    y_distribution = std::uniform_int_distribution<int>(0, PMMA_Core::DisplayInstance->GetHeight());
+    RandomCoordGenerator->SetSeed(new_seed);
 
     seed = new_seed;
     octaves = new_octaves;
@@ -39,13 +48,12 @@ You can do this using `Display.create`."
     }
 
     if (PMMA_Core::DisplayInstance->DisplaySizeChanged) {
-        x_distribution = std::uniform_int_distribution<int>(0, PMMA_Core::DisplayInstance->GetWidth());
-        y_distribution = std::uniform_int_distribution<int>(0, PMMA_Core::DisplayInstance->GetHeight());
+        PMMA_Core::DisplayInstance->GetSize(DisplaySize);
     }
 
     float new_coord[2];
-    new_coord[0] = static_cast<float>(x_distribution(generator));
-    new_coord[1] = static_cast<float>(y_distribution(generator));
+    new_coord[0] = RandomCoordGenerator->Next(DisplaySize[0]);
+    new_coord[1] = RandomCoordGenerator->Next(DisplaySize[1]);
 
     Set(new_coord);
 }

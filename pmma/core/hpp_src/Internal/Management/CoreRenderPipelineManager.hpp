@@ -54,13 +54,9 @@ class CPP_RenderPipelineCore {
                 }
             }
 
-            auto& lastVariant = RenderData.back();
-
             if (RenderPipelineCompatable) {
-                // Try to extract the CPP_Shape2D_RenderPipelineManager*
-                if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&lastVariant)) {
-                    (*managerPtr)->AddRenderTarget(RenderObject, ColorIndexChanged);
-                }
+                auto& manager = *std::get<CPP_Shape2D_RenderPipelineManager*>(RenderData.back());
+                manager.AddRenderTarget(RenderObject, ColorIndexChanged);
             } else {
                 RenderData.emplace_back(RenderObject);
             }
@@ -78,8 +74,7 @@ class CPP_RenderPipelineCore {
                 }
             }
 
-            auto& lastVariant = RenderData.back();
-            if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&lastVariant)) {
+            if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData.back())) {
                 if ((*managerPtr)->shape_colors.size() < MaxSize) {
                     return (*managerPtr)->GetColorIndex(Color, ShapeID);
                 } else {
@@ -91,8 +86,7 @@ class CPP_RenderPipelineCore {
                         RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
                     }
 
-                    auto& newVariant = RenderData.back();
-                    if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
+                    if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData.back())) {
                         return (*newManagerPtr)->GetColorIndex(Color, ShapeID);
                     }
                 }
@@ -105,10 +99,8 @@ class CPP_RenderPipelineCore {
                     RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
                 }
 
-                auto& newVariant = RenderData.back();
-                if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&newVariant)) {
-                    return (*newManagerPtr)->GetColorIndex(Color, ShapeID);
-                }
+                auto& manager = *std::get<CPP_Shape2D_RenderPipelineManager*>(RenderData.back());
+                manager.GetColorIndex(Color, ShapeID);
             }
 
             return 0; // fallback
