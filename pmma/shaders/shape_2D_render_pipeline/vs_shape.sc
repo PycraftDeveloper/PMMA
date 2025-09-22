@@ -1,8 +1,7 @@
 $input a_position, a_texcoord0
 $output v_shapeIndex
 
-#include <bgfx_shader.sh>
-#include "shaderlib.sh"
+#include "common.sh"
 
 uniform mat4 OrthDisplayProj;
 
