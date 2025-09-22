@@ -24,6 +24,7 @@ class CPP_Shader {
         std::string CompiledFragmentShaderPath = "";
 
         bool IsCompiled = false;
+        bool IsInternalShader = false;
 
         void CompileShader(bool InternalShader);
 

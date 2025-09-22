@@ -55,3 +55,4 @@ Notes:
 46 - Operating System name
 47 - Shader profile
 48 - Filesystem error
+49 - Shader compilation failed

@@ -56,10 +56,51 @@ void CPP_Shader::CompileShaderComponent(string RawFilePath, string CompiledFileP
         filesystem::create_directories(filesystem::path(CompiledFilePath).parent_path());
     }
 
-    system(command.c_str());
+    bool DontRepeatOutput = false;
+
+    try {
+        if (system(command.c_str()) != 0) {
+            DontRepeatOutput = true;
+
+            if (IsInternalShader){
+                PMMA_Core::LoggingManagerInstance->InternalLogError(
+                    49,
+                    "PMMA was unable to compile the following shader: '" +
+                    RawFilePath + "'. This is a shader that comes included \
+with PMMA, so please report this issue to us here: \
+'https://github.com/PycraftDeveloper/PMMA/issues' so we can fix the issue. \
+We would also greatly appreciate it if you could include all information/debug/warn/error \
+logs from your application run to help us diagnose the issue as it could \
+be specific to a single platform or graphics backend. Thank you!");
+            } else {
+                PMMA_Core::LoggingManagerInstance->InternalLogError(
+                    49,
+                    "Shader compilation failed for '" + RawFilePath +
+                    "' with command: '" + command + "'\n\n" +
+                    "To diagnose this shader compilation issue, please run the \
+command listed above in your system terminal/command prompt directly."
+                );
+            }
+            throw std::runtime_error("Shader compilation failed for '" +
+                RawFilePath + "' with command: '" + command + "'.");
+        }
+    } catch (const std::exception& e) {
+        if (!DontRepeatOutput) {
+            PMMA_Core::LoggingManagerInstance->InternalLogError(
+                49,
+                "Shader compilation failed: '" + string(e.what()) + "'."
+            );
+            throw std::runtime_error("Shader compilation failed for '" +
+                RawFilePath + "' with command: '" + command +
+                "'\nError: '" + string(e.what()) + "'.");
+        }
+        exit(49);
+    }
 }
 
 void CPP_Shader::CompileShader(bool InternalShader) {
+    IsInternalShader = InternalShader;
+
     std::string PlatformName = CPP_General::GetOperatingSystem();
 
     if (RawVertexShaderPath != "") {

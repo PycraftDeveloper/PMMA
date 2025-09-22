@@ -1,14 +1,7 @@
-$input v_texcoord, v_fg, v_bg
+$input v_uv, v_color0
+SAMPLER2D(u_fontAtlas, 0);
 
-#include "common.sh"
-
-SAMPLER2D(s_tex, 0);
-
-void main()
-{
-    float mask = texture2D(s_tex, v_texcoord).r;
-
-    vec4 col = mix(v_bg, v_fg, mask);
-
-    gl_FragColor = col;
+void main() {
+    float alpha = texture2D(u_fontAtlas, v_uv).r;
+    gl_FragColor = v_color0 * alpha;
 }
