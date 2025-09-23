@@ -25,7 +25,7 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
     for (unsigned int i = 0; i < RenderData.size(); ++i) {
         if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData[i])) {
             delete (*newManagerPtr);
-        } else if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&RenderData[i])) {
+        } else if (CPP_TextRenderPipelineManager** newManagerPtr = std::get_if<CPP_TextRenderPipelineManager*>(&RenderData[i])) {
             delete (*newManagerPtr);
         }
     }
@@ -68,7 +68,7 @@ void CPP_RenderPipelineCore::Reset() {
         if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData[i])) {
             (*newManagerPtr)->Reset();
             Shape_2D_RenderManagerCache.emplace_back(*newManagerPtr);
-        } else if (CPP_TextRendererPipelineManager** newManagerPtr = std::get_if<CPP_TextRendererPipelineManager*>(&RenderData[i])) {
+        } else if (CPP_TextRenderPipelineManager** newManagerPtr = std::get_if<CPP_TextRenderPipelineManager*>(&RenderData[i])) {
             (*newManagerPtr)->Reset();
             Text_RenderManagerCache.emplace_back(*newManagerPtr);
         }
@@ -79,28 +79,28 @@ void CPP_RenderPipelineCore::Reset() {
 void CPP_RenderPipelineCore::AddObject(CPP_TextRenderer* RenderObject) {
     if (RenderData.empty()) {
         if (Text_RenderManagerCache.empty()) {
-            RenderData.emplace_back(new CPP_TextRendererPipelineManager());
+            RenderData.emplace_back(new CPP_TextRenderPipelineManager());
 
-            auto& manager = *std::get<CPP_TextRendererPipelineManager*>(RenderData.back());
+            auto& manager = *std::get<CPP_TextRenderPipelineManager*>(RenderData.back());
             manager.DelayedSetup(RenderObject->Font, RenderObject->Size);
             manager.AddRenderTarget(RenderObject);
             return;
         } else {
             for (unsigned int i = 0; i < Text_RenderManagerCache.size(); i++) {
-                if (Text_RenderManagerCache[i]->Font == RenderObject->Font && Text_RenderManagerCache[i]->PixelHeight == RenderObject->Size) {
+                if (Text_RenderManagerCache[i]->FontPath == RenderObject->Font && Text_RenderManagerCache[i]->PixelHeight == RenderObject->Size) {
                     RenderData.emplace_back(Text_RenderManagerCache[i]);
                     Text_RenderManagerCache.erase(Text_RenderManagerCache.begin() + i);
 
-                    auto& manager = *std::get<CPP_TextRendererPipelineManager*>(RenderData.back());
+                    auto& manager = *std::get<CPP_TextRenderPipelineManager*>(RenderData.back());
                     manager.AddRenderTarget(RenderObject);
 
                     return;
                 }
             }
 
-            RenderData.emplace_back(new CPP_TextRendererPipelineManager());
+            RenderData.emplace_back(new CPP_TextRenderPipelineManager());
 
-            auto& manager = *std::get<CPP_TextRendererPipelineManager*>(RenderData.back());
+            auto& manager = *std::get<CPP_TextRenderPipelineManager*>(RenderData.back());
             manager.DelayedSetup(RenderObject->Font, RenderObject->Size);
             manager.AddRenderTarget(RenderObject);
             return;

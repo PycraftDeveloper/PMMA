@@ -14,7 +14,7 @@
 
 using RawRenderObject = std::variant<
     CPP_Shape2D_RenderPipelineManager*,
-    CPP_TextRendererPipelineManager*,
+    CPP_TextRenderPipelineManager*,
     CPP_RadialPolygonShape*,
     CPP_RectangleShape*,
     CPP_PixelShape*,
@@ -28,7 +28,7 @@ class CPP_Shader;
 class CPP_RenderPipelineCore {
     public:
         std::vector<CPP_Shape2D_RenderPipelineManager*> Shape_2D_RenderManagerCache;
-        std::vector<CPP_TextRendererPipelineManager*> Text_RenderManagerCache;
+        std::vector<CPP_TextRenderPipelineManager*> Text_RenderManagerCache;
         std::vector<RawRenderObject> RenderData;
 
         bgfx::UniformHandle OrthDisplayProj;

@@ -11,6 +11,11 @@ You can do this using `Display.create`."
         );
         throw runtime_error("Display not created yet!");
     }
+
+    ID = PMMA_Registry::ClassObject_ID_System++;
+
+    ForegroundColor = new CPP_ColorFormat();
+    BackgroundColor = new CPP_ColorFormat();
 }
 
 void CPP_TextRenderer::Render() {

@@ -25,5 +25,5 @@ void main() {
     vec4 ForegroundColor = texture2D(s_ForegroundColorTex, color_uv);
     vec4 BackgroundColor = texture2D(s_BackgroundColorTex, color_uv);
 
-    gl_FragColor = mix(ForegroundColor, BackgroundColor, alpha);
+    gl_FragColor = mix(ForegroundColor, BackgroundColor, 1-alpha);
 }
