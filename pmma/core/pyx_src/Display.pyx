@@ -218,7 +218,7 @@ cdef class Display:
         cdef:
             string encoded_caption = caption.encode('utf-8')
 
-        self.cpp_class_ptr.SetCaption(caption)
+        self.cpp_class_ptr.SetCaption(encoded_caption)
 
     def get_caption(self):
         cdef string cpp_str = self.cpp_class_ptr.GetCaption()
