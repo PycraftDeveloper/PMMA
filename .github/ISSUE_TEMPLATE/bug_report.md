@@ -1,9 +1,9 @@
 ---
 name: Bug report
-about: Create a report to help us improve
-title: ''
-labels: ''
-assignees: ''
+about: Have you spotted a problem with PMMA that needs fixing? Use this to let us know!
+title: Bug Report
+labels: bug
+assignees: PycraftDeveloper
 
 ---
 
