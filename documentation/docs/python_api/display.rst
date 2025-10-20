@@ -36,7 +36,7 @@ Methods
 
 .. py:method:: Display.center_window() -> None
 
-    🟩 **R** -
+    This method is used to position the window centrally in the monitor the window was first created on.
 
 .. py:method:: Display.clear() -> None
 
