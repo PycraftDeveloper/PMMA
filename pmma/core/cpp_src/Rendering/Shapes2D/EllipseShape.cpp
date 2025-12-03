@@ -91,10 +91,12 @@ API to set it.");
             unsigned int InternalPointCount = PointCount;
             unsigned int Radius = CPP_AdvancedMathematics::PythagoreanDistance(ShapeSize.x, ShapeSize.y);
 
-            if (PointCount == 0) {
-                float minAngle = asin(1.0f / Radius);
-                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+            float minAngle = asin(1.0f / Radius);
+            unsigned int MaxPoints = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+            if (InternalPointCount > MaxPoints || InternalPointCount < 3) {
+                InternalPointCount = MaxPoints;
             }
+
             float angleStep = CPP_Constants::TAU / InternalPointCount;
 
             unsigned int outer_radius = Radius;

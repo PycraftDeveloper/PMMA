@@ -108,7 +108,7 @@ API to set it.");
 
         if (VertexDataChanged) {
             unsigned int InternalPointCount = PointCount;
-            if (PointCount == 0) {
+            if (PointCount < 3) {
                 float minAngle = asin(1.0f / Radius);
                 float angle_scale = (EndAngle - StartAngle)/(CPP_Constants::TAU);
                 if (angle_scale <= 0) {
@@ -120,6 +120,12 @@ API to set it.");
                     InternalPointCount = max(
                         3,
                         static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality * angle_scale));
+                }
+            } else {
+                float minAngle = asin(1.0f / Radius);
+                unsigned int MaxPoints = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+                if (InternalPointCount > MaxPoints) {
+                    InternalPointCount = MaxPoints;
                 }
             }
 

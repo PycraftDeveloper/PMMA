@@ -92,11 +92,11 @@ API to set it.");
 
         if (VertexDataChanged) {
             unsigned int InternalPointCount = PointCount;
-            if (PointCount == 0) {
-                float minAngle = asin(1.0f / Radius);
-                InternalPointCount = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+            float minAngle = asin(1.0f / Radius);
+            unsigned int MaxPoints = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+            if (InternalPointCount > MaxPoints || InternalPointCount < 3) {
+                InternalPointCount = MaxPoints;
             }
-
             float angleStep = CPP_Constants::TAU / InternalPointCount;
 
             unsigned int outer_radius = Radius;
