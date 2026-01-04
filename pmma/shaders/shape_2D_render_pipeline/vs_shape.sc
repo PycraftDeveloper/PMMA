@@ -7,7 +7,7 @@ uniform mat4 OrthDisplayProj;
 
 void main()
 {
-    v_shapeIndex = a_texcoord0.x;
+    v_shapeIndex = a_texcoord0;
 
     gl_Position = mul(OrthDisplayProj, vec4(a_position.xy, 0.0, 1.0));
 }

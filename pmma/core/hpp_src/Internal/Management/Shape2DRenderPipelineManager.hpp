@@ -31,10 +31,12 @@ using Shape2D_RenderObject = std::variant<
     CPP_EllipseShape*,
     CPP_ArcShape*>;
 
+#pragma pack(push, 1)
 struct Vertex {
     float x, y;      // position
-    float s; float t = 0.f;      // texcoord (s = shape index as float, t unused)
+    float s;      // texcoord (s = shape index as float, t unused)
 };
+#pragma pack(pop)
 
 class CPP_Shape2D_RenderPipelineManager {
     public:

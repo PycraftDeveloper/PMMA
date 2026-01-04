@@ -13,7 +13,7 @@ CPP_Shape2D_RenderPipelineManager::CPP_Shape2D_RenderPipelineManager() {
     // create vertex layout
     m_layout.begin()
         .add(bgfx::Attrib::Position, 2, bgfx::AttribType::Float)
-        .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
+        .add(bgfx::Attrib::TexCoord0, 1, bgfx::AttribType::Float)
         .end();
 
     // initial handles are BGFX_INVALID_HANDLE
