@@ -228,50 +228,58 @@ class CPP_Shape2D_RenderPipelineManager {
             const size_t currentIndex = InsertionIndex;
             size_t insertPos = LiveVertexCount; // default append
 
-            // Fast-path: shape unchanged, previous data valid → skip rewrite
+            // Pointers to combined_vertexes for maximum speed
+            Vertex* base = combined_vertexes.data();
+            Vertex* writePtr = base + LiveVertexCount;
+
+            const auto& vertices = TargetPtr->Shape2D_RenderPipelineData;
+            const size_t verticesCount = vertices.size();
+
+            // FAST-PATH: shape unchanged, previous data valid → skip rewrite
             if (currentIndex < PreviousRenderContent.size()) {
                 const auto& [existingID, existingOffset] = PreviousRenderContent[currentIndex];
                 if (TargetPtr->ID == existingID && !ShapeVertexDataChanged && PreviousFrameDataValid) {
 
-                    if (currentIndex > 0 && TargetPtr->Shape2D_RenderPipelineData.size() >= 2 && LiveVertexCount > 0) {
-                        const auto& vertices = TargetPtr->Shape2D_RenderPipelineData;
-                        if (combined_vertexes.size() < LiveVertexCount + 2) {
+                    if (currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) {
+                        // Ensure enough capacity
+                        if (LiveVertexCount + 2 > combined_vertexes.size()) {
                             combined_vertexes.resize(LiveVertexCount + 2);
+                            base = combined_vertexes.data();
+                            writePtr = base + LiveVertexCount;
                         }
-                        combined_vertexes[LiveVertexCount++] = combined_vertexes[LiveVertexCount - 1];
-                        combined_vertexes[LiveVertexCount++] = vertices[0];
+
+                        // Degenerate join
+                        *writePtr++ = *(writePtr - 1); // repeat last vertex
+                        *writePtr++ = vertices[0];     // first vertex of this shape
                     }
 
                     InsertionIndex++;
-                    LiveVertexCount = (unsigned int)(existingOffset + TargetPtr->Shape2D_RenderPipelineData.size());
+                    LiveVertexCount = static_cast<unsigned int>(existingOffset + verticesCount);
                     return;
                 }
             }
 
-            const auto& vertices = TargetPtr->Shape2D_RenderPipelineData;
-
-            // Ensure enough capacity — only grow, never shrink here
-            if (combined_vertexes.size() < insertPos + vertices.size() + 2) {
-                combined_vertexes.resize(insertPos + vertices.size() + 2);
+            // Ensure enough capacity for degenerate joins + new vertices
+            size_t requiredSize = LiveVertexCount + ((currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) ? 2 : 0) + verticesCount;
+            if (combined_vertexes.size() < requiredSize) {
+                combined_vertexes.resize(requiredSize);
+                base = combined_vertexes.data();
+                writePtr = base + LiveVertexCount;
             }
 
-            size_t writePos = insertPos;
-
-            // Optional: add degenerate join for continuity
-            if (currentIndex > 0 && vertices.size() >= 2 && writePos > 0) {
-                combined_vertexes[writePos++] = combined_vertexes[writePos - 1];
-                combined_vertexes[writePos++] = vertices[0];
+            // Degenerate join if needed
+            if (currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) {
+                *writePtr++ = *(writePtr - 1);
+                *writePtr++ = vertices[0];
             }
 
-            // Copy new vertices directly
-            std::memcpy(
-                combined_vertexes.data() + writePos,
-                vertices.data(),
-                vertices.size() * sizeof(Vertex)
-            );
+            // Copy new vertices in bulk
+            std::memcpy(writePtr, vertices.data(), verticesCount * sizeof(Vertex));
+            writePtr += verticesCount;
 
-            const size_t shapeStartIndex = writePos;
+            const size_t shapeStartIndex = insertPos;
 
+            // Update PreviousRenderContent
             if (currentIndex < PreviousRenderContent.size()) {
                 PreviousRenderContent[currentIndex] = { TargetPtr->ID, static_cast<unsigned int>(shapeStartIndex) };
             } else {
@@ -279,6 +287,6 @@ class CPP_Shape2D_RenderPipelineManager {
             }
 
             InsertionIndex++;
-            LiveVertexCount = (unsigned int)(writePos + vertices.size());
+            LiveVertexCount = static_cast<unsigned int>(writePtr - base);
         }
 };
