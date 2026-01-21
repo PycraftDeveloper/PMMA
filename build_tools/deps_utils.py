@@ -44,9 +44,9 @@ def merge_subdir(src_subdir, dest_root):
                 dest_item.parent.mkdir(parents=True, exist_ok=True)
                 shutil.copy2(item, dest_item)
 
-        ts_print(f"Merged {src_subdir} -> {dest_subdir}")
+        ts_print(f"Merged '{src_subdir}' -> '{dest_subdir}'")
     except Exception as error:
-        ts_print(f"Error merging {src_subdir}: {error}")
+        ts_print(f"Error merging '{src_subdir}': {error}")
         Context.abort = True
         sys.exit(-1)
 
@@ -55,7 +55,7 @@ def merge_all_subdirs(src_root, dest_root):
     dest_root = pathlib.Path(dest_root)
 
     if not src_root.exists():
-        ts_print(f"Source directory {src_root} does not exist.")
+        ts_print(f"Source directory '{src_root}' does not exist.")
         return
 
     threads = []
@@ -124,4 +124,4 @@ def selective_removal(directory, keep_items):
                 try:
                     os.rmdir(item_path)
                 except Exception as e:
-                    ts_print(f"Could not delete directory: {item_path} - {e}")
+                    ts_print(f"Could not delete directory: '{item_path}': {e}")

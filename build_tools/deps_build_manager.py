@@ -23,11 +23,11 @@ class DependencyBuildManager:
 
         if not os.path.exists(join_path(cmake_build_cache_dir, 'dependencies', name, 'build')):
             rebuild = True
-            ts_print(f"{name} needs rebuild because it has no existing build cached build.")
+            ts_print(f"'{name}' needs rebuild because it has no existing build cached build.")
 
         if not rebuild and previous_hashes == {}:
             rebuild = True
-            ts_print(f"{name} needs rebuild because there is no previous hash data.")
+            ts_print(f"'{name}' needs rebuild because there is no previous hash data.")
 
         if not rebuild:
             copied_dependencies = dependencies
@@ -38,11 +38,11 @@ class DependencyBuildManager:
                     dependencies.append(dependant)
 
             if rebuild:
-                ts_print(f"{name} needs rebuild because {dependant} was rebuilt.")
+                ts_print(f"'{name}' needs rebuild because {dependant} was rebuilt.")
 
         if not rebuild and name in previous_hashes:
             if hash_component(name) == previous_hashes[name]:
-                ts_print(f"Skipping {name}, no changes detected.")
+                ts_print(f"Skipping '{name}' - no changes detected.")
                 merge_all_subdirs(
                     join_path(build_cache_dir, 'cmake', 'dependencies', name, 'build'),
                     extern_dir)
@@ -50,7 +50,7 @@ class DependencyBuildManager:
                 return
             else:
                 rebuild = True
-                ts_print(f"{name} needs rebuild because its hash changed.")
+                ts_print(f"'{name}' needs rebuild because its hash changed.")
 
         shutil.rmtree(join_path(cmake_dir, 'dependencies', name, 'build'), ignore_errors=True)
 

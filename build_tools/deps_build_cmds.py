@@ -7,7 +7,7 @@ from deps_utils import *
 
 def configure(self, component):
     folder = join_path(cwd, self.base_dir, component)
-    ts_print(f"Internally setting up build environment for: {component}...")
+    ts_print(f"Internally setting up build environment for: '{component}'...")
 
     config_log_file = join_path(temporary_logging_dir, f"dependencies/{component}-config.log")
 
@@ -22,7 +22,7 @@ def configure(self, component):
         ], cmake_temp_dir, config_log_file
     )
 
-    ts_print(f"Internally setup build environment for: {component}")
+    ts_print(f"Internally setup build environment for: '{component}'")
 
 def run_build(self, component, built, lock, indegree, ready):
     folder = join_path(cwd, self.base_dir, component)
@@ -30,7 +30,7 @@ def run_build(self, component, built, lock, indegree, ready):
         ts_print(f"Waiting for {component} to finish configuring...")
         self.configured[component].join()
 
-    ts_print(f"Building {component} in {folder}...")
+    ts_print(f"Building '{component}' in '{folder}'...")
 
     build_log_file = join_path(temporary_logging_dir, f"dependencies/{component}-build.log")
 
@@ -44,7 +44,7 @@ def run_build(self, component, built, lock, indegree, ready):
         join_path(cmake_dir, 'dependencies', component, 'build'),
         extern_dir)
 
-    ts_print(f"Finished {component}")
+    ts_print(f"Finished '{component}'")
 
     # Mark as built and unlock dependents
     with lock:

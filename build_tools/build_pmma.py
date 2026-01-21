@@ -128,14 +128,17 @@ Context.in_github_workflow = args.in_github_workflow
 build_debug = False
 build_for_python = True
 
-if not Context.in_github_workflow:
-    response = input(
-        "Do you want to build a DEBUG version of PMMA? [y/n] \
-(Recommended: n): ")
-    if response == "":
-        build_debug = False
-    else:
-        build_debug = response[0].lower() == "y"
+if Context.build_deps_context_exists:
+    build_debug = Context.build_debug
+else:
+    if not Context.in_github_workflow:
+        response = input(
+            "Do you want to build a DEBUG version of PMMA? [y/n] \
+    (Recommended: n): ")
+        if response == "":
+            build_debug = False
+        else:
+            build_debug = response[0].lower() == "y"
 
 if build_debug:
     ts_print("When building PMMA in debug mode, please ensure that you are building BGFX also in debug mode.")

@@ -10,9 +10,8 @@ CPP_PolygonShape::CPP_PolygonShape() {
 }
 
 void CPP_PolygonShape::Render() {
-    unsigned int DisplayWidth, DisplayHeight;
-    DisplayWidth = PMMA_Core::DisplayInstance->GetWidth();
-    DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
+    int DisplaySize[2];
+    PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
     if (!ColorFormat->GetSet()) {
         Logger->InternalLogWarn(

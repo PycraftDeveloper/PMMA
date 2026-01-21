@@ -12,9 +12,8 @@ CPP_LineShape::CPP_LineShape() {
 }
 
 void CPP_LineShape::Render() {
-    unsigned int DisplayWidth, DisplayHeight;
-    DisplayWidth = PMMA_Core::DisplayInstance->GetWidth();
-    DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
+    int DisplaySize[2];
+    PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
     if (!ColorFormat->GetSet()) {
         Logger->InternalLogWarn(

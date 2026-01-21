@@ -26,9 +26,8 @@ unsigned int CPP_RadialPolygonShape::GetPointCount() {
 }
 
 void CPP_RadialPolygonShape::Render() {
-    unsigned int DisplayWidth, DisplayHeight;
-    DisplayWidth = PMMA_Core::DisplayInstance->GetWidth();
-    DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
+    int DisplaySize[2];
+    PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
     if (!ShapeCenterFormat->GetSet()) {
         Logger->InternalLogWarn(
@@ -61,9 +60,9 @@ API to set it.");
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenter[0] + Radius < 0 ||
-            ShapeCenter[0] - Radius > DisplayWidth ||
+            ShapeCenter[0] - Radius > DisplaySize[0] ||
             ShapeCenter[1] + Radius < 0 ||
-            ShapeCenter[1] - Radius > DisplayHeight) {
+            ShapeCenter[1] - Radius > DisplaySize[1]) {
         return;
     }
 

@@ -13,9 +13,19 @@ parser.add_argument("-in_github_workflow", action="store_true", help="Run in Git
 args = parser.parse_args()
 
 Context.in_github_workflow = args.in_github_workflow
+Context.build_deps_context_exists = True
 
 if not Context.in_github_workflow:
     os.system('cls' if os.name == 'nt' else 'clear')
+
+if not Context.in_github_workflow:
+    response = input(
+        "Do you want to build a DEBUG version of PMMA? [y/n] \
+(Recommended: n): ")
+    if response == "":
+        Context.build_debug = False
+    else:
+        Context.build_debug = response[0].lower() == "y"
 
 ts_print("Removing old build and configuration...")
 threads = []
@@ -58,7 +68,11 @@ bm.add_component("harfbuzz")
 bm.add_component("libpng", dependencies=["zlib"])
 bm.add_component("glfw")
 bm.add_component("freetype", dependencies=["zlib", "libpng", "harfbuzz"])
-bm.add_component("bgfx")
+
+if Context.build_debug:
+    bm.add_component("bgfx - debug")
+else:
+    bm.add_component("bgfx")
 
 bm.build()
 

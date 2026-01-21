@@ -6,6 +6,8 @@ import subprocess, sys, shutil, pathlib
 class Context:
     abort = False
     in_github_workflow = False
+    build_debug = False
+    build_deps_context_exists = False
 
 class CustomThreading(threading.Thread):
     def __init__(self, *args, **kwargs):

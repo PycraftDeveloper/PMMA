@@ -20,9 +20,8 @@ unsigned int CPP_EllipseShape::GetPointCount() {
 }
 
 void CPP_EllipseShape::Render() {
-    unsigned int DisplayWidth, DisplayHeight;
-    DisplayWidth = PMMA_Core::DisplayInstance->GetWidth();
-    DisplayHeight = PMMA_Core::DisplayInstance->GetHeight();
+    int DisplaySize[2];
+    PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
     unsigned int HalfWidth = ShapeSize.x / 2;
     unsigned int HalfHeight = ShapeSize.y / 2;
@@ -58,9 +57,9 @@ API to set it.");
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenter[0] + HalfWidth < 0 ||
-            ShapeCenter[0] - HalfWidth > DisplayWidth ||
+            ShapeCenter[0] - HalfWidth > DisplaySize[0] ||
             ShapeCenter[1] + HalfHeight < 0 ||
-            ShapeCenter[1] - HalfHeight > DisplayHeight) {
+            ShapeCenter[1] - HalfHeight > DisplaySize[1]) {
         return;
     }
 
