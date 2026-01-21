@@ -45,6 +45,7 @@ class EXPORT CPP_Display {
         unsigned int Size[2] = {0, 0};
         unsigned int Position[2] = {0, 0};
         unsigned int CurrentMonitorRefreshRate = 0;
+        int CurrentSize[2] = {0, 0};
 
         float RefreshTime = 0.000001f;
 
@@ -111,8 +112,6 @@ before you can call this function.");
 before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
             }
-            int CurrentSize[2];
-            glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
             return CurrentSize[0];
         };
 
@@ -125,8 +124,6 @@ before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
             }
 
-            int CurrentSize[2];
-            glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
             return CurrentSize[1];
         };
 
@@ -139,7 +136,8 @@ before you can call this function.");
                 throw std::runtime_error("Display not created yet!");
             }
 
-            glfwGetWindowSize(Window, &out[0], &out[1]);
+            out[0] = CurrentSize[0];
+            out[1] = CurrentSize[1];
         };
 
         GLFWmonitor* GetMonitorAtPoint(unsigned int* Point);

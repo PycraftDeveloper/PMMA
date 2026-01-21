@@ -22,6 +22,8 @@
 using namespace std;
 
 void CPP_Display::PMMA_Update(GLFWwindow* Window) {
+    glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
+
     if (PMMA_Core::KeyManagerInstance == nullptr) {
         if (PMMA_Registry::KeyboardEventInstanceCount > 0) {
             PMMA_Core::KeyManagerInstance = new CPP_InternalKeyEventManager();
@@ -371,6 +373,9 @@ void CPP_Display::Create(
     } else {
         Size[1] = Monitor_Height;
     }
+
+    CurrentSize[0] = Size[0];
+    CurrentSize[1] = Size[1];
 
     if (Transparent) {
         if (!WindowFillColor->GetSet()) {
