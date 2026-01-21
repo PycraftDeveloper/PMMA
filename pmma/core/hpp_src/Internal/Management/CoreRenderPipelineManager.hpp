@@ -46,7 +46,7 @@ class CPP_RenderPipelineCore {
         void Reset();
 
         template<typename T>
-        inline void AddObject(T* RenderObject, bool RenderPipelineCompatable, bool ColorIndexChanged) {
+        inline void Add_2D_Shape_Object(T* RenderObject, bool RenderPipelineCompatable, bool ColorIndexChanged) {
             if (RenderData.empty()) {
                 if (!RenderPipelineCompatable) {
                     RenderData.emplace_back(RenderObject);
@@ -62,7 +62,7 @@ class CPP_RenderPipelineCore {
             }
         }
 
-        void AddObject(CPP_TextRenderer* RenderObject);
+        void Add_Text_Object(CPP_TextRenderer* RenderObject);
 
         inline float Shape2D_GetColorIndex(uint8_t* Color, unsigned int ShapeID) {
             if (RenderData.empty()) {

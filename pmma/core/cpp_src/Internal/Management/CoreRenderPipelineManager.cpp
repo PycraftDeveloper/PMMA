@@ -76,7 +76,7 @@ void CPP_RenderPipelineCore::Reset() {
     RenderData.clear();
 }
 
-void CPP_RenderPipelineCore::AddObject(CPP_TextRenderer* RenderObject) {
+void CPP_RenderPipelineCore::Add_Text_Object(CPP_TextRenderer* RenderObject) {
     if (RenderData.empty()) {
         if (Text_RenderManagerCache.empty()) {
             RenderData.emplace_back(new CPP_TextRenderPipelineManager());

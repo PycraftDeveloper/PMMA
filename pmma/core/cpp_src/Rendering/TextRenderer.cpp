@@ -19,5 +19,5 @@ You can do this using `Display.create`."
 }
 
 void CPP_TextRenderer::Render() {
-    PMMA_Core::RenderPipelineCore->AddObject(this);
+    PMMA_Core::RenderPipelineCore->Add_Text_Object(this);
 }

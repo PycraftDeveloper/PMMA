@@ -79,7 +79,7 @@ API to set it.");
         auto &v3 = Shape2D_RenderPipelineData[3];
         v3.x = x + 0.5f; v3.y = y + 0.5f; v3.s = ColorIndex;
     }
-    PMMA_Core::RenderPipelineCore->AddObject(this, true, ColorIndexChanged);
+    PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, true, ColorIndexChanged);
 
     VertexDataChanged = false;
     ColorDataChanged = false;

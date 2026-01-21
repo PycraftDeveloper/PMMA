@@ -113,7 +113,7 @@ API to set it.");
             auto &v3 = Shape2D_RenderPipelineData[3];
             v3.x = RotatedEnd[0] + Normal[0]; v3.y = RotatedEnd[1] + Normal[1]; v3.s = ColorIndex;
         }
-        PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
+        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (VertexDataChanged) {
             // Calculate data and add to buffers, Left intentionally blank for now

@@ -185,7 +185,7 @@ API to set it.");
             }
         }
 
-        PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
+        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (VertexDataChanged) {
             // Calculate data and add to buffers, Left intentionally blank for now

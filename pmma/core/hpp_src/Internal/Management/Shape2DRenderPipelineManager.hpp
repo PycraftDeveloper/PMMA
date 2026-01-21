@@ -22,15 +22,6 @@ class CPP_ArcShape;
 class CPP_EllipseShape;
 class CPP_PolygonShape;
 
-using Shape2D_RenderObject = std::variant<
-    CPP_RadialPolygonShape*,
-    CPP_RectangleShape*,
-    CPP_PixelShape*,
-    CPP_LineShape*,
-    CPP_PolygonShape*,
-    CPP_EllipseShape*,
-    CPP_ArcShape*>;
-
 #pragma pack(push, 1)
 struct Vertex {
     float x, y;      // position
@@ -40,7 +31,6 @@ struct Vertex {
 
 class CPP_Shape2D_RenderPipelineManager {
     public:
-        std::vector<Shape2D_RenderObject> RenderPipelineComponents;
         std::vector<Vertex> combined_vertexes;
         std::vector<uint8_t> shape_colors;
 
@@ -75,27 +65,15 @@ class CPP_Shape2D_RenderPipelineManager {
         CPP_Shape2D_RenderPipelineManager();
         ~CPP_Shape2D_RenderPipelineManager();
 
-        inline void AddRenderTarget(const Shape2D_RenderObject& NewObject, bool ColorIndexChanged) {
+        template<typename T>
+        inline void AddRenderTarget(T* shape, bool ColorIndexChanged)
+        {
             if (ColorIndexChanged) {
-                ColorIndexesChanged++;
+                ++ColorIndexesChanged;
             }
-            ColorsInserted++;
+            ++ColorsInserted;
 
-            if (auto actualPtr = std::get_if<CPP_RadialPolygonShape*>(&NewObject)) {
-                InternalAddRenderTarget(*actualPtr);
-            } else if (auto actualPtr = std::get_if<CPP_RectangleShape*>(&NewObject)) {
-                InternalAddRenderTarget(*actualPtr);
-            } else if (auto actualPtr = std::get_if<CPP_PixelShape*>(&NewObject)) {
-                InternalAddRenderTarget(*actualPtr);
-            } else if (auto actualPtr = std::get_if<CPP_LineShape*>(&NewObject)) {
-                InternalAddRenderTarget(*actualPtr);
-            } else if (auto actualPtr = std::get_if<CPP_PolygonShape*>(&NewObject)) {
-                InternalAddRenderTarget(*actualPtr);
-            } else if (auto actualPtr = std::get_if<CPP_ArcShape*>(&NewObject)) {
-                InternalAddRenderTarget(*actualPtr);
-            } else if (auto actualPtr = std::get_if<CPP_EllipseShape*>(&NewObject)) {
-                InternalAddRenderTarget(*actualPtr);
-            }
+            InternalAddRenderTarget(shape);
         }
 
         inline void Reset() {

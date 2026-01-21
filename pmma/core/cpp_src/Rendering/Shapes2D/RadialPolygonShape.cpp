@@ -160,7 +160,7 @@ API to set it.");
             Shape2D_RenderPipelineData[vertexCount - 1] = Shape2D_RenderPipelineData[1];
         }
 
-        PMMA_Core::RenderPipelineCore->AddObject(this, RenderPipelineCompatible, ColorIndexChanged);
+        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (VertexDataChanged) {
             // Calculate data and add to buffers, Left intentionally blank for now

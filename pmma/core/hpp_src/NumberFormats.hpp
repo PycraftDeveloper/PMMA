@@ -452,7 +452,9 @@ class EXPORT CPP_DisplayCoordinateFormat {
 display coordinate before attempting to get it.");
                 throw std::runtime_error("Display coordinate not set!");
             }
-            out = DisplayCoordinate;
+
+            out[0] = DisplayCoordinate[0];
+            out[1] = DisplayCoordinate[1];
         }
 };
 
