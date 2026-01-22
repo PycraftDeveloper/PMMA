@@ -3,7 +3,6 @@
 using namespace std;
 
 CPP_ArcShape::CPP_ArcShape() {
-    Logger = new CPP_Logger();
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
@@ -32,6 +31,9 @@ void CPP_ArcShape::Render() {
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
     if (!ShapeCenterFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no center set, please use the `Arc.shape_center` \
@@ -40,6 +42,9 @@ API to set it.");
     }
 
     if (!ColorFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no color set, please use the `Arc.shape_color` \
@@ -48,6 +53,9 @@ API to set it.");
     }
 
     if (!StartAngleSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no start angle set, please use `Arc.set_start_angle` to set it.");
@@ -55,6 +63,9 @@ API to set it.");
     }
 
     if (!EndAngleSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no end angle set, please use `Arc.set_end_angle` to set it.");
@@ -62,6 +73,9 @@ API to set it.");
     }
 
     if (!RadiusSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no radius set, please use `Arc.set_radius` to set it.");

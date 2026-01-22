@@ -24,9 +24,6 @@ from Logger cimport Logger
 
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
-    void Set_PMMA_Location(string location) except + nogil
-    void Set_Path_Separator(string separator) except + nogil
-
     string Get_PMMA_Location() except + nogil
 
     bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh) except + nogil
@@ -98,20 +95,6 @@ cdef class General:
                 "this class in order to use it."),
             False
         )
-
-    @staticmethod
-    def set_pmma_location(path):
-        cdef:
-            string encoded_path = path.encode('utf-8')
-
-        Set_PMMA_Location(encoded_path)
-
-    @staticmethod
-    def set_path_separator():
-        cdef:
-            string encoded_separator = str(os.sep).encode('utf-8')
-
-        Set_Path_Separator(encoded_separator)
 
     @staticmethod
     def get_pmma_install_directory():

@@ -41,8 +41,10 @@ class EXPORT CPP_RadialPolygonShape {
         CPP_RadialPolygonShape();
 
         ~CPP_RadialPolygonShape() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
 
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
@@ -68,6 +70,9 @@ class EXPORT CPP_RadialPolygonShape {
 
         inline unsigned int GetRadius() {
             if (!RadiusSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not specified a radius for the arc \

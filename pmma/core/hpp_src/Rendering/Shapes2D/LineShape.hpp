@@ -36,8 +36,10 @@ class EXPORT CPP_LineShape {
         CPP_LineShape();
 
         ~CPP_LineShape() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
 
             delete ShapeStart;
             ShapeStart = nullptr;

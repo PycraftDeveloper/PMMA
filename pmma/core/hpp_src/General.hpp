@@ -5,10 +5,6 @@
 #include <string>
 
 namespace CPP_General {
-    EXPORT void Set_PMMA_Location(std::string location);
-
-    EXPORT void Set_Path_Separator(std::string separator);
-
     EXPORT std::string Get_PMMA_Location();
 
     EXPORT bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh);

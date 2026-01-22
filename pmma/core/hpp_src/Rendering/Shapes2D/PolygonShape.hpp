@@ -39,8 +39,10 @@ class EXPORT CPP_PolygonShape {
         CPP_PolygonShape();
 
         ~CPP_PolygonShape() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
 
             delete ColorFormat;
             ColorFormat = nullptr;
@@ -76,6 +78,10 @@ class EXPORT CPP_PolygonShape {
 
         inline void GetPoints(unsigned int (*out_points)[2]) {
             if (!PointsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+
                 Logger->InternalLogWarn(
                     30,
                     "This shape has no points set, please use `Polygon.set_points` to set it.");
@@ -88,8 +94,12 @@ class EXPORT CPP_PolygonShape {
             }
         }
 
-        inline unsigned int GetPointCount() const {
+        inline unsigned int GetPointCount() {
             if (!PointsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+
                 Logger->InternalLogWarn(
                     30,
                     "This shape has no points set, please use `Polygon.set_points` to set it.");

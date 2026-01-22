@@ -34,8 +34,10 @@ class EXPORT CPP_PixelShape {
         CPP_PixelShape();
 
         ~CPP_PixelShape() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
 
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;

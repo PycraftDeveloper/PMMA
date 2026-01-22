@@ -3,7 +3,6 @@
 using namespace std;
 
 CPP_EllipseShape::CPP_EllipseShape() {
-    Logger = new CPP_Logger();
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
@@ -27,6 +26,9 @@ void CPP_EllipseShape::Render() {
     unsigned int HalfHeight = ShapeSize.y / 2;
 
     if (!ShapeCenterFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no center set, please use the `Ellipse.shape_center` \
@@ -35,6 +37,9 @@ API to set it.");
     }
 
     if (!ColorFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no color set, please use the `Ellipse.shape_color` \
@@ -43,6 +48,9 @@ API to set it.");
     }
 
     if (!SizeSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no size set, please use `Ellipse.`set_size` to set it.");

@@ -32,12 +32,9 @@ else:
     print(f"Your system '{system}' is not officially supported by PMMA.")
 
 import pmma.build.PMMA_Core as _PMMA_Core
-_PMMA_Core.initialize()
+_PMMA_Core.initialize(pmma_dir)
 
 from pmma.build.General import General
-
-General.set_pmma_location(pmma_dir)
-General.set_path_separator()
 
 from pmma.core.py_src.Utility import Registry as _Registry
 _Registry.update_checking_thread = threading.Thread(

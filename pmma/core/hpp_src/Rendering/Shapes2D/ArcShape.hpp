@@ -41,8 +41,10 @@ class EXPORT CPP_ArcShape {
         CPP_ArcShape();
 
         ~CPP_ArcShape() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
 
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
@@ -66,8 +68,11 @@ class EXPORT CPP_ArcShape {
             StartAngleSet = true;
         };
 
-        inline float GetStartAngle() const {
+        inline float GetStartAngle() {
             if (!StartAngleSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not specified a starting angle for the arc \
@@ -88,8 +93,11 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
             EndAngleSet = true;
         };
 
-        inline float GetEndAngle() const {
+        inline float GetEndAngle() {
             if (!EndAngleSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not specified an ending angle for the arc \
@@ -124,8 +132,11 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
             Radius = in_radius;
         };
 
-        inline unsigned int GetRadius() const {
+        inline unsigned int GetRadius() {
             if (!RadiusSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not specified a radius for the arc \

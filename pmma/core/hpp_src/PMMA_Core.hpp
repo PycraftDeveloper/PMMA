@@ -272,7 +272,7 @@ namespace PMMA_Registry {
     extern bool UserDefinedShapeQuality;
 }
 
-EXPORT void PMMA_Initialize();
+EXPORT void PMMA_Initialize(std::string location);
 
 EXPORT void PMMA_Uninitialize();
 

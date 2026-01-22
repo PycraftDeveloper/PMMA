@@ -3,7 +3,6 @@
 using namespace std;
 
 CPP_PolygonShape::CPP_PolygonShape() {
-    Logger = new CPP_Logger();
     ColorFormat = new CPP_ColorFormat();
 
     ID = PMMA_Registry::ClassObject_ID_System++;
@@ -14,6 +13,10 @@ void CPP_PolygonShape::Render() {
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
     if (!ColorFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+
         Logger->InternalLogWarn(
             30,
             "This shape has no color set, please use the `Polygon.shape_color` \
@@ -22,6 +25,10 @@ API to set it.");
     }
 
     if (!PointsSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+
         Logger->InternalLogWarn(
             30,
             "This shape has no points set, please use `Polygon.set_points` to set it."

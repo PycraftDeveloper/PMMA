@@ -1,6 +1,8 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <STB/stb_image.h>
 
+#include <filesystem>
+
 #include "PMMA_Core.hpp"
 
 using namespace std;
@@ -174,7 +176,7 @@ namespace PMMA_Core {
 
 namespace PMMA_Registry {
     string PMMA_Location = "";
-    string PathSeparator = "";
+    string PathSeparator = string(1, filesystem::path::preferred_separator);
     string Current_PMMA_Version = "5.0.16";
     string Latest_PMMA_Version = "";
     string Locale = "en-US";
@@ -212,7 +214,9 @@ namespace PMMA_Registry {
     bool UserDefinedShapeQuality = false;
 }
 
-void PMMA_Initialize() {
+void PMMA_Initialize(string location) {
+    PMMA_Registry::PMMA_Location = location;
+
     PMMA_Registry::RandomSeedGenerator.seed(std::random_device{}());
 
     PMMA_Core::LoggingManagerInstance = new CPP_LoggingManager();

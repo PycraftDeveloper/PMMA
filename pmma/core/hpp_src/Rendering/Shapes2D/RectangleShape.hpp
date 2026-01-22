@@ -41,8 +41,10 @@ class EXPORT CPP_RectangleShape {
         CPP_RectangleShape();
 
         ~CPP_RectangleShape() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
 
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
@@ -94,6 +96,10 @@ class EXPORT CPP_RectangleShape {
 
         inline void GetSize(unsigned int* out_size) {
             if (!SizeSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+
                 Logger->InternalLogWarn(
                     30,
                     "This shape has no size set, please use `Rectangle.set_size` to set it.");

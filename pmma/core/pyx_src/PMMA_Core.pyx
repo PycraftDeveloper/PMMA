@@ -10,17 +10,19 @@ from pmma.core.py_src.Constants import Constants
 from pmma.core.py_src.Utility import Registry
 
 cdef extern from "PMMA_Core.hpp" nogil:
-    cdef void PMMA_Initialize()
+    cdef void PMMA_Initialize(string location)
 
     cdef void PMMA_Uninitialize()
 
 cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     void SetLocale(string locale_) except + nogil
 
-def initialize():
-    cdef encoded_locale
+def initialize(path):
+    cdef:
+        encoded_locale
+        string encoded_path = path.encode('utf-8')
 
-    PMMA_Initialize()
+    PMMA_Initialize(encoded_path)
 
     if General.get_operating_system() == Constants.OS_WINDOWS:
         try:

@@ -3,7 +3,6 @@
 using namespace std;
 
 CPP_PixelShape::CPP_PixelShape() {
-    Logger = new CPP_Logger();
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
@@ -15,6 +14,9 @@ void CPP_PixelShape::Render() {
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
     if (!ShapeCenterFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no center set, please use the `Pixel.shape_center` \
@@ -23,6 +25,9 @@ API to set it.");
     }
 
     if (!ColorFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no color set, please use the `Pixel.shape_color` \

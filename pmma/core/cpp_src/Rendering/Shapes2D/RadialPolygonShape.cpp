@@ -3,7 +3,6 @@
 using namespace std;
 
 CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
-    Logger = new CPP_Logger();
     ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
     ColorFormat = new CPP_ColorFormat();
 
@@ -12,6 +11,9 @@ CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
 
 unsigned int CPP_RadialPolygonShape::GetPointCount() {
     if (!RadiusSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no radius set, please use `RadialPolygon.set_radius` to set it.");
@@ -30,6 +32,9 @@ void CPP_RadialPolygonShape::Render() {
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
     if (!ShapeCenterFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no center set, please use the `RadialPolygon.shape_center` \
@@ -38,6 +43,9 @@ API to set it.");
     }
 
     if (!ColorFormat->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no color set, please use the `RadialPolygon.shape_color` \
@@ -46,6 +54,9 @@ API to set it.");
     }
 
     if (!RadiusSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
         Logger->InternalLogWarn(
             30,
             "This shape has no radius set, please use `RadialPolygon.set_radius` to set it.");
