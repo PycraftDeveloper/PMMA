@@ -41,9 +41,9 @@ class CPP_Shape2D_RenderPipelineManager {
         unsigned int ColorIndexesChanged = 0;
         unsigned int m_vertexCount = 0;
 
-        ska::flat_hash_map<uint64_t, float> ColorSlotID; // objectColorSlot
+        ska::flat_hash_map<uint64_t, float> ColorSlotID; // needs to be float for bgfx shader access
         ska::flat_hash_set<uint64_t> SeenThisFrame;
-        std::vector<size_t> FreeSlots;
+        std::vector<float> FreeSlots;
 
         bgfx::VertexLayout m_layout;
         bgfx::DynamicVertexBufferHandle m_vbh;
@@ -86,22 +86,22 @@ class CPP_Shape2D_RenderPipelineManager {
             InsertionIndex = 0;
 
             if (UsingComplexColorInsertion) {
-                std::vector<unsigned int> RecycleList;
+                std::vector<uint64_t> RecycleList;
 
                 for (const auto& [shapeID, slot] : ColorSlotID) {
                     if (SeenThisFrame.find(shapeID) == SeenThisFrame.end()) {
-                        FreeSlots.push_back(slot);
+                        FreeSlots.push_back(static_cast<float>(slot));
                         RecycleList.push_back(shapeID);
                     }
                 }
 
                 // Batch erase after iteration
-                for (unsigned int shapeID : RecycleList) {
+                for (uint64_t shapeID : RecycleList) {
                     ColorSlotID.erase(shapeID);
                 }
                 RecycleList.clear();
 
-                unsigned int SeenThisFrameSize = (unsigned int)SeenThisFrame.size();
+                size_t SeenThisFrameSize = SeenThisFrame.size();
                 SeenThisFrame.clear();
                 SeenThisFrame.reserve(SeenThisFrameSize + 25);
             }
@@ -164,7 +164,7 @@ class CPP_Shape2D_RenderPipelineManager {
             auto found = ColorSlotID.find(ShapeID);
             if (found != ColorSlotID.end()) {
                 // already have a slot for this shape: overwrite it
-                unsigned int slotIndex = found->second;
+                float slotIndex = found->second;
                 size_t offset = static_cast<size_t>(slotIndex) * 4;
                 if (shape_colors.size() < offset + 4) {
                     shape_colors.resize(offset + 4);
@@ -176,12 +176,12 @@ class CPP_Shape2D_RenderPipelineManager {
                 shape_colors[offset + 3] = Color[3];
 
                 LiveColorCount += 4;
-                return static_cast<float>(slotIndex);
+                return slotIndex;
             }
 
             // not seen before: reuse a free slot if available
             if (!FreeSlots.empty()) {
-                unsigned int newSlot = FreeSlots.back();
+                float newSlot = FreeSlots.back();
                 FreeSlots.pop_back();
 
                 size_t offset = static_cast<size_t>(newSlot) * 4;
@@ -212,11 +212,11 @@ class CPP_Shape2D_RenderPipelineManager {
             shape_colors[LiveColorCount + 2] = Color[2];
             shape_colors[LiveColorCount + 3] = Color[3];
 
-            unsigned int slotIndex = static_cast<unsigned int>(LiveColorCount / 4);
+            float slotIndex = static_cast<float>(LiveColorCount / 4);
             ColorSlotID[ShapeID] = slotIndex;
 
             LiveColorCount += 4;
-            return static_cast<float>(slotIndex);
+            return slotIndex;
         }
 
         template<typename T>
