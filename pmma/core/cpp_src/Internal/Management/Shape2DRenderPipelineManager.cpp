@@ -18,6 +18,7 @@ CPP_Shape2D_RenderPipelineManager::CPP_Shape2D_RenderPipelineManager() {
 
     // initial handles are BGFX_INVALID_HANDLE
     m_vbh = BGFX_INVALID_HANDLE;
+    m_ibh = BGFX_INVALID_HANDLE;
     m_tex = BGFX_INVALID_HANDLE;
 
     s_colorTex   = bgfx::createUniform("s_colorTex", bgfx::UniformType::Sampler);
@@ -40,6 +41,10 @@ CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
     if (bgfx::isValid(u_colorInfo)) {
         bgfx::destroy(u_colorInfo);
     }
+
+    if (bgfx::isValid(m_ibh)) {
+        bgfx::destroy(m_ibh);
+    }
 }
 
 void CPP_Shape2D_RenderPipelineManager::InternalRender() {
@@ -47,21 +52,39 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         combined_vertexes.resize(LiveVertexCount);
         PreviousRenderContent.resize(InsertionIndex);
 
-        const bgfx::Memory* mem = bgfx::copy( // Need to use copy here due to large sizes.
+        const bgfx::Memory* vertMem = bgfx::copy( // Need to use copy here due to large sizes.
             combined_vertexes.data(),
             (uint32_t)(combined_vertexes.size()*sizeof(Vertex)));
 
         if (bgfx::isValid(m_vbh)) {
             if (m_vertexCount != combined_vertexes.size()) {
                 bgfx::destroy(m_vbh);
-                m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
+                m_vbh = bgfx::createDynamicVertexBuffer(vertMem, m_layout);
             } else {
-                bgfx::update(m_vbh, 0, mem);
+                bgfx::update(m_vbh, 0, vertMem);
             }
         } else {
-            m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
+            m_vbh = bgfx::createDynamicVertexBuffer(vertMem, m_layout);
         }
         m_vertexCount = combined_vertexes.size();
+
+        combined_indices.resize(LiveIndexCount);
+
+        const bgfx::Memory* indexMem = bgfx::copy( // Need to use copy here due to large sizes.
+            combined_indices.data(),
+            (uint32_t)(combined_indices.size()*sizeof(uint32_t)));
+
+        if (bgfx::isValid(m_ibh)) {
+            if (m_indexCount != combined_indices.size()) {
+                bgfx::destroy(m_ibh);
+                m_ibh = bgfx::createDynamicIndexBuffer(indexMem, BGFX_BUFFER_INDEX32);
+            } else {
+                bgfx::update(m_ibh, 0, indexMem);
+            }
+        } else {
+            m_ibh = bgfx::createDynamicIndexBuffer(indexMem, BGFX_BUFFER_INDEX32);
+        }
+        m_indexCount = combined_indices.size();
     }
 
     if (ColorDataChanged) {
@@ -107,7 +130,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     }
 
     // Setup rendering state
-    uint64_t state = BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_PT_TRISTRIP;
+    uint64_t state = BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A;
 
     // enable alpha blending (src * src_alpha + dst * (1 - src_alpha))
     state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
@@ -115,8 +138,9 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     float info[4] = { float(m_colorTextureWidth), float(m_colorTextureHeight), 0.0f, 0.0f };
     bgfx::setUniform(u_colorInfo, info);
 
-    // Set vertex buffer
-    bgfx::setVertexBuffer(0, m_vbh);
+    // Set vertex and index buffer
+    bgfx::setVertexBuffer(0, m_vbh, 0, LiveVertexCount);
+    bgfx::setIndexBuffer(m_ibh, 0, LiveIndexCount);
 
     // Bind the color texture sampler to the fragment shader.
     // Use BGFX_SAMPLER_POINT when setting the texture to ensure exact nearest sampling.

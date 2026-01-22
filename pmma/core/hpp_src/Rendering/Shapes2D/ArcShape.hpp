@@ -20,6 +20,7 @@ class EXPORT CPP_ArcShape {
         std::vector<glm::vec2> VertexData;
 
         std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<uint32_t> Shape2D_RenderPipelineIndices;
 
         float Rotation = 0;
         float StartAngle;

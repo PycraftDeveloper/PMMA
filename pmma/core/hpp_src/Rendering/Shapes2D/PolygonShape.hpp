@@ -20,6 +20,7 @@ class EXPORT CPP_PolygonShape {
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<uint32_t> Shape2D_RenderPipelineIndices;
 
         std::vector<glm::vec2> ShapePoints;
 

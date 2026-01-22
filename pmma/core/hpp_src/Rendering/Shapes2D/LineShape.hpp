@@ -22,6 +22,7 @@ class EXPORT CPP_LineShape {
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<uint32_t> Shape2D_RenderPipelineIndices;
 
         float Rotation = 0;
 

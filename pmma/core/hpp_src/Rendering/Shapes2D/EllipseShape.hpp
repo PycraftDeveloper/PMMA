@@ -20,6 +20,7 @@ class EXPORT CPP_EllipseShape {
         std::vector<glm::vec2> VertexData;
 
         std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<uint32_t> Shape2D_RenderPipelineIndices;
 
         glm::vec2 ShapeSize;
 
