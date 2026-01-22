@@ -32,160 +32,141 @@ void CPP_RadialPolygonShape::Render() {
     if (!ShapeCenterFormat->GetSet()) {
         Logger->InternalLogWarn(
             30,
-            "This shape has no center set, please use the `RadialPolygon.shape_center` API to set it.");
-        throw std::runtime_error("Shape has no center set");
+            "This shape has no center set, please use the `RadialPolygon.shape_center` \
+API to set it.");
+        throw runtime_error("Shape has no center set");
     }
 
     if (!ColorFormat->GetSet()) {
         Logger->InternalLogWarn(
             30,
-            "This shape has no color set, please use the `RadialPolygon.shape_color` API to set it.");
-        throw std::runtime_error("Shape has no color set");
+            "This shape has no color set, please use the `RadialPolygon.shape_color` \
+API to set it.");
+        throw runtime_error("Shape has no color set");
     }
 
     if (!RadiusSet) {
         Logger->InternalLogWarn(
             30,
             "This shape has no radius set, please use `RadialPolygon.set_radius` to set it.");
-        throw std::runtime_error("Shape has no radius set");
+        throw runtime_error("Shape has no radius set");
     }
 
     float ShapeCenter[2];
     ShapeCenterFormat->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
-        ShapeCenterFormat->GetChangedToggle() ||
-        PMMA_Core::DisplayInstance->DisplaySizeChanged;
+                ShapeCenterFormat->GetChangedToggle() ||
+                PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenter[0] + Radius < 0 ||
-        ShapeCenter[0] - Radius > DisplaySize[0] ||
-        ShapeCenter[1] + Radius < 0 ||
-        ShapeCenter[1] - Radius > DisplaySize[1]) {
-        return; // outside screen, skip
-    }
-
-    uint8_t ColorData[4];
-    ColorFormat->Get_RGBA(ColorData);
-    ColorDataChanged = ColorDataChanged || ColorFormat->GetInternalChangedToggle();
-
-    if (ColorData[3] == 0) {
-        return; // invisible
-    }
-
-    bool ColorIndexChanged = false;
-    float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
-    if (newColorIndex != ColorIndex) {
-        ColorIndexChanged = true;
-        VertexDataChanged = true;
-        ColorIndex = newColorIndex;
-    }
-
-    if (!VertexDataChanged) {
-        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, true, ColorIndexChanged);
+            ShapeCenter[0] - Radius > DisplaySize[0] ||
+            ShapeCenter[1] + Radius < 0 ||
+            ShapeCenter[1] - Radius > DisplaySize[1]) {
         return;
     }
 
-    // --- Compute radial polygon geometry ---
-    unsigned int InternalPointCount = PointCount;
-    float minAngle = asin(1.0f / Radius);
-    unsigned int MaxPoints = std::max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
-    if (InternalPointCount > MaxPoints || InternalPointCount < 3) {
-        InternalPointCount = MaxPoints;
-    }
-    float angleStep = CPP_Constants::TAU / InternalPointCount;
+    bool RenderPipelineCompatible = true;
+    // check here if the gradient has been set, if has then check it fits into the render pipeline
+    // otherwise render it as a normal shape.
 
-    unsigned int outer_radius = Radius;
-    unsigned int inner_radius = Width == 0 ? 0 : std::max(0, static_cast<int>(Radius) - static_cast<int>(Width) * 2);
+    uint8_t ColorData[4];
+    ColorFormat->Get_RGBA(ColorData);
 
-    // --- Prepare vertex & index buffers ---
-    if (inner_radius == 0) {
-        // Simple filled polygon: center + outer ring
-        Shape2D_RenderPipelineData.resize(InternalPointCount + 1);
-        Shape2D_RenderPipelineIndices.resize(InternalPointCount * 3);
+    ColorDataChanged = ColorDataChanged || ColorFormat->GetInternalChangedToggle();
 
-        Vertex* v = Shape2D_RenderPipelineData.data();
-
-        float angle = Rotation;
-        float cosStep = std::cos(angleStep);
-        float sinStep = std::sin(angleStep);
-        float cosA = std::cos(angle);
-        float sinA = std::sin(angle);
-
-        // Center vertex
-        v[0].x = ShapeCenter[0];
-        v[0].y = ShapeCenter[1];
-        v[0].s = ColorIndex;
-
-        // Outer vertices
-        for (unsigned int i = 0; i < InternalPointCount; ++i) {
-            v[i + 1].x = ShapeCenter[0] + outer_radius * cosA;
-            v[i + 1].y = ShapeCenter[1] + outer_radius * sinA;
-            v[i + 1].s = ColorIndex;
-
-            float new_cosA = cosA * cosStep - sinA * sinStep;
-            float new_sinA = sinA * cosStep + cosA * sinStep;
-            cosA = new_cosA;
-            sinA = new_sinA;
+    if (RenderPipelineCompatible) {
+        if (ColorData[3] == 0) { // Return if shape not visible
+            return;
         }
 
-        // Generate indices (fan)
-        for (unsigned int i = 0; i < InternalPointCount; ++i) {
-            unsigned int next = (i + 1) % InternalPointCount;
-            Shape2D_RenderPipelineIndices[i * 3 + 0] = 0;       // center
-            Shape2D_RenderPipelineIndices[i * 3 + 1] = i + 1;   // current outer
-            Shape2D_RenderPipelineIndices[i * 3 + 2] = next + 1; // next outer
+        bool ColorIndexChanged = false;
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
+
+        if (newColorIndex != ColorIndex) {
+            ColorIndexChanged = true;
+            VertexDataChanged = true;
+            ColorIndex = newColorIndex;
         }
+
+        if (VertexDataChanged) {
+            unsigned int InternalPointCount = PointCount;
+            float minAngle = asin(1.0f / Radius);
+            unsigned int MaxPoints = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+            if (InternalPointCount > MaxPoints || InternalPointCount < 3) {
+                InternalPointCount = MaxPoints;
+            }
+            float angleStep = CPP_Constants::TAU / InternalPointCount;
+
+            unsigned int outer_radius = Radius;
+
+            unsigned int inner_radius = max(0, static_cast<int>(Radius) - static_cast<int>(Width) * 2);
+            if (Width == 0) {
+                inner_radius = 0;
+            }
+
+            // Reserve the exact number of vertices upfront
+            size_t vertexCount = InternalPointCount * 2 + 2;
+            Shape2D_RenderPipelineData.resize(vertexCount);
+
+            float angle = Rotation;
+            float cx = ShapeCenter[0];
+            float cy = ShapeCenter[1];
+            float cosStep = std::cos(angleStep);
+            float sinStep = std::sin(angleStep);
+            float cosA = std::cos(angle);
+            float sinA = std::sin(angle);
+
+            Vertex* v = Shape2D_RenderPipelineData.data();
+            if (inner_radius == 0) {
+                auto &v1 = Shape2D_RenderPipelineData[1];
+                v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+
+                const Vertex Center = Shape2D_RenderPipelineData[1];
+                for (unsigned int i = 0; i < InternalPointCount; ++i) {
+                    v[0].x = outer_radius * cosA + cx;
+                    v[0].y = outer_radius * sinA + cy;
+                    v[0].s = ColorIndex;
+
+                    v[1] = Center; // center vertex
+                    v += 2;
+
+                    float new_cosA = cosA * cosStep - sinA * sinStep;
+                    float new_sinA = sinA * cosStep + cosA * sinStep;
+                    cosA = new_cosA;
+                    sinA = new_sinA;
+                }
+            } else {
+                for (unsigned int i = 0; i < InternalPointCount; ++i) {
+                    v[0].x = outer_radius * cosA + cx;
+                    v[0].y = outer_radius * sinA + cy;
+                    v[0].s = ColorIndex;
+
+                    v[1].x = inner_radius * cosA + cx;
+                    v[1].y = inner_radius * sinA + cy;
+                    v[1].s = ColorIndex;
+
+                    v += 2;
+
+                    float new_cosA = cosA * cosStep - sinA * sinStep;
+                    float new_sinA = sinA * cosStep + cosA * sinStep;
+                    cosA = new_cosA;
+                    sinA = new_sinA;
+                }
+            }
+
+            // Close the shape by repeating the first pair
+            Shape2D_RenderPipelineData[vertexCount - 2] = Shape2D_RenderPipelineData[0];
+            Shape2D_RenderPipelineData[vertexCount - 1] = Shape2D_RenderPipelineData[1];
+        }
+
+        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
-        // Ring: outer + inner vertices
-        Shape2D_RenderPipelineData.resize(InternalPointCount * 2);
-        Shape2D_RenderPipelineIndices.resize(InternalPointCount * 6);
-
-        Vertex* v = Shape2D_RenderPipelineData.data();
-
-        float angle = Rotation;
-        float cosStep = std::cos(angleStep);
-        float sinStep = std::sin(angleStep);
-        float cosA = std::cos(angle);
-        float sinA = std::sin(angle);
-
-        for (unsigned int i = 0; i < InternalPointCount; ++i) {
-            // Outer vertex
-            v[i * 2 + 0].x = ShapeCenter[0] + outer_radius * cosA;
-            v[i * 2 + 0].y = ShapeCenter[1] + outer_radius * sinA;
-            v[i * 2 + 0].s = ColorIndex;
-
-            // Inner vertex
-            v[i * 2 + 1].x = ShapeCenter[0] + inner_radius * cosA;
-            v[i * 2 + 1].y = ShapeCenter[1] + inner_radius * sinA;
-            v[i * 2 + 1].s = ColorIndex;
-
-            float new_cosA = cosA * cosStep - sinA * sinStep;
-            float new_sinA = sinA * cosStep + cosA * sinStep;
-            cosA = new_cosA;
-            sinA = new_sinA;
+        if (VertexDataChanged) {
+            // Calculate data and add to buffers, Left intentionally blank for now
         }
-
-        // Generate indices (quad -> 2 triangles)
-        for (unsigned int i = 0; i < InternalPointCount; ++i) {
-            unsigned int next = (i + 1) % InternalPointCount;
-            unsigned int outer0 = i * 2;
-            unsigned int inner0 = i * 2 + 1;
-            unsigned int outer1 = next * 2;
-            unsigned int inner1 = next * 2 + 1;
-
-            // Triangle 1
-            Shape2D_RenderPipelineIndices[i * 6 + 0] = outer0;
-            Shape2D_RenderPipelineIndices[i * 6 + 1] = inner0;
-            Shape2D_RenderPipelineIndices[i * 6 + 2] = outer1;
-
-            // Triangle 2
-            Shape2D_RenderPipelineIndices[i * 6 + 3] = outer1;
-            Shape2D_RenderPipelineIndices[i * 6 + 4] = inner0;
-            Shape2D_RenderPipelineIndices[i * 6 + 5] = inner1;
-        }
+        // Do NOTHING.
     }
-
-    PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, true, ColorIndexChanged);
 
     VertexDataChanged = false;
     ColorDataChanged = false;

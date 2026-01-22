@@ -21,7 +21,6 @@ class EXPORT CPP_RadialPolygonShape {
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> Shape2D_RenderPipelineData;
-        std::vector<uint32_t> Shape2D_RenderPipelineIndices;
 
         uint64_t ID;
 
@@ -60,7 +59,6 @@ class EXPORT CPP_RadialPolygonShape {
             if (RadiusSet && in_radius != Radius) {
                 VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
-                Shape2D_RenderPipelineIndices.clear();
                 VertexData.clear();
             }
 
@@ -83,7 +81,6 @@ please use `RadialPolygon.set_radius` to set it before attempting to get it.");
             if (PointCountSet && in_pointCount != PointCount) {
                 VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
-                Shape2D_RenderPipelineIndices.clear();
                 VertexData.clear();
             }
 
@@ -97,7 +94,6 @@ please use `RadialPolygon.set_radius` to set it before attempting to get it.");
             if (WidthSet && in_width != Width) {
                 VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
-                Shape2D_RenderPipelineIndices.clear();
                 VertexData.clear();
             }
 
@@ -113,7 +109,6 @@ please use `RadialPolygon.set_radius` to set it before attempting to get it.");
             if (in_rotation != Rotation) {
                 VertexDataChanged = true;
                 Shape2D_RenderPipelineData.clear();
-                Shape2D_RenderPipelineIndices.clear();
                 VertexData.clear();
             }
 

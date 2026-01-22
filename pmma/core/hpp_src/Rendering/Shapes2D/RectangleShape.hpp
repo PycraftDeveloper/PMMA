@@ -21,7 +21,6 @@ class EXPORT CPP_RectangleShape {
         std::vector<glm::vec4> ColorData;
 
         std::vector<Vertex> Shape2D_RenderPipelineData;
-        std::vector<uint32_t> Shape2D_RenderPipelineIndices;
 
         glm::vec2 ShapeSize;
 
