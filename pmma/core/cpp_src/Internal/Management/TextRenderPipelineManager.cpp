@@ -385,7 +385,9 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
 }
 
 void CPP_TextRenderPipelineManager::Reset() {
-    bgfx::destroy(vbh);
+    if (bgfx::isValid(vbh)) {
+        bgfx::destroy(vbh);
+    }
 
     LiveColorCount = 0;
 
