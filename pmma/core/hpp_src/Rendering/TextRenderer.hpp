@@ -7,20 +7,32 @@
 
 class EXPORT CPP_TextRenderer {
     public:
-        std::string Text;
-        std::string Font;
-
+        CPP_DisplayCoordinateFormat* Position;
         CPP_ColorFormat* ForegroundColor;
         CPP_ColorFormat* BackgroundColor;
+        CPP_Logger* Logger;
 
-        glm::vec2 Position;
+        std::string Text = "";
+        std::string Font;
+
         uint64_t ID;
 
         unsigned int Size;
 
+        bool FontSet = false;
+        bool SizeSet = false;
+
         CPP_TextRenderer();
 
         ~CPP_TextRenderer() {
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
+
+            delete Position;
+            Position = nullptr;
+
             delete ForegroundColor;
             ForegroundColor = nullptr;
 
@@ -34,14 +46,12 @@ class EXPORT CPP_TextRenderer {
 
         inline void SetFont(std::string NewFont) {
             Font = NewFont;
+            FontSet = true;
         };
 
         inline void SetSize(unsigned int NewSize) {
             Size = NewSize;
-        };
-
-        inline void SetPosition(unsigned int* NewPosition) {
-            Position = glm::vec2(NewPosition[0], NewPosition[1]);
+            SizeSet = true;
         };
 
         void Render();

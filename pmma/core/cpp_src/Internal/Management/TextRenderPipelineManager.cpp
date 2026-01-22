@@ -294,9 +294,10 @@ void CPP_TextRenderPipelineManager::FlushDirtyRects() {
 
 void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject) {
     string TextContent = NewObject->Text;
-    float StartX = NewObject->Position.x;
-    float StartY = NewObject->Position.y;
-    float penX = StartX, penY = StartY;
+
+    float StartPosition[2];
+    NewObject->Position->Get(StartPosition);
+    float penX = StartPosition[0], penY = StartPosition[1];
 
     uint8_t ForegroundColor[4];
     uint8_t BackgroundColor[4];
@@ -318,7 +319,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
     for (size_t i = 0; i < TextContent.size(); ++i) {
         char c = TextContent[i];
         if (c == '\n') {
-            penX = StartX;
+            penX = StartPosition[0];
             penY += m_fontSize;
             prevChar = 0;
             continue;

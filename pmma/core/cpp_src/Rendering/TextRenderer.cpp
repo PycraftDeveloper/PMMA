@@ -14,10 +14,71 @@ You can do this using `Display.create`."
 
     ID = PMMA_Registry::ClassObject_ID_System++;
 
+    Position = new CPP_DisplayCoordinateFormat();
     ForegroundColor = new CPP_ColorFormat();
     BackgroundColor = new CPP_ColorFormat();
+
+    uint8_t Color[4] = {0, 0, 0, 0};
+    BackgroundColor->Set_RGBA(Color);
 }
 
 void CPP_TextRenderer::Render() {
+    if (Text.empty()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+
+        Logger->InternalLogWarn(
+            50,
+            "This text has no text to render! Please use \
+`TextRenderer.set_text` to set it.", false);
+    }
+
+    if (!FontSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+
+        Logger->InternalLogError(
+            51,
+            "This text has no font set! \
+Please use `TextRenderer.set_font` to set it.");
+        throw runtime_error("Font not set!");
+    }
+
+    if (!SizeSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+
+        Logger->InternalLogError(
+            54,
+            "This text has no size set! \
+Please use `TextRenderer.set_size` to set it.");
+        throw runtime_error("Size not set!");
+    }
+
+    if (!ForegroundColor->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+        Logger->InternalLogWarn(
+            52,
+            "This text has no color set, please use the \
+`TextRenderer.ForegroundColor` API to set it.");
+        throw runtime_error("Text has no color set");
+    }
+
+    if (!Position->GetSet()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+        Logger->InternalLogWarn(
+            53,
+            "This text has no position set, please use the \
+`TextRenderer.Position` API to set it.");
+        throw runtime_error("Text has no position set");
+    }
+
     PMMA_Core::RenderPipelineCore->Add_Text_Object(this);
 }
