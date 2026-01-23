@@ -19,7 +19,7 @@ This example shows how to create a simple responsive display using PMMA in Pytho
         display.clear()
 
         # Refresh the display to show any updates and limit refresh rate
-        display.continuous_refresh()
+        display.refresh()
 
 Detailed Breakdown
 ------------------
@@ -50,13 +50,13 @@ The :code:`pmma.General.is_application_running()` method checks if the applicati
         # Perform any rendering here...
 
         # Refresh the display to show any updates and limit refresh rate
-        display.continuous_refresh()
+        display.refresh()
 
 The :code:`display.clear()` method is used to clear the display at the beginning of each iteration of the main loop. This ensures that any previous drawings are removed before we draw new content. Whilst you may want to keep the contents of the previous frame, it is generally a bad idea to omit this step as it makes the display more vulnerable to graphical glitches and artifacts - like for example when resizing the window, maximizing or minimizing it or if you have any on-screen overlays like MSI Afterburner's On Screen Display (OSD), which PMMA's display supports you using.
 
-You should ensure that any rendering you wish to do is performed between the :code:`display.clear()` and :code:`display.continuous_refresh()` calls. The :code:`display.continuous_refresh()` method is responsible for updating the display with any new graphical content. Any rendering that occurs before :code:`display.clear()` will not be visible on the display, as it will be cleared away at the start of the next loop iteration, and the same applies for any rendering that occurs after :code:`display.continuous_refresh()`, as the display will not be updated again until the next loop iteration. Its also important to note that in PMMA, it is recommended that any content is only rendered once per loop iteration (in this situation also known as a frame), as rendering multiple times per frame may cause previous render calls to the same object to be ignored or changed in unexpected ways.
+You should ensure that any rendering you wish to do is performed between the :code:`display.clear()` and :code:`display.refresh()` calls. The :code:`display.refresh()` method is responsible for updating the display with any new graphical content. Any rendering that occurs before :code:`display.clear()` will not be visible on the display, as it will be cleared away at the start of the next loop iteration, and the same applies for any rendering that occurs after :code:`display.refresh()`, as the display will not be updated again until the next loop iteration. Its also important to note that in PMMA, it is recommended that any content is only rendered once per loop iteration (in this situation also known as a frame), as rendering multiple times per frame may cause previous render calls to the same object to be ignored or changed in unexpected ways.
 
-The :code:`display.continuous_refresh()` method also limits the refresh rate of the display, which can be beneficial for performance and power consumption. In this example we have allowed PMMA to automatically use a feature called 'V-Sync' (Vertical Synchronization), which synchronizes the display's refresh rate with the monitor's refresh rate. This helps to prevent screen tearing and provides a smoother visual experience. If you wish to control wether V-Sync is used it can be adjusted when creating the display as shown in the example below:
+The :code:`display.refresh()` method also dynamically limits the refresh rate of the display, which can be beneficial for performance and power consumption. In the above example we have allowed PMMA to automatically use a feature called 'V-Sync' (Vertical Synchronization), which synchronizes the display's refresh rate with the monitor's refresh rate. This helps to prevent screen tearing and provides a smoother visual experience. If you wish to control wether V-Sync is used it can be adjusted when creating the display as shown in the example below:
 
 .. code-block:: python
 
@@ -76,9 +76,9 @@ The :code:`display.continuous_refresh()` method also limits the refresh rate of 
         # Perform any rendering here...
 
         # Refresh the display to show any updates and limit refresh rate
-        display.continuous_refresh()
+        display.refresh()
 
-In the above example now V-Sync is disabled, but PMMA will by default now switch to a maximum refresh rate of 60 frames per second (FPS). This is a reasonable default for many applications, but if you wish to set a custom frame rate limit, you can do so by passing an integer value to the :code:`display.continuous_refresh()` method as shown in the example below, or you can set the :code:`refresh_rate` parameter to 0 (with V-Sync disabled) to allow the display to refresh as fast as possible, which is generally not recommended unless you have a specific reason to do so (typically for benchmarking or performance testing).
+In the above example now V-Sync is disabled. PMMA will now dynamically adjust the refresh rate of the application dynamically based on how the application is interacted with and when content changes on-screen. The default behaviour is to go as low as 5 frames per second and as high as 60 frames per second. If you wish to set a custom frame rate limit, you can do so by passing integer values to the :code:`min_refresh_rate` and :code:`max_refresh_rate` key-word arguments of the :code:`display.refresh()` method as shown in the example below:
 
 .. code-block:: python
 
@@ -97,15 +97,15 @@ In the above example now V-Sync is disabled, but PMMA will by default now switch
 
         # Perform any rendering here...
 
-        # Refresh the display to show any updates and limit refresh rate to 30 FPS
-        display.continuous_refresh(refresh_rate=30)
+        # Refresh the display to show any updates dynamically.
+        display.refresh(min_refresh_rate=30, max_refresh_rate=120)
 
-In addition to a manually specified refresh rate limit, PMMA will also automatically adjust the refresh rate based on the current application context. This means that if the display is minimized, not in focus or the device is in power saving mode, PMMA will automatically reduce the refresh rate to conserve system resources. This behavior can be disabled or customized by adjusting the key-word arguments of the :code:`display.continuous_refresh()` method. For more information on these options, please refer to the official PMMA documentation.
+In addition to a manually specified refresh rate minimum and maximum, PMMA will also automatically adjust the refresh rate based on the current application context. This means that if the display is minimized, not in focus or the device is in power saving mode, PMMA will automatically reduce the refresh rate to conserve system resources. This behavior can be disabled or customized by adjusting the key-word arguments of the :code:`display.refresh()` method. For more information on these options, please refer to the official PMMA documentation.
 
 Extensions
 ----------
 
-This example can be tweaked and extended in may ways without intruding on another example:
+Below are some additional examples of how you can further customize and extend the display created in the above example!
 
 Did you can use :code:`display.window_fill_color` to set a custom color for the window (instead of being black which is the default), here is an example of this in action:
 
@@ -130,7 +130,7 @@ Did you can use :code:`display.window_fill_color` to set a custom color for the 
         # Perform any rendering here...
 
         # Refresh the display to show any updates and limit refresh rate
-        display.continuous_refresh()
+        display.refresh()
 
 Please note though that setting the window fill color randomly every frame (yes, we have all done it!) can cause discomfort for some users and is generally not recommended for production applications. If you do wish to change the window fill color dynamically, consider using a more subtle approach, such as gradually changing the color over time or in response to user actions - as demonstrated below with a more advanced color generation technique:
 
@@ -160,7 +160,7 @@ Please note though that setting the window fill color randomly every frame (yes,
         # Perform any rendering here...
 
         # Refresh the display to show any updates and limit refresh rate
-        display.continuous_refresh()
+        display.refresh()
 
 You can also set and change the window title or icon at any time using the :code:`display.set_title()` and :code:`display.set_icon()` methods respectively. Here is an example of changing the window title dynamically based on the current frame count:
 
@@ -189,4 +189,4 @@ You can also set and change the window title or icon at any time using the :code
         # Perform any rendering here...
 
         # Refresh the display to show any updates and limit refresh rate
-        display.continuous_refresh()
+        display.refresh()
