@@ -7,12 +7,13 @@
 
 #include "FractalBrownianMotion.hpp"
 #include "AdvancedMathematics.hpp"
-#include "NumberConverter.hpp"
 #include "Logger.hpp"
 #include "Random.hpp"
 
-class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
+class EXPORT CPP_ColorFormat {
     private:
+        CPP_Logger* Logger;
+
         CPP_PerlinNoise* R_PerlinNoiseGenerator = nullptr;
         CPP_PerlinNoise* G_PerlinNoiseGenerator = nullptr;
         CPP_PerlinNoise* B_PerlinNoiseGenerator = nullptr;
@@ -25,8 +26,11 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         CPP_FastRandom* RandomColorGenerator = nullptr;
 
+        uint8_t InternalColor[4] = {0, 0, 0, 0}; // Default is black with full opacity
+
         uint32_t seed;
         uint32_t octaves;
+
         float frequency;
         float amplitude;
         float half_color_max = 255.f / 2.f;
@@ -41,6 +45,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
         const float color_range[2] = {0, 255};
 
         bool Configured = false;
+        bool IsSet = false;
+        bool Changed = true;
+        bool InternalChanged = true;
 
     public:
         CPP_ColorFormat();
@@ -345,6 +352,107 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
             Set_RGBA(in_color);
         }
+
+        inline bool GetSet() {
+            return IsSet;
+        }
+
+        inline bool GetChangedToggle() {
+            bool OldChanged = Changed;
+            Changed = false;
+            return OldChanged;
+        }
+
+        inline bool GetInternalChangedToggle() {
+            bool OldChanged = InternalChanged;
+            InternalChanged = false;
+            return OldChanged;
+        }
+
+        inline void Set_RGBA(uint8_t* in_color) {
+            bool Different = false;
+            for (int i = 0; i < 4; i++) {
+                if (in_color[i] != InternalColor[i]) {
+                    Different = true;
+                    break;
+                }
+            }
+            if (Different) {
+                Changed = true;
+                InternalChanged = true;
+                InternalColor[0] = in_color[0];
+                InternalColor[1] = in_color[1];
+                InternalColor[2] = in_color[2];
+                InternalColor[3] = in_color[3];
+            }
+
+            IsSet = true;
+        }
+
+        inline void Set_RGB(uint8_t* in_color) {
+            if (Logger == nullptr) {
+                Logger = new CPP_Logger();
+            }
+            Logger->InternalLogDebug(
+                9,
+                "The alpha channel is automatically set to opaque."
+            );
+
+            bool Different = false;
+            for (int i = 0; i < 3; i++) {
+                if (in_color[i] != InternalColor[i]) {
+                    Different = true;
+                    break;
+                }
+            }
+            if (Different) {
+                Changed = true;
+                InternalChanged = true;
+                InternalColor[0] = in_color[0];
+                InternalColor[1] = in_color[1];
+                InternalColor[2] = in_color[2];
+                InternalColor[3] = 255;
+            }
+
+            IsSet = true;
+        }
+
+        inline void Get_RGBA(uint8_t* out_color) {
+            if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
+                throw std::runtime_error("Color not set!");
+            }
+
+            out_color[0] = InternalColor[0];
+            out_color[1] = InternalColor[1];
+            out_color[2] = InternalColor[2];
+            out_color[3] = InternalColor[3];
+        }
+
+        inline void Get_RGB(uint8_t* out_color) {
+            if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
+                throw std::runtime_error("Color not set!");
+            }
+
+            out_color[0] = InternalColor[0];
+            out_color[1] = InternalColor[1];
+            out_color[2] = InternalColor[2];
+        }
 };
 
 class EXPORT CPP_DisplayCoordinateFormat {
@@ -507,8 +615,9 @@ display coordinate before attempting to get it.");
         }
 };
 
-class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
+class EXPORT CPP_AngleFormat {
     private:
+        CPP_Logger* Logger;
         CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
         CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
 
@@ -517,10 +626,16 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
         float frequency;
         float amplitude;
 
+        float InternalAngle = 0.f; // Default angle is 0 radians
+        const float RADIANS_TO_DEGREES = 180.f / 3.14159265358979323846f;
+        const float DEGREES_TO_RADIANS = 3.14159265358979323846f / 180.f;
+
         const float noise_range[2] = {-1.f, 1.f};
         const float angle_range[2] = {0.f, 3.14159265358979323846f * 2};
 
         bool Configured = false;
+        bool Changed = true;
+        bool IsSet = false;
 
     public:
         ~CPP_AngleFormat() {
@@ -530,6 +645,11 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
                 PerlinNoiseGenerator = nullptr;
                 FractalBrownianMotionGenerator = nullptr;
+            }
+
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
             }
         }
 
@@ -740,10 +860,71 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
             IsSet = true;
         }
+
+        inline bool GetSet() {
+            return IsSet;
+        }
+
+        inline bool GetChangedToggle() {
+            bool OldChanged = Changed;
+            Changed = false;
+            return OldChanged;
+        }
+
+        inline void Set_Radians(float in_angle) {
+            if (in_angle != InternalAngle) {
+                Changed = true;
+                InternalAngle = in_angle;
+            }
+
+            IsSet = true;
+        }
+
+        inline void Set_Degrees(float in_angle) {
+            float converted_in_angle = in_angle * DEGREES_TO_RADIANS;
+            if (converted_in_angle != InternalAngle) {
+                Changed = true;
+                InternalAngle = converted_in_angle;
+            }
+
+            IsSet = true;
+        }
+
+        inline float Get_Radians() {
+            if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not set an angle - please set an angle \
+before attempting to get it.");
+
+                throw std::runtime_error("Angle not set!");
+            }
+            return InternalAngle;
+        }
+
+        inline float Get_Degrees() {
+            if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not set an angle - please set an angle \
+before attempting to get it.");
+
+                throw std::runtime_error("Angle not set!");
+            }
+            return InternalAngle * RADIANS_TO_DEGREES;
+        }
 };
 
-class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
+class EXPORT CPP_ProportionFormat {
     private:
+        CPP_Logger* Logger;
+
         CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
         CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
 
@@ -752,10 +933,14 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
         float frequency;
         float amplitude;
 
+        float InternalProportion = 0.f; // Default proportion is 0 (0%)
+
         const float noise_range[2] = {-1.f, 1.f};
         const float proportion_range[2] = {0.f, 1.f};
 
         bool Configured = false;
+        bool IsSet = false;
+        bool Changed = true;
 
     public:
         ~CPP_ProportionFormat() {
@@ -765,6 +950,11 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
                 PerlinNoiseGenerator = nullptr;
                 FractalBrownianMotionGenerator = nullptr;
+            }
+
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
             }
         }
 
@@ -974,5 +1164,65 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
             }
 
             IsSet = true;
+        }
+
+        inline bool GetSet() {
+            return IsSet;
+        }
+
+        inline bool GetChangedToggle() {
+            bool OldChanged = Changed;
+            Changed = false;
+            return OldChanged;
+        }
+
+        inline void Set_Percentage(float in_proportion) {
+            float converted_in_proportion = in_proportion / 100;
+
+            if (converted_in_proportion != InternalProportion) {
+                Changed = true;
+                InternalProportion = converted_in_proportion;
+            }
+
+            IsSet = true;
+        }
+
+        inline void Set_Decimal(float in_proportion) {
+            if (in_proportion != InternalProportion) {
+                Changed = true;
+                InternalProportion = in_proportion;
+            }
+
+            IsSet = true;
+        }
+
+        inline float Get_Percentage() {
+            if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not set a proportion - please set a proportion \
+before attempting to get it.");
+
+                throw std::runtime_error("Proportion not set!");
+            }
+            return InternalProportion * 100;
+        }
+
+        inline float Get_Decimal() {
+            if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not set a proportion - please set a proportion \
+before attempting to get it.");
+
+                throw std::runtime_error("Proportion not set!");
+            }
+            return InternalProportion;
         }
 };

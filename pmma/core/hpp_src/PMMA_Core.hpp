@@ -53,7 +53,6 @@
 #include "FractalBrownianMotion.hpp"
 #include "General.hpp"
 #include "Logger.hpp"
-#include "NumberConverter.hpp"
 #include "NumberFormats.hpp"
 #include "Passport.hpp"
 #include "PerlinNoise.hpp"
