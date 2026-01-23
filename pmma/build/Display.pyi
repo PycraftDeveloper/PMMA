@@ -48,8 +48,7 @@ class Display:
             self, size: Integer1D=..., caption: str="PMMA Display",
             fullscreen: OptionalBool=True, resizable: bool=False,
             no_frame: bool=False, vsync: bool=True, icon: str="",
-            centered: bool=True, maximized: bool=False,
-            transparent: bool=False) -> None: ...
+            centered: bool=True, maximized: bool=False) -> None: ...
 
     def center_window(self) -> None: ...
 

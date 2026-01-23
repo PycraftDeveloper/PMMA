@@ -286,8 +286,7 @@ void CPP_Display::Create(
         bool NewNoFrame,
         bool NewVsync,
         bool NewCentered,
-        bool NewMaximized,
-        bool Transparent) {
+        bool NewMaximized) {
     Caption = NewCaption;
     FullScreen = NewFullScreen;
     Resizable = NewResizable;
@@ -377,22 +376,11 @@ void CPP_Display::Create(
     CurrentSize[0] = Size[0];
     CurrentSize[1] = Size[1];
 
-    if (Transparent) {
-        if (!WindowFillColor->GetSet()) {
-            uint8_t fill_color[4] = {0, 0, 0, 0};
-            WindowFillColor->Set_RGBA(fill_color);
-        }
-        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_TRUE);
-        cout << "You have specified that this window should be transparent. \
-Please note that this isn't guaranteed and relies on the Operating System, \
-GPU/drivers and device settings to be set correctly in order to work." << endl;
-    } else {
-        if (!WindowFillColor->GetSet()) {
-            uint8_t fill_color[4] = {0, 0, 0, 255};
-            WindowFillColor->Set_RGBA(fill_color);
-        }
-        glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
+    if (!WindowFillColor->GetSet()) {
+        uint8_t fill_color[4] = {0, 0, 0, 255};
+        WindowFillColor->Set_RGBA(fill_color);
     }
+    glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
 
     if (Resizable) {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);

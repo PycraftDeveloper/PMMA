@@ -28,8 +28,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
             bool NewNoFrame,
             bool NewVsync,
             bool NewCentered,
-            bool NewMaximized,
-            bool Transparent) except + nogil
+            bool NewMaximized) except + nogil
 
         inline void CenterWindow() except + nogil
 
@@ -106,8 +105,7 @@ cdef class Display:
             vsync=True,
             icon="",
             centered=True,
-            maximized=False,
-            transparent=False):
+            maximized=False):
         cdef:
             np.ndarray[np.uint32_t, ndim=1, mode='c'] size_np
             string encoded_caption = caption.encode('utf-8')
@@ -142,8 +140,7 @@ cdef class Display:
             no_frame,
             vsync,
             centered,
-            maximized,
-            transparent)
+            maximized)
 
     def get_width(self):
         return self.cpp_class_ptr.GetWidth()

@@ -74,8 +74,7 @@ class EXPORT CPP_Display {
             bool NewNoFrame=false,
             bool NewVsync=true,
             bool NewCentered=true,
-            bool NewMaximized=false,
-            bool Transparent=false);
+            bool NewMaximized=false);
 
         inline bool GetIsWindowUsingVsync() {
             if (Window == nullptr) {
