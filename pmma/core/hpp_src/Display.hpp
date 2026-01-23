@@ -356,12 +356,12 @@ before you can call this function.");
             return Caption;
         }
 
-        inline void GetCenter_Pixels(unsigned int* out) {
+        inline void GetCenterPosition(unsigned int* out) {
             out[0] = (unsigned int)(Size[0] / 2);
             out[1] = (unsigned int)(Size[1] / 2);
         }
 
-        inline void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) {
+        inline void GetCenterPosition(unsigned int* ObjectSize, unsigned int* out) {
             out[0] = (unsigned int)((Size[0] - ObjectSize[0]) / 2);
             out[1] = (unsigned int)((Size[1] - ObjectSize[1]) / 2);
         }

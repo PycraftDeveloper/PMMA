@@ -198,6 +198,9 @@ cdef class DisplayCoordinate:
     cpdef bint get_set(self):
         return self.cpp_class_ptr.GetSet()
 
+    cpdef void set_centered(self):
+        self.cpp_class_ptr.SetCentered()
+
     cpdef void generate_from_random(self):
         self.cpp_class_ptr.GenerateFromRandom()
 

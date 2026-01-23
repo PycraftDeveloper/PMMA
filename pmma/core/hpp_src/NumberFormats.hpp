@@ -13,8 +13,6 @@
 
 class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
     private:
-        CPP_Logger* Logger = nullptr;
-
         CPP_PerlinNoise* R_PerlinNoiseGenerator = nullptr;
         CPP_PerlinNoise* G_PerlinNoiseGenerator = nullptr;
         CPP_PerlinNoise* B_PerlinNoiseGenerator = nullptr;
@@ -73,8 +71,10 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
             delete RandomColorGenerator;
             RandomColorGenerator = nullptr;
 
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
         }
 
         inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
@@ -99,6 +99,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline uint32_t GetSeed() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -109,6 +112,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline uint32_t GetOctaves() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -119,6 +125,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline float GetFrequency() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -129,6 +138,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline float GetAmplitude() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -156,6 +168,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha=true) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -183,6 +198,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha=true) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -210,6 +228,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three, bool GenerateAlpha=true) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -237,6 +258,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha=true) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -264,6 +288,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha=true) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -291,6 +318,9 @@ class EXPORT CPP_ColorFormat: public CPP_BasicColorConverter {
 
         inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three, bool GenerateAlpha=true) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -368,8 +398,10 @@ class EXPORT CPP_DisplayCoordinateFormat {
             delete RandomCoordGenerator;
             RandomCoordGenerator = nullptr;
 
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
         }
 
         void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
@@ -386,6 +418,9 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
         inline uint32_t GetSeed() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -396,6 +431,9 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
         inline uint32_t GetOctaves() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -406,6 +444,9 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
         inline float GetFrequency() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -416,6 +457,9 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
         inline float GetAmplitude() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -423,6 +467,8 @@ class EXPORT CPP_DisplayCoordinateFormat {
             }
             return amplitude;
         }
+
+        void SetCentered();
 
         void GenerateFromRandom();
 
@@ -446,6 +492,9 @@ class EXPORT CPP_DisplayCoordinateFormat {
 
         inline void Get(float* out) {
             if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not set a display coordinate - please set a \
@@ -460,8 +509,6 @@ display coordinate before attempting to get it.");
 
 class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
     private:
-        CPP_Logger* Logger;
-
         CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
         CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
 
@@ -476,10 +523,6 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
         bool Configured = false;
 
     public:
-        CPP_AngleFormat() {
-            Logger = new CPP_Logger();
-        }
-
         ~CPP_AngleFormat() {
             if (Configured) {
                 delete PerlinNoiseGenerator;
@@ -488,9 +531,6 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
                 PerlinNoiseGenerator = nullptr;
                 FractalBrownianMotionGenerator = nullptr;
             }
-
-            delete Logger;
-            Logger = nullptr;
         }
 
         inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
@@ -508,6 +548,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline uint32_t GetSeed() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -518,6 +561,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline uint32_t GetOctaves() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -528,6 +574,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline float GetFrequency() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -538,6 +587,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline float GetAmplitude() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -559,6 +611,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline void GenerateFrom1DPerlinNoise(float value) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -578,6 +633,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -597,6 +655,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -616,6 +677,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline void GenerateFrom1DFractalBrownianMotion(float value) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -635,6 +699,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -654,6 +721,9 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
         inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -674,8 +744,6 @@ class EXPORT CPP_AngleFormat: public CPP_BasicAngleConverter {
 
 class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
     private:
-        CPP_Logger* Logger;
-
         CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
         CPP_FractalBrownianMotion* FractalBrownianMotionGenerator = nullptr;
 
@@ -690,10 +758,6 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
         bool Configured = false;
 
     public:
-        CPP_ProportionFormat() {
-            Logger = new CPP_Logger();
-        }
-
         ~CPP_ProportionFormat() {
             if (Configured) {
                 delete PerlinNoiseGenerator;
@@ -702,9 +766,6 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
                 PerlinNoiseGenerator = nullptr;
                 FractalBrownianMotionGenerator = nullptr;
             }
-
-            delete Logger;
-            Logger = nullptr;
         }
 
         inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
@@ -722,6 +783,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline uint32_t GetSeed() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -732,6 +796,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline uint32_t GetOctaves() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -742,6 +809,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline float GetFrequency() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -752,6 +822,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline float GetAmplitude() {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -773,6 +846,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline void GenerateFrom1DPerlinNoise(float value) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -792,6 +868,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -811,6 +890,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -830,6 +912,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline void GenerateFrom1DFractalBrownianMotion(float value) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -849,6 +934,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
@@ -868,6 +956,9 @@ class EXPORT CPP_ProportionFormat: public CPP_BasicProportionConverter {
 
         inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
             if (!Configured) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");

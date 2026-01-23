@@ -2,7 +2,6 @@
 
 CPP_ColorFormat::CPP_ColorFormat() {
     RandomColorGenerator = new CPP_FastRandom();
-    Logger = new CPP_Logger();
 }
 
 CPP_DisplayCoordinateFormat::CPP_DisplayCoordinateFormat() {
@@ -35,6 +34,30 @@ void CPP_DisplayCoordinateFormat::Configure(uint32_t new_seed, uint32_t new_octa
     frequency = new_frequency;
     amplitude = new_amplitude;
     Configured = true;
+}
+
+void CPP_DisplayCoordinateFormat::SetCentered() {
+    if (PMMA_Core::DisplayInstance == nullptr) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`."
+        );
+        throw runtime_error("Display not created yet!");
+    }
+
+    if (PMMA_Core::DisplayInstance->DisplaySizeChanged) {
+        PMMA_Core::DisplayInstance->GetSize(DisplaySize);
+    }
+
+    unsigned int new_coord[2];
+    PMMA_Core::DisplayInstance->GetCenterPosition(new_coord);
+
+    float coord_float[2];
+    coord_float[0] = static_cast<float>(new_coord[0]);
+    coord_float[1] = static_cast<float>(new_coord[1]);
+
+    Set(coord_float);
 }
 
 void CPP_DisplayCoordinateFormat::GenerateFromRandom() {

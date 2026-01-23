@@ -18,13 +18,11 @@ class EXPORT CPP_BasicColorConverter {
         bool InternalChanged = true;
 
     public:
-        CPP_BasicColorConverter() {
-            Logger = new CPP_Logger();
-        }
-
         ~CPP_BasicColorConverter() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
         }
 
         inline bool GetSet() {
@@ -64,6 +62,9 @@ class EXPORT CPP_BasicColorConverter {
         }
 
         inline void Set_RGB(uint8_t* in_color) {
+            if (Logger == nullptr) {
+                Logger = new CPP_Logger();
+            }
             Logger->InternalLogDebug(
                 9,
                 "The alpha channel is automatically set to opaque."
@@ -90,6 +91,9 @@ class EXPORT CPP_BasicColorConverter {
 
         inline void Get_RGBA(uint8_t* out_color) {
             if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not set a color - please set a color \
@@ -106,6 +110,9 @@ before attempting to get it.");
 
         inline void Get_RGB(uint8_t* out_color) {
             if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not set a color - please set a color \
@@ -132,13 +139,11 @@ class EXPORT CPP_BasicAngleConverter {
         bool IsSet = false;
 
     public:
-        CPP_BasicAngleConverter() {
-            Logger = new CPP_Logger();
-        }
-
         ~CPP_BasicAngleConverter() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
         }
 
         inline bool GetSet() {
@@ -172,6 +177,9 @@ class EXPORT CPP_BasicAngleConverter {
 
         inline float Get_Radians() {
             if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not set an angle - please set an angle \
@@ -184,6 +192,9 @@ before attempting to get it.");
 
         inline float Get_Degrees() {
             if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not set an angle - please set an angle \
@@ -205,13 +216,11 @@ class EXPORT CPP_BasicProportionConverter {
         bool Changed = true;
 
     public:
-        CPP_BasicProportionConverter() {
-            Logger = new CPP_Logger();
-        }
-
         ~CPP_BasicProportionConverter() {
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
         }
 
         inline bool GetSet() {
@@ -246,6 +255,9 @@ class EXPORT CPP_BasicProportionConverter {
 
         inline float Get_Percentage() {
             if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not set a proportion - please set a proportion \
@@ -258,6 +270,9 @@ before attempting to get it.");
 
         inline float Get_Decimal() {
             if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
                 Logger->InternalLogWarn(
                     30,
                     "You have not set a proportion - please set a proportion \

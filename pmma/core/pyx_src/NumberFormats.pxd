@@ -31,26 +31,27 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline bool GetSet() except + nogil
 
     cdef cppclass CPP_DisplayCoordinateFormat:
-        CPP_DisplayCoordinateFormat() except +
+        CPP_DisplayCoordinateFormat() except + nogil
 
-        void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
+        void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
 
-        void GenerateFromRandom() except +
-        void GenerateFrom1DPerlinNoise(float value) except +
-        void GenerateFrom2DPerlinNoise(float value_one, float value_two) except +
-        void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) except +
-        void GenerateFrom1DFractalBrownianMotion(float value) except +
-        void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) except +
-        void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) except +
+        void SetCentered() except + nogil
+        void GenerateFromRandom() except + nogil
+        void GenerateFrom1DPerlinNoise(float value) except + nogil
+        void GenerateFrom2DPerlinNoise(float value_one, float value_two) except + nogil
+        void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) except + nogil
+        void GenerateFrom1DFractalBrownianMotion(float value) except + nogil
+        void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) except + nogil
+        void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) except + nogil
 
         void Get(float* out_coordinate) except +
         void Set(float* in_coordinate) except +
 
-        unsigned int GetSeed() except +
-        unsigned int GetOctaves() except +
-        float GetFrequency() except +
-        float GetAmplitude() except +
-        bool GetSet() except +
+        unsigned int GetSeed() except + nogil
+        unsigned int GetOctaves() except + nogil
+        float GetFrequency() except + nogil
+        float GetAmplitude() except + nogil
+        bool GetSet() except + nogil
 
     cdef cppclass CPP_AngleFormat:
         CPP_AngleFormat() except + nogil
@@ -151,6 +152,8 @@ cdef class DisplayCoordinate:
     cpdef float get_lacunarity(self)
     cpdef float get_gain(self)
     cpdef bint get_set(self)
+
+    cpdef void set_centered(self)
 
     cpdef void generate_from_random(self)
 

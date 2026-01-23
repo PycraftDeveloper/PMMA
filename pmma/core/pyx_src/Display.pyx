@@ -43,8 +43,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void SetIcon(string IconPath) except + nogil
 
         inline string GetCaption() except + nogil
-        inline void GetCenter_Pixels(unsigned int* out) except + nogil
-        inline void GetCenter_Pixels(unsigned int* ObjectSize, unsigned int* out) except + nogil
+        inline void GetCenterPosition(unsigned int* out) except + nogil
+        inline void GetCenterPosition(unsigned int* ObjectSize, unsigned int* out) except + nogil
         inline unsigned int GetWidth() except + nogil
         inline unsigned int GetHeight() except + nogil
         inline void GetSize(int* out) except + nogil
@@ -235,7 +235,7 @@ cdef class Display:
 
             object_size_ptr = <unsigned int*>&object_size_np[0]
 
-            self.cpp_class_ptr.GetCenter_Pixels(object_size_ptr, out_ptr)
+            self.cpp_class_ptr.GetCenterPosition(object_size_ptr, out_ptr)
 
             if isinstance(object_size, np.ndarray):
                 return out_np
@@ -245,7 +245,7 @@ cdef class Display:
                 else:
                     return out_np.tolist()
 
-        self.cpp_class_ptr.GetCenter_Pixels(out_ptr)
+        self.cpp_class_ptr.GetCenterPosition(out_ptr)
 
         if self.using_numpy_arrays:
             return out_np
