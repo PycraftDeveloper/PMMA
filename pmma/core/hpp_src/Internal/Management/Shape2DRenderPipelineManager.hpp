@@ -232,7 +232,7 @@ class CPP_Shape2D_RenderPipelineManager {
             Vertex* base = combined_vertexes.data();
             Vertex* writePtr = base + LiveVertexCount;
 
-            const auto& vertices = TargetPtr->Shape2D_RenderPipelineData;
+            const auto& vertices = TargetPtr->Shape2D_RenderPipelineVertices;
             const size_t verticesCount = vertices.size();
 
             // FAST-PATH: shape unchanged, previous data valid → skip rewrite

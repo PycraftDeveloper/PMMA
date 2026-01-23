@@ -81,7 +81,7 @@ API to set it.");
 
             float HalfWidth = Width * 0.5f;
 
-            Shape2D_RenderPipelineData.resize(segmentCount * 6);
+            Shape2D_RenderPipelineVertices.resize(segmentCount * 6);
 
             for (unsigned int i = 0; i < segmentCount; i++) {
                 float P0[2], P1[2], local0[2], local1[2], rot0[2], rot1[2], D[2], N[2], A[2], B[2], C[2], Dp[2], PDiff[2];
@@ -131,22 +131,22 @@ API to set it.");
                 Dp[0] = P1[0] - N[0] * HalfWidth;
                 Dp[1] = P1[1] - N[1] * HalfWidth;
 
-                auto &v0 = Shape2D_RenderPipelineData[index];
+                auto &v0 = Shape2D_RenderPipelineVertices[index];
                 v0.x = A[0]; v0.y = A[1]; v0.s = ColorIndex;
 
-                auto &v1 = Shape2D_RenderPipelineData[index + 1];
+                auto &v1 = Shape2D_RenderPipelineVertices[index + 1];
                 v1.x = B[0]; v1.y = B[1]; v1.s = ColorIndex;
 
-                auto &v2 = Shape2D_RenderPipelineData[index + 2];
+                auto &v2 = Shape2D_RenderPipelineVertices[index + 2];
                 v2.x = C[0]; v2.y = C[1]; v2.s = ColorIndex;
 
-                auto &v3 = Shape2D_RenderPipelineData[index + 3];
+                auto &v3 = Shape2D_RenderPipelineVertices[index + 3];
                 v3.x = C[0]; v3.y = C[1]; v3.s = ColorIndex;
 
-                auto &v4 = Shape2D_RenderPipelineData[index + 4];
+                auto &v4 = Shape2D_RenderPipelineVertices[index + 4];
                 v4.x = B[0]; v4.y = B[1]; v4.s = ColorIndex;
 
-                auto &v5 = Shape2D_RenderPipelineData[index + 5];
+                auto &v5 = Shape2D_RenderPipelineVertices[index + 5];
                 v5.x = Dp[0]; v5.y = Dp[1]; v5.s = ColorIndex;
             }
         }

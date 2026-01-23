@@ -108,17 +108,17 @@ API to set it.");
             Normal[0] = (-Direction[1]) * 0.5f * InternalWidth;
             Normal[1] = Direction[0] * 0.5f * InternalWidth;
 
-            Shape2D_RenderPipelineData.resize(4);
-            auto &v0 = Shape2D_RenderPipelineData[0];
+            Shape2D_RenderPipelineVertices.resize(4);
+            auto &v0 = Shape2D_RenderPipelineVertices[0];
             v0.x = RotatedStart[0] - Normal[0]; v0.y = RotatedStart[1] - Normal[1]; v0.s = ColorIndex;
 
-            auto &v1 = Shape2D_RenderPipelineData[1];
+            auto &v1 = Shape2D_RenderPipelineVertices[1];
             v1.x = RotatedStart[0] + Normal[0]; v1.y = RotatedStart[1] + Normal[1]; v1.s = ColorIndex;
 
-            auto &v2 = Shape2D_RenderPipelineData[2];
+            auto &v2 = Shape2D_RenderPipelineVertices[2];
             v2.x = RotatedEnd[0] - Normal[0]; v2.y = RotatedEnd[1] - Normal[1]; v2.s = ColorIndex;
 
-            auto &v3 = Shape2D_RenderPipelineData[3];
+            auto &v3 = Shape2D_RenderPipelineVertices[3];
             v3.x = RotatedEnd[0] + Normal[0]; v3.y = RotatedEnd[1] + Normal[1]; v3.s = ColorIndex;
         }
         PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);

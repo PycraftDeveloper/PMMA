@@ -19,7 +19,7 @@ class EXPORT CPP_PolygonShape {
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
-        std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<Vertex> Shape2D_RenderPipelineVertices;
 
         std::vector<glm::vec2> ShapePoints;
 
@@ -68,7 +68,7 @@ class EXPORT CPP_PolygonShape {
                         NewShapePoints.begin()))) {
 
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -111,7 +111,7 @@ class EXPORT CPP_PolygonShape {
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -125,7 +125,7 @@ class EXPORT CPP_PolygonShape {
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -139,7 +139,7 @@ class EXPORT CPP_PolygonShape {
         inline void SetClosed(bool in_closed) {
             if (in_closed != Closed) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 

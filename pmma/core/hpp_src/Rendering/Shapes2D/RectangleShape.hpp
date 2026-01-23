@@ -14,13 +14,13 @@
 class EXPORT CPP_RectangleShape {
     public:
         CPP_Logger* Logger;
-        CPP_DisplayCoordinate* ShapeCenterFormat;
+        CPP_DisplayCoordinate* ShapeCenter;
         CPP_Color* Color;
 
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
-        std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<Vertex> Shape2D_RenderPipelineVertices;
 
         glm::vec2 ShapeSize;
 
@@ -46,8 +46,8 @@ class EXPORT CPP_RectangleShape {
                 Logger = nullptr;
             }
 
-            delete ShapeCenterFormat;
-            ShapeCenterFormat = nullptr;
+            delete ShapeCenter;
+            ShapeCenter = nullptr;
 
             delete Color;
             Color = nullptr;
@@ -86,7 +86,7 @@ class EXPORT CPP_RectangleShape {
         inline void SetSize(unsigned int* in_size) {
             if (SizeSet && (in_size[0] != ShapeSize.x || in_size[1] != ShapeSize.y)) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -113,7 +113,7 @@ class EXPORT CPP_RectangleShape {
         inline void SetWidth(unsigned int in_width) {
             if (WidthSet && in_width != Width) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -128,7 +128,7 @@ class EXPORT CPP_RectangleShape {
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -142,7 +142,7 @@ class EXPORT CPP_RectangleShape {
         inline void SetCornerRadius(unsigned int in_corner_radius) {
             if (in_corner_radius != CornerRadius) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 

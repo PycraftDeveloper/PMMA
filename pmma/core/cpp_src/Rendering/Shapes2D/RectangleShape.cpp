@@ -3,7 +3,7 @@
 using namespace std;
 
 CPP_RectangleShape::CPP_RectangleShape() {
-    ShapeCenterFormat = new CPP_DisplayCoordinate();
+    ShapeCenter = new CPP_DisplayCoordinate();
     Color = new CPP_Color();
 
     ID = PMMA_Registry::ClassObject_ID_System++;
@@ -16,7 +16,7 @@ void CPP_RectangleShape::Render() {
     unsigned int HalfWidth = ShapeSize.x / 2;
     unsigned int HalfHeight = ShapeSize.y / 2;
 
-    if (!ShapeCenterFormat->GetSet()) {
+    if (!ShapeCenter->GetSet()) {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
@@ -52,10 +52,10 @@ API to set it.");
     }
 
     float ShapeCenter[2];
-    ShapeCenterFormat->Get(ShapeCenter);
+    ShapeCenter->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
-        ShapeCenterFormat->GetChangedToggle() ||
+        ShapeCenter->GetChangedToggle() ||
         PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenter[0] + HalfWidth < 0 ||
@@ -104,7 +104,7 @@ API to set it.");
                     1 + (CPP_Constants::TAU / asin(minAngle)) * PMMA_Registry::CurrentShapeQuality / 4));
 
                 size_t vertexCount = (segments + 1) * 8 + 2;
-                Shape2D_RenderPipelineData.resize(vertexCount);
+                Shape2D_RenderPipelineVertices.resize(vertexCount);
 
                 int outer_radius = radius;
                 int inner_radius = max((int)radius - static_cast<int>(InternalWidth), 0);
@@ -170,10 +170,10 @@ API to set it.");
                         rotated_inner[0] = RotationCos * inner[0] - RotationSin * inner[1];
                         rotated_inner[1] = RotationSin * inner[0] + RotationCos * inner[1];
 
-                        auto &v0 = Shape2D_RenderPipelineData[index + i * 2];
+                        auto &v0 = Shape2D_RenderPipelineVertices[index + i * 2];
                         v0.x = ShapeCenter[0] + rotated_outer[0]; v0.y = ShapeCenter[1] + rotated_outer[1]; v0.s = ColorIndex;
 
-                        auto &v1 = Shape2D_RenderPipelineData[index + i * 2 + 1];
+                        auto &v1 = Shape2D_RenderPipelineVertices[index + i * 2 + 1];
                         v1.x = ShapeCenter[0] + rotated_inner[0]; v1.y = ShapeCenter[1] + rotated_inner[1]; v1.s = ColorIndex;
 
                         // rotate (x, y) using rotation matrix
@@ -185,12 +185,12 @@ API to set it.");
                 }
 
                 // Close the loop
-                Shape2D_RenderPipelineData[vertexCount - 2] = Shape2D_RenderPipelineData[0];
-                Shape2D_RenderPipelineData[vertexCount - 1] = Shape2D_RenderPipelineData[1];
+                Shape2D_RenderPipelineVertices[vertexCount - 2] = Shape2D_RenderPipelineVertices[0];
+                Shape2D_RenderPipelineVertices[vertexCount - 1] = Shape2D_RenderPipelineVertices[1];
             } else {
                 if (Width == 0 || Width >= max(HalfWidth, HalfHeight)) {
                     float point[2], out[2];
-                    Shape2D_RenderPipelineData.resize(4);
+                    Shape2D_RenderPipelineVertices.resize(4);
 
                     point[0] = ShapeCenter[0] - HalfWidth;
                     point[1] = ShapeCenter[1] - HalfHeight;
@@ -198,7 +198,7 @@ API to set it.");
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
 
-                    auto &v0 = Shape2D_RenderPipelineData[0];
+                    auto &v0 = Shape2D_RenderPipelineVertices[0];
                     v0.x = out[0]; v0.y = out[1]; v0.s = ColorIndex;
 
                     point[0] = ShapeCenter[0] + HalfWidth;
@@ -207,7 +207,7 @@ API to set it.");
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
 
-                    auto &v1 = Shape2D_RenderPipelineData[1];
+                    auto &v1 = Shape2D_RenderPipelineVertices[1];
                     v1.x = out[0]; v1.y = out[1]; v1.s = ColorIndex;
 
                     point[0] = ShapeCenter[0] - HalfWidth;
@@ -216,7 +216,7 @@ API to set it.");
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
 
-                    auto &v2 = Shape2D_RenderPipelineData[2];
+                    auto &v2 = Shape2D_RenderPipelineVertices[2];
                     v2.x = out[0]; v2.y = out[1]; v2.s = ColorIndex;
 
                     point[0] = ShapeCenter[0] + HalfWidth;
@@ -225,11 +225,11 @@ API to set it.");
                     SimpleApplyRotation(point, ShapeCenter, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
 
-                    auto &v3 = Shape2D_RenderPipelineData[3];
+                    auto &v3 = Shape2D_RenderPipelineVertices[3];
                     v3.x = out[0]; v3.y = out[1]; v3.s = ColorIndex;
                 } else {
                     float pos[2], out[2];
-                    Shape2D_RenderPipelineData.resize(10);
+                    Shape2D_RenderPipelineVertices.resize(10);
 
                     int outer_left = ShapeCenter[0] - HalfWidth;
                     int outer_right = ShapeCenter[0] + HalfWidth;
@@ -248,7 +248,7 @@ API to set it.");
                     ComplexApplyRotation(pos, ShapeCenter,
                         RotationSin, RotationCos, out);
 
-                    auto &v0 = Shape2D_RenderPipelineData[0];
+                    auto &v0 = Shape2D_RenderPipelineVertices[0];
                     v0.x = out[0]; v0.y = out[1]; v0.s = ColorIndex;
 
                     pos[0] = inner_left;
@@ -257,7 +257,7 @@ API to set it.");
                     ComplexApplyRotation(pos, ShapeCenter,
                         RotationSin, RotationCos, out);
 
-                    auto &v1 = Shape2D_RenderPipelineData[1];
+                    auto &v1 = Shape2D_RenderPipelineVertices[1];
                     v1.x = out[0]; v1.y = out[1]; v1.s = ColorIndex;
 
                     pos[0] = outer_right;
@@ -266,7 +266,7 @@ API to set it.");
                     ComplexApplyRotation(pos, ShapeCenter,
                         RotationSin, RotationCos, out);
 
-                    auto &v2 = Shape2D_RenderPipelineData[2];
+                    auto &v2 = Shape2D_RenderPipelineVertices[2];
                     v2.x = out[0]; v2.y = out[1]; v2.s = ColorIndex;
 
                     pos[0] = inner_right;
@@ -275,7 +275,7 @@ API to set it.");
                     ComplexApplyRotation(pos, ShapeCenter,
                         RotationSin, RotationCos, out);
 
-                    auto &v3 = Shape2D_RenderPipelineData[3];
+                    auto &v3 = Shape2D_RenderPipelineVertices[3];
                     v3.x = out[0]; v3.y = out[1]; v3.s = ColorIndex;
 
                     pos[0] = outer_right;
@@ -284,7 +284,7 @@ API to set it.");
                     ComplexApplyRotation(pos, ShapeCenter,
                         RotationSin, RotationCos, out);
 
-                    auto &v4 = Shape2D_RenderPipelineData[4];
+                    auto &v4 = Shape2D_RenderPipelineVertices[4];
                     v4.x = out[0]; v4.y = out[1]; v4.s = ColorIndex;
 
                     pos[0] = inner_right;
@@ -293,7 +293,7 @@ API to set it.");
                     ComplexApplyRotation(pos, ShapeCenter,
                         RotationSin, RotationCos, out);
 
-                    auto &v5 = Shape2D_RenderPipelineData[5];
+                    auto &v5 = Shape2D_RenderPipelineVertices[5];
                     v5.x = out[0]; v5.y = out[1]; v5.s = ColorIndex;
 
                     pos[0] = outer_left;
@@ -302,7 +302,7 @@ API to set it.");
                     ComplexApplyRotation(pos, ShapeCenter,
                         RotationSin, RotationCos, out);
 
-                    auto &v6 = Shape2D_RenderPipelineData[6];
+                    auto &v6 = Shape2D_RenderPipelineVertices[6];
                     v6.x = out[0]; v6.y = out[1]; v6.s = ColorIndex;
 
                     pos[0] = inner_left;
@@ -311,11 +311,11 @@ API to set it.");
                     ComplexApplyRotation(pos, ShapeCenter,
                         RotationSin, RotationCos, out);
 
-                    auto &v7 = Shape2D_RenderPipelineData[7];
+                    auto &v7 = Shape2D_RenderPipelineVertices[7];
                     v7.x = out[0]; v7.y = out[1]; v7.s = ColorIndex;
 
-                    Shape2D_RenderPipelineData[8] = Shape2D_RenderPipelineData[0];
-                    Shape2D_RenderPipelineData[9] = Shape2D_RenderPipelineData[1];
+                    Shape2D_RenderPipelineVertices[8] = Shape2D_RenderPipelineVertices[0];
+                    Shape2D_RenderPipelineVertices[9] = Shape2D_RenderPipelineVertices[1];
                 }
             }
         }

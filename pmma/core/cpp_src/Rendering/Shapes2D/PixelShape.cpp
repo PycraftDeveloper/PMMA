@@ -3,7 +3,7 @@
 using namespace std;
 
 CPP_PixelShape::CPP_PixelShape() {
-    ShapeCenterFormat = new CPP_DisplayCoordinate();
+    ShapeCenter = new CPP_DisplayCoordinate();
     Color = new CPP_Color();
 
     ID = PMMA_Registry::ClassObject_ID_System++;
@@ -13,7 +13,7 @@ void CPP_PixelShape::Render() {
     int DisplaySize[2];
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
-    if (!ShapeCenterFormat->GetSet()) {
+    if (!ShapeCenter->GetSet()) {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
@@ -36,10 +36,10 @@ API to set it.");
     }
 
     float ShapeCenter[2];
-    ShapeCenterFormat->Get(ShapeCenter);
+    ShapeCenter->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
-                ShapeCenterFormat->GetChangedToggle() ||
+                ShapeCenter->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenter[0] + 0.5f < 0 ||
@@ -68,20 +68,20 @@ API to set it.");
     }
 
     if (VertexDataChanged) {
-        Shape2D_RenderPipelineData.resize(4);
+        Shape2D_RenderPipelineVertices.resize(4);
         float x = ShapeCenter[0];
         float y = ShapeCenter[1];
 
-        auto &v0 = Shape2D_RenderPipelineData[0];
+        auto &v0 = Shape2D_RenderPipelineVertices[0];
         v0.x = x - 0.5f; v0.y = y - 0.5f; v0.s = ColorIndex;
 
-        auto &v1 = Shape2D_RenderPipelineData[1];
+        auto &v1 = Shape2D_RenderPipelineVertices[1];
         v1.x = x + 0.5f; v1.y = y - 0.5f; v1.s = ColorIndex;
 
-        auto &v2 = Shape2D_RenderPipelineData[2];
+        auto &v2 = Shape2D_RenderPipelineVertices[2];
         v2.x = x - 0.5f; v2.y = y + 0.5f; v2.s = ColorIndex;
 
-        auto &v3 = Shape2D_RenderPipelineData[3];
+        auto &v3 = Shape2D_RenderPipelineVertices[3];
         v3.x = x + 0.5f; v3.y = y + 0.5f; v3.s = ColorIndex;
     }
     PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, true, ColorIndexChanged);

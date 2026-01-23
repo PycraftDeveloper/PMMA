@@ -14,12 +14,12 @@
 class EXPORT CPP_PixelShape {
     public:
         CPP_Logger* Logger;
-        CPP_DisplayCoordinate* ShapeCenterFormat;
+        CPP_DisplayCoordinate* ShapeCenter;
         CPP_Color* Color;
 
         std::vector<glm::vec2> VertexData;
 
-        std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<Vertex> Shape2D_RenderPipelineVertices;
 
         glm::vec2 ShapeSize;
 
@@ -39,8 +39,8 @@ class EXPORT CPP_PixelShape {
                 Logger = nullptr;
             }
 
-            delete ShapeCenterFormat;
-            ShapeCenterFormat = nullptr;
+            delete ShapeCenter;
+            ShapeCenter = nullptr;
 
             delete Color;
             Color = nullptr;

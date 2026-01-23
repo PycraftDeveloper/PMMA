@@ -3,7 +3,7 @@
 using namespace std;
 
 CPP_EllipseShape::CPP_EllipseShape() {
-    ShapeCenterFormat = new CPP_DisplayCoordinate();
+    ShapeCenter = new CPP_DisplayCoordinate();
     Color = new CPP_Color();
 
     ID = PMMA_Registry::ClassObject_ID_System++;
@@ -25,7 +25,7 @@ void CPP_EllipseShape::Render() {
     unsigned int HalfWidth = ShapeSize.x / 2;
     unsigned int HalfHeight = ShapeSize.y / 2;
 
-    if (!ShapeCenterFormat->GetSet()) {
+    if (!ShapeCenter->GetSet()) {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
@@ -58,10 +58,10 @@ API to set it.");
     }
 
     float ShapeCenter[2];
-    ShapeCenterFormat->Get(ShapeCenter);
+    ShapeCenter->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
-                ShapeCenterFormat->GetChangedToggle() ||
+                ShapeCenter->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenter[0] + HalfWidth < 0 ||
@@ -115,7 +115,7 @@ API to set it.");
 
             // Reserve the exact number of vertices upfront
             size_t vertexCount = InternalPointCount * 2 + 2;
-            Shape2D_RenderPipelineData.resize(vertexCount);
+            Shape2D_RenderPipelineVertices.resize(vertexCount);
 
             float cx = ShapeCenter[0];
             float cy = ShapeCenter[1];
@@ -129,12 +129,12 @@ API to set it.");
             float cosRot = cos(Rotation);
             float sinRot = sin(Rotation);
 
-            Vertex* v = Shape2D_RenderPipelineData.data();
+            Vertex* v = Shape2D_RenderPipelineVertices.data();
             if (Width < 0) {
-                auto &v1 = Shape2D_RenderPipelineData[1];
+                auto &v1 = Shape2D_RenderPipelineVertices[1];
                 v1.x = cx; v1.y = cy; v1.s = ColorIndex;
 
-                const Vertex Center = Shape2D_RenderPipelineData[1];
+                const Vertex Center = Shape2D_RenderPipelineVertices[1];
                 for (unsigned int i = 0; i <= InternalPointCount; ++i) {
                     float angle = i * angleStep;
 
@@ -148,7 +148,7 @@ API to set it.");
                     float x_rot_outer = x_outer * cosRot - y_outer * sinRot;
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
-                    auto &v1 = Shape2D_RenderPipelineData[i * 2 + 1];
+                    auto &v1 = Shape2D_RenderPipelineVertices[i * 2 + 1];
                     v1.x = cx; v1.y = cy; v1.s = ColorIndex;
 
                     v[0].x = cx + x_rot_outer;

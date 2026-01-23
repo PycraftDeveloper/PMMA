@@ -16,7 +16,7 @@ np.import_array()
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_RadialPolygonShape:
-        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         inline void SetRadius(unsigned int in_radius) except + nogil
@@ -32,7 +32,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_RectangleShape:
-        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         inline void SetCornerRadius(unsigned int in_corner_radius) except + nogil
@@ -48,7 +48,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_PixelShape:
-        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         void Render() except + nogil
@@ -83,7 +83,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_ArcShape:
-        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         inline void SetRotation(float rotation) except + nogil
@@ -103,7 +103,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_EllipseShape:
-        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         inline void SetPointCount(unsigned int in_point_count) except + nogil
@@ -128,7 +128,7 @@ cdef class RadialPolygon:
         self.cpp_class_ptr = new CPP_RadialPolygonShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenter)
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
@@ -183,7 +183,7 @@ cdef class Rectangle:
         self.cpp_class_ptr = new CPP_RectangleShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenter)
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
@@ -264,7 +264,7 @@ cdef class Pixel:
         self.cpp_class_ptr = new CPP_PixelShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenter)
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
@@ -429,7 +429,7 @@ cdef class Arc:
         self.cpp_class_ptr = new CPP_ArcShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenter)
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
@@ -496,7 +496,7 @@ cdef class Ellipse:
         self.cpp_class_ptr = new CPP_EllipseShape()
 
         self.cpp_shape_center_format = DisplayCoordinate()
-        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
+        self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenter)
 
         self.cpp_color_format = Color()
         self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)

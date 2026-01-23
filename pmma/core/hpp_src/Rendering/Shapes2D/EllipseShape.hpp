@@ -14,12 +14,12 @@
 class EXPORT CPP_EllipseShape {
     public:
         CPP_Logger* Logger;
-        CPP_DisplayCoordinate* ShapeCenterFormat;
+        CPP_DisplayCoordinate* ShapeCenter;
         CPP_Color* Color;
 
         std::vector<glm::vec2> VertexData;
 
-        std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<Vertex> Shape2D_RenderPipelineVertices;
 
         glm::vec2 ShapeSize;
 
@@ -43,8 +43,8 @@ class EXPORT CPP_EllipseShape {
                 Logger = nullptr;
             }
 
-            delete ShapeCenterFormat;
-            ShapeCenterFormat = nullptr;
+            delete ShapeCenter;
+            ShapeCenter = nullptr;
 
             delete Color;
             Color = nullptr;
@@ -57,7 +57,7 @@ class EXPORT CPP_EllipseShape {
         inline void SetSize(unsigned int* in_size) {
             if (SizeSet && (in_size[0] != ShapeSize.x || in_size[1] != ShapeSize.y)) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -83,7 +83,7 @@ class EXPORT CPP_EllipseShape {
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -97,7 +97,7 @@ class EXPORT CPP_EllipseShape {
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -111,7 +111,7 @@ class EXPORT CPP_EllipseShape {
         inline void SetPointCount(unsigned int in_point_count) {
             if (in_point_count != PointCount) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 

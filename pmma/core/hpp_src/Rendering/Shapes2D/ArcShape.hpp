@@ -14,12 +14,12 @@
 class EXPORT CPP_ArcShape {
     public:
         CPP_Logger* Logger;
-        CPP_DisplayCoordinate* ShapeCenterFormat;
+        CPP_DisplayCoordinate* ShapeCenter;
         CPP_Color* Color;
 
         std::vector<glm::vec2> VertexData;
 
-        std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<Vertex> Shape2D_RenderPipelineVertices;
 
         float Rotation = 0;
         float StartAngle;
@@ -46,8 +46,8 @@ class EXPORT CPP_ArcShape {
                 Logger = nullptr;
             }
 
-            delete ShapeCenterFormat;
-            ShapeCenterFormat = nullptr;
+            delete ShapeCenter;
+            ShapeCenter = nullptr;
 
             delete Color;
             Color = nullptr;
@@ -60,7 +60,7 @@ class EXPORT CPP_ArcShape {
         inline void SetStartAngle(float in_start_angle) {
             if (StartAngleSet && (in_start_angle != StartAngle)) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -85,7 +85,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
         inline void SetEndAngle(float in_end_angle) {
             if (EndAngleSet && (in_end_angle != EndAngle)) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -110,7 +110,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -124,7 +124,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
         inline void SetRadius(unsigned int in_radius) {
             if (in_radius != Radius) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -149,7 +149,7 @@ please use `Arc.set_radius` to set it before attempting to get it.");
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -163,7 +163,7 @@ please use `Arc.set_radius` to set it before attempting to get it.");
         inline void SetPointCount(unsigned int in_point_count) {
             if (in_point_count != PointCount) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 

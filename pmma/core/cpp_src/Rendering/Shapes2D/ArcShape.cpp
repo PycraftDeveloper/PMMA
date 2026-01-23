@@ -3,7 +3,7 @@
 using namespace std;
 
 CPP_ArcShape::CPP_ArcShape() {
-    ShapeCenterFormat = new CPP_DisplayCoordinate();
+    ShapeCenter = new CPP_DisplayCoordinate();
     Color = new CPP_Color();
 
     ID = PMMA_Registry::ClassObject_ID_System++;
@@ -30,7 +30,7 @@ void CPP_ArcShape::Render() {
     int DisplaySize[2];
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
-    if (!ShapeCenterFormat->GetSet()) {
+    if (!ShapeCenter->GetSet()) {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
@@ -83,10 +83,10 @@ API to set it.");
     }
 
     float ShapeCenter[2];
-    ShapeCenterFormat->Get(ShapeCenter);
+    ShapeCenter->Get(ShapeCenter);
 
     VertexDataChanged = VertexDataChanged ||
-                ShapeCenterFormat->GetChangedToggle() ||
+                ShapeCenter->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenter[0] + Radius < 0 ||
@@ -153,7 +153,7 @@ API to set it.");
 
             // Reserve the exact number of vertices upfront
             size_t vertexCount = InternalPointCount * 2;
-            Shape2D_RenderPipelineData.resize(vertexCount);
+            Shape2D_RenderPipelineVertices.resize(vertexCount);
 
             float angle = Rotation + StartAngle;
             float cx = ShapeCenter[0];
@@ -163,12 +163,12 @@ API to set it.");
             float cosA = std::cos(angle);
             float sinA = std::sin(angle);
 
-            Vertex* v = Shape2D_RenderPipelineData.data();
+            Vertex* v = Shape2D_RenderPipelineVertices.data();
             if (inner_radius == 0) {
-                auto &v1 = Shape2D_RenderPipelineData[1];
+                auto &v1 = Shape2D_RenderPipelineVertices[1];
                 v1.x = cx; v1.y = cy; v1.s = ColorIndex;
 
-                const Vertex Center = Shape2D_RenderPipelineData[1];
+                const Vertex Center = Shape2D_RenderPipelineVertices[1];
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
                     v[0].x = outer_radius * cosA + cx;
                     v[0].y = outer_radius * sinA + cy;

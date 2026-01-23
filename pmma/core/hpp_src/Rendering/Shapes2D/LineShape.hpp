@@ -21,7 +21,7 @@ class EXPORT CPP_LineShape {
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
 
-        std::vector<Vertex> Shape2D_RenderPipelineData;
+        std::vector<Vertex> Shape2D_RenderPipelineVertices;
 
         float Rotation = 0;
 
@@ -58,7 +58,7 @@ class EXPORT CPP_LineShape {
         inline void SetWidth(unsigned int in_width) {
             if (in_width != Width) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
@@ -72,7 +72,7 @@ class EXPORT CPP_LineShape {
         inline void SetRotation(float in_rotation) {
             if (in_rotation != Rotation) {
                 VertexDataChanged = true;
-                Shape2D_RenderPipelineData.clear();
+                Shape2D_RenderPipelineVertices.clear();
                 VertexData.clear();
             }
 
