@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "Internal/Management/AnimationManager.hpp"
-#include "NumberFormats.hpp"
+#include "CoreTypes.hpp"
 #include "AdvancedMathematics.hpp"
 
 class EXPORT CPP_RadialAnimation: public CPP_AnimationCore {

@@ -46,7 +46,7 @@ from pmma.build.AdvancedMathematics import AdvancedMathematics
 from pmma.build.PerlinNoise import PerlinNoise
 from pmma.build.FractalBrownianMotion import FractalBrownianMotion
 from pmma.build.Display import Display
-import pmma.build.NumberFormats as NumberFormats
+import pmma.build.CoreTypes as CoreTypes
 import pmma.build.KeyEvents as KeyEvents
 import pmma.build.KeyPadEvents as KeyPadEvents
 import pmma.build.WindowEvents as WindowEvents

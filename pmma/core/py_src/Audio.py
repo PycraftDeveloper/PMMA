@@ -16,7 +16,7 @@ except Exception as _error:
 
     _sounddevice_error = str(_error)
 
-from pmma.build.NumberFormats import Proportion, LinkedProportion
+from pmma.build.CoreTypes import Proportion, LinkedProportion
 
 from pmma.core.py_src.Constants import Constants
 

@@ -60,7 +60,7 @@ set(CORE_SOURCES
     "${SRC_DIR}/FractalBrownianMotion.cpp"
     "${SRC_DIR}/General.cpp"
     "${SRC_DIR}/Logger.cpp"
-    "${SRC_DIR}/NumberFormats.cpp"
+    "${SRC_DIR}/CoreTypes.cpp"
     "${SRC_DIR}/Passport.cpp"
     "${SRC_DIR}/PerlinNoise_BASE.cpp"
     "${SRC_DIR}/PMMA_Core.cpp"

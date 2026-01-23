@@ -9,7 +9,7 @@ cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
 
-from NumberFormats cimport Color, CPP_ColorFormat, DisplayCoordinate, CPP_DisplayCoordinateFormat
+from CoreTypes cimport Color, CPP_ColorFormat, DisplayCoordinate, CPP_DisplayCoordinateFormat
 
 np.import_array()
 

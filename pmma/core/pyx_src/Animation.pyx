@@ -2,7 +2,7 @@
 
 from libcpp cimport bool
 
-from NumberFormats cimport DisplayCoordinate, CPP_DisplayCoordinateFormat
+from CoreTypes cimport DisplayCoordinate, CPP_DisplayCoordinateFormat
 
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_LinearAnimation:

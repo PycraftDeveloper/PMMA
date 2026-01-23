@@ -18,7 +18,7 @@
 #include "Events/WindowEvents.hpp"
 #include "Events/KeyEvents.hpp"
 #include "Internal/Management/CoreRenderPipelineManager.hpp"
-#include "NumberFormats.hpp"
+#include "CoreTypes.hpp"
 #include "Logger.hpp"
 
 class EXPORT CPP_Display {

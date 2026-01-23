@@ -8,7 +8,7 @@
 
 #include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Constants.hpp"
-#include "NumberFormats.hpp"
+#include "CoreTypes.hpp"
 #include "Logger.hpp"
 
 class EXPORT CPP_RectangleShape {

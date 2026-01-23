@@ -4,7 +4,7 @@ from libcpp.string cimport string
 
 from Logger cimport Logger
 
-from NumberFormats cimport Color, CPP_ColorFormat, DisplayCoordinate, CPP_DisplayCoordinateFormat
+from CoreTypes cimport Color, CPP_ColorFormat, DisplayCoordinate, CPP_DisplayCoordinateFormat
 
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_TextRenderer:

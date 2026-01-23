@@ -89,22 +89,22 @@ def make_ext(component, extra_cpp=None, add_numpy=False, raw_depends=[]):
 
 ext_modules = [
     make_ext("AdvancedMathematics.pyx", add_numpy=True),
-    make_ext("Display.pyx", add_numpy=True, raw_depends=["NumberFormats.pyx"]),
+    make_ext("Display.pyx", add_numpy=True, raw_depends=["CoreTypes.pyx"]),
     make_ext(os.path.join("Events", "KeyEvents.pyx")),
     make_ext(os.path.join("Events", "KeyPadEvents.pyx")),
     make_ext(os.path.join("Events", "WindowEvents.pyx")),
     make_ext(os.path.join("Events", "ControllerEvents.pyx"), add_numpy=True),
     make_ext(os.path.join("Events", "MouseEvents.pyx"), add_numpy=True),
     make_ext("FractalBrownianMotion.pyx", add_numpy=True),
-    make_ext("NumberFormats.pyx", add_numpy=True),
+    make_ext("CoreTypes.pyx", add_numpy=True),
     make_ext("PerlinNoise.pyx", add_numpy=True),
     make_ext("PMMA_Core.pyx", raw_depends=["General.pyx"]),
     make_ext("TextRenderer.pyx", add_numpy=True),
     make_ext("General.pyx", add_numpy=True),
-    make_ext("Shapes2D.pyx", add_numpy=True, raw_depends=["NumberFormats.pyx"]),
+    make_ext("Shapes2D.pyx", add_numpy=True, raw_depends=["CoreTypes.pyx"]),
     make_ext("Passport.pyx", raw_depends=["General.pyx", "Logger.pyx"]),
     make_ext("Logger.pyx"),
-    make_ext("Animation.pyx", add_numpy=True, raw_depends=["NumberFormats.pyx"])
+    make_ext("Animation.pyx", add_numpy=True, raw_depends=["CoreTypes.pyx"])
 ]
 
 # Read the long description from README.md

@@ -3,7 +3,7 @@ from typing import Iterable, Union
 import numpy as np
 import numpy.typing as npt
 
-from pmma.build.NumberFormats import Color, DisplayCoordinate
+from pmma.build.CoreTypes import Color, DisplayCoordinate
 
 Numerical1D = Union[
     npt.NDArray[np.float32], # preferred

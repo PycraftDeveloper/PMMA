@@ -1,6 +1,6 @@
 from typing import Union
 
-from pmma.build.NumberFormats import Color, DisplayCoordinate
+from pmma.build.CoreTypes import Color, DisplayCoordinate
 
 Numerical = Union[float, int]
 

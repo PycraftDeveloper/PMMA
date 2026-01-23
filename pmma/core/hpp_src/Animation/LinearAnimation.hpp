@@ -5,7 +5,7 @@
 #include <iostream>
 
 #include "Internal/Management/AnimationManager.hpp"
-#include "NumberFormats.hpp"
+#include "CoreTypes.hpp"
 #include "AdvancedMathematics.hpp"
 #include "Logger.hpp"
 

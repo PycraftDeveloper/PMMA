@@ -4,7 +4,7 @@ import numpy as np
 import numpy.typing as npt
 
 import pmma.core.py_src.Utility as Utility
-from pmma.build.NumberFormats import Color
+from pmma.build.CoreTypes import Color
 
 Integer1D = Union[
     npt.NDArray[np.int32], # preferred

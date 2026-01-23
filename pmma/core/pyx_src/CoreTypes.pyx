@@ -8,7 +8,7 @@ import random
 import numpy as np
 cimport numpy as np
 
-from NumberFormats cimport CPP_ColorFormat, Color, CPP_DisplayCoordinateFormat, DisplayCoordinate
+from CoreTypes cimport CPP_ColorFormat, Color, CPP_DisplayCoordinateFormat, DisplayCoordinate
 
 np.import_array()
 

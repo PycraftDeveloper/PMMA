@@ -10,7 +10,7 @@
 #include <GLFW/glfw3.h>
 
 #include "Internal/Management/EventsManager.hpp"
-#include "NumberFormats.hpp"
+#include "CoreTypes.hpp"
 #include "Constants.hpp"
 #include "Logger.hpp"
 
