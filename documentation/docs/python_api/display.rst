@@ -70,11 +70,7 @@ Methods
 
     🟩 **R** -
 
-.. py:method:: Display.continuous_refresh() -> None
-
-    🟩 **R** -
-
-.. py:method:: Display.event_refresh() -> None
+.. py:method:: Display.refresh() -> None
 
     🟩 **R** -
 

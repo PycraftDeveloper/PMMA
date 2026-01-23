@@ -100,8 +100,8 @@ if(NOT APPLE)
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
 	    target_compile_options(AVX2_obj PRIVATE
             ${COMMON_COMPILE_OPTIONS}
-            $<$<CONFIG:Debug>:/Od /RTC1>
-            $<$<CONFIG:Release>:/O2>
+            $<$<CONFIG:Debug>:-O0>
+            $<$<CONFIG:Release>:-O3>
             -mavx2 -mfma)
     endif()
 
@@ -125,8 +125,8 @@ if(NOT APPLE)
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
 	    target_compile_options(AVX512_obj PRIVATE
             ${COMMON_COMPILE_OPTIONS}
-            $<$<CONFIG:Debug>:/Od /RTC1>
-            $<$<CONFIG:Release>:/O2>
+            $<$<CONFIG:Debug>:-O0>
+            $<$<CONFIG:Release>:-O3>
             -mavx512f -mavx512dq)
     endif()
 
@@ -149,8 +149,8 @@ else()
     elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
 	    target_compile_options(AVX_Filler_obj PRIVATE
             ${COMMON_COMPILE_OPTIONS}
-            $<$<CONFIG:Debug>:/Od /RTC1>
-            $<$<CONFIG:Release>:/O2>)
+            $<$<CONFIG:Debug>:-O0>
+            $<$<CONFIG:Release>:-O3>)
     endif()
 
     target_include_directories(AVX_Filler_obj PRIVATE
@@ -209,8 +209,8 @@ if (WIN32)
 elseif(UNIX)
     target_compile_options(${LIB_NAME} PRIVATE
         ${COMMON_COMPILE_OPTIONS}
-        $<$<CONFIG:Debug>:/Od /RTC1>
-        $<$<CONFIG:Release>:/O2>)
+        $<$<CONFIG:Debug>:-O0>
+        $<$<CONFIG:Release>:-O3>)
 
     target_link_libraries(${LIB_NAME} PRIVATE
 	    glfw bgfx bx bimg freetype png z harfbuzz pthread dl) # common on Linux
