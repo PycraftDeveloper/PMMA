@@ -63,12 +63,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline bool GetIsWindowUsingVsync() except + nogil
         inline unsigned int GetCurrentMonitorRefreshRate() except + nogil
 
-        void ContinuousRefresh(unsigned int RefreshRate,
-            bool LowerRefreshRate_OnMinimize,
-            bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery) except + nogil
-
-        void EventRefresh(unsigned int RefreshRate,
+        void Refresh(
+            unsigned int MinRefreshRate,
             unsigned int MaxRefreshRate,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
@@ -263,31 +259,11 @@ cdef class Display:
         return self.cpp_class_ptr.GetAspectRatio()
 
     @Utility.require_render_thread
-    def continuous_refresh(self,
-        refresh_rate=None,
-        lower_refresh_rate_on_minimize=True,
-        lower_refresh_rate_on_focus_loss=True,
-        lower_refresh_rate_on_low_battery=True):
-
-        if refresh_rate is None:
-            if self.cpp_class_ptr.GetIsWindowUsingVsync():
-                refresh_rate = 0
-            else:
-                refresh_rate = 60
-
-        if refresh_rate <= 0:
-            refresh_rate = 0
-
-        self.cpp_class_ptr.ContinuousRefresh(refresh_rate,
-            lower_refresh_rate_on_minimize,
-            lower_refresh_rate_on_focus_loss,
-            lower_refresh_rate_on_low_battery)
-
-    @Utility.require_render_thread
-    def event_refresh(self, refresh_rate=None, max_refresh_rate=None,
-        lower_refresh_rate_on_minimize=True,
-        lower_refresh_rate_on_focus_loss=True,
-        lower_refresh_rate_on_low_battery=True):
+    def refresh(
+            self, min_refresh_rate=5, max_refresh_rate=None,
+            lower_refresh_rate_on_minimize=True,
+            lower_refresh_rate_on_focus_loss=True,
+            lower_refresh_rate_on_low_battery=True):
 
         if max_refresh_rate is None:
             if self.cpp_class_ptr.GetIsWindowUsingVsync():
@@ -295,7 +271,8 @@ cdef class Display:
             else:
                 max_refresh_rate = 60
 
-        self.cpp_class_ptr.EventRefresh(refresh_rate, max_refresh_rate,
+        self.cpp_class_ptr.Refresh(
+            min_refresh_rate, max_refresh_rate,
             lower_refresh_rate_on_minimize,
             lower_refresh_rate_on_focus_loss,
             lower_refresh_rate_on_low_battery)

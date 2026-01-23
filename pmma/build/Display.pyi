@@ -44,7 +44,12 @@ class Display:
 
     window_fill_color: Color
 
-    def create(self, size: Integer1D=..., caption: str="PMMA Display", fullscreen: OptionalBool=True, resizable: bool=False, no_frame: bool=False, vsync: bool=True, icon: str="", centered: bool=True, maximized: bool=False, transparent: bool=False) -> None: ...
+    def create(
+            self, size: Integer1D=..., caption: str="PMMA Display",
+            fullscreen: OptionalBool=True, resizable: bool=False,
+            no_frame: bool=False, vsync: bool=True, icon: str="",
+            centered: bool=True, maximized: bool=False,
+            transparent: bool=False) -> None: ...
 
     def center_window(self) -> None: ...
 
@@ -60,15 +65,8 @@ class Display:
     def set_absolute_window_position(self, position: Integer1D) -> None: ...
 
     @Utility.require_render_thread
-    def continuous_refresh(self,
-        refresh_rate: int=60,
-        lower_refresh_rate_on_minimize: bool=True,
-        lower_refresh_rate_on_focus_loss: bool=True,
-        lower_refresh_rate_on_low_battery: bool=True) -> None: ...
-
-    @Utility.require_render_thread
-    def event_refresh(self, refresh_rate: int=60,
-        max_refresh_rate: int=60,
+    def refresh(self, min_refresh_rate: int=5,
+        max_refresh_rate: NoneInt=60,
         lower_refresh_rate_on_minimize: bool=True,
         lower_refresh_rate_on_focus_loss: bool=True,
         lower_refresh_rate_on_low_battery: bool=True) -> None: ...

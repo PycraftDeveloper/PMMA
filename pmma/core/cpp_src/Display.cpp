@@ -607,43 +607,8 @@ unsigned int CPP_Display::CalculateRefreshRate(unsigned int RefreshRate) {
     return RefreshRate;
 }
 
-void CPP_Display::ContinuousRefresh(
-            unsigned int RefreshRate,
-            bool LowerRefreshRate_OnMinimize,
-            bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery) {
-
-    if (Window == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
-            18,
-            "You need to create a display before using this function. \
-You can do this using `Display.create`."
-        );
-        throw runtime_error("Display not created yet!");
-    }
-
-    PMMA_Core::RenderPipelineCore->Render();
-
-    bgfx::touch(0);   // Ensure view 0 is cleared
-
-    bgfx::frame();
-    glfwPollEvents();
-
-    PMMA_Update(Window);
-
-    if (RefreshRate > 0) {
-        LimitRefreshRate(RefreshRate);
-    }
-
-    std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
-    chrono::duration<float> FrameDuration = EndTime - StartTime;
-    RefreshTime = chrono::duration<float>(EndTime - StartTime).count();
-
-    StartTime = chrono::high_resolution_clock::now();
-}
-
-void CPP_Display::EventRefresh(
-        unsigned int RefreshRate,
+void CPP_Display::Refresh(
+        unsigned int MinRefreshRate,
         unsigned int MaxRefreshRate,
         bool LowerRefreshRate_OnMinimize,
         bool LowerRefreshRate_OnFocusLoss,
@@ -666,10 +631,10 @@ You can do this using `Display.create`."
     MaxRefreshRate = CPP_Display::CalculateRefreshRate(
         MaxRefreshRate);
 
-    if (RefreshRate == 0) {
+    if (MinRefreshRate == 0) {
         glfwWaitEvents();
     } else {
-        glfwWaitEventsTimeout(1.0f / RefreshRate);
+        glfwWaitEventsTimeout(1.0f / MinRefreshRate);
     }
 
     PMMA_Update(Window);

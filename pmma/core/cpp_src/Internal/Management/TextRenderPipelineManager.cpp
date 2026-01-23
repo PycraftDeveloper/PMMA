@@ -532,4 +532,6 @@ void CPP_TextRenderPipelineManager::InternalRender() {
     // Rendering
     bgfx::setState(BGFX_STATE_BLEND_ALPHA | BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A);
     bgfx::submit(0, ShaderProgram->Use());
+
+    glfwPostEmptyEvent();
 }

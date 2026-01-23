@@ -44,6 +44,8 @@ CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
 
 void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     if (VertexDataChanged) {
+        glfwPostEmptyEvent();
+
         combined_vertexes.resize(LiveVertexCount);
         PreviousRenderContent.resize(InsertionIndex);
 
@@ -65,6 +67,8 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     }
 
     if (ColorDataChanged) {
+        glfwPostEmptyEvent();
+
         shape_colors.resize(LiveColorCount);
 
         uint32_t numColors = (uint32_t)shape_colors.size() / 4;

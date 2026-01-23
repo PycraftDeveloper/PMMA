@@ -382,14 +382,8 @@ before you can call this function.");
 
         void LimitRefreshRate(unsigned int RefreshRate);
 
-        void ContinuousRefresh(
-            unsigned int RefreshRate,
-            bool LowerRefreshRate_OnMinimize,
-            bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery);
-
-        void EventRefresh(
-            unsigned int RefreshRate,
+        void Refresh(
+            unsigned int MinRefreshRate,
             unsigned int MaxRefreshRate,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
