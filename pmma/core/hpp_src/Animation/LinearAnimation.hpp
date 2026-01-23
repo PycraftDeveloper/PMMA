@@ -11,9 +11,9 @@
 
 class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
     public:
-        CPP_DisplayCoordinateFormat* TargetCoordinatePtr;
-        CPP_DisplayCoordinateFormat* StartCoordinatePtr;
-        CPP_DisplayCoordinateFormat* EndCoordinatePtr;
+        CPP_DisplayCoordinate* TargetCoordinatePtr;
+        CPP_DisplayCoordinate* StartCoordinatePtr;
+        CPP_DisplayCoordinate* EndCoordinatePtr;
         CPP_Logger* Logger;
 
         std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
@@ -25,7 +25,7 @@ class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
         bool Loop = false;
         bool Repeat = false;
 
-        CPP_LinearAnimation(CPP_DisplayCoordinateFormat* NewTargetCoordinatePtr);
+        CPP_LinearAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr);
 
         ~CPP_LinearAnimation();
 
@@ -66,7 +66,7 @@ class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
                 }
 
                 if (Loop) { // Switch start and end
-                    CPP_DisplayCoordinateFormat* TempPtr = StartCoordinatePtr;
+                    CPP_DisplayCoordinate* TempPtr = StartCoordinatePtr;
                     StartCoordinatePtr = EndCoordinatePtr;
                     EndCoordinatePtr = TempPtr;
 

@@ -4,13 +4,13 @@ from libcpp.string cimport string
 
 from Logger cimport Logger
 
-from CoreTypes cimport Color, CPP_ColorFormat, DisplayCoordinate, CPP_DisplayCoordinateFormat
+from CoreTypes cimport Color, CPP_Color, DisplayCoordinate, CPP_DisplayCoordinate
 
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_TextRenderer:
-        CPP_DisplayCoordinateFormat* Position
-        CPP_ColorFormat* ForegroundColor
-        CPP_ColorFormat* BackgroundColor
+        CPP_DisplayCoordinate* Position
+        CPP_Color* ForegroundColor
+        CPP_Color* BackgroundColor
 
         inline void SetText(string NewText) except + nogil
         inline void SetFont(string NewFont) except + nogil

@@ -2,14 +2,14 @@
 
 from libcpp cimport bool
 
-from CoreTypes cimport DisplayCoordinate, CPP_DisplayCoordinateFormat
+from CoreTypes cimport DisplayCoordinate, CPP_DisplayCoordinate
 
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_LinearAnimation:
-        CPP_DisplayCoordinateFormat* StartCoordinatePtr
-        CPP_DisplayCoordinateFormat* EndCoordinatePtr;
+        CPP_DisplayCoordinate* StartCoordinatePtr
+        CPP_DisplayCoordinate* EndCoordinatePtr;
 
-        CPP_LinearAnimation(CPP_DisplayCoordinateFormat* NewTargetCoordinatePtr) except + nogil
+        CPP_LinearAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr) except + nogil
 
         void Start() except + nogil
         void Stop() except + nogil
@@ -32,10 +32,10 @@ cdef extern from "PMMA_Core.hpp" nogil:
         bool IsRepeating() except + nogil
 
     cdef cppclass CPP_RadialAnimation:
-        CPP_DisplayCoordinateFormat* StartCoordinatePtr
-        CPP_DisplayCoordinateFormat* CenterCoordinatePtr;
+        CPP_DisplayCoordinate* StartCoordinatePtr
+        CPP_DisplayCoordinate* CenterCoordinatePtr;
 
-        CPP_RadialAnimation(CPP_DisplayCoordinateFormat* NewTargetCoordinatePtr) except + nogil
+        CPP_RadialAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr) except + nogil
 
         void Start() except + nogil
         void Stop() except + nogil
@@ -61,7 +61,7 @@ cdef class Linear:
         DisplayCoordinate animation_end_pos
 
     def __cinit__(self, DisplayCoordinate DisplayCoordinateInstance):
-        cdef CPP_DisplayCoordinateFormat* input_class_ptr;
+        cdef CPP_DisplayCoordinate* input_class_ptr;
         input_class_ptr = DisplayCoordinateInstance.cpp_class_ptr
 
         self.cpp_class_ptr = new CPP_LinearAnimation(input_class_ptr)
@@ -130,7 +130,7 @@ cdef class Radial:
         DisplayCoordinate animation_center_pos
 
     def __cinit__(self, DisplayCoordinate DisplayCoordinateInstance):
-        cdef CPP_DisplayCoordinateFormat* input_class_ptr;
+        cdef CPP_DisplayCoordinate* input_class_ptr;
         input_class_ptr = DisplayCoordinateInstance.cpp_class_ptr
 
         self.cpp_class_ptr = new CPP_RadialAnimation(input_class_ptr)

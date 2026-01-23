@@ -1,10 +1,10 @@
 #include "PMMA_Core.hpp"
 
-CPP_ColorFormat::CPP_ColorFormat() {
+CPP_Color::CPP_Color() {
     RandomColorGenerator = new CPP_FastRandom();
 }
 
-CPP_DisplayCoordinateFormat::CPP_DisplayCoordinateFormat() {
+CPP_DisplayCoordinate::CPP_DisplayCoordinate() {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -20,7 +20,7 @@ You can do this using `Display.create`."
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 }
 
-void CPP_DisplayCoordinateFormat::Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+void CPP_DisplayCoordinate::Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
     X_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
     Y_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);
 
@@ -36,7 +36,7 @@ void CPP_DisplayCoordinateFormat::Configure(uint32_t new_seed, uint32_t new_octa
     Configured = true;
 }
 
-void CPP_DisplayCoordinateFormat::SetCentered() {
+void CPP_DisplayCoordinate::SetCentered() {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -60,7 +60,7 @@ You can do this using `Display.create`."
     Set(coord_float);
 }
 
-void CPP_DisplayCoordinateFormat::GenerateFromRandom() {
+void CPP_DisplayCoordinate::GenerateFromRandom() {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -81,7 +81,7 @@ You can do this using `Display.create`."
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinateFormat::GenerateFrom1DPerlinNoise(float value) {
+void CPP_DisplayCoordinate::GenerateFrom1DPerlinNoise(float value) {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -111,7 +111,7 @@ You can do this using `Display.create`."
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinateFormat::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
+void CPP_DisplayCoordinate::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -141,7 +141,7 @@ You can do this using `Display.create`."
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinateFormat::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
+void CPP_DisplayCoordinate::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -171,7 +171,7 @@ You can do this using `Display.create`."
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinateFormat::GenerateFrom1DFractalBrownianMotion(float value) {
+void CPP_DisplayCoordinate::GenerateFrom1DFractalBrownianMotion(float value) {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -201,7 +201,7 @@ You can do this using `Display.create`."
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinateFormat::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
+void CPP_DisplayCoordinate::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -231,7 +231,7 @@ You can do this using `Display.create`."
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinateFormat::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
+void CPP_DisplayCoordinate::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,

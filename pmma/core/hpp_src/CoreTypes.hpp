@@ -10,7 +10,7 @@
 #include "Logger.hpp"
 #include "Random.hpp"
 
-class EXPORT CPP_ColorFormat {
+class EXPORT CPP_Color {
     private:
         CPP_Logger* Logger;
 
@@ -50,9 +50,9 @@ class EXPORT CPP_ColorFormat {
         bool InternalChanged = true;
 
     public:
-        CPP_ColorFormat();
+        CPP_Color();
 
-        ~CPP_ColorFormat() {
+        ~CPP_Color() {
             if (Configured) {
                 delete R_PerlinNoiseGenerator;
                 delete G_PerlinNoiseGenerator;
@@ -455,7 +455,7 @@ before attempting to get it.");
         }
 };
 
-class EXPORT CPP_DisplayCoordinateFormat {
+class EXPORT CPP_DisplayCoordinate {
     private:
         CPP_Logger* Logger = nullptr;
 
@@ -486,9 +486,9 @@ class EXPORT CPP_DisplayCoordinateFormat {
         bool Configured = false;
 
     public:
-        CPP_DisplayCoordinateFormat();
+        CPP_DisplayCoordinate();
 
-        ~CPP_DisplayCoordinateFormat() {
+        ~CPP_DisplayCoordinate() {
             if (Configured) {
                 delete X_PerlinNoiseGenerator;
                 delete Y_PerlinNoiseGenerator;
@@ -615,7 +615,7 @@ display coordinate before attempting to get it.");
         }
 };
 
-class EXPORT CPP_AngleFormat {
+class EXPORT CPP_Angle {
     private:
         CPP_Logger* Logger;
         CPP_PerlinNoise* PerlinNoiseGenerator = nullptr;
@@ -638,7 +638,7 @@ class EXPORT CPP_AngleFormat {
         bool IsSet = false;
 
     public:
-        ~CPP_AngleFormat() {
+        ~CPP_Angle() {
             if (Configured) {
                 delete PerlinNoiseGenerator;
                 delete FractalBrownianMotionGenerator;
@@ -921,7 +921,7 @@ before attempting to get it.");
         }
 };
 
-class EXPORT CPP_ProportionFormat {
+class EXPORT CPP_Proportion {
     private:
         CPP_Logger* Logger;
 
@@ -943,7 +943,7 @@ class EXPORT CPP_ProportionFormat {
         bool Changed = true;
 
     public:
-        ~CPP_ProportionFormat() {
+        ~CPP_Proportion() {
             if (Configured) {
                 delete PerlinNoiseGenerator;
                 delete FractalBrownianMotionGenerator;

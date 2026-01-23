@@ -3,9 +3,9 @@
 using namespace std;
 
 CPP_LineShape::CPP_LineShape() {
-    ShapeStart = new CPP_DisplayCoordinateFormat();
-    ShapeEnd = new CPP_DisplayCoordinateFormat();
-    ColorFormat = new CPP_ColorFormat();
+    ShapeStart = new CPP_DisplayCoordinate();
+    ShapeEnd = new CPP_DisplayCoordinate();
+    Color = new CPP_Color();
 
     ID = PMMA_Registry::ClassObject_ID_System++;
 }
@@ -14,7 +14,7 @@ void CPP_LineShape::Render() {
     int DisplaySize[2];
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
-    if (!ColorFormat->GetSet()) {
+    if (!Color->GetSet()) {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
@@ -57,9 +57,9 @@ API to set it.");
     // otherwise render it as a normal shape.
 
     uint8_t ColorData[4];
-    ColorFormat->Get_RGBA(ColorData);
+    Color->Get_RGBA(ColorData);
 
-    ColorDataChanged = ColorDataChanged || ColorFormat->GetInternalChangedToggle();
+    ColorDataChanged = ColorDataChanged || Color->GetInternalChangedToggle();
 
     if (RenderPipelineCompatible) {
         if (ColorData[3] == 0) { // Return if shape not visible

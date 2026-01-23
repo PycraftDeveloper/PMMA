@@ -3,8 +3,8 @@
 using namespace std;
 
 CPP_RectangleShape::CPP_RectangleShape() {
-    ShapeCenterFormat = new CPP_DisplayCoordinateFormat();
-    ColorFormat = new CPP_ColorFormat();
+    ShapeCenterFormat = new CPP_DisplayCoordinate();
+    Color = new CPP_Color();
 
     ID = PMMA_Registry::ClassObject_ID_System++;
 }
@@ -28,7 +28,7 @@ API to set it.");
         throw runtime_error("Shape has no center set");
     }
 
-    if (!ColorFormat->GetSet()) {
+    if (!Color->GetSet()) {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
@@ -70,9 +70,9 @@ API to set it.");
     // otherwise render it as a normal shape.
 
     uint8_t ColorData[4];
-    ColorFormat->Get_RGBA(ColorData);
+    Color->Get_RGBA(ColorData);
 
-    ColorDataChanged = ColorDataChanged || ColorFormat->GetInternalChangedToggle();
+    ColorDataChanged = ColorDataChanged || Color->GetInternalChangedToggle();
 
     if (RenderPipelineCompatible) {
         if (ColorData == 0) { // Return if shape not visible

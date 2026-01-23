@@ -14,9 +14,9 @@ You can do this using `Display.create`."
 
     ID = PMMA_Registry::ClassObject_ID_System++;
 
-    Position = new CPP_DisplayCoordinateFormat();
-    ForegroundColor = new CPP_ColorFormat();
-    BackgroundColor = new CPP_ColorFormat();
+    Position = new CPP_DisplayCoordinate();
+    ForegroundColor = new CPP_Color();
+    BackgroundColor = new CPP_Color();
 
     uint8_t Color[4] = {0, 0, 0, 0};
     BackgroundColor->Set_RGBA(Color);

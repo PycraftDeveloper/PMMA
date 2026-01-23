@@ -14,7 +14,7 @@
 class EXPORT CPP_PolygonShape {
     public:
         CPP_Logger* Logger;
-        CPP_ColorFormat* ColorFormat;
+        CPP_Color* Color;
 
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
@@ -44,8 +44,8 @@ class EXPORT CPP_PolygonShape {
                 Logger = nullptr;
             }
 
-            delete ColorFormat;
-            ColorFormat = nullptr;
+            delete Color;
+            Color = nullptr;
         }
 
         void Render();

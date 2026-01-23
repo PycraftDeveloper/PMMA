@@ -5,8 +5,8 @@ from libc.stdint cimport uint8_t
 cimport numpy as np
 
 cdef extern from "PMMA_Core.hpp" nogil:
-    cdef cppclass CPP_ColorFormat:
-        CPP_ColorFormat() except + nogil
+    cdef cppclass CPP_Color:
+        CPP_Color() except + nogil
 
         inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
 
@@ -30,8 +30,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetAmplitude() except + nogil
         inline bool GetSet() except + nogil
 
-    cdef cppclass CPP_DisplayCoordinateFormat:
-        CPP_DisplayCoordinateFormat() except + nogil
+    cdef cppclass CPP_DisplayCoordinate:
+        CPP_DisplayCoordinate() except + nogil
 
         void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
 
@@ -53,8 +53,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         float GetAmplitude() except + nogil
         bool GetSet() except + nogil
 
-    cdef cppclass CPP_AngleFormat:
-        CPP_AngleFormat() except + nogil
+    cdef cppclass CPP_Angle:
+        CPP_Angle() except + nogil
 
         void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
 
@@ -78,8 +78,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline float GetAmplitude() except + nogil
         inline bool GetSet() except + nogil
 
-    cdef cppclass CPP_ProportionFormat:
-        CPP_ProportionFormat() except + nogil
+    cdef cppclass CPP_Proportion:
+        CPP_Proportion() except + nogil
 
         void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
 
@@ -104,11 +104,11 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline bool GetSet() except + nogil
 
 cdef class Color:
-    cdef CPP_ColorFormat* cpp_class_ptr
+    cdef CPP_Color* cpp_class_ptr
     cdef bool using_numpy_arrays
     cdef bool owns_cpp_class_ptr
 
-    cdef void set_pointer(self, CPP_ColorFormat* cpp_class_ptr)
+    cdef void set_pointer(self, CPP_Color* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
 
@@ -139,11 +139,11 @@ cdef class Color:
     cpdef tuple get_RGB(self)
 
 cdef class DisplayCoordinate:
-    cdef CPP_DisplayCoordinateFormat* cpp_class_ptr
+    cdef CPP_DisplayCoordinate* cpp_class_ptr
     cdef bool using_numpy_arrays
     cdef bool owns_cpp_class_ptr
 
-    cdef void set_pointer(self, CPP_DisplayCoordinateFormat* cpp_class_ptr)
+    cdef void set_pointer(self, CPP_DisplayCoordinate* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
 
@@ -172,10 +172,10 @@ cdef class DisplayCoordinate:
     cpdef void set_coord(self, float x, float y)
 
 cdef class Angle:
-    cdef CPP_AngleFormat* cpp_class_ptr
+    cdef CPP_Angle* cpp_class_ptr
     cdef bool owns_cpp_class_ptr
 
-    cdef void set_pointer(self, CPP_AngleFormat* cpp_class_ptr)
+    cdef void set_pointer(self, CPP_Angle* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
 
@@ -201,10 +201,10 @@ cdef class Angle:
     cpdef get_radians(self)
 
 cdef class Proportion:
-    cdef CPP_ProportionFormat* cpp_class_ptr
+    cdef CPP_Proportion* cpp_class_ptr
     cdef bool owns_cpp_class_ptr
 
-    cdef void set_pointer(self, CPP_ProportionFormat* cpp_class_ptr)
+    cdef void set_pointer(self, CPP_Proportion* cpp_class_ptr)
 
     cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
 

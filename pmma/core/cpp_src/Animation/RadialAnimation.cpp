@@ -2,11 +2,11 @@
 
 #include "PMMA_Core.hpp"
 
-CPP_RadialAnimation::CPP_RadialAnimation(CPP_DisplayCoordinateFormat* NewTargetCoordinatePtr) {
+CPP_RadialAnimation::CPP_RadialAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr) {
     TargetCoordinatePtr = NewTargetCoordinatePtr;
 
-    StartCoordinatePtr = new CPP_DisplayCoordinateFormat();
-    CenterCoordinatePtr = new CPP_DisplayCoordinateFormat();
+    StartCoordinatePtr = new CPP_DisplayCoordinate();
+    CenterCoordinatePtr = new CPP_DisplayCoordinate();
 }
 
 CPP_RadialAnimation::~CPP_RadialAnimation() {

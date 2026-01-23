@@ -7,9 +7,9 @@
 
 class EXPORT CPP_TextRenderer {
     public:
-        CPP_DisplayCoordinateFormat* Position;
-        CPP_ColorFormat* ForegroundColor;
-        CPP_ColorFormat* BackgroundColor;
+        CPP_DisplayCoordinate* Position;
+        CPP_Color* ForegroundColor;
+        CPP_Color* BackgroundColor;
         CPP_Logger* Logger;
 
         std::string Text = "";

@@ -9,15 +9,15 @@ cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
 
-from CoreTypes cimport Color, CPP_ColorFormat, DisplayCoordinate, CPP_DisplayCoordinateFormat
+from CoreTypes cimport Color, CPP_Color, DisplayCoordinate, CPP_DisplayCoordinate
 
 np.import_array()
 
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_RadialPolygonShape:
-        CPP_DisplayCoordinateFormat* ShapeCenterFormat
-        CPP_ColorFormat* ColorFormat
+        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_Color* Color
 
         inline void SetRadius(unsigned int in_radius) except + nogil
         inline void SetPointCount(unsigned int in_pointCount) except + nogil
@@ -32,8 +32,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_RectangleShape:
-        CPP_DisplayCoordinateFormat* ShapeCenterFormat
-        CPP_ColorFormat* ColorFormat
+        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_Color* Color
 
         inline void SetCornerRadius(unsigned int in_corner_radius) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
@@ -48,15 +48,15 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_PixelShape:
-        CPP_DisplayCoordinateFormat* ShapeCenterFormat
-        CPP_ColorFormat* ColorFormat
+        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_Color* Color
 
         void Render() except + nogil
 
     cdef cppclass CPP_LineShape:
-        CPP_DisplayCoordinateFormat* ShapeStart
-        CPP_DisplayCoordinateFormat* ShapeEnd
-        CPP_ColorFormat* ColorFormat
+        CPP_DisplayCoordinate* ShapeStart
+        CPP_DisplayCoordinate* ShapeEnd
+        CPP_Color* Color
 
         inline void SetRotation(float rotation) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
@@ -67,7 +67,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_PolygonShape:
-        CPP_ColorFormat* ColorFormat
+        CPP_Color* Color
 
         inline void SetRotation(float rotation) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
@@ -83,8 +83,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_ArcShape:
-        CPP_DisplayCoordinateFormat* ShapeCenterFormat
-        CPP_ColorFormat* ColorFormat
+        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_Color* Color
 
         inline void SetRotation(float rotation) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
@@ -103,8 +103,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         void Render() except + nogil
 
     cdef cppclass CPP_EllipseShape:
-        CPP_DisplayCoordinateFormat* ShapeCenterFormat
-        CPP_ColorFormat* ColorFormat
+        CPP_DisplayCoordinate* ShapeCenterFormat
+        CPP_Color* Color
 
         inline void SetPointCount(unsigned int in_point_count) except + nogil
         inline void SetWidth(unsigned int in_width) except + nogil
@@ -131,7 +131,7 @@ cdef class RadialPolygon:
         self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -186,7 +186,7 @@ cdef class Rectangle:
         self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
 
         self.using_numpy_arrays = False
 
@@ -267,7 +267,7 @@ cdef class Pixel:
         self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -301,7 +301,7 @@ cdef class Line:
         self.cpp_shape_end.set_pointer(self.cpp_class_ptr.ShapeEnd)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -344,7 +344,7 @@ cdef class PolygonShape:
         self.cpp_class_ptr = new CPP_PolygonShape()
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
 
         self.using_numpy_arrays = False
 
@@ -432,7 +432,7 @@ cdef class Arc:
         self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -499,7 +499,7 @@ cdef class Ellipse:
         self.cpp_shape_center_format.set_pointer(self.cpp_class_ptr.ShapeCenterFormat)
 
         self.cpp_color_format = Color()
-        self.cpp_color_format.set_pointer(self.cpp_class_ptr.ColorFormat)
+        self.cpp_color_format.set_pointer(self.cpp_class_ptr.Color)
 
         self.using_numpy_arrays = False
 

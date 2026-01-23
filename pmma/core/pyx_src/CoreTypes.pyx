@@ -8,13 +8,13 @@ import random
 import numpy as np
 cimport numpy as np
 
-from CoreTypes cimport CPP_ColorFormat, Color, CPP_DisplayCoordinateFormat, DisplayCoordinate
+from CoreTypes cimport CPP_Color, Color, CPP_DisplayCoordinate, DisplayCoordinate
 
 np.import_array()
 
 cdef class Color:
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_ColorFormat()
+        self.cpp_class_ptr = new CPP_Color()
 
         self.using_numpy_arrays = False
         self.owns_cpp_class_ptr = True
@@ -24,7 +24,7 @@ cdef class Color:
             del self.cpp_class_ptr
             self.cpp_class_ptr = NULL
 
-    cdef void set_pointer(self, CPP_ColorFormat* cpp_class_ptr):
+    cdef void set_pointer(self, CPP_Color* cpp_class_ptr):
         self.cpp_class_ptr = cpp_class_ptr
         self.owns_cpp_class_ptr = False
 
@@ -165,7 +165,7 @@ cdef class Color:
 
 cdef class DisplayCoordinate:
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_DisplayCoordinateFormat()
+        self.cpp_class_ptr = new CPP_DisplayCoordinate()
         self.using_numpy_arrays = False
         self.owns_cpp_class_ptr = True
 
@@ -174,7 +174,7 @@ cdef class DisplayCoordinate:
             del self.cpp_class_ptr
             self.cpp_class_ptr = NULL
 
-    cdef void set_pointer(self, CPP_DisplayCoordinateFormat* cpp_class_ptr):
+    cdef void set_pointer(self, CPP_DisplayCoordinate* cpp_class_ptr):
         self.cpp_class_ptr = cpp_class_ptr
         self.owns_cpp_class_ptr = False
 
@@ -267,7 +267,7 @@ cdef class DisplayCoordinate:
 
 cdef class Angle:
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_AngleFormat()
+        self.cpp_class_ptr = new CPP_Angle()
         self.owns_cpp_class_ptr = True
 
     def __dealloc__(self):
@@ -275,7 +275,7 @@ cdef class Angle:
             del self.cpp_class_ptr
             self.cpp_class_ptr = NULL
 
-    cdef void set_pointer(self, CPP_AngleFormat* cpp_class_ptr):
+    cdef void set_pointer(self, CPP_Angle* cpp_class_ptr):
         self.cpp_class_ptr = cpp_class_ptr
         self.owns_cpp_class_ptr = False
 
@@ -336,7 +336,7 @@ cdef class Angle:
 
 cdef class Proportion:
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_ProportionFormat()
+        self.cpp_class_ptr = new CPP_Proportion()
         self.owns_cpp_class_ptr = True
 
     def __dealloc__(self):
@@ -344,7 +344,7 @@ cdef class Proportion:
             del self.cpp_class_ptr
             self.cpp_class_ptr = NULL
 
-    cdef void set_pointer(self, CPP_ProportionFormat* cpp_class_ptr):
+    cdef void set_pointer(self, CPP_Proportion* cpp_class_ptr):
         self.cpp_class_ptr = cpp_class_ptr
         self.owns_cpp_class_ptr = False
 

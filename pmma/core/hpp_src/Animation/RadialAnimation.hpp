@@ -10,9 +10,9 @@
 
 class EXPORT CPP_RadialAnimation: public CPP_AnimationCore {
     public:
-        CPP_DisplayCoordinateFormat* TargetCoordinatePtr;
-        CPP_DisplayCoordinateFormat* StartCoordinatePtr;
-        CPP_DisplayCoordinateFormat* CenterCoordinatePtr;
+        CPP_DisplayCoordinate* TargetCoordinatePtr;
+        CPP_DisplayCoordinate* StartCoordinatePtr;
+        CPP_DisplayCoordinate* CenterCoordinatePtr;
 
         std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
         std::chrono::duration<float> Duration;
@@ -22,7 +22,7 @@ class EXPORT CPP_RadialAnimation: public CPP_AnimationCore {
         bool Paused = false;
         bool Repeat = false;
 
-        CPP_RadialAnimation(CPP_DisplayCoordinateFormat* NewTargetCoordinatePtr);
+        CPP_RadialAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr);
 
         ~CPP_RadialAnimation();
 

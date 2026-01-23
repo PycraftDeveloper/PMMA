@@ -2,11 +2,11 @@
 
 #include "PMMA_Core.hpp"
 
-CPP_LinearAnimation::CPP_LinearAnimation(CPP_DisplayCoordinateFormat* NewTargetCoordinatePtr) {
+CPP_LinearAnimation::CPP_LinearAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr) {
     TargetCoordinatePtr = NewTargetCoordinatePtr;
 
-    StartCoordinatePtr = new CPP_DisplayCoordinateFormat();
-    EndCoordinatePtr = new CPP_DisplayCoordinateFormat();
+    StartCoordinatePtr = new CPP_DisplayCoordinate();
+    EndCoordinatePtr = new CPP_DisplayCoordinate();
     Logger = new CPP_Logger();
 }
 

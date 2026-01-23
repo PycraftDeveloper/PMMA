@@ -14,8 +14,8 @@
 class EXPORT CPP_RadialPolygonShape {
     public:
         CPP_Logger* Logger;
-        CPP_DisplayCoordinateFormat* ShapeCenterFormat;
-        CPP_ColorFormat* ColorFormat;
+        CPP_DisplayCoordinate* ShapeCenterFormat;
+        CPP_Color* Color;
 
         std::vector<glm::vec2> VertexData;
         std::vector<glm::vec4> ColorData;
@@ -49,8 +49,8 @@ class EXPORT CPP_RadialPolygonShape {
             delete ShapeCenterFormat;
             ShapeCenterFormat = nullptr;
 
-            delete ColorFormat;
-            ColorFormat = nullptr;
+            delete Color;
+            Color = nullptr;
         }
 
         void Render();

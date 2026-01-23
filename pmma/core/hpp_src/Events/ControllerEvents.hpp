@@ -101,14 +101,14 @@ class CPP_InternalControllerEvent {
     private:
         CPP_Logger* Logger;
 
-        CPP_ProportionFormat* GamePad_Left_Trigger = nullptr;
-        CPP_ProportionFormat* GamePad_Right_Trigger = nullptr;
-        CPP_ProportionFormat* GamePad_Left_Stick_X = nullptr;
-        CPP_ProportionFormat* GamePad_Left_Stick_Y = nullptr;
-        CPP_ProportionFormat* GamePad_Right_Stick_X = nullptr;
-        CPP_ProportionFormat* GamePad_Right_Stick_Y = nullptr;
+        CPP_Proportion* GamePad_Left_Trigger = nullptr;
+        CPP_Proportion* GamePad_Right_Trigger = nullptr;
+        CPP_Proportion* GamePad_Left_Stick_X = nullptr;
+        CPP_Proportion* GamePad_Left_Stick_Y = nullptr;
+        CPP_Proportion* GamePad_Right_Stick_X = nullptr;
+        CPP_Proportion* GamePad_Right_Stick_Y = nullptr;
 
-        std::vector<CPP_ProportionFormat> RawAxesData;
+        std::vector<CPP_Proportion> RawAxesData;
         std::vector<bool> RawButtonData;
         std::vector<std::string> RawHatStateData;
         std::string RawName;
@@ -141,12 +141,12 @@ class CPP_InternalControllerEvent {
             GamePad_DPad_Down_Button = new CPP_ButtonPressedEvent();
             GamePad_DPad_Left_Button = new CPP_ButtonPressedEvent();
 
-            GamePad_Left_Trigger = new CPP_ProportionFormat();
-            GamePad_Right_Trigger = new CPP_ProportionFormat();
-            GamePad_Left_Stick_X = new CPP_ProportionFormat();
-            GamePad_Left_Stick_Y = new CPP_ProportionFormat();
-            GamePad_Right_Stick_X = new CPP_ProportionFormat();
-            GamePad_Right_Stick_Y = new CPP_ProportionFormat();
+            GamePad_Left_Trigger = new CPP_Proportion();
+            GamePad_Right_Trigger = new CPP_Proportion();
+            GamePad_Left_Stick_X = new CPP_Proportion();
+            GamePad_Left_Stick_Y = new CPP_Proportion();
+            GamePad_Right_Stick_X = new CPP_Proportion();
+            GamePad_Right_Stick_Y = new CPP_Proportion();
 
             ID = new_ID;
             Connected = false;

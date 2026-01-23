@@ -23,7 +23,7 @@
 
 class EXPORT CPP_Display {
     public:
-        CPP_ColorFormat* WindowFillColor = nullptr;
+        CPP_Color* WindowFillColor = nullptr;
         CPP_KeyEvent_F11* F11_KeyEvent;
         CPP_KeyEvent_Escape* Escape_KeyEvent;
 

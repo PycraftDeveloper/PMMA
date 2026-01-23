@@ -200,7 +200,7 @@ in future versions of PMMA, but it is not a priority.", false);
     }
     PMMA_Core::DisplayInstance = this;
 
-    WindowFillColor = new CPP_ColorFormat();
+    WindowFillColor = new CPP_Color();
 
     if (!PMMA_Registry::GLFW_Initialized) {
         glfwInit();

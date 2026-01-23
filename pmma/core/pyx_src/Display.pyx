@@ -10,14 +10,14 @@ cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
 
-from CoreTypes cimport Color, CPP_ColorFormat
+from CoreTypes cimport Color, CPP_Color
 
 np.import_array()
 
 # Declare the external C++ function
 cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Display:
-        CPP_ColorFormat* WindowFillColor
+        CPP_Color* WindowFillColor
 
         void Create(
             unsigned int* NewSize,
