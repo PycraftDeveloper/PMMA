@@ -21,7 +21,7 @@ void CPP_RectangleShape::Render() {
             Logger = new CPP_Logger();
         }
 
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no center set, please use the `Rectangle.shape_center` \
 API to set it.");
@@ -33,7 +33,7 @@ API to set it.");
             Logger = new CPP_Logger();
         }
 
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no color set, please use the `Rectangle.shape_color` \
 API to set it.");
@@ -45,23 +45,23 @@ API to set it.");
             Logger = new CPP_Logger();
         }
 
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no size set, please use `Rectangle.set_size` to set it.");
         throw runtime_error("Shape has no size set");
     }
 
-    float ShapeCenter[2];
-    ShapeCenter->Get(ShapeCenter);
+    float ShapeCenterPosition[2];
+    ShapeCenter->Get(ShapeCenterPosition);
 
     VertexDataChanged = VertexDataChanged ||
         ShapeCenter->GetChangedToggle() ||
         PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
-    if (ShapeCenter[0] + HalfWidth < 0 ||
-            ShapeCenter[0] - HalfWidth > DisplaySize[0] ||
-            ShapeCenter[1] + HalfHeight < 0 ||
-            ShapeCenter[1] - HalfHeight > DisplaySize[1]) {
+    if (ShapeCenterPosition[0] + HalfWidth < 0 ||
+            ShapeCenterPosition[0] - HalfWidth > DisplaySize[0] ||
+            ShapeCenterPosition[1] + HalfHeight < 0 ||
+            ShapeCenterPosition[1] - HalfHeight > DisplaySize[1]) {
         return;
     }
 
@@ -171,10 +171,10 @@ API to set it.");
                         rotated_inner[1] = RotationSin * inner[0] + RotationCos * inner[1];
 
                         auto &v0 = Shape2D_RenderPipelineVertices[index + i * 2];
-                        v0.x = ShapeCenter[0] + rotated_outer[0]; v0.y = ShapeCenter[1] + rotated_outer[1]; v0.s = ColorIndex;
+                        v0.x = ShapeCenterPosition[0] + rotated_outer[0]; v0.y = ShapeCenterPosition[1] + rotated_outer[1]; v0.s = ColorIndex;
 
                         auto &v1 = Shape2D_RenderPipelineVertices[index + i * 2 + 1];
-                        v1.x = ShapeCenter[0] + rotated_inner[0]; v1.y = ShapeCenter[1] + rotated_inner[1]; v1.s = ColorIndex;
+                        v1.x = ShapeCenterPosition[0] + rotated_inner[0]; v1.y = ShapeCenterPosition[1] + rotated_inner[1]; v1.s = ColorIndex;
 
                         // rotate (x, y) using rotation matrix
                         float newX = cosD * x - sinD * y;
@@ -192,37 +192,37 @@ API to set it.");
                     float point[2], out[2];
                     Shape2D_RenderPipelineVertices.resize(4);
 
-                    point[0] = ShapeCenter[0] - HalfWidth;
-                    point[1] = ShapeCenter[1] - HalfHeight;
+                    point[0] = ShapeCenterPosition[0] - HalfWidth;
+                    point[1] = ShapeCenterPosition[1] - HalfHeight;
 
-                    SimpleApplyRotation(point, ShapeCenter, RotationSin,
+                    SimpleApplyRotation(point, ShapeCenterPosition, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
 
                     auto &v0 = Shape2D_RenderPipelineVertices[0];
                     v0.x = out[0]; v0.y = out[1]; v0.s = ColorIndex;
 
-                    point[0] = ShapeCenter[0] + HalfWidth;
-                    point[1] = ShapeCenter[1] - HalfHeight;
+                    point[0] = ShapeCenterPosition[0] + HalfWidth;
+                    point[1] = ShapeCenterPosition[1] - HalfHeight;
 
-                    SimpleApplyRotation(point, ShapeCenter, RotationSin,
+                    SimpleApplyRotation(point, ShapeCenterPosition, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
 
                     auto &v1 = Shape2D_RenderPipelineVertices[1];
                     v1.x = out[0]; v1.y = out[1]; v1.s = ColorIndex;
 
-                    point[0] = ShapeCenter[0] - HalfWidth;
-                    point[1] = ShapeCenter[1] + HalfHeight;
+                    point[0] = ShapeCenterPosition[0] - HalfWidth;
+                    point[1] = ShapeCenterPosition[1] + HalfHeight;
 
-                    SimpleApplyRotation(point, ShapeCenter, RotationSin,
+                    SimpleApplyRotation(point, ShapeCenterPosition, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
 
                     auto &v2 = Shape2D_RenderPipelineVertices[2];
                     v2.x = out[0]; v2.y = out[1]; v2.s = ColorIndex;
 
-                    point[0] = ShapeCenter[0] + HalfWidth;
-                    point[1] = ShapeCenter[1] + HalfHeight;
+                    point[0] = ShapeCenterPosition[0] + HalfWidth;
+                    point[1] = ShapeCenterPosition[1] + HalfHeight;
 
-                    SimpleApplyRotation(point, ShapeCenter, RotationSin,
+                    SimpleApplyRotation(point, ShapeCenterPosition, RotationSin,
                         RotationCos, HalfWidth, HalfHeight, out);
 
                     auto &v3 = Shape2D_RenderPipelineVertices[3];
@@ -231,10 +231,10 @@ API to set it.");
                     float pos[2], out[2];
                     Shape2D_RenderPipelineVertices.resize(10);
 
-                    int outer_left = ShapeCenter[0] - HalfWidth;
-                    int outer_right = ShapeCenter[0] + HalfWidth;
-                    int outer_top = ShapeCenter[1] - HalfHeight;
-                    int outer_bottom = ShapeCenter[1] + HalfHeight;
+                    int outer_left = ShapeCenterPosition[0] - HalfWidth;
+                    int outer_right = ShapeCenterPosition[0] + HalfWidth;
+                    int outer_top = ShapeCenterPosition[1] - HalfHeight;
+                    int outer_bottom = ShapeCenterPosition[1] + HalfHeight;
 
                     int inner_left = outer_left + Width;
                     int inner_right = outer_right - Width;
@@ -245,7 +245,7 @@ API to set it.");
                     pos[0] = outer_left;
                     pos[1] = outer_top;
 
-                    ComplexApplyRotation(pos, ShapeCenter,
+                    ComplexApplyRotation(pos, ShapeCenterPosition,
                         RotationSin, RotationCos, out);
 
                     auto &v0 = Shape2D_RenderPipelineVertices[0];
@@ -254,7 +254,7 @@ API to set it.");
                     pos[0] = inner_left;
                     pos[1] = inner_top;
 
-                    ComplexApplyRotation(pos, ShapeCenter,
+                    ComplexApplyRotation(pos, ShapeCenterPosition,
                         RotationSin, RotationCos, out);
 
                     auto &v1 = Shape2D_RenderPipelineVertices[1];
@@ -263,7 +263,7 @@ API to set it.");
                     pos[0] = outer_right;
                     pos[1] = outer_top;
 
-                    ComplexApplyRotation(pos, ShapeCenter,
+                    ComplexApplyRotation(pos, ShapeCenterPosition,
                         RotationSin, RotationCos, out);
 
                     auto &v2 = Shape2D_RenderPipelineVertices[2];
@@ -272,7 +272,7 @@ API to set it.");
                     pos[0] = inner_right;
                     pos[1] = inner_top;
 
-                    ComplexApplyRotation(pos, ShapeCenter,
+                    ComplexApplyRotation(pos, ShapeCenterPosition,
                         RotationSin, RotationCos, out);
 
                     auto &v3 = Shape2D_RenderPipelineVertices[3];
@@ -281,7 +281,7 @@ API to set it.");
                     pos[0] = outer_right;
                     pos[1] = outer_bottom;
 
-                    ComplexApplyRotation(pos, ShapeCenter,
+                    ComplexApplyRotation(pos, ShapeCenterPosition,
                         RotationSin, RotationCos, out);
 
                     auto &v4 = Shape2D_RenderPipelineVertices[4];
@@ -290,7 +290,7 @@ API to set it.");
                     pos[0] = inner_right;
                     pos[1] = inner_bottom;
 
-                    ComplexApplyRotation(pos, ShapeCenter,
+                    ComplexApplyRotation(pos, ShapeCenterPosition,
                         RotationSin, RotationCos, out);
 
                     auto &v5 = Shape2D_RenderPipelineVertices[5];
@@ -299,7 +299,7 @@ API to set it.");
                     pos[0] = outer_left;
                     pos[1] = outer_bottom;
 
-                    ComplexApplyRotation(pos, ShapeCenter,
+                    ComplexApplyRotation(pos, ShapeCenterPosition,
                         RotationSin, RotationCos, out);
 
                     auto &v6 = Shape2D_RenderPipelineVertices[6];
@@ -308,7 +308,7 @@ API to set it.");
                     pos[0] = inner_left;
                     pos[1] = inner_bottom;
 
-                    ComplexApplyRotation(pos, ShapeCenter,
+                    ComplexApplyRotation(pos, ShapeCenterPosition,
                         RotationSin, RotationCos, out);
 
                     auto &v7 = Shape2D_RenderPipelineVertices[7];

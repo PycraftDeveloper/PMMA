@@ -18,7 +18,7 @@ void CPP_LineShape::Render() {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no color set, please use the `Line.shape_color` \
 API to set it.");
@@ -29,7 +29,7 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no start position set, please use the `Line.shape_start` \
 API to set it.");
@@ -40,7 +40,7 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no end position set, please use the `Line.shape_end` \
 API to set it.");

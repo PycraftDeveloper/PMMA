@@ -2,6 +2,7 @@
 
 from libcpp cimport bool
 from libcpp.string cimport string
+from libcpp.optional cimport optional
 
 import random, threading
 
@@ -64,7 +65,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void Refresh(
             unsigned int MinRefreshRate,
-            unsigned int MaxRefreshRate,
+            optional[unsigned int] MaxRefreshRate,
             bool LowerRefreshRate_OnMinimize,
             bool LowerRefreshRate_OnFocusLoss,
             bool LowerRefreshRate_OnLowBattery) except + nogil
@@ -262,14 +263,15 @@ cdef class Display:
             lower_refresh_rate_on_focus_loss=True,
             lower_refresh_rate_on_low_battery=True):
 
+        cdef optional[unsigned int] opt_max
+
         if max_refresh_rate is None:
-            if self.cpp_class_ptr.GetIsWindowUsingVsync():
-                max_refresh_rate = 0
-            else:
-                max_refresh_rate = 60
+            opt_max.reset()
+        else:
+            opt_max = <unsigned int>max_refresh_rate
 
         self.cpp_class_ptr.Refresh(
-            min_refresh_rate, max_refresh_rate,
+            min_refresh_rate, opt_max,
             lower_refresh_rate_on_minimize,
             lower_refresh_rate_on_focus_loss,
             lower_refresh_rate_on_low_battery)

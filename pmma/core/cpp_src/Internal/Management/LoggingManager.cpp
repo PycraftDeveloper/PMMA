@@ -188,6 +188,11 @@ void CPP_LoggingManager::ExternalLogDebug(std::string ID, std::string Content, s
     if (PMMA_Registry::IsDebuggingModeEnabled) {
         transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
         if (ProductName == "pmma") {
+            PMMA_Core::LoggingManagerInstance->InternalLogError(
+                57,
+                "Failed to log debug message: The name PMMA or pmma is reserved!"
+            );
+
             throw runtime_error("The name PMMA or pmma is reserved!");
         }
 
@@ -223,6 +228,11 @@ void CPP_LoggingManager::ExternalLogInfo(std::string ID, std::string Content, st
 
     transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
     if (ProductName == "pmma") {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            57,
+            "Failed to log debug message: The name PMMA or pmma is reserved!"
+        );
+
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
 
@@ -257,6 +267,11 @@ void CPP_LoggingManager::ExternalLogWarn(std::string ID, std::string Content, st
 
     transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
     if (ProductName == "pmma") {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            57,
+            "Failed to log debug message: The name PMMA or pmma is reserved!"
+        );
+
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
 
@@ -291,6 +306,11 @@ void CPP_LoggingManager::ExternalLogError(std::string ID, std::string Content, s
 
     transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
     if (ProductName == "pmma") {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            57,
+            "Failed to log debug message: The name PMMA or pmma is reserved!"
+        );
+
         throw runtime_error("The name PMMA or pmma is reserved!");
     }
 

@@ -34,7 +34,7 @@ void CPP_ArcShape::Render() {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no center set, please use the `Arc.shape_center` \
 API to set it.");
@@ -45,7 +45,7 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no color set, please use the `Arc.shape_color` \
 API to set it.");
@@ -56,7 +56,7 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no start angle set, please use `Arc.set_start_angle` to set it.");
         throw runtime_error("Shape has no start angle set");
@@ -66,7 +66,7 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no end angle set, please use `Arc.set_end_angle` to set it.");
         throw runtime_error("Shape has no end angle set");
@@ -76,23 +76,23 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no radius set, please use `Arc.set_radius` to set it.");
         throw runtime_error("Shape has no radius set");
     }
 
-    float ShapeCenter[2];
-    ShapeCenter->Get(ShapeCenter);
+    float ShapeCenterPosition[2];
+    ShapeCenter->Get(ShapeCenterPosition);
 
     VertexDataChanged = VertexDataChanged ||
                 ShapeCenter->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
-    if (ShapeCenter[0] + Radius < 0 ||
-            ShapeCenter[0] - Radius > DisplaySize[0] ||
-            ShapeCenter[1] + Radius < 0 ||
-            ShapeCenter[1] - Radius > DisplaySize[1]) {
+    if (ShapeCenterPosition[0] + Radius < 0 ||
+            ShapeCenterPosition[0] - Radius > DisplaySize[0] ||
+            ShapeCenterPosition[1] + Radius < 0 ||
+            ShapeCenterPosition[1] - Radius > DisplaySize[1]) {
         return;
     }
 
@@ -156,8 +156,8 @@ API to set it.");
             Shape2D_RenderPipelineVertices.resize(vertexCount);
 
             float angle = Rotation + StartAngle;
-            float cx = ShapeCenter[0];
-            float cy = ShapeCenter[1];
+            float cx = ShapeCenterPosition[0];
+            float cy = ShapeCenterPosition[1];
             float cosStep = std::cos(angleStep);
             float sinStep = std::sin(angleStep);
             float cosA = std::cos(angle);

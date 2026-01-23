@@ -45,22 +45,30 @@ class CPP_Shader {
             } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_OPENGL) {
                 return "120";
             } else {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+
+                Logger->InternalLogError(
+                    58,
+                    "Cannot compile shader as the graphics backend '" +
+                    GraphicsBackend + "' is not recognized. Please report \
+this as a GitHub issue so we can add support for it.");
+
                 throw runtime_error("Cannot compile shader for " + GraphicsBackend + " as its profile is not known.");
             }
         }
 
     public:
-        CPP_Shader() {
-            Logger = new CPP_Logger();
-        }
-
         ~CPP_Shader() {
             if (bgfx::isValid(ShaderProgram)) {
                 bgfx::destroy(ShaderProgram);
             }
 
-            delete Logger;
-            Logger = nullptr;
+            if (Logger != nullptr) {
+                delete Logger;
+                Logger = nullptr;
+            }
         }
 
         void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
@@ -173,6 +181,10 @@ class CPP_Shader {
                     }
                 }
             } catch (const std::filesystem::filesystem_error& error) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+
                 Logger->InternalLogWarn(
                     48,
                     "Whilst looking for shader files in the folder: '" +

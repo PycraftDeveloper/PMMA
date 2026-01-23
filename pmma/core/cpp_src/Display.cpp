@@ -304,6 +304,12 @@ void CPP_Display::Create(
         NULL,
         NULL);
     if (!TemporaryWindow) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            55,
+            "Failed to create GLFW window. Please ensure you installed PMMA \
+correctly. If the problem persists, please report this issue on our GitHub page."
+        );
+
         throw runtime_error("Failed to create GLFW window");
 
         PMMA_Registry::GLFW_References--;
@@ -421,6 +427,12 @@ void CPP_Display::Create(
     }
 
     if (!Window) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            55,
+            "Failed to create GLFW window. Please ensure you installed PMMA \
+correctly. If the problem persists, please report this issue on our GitHub page."
+        );
+
         throw runtime_error("Failed to create GLFW window");
 
         PMMA_Registry::GLFW_References--;
@@ -481,9 +493,8 @@ void CPP_Display::Create(
     if (!Vsync) {
         PMMA_Core::LoggingManagerInstance->InternalLogDebug(
             33,
-            "You are not using vsync. We strongly recommend using \
-vsync to limit the refresh rate of your window. Doing so will reduce \
-visual tearing and improve frame pacing."
+            "You are not using vsync. We recommend using \
+vsync to reduce visual tearing and improve frame pacing."
         );
     }
 
@@ -597,7 +608,7 @@ unsigned int CPP_Display::CalculateRefreshRate(unsigned int RefreshRate) {
 
 void CPP_Display::Refresh(
         unsigned int MinRefreshRate,
-        unsigned int MaxRefreshRate,
+        std::optional<unsigned int> OptionalMaxRefreshRate,
         bool LowerRefreshRate_OnMinimize,
         bool LowerRefreshRate_OnFocusLoss,
         bool LowerRefreshRate_OnLowBattery) {
@@ -615,6 +626,18 @@ You can do this using `Display.create`."
 
     bgfx::touch(0);   // Ensure view 0 is cleared
     bgfx::frame();
+
+    unsigned int MaxRefreshRate;
+
+    if (!OptionalMaxRefreshRate.has_value()) {
+        if (GetIsWindowUsingVsync()) {
+            MaxRefreshRate = 0;
+        } else {
+            MaxRefreshRate = 60;
+        }
+    } else {
+        MaxRefreshRate = OptionalMaxRefreshRate.value();
+    }
 
     MaxRefreshRate = CPP_Display::CalculateRefreshRate(
         MaxRefreshRate);
@@ -660,6 +683,12 @@ void CPP_Display::SetIcon(string IconPath) {
         glfwSetWindowIcon(Window, 1, &icon);
         stbi_image_free(pixels);  // Don’t forget to free the image
     } else {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            56,
+            "Failed to load icon from path: " + IconPath + ". Please \
+ensure the file exists and is a valid image file."
+        );
+
         throw runtime_error("Failed to load icon: " + IconPath);
     }
 }

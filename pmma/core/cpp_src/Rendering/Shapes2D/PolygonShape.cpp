@@ -17,7 +17,7 @@ void CPP_PolygonShape::Render() {
             Logger = new CPP_Logger();
         }
 
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no color set, please use the `Polygon.shape_color` \
 API to set it.");
@@ -29,7 +29,7 @@ API to set it.");
             Logger = new CPP_Logger();
         }
 
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no points set, please use `Polygon.set_points` to set it."
         );

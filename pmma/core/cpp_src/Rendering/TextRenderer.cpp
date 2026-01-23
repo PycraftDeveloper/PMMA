@@ -62,7 +62,7 @@ Please use `TextRenderer.set_size` to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             52,
             "This text has no color set, please use the \
 `TextRenderer.ForegroundColor` API to set it.");
@@ -73,7 +73,7 @@ Please use `TextRenderer.set_size` to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             53,
             "This text has no position set, please use the \
 `TextRenderer.Position` API to set it.");

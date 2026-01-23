@@ -17,7 +17,7 @@ void CPP_PixelShape::Render() {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no center set, please use the `Pixel.shape_center` \
 API to set it.");
@@ -28,24 +28,24 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no color set, please use the `Pixel.shape_color` \
 API to set it.");
         throw runtime_error("Shape has no color set");
     }
 
-    float ShapeCenter[2];
-    ShapeCenter->Get(ShapeCenter);
+    float ShapeCenterPosition[2];
+    ShapeCenter->Get(ShapeCenterPosition);
 
     VertexDataChanged = VertexDataChanged ||
                 ShapeCenter->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
-    if (ShapeCenter[0] + 0.5f < 0 ||
-            ShapeCenter[0] - 0.5f > DisplaySize[0] ||
-            ShapeCenter[1] + 0.5f < 0 ||
-            ShapeCenter[1] - 0.5f > DisplaySize[1]) {
+    if (ShapeCenterPosition[0] + 0.5f < 0 ||
+            ShapeCenterPosition[0] - 0.5f > DisplaySize[0] ||
+            ShapeCenterPosition[1] + 0.5f < 0 ||
+            ShapeCenterPosition[1] - 0.5f > DisplaySize[1]) {
         return;
     }
 
@@ -69,8 +69,8 @@ API to set it.");
 
     if (VertexDataChanged) {
         Shape2D_RenderPipelineVertices.resize(4);
-        float x = ShapeCenter[0];
-        float y = ShapeCenter[1];
+        float x = ShapeCenterPosition[0];
+        float y = ShapeCenterPosition[1];
 
         auto &v0 = Shape2D_RenderPipelineVertices[0];
         v0.x = x - 0.5f; v0.y = y - 0.5f; v0.s = ColorIndex;

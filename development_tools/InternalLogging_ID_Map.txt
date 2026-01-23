@@ -61,3 +61,7 @@ Notes:
 52 - Text has no color set
 53 - Text has no position set
 54 - Text has no size set
+55 - Failed to create GLFW Window
+56 - Failed to load icon
+57 - The name PMMA/pmma is reserved
+58 - Cannot compile shader for graphics profile

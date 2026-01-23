@@ -29,7 +29,7 @@ void CPP_EllipseShape::Render() {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no center set, please use the `Ellipse.shape_center` \
 API to set it.");
@@ -40,7 +40,7 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no color set, please use the `Ellipse.shape_color` \
 API to set it.");
@@ -51,23 +51,23 @@ API to set it.");
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
-        Logger->InternalLogWarn(
+        Logger->InternalLogError(
             30,
             "This shape has no size set, please use `Ellipse.`set_size` to set it.");
         throw runtime_error("Shape has no size set");
     }
 
-    float ShapeCenter[2];
-    ShapeCenter->Get(ShapeCenter);
+    float ShapeCenterPosition[2];
+    ShapeCenter->Get(ShapeCenterPosition);
 
     VertexDataChanged = VertexDataChanged ||
                 ShapeCenter->GetChangedToggle() ||
                 PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
-    if (ShapeCenter[0] + HalfWidth < 0 ||
-            ShapeCenter[0] - HalfWidth > DisplaySize[0] ||
-            ShapeCenter[1] + HalfHeight < 0 ||
-            ShapeCenter[1] - HalfHeight > DisplaySize[1]) {
+    if (ShapeCenterPosition[0] + HalfWidth < 0 ||
+            ShapeCenterPosition[0] - HalfWidth > DisplaySize[0] ||
+            ShapeCenterPosition[1] + HalfHeight < 0 ||
+            ShapeCenterPosition[1] - HalfHeight > DisplaySize[1]) {
         return;
     }
 
@@ -117,8 +117,8 @@ API to set it.");
             size_t vertexCount = InternalPointCount * 2 + 2;
             Shape2D_RenderPipelineVertices.resize(vertexCount);
 
-            float cx = ShapeCenter[0];
-            float cy = ShapeCenter[1];
+            float cx = ShapeCenterPosition[0];
+            float cy = ShapeCenterPosition[1];
 
             float a_outer = ShapeSize.x / 2.0f; // semi-major axis (horizontal)
             float b_outer = ShapeSize.y / 2.0f; // semi-minor axis (vertical)

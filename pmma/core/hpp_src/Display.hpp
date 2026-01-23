@@ -10,6 +10,7 @@
 #include <stdexcept>
 #include <chrono>
 #include <array>
+#include <optional>
 
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -67,8 +68,8 @@ class EXPORT CPP_Display {
 
         void Create(
             unsigned int* NewSize,
-            std::string NewCaption,
-            std::string NewIcon,
+            std::string NewCaption="PMMA Display",
+            std::string NewIcon="",
             bool NewFullScreen=true,
             bool NewResizable=false,
             bool NewNoFrame=false,
@@ -382,11 +383,11 @@ before you can call this function.");
         void LimitRefreshRate(unsigned int RefreshRate);
 
         void Refresh(
-            unsigned int MinRefreshRate,
-            unsigned int MaxRefreshRate,
-            bool LowerRefreshRate_OnMinimize,
-            bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery);
+            unsigned int MinRefreshRate=5,
+            std::optional<unsigned int> OptionalMaxRefreshRate=60,
+            bool LowerRefreshRate_OnMinimize=true,
+            bool LowerRefreshRate_OnFocusLoss=true,
+            bool LowerRefreshRate_OnLowBattery=true);
 
         inline void TriggerEventRefresh() {
             if (Window == nullptr) {
