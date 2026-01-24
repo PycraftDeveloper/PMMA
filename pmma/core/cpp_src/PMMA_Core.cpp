@@ -215,6 +215,14 @@ namespace PMMA_Registry {
 }
 
 void PMMA_Initialize(string location) {
+    if (std::filesystem::exists(location)) {
+        if (!std::filesystem::is_directory(location)) {
+            throw runtime_error("The provided PMMA location is not a directory.");
+        }
+    } else {
+        throw runtime_error("The provided PMMA location does not exist.");
+    }
+
     PMMA_Registry::PMMA_Location = location;
 
     PMMA_Registry::RandomSeedGenerator.seed(std::random_device{}());

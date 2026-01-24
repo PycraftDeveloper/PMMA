@@ -13,7 +13,11 @@ const bgfx::Memory* InternalLoadShader(const std::string& filePath) {
     return mem;
 }
 
-void CPP_Shader::CompileShaderComponent(string RawFilePath, string CompiledFilePath, string Type) {
+void CPP_Shader::CompileShaderComponent(
+        string RawFilePath,
+        string CompiledFilePath,
+        string Type) {
+
     bgfx::ShaderHandle shader_component = BGFX_INVALID_HANDLE;
 
     string PlatformName = CPP_General::GetOperatingSystem();
@@ -40,20 +44,33 @@ void CPP_Shader::CompileShaderComponent(string RawFilePath, string CompiledFileP
         "PMMA is using '" + PlatformName + "' for shaders."
     );
 
-    string Shader_C_Location = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "extern" + PMMA_Registry::PathSeparator + "bin" + PMMA_Registry::PathSeparator + "shaderc";
+    string Shader_C_Location = PMMA_Registry::PMMA_Location +
+        PMMA_Registry::PathSeparator + "extern" +
+        PMMA_Registry::PathSeparator + "bin" +
+        PMMA_Registry::PathSeparator + "shaderc";
+
     if (PlatformName == "windows") {
         Shader_C_Location += ".exe";
     }
 
-    string ShaderBuildToolsLocation = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "extern" + PMMA_Registry::PathSeparator + "shader_build_tools";
-    string VaryingDefLocation = filesystem::path(RawFilePath).parent_path().string() + PMMA_Registry::PathSeparator + "varying.def.sc";
+    string ShaderBuildToolsLocation = PMMA_Registry::PMMA_Location +
+        PMMA_Registry::PathSeparator + "extern" +
+        PMMA_Registry::PathSeparator + "shader_build_tools";
+
+    string VaryingDefLocation = filesystem::path(RawFilePath).parent_path().string() +
+        PMMA_Registry::PathSeparator + "varying.def.sc";
 
     string GraphicsProfile = CPP_Shader::GetGraphicsProfile();
 
-    string command = Shader_C_Location + " -f " + RawFilePath + " -o " + CompiledFilePath + " --type " + Type + " --platform " + PlatformName + " -i " + ShaderBuildToolsLocation + " --varyingdef " + VaryingDefLocation + " --profile " + GraphicsProfile;
+    string command = Shader_C_Location + " -f " + RawFilePath + " -o " +
+        CompiledFilePath + " --type " + Type + " --platform " +
+        PlatformName + " -i " + ShaderBuildToolsLocation +
+        " --varyingdef " + VaryingDefLocation + " --profile " +
+        GraphicsProfile;
 
     if (!filesystem::exists(CompiledFilePath)) {
-        filesystem::create_directories(filesystem::path(CompiledFilePath).parent_path());
+        filesystem::create_directories(
+            filesystem::path(CompiledFilePath).parent_path());
     }
 
     bool DontRepeatOutput = false;
@@ -155,8 +172,11 @@ void CPP_Shader::CompileShader(bool InternalShader) {
     }
 
     if (CompiledVertexShaderPath != "" && CompiledFragmentShaderPath != "") {
-        bgfx::ShaderHandle vertex_shader = bgfx::createShader(InternalLoadShader(CompiledVertexShaderPath));
-        bgfx::ShaderHandle fragment_shader = bgfx::createShader(InternalLoadShader(CompiledFragmentShaderPath));
+        bgfx::ShaderHandle vertex_shader = bgfx::createShader(
+            InternalLoadShader(CompiledVertexShaderPath));
+        bgfx::ShaderHandle fragment_shader = bgfx::createShader(
+            InternalLoadShader(CompiledFragmentShaderPath));
+
         ShaderProgram = bgfx::createProgram(
             vertex_shader,
             fragment_shader,

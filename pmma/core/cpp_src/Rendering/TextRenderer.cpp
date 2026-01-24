@@ -20,6 +20,11 @@ You can do this using `Display.create`."
 
     uint8_t Color[4] = {0, 0, 0, 0};
     BackgroundColor->Set_RGBA(Color);
+
+    Font = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator +
+        "fonts" + PMMA_Registry::PathSeparator + "Noto_Sans" +
+        PMMA_Registry::PathSeparator + "static" +
+        PMMA_Registry::PathSeparator + "NotoSans-Regular.ttf";
 }
 
 void CPP_TextRenderer::Render() {
@@ -32,18 +37,6 @@ void CPP_TextRenderer::Render() {
             50,
             "This text has no text to render! Please use \
 `TextRenderer.set_text` to set it.", false);
-    }
-
-    if (!FontSet) {
-        if (Logger == nullptr) {
-            Logger = new CPP_Logger();
-        }
-
-        Logger->InternalLogError(
-            51,
-            "This text has no font set! \
-Please use `TextRenderer.set_font` to set it.");
-        throw runtime_error("Font not set!");
     }
 
     if (!SizeSet) {

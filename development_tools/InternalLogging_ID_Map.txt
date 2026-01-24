@@ -57,7 +57,7 @@ Notes:
 48 - Filesystem error
 49 - Shader compilation failed
 50 - Text not assigned
-51 - Text has no font set
+51 - The specified font file does not exist
 52 - Text has no color set
 53 - Text has no position set
 54 - Text has no size set
@@ -65,3 +65,4 @@ Notes:
 56 - Failed to load icon
 57 - The name PMMA/pmma is reserved
 58 - Cannot compile shader for graphics profile
+59 - The specified PMMA Path is

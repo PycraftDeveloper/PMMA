@@ -2,6 +2,7 @@
 #include "PMMA_Exports.hpp"
 
 #include <string>
+#include <filesystem>
 
 #include <glm/glm.hpp>
 
@@ -19,7 +20,6 @@ class EXPORT CPP_TextRenderer {
 
         unsigned int Size;
 
-        bool FontSet = false;
         bool SizeSet = false;
 
         CPP_TextRenderer();
@@ -45,8 +45,17 @@ class EXPORT CPP_TextRenderer {
         };
 
         inline void SetFont(std::string NewFont) {
+            if (!std::filesystem::exists(NewFont)) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogError(
+                    51,
+                    "The specified font file does not exist: '" + NewFont + "'.");
+                throw runtime_error("Font file does not exist!");
+            }
+
             Font = NewFont;
-            FontSet = true;
         };
 
         inline void SetSize(unsigned int NewSize) {
