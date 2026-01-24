@@ -66,3 +66,4 @@ Notes:
 57 - The name PMMA/pmma is reserved
 58 - Cannot compile shader for graphics profile
 59 - The specified PMMA Path is
+60 - Color name unknown
