@@ -70,6 +70,13 @@ cdef class Color:
     cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three, bool generate_alpha=True):
         self.cpp_class_ptr.GenerateFrom3DFractalBrownianMotion(value_one, value_two, value_three, generate_alpha)
 
+    cpdef void set_color_name(self, color_name):
+        cdef:
+            string cpp_color_name
+
+        cpp_color_name = color_name.encode('utf-8')
+        self.cpp_class_ptr.Set_ColorName(cpp_color_name)
+
     cpdef void set_RGBA_array(self, in_color):
         cdef:
             np.ndarray[np.uint8_t, ndim=1, mode='c'] in_color_np

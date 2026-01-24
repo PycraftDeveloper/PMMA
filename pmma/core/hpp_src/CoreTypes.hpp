@@ -369,22 +369,7 @@ class EXPORT CPP_Color {
             return OldChanged;
         }
 
-        inline void Set_String(std::string color_name) {
-            if (CPP_Constants::Colors::ColorMap.find(color_name) == CPP_Constants::Colors::ColorMap.end()) {
-                if (Logger == nullptr) {
-                    Logger = new CPP_Logger();
-                }
-                Logger->InternalLogError(
-                    60,
-                    "The color name '" + color_name + "' is not recognized."
-                );
-                throw std::runtime_error("Unrecognized color name!");
-            }
-
-            auto& rgb = CPP_Constants::Colors::ColorMap.at(color_name);
-            uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
-            Set_RGBA(in_color);
-        }
+        void Set_ColorName(std::string color_name);
 
         inline void Set_RGBA(uint8_t* in_color) {
             bool Different = false;

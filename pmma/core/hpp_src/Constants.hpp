@@ -7,48 +7,48 @@
 #include <cstdint>
 
 namespace CPP_Constants {
-    inline constexpr std::string_view HAT_NOT_PRESSED = "HAT NOT PRESSED";
-    inline constexpr std::string_view HAT_PRESSED_UP = "HAT PRESSED UP";
-    inline constexpr std::string_view HAT_PRESSED_RIGHT = "HAT PRESSED RIGHT";
-    inline constexpr std::string_view HAT_PRESSED_DOWN = "HAT PRESSED DOWN";
-    inline constexpr std::string_view HAT_PRESSED_LEFT = "HAT PRESSED LEFT";
-    inline constexpr std::string_view HAT_PRESSED_UP_RIGHT = "HAT PRESSED UP-RIGHT";
-    inline constexpr std::string_view HAT_PRESSED_DOWN_RIGHT = "HAT PRESSED DOWN-RIGHT";
-    inline constexpr std::string_view HAT_PRESSED_DOWN_LEFT = "HAT PRESSED DOWN-LEFT";
-    inline constexpr std::string_view HAT_PRESSED_UP_LEFT = "HAT PRESSED UP-LEFT";
+    inline const std::string HAT_NOT_PRESSED = "HAT NOT PRESSED";
+    inline const std::string HAT_PRESSED_UP = "HAT PRESSED UP";
+    inline const std::string HAT_PRESSED_RIGHT = "HAT PRESSED RIGHT";
+    inline const std::string HAT_PRESSED_DOWN = "HAT PRESSED DOWN";
+    inline const std::string HAT_PRESSED_LEFT = "HAT PRESSED LEFT";
+    inline const std::string HAT_PRESSED_UP_RIGHT = "HAT PRESSED UP-RIGHT";
+    inline const std::string HAT_PRESSED_DOWN_RIGHT = "HAT PRESSED DOWN-RIGHT";
+    inline const std::string HAT_PRESSED_DOWN_LEFT = "HAT PRESSED DOWN-LEFT";
+    inline const std::string HAT_PRESSED_UP_LEFT = "HAT PRESSED UP-LEFT";
 
     inline constexpr float PI = 3.141592653589793f;
     inline constexpr float TAU = 6.283185307179586f;
 
     inline constexpr float SHAPE_QUALITY = 0.27341772151898736f;
 
-    inline constexpr std::string_view OS_ANDROID = "Android";
-    inline constexpr std::string_view OS_BSD = "BSD";
-    inline constexpr std::string_view OS_EMSCRIPTEN = "Emscripten";
-    inline constexpr std::string_view OS_HAIKU = "Haiku";
-    inline constexpr std::string_view OS_HURD = "Hurd";
-    inline constexpr std::string_view OS_IOS = "iOS";
-    inline constexpr std::string_view OS_LINUX = "Linux";
-    inline constexpr std::string_view OS_NX = "Nintendo Switch";
-    inline constexpr std::string_view OS_MACOS = "MacOS";
-    inline constexpr std::string_view OS_PS4 = "Play Station 4";
-    inline constexpr std::string_view OS_PS5 = "Play Station 5";
-    inline constexpr std::string_view OS_VISIONOS = "VisionOS";
-    inline constexpr std::string_view OS_WINDOWS = "Windows";
-    inline constexpr std::string_view OS_WINRT = "WinRT";
-    inline constexpr std::string_view OS_XBOXONE = "XboxOne";
-    inline constexpr std::string_view OS_UNKNOWN = "Unknown";
+    inline const std::string OS_ANDROID = "Android";
+    inline const std::string OS_BSD = "BSD";
+    inline const std::string OS_EMSCRIPTEN = "Emscripten";
+    inline const std::string OS_HAIKU = "Haiku";
+    inline const std::string OS_HURD = "Hurd";
+    inline const std::string OS_IOS = "iOS";
+    inline const std::string OS_LINUX = "Linux";
+    inline const std::string OS_NX = "Nintendo Switch";
+    inline const std::string OS_MACOS = "MacOS";
+    inline const std::string OS_PS4 = "Play Station 4";
+    inline const std::string OS_PS5 = "Play Station 5";
+    inline const std::string OS_VISIONOS = "VisionOS";
+    inline const std::string OS_WINDOWS = "Windows";
+    inline const std::string OS_WINRT = "WinRT";
+    inline const std::string OS_XBOXONE = "XboxOne";
+    inline const std::string OS_UNKNOWN = "Unknown";
 
-    inline constexpr std::string_view GRAPHICS_BACKEND_NO_RENDERER = "No Renderer";
-    inline constexpr std::string_view GRAPHICS_BACKEND_DIRECT3D11 = "Direct3D 11.0";
-    inline constexpr std::string_view GRAPHICS_BACKEND_DIRECT3D12 = "Direct3D 12.0";
-    inline constexpr std::string_view GRAPHICS_BACKEND_GNM = "GNM"; // PlayStation (Developer license needed)
-    inline constexpr std::string_view GRAPHICS_BACKEND_METAL = "Metal";
-    inline constexpr std::string_view GRAPHICS_BACKEND_NVN = "NVN"; // Nintendo Switch
-    inline constexpr std::string_view GRAPHICS_BACKEND_OPENGL_ES = "OpenGL ES";
-    inline constexpr std::string_view GRAPHICS_BACKEND_OPENGL = "OpenGL";
-    inline constexpr std::string_view GRAPHICS_BACKEND_VULKAN = "Vulkan";
-    inline constexpr std::string_view GRAPHICS_BACKEND_UNKNOWN = "Unknown";
+    inline const std::string GRAPHICS_BACKEND_NO_RENDERER = "No Renderer";
+    inline const std::string GRAPHICS_BACKEND_DIRECT3D11 = "Direct3D 11.0";
+    inline const std::string GRAPHICS_BACKEND_DIRECT3D12 = "Direct3D 12.0";
+    inline const std::string GRAPHICS_BACKEND_GNM = "GNM"; // PlayStation (Developer license needed)
+    inline const std::string GRAPHICS_BACKEND_METAL = "Metal";
+    inline const std::string GRAPHICS_BACKEND_NVN = "NVN"; // Nintendo Switch
+    inline const std::string GRAPHICS_BACKEND_OPENGL_ES = "OpenGL ES";
+    inline const std::string GRAPHICS_BACKEND_OPENGL = "OpenGL";
+    inline const std::string GRAPHICS_BACKEND_VULKAN = "Vulkan";
+    inline const std::string GRAPHICS_BACKEND_UNKNOWN = "Unknown";
 
     const struct Colors {
         static inline constexpr std::string_view RED = "red";

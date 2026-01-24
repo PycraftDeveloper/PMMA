@@ -1,6 +1,7 @@
 # cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False
 
 from libcpp cimport bool
+from libcpp.string cimport string
 from libc.stdint cimport uint8_t
 cimport numpy as np
 
@@ -17,6 +18,8 @@ cdef extern from "PMMA_Core.hpp" nogil:
         inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha) except + nogil
         inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_two, bool GenerateAlpha) except + nogil
         inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_two, bool GenerateAlpha) except + nogil
+
+        inline void Set_ColorName(string color_name) except + nogil
 
         inline void Set_RGBA(uint8_t* in_color) except + nogil
         inline void Set_RGB(uint8_t* in_color) except + nogil
@@ -127,6 +130,8 @@ cdef class Color:
     cpdef void generate_from_1D_fractal_brownian_motion(self, float value, bool generate_alpha=?)
     cpdef void generate_from_2D_fractal_brownian_motion(self, float value_one, float value_two, bool generate_alpha=?)
     cpdef void generate_from_3D_fractal_brownian_motion(self, float value_one, float value_two, float value_three, bool generate_alpha=?)
+
+    cpdef void set_color_name(self, color_name)
 
     cpdef void set_RGBA_array(self, in_color)
     cpdef void set_RGB_array(self, in_color)

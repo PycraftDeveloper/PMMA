@@ -4,6 +4,23 @@ CPP_Color::CPP_Color() {
     RandomColorGenerator = new CPP_FastRandom();
 }
 
+void CPP_Color::Set_ColorName(std::string color_name) {
+    if (CPP_Constants::Colors::ColorMap.find(color_name) == CPP_Constants::Colors::ColorMap.end()) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+        Logger->InternalLogError(
+            60,
+            "The color name '" + color_name + "' is not recognized."
+        );
+        throw std::runtime_error("Unrecognized color name!");
+    }
+
+    auto& rgb = CPP_Constants::Colors::ColorMap.at(color_name);
+    uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
+    Set_RGBA(in_color);
+}
+
 CPP_DisplayCoordinate::CPP_DisplayCoordinate() {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(

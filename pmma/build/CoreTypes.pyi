@@ -1,4 +1,4 @@
-from typing import Iterable, Union, Any
+from typing import Iterable, Union, Any, Literal
 
 import numpy as np
 import numpy.typing as npt
@@ -28,6 +28,23 @@ Numerical = Union[float, int]
 
 NoneInt = Union[int, None]
 
+ColorNames = Literal[
+    "red", "ora", "yel", "gre", "blu", "ind", "vio",
+    "blk", "wht", "gry", "cya", "mag", "lrd", "lor",
+    "lyl", "lgr", "lbl", "lin", "lvi", "sky", "gol",
+    "slv", "brn", "pea", "olv", "tan", "nav", "mar",
+    "pur", "cor", "tea", "che", "lim", "moc", "bei",
+    "dus", "slt", "lav", "pch", "mnt", "rse", "brz",
+    "aqu", "per", "ice", "plm", "cop", "crm", "pnk",
+    "for", "snd", "amb", "azr", "trq", "cob", "chc",
+    "ivr", "mus", "old", "sgr", "whe", "rub", "emr",
+    "slm", "ony", "spe", "chr", "bld", "spg", "dre",
+    "dor", "dye", "dgr", "dbl", "din", "dvi", "dgy",
+    "lgy", "och", "umb", "ter", "mud", "sap", "amy",
+    "gnt", "tpe", "bub", "mrs", "hny", "sea", "neo",
+    "elc", "sun", "crl", "cyl", "mgn", "sfr", "apr",
+    "flx", "mys"]
+
 class Color:
     def __init__(self) -> None: ...
 
@@ -47,6 +64,8 @@ class Color:
     def generate_from_1D_fractal_brownian_motion(self, in_value: Numerical, generate_alpha: bool=True) -> None: ...
     def generate_from_2D_fractal_brownian_motion(self, in_value_one: Numerical, in_value_two: Numerical, generate_alpha: bool=True) -> None: ...
     def generate_from_3D_fractal_brownian_motion(self, in_value_one: Numerical, in_value_two: Numerical, in_value_three: Numerical, generate_alpha: bool=True) -> None: ...
+
+    def set_color_name(self, color_name: ColorNames) -> None: ...
 
     def set_RGBA_array(self, in_color: NPInteger1D) -> None: ...
     def set_RGB_array(self, in_color: NPInteger1D) -> None: ...
