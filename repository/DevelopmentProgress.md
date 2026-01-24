@@ -10,16 +10,16 @@
 
 We are currently working on the next minor update to PMMA, version 5.1.x. This update is generally targeted at transitioning away from the OpenGL graphics API and into BGFX to better secure the future of the API with the gradual deprecation of the OpenGL API. This update will also bring numerous bug fixes, a major overhaul to the build system for the C++ side of PMMA, and an expansion ans general refinement of the Text and Animation portions of the API.
 
-### ![Progress on PMMA 5.1](https://geps.dev/progress/35)
+### ![Progress on PMMA 5.1](https://geps.dev/progress/55)
 
 * ✅ - Remove all MacOS support from the API directly (as it cant be tested and fails to build - any CMAKE work will be kept).
 * ✅ - Update repository for the beginning of work on PMMA 5.1.
 * ✅ - Setup and test the new build system for PMMA (C++ component).
-* ⏳ - Introduce BGFX as the replacement for OpenGL.
+* ✅ - Introduce BGFX as the replacement for OpenGL.
+* ✅ - Fix any bugs that are identified from the launch of PMMA 5.
+* ⏳ - Make major refinements to the text rendering API.
 * 🛑 - Introduce the 'Raw2DRendering' portion of the API which will replace the recently removed OpenGL portion.
-* 🛑 - Make major refinements to the text rendering API.
 * 🛑 - Extend the existing Animations API and rename it to Transitions2D in preparation for a 3D counterpart in the near future.
-* 🛑 - Fix any bugs that are identified from the launch of PMMA 5.
 * 🛑 - Overhaul and work on the documentation and docstring usage within PMMA (C++ and Python components).
 * 🛑 - Re-introduce an automated testing system for the new API.
 

@@ -57,7 +57,7 @@ _If you encounter any issues or problems then check out our [troubleshooting pag
 
 ## Development Progress
 
-![Progress on PMMA 5.1](https://geps.dev/progress/35)
+![Progress on PMMA 5.1](https://geps.dev/progress/55)
 
 We are currently working on the next minor update to PMMA, version 5.1.x. This update is targeted at transitioning away from the OpenGL graphics API and into BGFX to better secure the future of the API with the gradual deprecation of the OpenGL API. This update will also bring numerous bug fixes, a major overhaul to the build system for the C++ side of PMMA, and an expansion ans general refinement of the Text and Animation portions of the API. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5.1](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
 
