@@ -46,8 +46,10 @@ class CPP_TextRenderPipelineManager {
         bgfx::UniformHandle m_texUniform = BGFX_INVALID_HANDLE;
         bgfx::UniformHandle m_fgColUniform = BGFX_INVALID_HANDLE;
         bgfx::UniformHandle m_bgColUniform = BGFX_INVALID_HANDLE;
-        uint32_t m_colorTextureWidth = 0;
-        uint32_t m_colorTextureHeight = 0;
+        uint32_t m_ForegroundColorTextureWidth = 0;
+        uint32_t m_ForegroundColorTextureHeight = 0;
+        uint32_t m_BackgroundColorTextureWidth = 0;
+        uint32_t m_BackgroundColorTextureHeight = 0;
 
         // Font
         FT_Library m_ft = nullptr;

@@ -292,6 +292,34 @@ void CPP_TextRenderPipelineManager::FlushDirtyRects() {
     m_dirtyRects.clear();
 }
 
+inline bool is_code_with_prefix(const std::string& token,
+                                const std::string& prefix)
+{
+    // token must be: <prefix> + '=' + 3 uppercase letters
+    const std::size_t p = prefix.size();
+
+    // Total length must match exactly
+    if (token.size() != p + 1 + 3)
+        return false;
+
+    // Check prefix
+    if (token.compare(0, p, prefix) != 0)
+        return false;
+
+    // Check '='
+    if (token[p] != '=')
+        return false;
+
+    // Check three uppercase ASCII letters
+    unsigned char a = token[p + 1];
+    unsigned char b = token[p + 2];
+    unsigned char c = token[p + 3];
+
+    return (a >= 'A' && a <= 'Z') &&
+           (b >= 'A' && b <= 'Z') &&
+           (c >= 'A' && c <= 'Z');
+}
+
 void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject) {
     string TextContent = NewObject->Text;
 
@@ -338,7 +366,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
         if (c == '$' && i + 1 < TextContent.size() && TextContent[i + 1] == '{') {
             size_t blockStart = i; // for fallback literal rendering
             i += 2; // skip "${"
-            std::vector<std::string_view> tokens;
+            std::vector<std::string> tokens;
             size_t tokenStart = i;
             bool malformed = true;
 
@@ -397,15 +425,73 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
             // VALID FORMAT BLOCK — process tokens
             // -----------------------------------------------------
 
-            for (auto t : tokens) {
+            for (auto token : tokens) {
                 /*if (t == "BLD") {
                     fmt.bold = true;
                 } else if (t == "UDL") {
                     fmt.underline = true;
                 } // Add more tokens here...*/
 
-                if (t == "RST") {
-                    formatting.Reset();
+                if (token == "rst") {
+                    //formatting.Reset();
+                } else if (is_code_with_prefix(token, "fg")) {
+                    // Extract color code
+                    string ColorCode = token.substr(3, 3);
+                    transform(ColorCode.begin(), ColorCode.end(), ColorCode.begin(), ::tolower); // change to lowercase
+
+                    if (ColorCode == "rst") {
+                        formatting.ForegroundColorIndex = formatting.DefaultForegroundColorIndex;
+                        continue;
+                    }
+
+                    if (CPP_Constants::Colors::ColorMap.find(ColorCode) == CPP_Constants::Colors::ColorMap.end()) { // check it exists
+                        PMMA_Core::LoggingManagerInstance->InternalLogError(
+                            60,
+                            "The color code '" + ColorCode + "' is not recognized."
+                        );
+                        throw std::runtime_error("Unrecognized color code!");
+                    }
+
+                    auto& rgb = CPP_Constants::Colors::ColorMap.at(ColorCode); // find it
+                    uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
+
+                    float newIndex = GetForegroundColorIndex(
+                        in_color,
+                        NewObject->ID
+                    );
+
+                    if (newIndex != formatting.ForegroundColorIndex) {
+                        formatting.ForegroundColorIndex = newIndex;
+                    }
+                } else if (is_code_with_prefix(token, "bg")) {
+                    // Extract color code
+                    string ColorCode = token.substr(3, 3);
+                    transform(ColorCode.begin(), ColorCode.end(), ColorCode.begin(), ::tolower); // change to lowercase
+
+                    if (ColorCode == "rst") {
+                        formatting.BackgroundColorIndex = formatting.DefaultBackgroundColorIndex;
+                        continue;
+                    }
+
+                    if (CPP_Constants::Colors::ColorMap.find(ColorCode) == CPP_Constants::Colors::ColorMap.end()) { // check it exists
+                        PMMA_Core::LoggingManagerInstance->InternalLogError(
+                            60,
+                            "The color code '" + ColorCode + "' is not recognized."
+                        );
+                        throw std::runtime_error("Unrecognized color code!");
+                    }
+
+                    auto& rgb = CPP_Constants::Colors::ColorMap.at(ColorCode); // find it
+                    uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
+
+                    float newIndex = GetBackgroundColorIndex(
+                        in_color,
+                        NewObject->ID
+                    );
+
+                    if (newIndex != formatting.BackgroundColorIndex) {
+                        formatting.BackgroundColorIndex = newIndex;
+                    }
                 }
             }
 
@@ -464,6 +550,8 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
 }
 
 void CPP_TextRenderPipelineManager::Reset() {
+
+
     if (bgfx::isValid(vbh)) {
         bgfx::destroy(vbh);
     }
@@ -543,13 +631,11 @@ void CPP_TextRenderPipelineManager::Reset() {
         ForegroundColorSlotID.clear();
         FreeSlots.clear();
         ForegroundColors.clear();
-        BackgroundColors.clear();
     }
 
     if (UsingComplexBackgroundColorInsertion && !PreviouslyUsingComplexBackgroundColorInsertion) {
         BackgroundColorSlotID.clear();
         FreeSlots.clear();
-        ForegroundColors.clear();
         BackgroundColors.clear();
     }
 
@@ -584,13 +670,23 @@ void CPP_TextRenderPipelineManager::InternalRender() {
     ForegroundColors.resize(LiveForegroundColorCount);
     BackgroundColors.resize(LiveBackgroundColorCount);
 
-    uint32_t numColors = (uint32_t)ForegroundColors.size() / 4;
-    uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
-    uint32_t height = (numColors + width - 1) / width;
+    // Foreground Texture Management
+    uint32_t Foreground_numColors = (uint32_t)ForegroundColors.size() / 4;
+    uint32_t Foreground_width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, Foreground_numColors);
+    uint32_t Foreground_height = (Foreground_numColors + Foreground_width - 1) / Foreground_width;
 
-    size_t expectedSize = width * height * 4;
+    size_t expectedSize = Foreground_width * Foreground_height * 4;
     if (ForegroundColors.size() < expectedSize) {
         ForegroundColors.resize(expectedSize, 0); // Pad with transparent black
+    }
+
+    // Background Texture Management
+    uint32_t Background_numColors = (uint32_t)BackgroundColors.size() / 4;
+    uint32_t Background_width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, Background_numColors);
+    uint32_t Background_height = (Background_numColors + Background_width - 1) / Background_width;
+
+    expectedSize = Background_width * Background_height * 4;
+    if (ForegroundColors.size() < expectedSize) {
         BackgroundColors.resize(expectedSize, 0);
     }
 
@@ -606,13 +702,13 @@ void CPP_TextRenderPipelineManager::InternalRender() {
 
     // If texture exists but size changed, destroy and recreate it
     if (bgfx::isValid(m_fg_color_tex)) {
-        if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
+        if (m_ForegroundColorTextureWidth != Foreground_width || m_ForegroundColorTextureHeight != Foreground_height) {
             bgfx::destroy(m_fg_color_tex);
             m_fg_color_tex = BGFX_INVALID_HANDLE;
         }
     }
     if (bgfx::isValid(m_bg_color_tex)) {
-        if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
+        if (m_BackgroundColorTextureWidth != Background_width || m_BackgroundColorTextureHeight != Background_height) {
             bgfx::destroy(m_bg_color_tex);
             m_bg_color_tex = BGFX_INVALID_HANDLE;
         }
@@ -621,7 +717,7 @@ void CPP_TextRenderPipelineManager::InternalRender() {
     // create texture if missing
     if (!bgfx::isValid(m_fg_color_tex)) {
         m_fg_color_tex = bgfx::createTexture2D(
-            (uint16_t)width, (uint16_t)height,
+            (uint16_t)Foreground_width, (uint16_t)Foreground_height,
             false,   // hasMips
             1,       // num layers
             bgfx::TextureFormat::RGBA8,
@@ -630,21 +726,28 @@ void CPP_TextRenderPipelineManager::InternalRender() {
 
     if (!bgfx::isValid(m_bg_color_tex)) {
         m_bg_color_tex = bgfx::createTexture2D(
-            (uint16_t)width, (uint16_t)height,
+            (uint16_t)Background_width, (uint16_t)Background_height,
             false,   // hasMips
             1,       // num layers
             bgfx::TextureFormat::RGBA8,
             BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
     }
 
-    bgfx::updateTexture2D(m_fg_color_tex, 0, 0, 0, 0, width, height, fg_texMem);
-    bgfx::updateTexture2D(m_bg_color_tex, 0, 0, 0, 0, width, height, bg_texMem);
+    bgfx::updateTexture2D(m_fg_color_tex, 0, 0, 0, 0, Foreground_width, Foreground_height, fg_texMem);
+    bgfx::updateTexture2D(m_bg_color_tex, 0, 0, 0, 0, Background_width, Background_height, bg_texMem);
 
     // store width/height for shader normalization
-    m_colorTextureWidth  = width;
-    m_colorTextureHeight = height;
+    m_ForegroundColorTextureWidth  = Foreground_width;
+    m_ForegroundColorTextureHeight = Foreground_height;
+    m_BackgroundColorTextureWidth  = Background_width;
+    m_BackgroundColorTextureHeight = Background_height;
 
-    float info[4] = { float(m_colorTextureWidth), float(m_colorTextureHeight), 0.0f, 0.0f };
+    float info[4] = {
+        float(m_ForegroundColorTextureWidth),
+        float(m_ForegroundColorTextureHeight),
+        float(m_BackgroundColorTextureWidth),
+        float(m_BackgroundColorTextureHeight)};
+
     bgfx::setUniform(u_colorInfo, info);
 
     bgfx::setTexture(0, m_fgColUniform, m_fg_color_tex, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);

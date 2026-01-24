@@ -6,10 +6,7 @@ CPP_Color::CPP_Color() {
 
 void CPP_Color::Set_ColorName(std::string color_name) {
     if (CPP_Constants::Colors::ColorMap.find(color_name) == CPP_Constants::Colors::ColorMap.end()) {
-        if (Logger == nullptr) {
-            Logger = new CPP_Logger();
-        }
-        Logger->InternalLogError(
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
             60,
             "The color name '" + color_name + "' is not recognized."
         );
