@@ -13,6 +13,27 @@ typedef struct FT_LibraryRec_ *FT_Library;
 typedef struct FT_FaceRec_ *FT_Face;
 typedef struct FT_GlyphSlotRec_ *FT_GlyphSlot;
 
+struct TextFormatting {
+    float DefaultForegroundColorIndex = 0.0f;
+    float ForegroundColorIndex = 0.0f;
+
+    float DefaultBackgroundColorIndex = 0.0f;
+    float BackgroundColorIndex = 0.0f;
+
+    TextFormatting(float default_foreground_color_index, float default_background_color_index) {
+        DefaultForegroundColorIndex = default_foreground_color_index;
+        ForegroundColorIndex = DefaultForegroundColorIndex;
+
+        DefaultBackgroundColorIndex = default_background_color_index;
+        BackgroundColorIndex = DefaultBackgroundColorIndex;
+    }
+
+    void Reset() {
+        ForegroundColorIndex = DefaultForegroundColorIndex;
+        BackgroundColorIndex = DefaultBackgroundColorIndex;
+    }
+};
+
 class CPP_TextRenderPipelineManager {
     public:
         CPP_Shader* ShaderProgram = nullptr;
@@ -51,23 +72,31 @@ class CPP_TextRenderPipelineManager {
         void EnsureGlyph(char32_t codepoint);
         void UpdateAtlasTexture();
 
-        bool UsingComplexColorInsertion = false;
-        bool ChangedColorModes = true;
+        bool UsingComplexForegroundColorInsertion = false;
+        bool UsingComplexBackgroundColorInsertion = false;
+        bool ChangedForegroundColorModes = true;
+        bool ChangedBackgroundColorModes = true;
 
-        ska::flat_hash_map<uint64_t, float> ColorSlotID; // objectColorSlot
-        ska::flat_hash_set<uint64_t> SeenThisFrame;
+        ska::flat_hash_map<uint64_t, float> ForegroundColorSlotID; // objectColorSlot
+        ska::flat_hash_map<uint64_t, float> BackgroundColorSlotID; // objectColorSlot
+        ska::flat_hash_set<uint64_t> ForegroundColorsSeenThisFrame;
+        ska::flat_hash_set<uint64_t> BackgroundColorsSeenThisFrame;
         std::vector<size_t> FreeSlots;
         std::vector<CharacterData> CharacterRenderData;
 
         bgfx::VertexBufferHandle vbh = BGFX_INVALID_HANDLE;
 
-        unsigned int ColorsInserted = 0;
-        unsigned int ColorIndexesChanged = 0;
+        unsigned int ForegroundColorsInserted = 0;
+        unsigned int ForegroundColorIndexesChanged = 0;
+
+        unsigned int BackgroundColorsInserted = 0;
+        unsigned int BackgroundColorIndexesChanged = 0;
 
         std::vector<uint8_t> ForegroundColors;
         std::vector<uint8_t> BackgroundColors;
 
-        unsigned int LiveColorCount = 0;
+        unsigned int LiveForegroundColorCount = 0;
+        unsigned int LiveBackgroundColorCount = 0;
 
         std::string FontPath;
         unsigned int PixelHeight;
@@ -83,47 +112,40 @@ class CPP_TextRenderPipelineManager {
 
         void Reset();
 
-        inline float GetColorIndex(uint8_t* ForegroundColor, uint8_t* BackgroundColor, uint64_t ShapeID) {
-            if (!UsingComplexColorInsertion) {
+        inline float GetForegroundColorIndex(uint8_t* ForegroundColor, uint64_t ShapeID) {
+            if (!UsingComplexForegroundColorInsertion) {
                 // fast path: append (or overwrite if capacity exists) and return next index
-                size_t needBytes = (size_t)LiveColorCount + 4;
+                size_t needBytes = (size_t)LiveForegroundColorCount + 4;
 
                 if (ForegroundColors.size() < needBytes) {
                     // ensure there's space for the 4 bytes we will write
                     ForegroundColors.resize(needBytes);
-                    BackgroundColors.resize(needBytes);
                 }
 
                 // write the 4 color bytes
-                ForegroundColors[LiveColorCount]     = ForegroundColor[0];
-                ForegroundColors[LiveColorCount + 1] = ForegroundColor[1];
-                ForegroundColors[LiveColorCount + 2] = ForegroundColor[2];
-                ForegroundColors[LiveColorCount + 3] = ForegroundColor[3];
-
-                BackgroundColors[LiveColorCount]     = BackgroundColor[0];
-                BackgroundColors[LiveColorCount + 1] = BackgroundColor[1];
-                BackgroundColors[LiveColorCount + 2] = BackgroundColor[2];
-                BackgroundColors[LiveColorCount + 3] = BackgroundColor[3];
+                ForegroundColors[LiveForegroundColorCount]     = ForegroundColor[0];
+                ForegroundColors[LiveForegroundColorCount + 1] = ForegroundColor[1];
+                ForegroundColors[LiveForegroundColorCount + 2] = ForegroundColor[2];
+                ForegroundColors[LiveForegroundColorCount + 3] = ForegroundColor[3];
 
                 // compute slot index (slot is number of color entries before this write)
-                unsigned int slotIndex = static_cast<unsigned int>(LiveColorCount / 4);
+                unsigned int slotIndex = static_cast<unsigned int>(LiveForegroundColorCount / 4);
 
-                LiveColorCount += 4;
+                LiveForegroundColorCount += 4;
 
                 return static_cast<float>(slotIndex);
             }
 
             // --- Complex insertion path: try to preserve indexes ---
-            SeenThisFrame.insert(ShapeID);
+            ForegroundColorsSeenThisFrame.insert(ShapeID);
 
-            auto found = ColorSlotID.find(ShapeID);
-            if (found != ColorSlotID.end()) {
+            auto found = ForegroundColorSlotID.find(ShapeID);
+            if (found != ForegroundColorSlotID.end()) {
                 // already have a slot for this shape: overwrite it
                 unsigned int slotIndex = found->second;
                 size_t offset = static_cast<size_t>(slotIndex) * 4;
                 if (ForegroundColors.size() < offset + 4) {
                     ForegroundColors.resize(offset + 4);
-                    BackgroundColors.resize(offset + 4);
                 }
 
                 ForegroundColors[offset]     = ForegroundColor[0];
@@ -131,12 +153,7 @@ class CPP_TextRenderPipelineManager {
                 ForegroundColors[offset + 2] = ForegroundColor[2];
                 ForegroundColors[offset + 3] = ForegroundColor[3];
 
-                BackgroundColors[offset]     = BackgroundColor[0];
-                BackgroundColors[offset + 1] = BackgroundColor[1];
-                BackgroundColors[offset + 2] = BackgroundColor[2];
-                BackgroundColors[offset + 3] = BackgroundColor[3];
-
-                LiveColorCount += 4;
+                LiveForegroundColorCount += 4;
                 return static_cast<float>(slotIndex);
             }
 
@@ -149,7 +166,6 @@ class CPP_TextRenderPipelineManager {
                 if (ForegroundColors.size() < offset + 4) {
                     // pad vector so the slot exists (could be reusing a previously freed high index)
                     ForegroundColors.resize(offset + 4);
-                    BackgroundColors.resize(offset + 4);
                 }
 
                 ForegroundColors[offset]     = ForegroundColor[0];
@@ -157,38 +173,112 @@ class CPP_TextRenderPipelineManager {
                 ForegroundColors[offset + 2] = ForegroundColor[2];
                 ForegroundColors[offset + 3] = ForegroundColor[3];
 
+                ForegroundColorSlotID[ShapeID] = newSlot;
+
+                LiveForegroundColorCount += 4;
+                return static_cast<float>(newSlot);
+            }
+
+            // no free slots: append at the end
+            size_t needBytes = (size_t)LiveForegroundColorCount + 4;
+            if (ForegroundColors.size() < needBytes) {
+                ForegroundColors.resize(needBytes);
+            }
+
+            ForegroundColors[LiveForegroundColorCount]     = ForegroundColor[0];
+            ForegroundColors[LiveForegroundColorCount + 1] = ForegroundColor[1];
+            ForegroundColors[LiveForegroundColorCount + 2] = ForegroundColor[2];
+            ForegroundColors[LiveForegroundColorCount + 3] = ForegroundColor[3];
+
+            unsigned int slotIndex = static_cast<unsigned int>(LiveForegroundColorCount / 4);
+            ForegroundColorSlotID[ShapeID] = slotIndex;
+
+            LiveForegroundColorCount += 4;
+            return static_cast<float>(slotIndex);
+        }
+
+        inline float GetBackgroundColorIndex(uint8_t* BackgroundColor, uint64_t ShapeID) {
+            if (!UsingComplexBackgroundColorInsertion) {
+                // fast path: append (or overwrite if capacity exists) and return next index
+                size_t needBytes = (size_t)LiveBackgroundColorCount + 4;
+
+                if (BackgroundColors.size() < needBytes) {
+                    // ensure there's space for the 4 bytes we will write
+                    BackgroundColors.resize(needBytes);
+                }
+
+                // write the 4 color bytes
+                BackgroundColors[LiveBackgroundColorCount]     = BackgroundColor[0];
+                BackgroundColors[LiveBackgroundColorCount + 1] = BackgroundColor[1];
+                BackgroundColors[LiveBackgroundColorCount + 2] = BackgroundColor[2];
+                BackgroundColors[LiveBackgroundColorCount + 3] = BackgroundColor[3];
+
+                // compute slot index (slot is number of color entries before this write)
+                unsigned int slotIndex = static_cast<unsigned int>(LiveBackgroundColorCount / 4);
+
+                LiveBackgroundColorCount += 4;
+
+                return static_cast<float>(slotIndex);
+            }
+
+            // --- Complex insertion path: try to preserve indexes ---
+            BackgroundColorsSeenThisFrame.insert(ShapeID);
+
+            auto found = BackgroundColorSlotID.find(ShapeID);
+            if (found != BackgroundColorSlotID.end()) {
+                // already have a slot for this shape: overwrite it
+                unsigned int slotIndex = found->second;
+                size_t offset = static_cast<size_t>(slotIndex) * 4;
+                if (BackgroundColors.size() < offset + 4) {
+                    BackgroundColors.resize(offset + 4);
+                }
+
                 BackgroundColors[offset]     = BackgroundColor[0];
                 BackgroundColors[offset + 1] = BackgroundColor[1];
                 BackgroundColors[offset + 2] = BackgroundColor[2];
                 BackgroundColors[offset + 3] = BackgroundColor[3];
 
-                ColorSlotID[ShapeID] = newSlot;
+                LiveBackgroundColorCount += 4;
+                return static_cast<float>(slotIndex);
+            }
 
-                LiveColorCount += 4;
+            // not seen before: reuse a free slot if available
+            if (!FreeSlots.empty()) {
+                unsigned int newSlot = FreeSlots.back();
+                FreeSlots.pop_back();
+
+                size_t offset = static_cast<size_t>(newSlot) * 4;
+                if (BackgroundColors.size() < offset + 4) {
+                    // pad vector so the slot exists (could be reusing a previously freed high index)
+                    BackgroundColors.resize(offset + 4);
+                }
+
+                BackgroundColors[offset]     = BackgroundColor[0];
+                BackgroundColors[offset + 1] = BackgroundColor[1];
+                BackgroundColors[offset + 2] = BackgroundColor[2];
+                BackgroundColors[offset + 3] = BackgroundColor[3];
+
+                BackgroundColorSlotID[ShapeID] = newSlot;
+
+                LiveBackgroundColorCount += 4;
                 return static_cast<float>(newSlot);
             }
 
             // no free slots: append at the end
-            size_t needBytes = (size_t)LiveColorCount + 4;
-            if (ForegroundColors.size() < needBytes) {
-                ForegroundColors.resize(needBytes);
+            size_t needBytes = (size_t)LiveBackgroundColorCount + 4;
+            if (BackgroundColors.size() < needBytes) {
                 BackgroundColors.resize(needBytes);
             }
 
-            ForegroundColors[LiveColorCount]     = ForegroundColor[0];
-            ForegroundColors[LiveColorCount + 1] = ForegroundColor[1];
-            ForegroundColors[LiveColorCount + 2] = ForegroundColor[2];
-            ForegroundColors[LiveColorCount + 3] = ForegroundColor[3];
+            BackgroundColors[LiveBackgroundColorCount]     = BackgroundColor[0];
+            BackgroundColors[LiveBackgroundColorCount + 1] = BackgroundColor[1];
+            BackgroundColors[LiveBackgroundColorCount + 2] = BackgroundColor[2];
+            BackgroundColors[LiveBackgroundColorCount + 3] = BackgroundColor[3];
 
-            BackgroundColors[LiveColorCount]     = BackgroundColor[0];
-            BackgroundColors[LiveColorCount + 1] = BackgroundColor[1];
-            BackgroundColors[LiveColorCount + 2] = BackgroundColor[2];
-            BackgroundColors[LiveColorCount + 3] = BackgroundColor[3];
+            unsigned int slotIndex = static_cast<unsigned int>(LiveBackgroundColorCount / 4);
+            BackgroundColorSlotID[ShapeID] = slotIndex;
 
-            unsigned int slotIndex = static_cast<unsigned int>(LiveColorCount / 4);
-            ColorSlotID[ShapeID] = slotIndex;
-
-            LiveColorCount += 4;
+            LiveBackgroundColorCount += 4;
             return static_cast<float>(slotIndex);
         }
 };

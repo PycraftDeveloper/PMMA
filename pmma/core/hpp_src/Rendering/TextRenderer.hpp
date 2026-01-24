@@ -21,6 +21,8 @@ class EXPORT CPP_TextRenderer {
         unsigned int Size;
 
         bool SizeSet = false;
+        bool UseInLineFormatting = true;
+        bool GlyphsPrepared = false;
 
         CPP_TextRenderer();
 
@@ -40,8 +42,17 @@ class EXPORT CPP_TextRenderer {
             BackgroundColor = nullptr;
         };
 
+        inline void SetUseInLineFormatting(bool NewUseInLineFormatting) {
+            UseInLineFormatting = NewUseInLineFormatting;
+        };
+
+        inline bool GetUseInLineFormatting() {
+            return UseInLineFormatting;
+        };
+
         inline void SetText(std::string NewText) {
             Text = NewText;
+            GlyphsPrepared = false;
         };
 
         inline void SetFont(std::string NewFont) {

@@ -1,5 +1,6 @@
 # cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False
 
+from libcpp cimport bool
 from libcpp.string cimport string
 
 from Logger cimport Logger
@@ -11,6 +12,9 @@ cdef extern from "PMMA_Core.hpp" nogil:
         CPP_DisplayCoordinate* Position
         CPP_Color* ForegroundColor
         CPP_Color* BackgroundColor
+
+        inline void SetUseInLineFormatting(bool NewUseInLineFormatting) except + nogil
+        inline bool GetUseInLineFormatting() except + nogil
 
         inline void SetText(string NewText) except + nogil
         inline void SetFont(string NewFont) except + nogil
@@ -53,6 +57,12 @@ cdef class TextRenderer:
     property background_color:
         def __get__(self):
             return self.cpp_background_color
+
+    def set_use_in_line_formatting(self, use_in_line_formatting):
+        self.cpp_class_ptr.SetUseInLineFormatting(use_in_line_formatting)
+
+    def get_use_in_line_formatting(self):
+        return self.cpp_class_ptr.GetUseInLineFormatting()
 
     def set_text(self, text):
         cdef string encoded_text = text.encode("utf-8")

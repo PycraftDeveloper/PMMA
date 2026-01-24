@@ -305,19 +305,116 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
     NewObject->ForegroundColor->Get_RGBA(ForegroundColor);
     NewObject->BackgroundColor->Get_RGBA(BackgroundColor);
 
-    float ColorIndex = GetColorIndex(
+    float ForegroundColorIndex = GetForegroundColorIndex(
         ForegroundColor,
+        NewObject->ID
+    );
+
+    float BackgroundColorIndex = GetBackgroundColorIndex(
         BackgroundColor,
         NewObject->ID
     );
 
-    for (char c : TextContent) {
-        EnsureGlyph(c);
+    TextFormatting formatting(
+        ForegroundColorIndex,
+        BackgroundColorIndex
+    );
+
+    if (!NewObject->GlyphsPrepared) {
+        // Ensure all glyphs are prepared
+        for (char c : TextContent) {
+            EnsureGlyph(c);
+        }
+        NewObject->GlyphsPrepared = true;
     }
 
     char32_t prevChar = 0;
     for (size_t i = 0; i < TextContent.size(); ++i) {
         char c = TextContent[i];
+
+        // ---------------------------------------------------------
+        // INLINE FORMAT PARSER (single-pass, tokenizing as we scan)
+        // ---------------------------------------------------------
+        if (c == '$' && i + 1 < TextContent.size() && TextContent[i + 1] == '{') {
+            size_t blockStart = i; // for fallback literal rendering
+            i += 2; // skip "${"
+            std::vector<std::string_view> tokens;
+            size_t tokenStart = i;
+            bool malformed = true;
+
+            while (i < TextContent.size()) {
+                char ch = TextContent[i];
+
+                if (ch == ';' || ch == '}') {
+                    size_t len = i - tokenStart;
+
+                    if (len > 0) {
+                        tokens.emplace_back(&TextContent[tokenStart], len);
+                    } if (ch == '}') {
+                        malformed = false;
+                        break;
+                    }
+
+                    tokenStart = i + 1; // next token
+                } ++i;
+            }
+
+            if (malformed) {
+                // -------------------------------------------------
+                // MALFORMED: render literally "${something"
+                // -------------------------------------------------
+                for (size_t k = blockStart; k < TextContent.size(); ++k) {
+                    if (TextContent[k] == '}' || TextContent[k] == '\n')
+                        break;
+
+                    char literal = TextContent[k];
+
+                    if (!m_glyphs.count(literal))
+                        continue;
+
+                    const GlyphInfo& g = m_glyphs[literal];
+                    float x0 = penX + g.bearingX;
+                    float y0 = penY - g.bearingY;
+                    float x1 = x0 + g.width;
+                    float y1 = y0 + g.height;
+                    float u0 = float(g.atlasX) / m_atlasW;
+                    float v0 = float(g.atlasY) / m_atlasH;
+                    float u1 = float(g.atlasX + g.width) / m_atlasW;
+                    float v1 = float(g.atlasY + g.height) / m_atlasH;
+
+                    CharacterRenderData.push_back({ x0, y0, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u0, v0 });
+                    CharacterRenderData.push_back({ x1, y0, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u1, v0 });
+                    CharacterRenderData.push_back({ x1, y1, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u1, v1 });
+                    CharacterRenderData.push_back({ x0, y0, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u0, v0 });
+                    CharacterRenderData.push_back({ x1, y1, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u1, v1 });
+                    CharacterRenderData.push_back({ x0, y1, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u0, v1 });
+
+                    penX += g.advance;
+                } continue;
+            }
+
+            // -----------------------------------------------------
+            // VALID FORMAT BLOCK — process tokens
+            // -----------------------------------------------------
+
+            for (auto t : tokens) {
+                /*if (t == "BLD") {
+                    fmt.bold = true;
+                } else if (t == "UDL") {
+                    fmt.underline = true;
+                } // Add more tokens here...*/
+
+                if (t == "RST") {
+                    formatting.Reset();
+                }
+            }
+
+            continue; // skip rendering the formatting block
+        }
+
+        // ---------------------------------------------------------
+        // NORMAL RENDERING CONTINUES HERE
+        // ---------------------------------------------------------
         if (c == '\n') {
             penX = StartPosition[0];
             penY += m_fontSize;
@@ -329,56 +426,38 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
             continue;
         }
 
-        // Kerning
+        // Kernin
         int kern = 0;
         if (prevChar && FT_HAS_KERNING(m_face)) {
             FT_Vector delta;
-            FT_Get_Kerning(m_face, FT_Get_Char_Index(m_face, prevChar), FT_Get_Char_Index(m_face, c), FT_KERNING_DEFAULT, &delta);
+            FT_Get_Kerning(
+                m_face,
+                FT_Get_Char_Index(m_face, prevChar),
+                FT_Get_Char_Index(m_face, c),
+                FT_KERNING_DEFAULT,
+                &delta);
+
             kern = delta.x >> 6;
         }
+
         penX += kern;
         const GlyphInfo& g = m_glyphs[c];
-        float x0 = penX + g.bearingX, y0 = penY - g.bearingY;
-        float x1 = x0 + g.width, y1 = y0 + g.height;
-        float u0 = float(g.atlasX) / m_atlasW, v0 = float(g.atlasY) / m_atlasH;
-        float u1 = float(g.atlasX + g.width) / m_atlasW, v1 = float(g.atlasY + g.height) / m_atlasH;
 
-        CharacterRenderData.push_back({
-            x0, y0,
-            ColorIndex, 0.0f,
-            u0, v0
-        });
+        float x0 = penX + g.bearingX;
+        float y0 = penY - g.bearingY;
+        float x1 = x0 + g.width;
+        float y1 = y0 + g.height;
+        float u0 = float(g.atlasX) / m_atlasW;
+        float v0 = float(g.atlasY) / m_atlasH;
+        float u1 = float(g.atlasX + g.width) / m_atlasW;
+        float v1 = float(g.atlasY + g.height) / m_atlasH;
 
-        CharacterRenderData.push_back({
-            x1, y0,
-            ColorIndex, 0.0f,
-            u1, v0
-        });
-
-        CharacterRenderData.push_back({
-            x1, y1,
-            ColorIndex, 0.0f,
-            u1, v1
-        });
-
-        CharacterRenderData.push_back({
-            x0, y0,
-            ColorIndex, 0.0f,
-            u0, v0
-        });
-
-        CharacterRenderData.push_back({
-            x1, y1,
-            ColorIndex, 0.0f,
-            u1, v1
-        });
-
-        CharacterRenderData.push_back({
-            x0, y1,
-            ColorIndex, 0.0f,
-            u0, v1
-        });
-
+        CharacterRenderData.push_back({ x0, y0, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u0, v0 });
+        CharacterRenderData.push_back({ x1, y0, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u1, v0 });
+        CharacterRenderData.push_back({ x1, y1, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u1, v1 });
+        CharacterRenderData.push_back({ x0, y0, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u0, v0 });
+        CharacterRenderData.push_back({ x1, y1, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u1, v1 });
+        CharacterRenderData.push_back({ x0, y1, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u0, v1 });
         penX += g.advance;
         prevChar = c;
     }
@@ -389,15 +468,16 @@ void CPP_TextRenderPipelineManager::Reset() {
         bgfx::destroy(vbh);
     }
 
-    LiveColorCount = 0;
+    LiveForegroundColorCount = 0;
+    LiveBackgroundColorCount = 0;
 
     CharacterRenderData.clear();
 
-    if (UsingComplexColorInsertion) {
+    if (UsingComplexForegroundColorInsertion) {
         std::vector<unsigned int> RecycleList;
 
-        for (const auto& [shapeID, slot] : ColorSlotID) {
-            if (SeenThisFrame.find(shapeID) == SeenThisFrame.end()) {
+        for (const auto& [shapeID, slot] : ForegroundColorSlotID) {
+            if (ForegroundColorsSeenThisFrame.find(shapeID) == ForegroundColorsSeenThisFrame.end()) {
                 FreeSlots.push_back(slot);
                 RecycleList.push_back(shapeID);
             }
@@ -405,39 +485,84 @@ void CPP_TextRenderPipelineManager::Reset() {
 
         // Batch erase after iteration
         for (unsigned int shapeID : RecycleList) {
-            ColorSlotID.erase(shapeID);
+            ForegroundColorSlotID.erase(shapeID);
         }
         RecycleList.clear();
 
-        unsigned int SeenThisFrameSize = (unsigned int)SeenThisFrame.size();
-        SeenThisFrame.clear();
-        SeenThisFrame.reserve(SeenThisFrameSize + 25);
+        unsigned int SeenThisFrameSize = (unsigned int)ForegroundColorsSeenThisFrame.size();
+        ForegroundColorsSeenThisFrame.clear();
+        ForegroundColorsSeenThisFrame.reserve(SeenThisFrameSize + 25);
     }
 
-    bool PreviouslyUsingComplexColorInsertion = UsingComplexColorInsertion;
+    if (UsingComplexBackgroundColorInsertion) {
+        std::vector<unsigned int> RecycleList;
 
-    if (!ChangedColorModes && ColorsInserted > 0) {
-        if (ColorIndexesChanged / ColorsInserted > 0.2f) {
-            UsingComplexColorInsertion = true;
+        for (const auto& [shapeID, slot] : BackgroundColorSlotID) {
+            if (BackgroundColorsSeenThisFrame.find(shapeID) == BackgroundColorsSeenThisFrame.end()) {
+                FreeSlots.push_back(slot);
+                RecycleList.push_back(shapeID);
+            }
+        }
+
+        // Batch erase after iteration
+        for (unsigned int shapeID : RecycleList) {
+            BackgroundColorSlotID.erase(shapeID);
+        }
+        RecycleList.clear();
+
+        unsigned int SeenThisFrameSize = (unsigned int)BackgroundColorsSeenThisFrame.size();
+        BackgroundColorsSeenThisFrame.clear();
+        BackgroundColorsSeenThisFrame.reserve(SeenThisFrameSize + 25);
+    }
+
+    bool PreviouslyUsingComplexForegroundColorInsertion = UsingComplexForegroundColorInsertion;
+    bool PreviouslyUsingComplexBackgroundColorInsertion = UsingComplexBackgroundColorInsertion;
+
+    if (!ChangedForegroundColorModes && ForegroundColorsInserted > 0) {
+        if (ForegroundColorIndexesChanged / ForegroundColorsInserted > 0.2f) {
+            UsingComplexForegroundColorInsertion = true;
         } else {
-            UsingComplexColorInsertion = false;
+            UsingComplexForegroundColorInsertion = false;
         }
     }
 
-    ColorIndexesChanged = 0;
-    ColorsInserted = 0;
+    if (!ChangedBackgroundColorModes && BackgroundColorsInserted > 0) {
+        if (BackgroundColorIndexesChanged / BackgroundColorsInserted > 0.2f) {
+            UsingComplexBackgroundColorInsertion = true;
+        } else {
+            UsingComplexBackgroundColorInsertion = false;
+        }
+    }
 
-    if (UsingComplexColorInsertion && !PreviouslyUsingComplexColorInsertion) {
-        ColorSlotID.clear();
+    ForegroundColorIndexesChanged = 0;
+    BackgroundColorIndexesChanged = 0;
+    ForegroundColorsInserted = 0;
+    BackgroundColorsInserted = 0;
+
+    if (UsingComplexForegroundColorInsertion && !PreviouslyUsingComplexForegroundColorInsertion) {
+        ForegroundColorSlotID.clear();
         FreeSlots.clear();
         ForegroundColors.clear();
         BackgroundColors.clear();
     }
 
-    if (UsingComplexColorInsertion != PreviouslyUsingComplexColorInsertion) {
-        ChangedColorModes = true;
+    if (UsingComplexBackgroundColorInsertion && !PreviouslyUsingComplexBackgroundColorInsertion) {
+        BackgroundColorSlotID.clear();
+        FreeSlots.clear();
+        ForegroundColors.clear();
+        BackgroundColors.clear();
+    }
+
+    if (UsingComplexForegroundColorInsertion != PreviouslyUsingComplexForegroundColorInsertion) {
+        ChangedForegroundColorModes = true;
     } else {
-        ChangedColorModes = false;
+        ChangedForegroundColorModes = false;
+    }
+
+    if (UsingComplexBackgroundColorInsertion != PreviouslyUsingComplexBackgroundColorInsertion) {
+        ChangedBackgroundColorModes = true;
+    } else {
+        ChangedBackgroundColorModes = false;
     }
 }
 
@@ -456,8 +581,8 @@ void CPP_TextRenderPipelineManager::InternalRender() {
     bgfx::setVertexBuffer(0, vbh);
 
     // Generate Foreground Texture
-    ForegroundColors.resize(LiveColorCount);
-    BackgroundColors.resize(LiveColorCount);
+    ForegroundColors.resize(LiveForegroundColorCount);
+    BackgroundColors.resize(LiveBackgroundColorCount);
 
     uint32_t numColors = (uint32_t)ForegroundColors.size() / 4;
     uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);

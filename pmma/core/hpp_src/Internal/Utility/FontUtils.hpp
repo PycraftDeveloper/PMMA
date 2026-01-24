@@ -9,6 +9,6 @@ struct GlyphInfo {
 
 struct CharacterData {
     float x, y; // 8 bytes
-    float col_index, padding0; // 8 bytes (with padding)
+    float fg_col_index, bg_col_index; // 8 bytes (with padding)
     float u_tex_coord, v_tex_coord; //  8 bytes
 };
