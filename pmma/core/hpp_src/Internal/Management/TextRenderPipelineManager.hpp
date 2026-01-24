@@ -83,7 +83,8 @@ class CPP_TextRenderPipelineManager {
         ska::flat_hash_map<uint64_t, float> BackgroundColorSlotID; // objectColorSlot
         ska::flat_hash_set<uint64_t> ForegroundColorsSeenThisFrame;
         ska::flat_hash_set<uint64_t> BackgroundColorsSeenThisFrame;
-        std::vector<size_t> FreeSlots;
+        std::vector<size_t> ForegroundColorFreeSlots;
+        std::vector<size_t> BackgroundColorFreeSlots;
         std::vector<CharacterData> CharacterRenderData;
 
         bgfx::VertexBufferHandle vbh = BGFX_INVALID_HANDLE;
@@ -160,9 +161,9 @@ class CPP_TextRenderPipelineManager {
             }
 
             // not seen before: reuse a free slot if available
-            if (!FreeSlots.empty()) {
-                unsigned int newSlot = FreeSlots.back();
-                FreeSlots.pop_back();
+            if (!ForegroundColorFreeSlots.empty()) {
+                unsigned int newSlot = ForegroundColorFreeSlots.back();
+                ForegroundColorFreeSlots.pop_back();
 
                 size_t offset = static_cast<size_t>(newSlot) * 4;
                 if (ForegroundColors.size() < offset + 4) {
@@ -245,9 +246,9 @@ class CPP_TextRenderPipelineManager {
             }
 
             // not seen before: reuse a free slot if available
-            if (!FreeSlots.empty()) {
-                unsigned int newSlot = FreeSlots.back();
-                FreeSlots.pop_back();
+            if (!BackgroundColorFreeSlots.empty()) {
+                unsigned int newSlot = BackgroundColorFreeSlots.back();
+                BackgroundColorFreeSlots.pop_back();
 
                 size_t offset = static_cast<size_t>(newSlot) * 4;
                 if (BackgroundColors.size() < offset + 4) {

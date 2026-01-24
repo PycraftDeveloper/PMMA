@@ -1,4 +1,4 @@
-$input v_ColorIndex, v_texture_uv
+$input v_ForegroundColorIndex, v_BackgroundColorIndex, v_texture_uv
 
 #include "common.sh"
 
@@ -14,7 +14,7 @@ void main()
     float alpha = texture2D(s_fontAtlas, v_texture_uv).r;
 
     // Color index (shared between fg/bg)
-    float idxF = floor(v_ColorIndex + 0.5);
+    float FG_idxF = floor(v_ForegroundColorIndex + 0.5);
 
     //
     // --- Foreground UV ---
@@ -22,8 +22,8 @@ void main()
     float fgW = u_colorInfo.x;
     float fgH = u_colorInfo.y;
 
-    float fgX = mod(idxF, fgW);
-    float fgY = floor(idxF / fgW);
+    float fgX = mod(FG_idxF, fgW);
+    float fgY = floor(FG_idxF / fgW);
 
     vec2 fg_uv = vec2((fgX + 0.5) / fgW,
                       (fgY + 0.5) / fgH);
@@ -31,11 +31,12 @@ void main()
     //
     // --- Background UV ---
     //
+    float BG_idxF = floor(v_BackgroundColorIndex + 0.5);
     float bgW = u_colorInfo.z;
     float bgH = u_colorInfo.w;
 
-    float bgX = mod(idxF, bgW);
-    float bgY = floor(idxF / bgW);
+    float bgX = mod(BG_idxF, bgW);
+    float bgY = floor(BG_idxF / bgW);
 
     vec2 bg_uv = vec2((bgX + 0.5) / bgW,
                       (bgY + 0.5) / bgH);

@@ -426,12 +426,6 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
             // -----------------------------------------------------
 
             for (auto token : tokens) {
-                /*if (t == "BLD") {
-                    fmt.bold = true;
-                } else if (t == "UDL") {
-                    fmt.underline = true;
-                } // Add more tokens here...*/
-
                 if (token == "rst") {
                     //formatting.Reset();
                 } else if (is_code_with_prefix(token, "fg")) {
@@ -550,8 +544,6 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
 }
 
 void CPP_TextRenderPipelineManager::Reset() {
-
-
     if (bgfx::isValid(vbh)) {
         bgfx::destroy(vbh);
     }
@@ -566,7 +558,7 @@ void CPP_TextRenderPipelineManager::Reset() {
 
         for (const auto& [shapeID, slot] : ForegroundColorSlotID) {
             if (ForegroundColorsSeenThisFrame.find(shapeID) == ForegroundColorsSeenThisFrame.end()) {
-                FreeSlots.push_back(slot);
+                ForegroundColorFreeSlots.push_back(slot);
                 RecycleList.push_back(shapeID);
             }
         }
@@ -587,7 +579,7 @@ void CPP_TextRenderPipelineManager::Reset() {
 
         for (const auto& [shapeID, slot] : BackgroundColorSlotID) {
             if (BackgroundColorsSeenThisFrame.find(shapeID) == BackgroundColorsSeenThisFrame.end()) {
-                FreeSlots.push_back(slot);
+                BackgroundColorFreeSlots.push_back(slot);
                 RecycleList.push_back(shapeID);
             }
         }
@@ -629,13 +621,13 @@ void CPP_TextRenderPipelineManager::Reset() {
 
     if (UsingComplexForegroundColorInsertion && !PreviouslyUsingComplexForegroundColorInsertion) {
         ForegroundColorSlotID.clear();
-        FreeSlots.clear();
+        ForegroundColorFreeSlots.clear();
         ForegroundColors.clear();
     }
 
     if (UsingComplexBackgroundColorInsertion && !PreviouslyUsingComplexBackgroundColorInsertion) {
         BackgroundColorSlotID.clear();
-        FreeSlots.clear();
+        BackgroundColorFreeSlots.clear();
         BackgroundColors.clear();
     }
 
@@ -686,7 +678,7 @@ void CPP_TextRenderPipelineManager::InternalRender() {
     uint32_t Background_height = (Background_numColors + Background_width - 1) / Background_width;
 
     expectedSize = Background_width * Background_height * 4;
-    if (ForegroundColors.size() < expectedSize) {
+    if (BackgroundColors.size() < expectedSize) {
         BackgroundColors.resize(expectedSize, 0);
     }
 
