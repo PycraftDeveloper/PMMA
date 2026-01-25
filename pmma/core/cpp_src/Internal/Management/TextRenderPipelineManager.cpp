@@ -17,8 +17,9 @@
 using namespace std;
 
 CPP_TextRenderPipelineManager::CPP_TextRenderPipelineManager() {
-    if (FT_Init_FreeType(&m_ft))
+    if (FT_Init_FreeType(&m_ft)) {
         throw std::runtime_error("Failed to init FreeType");
+    }
 
     ResetAtlas();
 
@@ -121,16 +122,22 @@ void CPP_TextRenderPipelineManager::EnsureGlyph(char32_t codepoint) {
 void CPP_TextRenderPipelineManager::GrowAtlasAndRepack(uint16_t requiredW, uint16_t requiredH, char32_t newCodepoint, FT_GlyphSlot slot) {
     // Estimate new atlas size (double current size, clamp to maximum, and ensure it fits the new glyph)
     uint16_t newW = m_atlasW, newH = m_atlasH;
-    do {
+    while ((newW < m_nextX + requiredW) || (newH < m_nextY + requiredH)) {
+        uint16_t prevW = newW;
+        uint16_t prevH = newH;
+
         if (newW < newH) {
-            newW *= 2;
+            newW = std::min<uint16_t>(newW * 2, PMMA_Core::RenderPipelineCore->MaxWidth);
         } else {
-            newH *= 2;
+            newH = std::min<uint16_t>(newH * 2, PMMA_Core::RenderPipelineCore->MaxWidth);
         }
 
-        newW = std::min(newW, m_maxAtlasDim);
-        newH = std::min(newH, m_maxAtlasDim);
-    } while ((newW < m_nextX + requiredW) || (newH < m_nextY + requiredH));
+        // No progress and still not enough → impossible to fit
+        if (newW == prevW && newH == prevH &&
+            ((newW < m_nextX + requiredW) || (newH < m_nextY + requiredH))) {
+            throw std::runtime_error("Glyph cannot fit into max atlas size");
+        }
+    }
 
     std::vector<uint8_t> newAtlasData(newW * newH, 0);
 
@@ -430,7 +437,6 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
             // -----------------------------------------------------
             // VALID FORMAT BLOCK — process tokens
             // -----------------------------------------------------
-
             for (auto token : tokens) {
                 if (token == "rst") {
                     formatting.Reset();

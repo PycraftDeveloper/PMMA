@@ -59,7 +59,6 @@ class CPP_TextRenderPipelineManager {
         int        m_fontSize = 0;
 
         // Atlas
-        uint16_t m_maxAtlasDim = 2048; // Settable, can also be queried from BGFX caps if desired
         uint16_t m_atlasW = 512, m_atlasH = 512, m_nextX = 0, m_nextY = 0, m_rowH = 0;
         std::vector<uint8_t> m_atlasData;
         std::unordered_map<char32_t, GlyphInfo> m_glyphs;
@@ -133,6 +132,7 @@ class CPP_TextRenderPipelineManager {
             uint32_t index = RandomCharacterGenerator->Next(static_cast<uint32_t>(chars.size() - 1));
 
             char literal = chars[index];
+
             EnsureGlyph(literal);
 
             return literal;
