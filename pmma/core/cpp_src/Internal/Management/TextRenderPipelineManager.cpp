@@ -392,10 +392,16 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
                 // MALFORMED: render literally "${something"
                 // -------------------------------------------------
                 for (size_t k = blockStart; k < TextContent.size(); ++k) {
-                    if (TextContent[k] == '}' || TextContent[k] == '\n')
+                    if (TextContent[k] == '}' || TextContent[k] == '\n') {
                         break;
+                    }
 
-                    char literal = TextContent[k];
+                    char literal;
+                    if (formatting.RandomizeText) {
+                        literal = GenerateRandomPrintableCharacter();
+                    } else {
+                        literal = TextContent[k];
+                    }
 
                     if (!m_glyphs.count(literal))
                         continue;
@@ -427,7 +433,9 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
 
             for (auto token : tokens) {
                 if (token == "rst") {
-                    //formatting.Reset();
+                    formatting.Reset();
+                } else if (token == "rnd") {
+                    formatting.RandomizeText = !formatting.RandomizeText;
                 } else if (is_code_with_prefix(token, "fg")) {
                     // Extract color code
                     string ColorCode = token.substr(3, 3);
@@ -495,6 +503,10 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
         // ---------------------------------------------------------
         // NORMAL RENDERING CONTINUES HERE
         // ---------------------------------------------------------
+        if (formatting.RandomizeText) {
+            c = GenerateRandomPrintableCharacter();
+        }
+
         if (c == '\n') {
             penX = StartPosition[0];
             penY += m_fontSize;

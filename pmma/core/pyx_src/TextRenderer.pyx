@@ -69,7 +69,7 @@ cdef class TextRenderer:
         self.cpp_class_ptr.SetText(encoded_text)
 
     def set_font(self, font):
-        cdef string encoded_font = font.encode('utf-8')
+        cdef string encoded_font = font.encode("utf-8")
         self.cpp_class_ptr.SetFont(encoded_font)
 
     def set_size(self, size):

@@ -5,6 +5,7 @@
 #include <glm/glm.hpp>
 
 #include "Internal/Utility/FontUtils.hpp"
+#include "Random.hpp"
 
 class CPP_TextRenderer;
 class CPP_Shader;
@@ -20,6 +21,8 @@ struct TextFormatting {
     float DefaultBackgroundColorIndex = 0.0f;
     float BackgroundColorIndex = 0.0f;
 
+    bool RandomizeText = false;
+
     TextFormatting(float default_foreground_color_index, float default_background_color_index) {
         DefaultForegroundColorIndex = default_foreground_color_index;
         ForegroundColorIndex = DefaultForegroundColorIndex;
@@ -29,8 +32,7 @@ struct TextFormatting {
     }
 
     void Reset() {
-        ForegroundColorIndex = DefaultForegroundColorIndex;
-        BackgroundColorIndex = DefaultBackgroundColorIndex;
+        RandomizeText = false;
     }
 };
 
@@ -87,6 +89,8 @@ class CPP_TextRenderPipelineManager {
         std::vector<size_t> BackgroundColorFreeSlots;
         std::vector<CharacterData> CharacterRenderData;
 
+        CPP_FastRandom* RandomCharacterGenerator = nullptr;
+
         bgfx::VertexBufferHandle vbh = BGFX_INVALID_HANDLE;
 
         unsigned int ForegroundColorsInserted = 0;
@@ -114,6 +118,25 @@ class CPP_TextRenderPipelineManager {
         void AddRenderTarget(CPP_TextRenderer* NewObject);
 
         void Reset();
+
+        inline char GenerateRandomPrintableCharacter() {
+            static const std::string chars =
+                "0123456789"
+                "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+                "abcdefghijklmnopqrstuvwxyz"
+                "!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~ ";
+
+            if (RandomCharacterGenerator == nullptr) {
+                RandomCharacterGenerator = new CPP_FastRandom();
+            }
+
+            uint32_t index = RandomCharacterGenerator->Next(static_cast<uint32_t>(chars.size() - 1));
+
+            char literal = chars[index];
+            EnsureGlyph(literal);
+
+            return literal;
+        }
 
         inline float GetForegroundColorIndex(uint8_t* ForegroundColor, uint64_t ShapeID) {
             if (!UsingComplexForegroundColorInsertion) {

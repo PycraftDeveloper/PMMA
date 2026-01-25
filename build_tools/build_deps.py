@@ -80,7 +80,16 @@ end = time.perf_counter()
 ts_print(f"Dependency Build took {end - program_start:.2f} seconds")
 
 ts_print("Writing dependency hashes...")
+previous_components = {}
+if os.path.exists(join_path(cwd, "build_tools", "hashes.json")):
+    with open(join_path(cwd, "build_tools", "hashes.json"), "r") as file:
+        previous_components = json.load(file)
+
 hashed_data = {}
+for component in previous_components:
+    if component not in components:
+        hashed_data[component] = previous_components[component]
+
 for component in components:
     hashed_data[component] = hash_component(component)
 
