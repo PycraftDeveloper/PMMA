@@ -1,14 +1,4 @@
 class Constants:
-    HAT_NOT_PRESSED = "HAT NOT PRESSED"
-    HAT_PRESSED_UP = "HAT PRESSED UP"
-    HAT_PRESSED_RIGHT = "HAT PRESSED RIGHT"
-    HAT_PRESSED_DOWN = "HAT PRESSED DOWN"
-    HAT_PRESSED_LEFT = "HAT PRESSED LEFT"
-    HAT_PRESSED_UP_RIGHT = "HAT PRESSED UP-RIGHT"
-    HAT_PRESSED_DOWN_RIGHT = "HAT PRESSED DOWN-RIGHT"
-    HAT_PRESSED_DOWN_LEFT = "HAT PRESSED DOWN-LEFT"
-    HAT_PRESSED_UP_LEFT = "HAT PRESSED UP-LEFT"
-
     DECIMAL = "decimal"
     PERCENTAGE = "percentage"
 
@@ -16,54 +6,68 @@ class Constants:
     UPDATING = "updating"
     MANUALLY_SET = "manually_set"
 
-    OS_ANDROID = "Android"
-    OS_BSD = "BSD"
-    OS_EMSCRIPTEN = "Emscripten"
-    OS_HAIKU = "Haiku"
-    OS_HURD = "Hurd"
-    OS_IOS = "iOS"
-    OS_LINUX = "Linux"
-    OS_NX = "Nintendo Switch"
-    OS_MACOS = "MacOS"
-    OS_PS4 = "Play Station 4"
-    OS_PS5 = "Play Station 5"
-    OS_VISIONOS = "VisionOS"
-    OS_WINDOWS = "Windows"
-    OS_WINRT = "WinRT"
-    OS_XBOXONE = "XboxOne"
-    OS_UNKNOWN = "Unknown"
+    class HatStates:
+        NOT_PRESSED = "HAT NOT PRESSED"
+        PRESSED_UP = "HAT PRESSED UP"
+        PRESSED_RIGHT = "HAT PRESSED RIGHT"
+        PRESSED_DOWN = "HAT PRESSED DOWN"
+        PRESSED_LEFT = "HAT PRESSED LEFT"
+        PRESSED_UP_RIGHT = "HAT PRESSED UP-RIGHT"
+        PRESSED_DOWN_RIGHT = "HAT PRESSED DOWN-RIGHT"
+        PRESSED_DOWN_LEFT = "HAT PRESSED DOWN-LEFT"
+        PRESSED_UP_LEFT = "HAT PRESSED UP-LEFT"
 
-    GRAPHICS_BACKEND_NO_RENDERER = "No Renderer"
-    GRAPHICS_BACKEND_DIRECT3D11 = "Direct3D 11.0"
-    GRAPHICS_BACKEND_DIRECT3D12 = "Direct3D 12.0"
-    GRAPHICS_BACKEND_GNM = "GNM" # PlayStation (Developer license needed)
-    GRAPHICS_BACKEND_METAL = "Metal"
-    GRAPHICS_BACKEND_NVN = "NVN" # Nintendo Switch
-    GRAPHICS_BACKEND_OPENGL_ES = "OpenGL ES"
-    GRAPHICS_BACKEND_OPENGL = "OpenGL"
-    GRAPHICS_BACKEND_VULKAN = "Vulkan"
-    GRAPHICS_BACKEND_UNKNOWN = "Unknown"
+    class OperatingSystems:
+        ANDROID = "Android"
+        BSD = "BSD"
+        EMSCRIPTEN = "Emscripten"
+        HAIKU = "Haiku"
+        HURD = "Hurd"
+        IOS = "iOS"
+        LINUX = "Linux"
+        NX = "Nintendo Switch"
+        MACOS = "MacOS"
+        PS4 = "Play Station 4"
+        PS5 = "Play Station 5"
+        VISIONOS = "VisionOS"
+        WINDOWS = "Windows"
+        WINRT = "WinRT"
+        XBOXONE = "XboxOne"
+        UNKNOWN = "Unknown"
 
-    TKINTER_STYLE_BUTTON = "TButton"
-    TKINTER_STYLE_CHECKBUTTON = "TCheckbutton"
-    TKINTER_STYLE_COMBOBOX = "TCombobox"
-    TKINTER_STYLE_ENTRY = "TEntry"
-    TKINTER_STYLE_FRAME = "TFrame"
-    TKINTER_STYLE_LABEL = "TLabel"
-    TKINTER_STYLE_LABELFRAME = "TLabelFrame"
-    TKINTER_STYLE_MENUBUTTON = "TMenubutton"
-    TKINTER_STYLE_NOTEBOOK = "TNotebook"
-    TKINTER_STYLE_PANEDWINDOW = "TPanedwindow"
-    TKINTER_STYLE_HORIZONTAL_PROGRESSBAR = "Horizontal.TProgressbar"
-    TKINTER_STYLE_VERTICAL_PROGRESSBAR = "Vertical.TProgressbar"
-    TKINTER_STYLE_RADIOBUTTON = "TRadiobutton"
-    TKINTER_STYLE_HORIZONTAL_SCALE = "Horizontal.TScale"
-    TKINTER_STYLE_VERTICAL_SCALE = "Vertical.TScale"
-    TKINTER_STYLE_HORIZONTAL_SCROLLBAR = "Horizontal.TScrollbar"
-    TKINTER_STYLE_VERTICAL_SCROLLBAR = "Vertical.TScrollbar"
-    TKINTER_STYLE_SEPARATOR = "TSeparator"
-    TKINTER_STYLE_SIZEGRIP = "TSizegrip"
-    TKINTER_STYLE_TREEVIEW = "Treeview"
+    class GraphicsBackends:
+        NO_RENDERER = "No Renderer"
+        DIRECT3D11 = "Direct3D 11.0"
+        DIRECT3D12 = "Direct3D 12.0"
+        GNM = "GNM" # PlayStation (Developer license needed)
+        METAL = "Metal"
+        NVN = "NVN" # Nintendo Switch
+        OPENGL_ES = "OpenGL ES"
+        OPENGL = "OpenGL"
+        VULKAN = "Vulkan"
+        UNKNOWN = "Unknown"
+
+    class TkinterStyles:
+        BUTTON = "TButton"
+        CHECKBUTTON = "TCheckbutton"
+        COMBOBOX = "TCombobox"
+        ENTRY = "TEntry"
+        FRAME = "TFrame"
+        LABEL = "TLabel"
+        LABELFRAME = "TLabelFrame"
+        MENUBUTTON = "TMenubutton"
+        NOTEBOOK = "TNotebook"
+        PANEDWINDOW = "TPanedwindow"
+        HORIZONTAL_PROGRESSBAR = "Horizontal.TProgressbar"
+        VERTICAL_PROGRESSBAR = "Vertical.TProgressbar"
+        RADIOBUTTON = "TRadiobutton"
+        HORIZONTAL_SCALE = "Horizontal.TScale"
+        VERTICAL_SCALE = "Vertical.TScale"
+        HORIZONTAL_SCROLLBAR = "Horizontal.TScrollbar"
+        VERTICAL_SCROLLBAR = "Vertical.TScrollbar"
+        SEPARATOR = "TSeparator"
+        SIZEGRIP = "TSizegrip"
+        TREEVIEW = "Treeview"
 
     class Colors:
         RED = "red"
@@ -177,26 +181,26 @@ class InternalConstants:
     CREATE_NO_WINDOW = 0x08000000
 
     TKINTER_STYLES = [
-        Constants.TKINTER_STYLE_BUTTON,
-        Constants.TKINTER_STYLE_CHECKBUTTON,
-        Constants.TKINTER_STYLE_COMBOBOX,
-        Constants.TKINTER_STYLE_ENTRY,
-        Constants.TKINTER_STYLE_FRAME,
-        Constants.TKINTER_STYLE_LABEL,
-        Constants.TKINTER_STYLE_LABELFRAME,
-        Constants.TKINTER_STYLE_MENUBUTTON,
-        Constants.TKINTER_STYLE_NOTEBOOK,
-        Constants.TKINTER_STYLE_PANEDWINDOW,
-        Constants.TKINTER_STYLE_HORIZONTAL_PROGRESSBAR,
-        Constants.TKINTER_STYLE_VERTICAL_PROGRESSBAR,
-        Constants.TKINTER_STYLE_RADIOBUTTON,
-        Constants.TKINTER_STYLE_HORIZONTAL_SCALE,
-        Constants.TKINTER_STYLE_VERTICAL_SCALE,
-        Constants.TKINTER_STYLE_HORIZONTAL_SCROLLBAR,
-        Constants.TKINTER_STYLE_VERTICAL_SCROLLBAR,
-        Constants.TKINTER_STYLE_SEPARATOR,
-        Constants.TKINTER_STYLE_SIZEGRIP,
-        Constants.TKINTER_STYLE_TREEVIEW
+        Constants.TkinterStyles.BUTTON,
+        Constants.TkinterStyles.CHECKBUTTON,
+        Constants.TkinterStyles.COMBOBOX,
+        Constants.TkinterStyles.ENTRY,
+        Constants.TkinterStyles.FRAME,
+        Constants.TkinterStyles.LABEL,
+        Constants.TkinterStyles.LABELFRAME,
+        Constants.TkinterStyles.MENUBUTTON,
+        Constants.TkinterStyles.NOTEBOOK,
+        Constants.TkinterStyles.PANEDWINDOW,
+        Constants.TkinterStyles.HORIZONTAL_PROGRESSBAR,
+        Constants.TkinterStyles.VERTICAL_PROGRESSBAR,
+        Constants.TkinterStyles.RADIOBUTTON,
+        Constants.TkinterStyles.HORIZONTAL_SCALE,
+        Constants.TkinterStyles.VERTICAL_SCALE,
+        Constants.TkinterStyles.HORIZONTAL_SCROLLBAR,
+        Constants.TkinterStyles.VERTICAL_SCROLLBAR,
+        Constants.TkinterStyles.SEPARATOR,
+        Constants.TkinterStyles.SIZEGRIP,
+        Constants.TkinterStyles.TREEVIEW
     ]
 
     SECONDS_PER_MINUTE = 60

@@ -29,7 +29,7 @@ class Executor:
 
         try:
             if command_type == list or command_type == tuple:
-                if hide_window and General.get_operating_system() == Constants.OS_WINDOWS:
+                if hide_window and General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
                     result = subprocess.run(command, capture_output=True, text=True, creationflags=InternalConstants.CREATE_NO_WINDOW)
                 else:
                     result = subprocess.run(command, capture_output=True, text=True)
@@ -40,7 +40,7 @@ command. It is strongly recommended that you change your approach to use a list 
 'shell injection vulnerabilities' where the end user specifies the command to be run, not \
 its arguments, leading to unsecure commands being run on the host system!")
 
-                if hide_window and General.get_operating_system() == Constants.OS_WINDOWS:
+                if hide_window and General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
                     result = subprocess.run(command, shell=True, capture_output=True, text=True, creationflags=InternalConstants.CREATE_NO_WINDOW)
                 else:
                     result = subprocess.run(command, shell=True, capture_output=True, text=True)
@@ -94,7 +94,7 @@ class AdvancedExecutor:
     def _run(self, command, hide_window):
         command_type = type(command)
         if command_type == list or command_type == tuple:
-            if hide_window and General.get_operating_system() == Constants.OS_WINDOWS:
+            if hide_window and General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
                 process = subprocess.Popen(command, stdout=subprocess.PIPE, text=True, creationflags=InternalConstants.CREATE_NO_WINDOW)
             else:
                 process = subprocess.Popen(command, stdout=subprocess.PIPE, text=True)
@@ -105,7 +105,7 @@ command. It is strongly recommended that you change your approach to use a list 
 'shell injection vulnerabilities' where the end user specifies the command to be run, not \
 its arguments, leading to unsecure commands being run on the host system!")
 
-            if hide_window and General.get_operating_system() == Constants.OS_WINDOWS:
+            if hide_window and General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
                 process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, text=True, creationflags=InternalConstants.CREATE_NO_WINDOW)
             else:
                 process = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True, text=True)

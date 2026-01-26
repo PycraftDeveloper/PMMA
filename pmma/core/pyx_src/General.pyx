@@ -117,7 +117,7 @@ cdef class General:
 
     @staticmethod
     def find_executable_nvidia_smi():
-        if General.get_operating_system() == Constants.OS_WINDOWS:
+        if General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
             # If the platform is Windows and nvidia-smi
             # could not be found from the environment path,
             # try to find it from system drive with default installation path
@@ -281,7 +281,7 @@ f"{latest_version}. You can check out the latest features here: "
         cdef encoded_locale
 
         if newlocale is None:
-            if General.get_operating_system() == Constants.OS_WINDOWS:
+            if General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
                 try:
                     from ctypes import windll
                     windll = windll.kernel32

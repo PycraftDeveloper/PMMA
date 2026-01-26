@@ -238,7 +238,7 @@ class CPP_InternalControllerEvent {
 
                 glfwGetJoystickHats(ID, &RawHatCount);
                 for (int i = 0; i < RawHatCount; i++) {
-                    RawHatStateData.push_back(CPP_Constants::HAT_NOT_PRESSED);
+                    RawHatStateData.push_back(CPP_Constants::HatStates::NOT_PRESSED);
                 }
 
                 Update();
@@ -270,34 +270,34 @@ class CPP_InternalControllerEvent {
                 for (int i = 0; i < RawHatCount; i++) {
                     switch (hats[i]) {
                         case GLFW_HAT_CENTERED:
-                            RawHatStateData[i] = (CPP_Constants::HAT_NOT_PRESSED);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::NOT_PRESSED);
                             break;
                         case GLFW_HAT_UP:
-                            RawHatStateData[i] = (CPP_Constants::HAT_PRESSED_UP);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::PRESSED_UP);
                             break;
                         case GLFW_HAT_RIGHT:
-                            RawHatStateData[i] = (CPP_Constants::HAT_PRESSED_RIGHT);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::PRESSED_RIGHT);
                             break;
                         case GLFW_HAT_DOWN:
-                            RawHatStateData[i] = (CPP_Constants::HAT_PRESSED_DOWN);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::PRESSED_DOWN);
                             break;
                         case GLFW_HAT_LEFT:
-                            RawHatStateData[i] = (CPP_Constants::HAT_PRESSED_LEFT);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::PRESSED_LEFT);
                             break;
                         case GLFW_HAT_RIGHT | GLFW_HAT_UP:
-                            RawHatStateData[i] = (CPP_Constants::HAT_PRESSED_UP_RIGHT);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::PRESSED_UP_RIGHT);
                             break;
                         case GLFW_HAT_RIGHT | GLFW_HAT_DOWN:
-                            RawHatStateData[i] = (CPP_Constants::HAT_PRESSED_DOWN_RIGHT);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::PRESSED_DOWN_RIGHT);
                             break;
                         case GLFW_HAT_LEFT | GLFW_HAT_DOWN:
-                            RawHatStateData[i] = (CPP_Constants::HAT_PRESSED_DOWN_LEFT);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::PRESSED_DOWN_LEFT);
                             break;
                         case GLFW_HAT_LEFT | GLFW_HAT_UP:
-                            RawHatStateData[i] = (CPP_Constants::HAT_PRESSED_UP_LEFT);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::PRESSED_UP_LEFT);
                             break;
                         default:
-                            RawHatStateData[i] = (CPP_Constants::HAT_NOT_PRESSED);
+                            RawHatStateData[i] = (CPP_Constants::HatStates::NOT_PRESSED);
                     };
                 }
             }

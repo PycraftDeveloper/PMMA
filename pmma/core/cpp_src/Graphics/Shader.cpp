@@ -21,19 +21,19 @@ void CPP_Shader::CompileShaderComponent(
     bgfx::ShaderHandle shader_component = BGFX_INVALID_HANDLE;
 
     string PlatformName = CPP_General::GetOperatingSystem();
-    if (PlatformName == CPP_Constants::OS_ANDROID) {
+    if (PlatformName == CPP_Constants::OperatingSystems::ANDROID) {
         PlatformName = "android";
-    } else if (PlatformName == CPP_Constants::OS_EMSCRIPTEN) {
+    } else if (PlatformName == CPP_Constants::OperatingSystems::EMSCRIPTEN) {
         PlatformName = "asm.js";
-    } else if (PlatformName == CPP_Constants::OS_IOS) {
+    } else if (PlatformName == CPP_Constants::OperatingSystems::IOS) {
         PlatformName = "ios";
-    } else if (PlatformName == CPP_Constants::OS_LINUX) {
+    } else if (PlatformName == CPP_Constants::OperatingSystems::LINUX) {
         PlatformName = "linux";
-    } else if (PlatformName == CPP_Constants::OS_PS4) {
+    } else if (PlatformName == CPP_Constants::OperatingSystems::PS4) {
         PlatformName = "orbis";
-    } else if (PlatformName == CPP_Constants::OS_MACOS) {
+    } else if (PlatformName == CPP_Constants::OperatingSystems::MACOS) {
         PlatformName = "osx";
-    } else if (PlatformName == CPP_Constants::OS_WINDOWS) {
+    } else if (PlatformName == CPP_Constants::OperatingSystems::WINDOWS) {
         PlatformName = "windows";
     } else {
         throw std::runtime_error("Unsupported platform: " + PlatformName);

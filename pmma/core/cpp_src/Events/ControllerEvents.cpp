@@ -119,7 +119,7 @@ bool CPP_ControllerEvent::GetRawButtonPressed(int ButtonID) {
 
 std::string CPP_ControllerEvent::GetRawHatState(int HatID) {
     if (PMMA_Core::ControllerManagerInstance == nullptr || PMMA_Core::ControllerManagerInstance->Active == false) {
-        return CPP_Constants::HAT_NOT_PRESSED;
+        return CPP_Constants::HatStates::NOT_PRESSED;
     }
     return PMMA_Core::InternalControllerEventInstances[ID]->GetRawHatState(HatID);
 };

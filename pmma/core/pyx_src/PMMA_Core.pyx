@@ -24,7 +24,7 @@ def initialize(path):
 
     PMMA_Initialize(encoded_path)
 
-    if General.get_operating_system() == Constants.OS_WINDOWS:
+    if General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
         try:
             from ctypes import windll
             windll = windll.kernel32

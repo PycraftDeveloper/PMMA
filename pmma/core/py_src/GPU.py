@@ -14,7 +14,7 @@ from pmma.core.py_src.Executor import Executor
 from pmma.core.py_src.Constants import Constants, InternalConstants
 from pmma.build.General import General
 
-if General.get_operating_system() == Constants.OS_WINDOWS:
+if General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
     import wmi
     from pythoncom import CoInitialize
 
@@ -67,7 +67,7 @@ class GPUsInternal:
                         if unloaded_key["bus"] == smi_bus:
                             self._unique_gpus[key][InternalConstants.SMI] = smi_index
 
-        if General.get_operating_system() == Constants.OS_WINDOWS:
+        if General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
             computer = wmi.WMI()
             wmi_index = 0
             for gpu in computer.Win32_VideoController():
@@ -577,7 +577,7 @@ and that other software is able to interact with the GPU. On any virtual machine
 make sure that you are able to pass through the GPU device.")
 
     def update(self, everything=False, data_points=None, wait_for_completion=False):
-        if General.get_operating_system() == Constants.OS_WINDOWS:
+        if General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
             CoInitialize()
         if wait_for_completion:
             self._update(everything=everything, data_points=data_points)
@@ -682,7 +682,7 @@ make sure that you are able to pass through the GPU device.")
                         if data is not None:
                             set_attributes.append(data_point)
 
-            elif priority == InternalConstants.WMI and wmi_data != [] and General.get_operating_system() == Constants.OS_WINDOWS:
+            elif priority == InternalConstants.WMI and wmi_data != [] and General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
                 computer = wmi.WMI()
                 gpu_data = computer.Win32_VideoController()[self._module_identification_indices[InternalConstants.WMI]]
                 result = []

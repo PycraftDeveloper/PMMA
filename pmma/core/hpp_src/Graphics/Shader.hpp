@@ -32,17 +32,17 @@ class CPP_Shader {
 
         std::string GetGraphicsProfile() {
             string GraphicsBackend = CPP_General::GetGraphicsBackend();
-            if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_OPENGL_ES) {
+            if (GraphicsBackend == CPP_Constants::GraphicsBackends::OPENGL_ES) {
                 return "100_es";
-            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_DIRECT3D11 || GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_DIRECT3D12) {
+            } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D11 || GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D12) {
                 return "s_4_0";
-            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_METAL) {
+            } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::METAL) {
                 return "metal";
-            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_GNM) {
+            } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::GNM) {
                 return "pssl";
-            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_VULKAN) {
+            } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::VULKAN) {
                 return "spirv";
-            } else if (GraphicsBackend == CPP_Constants::GRAPHICS_BACKEND_OPENGL) {
+            } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::OPENGL) {
                 return "120";
             } else {
                 if (Logger == nullptr) {

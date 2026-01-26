@@ -269,37 +269,37 @@ string CPP_General::GetLocale() {
 
 string CPP_General::GetOperatingSystem() {
     #if BX_PLATFORM_ANDROID
-        return CPP_Constants::OS_ANDROID;
+        return CPP_Constants::OperatingSystems::ANDROID;
     #elif BX_PLATFORM_BSD
-        return CPP_Constants::OS_BSD;
+        return CPP_Constants::OperatingSystems::BSD;
     #elif BX_PLATFORM_EMSCRIPTEN
-        return CPP_Constants::OS_EMSCRIPTEN;
+        return CPP_Constants::OperatingSystems::EMSCRIPTEN;
     #elif BX_PLATFORM_HAIKU
-        return CPP_Constants::OS_HAIKU;
+        return CPP_Constants::OperatingSystems::HAIKU;
     #elif BX_PLATFORM_HURD
-        return CPP_Constants::OS_HURD;
+        return CPP_Constants::OperatingSystems::HURD;
     #elif BX_PLATFORM_IOS
-        return CPP_Constants::OS_IOS;
+        return CPP_Constants::OperatingSystems::IOS;
     #elif BX_PLATFORM_LINUX
-        return CPP_Constants::OS_LINUX;
+        return CPP_Constants::OperatingSystems::LINUX;
     #elif BX_PLATFORM_NX
-        return CPP_Constants::OS_NX;
+        return CPP_Constants::OperatingSystems::NX;
     #elif BX_PLATFORM_OSX
-        return CPP_Constants::OS_OSX;
+        return CPP_Constants::OperatingSystems::OSX;
     #elif BX_PLATFORM_PS4
-        return CPP_Constants::OS_PS4;
+        return CPP_Constants::OperatingSystems::PS4;
     #elif BX_PLATFORM_PS5
-        return CPP_Constants::OS_PS5;
+        return CPP_Constants::OperatingSystems::PS5;
     #elif BX_PLATFORM_VISIONOS
-        return CPP_Constants::OS_VISIONOS;
+        return CPP_Constants::OperatingSystems::VISIONOS;
     #elif BX_PLATFORM_WINDOWS
-        return CPP_Constants::OS_WINDOWS;
+        return CPP_Constants::OperatingSystems::WINDOWS;
     #elif BX_PLATFORM_WINRT
-        return CPP_Constants::OS_WINRT;
+        return CPP_Constants::OperatingSystems::WINRT;
     #elif BX_PLATFORM_XBOXONE
-        return CPP_Constants::OS_XBOXONE;
+        return CPP_Constants::OperatingSystems::XBOXONE;
     #else
-        return CPP_Constants::OS_UNKNOWN;
+        return CPP_Constants::OperatingSystems::UNKNOWN;
     #endif
 }
 
@@ -308,24 +308,24 @@ string CPP_General::GetGraphicsBackend() {
 
     switch (backend) {
         case bgfx::RendererType::Noop:
-            return CPP_Constants::GRAPHICS_BACKEND_NO_RENDERER;
+            return CPP_Constants::GraphicsBackends::NO_RENDERER;
         case bgfx::RendererType::Direct3D11:
-            return CPP_Constants::GRAPHICS_BACKEND_DIRECT3D11;
+            return CPP_Constants::GraphicsBackends::DIRECT3D11;
         case bgfx::RendererType::Direct3D12:
-            return CPP_Constants::GRAPHICS_BACKEND_DIRECT3D12;
+            return CPP_Constants::GraphicsBackends::DIRECT3D12;
         case bgfx::RendererType::Gnm:
-            return CPP_Constants::GRAPHICS_BACKEND_GNM;
+            return CPP_Constants::GraphicsBackends::GNM;
         case bgfx::RendererType::Metal:
-            return CPP_Constants::GRAPHICS_BACKEND_METAL;
+            return CPP_Constants::GraphicsBackends::METAL;
         case bgfx::RendererType::Nvn:
-            return CPP_Constants::GRAPHICS_BACKEND_NVN;
+            return CPP_Constants::GraphicsBackends::NVN;
         case bgfx::RendererType::OpenGLES:
-            return CPP_Constants::GRAPHICS_BACKEND_OPENGL_ES;
+            return CPP_Constants::GraphicsBackends::OPENGL_ES;
         case bgfx::RendererType::OpenGL:
-            return CPP_Constants::GRAPHICS_BACKEND_OPENGL;
+            return CPP_Constants::GraphicsBackends::OPENGL;
         case bgfx::RendererType::Vulkan:
-            return CPP_Constants::GRAPHICS_BACKEND_VULKAN;
+            return CPP_Constants::GraphicsBackends::VULKAN;
         default:
-            return CPP_Constants::GRAPHICS_BACKEND_UNKNOWN;
+            return CPP_Constants::GraphicsBackends::UNKNOWN;
     }
 }
