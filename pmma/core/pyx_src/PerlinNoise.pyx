@@ -7,7 +7,7 @@ cimport numpy as np
 
 np.import_array()
 
-cdef extern from "PMMA_Core.hpp" nogil:
+cdef extern from "PerlinNoise.hpp" nogil:
     cdef cppclass CPP_PerlinNoise:
         CPP_PerlinNoise(const unsigned int seed) except + nogil
 

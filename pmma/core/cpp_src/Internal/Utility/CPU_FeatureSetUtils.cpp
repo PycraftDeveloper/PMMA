@@ -4,7 +4,9 @@
   #include <cpuid.h>
 #endif
 
-#include "PMMA_Core.hpp"
+#include <cstdint>
+
+#include "Internal/Utility/CPU_FeatureSetUtils.hpp"
 
 // Wrapper to invoke CPUID with eax and ecx arguments
 static void cpuid(int32_t out[4], int32_t eax, int32_t ecx) {

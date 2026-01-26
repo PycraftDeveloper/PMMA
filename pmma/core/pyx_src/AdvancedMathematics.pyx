@@ -7,7 +7,7 @@ from Logger cimport Logger
 
 np.import_array()
 
-cdef extern from "PMMA_Core.hpp" namespace "CPP_AdvancedMathematics" nogil:
+cdef extern from "AdvancedMathematics.hpp" namespace "CPP_AdvancedMathematics" nogil:
     float PythagoreanDifference(const float x1, const float y1, const float x2, const float y2) except + nogil
     float PythagoreanDistance(const float x, const float y) except + nogil
     float SmoothStep(const float value) except + nogil

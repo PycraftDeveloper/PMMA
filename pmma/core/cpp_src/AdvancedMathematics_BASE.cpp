@@ -1,5 +1,7 @@
 #include "PMMA_Core.hpp"
 
+#include "AdvancedMathematics.hpp"
+
 using namespace std;
 
 void CPP_AdvancedMathematics::PerspectiveFOV(const float fov, const float aspect_ratio, const float near, const float far, float (*out)[4]) {

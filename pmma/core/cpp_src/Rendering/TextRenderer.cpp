@@ -1,3 +1,8 @@
+#include "Rendering/TextRenderer.hpp"
+#include "Internal/Management/LoggingManager.hpp"
+#include "CoreTypes.hpp"
+#include "Internal/Management/CoreRenderPipelineManager.hpp"
+
 #include "PMMA_Core.hpp"
 
 using namespace std;

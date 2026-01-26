@@ -1,5 +1,15 @@
 #include <GLFW/glfw3.h>
 
+#include <iostream>
+
+#include "Internal/Management/EventsManager.hpp"
+
+#include "Events/WindowEvents.hpp"
+#include "Events/KeyEvents.hpp"
+#include "Events/MouseEvents.hpp"
+#include "Events/KeyPadEvents.hpp"
+#include "Events/ControllerEvents.hpp"
+
 #include "PMMA_Core.hpp"
 
 using namespace std;
@@ -128,7 +138,7 @@ void CPP_InternalMouseButtonEventManager::MouseButtonCallback(GLFWwindow* window
             PMMA_Core::MouseButtonEvent_4_Instances[i]->Update(action!=GLFW_RELEASE);
         }
     } else {
-        cout << "Unknown mouse button: " << button << endl;
+        std::cout << "Unknown mouse button: " << button << std::endl;
     }
 }
 
