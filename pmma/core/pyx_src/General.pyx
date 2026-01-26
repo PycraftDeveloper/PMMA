@@ -23,7 +23,7 @@ from pmma.core.py_src.Utility import Registry
 from Logger cimport Logger
 
 # Declare the external C++ function
-cdef extern from "General.hpp" namespace "CPP_General" nogil:
+cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     string Get_PMMA_Location() except + nogil
 
     bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh) except + nogil

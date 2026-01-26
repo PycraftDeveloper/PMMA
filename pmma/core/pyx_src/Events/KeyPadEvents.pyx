@@ -2,7 +2,7 @@
 
 from libcpp cimport bool
 
-cdef extern from "Events/KeyPadEvents.hpp" nogil:
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_ButtonPressedEvent:
         inline bool GetPressed() except + nogil
 

@@ -5,20 +5,10 @@
     #include <filesystem>
 #endif
 
-#include <string>
-
 #include <bx/platform.h>
 #include <bgfx/bgfx.h>
 
 #include "PMMA_Core.hpp"
-#include "General.hpp"
-#include "Display.hpp"
-#include "Internal/Management/LoggingManager.hpp"
-#include "Internal/Management/InternalManager.hpp"
-
-#include "Constants.hpp"
-
-using namespace std;
 
 string CPP_General::Get_PMMA_Location() {
     return PMMA_Registry::PMMA_Location;

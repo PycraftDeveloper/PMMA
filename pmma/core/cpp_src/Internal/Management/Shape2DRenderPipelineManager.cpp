@@ -6,12 +6,6 @@
 #include <bgfx/platform.h>
 #include <bx/math.h>
 #include <glm/glm.hpp>
-#include <GLFW/glfw3.h>
-
-#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
-#include "Internal/Management/CoreRenderPipelineManager.hpp"
-#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
-#include "Graphics/Shader.hpp"
 
 #include "PMMA_Core.hpp"
 

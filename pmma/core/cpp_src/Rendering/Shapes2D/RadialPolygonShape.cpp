@@ -1,6 +1,3 @@
-#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
-#include "Display.hpp"
-
 #include "PMMA_Core.hpp"
 
 using namespace std;

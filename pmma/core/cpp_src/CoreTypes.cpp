@@ -1,14 +1,5 @@
 #include "PMMA_Core.hpp"
 
-#include "CoreTypes.hpp"
-#include "Random.hpp"
-#include "Constants.hpp"
-#include "Internal/Management/LoggingManager.hpp"
-#include "Display.hpp"
-
-using namespace std;
-
-
 CPP_Color::CPP_Color() {
     RandomColorGenerator = new CPP_FastRandom();
 }

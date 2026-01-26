@@ -1,6 +1,3 @@
-#include "Events/ControllerEvents.hpp"
-#include "Internal/Management/LoggingManager.hpp"
-
 #include "PMMA_Core.hpp"
 
 using namespace std;

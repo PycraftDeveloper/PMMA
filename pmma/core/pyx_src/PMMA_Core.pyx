@@ -14,7 +14,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
     cdef void PMMA_Uninitialize()
 
-cdef extern from "General.hpp" namespace "CPP_General" nogil:
+cdef extern from "PMMA_Core.hpp" namespace "CPP_General" nogil:
     void SetLocale(string locale_) except + nogil
 
 def initialize(path):

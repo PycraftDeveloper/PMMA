@@ -5,7 +5,7 @@ from libcpp cimport bool
 import numpy as np
 cimport numpy as np
 
-cdef extern from "Events/MouseEvents.hpp" nogil:
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_ButtonPressedEvent:
         inline bool GetPressed() except + nogil
 

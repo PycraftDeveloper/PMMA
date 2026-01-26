@@ -1,6 +1,3 @@
-#include "Rendering/Shapes2D/ArcShape.hpp"
-#include "Display.hpp"
-
 #include "PMMA_Core.hpp"
 
 using namespace std;

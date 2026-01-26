@@ -5,14 +5,8 @@
 #include <filesystem>
 #include <regex>
 #include <functional>
-#include <iostream>
-
-#include "Internal/Management/LoggingManager.hpp"
-#include "Passport.hpp"
 
 #include "PMMA_Core.hpp"
-
-using namespace std;
 
 struct LogFileEntry {
     filesystem::path path;

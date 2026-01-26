@@ -1,7 +1,5 @@
 #include <GLFW/glfw3.h>
 
-#include "Events/MouseEvents.hpp"
-
 #include "PMMA_Core.hpp"
 
 using namespace std;

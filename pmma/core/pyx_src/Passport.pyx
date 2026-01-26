@@ -11,7 +11,7 @@ from pmma.core.py_src.Utility import Registry
 from pmma.build.General import General
 from Logger cimport Logger
 
-cdef extern from "Passport.hpp" nogil:
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_Passport:
         inline void SetProductName(string NewProductName) except + nogil
         inline void SetProductSubName(string NewProductSubName) except + nogil

@@ -6,8 +6,6 @@
 
 #include <glm/glm.hpp>
 
-#include "CoreTypes.hpp"
-
 class EXPORT CPP_TextRenderer {
     public:
         CPP_DisplayCoordinate* Position;

@@ -1,8 +1,4 @@
-#include <chrono>
-
-#include "Internal/Management/AnimationManager.hpp"
-
-using namespace std;
+#include "PMMA_Core.hpp"
 
 bool CPP_AnimationManager::Update() {
     std::chrono::time_point<std::chrono::high_resolution_clock> CurrentTime = std::chrono::high_resolution_clock::now();

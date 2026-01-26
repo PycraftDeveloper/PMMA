@@ -1,8 +1,6 @@
 #include <immintrin.h>
-#include <array>
-#include <cstdint>
 
-#include "PerlinNoise.hpp"
+#include "PMMA_Core.hpp"
 
 using namespace std;
 

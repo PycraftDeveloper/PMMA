@@ -1,11 +1,5 @@
 #include "PMMA_Core.hpp"
 
-#include "AdvancedMathematics.hpp"
-#include "PerlinNoise.hpp"
-
-#include <stdexcept>
-using namespace std;
-
 void CPP_AdvancedMathematics::ArrayRanger_AVX2(
         const float* values,
         const unsigned int length,

@@ -1,10 +1,6 @@
 #include <filesystem>
 
 #include "PMMA_Core.hpp"
-#include "Passport.hpp"
-#include "Internal/Management/LoggingManager.hpp"
-
-using namespace std;
 
 CPP_Passport::CPP_Passport() {
     if (PMMA_Core::PassportInstance != nullptr) {

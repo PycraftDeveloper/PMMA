@@ -6,15 +6,12 @@
 #include <fstream>
 #include <algorithm>
 #include <cstdlib>
-#include <stdexcept>
 
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
 #include "General.hpp"
 #include "Logger.hpp"
-
-#include "Constants.hpp"
 
 class CPP_Shader {
     private:
@@ -31,10 +28,10 @@ class CPP_Shader {
 
         void CompileShader(bool InternalShader);
 
-        void CompileShaderComponent(std::string RawFilePath, std::string CompiledFilePath, std::string Type);
+        void CompileShaderComponent(string RawFilePath, string CompiledFilePath, string Type);
 
         std::string GetGraphicsProfile() {
-            std::string GraphicsBackend = CPP_General::GetGraphicsBackend();
+            string GraphicsBackend = CPP_General::GetGraphicsBackend();
             if (GraphicsBackend == CPP_Constants::GraphicsBackends::OPENGL_ES) {
                 return "100_es";
             } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D11 || GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D12) {
@@ -58,7 +55,7 @@ class CPP_Shader {
                     GraphicsBackend + "' is not recognized. Please report \
 this as a GitHub issue so we can add support for it.");
 
-                throw std::runtime_error("Cannot compile shader for " + GraphicsBackend + " as its profile is not known.");
+                throw runtime_error("Cannot compile shader for " + GraphicsBackend + " as its profile is not known.");
             }
         }
 

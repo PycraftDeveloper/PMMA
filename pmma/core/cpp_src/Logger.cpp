@@ -1,13 +1,5 @@
 #include "PMMA_Core.hpp"
 
-#include "Internal/Management/LoggingManager.hpp"
-
-#include "Logger.hpp"
-
-#include <string>
-
-using namespace std;
-
 void CPP_Logger::SetLogToFile(bool NewLogToFile) {
     PMMA_Core::LoggingManagerInstance->SetLogToFile(NewLogToFile);
 }

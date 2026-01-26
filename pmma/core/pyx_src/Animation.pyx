@@ -4,7 +4,7 @@ from libcpp cimport bool
 
 from CoreTypes cimport DisplayCoordinate, CPP_DisplayCoordinate
 
-cdef extern from "Animation/LinearAnimation.hpp" nogil:
+cdef extern from "PMMA_Core.hpp" nogil:
     cdef cppclass CPP_LinearAnimation:
         CPP_DisplayCoordinate* StartCoordinatePtr
         CPP_DisplayCoordinate* EndCoordinatePtr;
@@ -31,7 +31,6 @@ cdef extern from "Animation/LinearAnimation.hpp" nogil:
         void SetRepeating(bool NewRepeating) except + nogil
         bool IsRepeating() except + nogil
 
-cdef extern from "Animation/RadialAnimation.hpp" nogil:
     cdef cppclass CPP_RadialAnimation:
         CPP_DisplayCoordinate* StartCoordinatePtr
         CPP_DisplayCoordinate* CenterCoordinatePtr;
