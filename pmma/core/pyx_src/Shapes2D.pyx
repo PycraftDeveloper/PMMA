@@ -14,7 +14,7 @@ from CoreTypes cimport Color, CPP_Color, DisplayCoordinate, CPP_DisplayCoordinat
 np.import_array()
 
 # Declare the external C++ function
-cdef extern from "PMMA_Core.hpp" nogil:
+cdef extern from "Rendering/Shapes2D/RadialPolygonShape.hpp" nogil:
     cdef cppclass CPP_RadialPolygonShape:
         CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
@@ -31,6 +31,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void Render() except + nogil
 
+cdef extern from "Rendering/Shapes2D/RectangleShape.hpp" nogil:
     cdef cppclass CPP_RectangleShape:
         CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
@@ -47,12 +48,14 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void Render() except + nogil
 
+cdef extern from "Rendering/Shapes2D/PixelShape.hpp" nogil:
     cdef cppclass CPP_PixelShape:
         CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         void Render() except + nogil
 
+cdef extern from "Rendering/Shapes2D/LineShape.hpp" nogil:
     cdef cppclass CPP_LineShape:
         CPP_DisplayCoordinate* ShapeStart
         CPP_DisplayCoordinate* ShapeEnd
@@ -66,6 +69,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void Render() except + nogil
 
+cdef extern from "Rendering/Shapes2D/PolygonShape.hpp" nogil:
     cdef cppclass CPP_PolygonShape:
         CPP_Color* Color
 
@@ -82,6 +86,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void Render() except + nogil
 
+cdef extern from "Rendering/Shapes2D/ArcShape.hpp" nogil:
     cdef cppclass CPP_ArcShape:
         CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color
@@ -102,6 +107,7 @@ cdef extern from "PMMA_Core.hpp" nogil:
 
         void Render() except + nogil
 
+cdef extern from "Rendering/Shapes2D/EllipseShape.hpp" nogil:
     cdef cppclass CPP_EllipseShape:
         CPP_DisplayCoordinate* ShapeCenter
         CPP_Color* Color

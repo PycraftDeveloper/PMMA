@@ -5,7 +5,7 @@ from libcpp.string cimport string
 from libc.stdint cimport uint8_t
 cimport numpy as np
 
-cdef extern from "PMMA_Core.hpp" nogil:
+cdef extern from "CoreTypes.hpp" nogil:
     cdef cppclass CPP_Color:
         CPP_Color() except + nogil
 

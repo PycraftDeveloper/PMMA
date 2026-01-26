@@ -16,7 +16,7 @@ from CoreTypes cimport Color, CPP_Color
 np.import_array()
 
 # Declare the external C++ function
-cdef extern from "PMMA_Core.hpp" nogil:
+cdef extern from "Display.hpp" nogil:
     cdef cppclass CPP_Display:
         CPP_Color* WindowFillColor
 
