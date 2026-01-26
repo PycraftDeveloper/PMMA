@@ -3,7 +3,7 @@
 from libcpp cimport bool
 from libcpp.string cimport string
 
-cdef extern from "PMMA_Core.hpp" nogil:
+cdef extern from "Events/WindowEvents.hpp" nogil:
     cdef cppclass CPP_TextEvent:
         inline string GetText() except + nogil
 

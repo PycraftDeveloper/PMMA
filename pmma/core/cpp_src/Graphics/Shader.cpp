@@ -1,7 +1,17 @@
+#include <string>
+
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
+#include "Graphics/Shader.hpp"
+#include "General.hpp"
+#include "Constants.hpp"
+#include "Internal/Management/LoggingManager.hpp"
+#include "Passport.hpp"
+
 #include "PMMA_Core.hpp"
+
+using namespace std;
 
 const bgfx::Memory* InternalLoadShader(const std::string& filePath) {
     std::ifstream file(filePath, std::ios::binary | std::ios::ate);

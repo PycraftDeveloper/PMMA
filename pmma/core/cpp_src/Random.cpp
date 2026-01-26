@@ -1,3 +1,7 @@
+#include "Random.hpp"
+
+#include <random>
+
 #include "PMMA_Core.hpp"
 
 void CPP_FastRandom::SetSeed() {

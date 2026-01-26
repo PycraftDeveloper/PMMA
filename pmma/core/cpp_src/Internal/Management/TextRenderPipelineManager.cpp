@@ -2,6 +2,8 @@
 // BGFX rewrite of your OpenGL text renderer pipeline.
 // Requires: bgfx, bimg, glm, FreeType (your FontAtlas BGFX version from earlier)
 
+#include <FlatHashMap/flat_hash_map.hpp>
+
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 #include <bx/math.h>
@@ -11,6 +13,14 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+
+#include <GLFW/glfw3.h>
+
+#include "Internal/Management/TextRenderPipelineManager.hpp"
+#include "Graphics/Shader.hpp"
+#include "Internal/Management/CoreRenderPipelineManager.hpp"
+#include "Logger.hpp"
+#include "Internal/Management/LoggingManager.hpp"
 
 #include "PMMA_Core.hpp"
 

@@ -1,6 +1,19 @@
 #include <glm/gtc/type_ptr.hpp>
 #include <bx/math.h>
 
+#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
+#include "Internal/Management/TextRenderPipelineManager.hpp"
+#include "Internal/Management/CoreRenderPipelineManager.hpp"
+#include "Graphics/Shader.hpp"
+#include "Display.hpp"
+#include "Rendering/Shapes2D/PixelShape.hpp"
+#include "Rendering/Shapes2D/ArcShape.hpp"
+#include "Rendering/Shapes2D/EllipseShape.hpp"
+#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
+#include "Rendering/Shapes2D/PolygonShape.hpp"
+#include "Rendering/Shapes2D/RectangleShape.hpp"
+#include "Rendering/Shapes2D/LineShape.hpp"
+
 #include "PMMA_Core.hpp"
 
 using namespace std;

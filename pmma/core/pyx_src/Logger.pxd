@@ -3,7 +3,7 @@
 from libcpp.string cimport string
 from libcpp cimport bool
 
-cdef extern from "PMMA_Core.hpp" nogil:
+cdef extern from "Logger.hpp" nogil:
     cdef cppclass CPP_Logger:
         void SetLogToFile(bool NewLogToFile) except + nogil
         void SetLogToConsole(bool NewLogToConsole) except + nogil

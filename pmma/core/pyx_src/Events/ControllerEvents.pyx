@@ -7,7 +7,7 @@ from libcpp.vector cimport vector
 import numpy as np
 cimport numpy as np
 
-cdef extern from "PMMA_Core.hpp" nogil:
+cdef extern from "Events/ControllerEvents.hpp" nogil:
     cdef cppclass CPP_ButtonPressedEvent:
         inline bool GetPressed() except + nogil
 

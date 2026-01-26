@@ -18,6 +18,10 @@
 #endif
 
 #include "PMMA_Core.hpp"
+#include "Display.hpp"
+#include "Internal/Management/LoggingManager.hpp"
+#include "General.hpp"
+#include "Internal/Management/AnimationManager.hpp"
 
 using namespace std;
 

@@ -1,3 +1,6 @@
+#include "Internal/Management/InternalManager.hpp"
+#include "General.hpp"
+
 #include "PMMA_Core.hpp"
 
 void PowerSavingUpdaterThread() {

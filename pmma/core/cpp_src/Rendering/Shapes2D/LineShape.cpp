@@ -1,3 +1,6 @@
+#include "Rendering/Shapes2D/LineShape.hpp"
+#include "Display.hpp"
+
 #include "PMMA_Core.hpp"
 
 using namespace std;

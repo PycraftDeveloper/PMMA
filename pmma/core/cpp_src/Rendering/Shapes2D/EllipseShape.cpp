@@ -1,3 +1,6 @@
+#include "Rendering/Shapes2D/EllipseShape.hpp"
+#include "Display.hpp"
+
 #include "PMMA_Core.hpp"
 
 using namespace std;
