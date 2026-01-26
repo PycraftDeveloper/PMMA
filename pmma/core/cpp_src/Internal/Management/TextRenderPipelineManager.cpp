@@ -363,6 +363,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
         NewObject->GlyphsPrepared = true;
     }
 
+    bool text_randomisation_detected = false;
     char32_t prevChar = 0;
     for (size_t i = 0; i < TextContent.size(); ++i) {
         char c = TextContent[i];
@@ -370,7 +371,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
         // ---------------------------------------------------------
         // INLINE FORMAT PARSER (single-pass, tokenizing as we scan)
         // ---------------------------------------------------------
-        if (c == '$' && i + 1 < TextContent.size() && TextContent[i + 1] == '{') {
+        if (NewObject->UseInLineFormatting && c == '$' && i + 1 < TextContent.size() && TextContent[i + 1] == '{') {
             size_t blockStart = i; // for fallback literal rendering
             i += 2; // skip "${"
             std::vector<std::string> tokens;
@@ -441,6 +442,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
                 if (token == "rst") {
                     formatting.Reset();
                 } else if (token == "rnd") {
+                    text_randomisation_detected = true;
                     formatting.RandomizeText = !formatting.RandomizeText;
                 } else if (is_code_with_prefix(token, "fg")) {
                     // Extract color code
@@ -558,6 +560,10 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
         CharacterRenderData.push_back({ x0, y1, formatting.ForegroundColorIndex, formatting.BackgroundColorIndex, u0, v1 });
         penX += g.advance;
         prevChar = c;
+    }
+
+    if (!text_randomisation_detected) {
+        NewObject->Changed = false;
     }
 }
 

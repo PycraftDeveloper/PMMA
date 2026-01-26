@@ -23,6 +23,7 @@ class EXPORT CPP_TextRenderer {
         bool SizeSet = false;
         bool UseInLineFormatting = true;
         bool GlyphsPrepared = false;
+        bool Changed = true;
 
         CPP_TextRenderer();
 
@@ -43,6 +44,11 @@ class EXPORT CPP_TextRenderer {
         };
 
         inline void SetUseInLineFormatting(bool NewUseInLineFormatting) {
+            if (NewUseInLineFormatting != UseInLineFormatting) {
+                Changed = true;
+                GlyphsPrepared = false;
+            }
+
             UseInLineFormatting = NewUseInLineFormatting;
         };
 
@@ -51,6 +57,10 @@ class EXPORT CPP_TextRenderer {
         };
 
         inline void SetText(std::string NewText) {
+            if (NewText != Text) {
+                Changed = true;
+            }
+
             Text = NewText;
             GlyphsPrepared = false;
         };
@@ -66,10 +76,20 @@ class EXPORT CPP_TextRenderer {
                 throw runtime_error("Font file does not exist!");
             }
 
+            if (NewFont != Font) {
+                Changed = true;
+                GlyphsPrepared = false;
+            }
+
             Font = NewFont;
         };
 
         inline void SetSize(unsigned int NewSize) {
+            if (NewSize != Size) {
+                Changed = true;
+                GlyphsPrepared = false;
+            }
+
             Size = NewSize;
             SizeSet = true;
         };
