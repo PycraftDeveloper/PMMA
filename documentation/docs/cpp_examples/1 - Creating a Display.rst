@@ -1,26 +1,39 @@
 1 - Creating a Display
 ======================
 
-This example shows how to create a simple responsive display using PMMA in Python.
-This example has the same functionality as the C++ version with the same name.
+This example shows how to create a simple responsive display using PMMA in C++.
+This example has the same functionality as the Python version with the same name.
 
-.. code-block:: python
+.. code-block:: cpp
 
-    import pmma
+    #include <PMMA_Core.hpp>
 
-    # Create a display object
-    display = pmma.Display()
+    using namespace std;
 
-    # Set the title of the display window
-    display.create([1280, 720])
+    int main() {
+        // PMMA must be initialized with a parameter telling it where it exists on the drive.
+        // This is needed for resource loading.
+        string path = "W://Documents//GitHub//PMMA//pmma";
+        PMMA_Initialize(path);
 
-    # Start the main loop
-    while pmma.General.is_application_running():
-        # Clear the display
-        display.clear()
+        // Create a display object.
+        CPP_Display* display = new CPP_Display();
+        unsigned int size[2] = { 1280, 720 };
+        display->Create(size);
 
-        # Refresh the display to show any updates and limit refresh rate
-        display.refresh()
+        // Start the main loop
+        while (CPP_General::IsApplicationRunning()) {
+            // Clear the display.
+            display->Clear();
+
+            // Refresh the display to show any updates and limit refresh rate.
+            display->Refresh();
+        }
+
+        // Make sure to uninitialize PMMA so it cleans up properly when exiting.
+        PMMA_Uninitialize();
+        return 0;
+    }
 
 Detailed Breakdown
 ------------------
