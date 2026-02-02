@@ -45,7 +45,7 @@ In this code example the :code:`pmma.Display()` class is used to create a new di
 The :code:`pmma.General.is_application_running()` method checks if the application is still running and returns :code:`True` if it is, and :code:`False` if it has been requested to close. This is typically done by the user clicking the close button on the window or in full-screen windows only, by pressing the 'Esc' key. This ensures that if you haven't yet implemented any event handling in your application, the user can still close the application gracefully. We appreciate that :code:`pmma.General.is_application_running()` may seem a bit verbose, but it is designed to be explicit and clear about its purpose. If you find yourself using contents from :code:`pmma.General` frequently, consider an approach where you associate this portion of the API with a name. In the case of the short example below, we renamed :code:`pmma.General` to :code:`general` for brevity.
 
 .. code-block:: python
-
+    # This needs to change as general is not a definable sub-component here for C++.
     import pmma
 
     general = pmma.General

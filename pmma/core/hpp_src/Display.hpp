@@ -70,7 +70,7 @@ class EXPORT CPP_Display {
             unsigned int* NewSize,
             std::string NewCaption="PMMA Display",
             std::string NewIcon="",
-            bool NewFullScreen=true,
+            std::optional<bool> OptionalFullScreen=std::nullopt,
             bool NewResizable=false,
             bool NewNoFrame=false,
             bool NewVsync=true,
@@ -384,7 +384,7 @@ before you can call this function.");
 
         void Refresh(
             unsigned int MinRefreshRate=5,
-            std::optional<unsigned int> OptionalMaxRefreshRate=60,
+            std::optional<unsigned int> OptionalMaxRefreshRate = std::nullopt,
             bool LowerRefreshRate_OnMinimize=true,
             bool LowerRefreshRate_OnFocusLoss=true,
             bool LowerRefreshRate_OnLowBattery=true);

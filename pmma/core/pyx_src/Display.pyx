@@ -24,7 +24,7 @@ cdef extern from "Display.hpp" nogil:
             unsigned int* NewSize,
             string NewCaption,
             string NewIcon,
-            bool NewFullScreen,
+            optional[bool] NewFullScreen,
             bool NewResizable,
             bool NewNoFrame,
             bool NewVsync,
@@ -112,6 +112,7 @@ cdef class Display:
             string encoded_caption = caption.encode('utf-8')
             string encoded_icon = icon.encode('utf-8')
             unsigned int* size_ptr
+            optional[bool] opt_fullscreen
 
         Utility.Registry.render_thread = threading.current_thread()
 
@@ -124,19 +125,16 @@ cdef class Display:
 
         size_ptr = <unsigned int*>&size_np[0]
 
-        zero_array = np.array([0, 0], dtype=np.uint32, order='C')
-
-        if fullscreen == None:
-            if np.array_equal(size_np, zero_array):
-                fullscreen = True
-            else:
-                fullscreen = False
+        if fullscreen is None:
+            opt_fullscreen.reset()
+        else:
+            opt_fullscreen = <bool>fullscreen
 
         self.cpp_class_ptr.Create(
             size_ptr,
             encoded_caption,
             encoded_icon,
-            fullscreen,
+            opt_fullscreen,
             resizable,
             no_frame,
             vsync,
@@ -263,15 +261,15 @@ cdef class Display:
             lower_refresh_rate_on_focus_loss=True,
             lower_refresh_rate_on_low_battery=True):
 
-        cdef optional[unsigned int] opt_max
+        cdef optional[unsigned int] opt_max_refresh_rate
 
         if max_refresh_rate is None:
-            opt_max.reset()
+            opt_max_refresh_rate.reset()
         else:
-            opt_max = <unsigned int>max_refresh_rate
+            opt_max_refresh_rate = <unsigned int>max_refresh_rate
 
         self.cpp_class_ptr.Refresh(
-            min_refresh_rate, opt_max,
+            min_refresh_rate, opt_max_refresh_rate,
             lower_refresh_rate_on_minimize,
             lower_refresh_rate_on_focus_loss,
             lower_refresh_rate_on_low_battery)

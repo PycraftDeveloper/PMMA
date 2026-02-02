@@ -281,14 +281,26 @@ void CPP_Display::Create(
         unsigned int* NewSize,
         std::string NewCaption,
         std::string NewIcon,
-        bool NewFullScreen,
+        std::optional<bool> OptionalFullScreen,
         bool NewResizable,
         bool NewNoFrame,
         bool NewVsync,
         bool NewCentered,
         bool NewMaximized) {
+
+    if (!OptionalFullScreen.has_value()) {
+
+        if (NewSize[0] == 0 && NewSize[1] == 0)
+        {
+            FullScreen = true;
+        } else {
+            FullScreen = false;
+        }
+    } else {
+        FullScreen = OptionalFullScreen.value();
+    }
+
     Caption = NewCaption;
-    FullScreen = NewFullScreen;
     Resizable = NewResizable;
     NoFrame = NewNoFrame;
     Vsync = NewVsync;
