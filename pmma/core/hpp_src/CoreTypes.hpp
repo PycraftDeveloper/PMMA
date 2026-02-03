@@ -55,7 +55,7 @@ class EXPORT CPP_Color {
 
         CPP_FastRandom* RandomColorGenerator = nullptr;
 
-        uint8_t InternalColor[4] = {0, 0, 0, 0}; // Default is black with full opacity
+        uint8_t InternalColor[4] = {0, 0, 0, 255}; // Default is black with full opacity
 
         uint32_t seed;
         uint32_t octaves;
@@ -79,6 +79,8 @@ class EXPORT CPP_Color {
         bool InternalChanged = true;
 
     public:
+        bool LinkedToDisplayBackground = false;
+
         CPP_Color();
 
         ~CPP_Color() {
@@ -409,53 +411,8 @@ class EXPORT CPP_Color {
 
         void Set_ColorName(std::string color_name);
 
-        inline void Set_RGBA(uint8_t* in_color) {
-            bool Different = false;
-            for (int i = 0; i < 4; i++) {
-                if (in_color[i] != InternalColor[i]) {
-                    Different = true;
-                    break;
-                }
-            }
-            if (Different) {
-                Changed = true;
-                InternalChanged = true;
-                InternalColor[0] = in_color[0];
-                InternalColor[1] = in_color[1];
-                InternalColor[2] = in_color[2];
-                InternalColor[3] = in_color[3];
-            }
-
-            IsSet = true;
-        }
-
-        inline void Set_RGB(uint8_t* in_color) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogDebug(
-                9,
-                "The alpha channel is automatically set to opaque."
-            );
-
-            bool Different = false;
-            for (int i = 0; i < 3; i++) {
-                if (in_color[i] != InternalColor[i]) {
-                    Different = true;
-                    break;
-                }
-            }
-            if (Different) {
-                Changed = true;
-                InternalChanged = true;
-                InternalColor[0] = in_color[0];
-                InternalColor[1] = in_color[1];
-                InternalColor[2] = in_color[2];
-                InternalColor[3] = 255;
-            }
-
-            IsSet = true;
-        }
+        void Set_RGBA(uint8_t* in_color);
+        void Set_RGB(uint8_t* in_color);
 
         inline void Get_RGBA(uint8_t* out_color) {
             if (!IsSet) {

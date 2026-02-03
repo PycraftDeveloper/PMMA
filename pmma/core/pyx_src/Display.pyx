@@ -30,6 +30,7 @@ cdef extern from "Display.hpp" nogil:
     cdef cppclass CPP_Display_Refresh_Kwargs:
         unsigned int MinRefreshRate
         optional[unsigned int] MaxRefreshRate
+        bool LimitRefreshRate
         bool LowerRefreshRate_OnMinimize
         bool LowerRefreshRate_OnFocusLoss
         bool LowerRefreshRate_OnLowBattery
@@ -262,6 +263,7 @@ cdef class Display:
     @Utility.require_render_thread
     def refresh(
             self, min_refresh_rate=5, max_refresh_rate=None,
+            limit_refresh_rate=True,
             lower_refresh_rate_on_minimize=True,
             lower_refresh_rate_on_focus_loss=True,
             lower_refresh_rate_on_low_battery=True):
@@ -273,6 +275,7 @@ cdef class Display:
             kwargs.MaxRefreshRate.reset()
         else:
             kwargs.MaxRefreshRate = <unsigned int>max_refresh_rate
+        kwargs.LimitRefreshRate = limit_refresh_rate
         kwargs.LowerRefreshRate_OnMinimize = lower_refresh_rate_on_minimize
         kwargs.LowerRefreshRate_OnFocusLoss = lower_refresh_rate_on_focus_loss
         kwargs.LowerRefreshRate_OnLowBattery = lower_refresh_rate_on_low_battery

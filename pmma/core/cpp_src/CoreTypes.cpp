@@ -18,6 +18,66 @@ void CPP_Color::Set_ColorName(std::string color_name) {
     Set_RGBA(in_color);
 }
 
+void CPP_Color::Set_RGBA(uint8_t* in_color) {
+    bool Different = false;
+    for (int i = 0; i < 4; i++) {
+        if (in_color[i] != InternalColor[i]) {
+            Different = true;
+            break;
+        }
+    }
+    if (Different) {
+        Changed = true;
+        InternalChanged = true;
+        InternalColor[0] = in_color[0];
+        InternalColor[1] = in_color[1];
+        InternalColor[2] = in_color[2];
+        InternalColor[3] = in_color[3];
+    }
+
+    IsSet = true;
+
+    if (LinkedToDisplayBackground && Changed) {
+        if (PMMA_Core::DisplayInstance != nullptr) {
+            PMMA_Core::DisplayInstance->TriggerEventRefresh();
+        }
+    }
+}
+
+void CPP_Color::Set_RGB(uint8_t* in_color) {
+    if (Logger == nullptr) {
+        Logger = new CPP_Logger();
+    }
+    Logger->InternalLogDebug(
+        9,
+        "The alpha channel is automatically set to opaque."
+    );
+
+    bool Different = false;
+    for (int i = 0; i < 3; i++) {
+        if (in_color[i] != InternalColor[i]) {
+            Different = true;
+            break;
+        }
+    }
+    if (Different) {
+        Changed = true;
+        InternalChanged = true;
+        InternalColor[0] = in_color[0];
+        InternalColor[1] = in_color[1];
+        InternalColor[2] = in_color[2];
+        InternalColor[3] = 255;
+    }
+
+    IsSet = true;
+
+    if (LinkedToDisplayBackground && Changed) {
+        if (PMMA_Core::DisplayInstance != nullptr) {
+            PMMA_Core::DisplayInstance->TriggerEventRefresh();
+        }
+    }
+}
+
 CPP_DisplayCoordinate::CPP_DisplayCoordinate() {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(

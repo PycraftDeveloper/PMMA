@@ -1,6 +1,6 @@
 # type: ignore
 
-import subprocess
+import subprocess, multiprocessing
 import os
 from utils import *
 from deps_utils import *
@@ -18,7 +18,9 @@ def configure(self, component):
             "cmake", "-S", folder, "-B", f"build/{component}",
             f"-DOUTPUT_DIR='{cmake_dependency_component_build_dir}'",
             "-DCMAKE_BUILD_TYPE=Release",
-            f"-DINSTALL_DIR={extern_dir}"
+            f"-DINSTALL_DIR={extern_dir}",
+            "-DCMAKE_UNITY_BUILD=ON",
+            f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
         ], cmake_temp_dir, config_log_file
     )
 

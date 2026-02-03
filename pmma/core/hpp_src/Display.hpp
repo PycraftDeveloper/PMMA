@@ -36,6 +36,7 @@ struct CPP_Display_Create_Kwargs {
 struct CPP_Display_Refresh_Kwargs {
     unsigned int MinRefreshRate = 5;
     std::optional<unsigned int> MaxRefreshRate = std::nullopt;
+    bool LimitRefreshRate = true;
     bool LowerRefreshRate_OnMinimize = true;
     bool LowerRefreshRate_OnFocusLoss = true;
     bool LowerRefreshRate_OnLowBattery = true;
@@ -469,7 +470,10 @@ before you can call this function.");
             OrthographicProjectionSet = true;
         };
 
-        unsigned int CalculateRefreshRate(unsigned int RefreshRate);
+        unsigned int CalculateRefreshRate(unsigned int RefreshRate,
+            bool LowerRefreshRate_OnMinimize,
+            bool LowerRefreshRate_OnFocusLoss,
+            bool LowerRefreshRate_OnLowBattery);
 
         void SetIcon(std::string IconPath);
 

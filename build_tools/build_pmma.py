@@ -106,24 +106,14 @@ def run_setup():
 
     setup_log_file = join_path(temporary_logging_dir, f"setup.log")
 
-    if Context.in_github_workflow:
-        run(
-            [
-            sys.executable, "setup.py", "build_ext", "--build-lib",
-            "pmma/build", "--build-temp", "temporary", "sdist",
-            "bdist_wheel"
-            ],
-            cwd, setup_log_file
-        )
-    else:
-        run(
-            [
-            sys.executable, "setup.py", "build_ext", "--build-lib",
-            "pmma/build", "--build-temp", "temporary", "sdist",
-            "bdist_wheel", "--no-parallel", "--annotate_build"
-            ],
-            cwd, setup_log_file
-        )
+    run(
+        [
+        sys.executable, "setup.py", "build_ext", "--build-lib",
+        "pmma/build", "--build-temp", "temporary", "sdist",
+        "bdist_wheel"
+        ],
+        cwd, setup_log_file
+    )
 
     ts_print("Finished running Setup.py")
     ts_print("Finished automated setup process!")

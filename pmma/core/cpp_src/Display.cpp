@@ -199,6 +199,7 @@ in future versions of PMMA, but it is not a priority.", false);
     PMMA_Core::DisplayInstance = this;
 
     WindowFillColor = new CPP_Color();
+    WindowFillColor->LinkedToDisplayBackground = true;
 
     if (!PMMA_Registry::GLFW_Initialized) {
         glfwInit();
@@ -385,10 +386,6 @@ correctly. If the problem persists, please report this issue on our GitHub page.
     CurrentSize[0] = Size[0];
     CurrentSize[1] = Size[1];
 
-    if (!WindowFillColor->GetSet()) {
-        uint8_t fill_color[4] = {0, 0, 0, 255};
-        WindowFillColor->Set_RGBA(fill_color);
-    }
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
 
     if (Resizable) {
@@ -510,6 +507,29 @@ vsync to reduce visual tearing and improve frame pacing."
 
     PreviousDisplaySize[0] = Size[0];
     PreviousDisplaySize[1] = Size[1];
+
+    // Sets default fill color
+    if (!WindowFillColor->GetSet()) {
+        uint8_t fill_color[4] = {0, 0, 0, 255};
+        WindowFillColor->Set_RGBA(fill_color);
+    }
+
+    uint8_t out_color[4];
+    WindowFillColor->Get_RGBA(out_color);
+
+    uint32_t clearColor =
+    ( out_color[0]) << 24 | // R
+    ( out_color[1]) << 16 | // G
+    ( out_color[2]) <<  8 | // B
+    ( out_color[3]);        // A
+
+    bgfx::setViewClear(
+        0,  // view ID (use 0 for your main screen)
+        BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH,
+        clearColor,
+        1.0f, // depth clear value
+        0     // stencil clear value
+    );
 }
 
 void CPP_Display::Clear() {
@@ -550,8 +570,6 @@ You can do this using `Display.create`."
 }
 
 void CPP_Display::LimitRefreshRate(unsigned int RefreshRate) {
-    RefreshRate = CPP_Display::CalculateRefreshRate(RefreshRate);
-
     float estimate = 0.001f;
     float average = 0.001f;
     unsigned int samples = 1;
@@ -577,22 +595,26 @@ void CPP_Display::LimitRefreshRate(unsigned int RefreshRate) {
     }
 }
 
-unsigned int CPP_Display::CalculateRefreshRate(unsigned int RefreshRate) {
+unsigned int CPP_Display::CalculateRefreshRate(
+        unsigned int RefreshRate, bool LowerRefreshRate_OnMinimize,
+        bool LowerRefreshRate_OnFocusLoss,
+        bool LowerRefreshRate_OnLowBattery) {
+
     bool Minimized = glfwGetWindowAttrib(Window, GLFW_ICONIFIED) == GLFW_TRUE;
     bool FocusLoss = glfwGetWindowAttrib(Window, GLFW_FOCUSED) == GLFW_FALSE;
     bool LowBattery = PMMA_Registry::IsPowerSavingModeEnabled;
 
     unsigned int OriginalRefreshRate = RefreshRate;
 
-    if (Minimized) {
+    if (Minimized && LowerRefreshRate_OnMinimize) {
         RefreshRate /= 5;
     }
 
-    if (FocusLoss) {
+    if (FocusLoss && LowerRefreshRate_OnFocusLoss) {
         RefreshRate /= 2;
     }
 
-    if (LowBattery) {
+    if (LowBattery && LowerRefreshRate_OnLowBattery) {
         RefreshRate /= 2;
     }
 
@@ -627,29 +649,37 @@ You can do this using `Display.create`."
 
     unsigned int MaxRefreshRate;
 
-    if (!kwargs.MaxRefreshRate.has_value()) {
-        if (GetIsWindowUsingVsync()) {
-            MaxRefreshRate = 0;
+    if (kwargs.LimitRefreshRate) {
+        if (!kwargs.MaxRefreshRate.has_value()) {
+            if (GetIsWindowUsingVsync()) {
+                MaxRefreshRate = 0;
+            } else {
+                MaxRefreshRate = 60;
+            }
         } else {
-            MaxRefreshRate = 60;
+            MaxRefreshRate = kwargs.MaxRefreshRate.value();
+        }
+
+        if (kwargs.MinRefreshRate == 0) {
+            glfwWaitEvents();
+        } else {
+            glfwWaitEventsTimeout(1.0f / kwargs.MinRefreshRate);
         }
     } else {
-        MaxRefreshRate = kwargs.MaxRefreshRate.value();
-    }
-
-    MaxRefreshRate = CPP_Display::CalculateRefreshRate(
-        MaxRefreshRate);
-
-    if (kwargs.MinRefreshRate == 0) {
-        glfwWaitEvents();
-    } else {
-        glfwWaitEventsTimeout(1.0f / kwargs.MinRefreshRate);
+        glfwPollEvents();
     }
 
     PMMA_Update(Window);
 
-    if (MaxRefreshRate > 0) {
-        LimitRefreshRate(MaxRefreshRate);
+    if (kwargs.LimitRefreshRate) {
+        MaxRefreshRate = CPP_Display::CalculateRefreshRate(
+            MaxRefreshRate, kwargs.LowerRefreshRate_OnMinimize,
+            kwargs.LowerRefreshRate_OnFocusLoss,
+            kwargs.LowerRefreshRate_OnLowBattery);
+
+        if (MaxRefreshRate > 0) {
+            LimitRefreshRate(MaxRefreshRate);
+        }
     }
 
     std::chrono::high_resolution_clock::time_point EndTime = std::chrono::high_resolution_clock::now();
