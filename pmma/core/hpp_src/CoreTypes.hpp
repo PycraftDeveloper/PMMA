@@ -4,11 +4,40 @@
 #include <glm/glm.hpp>
 #include <random>
 #include <thread>
+#include <optional>
 
 #include "FractalBrownianMotion.hpp"
 #include "AdvancedMathematics.hpp"
 #include "Logger.hpp"
 #include "Random.hpp"
+
+struct CPP_Color_Configure_Kwargs {
+    std::optional<uint32_t> seed = std::nullopt;
+    uint32_t octaves = 2;
+    float frequency = 0.75f;
+    float amplitude = 1.0f;
+};
+
+struct CPP_DisplayCoordinate_Configure_Kwargs {
+    std::optional<uint32_t> seed = std::nullopt;
+    uint32_t octaves = 2;
+    float frequency = 0.75f;
+    float amplitude = 1.0f;
+};
+
+struct CPP_Angle_Configure_Kwargs {
+    std::optional<uint32_t> seed = std::nullopt;
+    uint32_t octaves = 2;
+    float frequency = 0.75f;
+    float amplitude = 1.0f;
+};
+
+struct CPP_Proportion_Configure_Kwargs {
+    std::optional<uint32_t> seed = std::nullopt;
+    uint32_t octaves = 2;
+    float frequency = 0.75f;
+    float amplitude = 1.0f;
+};
 
 class EXPORT CPP_Color {
     private:
@@ -84,23 +113,32 @@ class EXPORT CPP_Color {
             }
         }
 
-        inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+        inline void Configure(CPP_Color_Configure_Kwargs kwargs={}) {
+            uint32_t new_seed;
+
+            if (!kwargs.seed.has_value()) {
+                CPP_FastRandom TempRandomGenerator;
+                new_seed = TempRandomGenerator.Next();
+            } else {
+                new_seed = kwargs.seed.value();
+            }
+
             R_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
             G_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);
             B_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 2);
             A_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 3);
 
-            R_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
-            G_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, new_octaves, new_frequency, new_amplitude);
-            B_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 2, new_octaves, new_frequency, new_amplitude);
-            A_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 3, new_octaves, new_frequency, new_amplitude);
+            R_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+            G_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+            B_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 2, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+            A_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 3, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
             RandomColorGenerator->SetSeed(new_seed);
 
             seed = new_seed;
-            octaves = new_octaves;
-            frequency = new_frequency;
-            amplitude = new_amplitude;
+            octaves = kwargs.octaves;
+            frequency = kwargs.frequency;
+            amplitude = kwargs.amplitude;
             Configured = true;
         }
 
@@ -514,7 +552,7 @@ class EXPORT CPP_DisplayCoordinate {
             }
         }
 
-        void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude);
+        void Configure(CPP_DisplayCoordinate_Configure_Kwargs kwargs={});
 
         inline bool GetChangedToggle() {
             bool OldChanged = Changed;
@@ -655,16 +693,25 @@ class EXPORT CPP_Angle {
             }
         }
 
-        inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+        inline void Configure(CPP_Angle_Configure_Kwargs kwargs={}) {
+            uint32_t new_seed;
+
+            if (!kwargs.seed.has_value()) {
+                CPP_FastRandom TempRandomGenerator;
+                new_seed = TempRandomGenerator.Next();
+            } else {
+                new_seed = kwargs.seed.value();
+            }
+
             PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
             srand(new_seed);
 
             seed = new_seed;
-            octaves = new_octaves;
-            frequency = new_frequency;
-            amplitude = new_amplitude;
+            octaves = kwargs.octaves;
+            frequency = kwargs.frequency;
+            amplitude = kwargs.amplitude;
             Configured = true;
         }
 
@@ -960,16 +1007,25 @@ class EXPORT CPP_Proportion {
             }
         }
 
-        inline void Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+        inline void Configure(CPP_Proportion_Configure_Kwargs kwargs={}) {
+            uint32_t new_seed;
+
+            if (!kwargs.seed.has_value()) {
+                CPP_FastRandom TempRandomGenerator;
+                new_seed = TempRandomGenerator.Next();
+            } else {
+                new_seed = kwargs.seed.value();
+            }
+
             PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
+            FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
             srand(new_seed);
 
             seed = new_seed;
-            octaves = new_octaves;
-            frequency = new_frequency;
-            amplitude = new_amplitude;
+            octaves = kwargs.octaves;
+            frequency = kwargs.frequency;
+            amplitude = kwargs.amplitude;
             Configured = true;
         }
 

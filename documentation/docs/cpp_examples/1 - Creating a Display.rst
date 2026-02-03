@@ -72,47 +72,69 @@ You should ensure that any rendering you wish to do is performed between the :co
 
 The :code:`display.refresh()` method also dynamically limits the refresh rate of the display, which can be beneficial for performance and power consumption. In the above example we have allowed PMMA to automatically use a feature called 'V-Sync' (Vertical Synchronization), which synchronizes the display's refresh rate with the monitor's refresh rate. This helps to prevent screen tearing and provides a smoother visual experience. If you wish to control wether V-Sync is used it can be adjusted when creating the display as shown in the example below:
 
-.. code-block:: python
+.. code-block:: cpp
 
-    import pmma
+    #include <PMMA_Core.hpp>
 
-    # Create a display object
-    display = pmma.Display()
+    using namespace std;
 
-    # Set the title of the display window with V-Sync disabled
-    display.create([1280, 720], vsync=False)
+    int main() {
+    // PMMA must be initialized with a parameter telling it where it exists on the drive.
+    // This is needed for resource loading.
+    string path = "W://Documents//GitHub//PMMA//pmma";
+    PMMA_Initialize(path);
 
-    # Start the main loop
-    while pmma.General.is_application_running():
-        # Clear the display
-        display.clear()
+    // Create a display object.
+    CPP_Display* display = new CPP_Display();
+    unsigned int size[2] = { 1280, 720 };
+    display->Create(size, { .Vsync = false });
 
-        # Perform any rendering here...
+    // Start the main loop
+    while (CPP_General::IsApplicationRunning()) {
+        // Clear the display.
+        display->Clear();
 
-        # Refresh the display to show any updates and limit refresh rate
-        display.refresh()
+        // Refresh the display to show any updates and limit refresh rate.
+        display->Refresh();
+    }
+
+    // Make sure to uninitialize PMMA so it cleans up properly when exiting.
+    PMMA_Uninitialize();
+    return 0;
+    }
 
 In the above example now V-Sync is disabled. PMMA will now dynamically adjust the refresh rate of the application dynamically based on how the application is interacted with and when content changes on-screen. The default behaviour is to go as low as 5 frames per second and as high as 60 frames per second. If you wish to set a custom frame rate limit, you can do so by passing integer values to the :code:`min_refresh_rate` and :code:`max_refresh_rate` key-word arguments of the :code:`display.refresh()` method as shown in the example below:
 
-.. code-block:: python
+.. code-block:: cpp
 
-    import pmma
+    #include <PMMA_Core.hpp>
 
-    # Create a display object
-    display = pmma.Display()
+    using namespace std;
 
-    # Set the title of the display window with V-Sync disabled
-    display.create([1280, 720], vsync=False)
+    int main() {
+        // PMMA must be initialized with a parameter telling it where it exists on the drive.
+        // This is needed for resource loading.
+        string path = "W://Documents//GitHub//PMMA//pmma";
+        PMMA_Initialize(path);
 
-    # Start the main loop
-    while pmma.General.is_application_running():
-        # Clear the display
-        display.clear()
+        // Create a display object.
+        CPP_Display* display = new CPP_Display();
+        unsigned int size[2] = { 1280, 720 };
+        display->Create(size, { .Vsync = false });
 
-        # Perform any rendering here...
+        // Start the main loop
+        while (CPP_General::IsApplicationRunning()) {
+            // Clear the display.
+            display->Clear();
 
-        # Refresh the display to show any updates dynamically.
-        display.refresh(min_refresh_rate=30, max_refresh_rate=120)
+            // Refresh the display to show any updates and limit refresh rate.
+            display->Refresh({ .MinRefreshRate = 30, .MaxRefreshRate = 120 });
+        }
+
+        // Make sure to uninitialize PMMA so it cleans up properly when exiting.
+        PMMA_Uninitialize();
+        return 0;
+    }
 
 In addition to a manually specified refresh rate minimum and maximum, PMMA will also automatically adjust the refresh rate based on the current application context. This means that if the display is minimized, not in focus or the device is in power saving mode, PMMA will automatically reduce the refresh rate to conserve system resources. This behavior can be disabled or customized by adjusting the key-word arguments of the :code:`display.refresh()` method. For more information on these options, please refer to the official PMMA documentation.
 
@@ -123,84 +145,115 @@ Below are some additional examples of how you can further customize and extend t
 
 Did you can use :code:`display.window_fill_color` to set a custom color for the window (instead of being black which is the default), here is an example of this in action:
 
-.. code-block:: python
+.. code-block:: cpp
 
-    import pmma
+    #include <PMMA_Core.hpp>
 
-    # Create a display object
-    display = pmma.Display()
+    using namespace std;
 
-    # Set the title of the display window
-    display.create([1280, 720])
+    int main() {
+        // PMMA must be initialized with a parameter telling it where it exists on the drive.
+        // This is needed for resource loading.
+        string path = "W://Documents//GitHub//PMMA//pmma";
+        PMMA_Initialize(path);
 
-    # Set the window fill color to a randomly selected color
-    display.window_fill_color.generate_from_random()
+        // Create a display object.
+        CPP_Display* display = new CPP_Display();
+        unsigned int size[2] = { 1280, 720 };
+        display->Create(size);
 
-    # Start the main loop
-    while pmma.General.is_application_running():
-        # Clear the display
-        display.clear()
+        // Set the window fill color to a randomly selected color
+        display->WindowFillColor->GenerateFromRandom();
 
-        # Perform any rendering here...
+        // Start the main loop
+        while (CPP_General::IsApplicationRunning()) {
+            // Clear the display.
+            display->Clear();
 
-        # Refresh the display to show any updates and limit refresh rate
-        display.refresh()
+            // Refresh the display to show any updates and limit refresh rate.
+            display->Refresh();
+        }
+
+        // Make sure to uninitialize PMMA so it cleans up properly when exiting.
+        PMMA_Uninitialize();
+        return 0;
+    }
 
 Please note though that setting the window fill color randomly every frame (yes, we have all done it!) can cause discomfort for some users and is generally not recommended for production applications. If you do wish to change the window fill color dynamically, consider using a more subtle approach, such as gradually changing the color over time or in response to user actions - as demonstrated below with a more advanced color generation technique:
 
-.. code-block:: python
+.. code-block:: cpp
 
-    import pmma, time
+    #include <PMMA_Core.hpp>
 
-    # Create a display object
-    display = pmma.Display()
+    using namespace std;
 
-    # Set the title of the display window
-    display.create([1280, 720])
+    int main() {
+        // PMMA must be initialized with a parameter telling it where it exists on the drive.
+        // This is needed for resource loading.
+        string path = "W://Documents//GitHub//PMMA//pmma";
+        PMMA_Initialize(path);
 
-    # Configure the window_fill_color component to allow for support for
-    # Perlin and Fractal Brownian Motion (FBM) noise generation for a
-    # smoother color transition effect
-    display.window_fill_color.configure()
+        // Create a display object.
+        CPP_Display* display = new CPP_Display();
+        unsigned int size[2] = { 1280, 720 };
+        display->Create(size);
 
-    # Start the main loop
-    while pmma.General.is_application_running():
-        # Use 1D Perlin noise to generate a smooth color transition over time
-        display.window_fill_color.generate_from_1D_perlin_noise(time.perf_counter())
+        // Set the window fill color to a randomly selected color
+        display->WindowFillColor->Configure();
 
-        # Clear the display
-        display.clear()
+        // Start the main loop
+        while (CPP_General::IsApplicationRunning()) {
+            // Use 1D Perlin noise to generate a smooth color transition over time
+            display->WindowFillColor->GenerateFrom1DPerlinNoise(static_cast<float>(CPP_General::GetApplicationRunTime()));
 
-        # Perform any rendering here...
+            // Clear the display.
+            display->Clear();
 
-        # Refresh the display to show any updates and limit refresh rate
-        display.refresh()
+            // Refresh the display to show any updates and limit refresh rate.
+            display->Refresh();
+        }
 
-You can also set and change the window title or icon at any time using the :code:`display.set_title()` and :code:`display.set_icon()` methods respectively. Here is an example of changing the window title dynamically based on the current frame count:
+        // Make sure to uninitialize PMMA so it cleans up properly when exiting.
+        PMMA_Uninitialize();
+        return 0;
+    }
 
-.. code-block:: python
+You can also set and change the window title or icon at any time using the :code:`display->SetCaption()` and :code:`display->SetIcon()` methods respectively. Here is an example of changing the window title dynamically based on the current frame count:
 
-    import pmma
+.. code-block:: cpp
 
-    # Create a display object
-    display = pmma.Display()
+    #include <PMMA_Core.hpp>
 
-    # Set the title of the display window
-    display.create([1280, 720])
+    using namespace std;
 
-    frame_count = 0
+    int main() {
+        // PMMA must be initialized with a parameter telling it where it exists on the drive.
+        // This is needed for resource loading.
+        string path = "W://Documents//GitHub//PMMA//pmma";
+        PMMA_Initialize(path);
 
-    # Start the main loop
-    while pmma.General.is_application_running():
-        frame_count += 1
+        // Create a display object.
+        CPP_Display* display = new CPP_Display();
+        unsigned int size[2] = { 1280, 720 };
+        display->Create(size);
 
-        # Update the window title with the current frame count
-        display.set_title(f"Frame no.: {frame_count}")
+        unsigned int frame_count = 0;
 
-        # Clear the display
-        display.clear()
+        // Start the main loop
+        while (CPP_General::IsApplicationRunning()) {
+            frame_count++;
 
-        # Perform any rendering here...
+            // Update the window title with the current frame count
+            display->SetCaption("Frame no.: " + std::to_string(frame_count));
 
-        # Refresh the display to show any updates and limit refresh rate
-        display.refresh()
+            // Clear the display.
+            display->Clear();
+
+            // Refresh the display to show any updates and limit refresh rate.
+            display->Refresh();
+        }
+
+        // Make sure to uninitialize PMMA so it cleans up properly when exiting.
+        PMMA_Uninitialize();
+        return 0;
+    }

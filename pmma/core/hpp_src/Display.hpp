@@ -23,22 +23,22 @@
 #include "Logger.hpp"
 
 struct CPP_Display_Create_Kwargs {
-    std::string Caption="PMMA Display";
-    std::string IconPath="";
-    std::optional<bool> OptionalFullScreen=std::nullopt;
-    bool Resizable=false;
-    bool NoFrame=false;
-    bool Vsync=true;
-    bool Centered=true;
-    bool Maximized=false;
+    std::string Caption = "PMMA Display";
+    std::string IconPath = "";
+    std::optional<bool> OptionalFullScreen = std::nullopt;
+    bool Resizable = false;
+    bool NoFrame = false;
+    bool Vsync = true;
+    bool Centered = true;
+    bool Maximized = false;
 };
 
 struct CPP_Display_Refresh_Kwargs {
-    unsigned int MinRefreshRate=5;
-    std::optional<unsigned int> OptionalMaxRefreshRate = std::nullopt;
-    bool LowerRefreshRate_OnMinimize=true;
-    bool LowerRefreshRate_OnFocusLoss=true;
-    bool LowerRefreshRate_OnLowBattery=true;
+    unsigned int MinRefreshRate = 5;
+    std::optional<unsigned int> MaxRefreshRate = std::nullopt;
+    bool LowerRefreshRate_OnMinimize = true;
+    bool LowerRefreshRate_OnFocusLoss = true;
+    bool LowerRefreshRate_OnLowBattery = true;
 };
 
 class EXPORT CPP_Display {

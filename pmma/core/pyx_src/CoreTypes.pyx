@@ -8,7 +8,10 @@ import random
 import numpy as np
 cimport numpy as np
 
-from CoreTypes cimport CPP_Color, Color, CPP_DisplayCoordinate, DisplayCoordinate
+from CoreTypes cimport (
+    CPP_Color, Color, CPP_DisplayCoordinate, DisplayCoordinate,
+    CPP_Color_Configure_Kwargs, CPP_DisplayCoordinate_Configure_Kwargs,
+    CPP_Angle_Configure_Kwargs, CPP_Proportion_Configure_Kwargs)
 
 np.import_array()
 
@@ -28,11 +31,18 @@ cdef class Color:
         self.cpp_class_ptr = cpp_class_ptr
         self.owns_cpp_class_ptr = False
 
-    cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
-        if seed == None:
-            seed = random.randint(0, 0xFFFFFFFF) # 0 and max 32 bit int value
+    cpdef void configure(self, seed=None, octaves=2, frequency=0.75, amplitude=1.0):
+        cdef CPP_Color_Configure_Kwargs kwargs
 
-        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
+        if seed is None:
+            kwargs.seed.reset()
+        else:
+            kwargs.seed = <uint32_t>seed
+        kwargs.octaves = octaves
+        kwargs.frequency = frequency
+        kwargs.amplitude = amplitude
+
+        self.cpp_class_ptr.Configure(kwargs)
 
     cpdef unsigned int get_seed(self):
         return self.cpp_class_ptr.GetSeed()
@@ -40,10 +50,10 @@ cdef class Color:
     cpdef unsigned int get_octaves(self):
         return self.cpp_class_ptr.GetOctaves()
 
-    cpdef float get_lacunarity(self):
+    cpdef float get_frequency(self):
         return self.cpp_class_ptr.GetFrequency()
 
-    cpdef float get_gain(self):
+    cpdef float get_amplitude(self):
         return self.cpp_class_ptr.GetAmplitude()
 
     cpdef bint get_set(self):
@@ -185,10 +195,18 @@ cdef class DisplayCoordinate:
         self.cpp_class_ptr = cpp_class_ptr
         self.owns_cpp_class_ptr = False
 
-    cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+    cpdef void configure(self, seed=None, octaves=2, frequency=0.75, amplitude=1.0):
+        cdef CPP_DisplayCoordinate_Configure_Kwargs kwargs
+
         if seed is None:
-            seed = random.randint(0, 0xFFFFFFFF)
-        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
+            kwargs.seed.reset()
+        else:
+            kwargs.seed = <uint32_t>seed
+        kwargs.octaves = octaves
+        kwargs.frequency = frequency
+        kwargs.amplitude = amplitude
+
+        self.cpp_class_ptr.Configure(kwargs)
 
     cpdef unsigned int get_seed(self):
         return self.cpp_class_ptr.GetSeed()
@@ -196,10 +214,10 @@ cdef class DisplayCoordinate:
     cpdef unsigned int get_octaves(self):
         return self.cpp_class_ptr.GetOctaves()
 
-    cpdef float get_lacunarity(self):
+    cpdef float get_frequency(self):
         return self.cpp_class_ptr.GetFrequency()
 
-    cpdef float get_gain(self):
+    cpdef float get_amplitude(self):
         return self.cpp_class_ptr.GetAmplitude()
 
     cpdef bint get_set(self):
@@ -286,10 +304,18 @@ cdef class Angle:
         self.cpp_class_ptr = cpp_class_ptr
         self.owns_cpp_class_ptr = False
 
-    cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+    cpdef void configure(self, seed=None, octaves=2, frequency=0.75, amplitude=1.0):
+        cdef CPP_Angle_Configure_Kwargs kwargs
+
         if seed is None:
-            seed = random.randint(0, 0xFFFFFFFF)
-        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
+            kwargs.seed.reset()
+        else:
+            kwargs.seed = <uint32_t>seed
+        kwargs.octaves = octaves
+        kwargs.frequency = frequency
+        kwargs.amplitude = amplitude
+
+        self.cpp_class_ptr.Configure(kwargs)
 
     cpdef unsigned int get_seed(self):
         return self.cpp_class_ptr.GetSeed()
@@ -297,10 +323,10 @@ cdef class Angle:
     cpdef unsigned int get_octaves(self):
         return self.cpp_class_ptr.GetOctaves()
 
-    cpdef float get_lacunarity(self):
+    cpdef float get_frequency(self):
         return self.cpp_class_ptr.GetFrequency()
 
-    cpdef float get_gain(self):
+    cpdef float get_amplitude(self):
         return self.cpp_class_ptr.GetAmplitude()
 
     cpdef bint get_set(self):
@@ -355,10 +381,18 @@ cdef class Proportion:
         self.cpp_class_ptr = cpp_class_ptr
         self.owns_cpp_class_ptr = False
 
-    cpdef void configure(self, seed=None, octaves=2, lacunarity=0.75, gain=1.0):
+    cpdef void configure(self, seed=None, octaves=2, frequency=0.75, amplitude=1.0):
+        cdef CPP_Proportion_Configure_Kwargs kwargs
+
         if seed is None:
-            seed = random.randint(0, 0xFFFFFFFF)
-        self.cpp_class_ptr.Configure(seed, octaves, lacunarity, gain)
+            kwargs.seed.reset()
+        else:
+            kwargs.seed = <uint32_t>seed
+        kwargs.octaves = octaves
+        kwargs.frequency = frequency
+        kwargs.amplitude = amplitude
+
+        self.cpp_class_ptr.Configure(kwargs)
 
     cpdef unsigned int get_seed(self):
         return self.cpp_class_ptr.GetSeed()
@@ -366,10 +400,10 @@ cdef class Proportion:
     cpdef unsigned int get_octaves(self):
         return self.cpp_class_ptr.GetOctaves()
 
-    cpdef float get_lacunarity(self):
+    cpdef float get_frequency(self):
         return self.cpp_class_ptr.GetFrequency()
 
-    cpdef float get_gain(self):
+    cpdef float get_amplitude(self):
         return self.cpp_class_ptr.GetAmplitude()
 
     cpdef bint get_set(self):

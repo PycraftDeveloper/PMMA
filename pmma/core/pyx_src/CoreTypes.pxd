@@ -2,14 +2,39 @@
 
 from libcpp cimport bool
 from libcpp.string cimport string
-from libc.stdint cimport uint8_t
+from libc.stdint cimport uint8_t, uint32_t
+from libcpp.optional cimport optional
 cimport numpy as np
 
 cdef extern from "CoreTypes.hpp" nogil:
+    cdef cppclass CPP_Color_Configure_Kwargs:
+        optional[uint32_t] seed
+        uint32_t octaves
+        float frequency
+        float amplitude
+
+    cdef cppclass CPP_DisplayCoordinate_Configure_Kwargs:
+        optional[uint32_t] seed
+        uint32_t octaves
+        float frequency
+        float amplitude
+
+    cdef cppclass CPP_Angle_Configure_Kwargs:
+        optional[uint32_t] seed
+        uint32_t octaves
+        float frequency
+        float amplitude
+
+    cdef cppclass CPP_Proportion_Configure_Kwargs:
+        optional[uint32_t] seed
+        uint32_t octaves
+        float frequency
+        float amplitude
+
     cdef cppclass CPP_Color:
         CPP_Color() except + nogil
 
-        inline void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
+        inline void Configure(CPP_Color_Configure_Kwargs kwargs) except + nogil
 
         inline void GenerateFromRandom(bool GenerateAlpha) except + nogil
         inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha) except + nogil
@@ -36,7 +61,7 @@ cdef extern from "CoreTypes.hpp" nogil:
     cdef cppclass CPP_DisplayCoordinate:
         CPP_DisplayCoordinate() except + nogil
 
-        void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except + nogil
+        void Configure(CPP_DisplayCoordinate_Configure_Kwargs kwargs) except + nogil
 
         void SetCentered() except + nogil
         void GenerateFromRandom() except + nogil
@@ -59,7 +84,7 @@ cdef extern from "CoreTypes.hpp" nogil:
     cdef cppclass CPP_Angle:
         CPP_Angle() except + nogil
 
-        void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
+        void Configure(CPP_Angle_Configure_Kwargs kwargs) except +
 
         inline void GenerateFromRandom() except + nogil
         inline void GenerateFrom1DPerlinNoise(float value) except + nogil
@@ -84,7 +109,7 @@ cdef extern from "CoreTypes.hpp" nogil:
     cdef cppclass CPP_Proportion:
         CPP_Proportion() except + nogil
 
-        void Configure(unsigned int new_seed, unsigned int new_octaves, float new_frequency, float new_amplitude) except +
+        void Configure(CPP_Proportion_Configure_Kwargs kwargs) except +
 
         inline void GenerateFromRandom() except + nogil
         inline void GenerateFrom1DPerlinNoise(float value) except + nogil
@@ -113,12 +138,12 @@ cdef class Color:
 
     cdef void set_pointer(self, CPP_Color* cpp_class_ptr)
 
-    cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
+    cpdef void configure(self, seed=?, octaves=?, frequency=?, amplitude=?)
 
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
-    cpdef float get_lacunarity(self)
-    cpdef float get_gain(self)
+    cpdef float get_frequency(self)
+    cpdef float get_amplitude(self)
     cpdef bint get_set(self)
 
     cpdef void generate_from_random(self, bool generate_alpha=?)
@@ -150,12 +175,12 @@ cdef class DisplayCoordinate:
 
     cdef void set_pointer(self, CPP_DisplayCoordinate* cpp_class_ptr)
 
-    cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
+    cpdef void configure(self, seed=?, octaves=?, frequency=?, amplitude=?)
 
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
-    cpdef float get_lacunarity(self)
-    cpdef float get_gain(self)
+    cpdef float get_frequency(self)
+    cpdef float get_amplitude(self)
     cpdef bint get_set(self)
 
     cpdef void set_centered(self)
@@ -182,12 +207,12 @@ cdef class Angle:
 
     cdef void set_pointer(self, CPP_Angle* cpp_class_ptr)
 
-    cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
+    cpdef void configure(self, seed=?, octaves=?, frequency=?, amplitude=?)
 
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
-    cpdef float get_lacunarity(self)
-    cpdef float get_gain(self)
+    cpdef float get_frequency(self)
+    cpdef float get_amplitude(self)
     cpdef bint get_set(self)
 
     cpdef void generate_from_random(self)
@@ -211,12 +236,12 @@ cdef class Proportion:
 
     cdef void set_pointer(self, CPP_Proportion* cpp_class_ptr)
 
-    cpdef void configure(self, seed=?, octaves=?, lacunarity=?, gain=?)
+    cpdef void configure(self, seed=?, octaves=?, frequency=?, amplitude=?)
 
     cpdef unsigned int get_seed(self)
     cpdef unsigned int get_octaves(self)
-    cpdef float get_lacunarity(self)
-    cpdef float get_gain(self)
+    cpdef float get_frequency(self)
+    cpdef float get_amplitude(self)
     cpdef bint get_set(self)
 
     cpdef void generate_from_random(self)

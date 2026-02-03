@@ -34,19 +34,28 @@ You can do this using `Display.create`."
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 }
 
-void CPP_DisplayCoordinate::Configure(uint32_t new_seed, uint32_t new_octaves, float new_frequency, float new_amplitude) {
+void CPP_DisplayCoordinate::Configure(CPP_DisplayCoordinate_Configure_Kwargs kwargs) {
+    uint32_t new_seed;
+
+    if (!kwargs.seed.has_value()) {
+        CPP_FastRandom TempRandomGenerator;
+        new_seed = TempRandomGenerator.Next();
+    } else {
+        new_seed = kwargs.seed.value();
+    }
+
     X_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
     Y_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);
 
-    X_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, new_octaves, new_frequency, new_amplitude);
-    Y_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, new_octaves, new_frequency, new_amplitude);
+    X_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+    Y_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
     RandomCoordGenerator->SetSeed(new_seed);
 
     seed = new_seed;
-    octaves = new_octaves;
-    frequency = new_frequency;
-    amplitude = new_amplitude;
+    octaves = kwargs.octaves;
+    frequency = kwargs.frequency;
+    amplitude = kwargs.amplitude;
     Configured = true;
 }
 

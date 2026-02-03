@@ -182,7 +182,7 @@ You can also set and change the window title or icon at any time using the :code
         frame_count += 1
 
         # Update the window title with the current frame count
-        display.set_title(f"Frame no.: {frame_count}")
+        display.set_caption(f"Frame no.: {frame_count}")
 
         # Clear the display
         display.clear()

@@ -29,7 +29,7 @@ cdef extern from "Display.hpp" nogil:
 
     cdef cppclass CPP_Display_Refresh_Kwargs:
         unsigned int MinRefreshRate
-        optional[unsigned int] OptionalMaxRefreshRate
+        optional[unsigned int] MaxRefreshRate
         bool LowerRefreshRate_OnMinimize
         bool LowerRefreshRate_OnFocusLoss
         bool LowerRefreshRate_OnLowBattery
@@ -270,9 +270,9 @@ cdef class Display:
 
         kwargs.MinRefreshRate = min_refresh_rate
         if max_refresh_rate is None:
-            kwargs.OptionalMaxRefreshRate.reset()
+            kwargs.MaxRefreshRate.reset()
         else:
-            kwargs.OptionalMaxRefreshRate = <unsigned int>max_refresh_rate
+            kwargs.MaxRefreshRate = <unsigned int>max_refresh_rate
         kwargs.LowerRefreshRate_OnMinimize = lower_refresh_rate_on_minimize
         kwargs.LowerRefreshRate_OnFocusLoss = lower_refresh_rate_on_focus_loss
         kwargs.LowerRefreshRate_OnLowBattery = lower_refresh_rate_on_low_battery

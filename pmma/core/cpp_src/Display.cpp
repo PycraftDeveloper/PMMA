@@ -629,14 +629,14 @@ You can do this using `Display.create`."
 
     unsigned int MaxRefreshRate;
 
-    if (!kwargs.OptionalMaxRefreshRate.has_value()) {
+    if (!kwargs.MaxRefreshRate.has_value()) {
         if (GetIsWindowUsingVsync()) {
             MaxRefreshRate = 0;
         } else {
             MaxRefreshRate = 60;
         }
     } else {
-        MaxRefreshRate = kwargs.OptionalMaxRefreshRate.value();
+        MaxRefreshRate = kwargs.MaxRefreshRate.value();
     }
 
     MaxRefreshRate = CPP_Display::CalculateRefreshRate(
