@@ -18,14 +18,14 @@ np.import_array()
 # Declare the external C++ function
 cdef extern from "Display.hpp" nogil:
     cdef cppclass CPP_Display_Create_Kwargs:
-        string NewCaption
-        string NewIcon
+        string Caption
+        string IconPath
         optional[bool] OptionalFullScreen
-        bool NewResizable
-        bool NewNoFrame
-        bool NewVsync
-        bool NewCentered
-        bool NewMaximized
+        bool Resizable
+        bool NoFrame
+        bool Vsync
+        bool Centered
+        bool Maximized
 
     cdef cppclass CPP_Display_Refresh_Kwargs:
         unsigned int MinRefreshRate
@@ -130,17 +130,17 @@ cdef class Display:
 
         size_ptr = <unsigned int*>&size_np[0]
 
-        kwargs.NewCaption = caption.encode('utf-8')
-        kwargs.NewIcon = icon.encode('utf-8')
+        kwargs.Caption = caption.encode('utf-8')
+        kwargs.IconPath = icon.encode('utf-8')
         if fullscreen is None:
             kwargs.OptionalFullScreen.reset()
         else:
             kwargs.OptionalFullScreen = <bool>fullscreen
-        kwargs.NewResizable = resizable
-        kwargs.NewNoFrame = no_frame
-        kwargs.NewVsync = vsync
-        kwargs.NewCentered = centered
-        kwargs.NewMaximized = maximized
+        kwargs.Resizable = resizable
+        kwargs.NoFrame = no_frame
+        kwargs.Vsync = vsync
+        kwargs.Centered = centered
+        kwargs.Maximized = maximized
 
         self.cpp_class_ptr.Create(
             size_ptr,

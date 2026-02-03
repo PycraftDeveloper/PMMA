@@ -23,14 +23,14 @@
 #include "Logger.hpp"
 
 struct CPP_Display_Create_Kwargs {
-    std::string NewCaption="PMMA Display";
-    std::string NewIcon="";
+    std::string Caption="PMMA Display";
+    std::string IconPath="";
     std::optional<bool> OptionalFullScreen=std::nullopt;
-    bool NewResizable=false;
-    bool NewNoFrame=false;
-    bool NewVsync=true;
-    bool NewCentered=true;
-    bool NewMaximized=false;
+    bool Resizable=false;
+    bool NoFrame=false;
+    bool Vsync=true;
+    bool Centered=true;
+    bool Maximized=false;
 };
 
 struct CPP_Display_Refresh_Kwargs {

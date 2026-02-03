@@ -293,12 +293,12 @@ void CPP_Display::Create(
         FullScreen = kwargs.OptionalFullScreen.value();
     }
 
-    Caption = kwargs.NewCaption;
-    Resizable = kwargs.NewResizable;
-    NoFrame = kwargs.NewNoFrame;
-    Vsync = kwargs.NewVsync;
-    Centered = kwargs.NewCentered;
-    Maximized = kwargs.NewMaximized;
+    Caption = kwargs.Caption;
+    Resizable = kwargs.Resizable;
+    NoFrame = kwargs.NoFrame;
+    Vsync = kwargs.Vsync;
+    Centered = kwargs.Centered;
+    Maximized = kwargs.Maximized;
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -503,10 +503,10 @@ vsync to reduce visual tearing and improve frame pacing."
         );
     }
 
-    if (kwargs.NewIcon == "") {
-        kwargs.NewIcon = DefaultIconPath;
+    if (kwargs.IconPath == "") {
+        kwargs.IconPath = DefaultIconPath;
     }
-    SetIcon(kwargs.NewIcon);
+    SetIcon(kwargs.IconPath);
 
     PMMA_Core::RenderPipelineCore = new CPP_RenderPipelineCore();
 
