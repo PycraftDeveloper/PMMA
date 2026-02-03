@@ -44,7 +44,7 @@ _Note: If you do not see your operating system listed above, please check the 'A
 
 _Please note, these requirements are only needed by users installing PMMA onto Linux machines and in most cases the operating systems listed above should be compatible._
 
-* In order for PMMA to work as expected, you must be using either X-Lib, or Wayland. This means that Ubuntu 22.04 DESKTOP will not work, but Ubuntu 22.04 SERVER is unlikely to.
+* In order for PMMA to work as expected, you must be using either X-Lib, or Wayland. This means that Ubuntu 22.04 DESKTOP will work, but Ubuntu 22.04 SERVER is unlikely to.
 * Additionally, you will need `glibc 2.31` or newer, this can be checked on linux using the command `ldd --version` (root not required). The result should be on the first line as shown in the image below:
 
 ![Example output](https://github.com/user-attachments/assets/45c4e860-e044-4c3e-96ad-1a9c3258b200)
