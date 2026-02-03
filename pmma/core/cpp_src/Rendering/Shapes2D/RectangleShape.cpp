@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_RectangleShape::CPP_RectangleShape() {
     ShapeCenter = new CPP_DisplayCoordinate();
     Color = new CPP_Color();
@@ -25,7 +23,7 @@ void CPP_RectangleShape::Render() {
             30,
             "This shape has no center set, please use the `Rectangle.shape_center` \
 API to set it.");
-        throw runtime_error("Shape has no center set");
+        throw std::runtime_error("Shape has no center set");
     }
 
     if (!Color->GetSet()) {
@@ -37,7 +35,7 @@ API to set it.");
             30,
             "This shape has no color set, please use the `Rectangle.shape_color` \
 API to set it.");
-        throw runtime_error("Shape has no color set");
+        throw std::runtime_error("Shape has no color set");
     }
 
     if (!SizeSet) {
@@ -48,7 +46,7 @@ API to set it.");
         Logger->InternalLogError(
             30,
             "This shape has no size set, please use `Rectangle.set_size` to set it.");
-        throw runtime_error("Shape has no size set");
+        throw std::runtime_error("Shape has no size set");
     }
 
     float ShapeCenterPosition[2];
@@ -91,23 +89,23 @@ API to set it.");
         if (VertexDataChanged) {
             unsigned int InternalWidth = Width;
             if (Width == 0) {
-                InternalWidth = max(HalfWidth, HalfHeight);
+                InternalWidth = std::max(HalfWidth, HalfHeight);
             }
 
             float RotationSin = sin(Rotation);
             float RotationCos = cos(Rotation);
 
             if (CornerRadius != 0) {
-                unsigned int radius = min(CornerRadius, min(HalfWidth, HalfHeight));
+                unsigned int radius = std::min(CornerRadius, std::min(HalfWidth, HalfHeight));
                 float minAngle = 1.0f / radius;
-                unsigned int segments = max(3u, static_cast<unsigned int>(
+                unsigned int segments = std::max(3u, static_cast<unsigned int>(
                     1 + (CPP_Constants::TAU / asin(minAngle)) * PMMA_Registry::CurrentShapeQuality / 4));
 
                 size_t vertexCount = (segments + 1) * 8 + 2;
                 Shape2D_RenderPipelineVertices.resize(vertexCount);
 
                 int outer_radius = radius;
-                int inner_radius = max((int)radius - static_cast<int>(InternalWidth), 0);
+                int inner_radius = std::max((int)radius - static_cast<int>(InternalWidth), 0);
 
                 glm::vec2 vectorized_outer_radius = glm::vec2(outer_radius, outer_radius);
                 glm::vec2 vectorized_inner_radius = glm::vec2(inner_radius, inner_radius);
@@ -188,7 +186,7 @@ API to set it.");
                 Shape2D_RenderPipelineVertices[vertexCount - 2] = Shape2D_RenderPipelineVertices[0];
                 Shape2D_RenderPipelineVertices[vertexCount - 1] = Shape2D_RenderPipelineVertices[1];
             } else {
-                if (Width == 0 || Width >= max(HalfWidth, HalfHeight)) {
+                if (Width == 0 || Width >= std::max(HalfWidth, HalfHeight)) {
                     float point[2], out[2];
                     Shape2D_RenderPipelineVertices.resize(4);
 

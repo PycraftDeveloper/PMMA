@@ -4,11 +4,9 @@
 #include <array>
 #include <cstdint>
 
-using namespace std;
-
 class EXPORT CPP_PerlinNoise {
     private:
-        alignas(64) array<uint32_t, 512> Permutations;
+        alignas(64) std::array<uint32_t, 512> Permutations;
 
         static const float F2;
         static const float F3;

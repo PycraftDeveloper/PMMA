@@ -2,8 +2,6 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 void CPP_AdvancedMathematics::ArrayRanger_AVX512(
             const float* values,
             const unsigned int length,

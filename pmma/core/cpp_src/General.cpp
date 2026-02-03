@@ -10,7 +10,7 @@
 
 #include "PMMA_Core.hpp"
 
-string CPP_General::Get_PMMA_Location() {
+std::string CPP_General::Get_PMMA_Location() {
     return PMMA_Registry::PMMA_Location;
 }
 
@@ -154,21 +154,21 @@ void CPP_General::SetF11KeyToToggleFullscreen(bool F11KeyShouldToggleFullScreen)
     PMMA_Registry::F11KeyShouldToggleFullScreen = F11KeyShouldToggleFullScreen;
 }
 
-string CPP_General::GetCurrent_PMMA_Version() {
+std::string CPP_General::GetCurrent_PMMA_Version() {
     return PMMA_Registry::Current_PMMA_Version;
 }
 
-string CPP_General::GetLatest_PMMA_Version() {
+std::string CPP_General::GetLatest_PMMA_Version() {
     return PMMA_Registry::Latest_PMMA_Version;
 }
 
-void CPP_General::SetLatest_PMMA_Version(string latest_version) {
+void CPP_General::SetLatest_PMMA_Version(std::string latest_version) {
     PMMA_Registry::Latest_PMMA_Version = latest_version;
 }
 
-string PadVersionString(string item) {
+std::string PadVersionString(std::string item) {
     unsigned int string_size = item.length();
-    string padded_string = "";
+    std::string padded_string = "";
     for (unsigned int i = 0; i < 4 - string_size; i++) {
         padded_string += "0";
     }
@@ -177,8 +177,8 @@ string PadVersionString(string item) {
 }
 
 bool CPP_General::IsUpdateAvailable() {
-    string padded_current_version;
-    string split_current_version[3];
+    std::string padded_current_version;
+    std::string split_current_version[3];
     unsigned int split_count = 0;
     for (unsigned int i = 0; i < PMMA_Registry::Current_PMMA_Version.length(); i++) {
         if (PMMA_Registry::Current_PMMA_Version[i] == '.') {
@@ -192,8 +192,8 @@ bool CPP_General::IsUpdateAvailable() {
         padded_current_version += PadVersionString(split_current_version[i]);
     }
 
-    string padded_latest_version;
-    string split_latest_version[3];
+    std::string padded_latest_version;
+    std::string split_latest_version[3];
     split_count = 0;
     for (unsigned int i = 0; i < PMMA_Registry::Latest_PMMA_Version.length(); i++) {
         if (PMMA_Registry::Latest_PMMA_Version[i] == '.') {
@@ -228,7 +228,7 @@ double CPP_General::GetApplicationStartTime() {
 }
 
 double CPP_General::GetApplicationRunTime() {
-    chrono::high_resolution_clock::time_point current_time = chrono::high_resolution_clock::now();
+    std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
     return (current_time - PMMA_Registry::StartupTime).count() / 1000000000.0;
 }
 
@@ -241,7 +241,7 @@ void CPP_General::SetShapeQuality(float ShapeQuality) {
         PMMA_Core::LoggingManagerInstance->InternalLogWarn(
             41,
             "You have set the shape quality to a very high value of: " +
-            to_string(ShapeQuality) +
+            std::to_string(ShapeQuality) +
             ". This is typically not necessary and may cause performance \
 issues. Please consider setting the shape quality to a lower value."
         );
@@ -259,15 +259,15 @@ void CPP_General::Let_PMMA_ControlShapeQuality() {
     PMMA_Registry::UserDefinedShapeQuality = false;
 }
 
-void CPP_General::SetLocale(string locale) {
+void CPP_General::SetLocale(std::string locale) {
     PMMA_Registry::Locale = locale;
 }
 
-string CPP_General::GetLocale() {
+std::string CPP_General::GetLocale() {
     return PMMA_Registry::Locale;
 }
 
-string CPP_General::GetOperatingSystem() {
+std::string CPP_General::GetOperatingSystem() {
     #if BX_PLATFORM_ANDROID
         return CPP_Constants::OperatingSystems::ANDROID;
     #elif BX_PLATFORM_BSD
@@ -303,7 +303,7 @@ string CPP_General::GetOperatingSystem() {
     #endif
 }
 
-string CPP_General::GetGraphicsBackend() {
+std::string CPP_General::GetGraphicsBackend() {
     bgfx::RendererType::Enum backend = bgfx::getRendererType();
 
     switch (backend) {

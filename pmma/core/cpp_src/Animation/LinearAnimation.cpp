@@ -43,8 +43,8 @@ void CPP_LinearAnimation::Start() {
 
     PMMA_Core::AnimationManagerInstance->AddAnimation(this);
 
-    StartTime = chrono::high_resolution_clock::now();
-    RunTime = chrono::seconds(0);
+    StartTime = std::chrono::high_resolution_clock::now();
+    RunTime = std::chrono::seconds(0);
 
     float start_position[2];
     StartCoordinatePtr->Get(start_position);

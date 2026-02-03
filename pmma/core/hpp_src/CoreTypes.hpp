@@ -150,7 +150,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return seed;
         }
@@ -163,7 +163,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return octaves;
         }
@@ -176,7 +176,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return frequency;
         }
@@ -189,7 +189,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return amplitude;
         }
@@ -219,7 +219,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             float OutputColor[4];
@@ -249,7 +249,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             float OutputColor[4];
@@ -279,7 +279,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             float OutputColor[4];
@@ -309,7 +309,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             float OutputColor[4];
@@ -339,7 +339,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             float OutputColor[4];
@@ -369,7 +369,7 @@ class EXPORT CPP_Color {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             float OutputColor[4];
@@ -572,7 +572,7 @@ class EXPORT CPP_DisplayCoordinate {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return seed;
         }
@@ -585,7 +585,7 @@ class EXPORT CPP_DisplayCoordinate {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return octaves;
         }
@@ -598,7 +598,7 @@ class EXPORT CPP_DisplayCoordinate {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return frequency;
         }
@@ -611,7 +611,7 @@ class EXPORT CPP_DisplayCoordinate {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return amplitude;
         }
@@ -723,7 +723,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return seed;
         }
@@ -736,7 +736,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return octaves;
         }
@@ -749,7 +749,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return frequency;
         }
@@ -762,7 +762,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return amplitude;
         }
@@ -786,7 +786,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalAngle = PerlinNoiseGenerator->Noise1D(value);
@@ -808,7 +808,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalAngle = PerlinNoiseGenerator->Noise2D(value_one, value_two);
@@ -830,7 +830,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalAngle = PerlinNoiseGenerator->Noise3D(value_one, value_two, value_three);
@@ -852,7 +852,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalAngle = FractalBrownianMotionGenerator->Noise1D(value);
@@ -874,7 +874,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalAngle = FractalBrownianMotionGenerator->Noise2D(value_one, value_two);
@@ -896,7 +896,7 @@ class EXPORT CPP_Angle {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalAngle = FractalBrownianMotionGenerator->Noise3D(value_one, value_two, value_three);
@@ -1037,7 +1037,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return seed;
         }
@@ -1050,7 +1050,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return octaves;
         }
@@ -1063,7 +1063,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return frequency;
         }
@@ -1076,7 +1076,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
             return amplitude;
         }
@@ -1100,7 +1100,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalProportion = PerlinNoiseGenerator->Noise1D(value);
@@ -1122,7 +1122,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalProportion = PerlinNoiseGenerator->Noise2D(value_one, value_two);
@@ -1144,7 +1144,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalProportion = PerlinNoiseGenerator->Noise3D(value_one, value_two, value_three);
@@ -1166,7 +1166,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalProportion = FractalBrownianMotionGenerator->Noise1D(value);
@@ -1188,7 +1188,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalProportion = FractalBrownianMotionGenerator->Noise2D(value_one, value_two);
@@ -1210,7 +1210,7 @@ class EXPORT CPP_Proportion {
                 Logger->InternalLogError(
                     13,
                     "You need to configure this component before calling this.");
-                throw runtime_error("You need to configure this component first!");
+                throw std::runtime_error("You need to configure this component first!");
             }
 
             InternalProportion = FractalBrownianMotionGenerator->Noise3D(value_one, value_two, value_three);

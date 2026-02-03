@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_PolygonShape::CPP_PolygonShape() {
     Color = new CPP_Color();
 
@@ -21,7 +19,7 @@ void CPP_PolygonShape::Render() {
             30,
             "This shape has no color set, please use the `Polygon.shape_color` \
 API to set it.");
-        throw runtime_error("Shape has no color set");
+        throw std::runtime_error("Shape has no color set");
     }
 
     if (!PointsSet) {
@@ -33,7 +31,7 @@ API to set it.");
             30,
             "This shape has no points set, please use `Polygon.set_points` to set it."
         );
-        throw runtime_error("Shape has no points set");
+        throw std::runtime_error("Shape has no points set");
     }
 
     VertexDataChanged = VertexDataChanged ||

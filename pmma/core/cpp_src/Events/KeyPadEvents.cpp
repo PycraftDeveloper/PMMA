@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_KeyPadEvent_0::CPP_KeyPadEvent_0() {
     PMMA_Core::KeyPadEvent_0_Instances.push_back(this);
 

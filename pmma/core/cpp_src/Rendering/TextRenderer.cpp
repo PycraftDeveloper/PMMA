@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_TextRenderer::CPP_TextRenderer() {
     if (PMMA_Core::DisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
@@ -9,7 +7,7 @@ CPP_TextRenderer::CPP_TextRenderer() {
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
 
     ID = PMMA_Registry::ClassObject_ID_System++;
@@ -48,7 +46,7 @@ void CPP_TextRenderer::Render() {
             54,
             "This text has no size set! \
 Please use `TextRenderer.set_size` to set it.");
-        throw runtime_error("Size not set!");
+        throw std::runtime_error("Size not set!");
     }
 
     if (!ForegroundColor->GetSet()) {
@@ -59,7 +57,7 @@ Please use `TextRenderer.set_size` to set it.");
             52,
             "This text has no color set, please use the \
 `TextRenderer.ForegroundColor` API to set it.");
-        throw runtime_error("Text has no color set");
+        throw std::runtime_error("Text has no color set");
     }
 
     if (!Position->GetSet()) {
@@ -70,7 +68,7 @@ Please use `TextRenderer.set_size` to set it.");
             53,
             "This text has no position set, please use the \
 `TextRenderer.Position` API to set it.");
-        throw runtime_error("Text has no position set");
+        throw std::runtime_error("Text has no position set");
     }
 
     PMMA_Core::RenderPipelineCore->Add_Text_Object(this);

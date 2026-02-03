@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_KeyEvent_Space::CPP_KeyEvent_Space() {
     PMMA_Core::KeyEvent_Space_Instances.push_back(this);
 

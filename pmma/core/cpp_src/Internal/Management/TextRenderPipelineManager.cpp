@@ -14,8 +14,6 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_TextRenderPipelineManager::CPP_TextRenderPipelineManager() {
     if (FT_Init_FreeType(&m_ft)) {
         throw std::runtime_error("Failed to init FreeType");
@@ -36,7 +34,7 @@ CPP_TextRenderPipelineManager::CPP_TextRenderPipelineManager() {
 
     u_colorInfo  = bgfx::createUniform("u_colorInfo", bgfx::UniformType::Vec4);
 
-    string TextRendererShaderPath = PMMA_Registry::PMMA_Location
+    std::string TextRendererShaderPath = PMMA_Registry::PMMA_Location
         + PMMA_Registry::PathSeparator + "shaders"
         + PMMA_Registry::PathSeparator + "text_renderer";
 
@@ -69,7 +67,7 @@ CPP_TextRenderPipelineManager::~CPP_TextRenderPipelineManager() {
     ShaderProgram = nullptr;
 }
 
-void CPP_TextRenderPipelineManager::DelayedSetup(string NewFontPath, unsigned int NewPixelHeight) {
+void CPP_TextRenderPipelineManager::DelayedSetup(std::string NewFontPath, unsigned int NewPixelHeight) {
     FontPath = NewFontPath;
     PixelHeight = NewPixelHeight;
 
@@ -328,7 +326,7 @@ inline bool is_code_with_prefix(const std::string& token,
 }
 
 void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject) {
-    string TextContent = NewObject->Text;
+    std::string TextContent = NewObject->Text;
 
     float StartPosition[2];
     NewObject->Position->Get(StartPosition);
@@ -446,7 +444,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
                     formatting.RandomizeText = !formatting.RandomizeText;
                 } else if (is_code_with_prefix(token, "fg")) {
                     // Extract color code
-                    string ColorCode = token.substr(3, 3);
+                    std::string ColorCode = token.substr(3, 3);
                     transform(ColorCode.begin(), ColorCode.end(), ColorCode.begin(), ::tolower); // change to lowercase
 
                     if (ColorCode == "rst") {
@@ -475,7 +473,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
                     }
                 } else if (is_code_with_prefix(token, "bg")) {
                     // Extract color code
-                    string ColorCode = token.substr(3, 3);
+                    std::string ColorCode = token.substr(3, 3);
                     transform(ColorCode.begin(), ColorCode.end(), ColorCode.begin(), ::tolower); // change to lowercase
 
                     if (ColorCode == "rst") {

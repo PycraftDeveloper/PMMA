@@ -26,7 +26,7 @@ void CPP_Passport::Register() {
         TemporaryPath = ProductPath + PMMA_Registry::PathSeparator + "temporary";
     }
 
-    filesystem::create_directories(TemporaryPath);
+    std::filesystem::create_directories(TemporaryPath);
 }
 
 void CPP_Passport::SetLoggingPath(std::string NewLoggingPath, bool ExplicitlySet) {

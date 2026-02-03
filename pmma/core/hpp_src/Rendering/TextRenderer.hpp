@@ -73,7 +73,7 @@ class EXPORT CPP_TextRenderer {
                 Logger->InternalLogError(
                     51,
                     "The specified font file does not exist: '" + NewFont + "'.");
-                throw runtime_error("Font file does not exist!");
+                throw std::runtime_error("Font file does not exist!");
             }
 
             if (NewFont != Font) {

@@ -19,8 +19,6 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 void CPP_Display::PMMA_Update(GLFWwindow* Window) {
     glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
 
@@ -315,7 +313,7 @@ void CPP_Display::Create(
 correctly. If the problem persists, please report this issue on our GitHub page."
         );
 
-        throw runtime_error("Failed to create GLFW window");
+        throw std::runtime_error("Failed to create GLFW window");
 
         PMMA_Registry::GLFW_References--;
         if (PMMA_Registry::GLFW_References <= 0) {
@@ -438,7 +436,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
 correctly. If the problem persists, please report this issue on our GitHub page."
         );
 
-        throw runtime_error("Failed to create GLFW window");
+        throw std::runtime_error("Failed to create GLFW window");
 
         PMMA_Registry::GLFW_References--;
         if (PMMA_Registry::GLFW_References <= 0) {
@@ -480,13 +478,13 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         throw std::runtime_error("Failed to initialize BGFX");
     }
 
-    string OperatingSystem = CPP_General::GetOperatingSystem();
+    std::string OperatingSystem = CPP_General::GetOperatingSystem();
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         46,
         "You are running on the Operating System: '" + OperatingSystem + "'."
     );
 
-    string Renderer = CPP_General::GetGraphicsBackend();
+    std::string Renderer = CPP_General::GetGraphicsBackend();
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         34,
         "PMMA is using the '" + Renderer + "' backend for graphics."
@@ -521,7 +519,7 @@ void CPP_Display::Clear() {
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
 
     uint8_t out_color[4];
@@ -558,24 +556,24 @@ void CPP_Display::LimitRefreshRate(unsigned int RefreshRate) {
     float average = 0.001f;
     unsigned int samples = 1;
 
-    std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
-    chrono::duration<float> FrameDuration = EndTime - StartTime;
+    std::chrono::high_resolution_clock::time_point EndTime = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> FrameDuration = EndTime - StartTime;
 
     float TargetFrameTime = 1.0f / static_cast<float>(RefreshRate);
     float SleepTime = TargetFrameTime - FrameDuration.count();
 
     while (SleepTime > average) {
-        std::chrono::high_resolution_clock::time_point s = chrono::high_resolution_clock::now();
+        std::chrono::high_resolution_clock::time_point s = std::chrono::high_resolution_clock::now();
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
-        std::chrono::high_resolution_clock::time_point e = chrono::high_resolution_clock::now();
-        estimate = chrono::duration<float>(e - s).count();
+        std::chrono::high_resolution_clock::time_point e = std::chrono::high_resolution_clock::now();
+        estimate = std::chrono::duration<float>(e - s).count();
         average = (average * samples + estimate) / (samples + 1);
         samples += 1;
         SleepTime -= average;
     }
 
-    std::chrono::high_resolution_clock::time_point s = chrono::high_resolution_clock::now();
-    while (chrono::duration<float>(chrono::high_resolution_clock::now() - s).count() < SleepTime) {
+    std::chrono::high_resolution_clock::time_point s = std::chrono::high_resolution_clock::now();
+    while (std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - s).count() < SleepTime) {
     }
 }
 
@@ -599,9 +597,9 @@ unsigned int CPP_Display::CalculateRefreshRate(unsigned int RefreshRate) {
     }
 
     if (Minimized) {
-        RefreshRate = max(RefreshRate, 5u);
+        RefreshRate = std::max(RefreshRate, 5u);
     } else {
-        RefreshRate = max(RefreshRate, RefreshRate / 2);
+        RefreshRate = std::max(RefreshRate, RefreshRate / 2);
     }
 
     if (RefreshRate > OriginalRefreshRate) {
@@ -619,7 +617,7 @@ void CPP_Display::Refresh(CPP_Display_Refresh_Kwargs kwargs) {
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
 
     PMMA_Core::RenderPipelineCore->Render();
@@ -654,14 +652,14 @@ You can do this using `Display.create`."
         LimitRefreshRate(MaxRefreshRate);
     }
 
-    std::chrono::high_resolution_clock::time_point EndTime = chrono::high_resolution_clock::now();
-    chrono::duration<float> FrameDuration = EndTime - StartTime;
-    RefreshTime = chrono::duration<float>(EndTime - StartTime).count();
+    std::chrono::high_resolution_clock::time_point EndTime = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<float> FrameDuration = EndTime - StartTime;
+    RefreshTime = std::chrono::duration<float>(EndTime - StartTime).count();
 
-    StartTime = chrono::high_resolution_clock::now();
+    StartTime = std::chrono::high_resolution_clock::now();
 }
 
-void CPP_Display::SetIcon(string IconPath) {
+void CPP_Display::SetIcon(std::string IconPath) {
     if (IconPath == "") {
         IconPath = DefaultIconPath;
     }
@@ -689,7 +687,7 @@ void CPP_Display::SetIcon(string IconPath) {
 ensure the file exists and is a valid image file."
         );
 
-        throw runtime_error("Failed to load icon: " + IconPath);
+        throw std::runtime_error("Failed to load icon: " + IconPath);
     }
 }
 

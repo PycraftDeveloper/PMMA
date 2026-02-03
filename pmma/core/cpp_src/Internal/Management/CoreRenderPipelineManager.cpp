@@ -3,10 +3,8 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_RenderPipelineCore::CPP_RenderPipelineCore() {
-    string Shape2D_RenderPipelineShaderPath = PMMA_Registry::PMMA_Location
+    std::string Shape2D_RenderPipelineShaderPath = PMMA_Registry::PMMA_Location
         + PMMA_Registry::PathSeparator + "shaders"
         + PMMA_Registry::PathSeparator + "shape_2D_render_pipeline";
 

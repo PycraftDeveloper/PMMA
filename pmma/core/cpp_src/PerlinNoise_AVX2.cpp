@@ -2,8 +2,6 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 __m256 Fade_AVX2(__m256 t) noexcept {
     __m256 t2 = _mm256_mul_ps(t, t);
     __m256 t3 = _mm256_mul_ps(t2, t);
@@ -96,7 +94,7 @@ __m256i GatherPerm_AVX2(const std::array<uint32_t, 512>& Permutations, __m256i i
     return _mm256_i32gather_epi32(reinterpret_cast<const int*>(Permutations.data()), masked, 4);
 }
 
-__m256 Noise1D_AVX2(const array<uint32_t, 512>& Permutations, const __m256 x_vec) noexcept {
+__m256 Noise1D_AVX2(const std::array<uint32_t, 512>& Permutations, const __m256 x_vec) noexcept {
     // floor(x)
     __m256 cx_f = _mm256_floor_ps(x_vec);
     __m256i cx = _mm256_cvttps_epi32(cx_f);
@@ -127,7 +125,7 @@ __m256 Noise1D_AVX2(const array<uint32_t, 512>& Permutations, const __m256 x_vec
     return res;
 }
 
-__m256 Noise2D_AVX2(const array<uint32_t, 512>& Permutations, const float F2, const __m256 x_vec, const __m256 y_vec) noexcept {
+__m256 Noise2D_AVX2(const std::array<uint32_t, 512>& Permutations, const float F2, const __m256 x_vec, const __m256 y_vec) noexcept {
     __m256 cx_f = _mm256_floor_ps(x_vec);
     __m256i cx = _mm256_cvttps_epi32(cx_f);
     __m256 fx = _mm256_sub_ps(x_vec, cx_f);
@@ -172,7 +170,7 @@ __m256 Noise2D_AVX2(const array<uint32_t, 512>& Permutations, const float F2, co
     return res;
 }
 
-__m256 Noise3D_AVX2(const array<uint32_t, 512>& Permutations, const float F3,
+__m256 Noise3D_AVX2(const std::array<uint32_t, 512>& Permutations, const float F3,
                     const __m256 x_vec, const __m256 y_vec, const __m256 z_vec) noexcept {
 
     // floor(x,y,z)

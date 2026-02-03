@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 size_t utf8_char_length(unsigned char c) {
     if ((c & 0x80) == 0x00) return 1;       // 0xxxxxxx
     else if ((c & 0xE0) == 0xC0) return 2;  // 110xxxxx
@@ -10,7 +8,7 @@ size_t utf8_char_length(unsigned char c) {
     return 1; // fallback - invalid UTF-8, treat as 1 byte
 };
 
-void remove_utf8_char(string& text, size_t n) {
+void remove_utf8_char(std::string& text, size_t n) {
     size_t i = 0;  // byte index in the string
     size_t char_index = 0;  // character count
 
@@ -31,8 +29,8 @@ void remove_utf8_char(string& text, size_t n) {
 };
 
 // Finds the start index of the last UTF-8 character
-size_t get_last_utf8_char_index(const string& text) {
-    if (text.empty()) return string::npos;
+size_t get_last_utf8_char_index(const std::string& text) {
+    if (text.empty()) return std::string::npos;
 
     size_t i = text.size() - 1;
 
@@ -44,9 +42,9 @@ size_t get_last_utf8_char_index(const string& text) {
 };
 
 // Removes the last UTF-8 character from the string
-void remove_last_utf8_char(string& text) {
+void remove_last_utf8_char(std::string& text) {
     size_t start = get_last_utf8_char_index(text);
-    if (start == string::npos) {
+    if (start == std::string::npos) {
         // String is empty, nothing to remove
         return;
     }

@@ -3,18 +3,18 @@
 bool CPP_AnimationManager::Update() {
     std::chrono::time_point<std::chrono::high_resolution_clock> CurrentTime = std::chrono::high_resolution_clock::now();
 
-    chrono::duration<float> FrameTime;
+    std::chrono::duration<float> FrameTime;
 
     if (FirstRun) {
         FirstRun = false;
-        FrameTime = chrono::seconds(0);
+        FrameTime = std::chrono::seconds(0);
     } else {
-        FrameTime = chrono::duration_cast<chrono::duration<float>>(CurrentTime - LastFrameTime);
+        FrameTime = std::chrono::duration_cast<std::chrono::duration<float>>(CurrentTime - LastFrameTime);
     }
 
     LastFrameTime = CurrentTime;
 
-    vector<CPP_AnimationCore*> FinishedAnimations;
+    std::vector<CPP_AnimationCore*> FinishedAnimations;
 
     for (unsigned int i = 0; i < CurrentlyPlayingAnimations.size(); i++) {
         if (CurrentlyPlayingAnimations[i]->Update(FrameTime)) {

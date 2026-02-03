@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_LineShape::CPP_LineShape() {
     ShapeStart = new CPP_DisplayCoordinate();
     ShapeEnd = new CPP_DisplayCoordinate();
@@ -22,7 +20,7 @@ void CPP_LineShape::Render() {
             30,
             "This shape has no color set, please use the `Line.shape_color` \
 API to set it.");
-        throw runtime_error("Shape has no color set");
+        throw std::runtime_error("Shape has no color set");
     }
 
     if (!ShapeStart->GetSet()) {
@@ -33,7 +31,7 @@ API to set it.");
             30,
             "This shape has no start position set, please use the `Line.shape_start` \
 API to set it.");
-        throw runtime_error("Shape start position not set");
+        throw std::runtime_error("Shape start position not set");
     }
 
     if (!ShapeEnd->GetSet()) {
@@ -44,7 +42,7 @@ API to set it.");
             30,
             "This shape has no end position set, please use the `Line.shape_end` \
 API to set it.");
-        throw runtime_error("Shape end position not set");
+        throw std::runtime_error("Shape end position not set");
     }
 
     VertexDataChanged = VertexDataChanged ||

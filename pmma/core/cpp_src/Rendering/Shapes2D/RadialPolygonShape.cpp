@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
     ShapeCenter = new CPP_DisplayCoordinate();
     Color = new CPP_Color();
@@ -17,12 +15,12 @@ unsigned int CPP_RadialPolygonShape::GetPointCount() {
         Logger->InternalLogError(
             30,
             "This shape has no radius set, please use `RadialPolygon.set_radius` to set it.");
-        throw runtime_error("Shape has no radius set");
+        throw std::runtime_error("Shape has no radius set");
     }
 
     if (PointCount == 0) {
         float minAngle = asin(1.0f / Radius);
-        return max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+        return std::max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
     }
     return PointCount;
 }
@@ -39,7 +37,7 @@ void CPP_RadialPolygonShape::Render() {
             30,
             "This shape has no center set, please use the `RadialPolygon.shape_center` \
 API to set it.");
-        throw runtime_error("Shape has no center set");
+        throw std::runtime_error("Shape has no center set");
     }
 
     if (!Color->GetSet()) {
@@ -50,7 +48,7 @@ API to set it.");
             30,
             "This shape has no color set, please use the `RadialPolygon.shape_color` \
 API to set it.");
-        throw runtime_error("Shape has no color set");
+        throw std::runtime_error("Shape has no color set");
     }
 
     if (!RadiusSet) {
@@ -60,7 +58,7 @@ API to set it.");
         Logger->InternalLogError(
             30,
             "This shape has no radius set, please use `RadialPolygon.set_radius` to set it.");
-        throw runtime_error("Shape has no radius set");
+        throw std::runtime_error("Shape has no radius set");
     }
 
     float ShapeCenterPosition[2];
@@ -103,7 +101,7 @@ API to set it.");
         if (VertexDataChanged) {
             unsigned int InternalPointCount = PointCount;
             float minAngle = asin(1.0f / Radius);
-            unsigned int MaxPoints = max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+            unsigned int MaxPoints = std::max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
             if (InternalPointCount > MaxPoints || InternalPointCount < 3) {
                 InternalPointCount = MaxPoints;
             }
@@ -111,7 +109,7 @@ API to set it.");
 
             unsigned int outer_radius = Radius;
 
-            unsigned int inner_radius = max(0, static_cast<int>(Radius) - static_cast<int>(Width) * 2);
+            unsigned int inner_radius = std::max(0, static_cast<int>(Radius) - static_cast<int>(Width) * 2);
             if (Width == 0) {
                 inner_radius = 0;
             }

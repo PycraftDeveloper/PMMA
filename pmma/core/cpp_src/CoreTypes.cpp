@@ -25,7 +25,7 @@ CPP_DisplayCoordinate::CPP_DisplayCoordinate() {
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
 
     RandomCoordGenerator = new CPP_FastRandom();
@@ -66,7 +66,7 @@ void CPP_DisplayCoordinate::SetCentered() {
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
 
     if (PMMA_Core::DisplayInstance->DisplaySizeChanged) {
@@ -90,7 +90,7 @@ void CPP_DisplayCoordinate::GenerateFromRandom() {
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
 
     if (PMMA_Core::DisplayInstance->DisplaySizeChanged) {
@@ -111,14 +111,14 @@ void CPP_DisplayCoordinate::GenerateFrom1DPerlinNoise(float value) {
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this."
         );
-        throw runtime_error("You need to configure this component first!");
+        throw std::runtime_error("You need to configure this component first!");
     }
 
     float new_coord[2];
@@ -141,14 +141,14 @@ void CPP_DisplayCoordinate::GenerateFrom2DPerlinNoise(float value_one, float val
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this."
         );
-        throw runtime_error("You need to configure this component first!");
+        throw std::runtime_error("You need to configure this component first!");
     }
 
     float new_coord[2];
@@ -171,14 +171,14 @@ void CPP_DisplayCoordinate::GenerateFrom3DPerlinNoise(float value_one, float val
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this."
         );
-        throw runtime_error("You need to configure this component first!");
+        throw std::runtime_error("You need to configure this component first!");
     }
 
     float new_coord[2];
@@ -201,14 +201,14 @@ void CPP_DisplayCoordinate::GenerateFrom1DFractalBrownianMotion(float value) {
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this."
         );
-        throw runtime_error("You need to configure this component first!");
+        throw std::runtime_error("You need to configure this component first!");
     }
 
     float new_coord[2];
@@ -231,14 +231,14 @@ void CPP_DisplayCoordinate::GenerateFrom2DFractalBrownianMotion(float value_one,
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this."
         );
-        throw runtime_error("You need to configure this component first!");
+        throw std::runtime_error("You need to configure this component first!");
     }
 
     float new_coord[2];
@@ -261,14 +261,14 @@ void CPP_DisplayCoordinate::GenerateFrom3DFractalBrownianMotion(float value_one,
             "You need to create a display before using this function. \
 You can do this using `Display.create`."
         );
-        throw runtime_error("Display not created yet!");
+        throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this."
         );
-        throw runtime_error("You need to configure this component first!");
+        throw std::runtime_error("You need to configure this component first!");
     }
 
     float new_coord[2];

@@ -2,13 +2,11 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 const float CPP_PerlinNoise::F2 = 1.0f / sqrt(2.0f);
 const float CPP_PerlinNoise::F3 = 1.0f / sqrt(3.0f);
 
 CPP_PerlinNoise::CPP_PerlinNoise(const uint32_t seed) {
-    array<uint32_t, 256> perm;
+    std::array<uint32_t, 256> perm;
     for (int i = 0; i < 256; ++i) {
         perm[i] = i;
     }
@@ -16,7 +14,7 @@ CPP_PerlinNoise::CPP_PerlinNoise(const uint32_t seed) {
     std::mt19937 rng(seed);
     for (int i = 255; i > 0; --i) {
         std::uniform_int_distribution<int> dist(0, i);
-        swap(perm[i], perm[dist(rng)]);
+        std::swap(perm[i], perm[dist(rng)]);
     }
 
     for (int i = 0; i < 256; ++i) {

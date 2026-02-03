@@ -471,7 +471,7 @@ before you can call this function.");
 
         unsigned int CalculateRefreshRate(unsigned int RefreshRate);
 
-        void SetIcon(string IconPath);
+        void SetIcon(std::string IconPath);
 
         void ToggleFullScreen();
 

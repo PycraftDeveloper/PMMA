@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_PixelShape::CPP_PixelShape() {
     ShapeCenter = new CPP_DisplayCoordinate();
     Color = new CPP_Color();
@@ -21,7 +19,7 @@ void CPP_PixelShape::Render() {
             30,
             "This shape has no center set, please use the `Pixel.shape_center` \
 API to set it.");
-        throw runtime_error("Shape has no center set");
+        throw std::runtime_error("Shape has no center set");
     }
 
     if (!Color->GetSet()) {
@@ -32,7 +30,7 @@ API to set it.");
             30,
             "This shape has no color set, please use the `Pixel.shape_color` \
 API to set it.");
-        throw runtime_error("Shape has no color set");
+        throw std::runtime_error("Shape has no color set");
     }
 
     float ShapeCenterPosition[2];

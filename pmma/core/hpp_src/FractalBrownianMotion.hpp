@@ -5,8 +5,6 @@
 
 #include "PerlinNoise.hpp"
 
-using namespace std;
-
 class EXPORT CPP_FractalBrownianMotion {
     private:
         uint32_t Seed;

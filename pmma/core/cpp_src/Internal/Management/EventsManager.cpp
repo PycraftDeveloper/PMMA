@@ -2,10 +2,8 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
-inline string encode_utf8(unsigned int codepoint) {
-    string out;
+inline std::string encode_utf8(unsigned int codepoint) {
+    std::string out;
     if (codepoint <= 0x7F) {
         out += static_cast<char>(codepoint);
     } else if (codepoint <= 0x7FF) {
@@ -40,7 +38,7 @@ void CPP_InternalTextEventManager::Update(GLFWwindow* Window) {
 }
 
 void CPP_InternalTextEventManager::TextCallback(GLFWwindow* window, unsigned int codepoint) {
-    string NewTextContent = encode_utf8(codepoint);
+    std::string NewTextContent = encode_utf8(codepoint);
     for (int i = 0; i < PMMA_Core::TextEventInstances.size(); i++) {
         PMMA_Core::TextEventInstances[i]->Update(NewTextContent);
     }
@@ -128,7 +126,7 @@ void CPP_InternalMouseButtonEventManager::MouseButtonCallback(GLFWwindow* window
             PMMA_Core::MouseButtonEvent_4_Instances[i]->Update(action!=GLFW_RELEASE);
         }
     } else {
-        cout << "Unknown mouse button: " << button << endl;
+        std::cout << "Unknown mouse button: " << button << std::endl;
     }
 }
 
@@ -169,7 +167,7 @@ CPP_InternalControllerEventManager::~CPP_InternalControllerEventManager() {
 }
 
 void CPP_InternalControllerEventManager::Update(GLFWwindow* Window) {
-    vector<CPP_InternalControllerEvent*> ConnectedControllers;
+    std::vector<CPP_InternalControllerEvent*> ConnectedControllers;
     for (int i = 0; i < PMMA_Core::InternalControllerEventInstances.size(); i++) {
         if (PMMA_Core::InternalControllerEventInstances[i]->GetConnected()) {
             ConnectedControllers.push_back(PMMA_Core::InternalControllerEventInstances[i]);
@@ -205,7 +203,7 @@ void CPP_InternalDropEventManager::Update(GLFWwindow* Window) {
 }
 
 void CPP_InternalDropEventManager::DropCallback(GLFWwindow* window, int count, const char** paths) {
-    vector<string> PathList;
+    std::vector<std::string> PathList;
     for (int i = 0; i < count; i++) {
         PathList.push_back(paths[i]);
     }
@@ -752,6 +750,6 @@ void CPP_InternalKeyEventManager::KeyCallback(GLFWwindow* window, int key, int s
             PMMA_Core::KeyEvent_Menu_Instances[i]->Update(action!=GLFW_RELEASE);
         }
     } else {
-        cout << "Unknown key: " << key << endl;
+        std::cout << "Unknown key: " << key << std::endl;
     }
 }

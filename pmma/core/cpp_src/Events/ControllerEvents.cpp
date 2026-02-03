@@ -1,7 +1,5 @@
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_ControllerEvent::CPP_ControllerEvent(unsigned int NewID) {
     PMMA_Core::ControllerEvent_Instances.push_back(this);
 

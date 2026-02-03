@@ -2,8 +2,6 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 CPP_MouseButtonEvent_Left::CPP_MouseButtonEvent_Left() {
     PMMA_Core::MouseButtonEvent_Left_Instances.push_back(this);
 

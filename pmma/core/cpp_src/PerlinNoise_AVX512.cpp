@@ -2,8 +2,6 @@
 
 #include "PMMA_Core.hpp"
 
-using namespace std;
-
 __m512 Fade_AVX512(__m512 t) noexcept {
     __m512 t2 = _mm512_mul_ps(t, t);
     __m512 t3 = _mm512_mul_ps(t2, t);
@@ -109,7 +107,7 @@ __m512 Grad3D_AVX512(__m512i hash,
     return _mm512_add_ps(u, v);
 }
 
-__m512i GatherPerm_AVX512(const array<uint32_t, 512>& Permutations, __m512i indices) noexcept {
+__m512i GatherPerm_AVX512(const std::array<uint32_t, 512>& Permutations, __m512i indices) noexcept {
     // Mask indices to [0..511]
     __m512i masked = _mm512_and_epi32(indices, _mm512_set1_epi32(511));
 
@@ -117,7 +115,7 @@ __m512i GatherPerm_AVX512(const array<uint32_t, 512>& Permutations, __m512i indi
     return _mm512_i32gather_epi32(masked, Permutations.data(), 4);
 }
 
-__m512 Noise1D_AVX512(const array<uint32_t, 512>& Permutations, const __m512 x_vec) noexcept {
+__m512 Noise1D_AVX512(const std::array<uint32_t, 512>& Permutations, const __m512 x_vec) noexcept {
     // floor(x)
     __m512 cx_f = _mm512_floor_ps(x_vec);
     __m512i cx = _mm512_cvttps_epi32(cx_f);
@@ -148,7 +146,7 @@ __m512 Noise1D_AVX512(const array<uint32_t, 512>& Permutations, const __m512 x_v
     return res;
 }
 
-__m512 Noise2D_AVX512(const array<uint32_t, 512>& Permutations, const float F2, const __m512 x_vec, const __m512 y_vec) noexcept {
+__m512 Noise2D_AVX512(const std::array<uint32_t, 512>& Permutations, const float F2, const __m512 x_vec, const __m512 y_vec) noexcept {
     // floor(x)
     __m512 cx_f = _mm512_floor_ps(x_vec);
     __m512i cx = _mm512_cvttps_epi32(cx_f);
@@ -194,7 +192,7 @@ __m512 Noise2D_AVX512(const array<uint32_t, 512>& Permutations, const float F2, 
     return res;
 }
 
-__m512 Noise3D_AVX512(const array<uint32_t, 512>& Permutations, const float F3, const __m512 x_vec, const __m512 y_vec, const __m512 z_vec) noexcept {
+__m512 Noise3D_AVX512(const std::array<uint32_t, 512>& Permutations, const float F3, const __m512 x_vec, const __m512 y_vec, const __m512 z_vec) noexcept {
     // floor(x)
     __m512 cx_f = _mm512_floor_ps(x_vec);
     __m512i cx = _mm512_cvttps_epi32(cx_f);
