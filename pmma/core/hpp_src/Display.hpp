@@ -22,6 +22,17 @@
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
+struct CPP_Display_Create_Kwargs {
+    std::string NewCaption="PMMA Display";
+    std::string NewIcon="";
+    std::optional<bool> OptionalFullScreen=std::nullopt;
+    bool NewResizable=false;
+    bool NewNoFrame=false;
+    bool NewVsync=true;
+    bool NewCentered=true;
+    bool NewMaximized=false;
+};
+
 class EXPORT CPP_Display {
     public:
         CPP_Color* WindowFillColor = nullptr;
@@ -66,16 +77,7 @@ class EXPORT CPP_Display {
 
         void PMMA_Update(GLFWwindow* Window);
 
-        void Create(
-            unsigned int* NewSize,
-            std::string NewCaption="PMMA Display",
-            std::string NewIcon="",
-            std::optional<bool> OptionalFullScreen=std::nullopt,
-            bool NewResizable=false,
-            bool NewNoFrame=false,
-            bool NewVsync=true,
-            bool NewCentered=true,
-            bool NewMaximized=false);
+        void Create(unsigned int* NewSize, CPP_Display_Create_Kwargs kwargs = {});
 
         inline bool GetIsWindowUsingVsync() {
             if (Window == nullptr) {

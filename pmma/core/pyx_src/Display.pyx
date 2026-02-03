@@ -17,19 +17,22 @@ np.import_array()
 
 # Declare the external C++ function
 cdef extern from "Display.hpp" nogil:
+    cdef cppclass CPP_Display_Create_Kwargs:
+        string NewCaption
+        string NewIcon
+        optional[bool] OptionalFullScreen
+        bool NewResizable
+        bool NewNoFrame
+        bool NewVsync
+        bool NewCentered
+        bool NewMaximized
+
     cdef cppclass CPP_Display:
         CPP_Color* WindowFillColor
 
         void Create(
             unsigned int* NewSize,
-            string NewCaption,
-            string NewIcon,
-            optional[bool] NewFullScreen,
-            bool NewResizable,
-            bool NewNoFrame,
-            bool NewVsync,
-            bool NewCentered,
-            bool NewMaximized) except + nogil
+            CPP_Display_Create_Kwargs opts) except + nogil
 
         inline void CenterWindow() except + nogil
 
@@ -112,7 +115,7 @@ cdef class Display:
             string encoded_caption = caption.encode('utf-8')
             string encoded_icon = icon.encode('utf-8')
             unsigned int* size_ptr
-            optional[bool] opt_fullscreen
+            CPP_Display_Create_Kwargs kwargs
 
         Utility.Registry.render_thread = threading.current_thread()
 
@@ -125,21 +128,21 @@ cdef class Display:
 
         size_ptr = <unsigned int*>&size_np[0]
 
+        kwargs.NewCaption = caption.encode('utf-8')
+        kwargs.NewIcon = icon.encode('utf-8')
         if fullscreen is None:
-            opt_fullscreen.reset()
+            kwargs.OptionalFullScreen.reset()
         else:
-            opt_fullscreen = <bool>fullscreen
+            kwargs.OptionalFullScreen = <bool>fullscreen
+        kwargs.NewResizable = resizable
+        kwargs.NewNoFrame = no_frame
+        kwargs.NewVsync = vsync
+        kwargs.NewCentered = centered
+        kwargs.NewMaximized = maximized
 
         self.cpp_class_ptr.Create(
             size_ptr,
-            encoded_caption,
-            encoded_icon,
-            opt_fullscreen,
-            resizable,
-            no_frame,
-            vsync,
-            centered,
-            maximized)
+            kwargs)
 
     def get_width(self):
         return self.cpp_class_ptr.GetWidth()

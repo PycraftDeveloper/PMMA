@@ -279,16 +279,9 @@ GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
 
 void CPP_Display::Create(
         unsigned int* NewSize,
-        std::string NewCaption,
-        std::string NewIcon,
-        std::optional<bool> OptionalFullScreen,
-        bool NewResizable,
-        bool NewNoFrame,
-        bool NewVsync,
-        bool NewCentered,
-        bool NewMaximized) {
+        CPP_Display_Create_Kwargs kwargs) {
 
-    if (!OptionalFullScreen.has_value()) {
+    if (!kwargs.OptionalFullScreen.has_value()) {
 
         if (NewSize[0] == 0 && NewSize[1] == 0)
         {
@@ -297,15 +290,15 @@ void CPP_Display::Create(
             FullScreen = false;
         }
     } else {
-        FullScreen = OptionalFullScreen.value();
+        FullScreen = kwargs.OptionalFullScreen.value();
     }
 
-    Caption = NewCaption;
-    Resizable = NewResizable;
-    NoFrame = NewNoFrame;
-    Vsync = NewVsync;
-    Centered = NewCentered;
-    Maximized = NewMaximized;
+    Caption = kwargs.NewCaption;
+    Resizable = kwargs.NewResizable;
+    NoFrame = kwargs.NewNoFrame;
+    Vsync = kwargs.NewVsync;
+    Centered = kwargs.NewCentered;
+    Maximized = kwargs.NewMaximized;
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -510,10 +503,10 @@ vsync to reduce visual tearing and improve frame pacing."
         );
     }
 
-    if (NewIcon == "") {
-        NewIcon = DefaultIconPath;
+    if (kwargs.NewIcon == "") {
+        kwargs.NewIcon = DefaultIconPath;
     }
-    SetIcon(NewIcon);
+    SetIcon(kwargs.NewIcon);
 
     PMMA_Core::RenderPipelineCore = new CPP_RenderPipelineCore();
 
