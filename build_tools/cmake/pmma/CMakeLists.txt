@@ -73,7 +73,7 @@ if (MSVC)
     set(COMMON_COMPILE_OPTIONS
         /fp:fast /GL /GF
         /GS- /std:c++20 /wd4551 /wd4251
-        /Oi /Ob2 /Zc:__cplusplus /Zc:preprocessor
+        /Oi /Ob2 /Zc:__cplusplus /Zc:preprocessor /MP
     )
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
     set(COMMON_COMPILE_OPTIONS

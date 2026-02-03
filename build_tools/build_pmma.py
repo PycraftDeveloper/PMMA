@@ -1,6 +1,6 @@
 # type: ignore
 
-import subprocess, sys, sysconfig, platform, argparse
+import subprocess, sys, sysconfig, platform, argparse, multiprocessing
 
 from pmma_utils import *
 from utils import *
@@ -29,7 +29,9 @@ def build_pmma(build_debug, build_for_python):
                     f"-DWORKING_DIR={cwd}", "-DCMAKE_BUILD_TYPE=Debug",
                     f"-DPython3_EXECUTABLE={python_executable_path}",
                     "-DUSE_PYTHON=ON",
-                    f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}"
+                    f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}",
+                    "-DCMAKE_UNITY_BUILD=ON",
+                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
                 ],
                 cmake_temp_dir,
                 config_log_file,
@@ -39,7 +41,9 @@ def build_pmma(build_debug, build_for_python):
                 [
                     "cmake", "-S", folder, "-B", f"build/pmma",
                     f"-DWORKING_DIR={cwd}", "-DCMAKE_BUILD_TYPE=Debug",
-                    f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}"
+                    f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}",
+                    "-DCMAKE_UNITY_BUILD=ON",
+                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
                 ],
                 cmake_temp_dir,
                 config_log_file,
@@ -55,7 +59,9 @@ def build_pmma(build_debug, build_for_python):
                     f"-DWORKING_DIR={cwd}", "-DCMAKE_BUILD_TYPE=Release",
                     f"-DPython3_EXECUTABLE={python_executable_path}",
                     "-DUSE_PYTHON=ON",
-                    f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}"
+                    f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}",
+                    "-DCMAKE_UNITY_BUILD=ON",
+                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
                 ],
                 cmake_temp_dir,
                 config_log_file,
@@ -65,7 +71,9 @@ def build_pmma(build_debug, build_for_python):
                 [
                     "cmake", "-S", folder, "-B", f"build/pmma",
                     f"-DWORKING_DIR={cwd}", "-DCMAKE_BUILD_TYPE=Release",
-                    f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}"
+                    f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}",
+                    "-DCMAKE_UNITY_BUILD=ON",
+                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
                 ],
                 cmake_temp_dir,
                 config_log_file,
