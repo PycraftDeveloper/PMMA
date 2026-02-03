@@ -33,6 +33,14 @@ struct CPP_Display_Create_Kwargs {
     bool NewMaximized=false;
 };
 
+struct CPP_Display_Refresh_Kwargs {
+    unsigned int MinRefreshRate=5;
+    std::optional<unsigned int> OptionalMaxRefreshRate = std::nullopt;
+    bool LowerRefreshRate_OnMinimize=true;
+    bool LowerRefreshRate_OnFocusLoss=true;
+    bool LowerRefreshRate_OnLowBattery=true;
+};
+
 class EXPORT CPP_Display {
     public:
         CPP_Color* WindowFillColor = nullptr;
@@ -384,12 +392,7 @@ before you can call this function.");
 
         void LimitRefreshRate(unsigned int RefreshRate);
 
-        void Refresh(
-            unsigned int MinRefreshRate=5,
-            std::optional<unsigned int> OptionalMaxRefreshRate = std::nullopt,
-            bool LowerRefreshRate_OnMinimize=true,
-            bool LowerRefreshRate_OnFocusLoss=true,
-            bool LowerRefreshRate_OnLowBattery=true);
+        void Refresh(CPP_Display_Refresh_Kwargs kwargs = {});
 
         inline void TriggerEventRefresh() {
             if (Window == nullptr) {
@@ -475,12 +478,6 @@ before you can call this function.");
         inline bool IsWindowCreated() {
             return Window != nullptr;
         }
-
-        // WIPs
-
-        void Get_2D_Surface(bool SetToBeUsed=true);
-
-        void Get_3D_Surface(bool SetToBeUsed=true);
 };
 
 #ifdef _MSC_VER

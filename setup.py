@@ -19,18 +19,18 @@ def add_source(name: str):
         ]
 
 if sys.platform.startswith("win"):
-    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++17", "/wd4551", "/wd4251"] # disable warning 4551 & 4251 which is an issue for Cython
+    compile_args = ["/O2", "/fp:fast", "/GL", "/GF", "/GS-", "/std:c++20", "/wd4551", "/wd4251"] # disable warning 4551 & 4251 which is an issue for Cython
     link_args = ["/LTCG"]
 
 elif sys.platform.startswith("linux"):
     compile_args = [
-        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++17"
+        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++20"
     ]
     link_args = []
 
 elif sys.platform == "darwin":
     compile_args = [
-        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++17"
+        "-O3", "-ffast-math", "-funroll-loops", "-fstrict-aliasing", "-fomit-frame-pointer", "-std=c++20"
     ]
     link_args = [
         "-framework", "Cocoa",

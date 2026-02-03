@@ -27,9 +27,9 @@ include(ExternalProject)
 set(CMAKE_CXX_FLAGS "")
 
 if (MSVC)
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus /std:c++17 /DBX_CONFIG_DEBUG=1")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /Zc:__cplusplus /std20 /DBX_CONFIG_DEBUG=1")
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++17 -DBX_CONFIG_DEBUG=1")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20 -DBX_CONFIG_DEBUG=1")
 endif()
 
 

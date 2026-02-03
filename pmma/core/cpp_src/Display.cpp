@@ -611,12 +611,7 @@ unsigned int CPP_Display::CalculateRefreshRate(unsigned int RefreshRate) {
     return RefreshRate;
 }
 
-void CPP_Display::Refresh(
-        unsigned int MinRefreshRate,
-        std::optional<unsigned int> OptionalMaxRefreshRate,
-        bool LowerRefreshRate_OnMinimize,
-        bool LowerRefreshRate_OnFocusLoss,
-        bool LowerRefreshRate_OnLowBattery) {
+void CPP_Display::Refresh(CPP_Display_Refresh_Kwargs kwargs) {
 
     if (Window == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
@@ -634,23 +629,23 @@ You can do this using `Display.create`."
 
     unsigned int MaxRefreshRate;
 
-    if (!OptionalMaxRefreshRate.has_value()) {
+    if (!kwargs.OptionalMaxRefreshRate.has_value()) {
         if (GetIsWindowUsingVsync()) {
             MaxRefreshRate = 0;
         } else {
             MaxRefreshRate = 60;
         }
     } else {
-        MaxRefreshRate = OptionalMaxRefreshRate.value();
+        MaxRefreshRate = kwargs.OptionalMaxRefreshRate.value();
     }
 
     MaxRefreshRate = CPP_Display::CalculateRefreshRate(
         MaxRefreshRate);
 
-    if (MinRefreshRate == 0) {
+    if (kwargs.MinRefreshRate == 0) {
         glfwWaitEvents();
     } else {
-        glfwWaitEventsTimeout(1.0f / MinRefreshRate);
+        glfwWaitEventsTimeout(1.0f / kwargs.MinRefreshRate);
     }
 
     PMMA_Update(Window);

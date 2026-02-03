@@ -72,14 +72,14 @@ set(CORE_SOURCES
 if (MSVC)
     set(COMMON_COMPILE_OPTIONS
         /fp:fast /GL /GF
-        /GS- /std:c++17 /wd4551 /wd4251
+        /GS- /std:c++20 /wd4551 /wd4251
         /Oi /Ob2 /Zc:__cplusplus /Zc:preprocessor
     )
 elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
     set(COMMON_COMPILE_OPTIONS
         -O3 -ffast-math -funroll-loops
         -fstrict-aliasing -fomit-frame-pointer
-        -std=c++17 -mtune=generic
+        -std=c++20 -mtune=generic
         -finline-functions -flto -ftree-vectorize
     )
 endif()

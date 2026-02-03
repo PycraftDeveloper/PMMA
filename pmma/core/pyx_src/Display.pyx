@@ -27,12 +27,19 @@ cdef extern from "Display.hpp" nogil:
         bool NewCentered
         bool NewMaximized
 
+    cdef cppclass CPP_Display_Refresh_Kwargs:
+        unsigned int MinRefreshRate
+        optional[unsigned int] OptionalMaxRefreshRate
+        bool LowerRefreshRate_OnMinimize
+        bool LowerRefreshRate_OnFocusLoss
+        bool LowerRefreshRate_OnLowBattery
+
     cdef cppclass CPP_Display:
         CPP_Color* WindowFillColor
 
         void Create(
             unsigned int* NewSize,
-            CPP_Display_Create_Kwargs opts) except + nogil
+            CPP_Display_Create_Kwargs kwargs) except + nogil
 
         inline void CenterWindow() except + nogil
 
@@ -66,12 +73,7 @@ cdef extern from "Display.hpp" nogil:
         inline bool GetIsWindowUsingVsync() except + nogil
         inline unsigned int GetCurrentMonitorRefreshRate() except + nogil
 
-        void Refresh(
-            unsigned int MinRefreshRate,
-            optional[unsigned int] MaxRefreshRate,
-            bool LowerRefreshRate_OnMinimize,
-            bool LowerRefreshRate_OnFocusLoss,
-            bool LowerRefreshRate_OnLowBattery) except + nogil
+        void Refresh(CPP_Display_Refresh_Kwargs kwargs) except + nogil
 
         inline void TriggerEventRefresh() except + nogil
 
@@ -264,18 +266,18 @@ cdef class Display:
             lower_refresh_rate_on_focus_loss=True,
             lower_refresh_rate_on_low_battery=True):
 
-        cdef optional[unsigned int] opt_max_refresh_rate
+        cdef CPP_Display_Refresh_Kwargs kwargs
 
+        kwargs.MinRefreshRate = min_refresh_rate
         if max_refresh_rate is None:
-            opt_max_refresh_rate.reset()
+            kwargs.OptionalMaxRefreshRate.reset()
         else:
-            opt_max_refresh_rate = <unsigned int>max_refresh_rate
+            kwargs.OptionalMaxRefreshRate = <unsigned int>max_refresh_rate
+        kwargs.LowerRefreshRate_OnMinimize = lower_refresh_rate_on_minimize
+        kwargs.LowerRefreshRate_OnFocusLoss = lower_refresh_rate_on_focus_loss
+        kwargs.LowerRefreshRate_OnLowBattery = lower_refresh_rate_on_low_battery
 
-        self.cpp_class_ptr.Refresh(
-            min_refresh_rate, opt_max_refresh_rate,
-            lower_refresh_rate_on_minimize,
-            lower_refresh_rate_on_focus_loss,
-            lower_refresh_rate_on_low_battery)
+        self.cpp_class_ptr.Refresh(kwargs)
 
     def trigger_event_refresh(self):
         self.cpp_class_ptr.TriggerEventRefresh()
