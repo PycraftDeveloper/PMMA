@@ -48,7 +48,7 @@ master_doc = "index"
 
 # General information about the project.
 project = "PMMA"
-copyright = "2025, Thomas Jebson"
+copyright = "2024 - 2026, Thomas Jebson"
 author = "Thomas Jebson"
 
 # The version info for the project you're documenting, acts as replacement for
