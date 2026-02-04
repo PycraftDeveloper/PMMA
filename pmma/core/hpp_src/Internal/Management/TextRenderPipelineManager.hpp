@@ -84,8 +84,8 @@ class CPP_TextRenderPipelineManager {
         ska::flat_hash_map<uint64_t, float> BackgroundColorSlotID; // objectColorSlot
         ska::flat_hash_set<uint64_t> ForegroundColorsSeenThisFrame;
         ska::flat_hash_set<uint64_t> BackgroundColorsSeenThisFrame;
-        std::vector<size_t> ForegroundColorFreeSlots;
-        std::vector<size_t> BackgroundColorFreeSlots;
+        std::vector<float> ForegroundColorFreeSlots;
+        std::vector<float> BackgroundColorFreeSlots;
         std::vector<CharacterData> CharacterRenderData;
 
         CPP_FastRandom* RandomCharacterGenerator = nullptr;
@@ -168,7 +168,7 @@ class CPP_TextRenderPipelineManager {
             auto found = ForegroundColorSlotID.find(ShapeID);
             if (found != ForegroundColorSlotID.end()) {
                 // already have a slot for this shape: overwrite it
-                unsigned int slotIndex = found->second;
+                float slotIndex = found->second;
                 size_t offset = static_cast<size_t>(slotIndex) * 4;
                 if (ForegroundColors.size() < offset + 4) {
                     ForegroundColors.resize(offset + 4);
@@ -180,12 +180,12 @@ class CPP_TextRenderPipelineManager {
                 ForegroundColors[offset + 3] = ForegroundColor[3];
 
                 LiveForegroundColorCount += 4;
-                return static_cast<float>(slotIndex);
+                return slotIndex;
             }
 
             // not seen before: reuse a free slot if available
             if (!ForegroundColorFreeSlots.empty()) {
-                unsigned int newSlot = ForegroundColorFreeSlots.back();
+                float newSlot = ForegroundColorFreeSlots.back();
                 ForegroundColorFreeSlots.pop_back();
 
                 size_t offset = static_cast<size_t>(newSlot) * 4;
@@ -202,7 +202,7 @@ class CPP_TextRenderPipelineManager {
                 ForegroundColorSlotID[ShapeID] = newSlot;
 
                 LiveForegroundColorCount += 4;
-                return static_cast<float>(newSlot);
+                return newSlot;
             }
 
             // no free slots: append at the end
@@ -216,11 +216,11 @@ class CPP_TextRenderPipelineManager {
             ForegroundColors[LiveForegroundColorCount + 2] = ForegroundColor[2];
             ForegroundColors[LiveForegroundColorCount + 3] = ForegroundColor[3];
 
-            unsigned int slotIndex = static_cast<unsigned int>(LiveForegroundColorCount / 4);
+            float slotIndex = static_cast<float>(LiveForegroundColorCount / 4);
             ForegroundColorSlotID[ShapeID] = slotIndex;
 
             LiveForegroundColorCount += 4;
-            return static_cast<float>(slotIndex);
+            return slotIndex;
         }
 
         inline float GetBackgroundColorIndex(uint8_t* BackgroundColor, uint64_t ShapeID) {
@@ -253,7 +253,7 @@ class CPP_TextRenderPipelineManager {
             auto found = BackgroundColorSlotID.find(ShapeID);
             if (found != BackgroundColorSlotID.end()) {
                 // already have a slot for this shape: overwrite it
-                unsigned int slotIndex = found->second;
+                float slotIndex = found->second;
                 size_t offset = static_cast<size_t>(slotIndex) * 4;
                 if (BackgroundColors.size() < offset + 4) {
                     BackgroundColors.resize(offset + 4);
@@ -265,12 +265,12 @@ class CPP_TextRenderPipelineManager {
                 BackgroundColors[offset + 3] = BackgroundColor[3];
 
                 LiveBackgroundColorCount += 4;
-                return static_cast<float>(slotIndex);
+                return slotIndex;
             }
 
             // not seen before: reuse a free slot if available
             if (!BackgroundColorFreeSlots.empty()) {
-                unsigned int newSlot = BackgroundColorFreeSlots.back();
+                float newSlot = BackgroundColorFreeSlots.back();
                 BackgroundColorFreeSlots.pop_back();
 
                 size_t offset = static_cast<size_t>(newSlot) * 4;
@@ -287,7 +287,7 @@ class CPP_TextRenderPipelineManager {
                 BackgroundColorSlotID[ShapeID] = newSlot;
 
                 LiveBackgroundColorCount += 4;
-                return static_cast<float>(newSlot);
+                return newSlot;
             }
 
             // no free slots: append at the end
@@ -301,10 +301,10 @@ class CPP_TextRenderPipelineManager {
             BackgroundColors[LiveBackgroundColorCount + 2] = BackgroundColor[2];
             BackgroundColors[LiveBackgroundColorCount + 3] = BackgroundColor[3];
 
-            unsigned int slotIndex = static_cast<unsigned int>(LiveBackgroundColorCount / 4);
+            float slotIndex = static_cast<float>(LiveBackgroundColorCount / 4);
             BackgroundColorSlotID[ShapeID] = slotIndex;
 
             LiveBackgroundColorCount += 4;
-            return static_cast<float>(slotIndex);
+            return slotIndex;
         }
 };
