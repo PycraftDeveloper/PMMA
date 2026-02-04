@@ -28,7 +28,6 @@ Methods
     :param str icon: This is used to set the window icon. You should enter a valid file path here. If left as the default empty string, the default PMMA display icon is used.
     :param bool centered: This is used to set the window to be centered in the currently active window when created. The currently active window is typically the one the mouse cursor is in when the window is created. This defaults to :code:`True` ensuring the window is centered on screen. This does not prevent the window from being moved later on.
     :param bool maximized: This is used to determine if the window should be considered as being in a maximized state. The default value here is :code:`True`.
-    :param bool transparent: This is used to determine if the window should be clear when created. This allows you to break away from the classic box shaped window arrangement and is especially effective when used in conjunction with 'no-frame'. Please note however that this does not guarantee the window is going to be transparent - that depends on the operating system and graphics drivers so it cannot be considered as reliable at this stage. We are working to address this.
 
     .. note:: This method must be called before any rendering can occur.
     .. note:: Certain display settings can only be set at the time of window creation. If you need to change these settings, you will need to recreate the window. We are working on making this process easier.
@@ -38,41 +37,68 @@ Methods
 
     This method is used to position the window centrally in the monitor the window was first created on.
 
+    .. note:: We are working on a way to have this center the window to whichever monitor it is currently on.
+
 .. py:method:: Display.clear() -> None
 
-    🟩 **R** -
+    This method is used to clear all rendered graphics from the previous frame, and also used to apply the specified background color defined in :code:`Display.window_fill_color`.
 
 .. py:method:: Display.set_window_in_focus() -> None
 
-    🟩 **R** -
+    This method is used to force the created window to be put into focus.
 
-.. py:method:: Display.set_window_minimized() -> None
+.. py:method:: Display.set_window_minimized(value: bool) -> None
 
-    🟩 **R** -
+    This method is used to minimize the created window (to the taskbar or equivalent on your operating system).
 
-.. py:method:: Display.set_window_maximized() -> None
+    :param bool value: When :code:`True` the display will be minimized. When :code:`False` the display will be returned to its original state (not maximized).
 
-    🟩 **R** -
+.. py:method:: Display.set_window_maximized(value: bool) -> None
 
-.. py:method:: Display.set_icon() -> None
+    This method is used to maximize the created window to fill the current monitor, showing the title bar.
 
-    🟩 **R** -
+    :param bool value: When :code:`True` the display will be maximized. When :code:`False` the display will be returned to its original state (not minimized).
 
-.. py:method:: Display.set_caption() -> None
+.. py:method:: Display.set_icon(icon_path: str) -> None
 
-    🟩 **R** -
+    This method is used to pass an image file path to the display to be used as an icon, which replaces the default icon.
 
-.. py:method:: Display.set_relative_window_position() -> None
+    :param str caption: This is used to set the window icon. You should enter a valid file path here. If left as the default empty string, the default PMMA display icon is used.
 
-    🟩 **R** -
+.. py:method:: Display.set_caption(caption: str) -> None
 
-.. py:method:: Display.set_absolute_window_position() -> None
+    This method is used to pass a string to use as the display caption.
 
-    🟩 **R** -
+    :param str caption: The window title name.
+
+.. py:method:: Display.set_relative_window_position(position: Union[npt.NDArray[np.int32], npt.NDArray[np.int8], npt.NDArray[np.int16], npt.NDArray[np.int64], Iterable[int]]) -> None
+
+    This method is used to set the window to be positioned on-screen relative to the origin of the current monitor (the top left corner).
+
+    :param Union[npt.NDArray[np.int32], npt.NDArray[np.int8], npt.NDArray[np.int16], npt.NDArray[np.int64], Iterable[int]] position: The number of pixels to move the window to. This takes two values (x, y).
+
+.. py:method:: Display.set_absolute_window_position(position: Union[npt.NDArray[np.int32], npt.NDArray[np.int8], npt.NDArray[np.int16], npt.NDArray[np.int64], Iterable[int]]) -> None
+
+    This method is used to set the window to be positioned on-screen relative to the windowing system's origin (typically the top left corner of the left-most monitor as arranged on your desktop).
+
+    :param Union[npt.NDArray[np.int32], npt.NDArray[np.int8], npt.NDArray[np.int16], npt.NDArray[np.int64], Iterable[int]] position: The number of pixels to move the window to. This takes two values (x, y).
+
+    .. note:: Please be aware that some monitor layouts will have 'gaps' between each monitor due to their arrangement or resolution. Care should be taken to not place the window in this area as it will not be seen.
 
 .. py:method:: Display.refresh() -> None
 
-    🟩 **R** -
+    This method is used to update the window to show all the content rendered since :code:`Display.clear`. Additionally, it is used to limit the refresh rate of the window to avoid excessive resource usage.
+
+    When the window is created with :code:`vsync=True` the refresh rate of the window will be forced to the monitor refresh rate. Otherwise, the refresh rate will be dynamically adjusted to save resources. This behaviour is customizable using the parameters below.
+
+    :param int min_refresh_rate: The minimum refresh rate to dynamically adjust down to. If this value is 0, then the display will be updated only when nessasary (most efficient), this will **not** break window functionality.
+    :param Union[int, None] max_refresh_rate: The maximum refresh rate to dynamically adjust up to. There is no guarantee this value will be achieved - but the window should not refresh at a faster rate for extended period of times. If set to :code:`None` the window will not have a capped refresh rate (generally not advised).
+    :param bool limit_refresh_rate: This is used to completely disable any dynamic refresh rate behaviour and force the window to refresh as fast as possible. **This is not recommended for most use-cases, but could be useful for performance testing.**
+    :param bool lower_refresh_rate_on_minimize: This is used to customize the dynamic refresh rate behaviour. If :code:`True` then when the window is minimized the refresh rate of the window will drop. If :code:`False` the refresh rate of the window will not change when the window is minimized.
+    :param bool lower_refresh_rate_on_focus_loss: This is used to customize the dynamic refresh rate behaviour. If :code:`True` then when the window is not in focus the refresh rate of the window will drop. If :code:`False` the refresh rate of the window will not change when the window is not in focus.
+    :param bool lower_refresh_rate_on_low_battery: This is used to customize the dynamic refresh rate behaviour. If :code:`True` then when the device is in a 'low power state' the refresh rate of the window will drop. If :code:`False` the refresh rate of the window will not change when the device is in a 'low power state'.
+
+    .. note:: If you set :code:`min_refresh_rate` to 0, the display will be refreshed when the user interacts with it or when the rendered content on-screen changes. This created a highly-efficient behaviour seen in most desktop applications and is generally recommended.
 
 .. py:method:: Display.trigger_event_refresh() -> None
 

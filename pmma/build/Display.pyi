@@ -65,7 +65,7 @@ class Display:
 
     @Utility.require_render_thread
     def refresh(self, min_refresh_rate: int=5,
-        max_refresh_rate: NoneInt=60,
+        max_refresh_rate: NoneInt=None,
         limit_refresh_rate: bool=True,
         lower_refresh_rate_on_minimize: bool=True,
         lower_refresh_rate_on_focus_loss: bool=True,
