@@ -102,11 +102,13 @@ Methods
 
 .. py:method:: Display.trigger_event_refresh() -> None
 
-    🟩 **R** -
+    This method is used to force the window to refresh. This works even when :code:`min_refresh_rate` is 0.
 
 .. py:method:: Display.get_caption() -> str
 
-    🟩 **R** -
+    This method is used to get the window caption.
+
+    :returns str: The window caption as a string.
 
 .. py:method:: Display.get_center() -> Union[npt.NDArray[np.int32], npt.NDArray[np.int8],npt.NDArray[np.int16],npt.NDArray[np.int64],Iterable[int]]
 
