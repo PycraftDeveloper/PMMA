@@ -39,13 +39,21 @@ Methods
 
     .. note:: We are working on a way to have this center the window to whichever monitor it is currently on.
 
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
+
 .. py:method:: Display.clear() -> None
 
     This method is used to clear all rendered graphics from the previous frame, and also used to apply the specified background color defined in :code:`Display.window_fill_color`.
 
+    .. note:: This method must be called from the same thread that the window was created in.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
+
 .. py:method:: Display.set_window_in_focus() -> None
 
     This method is used to force the created window to be put into focus.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.set_window_minimized(value: bool) -> None
 
@@ -53,11 +61,15 @@ Methods
 
     :param bool value: When :code:`True` the display will be minimized. When :code:`False` the display will be returned to its original state (not maximized).
 
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
+
 .. py:method:: Display.set_window_maximized(value: bool) -> None
 
     This method is used to maximize the created window to fill the current monitor, showing the title bar.
 
     :param bool value: When :code:`True` the display will be maximized. When :code:`False` the display will be returned to its original state (not minimized).
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.set_icon(icon_path: str) -> None
 
@@ -65,17 +77,23 @@ Methods
 
     :param str caption: This is used to set the window icon. You should enter a valid file path here. If left as the default empty string, the default PMMA display icon is used.
 
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
+
 .. py:method:: Display.set_caption(caption: str) -> None
 
     This method is used to pass a string to use as the display caption.
 
     :param str caption: The window title name.
 
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
+
 .. py:method:: Display.set_relative_window_position(position: Union[npt.NDArray[np.int32], npt.NDArray[np.int8], npt.NDArray[np.int16], npt.NDArray[np.int64], Iterable[int]]) -> None
 
     This method is used to set the window to be positioned on-screen relative to the origin of the current monitor (the top left corner).
 
     :param Union[npt.NDArray[np.int32], npt.NDArray[np.int8], npt.NDArray[np.int16], npt.NDArray[np.int64], Iterable[int]] position: The number of pixels to move the window to. This takes two values (x, y).
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.set_absolute_window_position(position: Union[npt.NDArray[np.int32], npt.NDArray[np.int8], npt.NDArray[np.int16], npt.NDArray[np.int64], Iterable[int]]) -> None
 
@@ -84,6 +102,8 @@ Methods
     :param Union[npt.NDArray[np.int32], npt.NDArray[np.int8], npt.NDArray[np.int16], npt.NDArray[np.int64], Iterable[int]] position: The number of pixels to move the window to. This takes two values (x, y).
 
     .. note:: Please be aware that some monitor layouts will have 'gaps' between each monitor due to their arrangement or resolution. Care should be taken to not place the window in this area as it will not be seen.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.refresh() -> None
 
@@ -99,10 +119,15 @@ Methods
     :param bool lower_refresh_rate_on_low_battery: This is used to customize the dynamic refresh rate behaviour. If :code:`True` then when the device is in a 'low power state' the refresh rate of the window will drop. If :code:`False` the refresh rate of the window will not change when the device is in a 'low power state'.
 
     .. note:: If you set :code:`min_refresh_rate` to 0, the display will be refreshed when the user interacts with it or when the rendered content on-screen changes. This created a highly-efficient behaviour seen in most desktop applications and is generally recommended.
+    .. note:: This method must be called from the same thread that the window was created in.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.trigger_event_refresh() -> None
 
     This method is used to force the window to refresh. This works even when :code:`min_refresh_rate` is 0.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_caption() -> str
 
@@ -112,71 +137,145 @@ Methods
 
 .. py:method:: Display.get_center() -> Union[npt.NDArray[np.int32], npt.NDArray[np.int8],npt.NDArray[np.int16],npt.NDArray[np.int64],Iterable[int]]
 
-    🟩 **R** -
+    This method is used to get the center point of the window.
+
+    :returns Union[npt.NDArray[np.int32], npt.NDArray[np.int8],npt.NDArray[np.int16],npt.NDArray[np.int64],Iterable[int]]: The center point as a coordinate (x, y).
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_aspect_ratio() -> float
 
-    🟩 **R** -
+    This method is used to get the aspect ratio of the window.
+
+    :returns float: The window aspect ratio. For example: 2.667 would be returned for a window with aspect ration 16:9.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_frame_rate() -> int
 
-    🟩 **R** -
+    This method is used to get the current frame rate of the window.
+
+    :returns int: The refresh rate of the window.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_frame_time() -> float
 
-    🟩 **R** -
+    This method is used to get the current frame time of the window.
+
+    :returns float: The time in seconds between the current and previous frame.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_width() -> int
 
-    🟩 **R** -
+    This method gets the current window width in pixels.
+
+    :returns int: The window width in pixels.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_height() -> int
 
-    🟩 **R** -
+    This method gets the current window height in pixels.
+
+    :returns int: The window height in pixels.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_size() -> Union[npt.NDArray[np.int32], npt.NDArray[np.int8],npt.NDArray[np.int16],npt.NDArray[np.int64],Iterable[int]]
 
-    🟩 **R** -
+    This method gets the current size of the window in pixels (width, height)
+
+    :returns Union[npt.NDArray[np.int32], npt.NDArray[np.int8],npt.NDArray[np.int16],npt.NDArray[np.int64],Iterable[int]]: The size of the window in pixels.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_msaa_samples() -> int
 
-    🟩 **R** -
+    This method is used to get the number of Multi-Sample Anti-Aliasing samples.
+
+    :returns int: The number of samples.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.get_current_monitor_refresh_rate() -> int
 
-    🟩 **R** -
+    This method gets the refresh rate of the current monitor video mode.
+
+    :returns int: The current monitor video mode refresh rate.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.toggle_full_screen() -> None
 
-    🟩 **R** -
+    This method is used to switch the window between full screen and windowed modes.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.is_window_in_focus() -> bool
 
-    🟩 **R** -
+    This method is used to get if the window is currently in focus.
+
+    :returns bool: Returns :code:`True` when in focus. Returns :code:`False` when not in focus.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.is_window_minimized() -> bool
 
-    🟩 **R** -
+    This method is used to get if the window is currently minimized.
+
+    :returns bool: Returns :code:`True` when the window is minimized. Returns :code:`False` when the window is not minimized.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.is_window_maximized() -> bool
 
-    🟩 **R** -
+    This method is used to get if the window is currently maximized.
+
+    :returns bool: Returns :code:`True` when the window is maximized. Returns :code:`False` when the window is not maximized.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.is_window_resizable() -> bool
 
-    🟩 **R** -
+    This method is used to get if the window is resizable.
+
+    :returns bool: Returns :code:`True` when the window is able to be resized by the end user. Returns :code:`False` when the window is not resizable by the end user.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.is_window_visible() -> bool
 
-    🟩 **R** -
+    This method is used to get if the window is currently visible on-screen.
+
+    :returns bool: Returns :code:`True` when the window is visible. Returns :code:`False` when the window is not visible.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.is_window_always_on_top() -> bool
 
-    🟩 **R** -
+    This method is used to get if the window is set to be always on top.
+
+    :returns bool: Returns :code:`True` when the window is always on top. Returns :code:`False` when the window is not always on top.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 .. py:method:: Display.is_window_using_vsync() -> bool
 
-    🟩 **R** -
+    This method is used to get if the window is set to use vsync. Note that this does not check if vsync is supported in your setup, as this varies based on third party factors that we cannot check.
+
+    :returns bool: Returns :code:`True` when vsync is used. Returns :code:`False` when the window is not using vsync.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
+
+.. py:method:: Display.is_window_auto_minimized() -> bool
+
+    This method is used get if the window is set to automatically minimize when it is no longer in focus. This is typically seen in game applications.
+
+    :returns bool: Returns :code:`True` when the window is configured to automatically minimize when focus is lost. Returns :code:`False` when the window is not configured to automatically minimize when focus is lost.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
 Attributes
 ----------

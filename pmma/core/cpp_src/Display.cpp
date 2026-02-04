@@ -690,6 +690,14 @@ You can do this using `Display.create`."
 }
 
 void CPP_Display::SetIcon(std::string IconPath) {
+    if (Window == nullptr) {
+        Logger->InternalLogError(
+            18,
+            "You need to create a display using `Display.create` \
+before you can call this function.");
+        throw std::runtime_error("Display not created yet!");
+    }
+
     if (IconPath == "") {
         IconPath = DefaultIconPath;
     }
@@ -722,6 +730,14 @@ ensure the file exists and is a valid image file."
 }
 
 void CPP_Display::ToggleFullScreen() {
+    if (Window == nullptr) {
+        Logger->InternalLogError(
+            18,
+            "You need to create a display using `Display.create` \
+before you can call this function.");
+        throw std::runtime_error("Display not created yet!");
+    }
+
     FullScreen = !FullScreen;
 
     unsigned int new_width, new_height;

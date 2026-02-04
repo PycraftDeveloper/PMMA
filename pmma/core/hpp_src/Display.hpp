@@ -369,11 +369,27 @@ before you can call this function.");
         }
 
         inline void GetCenterPosition(unsigned int* out) {
+            if (Window == nullptr) {
+                Logger->InternalLogError(
+                    18,
+                    "You need to create a display using `Display.create` \
+before you can call this function.");
+                throw std::runtime_error("Display not created yet!");
+            }
+
             out[0] = (unsigned int)(Size[0] / 2);
             out[1] = (unsigned int)(Size[1] / 2);
         }
 
         inline void GetCenterPosition(unsigned int* ObjectSize, unsigned int* out) {
+            if (Window == nullptr) {
+                Logger->InternalLogError(
+                    18,
+                    "You need to create a display using `Display.create` \
+before you can call this function.");
+                throw std::runtime_error("Display not created yet!");
+            }
+
             out[0] = (unsigned int)((Size[0] - ObjectSize[0]) / 2);
             out[1] = (unsigned int)((Size[1] - ObjectSize[1]) / 2);
         }
@@ -428,7 +444,7 @@ before you can call this function.");
             return RefreshTime;
         }
 
-        inline void GetDisplayProjection(float* out) {
+        inline void GetDisplayProjection(float* out) { // No Cython backend??? ------------------------------------------------------------------------
             if (Window == nullptr) {
                 Logger->InternalLogError(
                     18,
