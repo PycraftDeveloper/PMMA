@@ -75,7 +75,7 @@ Methods
 
     This method is used to pass an image file path to the display to be used as an icon, which replaces the default icon.
 
-    :param str caption: This is used to set the window icon. You should enter a valid file path here. If left as the default empty string, the default PMMA display icon is used.
+    :param str icon_path: This is used to set the window icon. You should enter a valid file path here. If left as the default empty string, the default PMMA display icon is used.
 
     .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
@@ -105,7 +105,7 @@ Methods
 
     .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 
-.. py:method:: Display.refresh() -> None
+.. py:method:: Display.refresh(min_refresh_rate: int = 5, max_refresh_rate: Union[None, int]: None, limit_refresh_rate: bool = True, lower_refresh_rate_on_minimize: bool = True, lower_refresh_rate_on_focus_loss: bool = True, lower_refresh_rate_on_low_battery: bool = True) -> None
 
     This method is used to update the window to show all the content rendered since :code:`Display.clear`. Additionally, it is used to limit the refresh rate of the window to avoid excessive resource usage.
 
@@ -274,6 +274,13 @@ Methods
     This method is used get if the window is set to automatically minimize when it is no longer in focus. This is typically seen in game applications.
 
     :returns bool: Returns :code:`True` when the window is configured to automatically minimize when focus is lost. Returns :code:`False` when the window is not configured to automatically minimize when focus is lost.
+
+    .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
+
+.. py:method:: Display.get_orthographic_projection() -> Union[npt.NDArray[np.float32], npt.NDArray[np.float16], npt.NDArray[np.float64], Iterable[float]]
+    This method is used to get the display's orthographic projection.
+
+    :returns Union[npt.NDArray[np.float32], npt.NDArray[np.float16], npt.NDArray[np.float64], Iterable[float]]: The projection matrix.
 
     .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
 

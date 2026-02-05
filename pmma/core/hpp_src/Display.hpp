@@ -84,10 +84,25 @@ class EXPORT CPP_Display {
         CPP_Display();
         ~CPP_Display();
 
+    private:
         void PMMA_Update(GLFWwindow* Window);
 
+        public:
+        /**
+        * This method is used to create a window which will be the rendering target for PMMA. All 2D and 3D content will end up being rendered to this window.
+        * \param NewSize - The size of the window in pixels. If set to (0, 0) the window will be created at the current monitor's resolution and be automatically full-screen. For this method you can input either an iterable Python sequence (list or tuple for example) or a numpy array. All inputs are converted automatically to be a continuous uint32 (or unsigned int 32) numpy array - its unlikely this conversion will be slow in this scenario.
+        * \param kwargs - A dictionary of keyword arguments that can be used to configure the window. See the documentation for more information.
+        * \note This method must be called before any rendering can occur.
+        * \note Certain display settings can only be set at the time of window creation. If you need to change these settings, you will need to recreate the window. We are working on making this process easier.
+        * \note Only one PMMA display can be created at a time. You can have multiple display instances but they will all share the same object behind the scenes. This is something we are looking to address in a future version of PMMA.
+        */
         void Create(unsigned int* NewSize, CPP_Display_Create_Kwargs kwargs = {});
 
+        /**
+        * This method is used to get if the window is set to use vsync. Note that this does not check if vsync is supported in your setup, as this varies based on third party factors that we cannot check.
+        * \returns bool - Returns 'true' when vsync is used. Returns 'false' when the window is not using vsync.
+        * \warning A valid window must be created using 'CPP_Display.Create' before calling this method.
+        */
         inline bool GetIsWindowUsingVsync() {
             if (Window == nullptr) {
                 Logger->InternalLogError(
@@ -100,6 +115,11 @@ before you can call this function.");
             return Vsync;
         }
 
+        /**
+        * This method gets the refresh rate of the current monitor video mode.
+        * \returns unsigned int - The current monitor video mode refresh rate.
+        * \warning A valid window must be created using 'CPP_Display.Create' before calling this method.
+        */
         inline unsigned int GetCurrentMonitorRefreshRate() {
             if (Window == nullptr) {
                 Logger->InternalLogError(
@@ -444,7 +464,7 @@ before you can call this function.");
             return RefreshTime;
         }
 
-        inline void GetDisplayProjection(float* out) { // No Cython backend??? ------------------------------------------------------------------------
+        inline void GetOrthographicProjection(float* out) {
             if (Window == nullptr) {
                 Logger->InternalLogError(
                     18,

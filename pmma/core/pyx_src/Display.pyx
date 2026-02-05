@@ -73,6 +73,7 @@ cdef extern from "Display.hpp" nogil:
         inline unsigned int GetWindow_MSAA_Samples() except + nogil
         inline bool GetIsWindowUsingVsync() except + nogil
         inline unsigned int GetCurrentMonitorRefreshRate() except + nogil
+        inline void GetOrthographicProjection(float* out) except + nogil
 
         void Refresh(CPP_Display_Refresh_Kwargs kwargs) except + nogil
 
@@ -152,6 +153,21 @@ cdef class Display:
 
     def get_height(self):
         return self.cpp_class_ptr.GetHeight()
+
+    def get_orthographic_projection(self):
+        cdef:
+            np.ndarray[np.int32_t, ndim=1, mode='c'] projection_np
+            float* projection_ptr
+
+        projection_np = np.empty(16, dtype=np.float32, order='C')
+        projection_ptr = <float*>&projection_np[0]
+
+        self.cpp_class_ptr.GetOrthographicProjection(projection_ptr)
+
+        if self.using_numpy_arrays:
+            return projection_np
+        else:
+            return projection_np.tolist()
 
     def get_size(self):
         cdef:

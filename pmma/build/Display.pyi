@@ -380,3 +380,13 @@ class Display:
         .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
         """
         ...
+
+    def get_orthographic_projection(self) -> Float1D:
+        """
+        This method is used to get the display's orthographic projection.
+
+        :returns Union[npt.NDArray[np.float32], npt.NDArray[np.float16], npt.NDArray[np.float64], Iterable[float]]: The projection matrix.
+
+        .. warning:: A valid window must be created using :code:`Display.Create` before calling this method.
+        """
+        ...

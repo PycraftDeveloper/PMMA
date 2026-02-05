@@ -41,7 +41,7 @@ CPP_RenderPipelineCore::~CPP_RenderPipelineCore() {
 
 void CPP_RenderPipelineCore::Render() {
     float proj[16];
-    PMMA_Core::DisplayInstance->GetDisplayProjection(proj);
+    PMMA_Core::DisplayInstance->GetOrthographicProjection(proj);
     bgfx::setUniform(OrthDisplayProj, proj);
 
     for (auto& item : RenderData) {
