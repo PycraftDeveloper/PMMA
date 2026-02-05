@@ -414,6 +414,9 @@ class EXPORT CPP_Color {
         void Set_RGBA(uint8_t* in_color);
         void Set_RGB(uint8_t* in_color);
 
+        void Set_HEX(std::string input_color);
+        void Set_HEXA(std::string input_color);
+
         inline void Get_RGBA(uint8_t* out_color) {
             if (!IsSet) {
                 if (Logger == nullptr) {
@@ -449,6 +452,43 @@ before attempting to get it.");
             out_color[0] = InternalColor[0];
             out_color[1] = InternalColor[1];
             out_color[2] = InternalColor[2];
+        }
+
+        inline std::string Get_HEXA() {
+            if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogError(
+                    30,
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
+                throw std::runtime_error("Color not set!");
+            }
+
+            return std::format(
+                "#{0:02X}{1:02X}{2:02X}{3:02X}",
+                InternalColor[0], InternalColor[1], InternalColor[2],
+                InternalColor[3]);
+        }
+
+        inline std::string Get_HEX() {
+            if (!IsSet) {
+                if (Logger == nullptr) {
+                    Logger = new CPP_Logger();
+                }
+                Logger->InternalLogWarn(
+                    30,
+                    "You have not set a color - please set a color \
+before attempting to get it.");
+
+                throw std::runtime_error("Color not set!");
+            }
+
+            return std::format(
+                "#{0:02X}{1:02X}{2:02X}", InternalColor[0],
+                InternalColor[1], InternalColor[2]);
         }
 };
 

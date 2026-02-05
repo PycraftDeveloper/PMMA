@@ -48,9 +48,13 @@ cdef extern from "CoreTypes.hpp" nogil:
 
         inline void Set_RGBA(uint8_t* in_color) except + nogil
         inline void Set_RGB(uint8_t* in_color) except + nogil
+        inline void Set_HEX(string input_color) except + nogil
+        inline void Set_HEXA(string input_color) except + nogil
 
         inline void Get_RGBA(uint8_t* out_color) except + nogil
         inline void Get_RGB(uint8_t* out_color) except + nogil
+        inline string Get_HEX() except + nogil
+        inline string Get_HEXA() except + nogil
 
         inline unsigned int GetSeed() except + nogil
         inline unsigned int GetOctaves() except + nogil
@@ -167,6 +171,11 @@ cdef class Color:
     cpdef void set_RGB(self, uint8_t r, uint8_t g, uint8_t b)
     cpdef tuple get_RGBA(self)
     cpdef tuple get_RGB(self)
+
+    cpdef void set_HEX(self, str input_color)
+    cpdef void set_HEXA(self, str input_color)
+    cpdef str get_HEX(self)
+    cpdef str get_HEXA(self)
 
 cdef class DisplayCoordinate:
     cdef CPP_DisplayCoordinate* cpp_class_ptr

@@ -180,6 +180,24 @@ cdef class Color:
         self.cpp_class_ptr.Get_RGB(&color[0])
         return color[0], color[1], color[2]
 
+    cpdef void set_HEXA(self, str input_color):
+        cdef:
+            string encoded_input_color = input_color.encode("utf-8")
+        self.cpp_class_ptr.Set_HEXA(encoded_input_color)
+
+    cpdef void set_HEX(self, str input_color):
+        cdef:
+            string encoded_input_color = input_color.encode("utf-8")
+        self.cpp_class_ptr.Set_HEX(encoded_input_color)
+
+    cpdef str get_HEXA(self):
+        cdef string cpp_str = self.cpp_class_ptr.Get_HEXA()
+        return cpp_str.c_str().decode("utf-8")
+
+    cpdef str get_HEX(self):
+        cdef string cpp_str = self.cpp_class_ptr.Get_HEX()
+        return cpp_str.c_str().decode("utf-8")
+
 cdef class DisplayCoordinate:
     def __cinit__(self):
         self.cpp_class_ptr = new CPP_DisplayCoordinate()

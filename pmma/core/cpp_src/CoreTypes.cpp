@@ -44,6 +44,64 @@ void CPP_Color::Set_RGBA(uint8_t* in_color) {
     }
 }
 
+uint8_t hexByte(char a, char b) {
+    auto hex = [](char c) -> uint8_t {
+        if (c >= '0' && c <= '9') {
+            return c - '0';
+        }
+        if (c >= 'a' && c <= 'f') {
+            return c - 'a' + 10;
+        }
+        if (c >= 'A' && c <= 'F') {
+            return c - 'A' + 10;
+        }
+
+        throw std::runtime_error("Invalid hex digit");
+    };
+
+    return (hex(a) << 4) | hex(b); }
+
+void CPP_Color::Set_HEXA(std::string input_color) {
+    if (!input_color.empty() && input_color[0] == '#') {
+        input_color.erase(0, 1);
+    }
+
+    if (input_color.size() != 8) {
+        throw std::runtime_error("Invalid hex color length");
+    }
+
+    uint8_t in_color[4] = {
+        hexByte(input_color[0], input_color[1]),
+        hexByte(input_color[2], input_color[3]),
+        hexByte(input_color[4], input_color[5]),
+        hexByte(input_color[6], input_color[7])
+    };
+
+    bool Different = false;
+    for (int i = 0; i < 4; i++) {
+        if (in_color[i] != InternalColor[i]) {
+            Different = true;
+            break;
+        }
+    }
+    if (Different) {
+        Changed = true;
+        InternalChanged = true;
+        InternalColor[0] = in_color[0];
+        InternalColor[1] = in_color[1];
+        InternalColor[2] = in_color[2];
+        InternalColor[3] = in_color[3];
+    }
+
+    IsSet = true;
+
+    if (LinkedToDisplayBackground && Changed) {
+        if (PMMA_Core::DisplayInstance != nullptr) {
+            PMMA_Core::DisplayInstance->TriggerEventRefresh();
+        }
+    }
+}
+
 void CPP_Color::Set_RGB(uint8_t* in_color) {
     if (Logger == nullptr) {
         Logger = new CPP_Logger();
@@ -54,6 +112,55 @@ void CPP_Color::Set_RGB(uint8_t* in_color) {
     );
 
     bool Different = false;
+    for (int i = 0; i < 3; i++) {
+        if (in_color[i] != InternalColor[i]) {
+            Different = true;
+            break;
+        }
+    }
+    if (Different) {
+        Changed = true;
+        InternalChanged = true;
+        InternalColor[0] = in_color[0];
+        InternalColor[1] = in_color[1];
+        InternalColor[2] = in_color[2];
+        InternalColor[3] = 255;
+    }
+
+    IsSet = true;
+
+    if (LinkedToDisplayBackground && Changed) {
+        if (PMMA_Core::DisplayInstance != nullptr) {
+            PMMA_Core::DisplayInstance->TriggerEventRefresh();
+        }
+    }
+}
+
+void CPP_Color::Set_HEX(std::string input_color) {
+    if (!input_color.empty() && input_color[0] == '#') {
+        input_color.erase(0, 1);
+    }
+
+    if (input_color.size() != 6) {
+        throw std::runtime_error("Invalid hex color length");
+    }
+
+    uint8_t in_color[3] = {
+        hexByte(input_color[0], input_color[1]),
+        hexByte(input_color[2], input_color[3]),
+        hexByte(input_color[4], input_color[5])
+    };
+
+    if (Logger == nullptr) {
+        Logger = new CPP_Logger();
+    }
+    Logger->InternalLogDebug(
+        9,
+        "The alpha channel is automatically set to opaque."
+    );
+
+    bool Different = false;
+
     for (int i = 0; i < 3; i++) {
         if (in_color[i] != InternalColor[i]) {
             Different = true;
