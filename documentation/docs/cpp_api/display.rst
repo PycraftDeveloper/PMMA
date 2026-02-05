@@ -61,7 +61,7 @@ Structs
 
     .. cpp:member:: std::optional<unsigned int> MaxRefreshRate = std::nullopt
 
-        The maximum refresh rate to dynamically adjust up to. There is no guarantee this value will be achieved - but the window should not refresh at a faster rate for extended period of times. If set to :code:`std::nullopt` the window will not have a capped refresh rate (generally not advised).
+        The maximum refresh rate to dynamically adjust up to. There is no guarantee this value will be achieved - but the window should not refresh at a faster rate for extended period of times. If set to :code:`std::nullopt` the window refresh rate will be capped at either 60 when not using vsync, or allowed to run up to the vsync limit.
 
     .. cpp:member:: bool LimitRefreshRate = true
 
@@ -86,7 +86,7 @@ Methods
 
     This method is used to create a window which will be the rendering target for PMMA. All 2D and 3D content will end up being rendered to this window.
 
-    :param unsigned int NewSize: The size of the window in pixels. If set to (0, 0) the window will be created at the current monitor's resolution and be automatically full-screen. For this method you can input either an iterable Python sequence (list or tuple for example) or a numpy array. All inputs are converted automatically to be a continuous uint32 (or unsigned int 32) numpy array - its unlikely this conversion will be slow in this scenario.
+    :param unsigned int NewSize: The size of the window in pixels. If set to (0, 0) the window will be created at the current monitor's resolution and be automatically full-screen.
     :param CPP_Display_Create_Kwargs kwargs: Used to customize the default window parameters.
 
     .. note:: This method must be called before any rendering can occur.
@@ -103,7 +103,7 @@ Methods
 
 .. cpp:function:: void CPP_Display::Clear()
 
-    This method is used to clear all rendered graphics from the previous frame, and also used to apply the specified background color defined in :code:`Display.window_fill_color`.
+    This method is used to clear all rendered graphics from the previous frame, and also used to apply the specified background color defined in :code:`CPP_Display::WindowFillColor`.
 
     .. note:: This method must be called from the same thread that the window was created in.
 
@@ -351,3 +351,7 @@ Methods
 
 Attributes
 ----------
+
+.. cpp:member:: CPP_Color* CPP_Display::WindowFillColor
+
+    Used to control the background color of the window.
