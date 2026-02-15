@@ -1,18 +1,22 @@
 #include "PMMA_Core.hpp"
 
 void PowerSavingUpdaterThread() {
-    while (PMMA_Core::PowerSavingManagerInstance.running) {
-        for (int i = 0; i < PMMA_Core::PowerSavingManagerInstance.updateCounter; i += 5) {
-            std::this_thread::sleep_for(std::chrono::seconds(5));
-            if (!PMMA_Core::PowerSavingManagerInstance.running) {
-                break;
-            }
+    auto& mgr = PMMA_Core::PowerSavingManagerInstance;
+
+    std::unique_lock<std::mutex> lock(mgr.m);
+
+    while (mgr.running) {
+        // Wait for either: timeout OR stop request
+        if (mgr.cv.wait_for(
+                lock,
+                std::chrono::seconds(mgr.updateCounter),
+                [&]{
+                    return !mgr.running;
+                })) {
+            break; // running became false
         }
 
-        if (!PMMA_Core::PowerSavingManagerInstance.running) {
-            break;
-        }
-
+        // Do the work
         CPP_General::Is_Power_Saving_Mode_Enabled(true);
     }
 }

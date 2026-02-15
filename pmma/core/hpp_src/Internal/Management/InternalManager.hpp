@@ -7,8 +7,28 @@
 struct PowerSavingManager {
     std::thread PowerSavingModeCheckingThread;
     std::condition_variable cv;
-    unsigned int updateCounter = 30; // Update every 30 seconds
+    std::mutex m;
+    unsigned int updateCounter = 30;
     bool running = true;
+
+    PowerSavingManager() = default;
+    ~PowerSavingManager() {
+        stop();
+    }
+
+    PowerSavingManager(const PowerSavingManager&) = delete;
+    PowerSavingManager& operator=(const PowerSavingManager&) = delete;
+
+    void stop() {
+        {
+            std::lock_guard<std::mutex> lock(m);
+            running = false;
+        }
+        cv.notify_all();
+
+        if (PowerSavingModeCheckingThread.joinable())
+            PowerSavingModeCheckingThread.join();
+    }
 };
 
 void PowerSavingUpdaterThread();

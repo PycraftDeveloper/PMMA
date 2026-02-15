@@ -291,10 +291,7 @@ how PMMA and Python interact.");
 }
 
 void PMMA_Uninitialize() {
-    PMMA_Core::PowerSavingManagerInstance.running = false;
-    if (PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread.joinable()) {
-        PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread.join();
-    }
+    PMMA_Core::PowerSavingManagerInstance.stop();
 
     delete PMMA_Core::LoggingManagerInstance;
     PMMA_Core::LoggingManagerInstance = nullptr;
