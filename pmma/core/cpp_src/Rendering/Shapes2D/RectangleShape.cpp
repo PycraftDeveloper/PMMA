@@ -73,7 +73,7 @@ API to set it.");
     ColorDataChanged = ColorDataChanged || Color->GetInternalChangedToggle();
 
     if (RenderPipelineCompatible) {
-        if (ColorData == 0) { // Return if shape not visible
+        if (ColorData[3] == 0) { // Return if shape not visible
             return;
         }
 
