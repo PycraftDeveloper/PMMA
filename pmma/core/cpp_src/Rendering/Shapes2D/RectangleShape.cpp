@@ -96,7 +96,116 @@ API to set it.");
             float RotationCos = cos(Rotation);
 
             if (CornerRadius != 0) {
-                unsigned int maxRadius = std::min(CornerRadius, std::min(HalfWidth, HalfHeight));
+                if (Width == 0) { // This works but needs simplifying
+                    unsigned int maxRadius = std::min(CornerRadius, std::min(HalfWidth, HalfHeight));
+
+                    // For filled shapes, ensure inner radius doesn't go negative
+                    unsigned int outerRadius = maxRadius;
+                    unsigned int innerRadius = 0;
+
+                    if (Width > 0) {
+                        innerRadius = (maxRadius > InternalWidth) ? (maxRadius - InternalWidth) : 0;
+                    } else {
+                        innerRadius = maxRadius;
+                    }
+
+                    float minAngle = 1.0f / std::max(outerRadius, 1u);
+                    unsigned int segments = std::max(3u, static_cast<unsigned int>(
+                        1 + (CPP_Constants::TAU / asin(minAngle)) * PMMA_Registry::CurrentShapeQuality / 4));
+
+                    size_t vertexCount = (segments + 1) * 8 + 2;
+                    Shape2D_RenderPipelineVertices.resize(vertexCount);
+
+                    int outerRad = outerRadius;
+                    int innerRad = innerRadius;
+
+                    glm::vec2 vecOuterRad = glm::vec2(outerRad, outerRad);
+                    glm::vec2 vecInnerRad = glm::vec2(innerRad, innerRad);
+
+                    int outerW = ShapeSize.x;
+                    int outerH = ShapeSize.y;
+                    int innerW = outerW - 2 * InternalWidth;
+                    int innerH = outerH - 2 * InternalWidth;
+
+                    // Clamp inner dimensions to prevent negative values
+                    innerW = std::max(innerW, 0);
+                    innerH = std::max(innerH, 0);
+
+                    const glm::vec2 outerCenters[4] = {
+                        {-outerW / 2.0f + outerRad, -outerH / 2.0f + outerRad}, // top-left
+                        { outerW / 2.0f - outerRad, -outerH / 2.0f + outerRad}, // top-right
+                        { outerW / 2.0f - outerRad,  outerH / 2.0f - outerRad}, // bottom-right
+                        {-outerW / 2.0f + outerRad,  outerH / 2.0f - outerRad}  // bottom-left
+                    };
+
+                    const glm::vec2 innerCenters[4] = {
+                        {-innerW / 2.0f + innerRad, -innerH / 2.0f + innerRad},
+                        { innerW / 2.0f - innerRad, -innerH / 2.0f + innerRad},
+                        { innerW / 2.0f - innerRad,  innerH / 2.0f - innerRad},
+                        {-innerW / 2.0f + innerRad,  innerH / 2.0f - innerRad}
+                    };
+
+                    const float startAngles[4] = {
+                        CPP_Constants::PI,             // 180°
+                        CPP_Constants::PI * 1.5f,      // 270°
+                        0.0f,                          // 0°
+                        CPP_Constants::PI * 0.5f       // 90°
+                    };
+
+                    // Precompute rotation matrix increments
+                    float cosD = cos((CPP_Constants::PI * 0.5f) / segments);
+                    float sinD = sin((CPP_Constants::PI * 0.5f) / segments);
+
+                    for (int corner = 0; corner < 4; ++corner) {
+                        glm::vec2 outerCenter = outerCenters[corner];
+                        glm::vec2 innerCenter = innerCenters[corner];
+
+                        float angle = startAngles[corner];
+                        float x = cos(angle);
+                        float y = sin(angle);
+
+                        unsigned int index = corner * (segments + 1) * 2;
+
+                        for (unsigned int i = 0; i <= segments; ++i) {
+                            // Calculate outer point
+                            float outerX = outerCenter.x + vecOuterRad.x * x;
+                            float outerY = outerCenter.y + vecOuterRad.y * y;
+
+                            // Calculate inner point
+                            float innerX = innerCenter.x + vecInnerRad.x * x;
+                            float innerY = innerCenter.y + vecInnerRad.y * y;
+
+                            // Apply rotation
+                            float rotOuterX = RotationCos * outerX - RotationSin * outerY;
+                            float rotOuterY = RotationSin * outerX + RotationCos * outerY;
+
+                            float rotInnerX = RotationCos * innerX - RotationSin * innerY;
+                            float rotInnerY = RotationSin * innerX + RotationCos * innerY;
+
+                            // Store vertices
+                            auto &v0 = Shape2D_RenderPipelineVertices[index + i * 2];
+                            v0.x = ShapeCenterPosition[0] + rotOuterX;
+                            v0.y = ShapeCenterPosition[1] + rotOuterY;
+                            v0.s = ColorIndex;
+
+                            auto &v1 = Shape2D_RenderPipelineVertices[index + i * 2 + 1];
+                            v1.x = ShapeCenterPosition[0];
+                            v1.y = ShapeCenterPosition[1];
+                            v1.s = ColorIndex;
+
+                            // Rotate unit vector using matrix
+                            float newX = cosD * x - sinD * y;
+                            float newY = sinD * x + cosD * y;
+                            x = newX;
+                            y = newY;
+                        }
+                    }
+
+                    // Close the loop
+                    Shape2D_RenderPipelineVertices[vertexCount - 2] = Shape2D_RenderPipelineVertices[0];
+                    Shape2D_RenderPipelineVertices[vertexCount - 1] = Shape2D_RenderPipelineVertices[1];
+                } else {
+                    unsigned int maxRadius = std::min(CornerRadius, std::min(HalfWidth, HalfHeight));
 
                 // For filled shapes, ensure inner radius doesn't go negative
                 unsigned int outerRadius = maxRadius;
@@ -203,6 +312,8 @@ API to set it.");
                 // Close the loop
                 Shape2D_RenderPipelineVertices[vertexCount - 2] = Shape2D_RenderPipelineVertices[0];
                 Shape2D_RenderPipelineVertices[vertexCount - 1] = Shape2D_RenderPipelineVertices[1];
+                }
+
             } else {
                 if (Width == 0 || Width >= std::max(HalfWidth, HalfHeight)) {
                     float point[2], out[2];
