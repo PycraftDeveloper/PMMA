@@ -96,37 +96,52 @@ API to set it.");
             float RotationCos = cos(Rotation);
 
             if (CornerRadius != 0) {
-                unsigned int radius = std::min(CornerRadius, std::min(HalfWidth, HalfHeight));
-                float minAngle = 1.0f / radius;
+                unsigned int maxRadius = std::min(CornerRadius, std::min(HalfWidth, HalfHeight));
+
+                // For filled shapes, ensure inner radius doesn't go negative
+                unsigned int outerRadius = maxRadius;
+                unsigned int innerRadius = 0;
+
+                if (Width > 0) {
+                    innerRadius = (maxRadius > InternalWidth) ? (maxRadius - InternalWidth) : 0;
+                } else {
+                    innerRadius = maxRadius;
+                }
+
+                float minAngle = 1.0f / std::max(outerRadius, 1u);
                 unsigned int segments = std::max(3u, static_cast<unsigned int>(
                     1 + (CPP_Constants::TAU / asin(minAngle)) * PMMA_Registry::CurrentShapeQuality / 4));
 
                 size_t vertexCount = (segments + 1) * 8 + 2;
                 Shape2D_RenderPipelineVertices.resize(vertexCount);
 
-                int outer_radius = radius;
-                int inner_radius = std::max((int)radius - static_cast<int>(InternalWidth), 0);
+                int outerRad = outerRadius;
+                int innerRad = innerRadius;
 
-                glm::vec2 vectorized_outer_radius = glm::vec2(outer_radius, outer_radius);
-                glm::vec2 vectorized_inner_radius = glm::vec2(inner_radius, inner_radius);
+                glm::vec2 vecOuterRad = glm::vec2(outerRad, outerRad);
+                glm::vec2 vecInnerRad = glm::vec2(innerRad, innerRad);
 
-                int outer_w = ShapeSize.x;
-                int outer_h = ShapeSize.y;
-                int inner_w = outer_w - 2 * InternalWidth;
-                int inner_h = outer_h - 2 * InternalWidth;
+                int outerW = ShapeSize.x;
+                int outerH = ShapeSize.y;
+                int innerW = outerW - 2 * InternalWidth;
+                int innerH = outerH - 2 * InternalWidth;
 
-                const glm::vec2 centers[4] = {
-                    {-outer_w / 2 + outer_radius, -outer_h / 2 + outer_radius}, // top-left
-                    { outer_w / 2 - outer_radius, -outer_h / 2 + outer_radius}, // top-right
-                    { outer_w / 2 - outer_radius,  outer_h / 2 - outer_radius}, // bottom-right
-                    {-outer_w / 2 + outer_radius,  outer_h / 2 - outer_radius}  // bottom-left
+                // Clamp inner dimensions to prevent negative values
+                innerW = std::max(innerW, 0);
+                innerH = std::max(innerH, 0);
+
+                const glm::vec2 outerCenters[4] = {
+                    {-outerW / 2.0f + outerRad, -outerH / 2.0f + outerRad}, // top-left
+                    { outerW / 2.0f - outerRad, -outerH / 2.0f + outerRad}, // top-right
+                    { outerW / 2.0f - outerRad,  outerH / 2.0f - outerRad}, // bottom-right
+                    {-outerW / 2.0f + outerRad,  outerH / 2.0f - outerRad}  // bottom-left
                 };
 
-                const glm::vec2 icenters[4] = {
-                    {-inner_w / 2 + inner_radius, -inner_h / 2 + inner_radius},
-                    { inner_w / 2 - inner_radius, -inner_h / 2 + inner_radius},
-                    { inner_w / 2 - inner_radius,  inner_h / 2 - inner_radius},
-                    {-inner_w / 2 + inner_radius,  inner_h / 2 - inner_radius}
+                const glm::vec2 innerCenters[4] = {
+                    {-innerW / 2.0f + innerRad, -innerH / 2.0f + innerRad},
+                    { innerW / 2.0f - innerRad, -innerH / 2.0f + innerRad},
+                    { innerW / 2.0f - innerRad,  innerH / 2.0f - innerRad},
+                    {-innerW / 2.0f + innerRad,  innerH / 2.0f - innerRad}
                 };
 
                 const float startAngles[4] = {
@@ -136,45 +151,48 @@ API to set it.");
                     CPP_Constants::PI * 0.5f       // 90°
                 };
 
+                // Precompute rotation matrix increments
+                float cosD = cos((CPP_Constants::PI * 0.5f) / segments);
+                float sinD = sin((CPP_Constants::PI * 0.5f) / segments);
+
                 for (int corner = 0; corner < 4; ++corner) {
-                    glm::vec2 outerCenter = centers[corner];
-                    glm::vec2 innerCenter = icenters[corner];
+                    glm::vec2 outerCenter = outerCenters[corner];
+                    glm::vec2 innerCenter = innerCenters[corner];
 
-                    // Use rotation matrix to rotate unit vector instead of trig
                     float angle = startAngles[corner];
-                    float delta = (CPP_Constants::PI * 0.5f) / segments;
-
-                    float cosD = cos(delta);
-                    float sinD = sin(delta);
                     float x = cos(angle);
                     float y = sin(angle);
 
                     unsigned int index = corner * (segments + 1) * 2;
 
                     for (unsigned int i = 0; i <= segments; ++i) {
-                        float unit[2], outer[2], inner[2], rotated_outer[2], rotated_inner[2];
-                        unit[0] = x;
-                        unit[1] = y;
+                        // Calculate outer point
+                        float outerX = outerCenter.x + vecOuterRad.x * x;
+                        float outerY = outerCenter.y + vecOuterRad.y * y;
 
-                        outer[0] = outerCenter.x + vectorized_outer_radius.x * unit[0];
-                        outer[1] = outerCenter.y + vectorized_outer_radius.y * unit[1];
+                        // Calculate inner point
+                        float innerX = innerCenter.x + vecInnerRad.x * x;
+                        float innerY = innerCenter.y + vecInnerRad.y * y;
 
-                        inner[0] = innerCenter.x + vectorized_inner_radius.x * unit[0];
-                        inner[1] = innerCenter.y + vectorized_inner_radius.y * unit[1];
+                        // Apply rotation
+                        float rotOuterX = RotationCos * outerX - RotationSin * outerY;
+                        float rotOuterY = RotationSin * outerX + RotationCos * outerY;
 
-                        rotated_outer[0] = RotationCos * outer[0] - RotationSin * outer[1];
-                        rotated_outer[1] = RotationSin * outer[0] + RotationCos * outer[1];
+                        float rotInnerX = RotationCos * innerX - RotationSin * innerY;
+                        float rotInnerY = RotationSin * innerX + RotationCos * innerY;
 
-                        rotated_inner[0] = RotationCos * inner[0] - RotationSin * inner[1];
-                        rotated_inner[1] = RotationSin * inner[0] + RotationCos * inner[1];
-
+                        // Store vertices
                         auto &v0 = Shape2D_RenderPipelineVertices[index + i * 2];
-                        v0.x = ShapeCenterPosition[0] + rotated_outer[0]; v0.y = ShapeCenterPosition[1] + rotated_outer[1]; v0.s = ColorIndex;
+                        v0.x = ShapeCenterPosition[0] + rotOuterX;
+                        v0.y = ShapeCenterPosition[1] + rotOuterY;
+                        v0.s = ColorIndex;
 
                         auto &v1 = Shape2D_RenderPipelineVertices[index + i * 2 + 1];
-                        v1.x = ShapeCenterPosition[0] + rotated_inner[0]; v1.y = ShapeCenterPosition[1] + rotated_inner[1]; v1.s = ColorIndex;
+                        v1.x = ShapeCenterPosition[0] + rotInnerX;
+                        v1.y = ShapeCenterPosition[1] + rotInnerY;
+                        v1.s = ColorIndex;
 
-                        // rotate (x, y) using rotation matrix
+                        // Rotate unit vector using matrix
                         float newX = cosD * x - sinD * y;
                         float newY = sinD * x + cosD * y;
                         x = newX;
