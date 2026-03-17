@@ -242,25 +242,37 @@ class CPP_Shape2D_RenderPipelineManager {
 
                     if (currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) {
                         // Ensure enough capacity
-                        if (LiveVertexCount + 2 > combined_vertexes.size()) {
-                            combined_vertexes.resize(LiveVertexCount + 2);
+                        if (LiveVertexCount + 4 > combined_vertexes.size()) {
+                            combined_vertexes.resize(LiveVertexCount + 3);
                             base = combined_vertexes.data();
                             writePtr = base + LiveVertexCount;
                         }
 
                         // Degenerate join
-                        *writePtr++ = *(writePtr - 1); // repeat last vertex
-                        *writePtr++ = vertices[0];     // first vertex of this shape
+                        // last vertex of previous shape
+                        Vertex last = *(writePtr - 1);
+
+                        // first vertex of new shape
+                        const Vertex& first = vertices[0];
+
+                        // second vertex (needed to resume strip correctly)
+                        const Vertex& second = vertices[1];
+
+                        // Insert proper degenerate sequence
+                        *writePtr++ = last;   // repeat last
+                        *writePtr++ = first;  // jump to first
+                        *writePtr++ = first;  // repeat first (CRUCIAL)
                     }
 
                     InsertionIndex++;
-                    LiveVertexCount = static_cast<unsigned int>(existingOffset + verticesCount);
+                    size_t degens = (currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) ? 3 : 0;
+                    LiveVertexCount = static_cast<unsigned int>(existingOffset + verticesCount + degens);
                     return;
                 }
             }
 
             // Ensure enough capacity for degenerate joins + new vertices
-            size_t requiredSize = LiveVertexCount + ((currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) ? 2 : 0) + verticesCount;
+            size_t requiredSize = LiveVertexCount + ((currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) ? 3 : 0) + verticesCount;
             if (combined_vertexes.size() < requiredSize) {
                 combined_vertexes.resize(requiredSize);
                 base = combined_vertexes.data();
@@ -269,8 +281,19 @@ class CPP_Shape2D_RenderPipelineManager {
 
             // Degenerate join if needed
             if (currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) {
-                *writePtr++ = *(writePtr - 1);
-                *writePtr++ = vertices[0];
+                // last vertex of previous shape
+                Vertex last = *(writePtr - 1);
+
+                // first vertex of new shape
+                const Vertex& first = vertices[0];
+
+                // second vertex (needed to resume strip correctly)
+                const Vertex& second = vertices[1];
+
+                // Insert proper degenerate sequence
+                *writePtr++ = last;   // repeat last
+                *writePtr++ = first;  // jump to first
+                *writePtr++ = first;  // repeat first (CRUCIAL)
             }
 
             // Copy new vertices in bulk

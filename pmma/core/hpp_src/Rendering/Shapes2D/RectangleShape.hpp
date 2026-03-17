@@ -151,5 +151,5 @@ class EXPORT CPP_RectangleShape {
 
         inline unsigned int GetCornerRadius() const {
             return CornerRadius;
-        }\
+        }
 };
