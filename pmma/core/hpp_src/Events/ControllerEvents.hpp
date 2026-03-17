@@ -110,7 +110,7 @@ class CPP_InternalControllerEvent {
 
         std::vector<CPP_Proportion> RawAxesData;
         std::vector<bool> RawButtonData;
-        std::vector<std::string> RawHatStateData;
+        std::vector<std::string_view> RawHatStateData;
         std::string RawName;
         std::string GamePadName;
         std::string GUID;
@@ -490,7 +490,7 @@ the specified hat button ID). If the controller isn't expected to change, or PMM
 does not include a pre-mapped API for the target hat button then this is the recommended \
 way to get the hat button data.");
             UpdateRawData = true;
-            return RawHatStateData[HatID];
+            return std::string(RawHatStateData[HatID]);
         };
 
         inline float AxisDeadZoneConverter_Percentage(float DeadZone, float value) { // DeadZone as percentage, value as percentage

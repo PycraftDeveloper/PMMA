@@ -269,37 +269,37 @@ std::string CPP_General::GetLocale() {
 
 std::string CPP_General::GetOperatingSystem() {
     #if BX_PLATFORM_ANDROID
-        return CPP_Constants::OperatingSystems::ANDROID;
+        return std::string(CPP_Constants::OperatingSystems::ANDROID);
     #elif BX_PLATFORM_BSD
-        return CPP_Constants::OperatingSystems::BSD;
+        return std::string(CPP_Constants::OperatingSystems::BSD);
     #elif BX_PLATFORM_EMSCRIPTEN
-        return CPP_Constants::OperatingSystems::EMSCRIPTEN;
+        return std::string(CPP_Constants::OperatingSystems::EMSCRIPTEN);
     #elif BX_PLATFORM_HAIKU
-        return CPP_Constants::OperatingSystems::HAIKU;
+        return std::string(CPP_Constants::OperatingSystems::HAIKU);
     #elif BX_PLATFORM_HURD
-        return CPP_Constants::OperatingSystems::HURD;
+        return std::string(CPP_Constants::OperatingSystems::HURD);
     #elif BX_PLATFORM_IOS
-        return CPP_Constants::OperatingSystems::IOS;
+        return std::string(CPP_Constants::OperatingSystems::IOS);
     #elif BX_PLATFORM_LINUX
-        return CPP_Constants::OperatingSystems::LINUX;
+        return std::string(CPP_Constants::OperatingSystems::LINUX);
     #elif BX_PLATFORM_NX
-        return CPP_Constants::OperatingSystems::NX;
+        return std::string(CPP_Constants::OperatingSystems::NX);
     #elif BX_PLATFORM_OSX
-        return CPP_Constants::OperatingSystems::OSX;
+        return std::string(CPP_Constants::OperatingSystems::OSX);
     #elif BX_PLATFORM_PS4
-        return CPP_Constants::OperatingSystems::PS4;
+        return std::string(CPP_Constants::OperatingSystems::PS4);
     #elif BX_PLATFORM_PS5
-        return CPP_Constants::OperatingSystems::PS5;
+        return std::string(CPP_Constants::OperatingSystems::PS5);
     #elif BX_PLATFORM_VISIONOS
-        return CPP_Constants::OperatingSystems::VISIONOS;
+        return std::string(CPP_Constants::OperatingSystems::VISIONOS);
     #elif BX_PLATFORM_WINDOWS
-        return CPP_Constants::OperatingSystems::WINDOWS;
+        return std::string(CPP_Constants::OperatingSystems::WINDOWS);
     #elif BX_PLATFORM_WINRT
-        return CPP_Constants::OperatingSystems::WINRT;
+        return std::string(CPP_Constants::OperatingSystems::WINRT);
     #elif BX_PLATFORM_XBOXONE
-        return CPP_Constants::OperatingSystems::XBOXONE;
+        return std::string(CPP_Constants::OperatingSystems::XBOXONE);
     #else
-        return CPP_Constants::OperatingSystems::UNKNOWN;
+        return std::string(CPP_Constants::OperatingSystems::UNKNOWN);
     #endif
 }
 
@@ -308,24 +308,24 @@ std::string CPP_General::GetGraphicsBackend() {
 
     switch (backend) {
         case bgfx::RendererType::Noop:
-            return CPP_Constants::GraphicsBackends::NO_RENDERER;
+            return std::string(CPP_Constants::GraphicsBackends::NO_RENDERER);
         case bgfx::RendererType::Direct3D11:
-            return CPP_Constants::GraphicsBackends::DIRECT3D11;
+            return std::string(CPP_Constants::GraphicsBackends::DIRECT3D11);
         case bgfx::RendererType::Direct3D12:
-            return CPP_Constants::GraphicsBackends::DIRECT3D12;
+            return std::string(CPP_Constants::GraphicsBackends::DIRECT3D12);
         case bgfx::RendererType::Gnm:
-            return CPP_Constants::GraphicsBackends::GNM;
+            return std::string(CPP_Constants::GraphicsBackends::GNM);
         case bgfx::RendererType::Metal:
-            return CPP_Constants::GraphicsBackends::METAL;
+            return std::string(CPP_Constants::GraphicsBackends::METAL);
         case bgfx::RendererType::Nvn:
-            return CPP_Constants::GraphicsBackends::NVN;
+            return std::string(CPP_Constants::GraphicsBackends::NVN);
         case bgfx::RendererType::OpenGLES:
-            return CPP_Constants::GraphicsBackends::OPENGL_ES;
+            return std::string(CPP_Constants::GraphicsBackends::OPENGL_ES);
         case bgfx::RendererType::OpenGL:
-            return CPP_Constants::GraphicsBackends::OPENGL;
+            return std::string(CPP_Constants::GraphicsBackends::OPENGL);
         case bgfx::RendererType::Vulkan:
-            return CPP_Constants::GraphicsBackends::VULKAN;
+            return std::string(CPP_Constants::GraphicsBackends::VULKAN);
         default:
-            return CPP_Constants::GraphicsBackends::UNKNOWN;
+            return std::string(CPP_Constants::GraphicsBackends::UNKNOWN);
     }
 }
