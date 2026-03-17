@@ -1,3 +1,5 @@
+#include <optional>
+
 #include "PMMA_Core.hpp"
 
 CPP_Color::CPP_Color() {
@@ -5,7 +7,9 @@ CPP_Color::CPP_Color() {
 }
 
 void CPP_Color::Set_ColorName(std::string color_name) {
-    if (CPP_Constants::Colors::ColorMap.find(color_name) == CPP_Constants::Colors::ColorMap.end()) {
+    std::optional<std::array<uint8_t,3>> Color = CPP_Constants::Colors::FindColor(color_name);
+
+    if (!Color.has_value()) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             60,
             "The color name '" + color_name + "' is not recognized."
@@ -13,7 +17,7 @@ void CPP_Color::Set_ColorName(std::string color_name) {
         throw std::runtime_error("Unrecognized color name!");
     }
 
-    auto& rgb = CPP_Constants::Colors::ColorMap.at(color_name);
+    auto& rgb = Color.value();
     uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
     Set_RGBA(in_color);
 }

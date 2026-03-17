@@ -2,9 +2,14 @@
 
 #include <string>
 #include <string>
-#include <unordered_map>
+#include <optional>
 #include <tuple>
 #include <cstdint>
+
+struct ColorEntry {
+    std::string_view name;
+    std::array<uint8_t, 3> value;
+};
 
 namespace CPP_Constants {
     inline constexpr float PI = 3.141592653589793f;
@@ -158,7 +163,7 @@ namespace CPP_Constants {
         static inline constexpr std::string_view FLAX = "flx";
         static inline constexpr std::string_view MYSTIC_PURPLE = "mys";
 
-        static inline const std::unordered_map<std::string_view, std::array<uint8_t, 3>> ColorMap = {
+        static constexpr std::array<ColorEntry, 100> ColorMap = {{
             {RED,           {255,   0,   0}},
             {ORANGE,        {251,  79,  19}},
             {YELLOW,        {255, 255,   0}},
@@ -259,6 +264,20 @@ namespace CPP_Constants {
             {APRICOT,       {255, 165, 79}},
             {FLAX,          {238, 232, 205}},
             {MYSTIC_PURPLE, {102, 51, 153}}
-        };
+        }};
+
+        constexpr static std::optional<std::array<uint8_t,3>> FindColor(std::string_view key) {
+            auto it = std::find_if(
+                ColorMap.begin(), ColorMap.end(),
+                [key](const ColorEntry& e) {
+                    return e.name == key;
+                }
+            );
+
+            if (it != ColorMap.end())
+                return it->value;
+
+            return std::nullopt;
+        }
     };
 }

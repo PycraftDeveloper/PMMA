@@ -452,7 +452,9 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
                         continue;
                     }
 
-                    if (CPP_Constants::Colors::ColorMap.find(ColorCode) == CPP_Constants::Colors::ColorMap.end()) { // check it exists
+                    std::optional<std::array<uint8_t,3>> Color = CPP_Constants::Colors::FindColor(ColorCode);
+
+                    if (!Color.has_value()) { // check it exists
                         PMMA_Core::LoggingManagerInstance->InternalLogError(
                             60,
                             "The color code '" + ColorCode + "' is not recognized."
@@ -460,7 +462,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
                         throw std::runtime_error("Unrecognized color code!");
                     }
 
-                    auto& rgb = CPP_Constants::Colors::ColorMap.at(ColorCode); // find it
+                    auto& rgb = Color.value();
                     uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
 
                     float newIndex = GetForegroundColorIndex(
@@ -481,7 +483,9 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
                         continue;
                     }
 
-                    if (CPP_Constants::Colors::ColorMap.find(ColorCode) == CPP_Constants::Colors::ColorMap.end()) { // check it exists
+                    std::optional<std::array<uint8_t,3>> Color = CPP_Constants::Colors::FindColor(ColorCode);
+
+                    if (!Color.has_value()) { // check it exists
                         PMMA_Core::LoggingManagerInstance->InternalLogError(
                             60,
                             "The color code '" + ColorCode + "' is not recognized."
@@ -489,7 +493,7 @@ void CPP_TextRenderPipelineManager::AddRenderTarget(CPP_TextRenderer* NewObject)
                         throw std::runtime_error("Unrecognized color code!");
                     }
 
-                    auto& rgb = CPP_Constants::Colors::ColorMap.at(ColorCode); // find it
+                    auto& rgb = Color.value();
                     uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
 
                     float newIndex = GetBackgroundColorIndex(
