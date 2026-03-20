@@ -475,6 +475,8 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         throw std::runtime_error("Failed to initialize BGFX");
     }
 
+    bgfx::setDebug(BGFX_DEBUG_NONE);
+
     std::string OperatingSystem = CPP_General::GetOperatingSystem();
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         46,
