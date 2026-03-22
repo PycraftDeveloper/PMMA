@@ -22,12 +22,10 @@ class CPP_ArcShape;
 class CPP_EllipseShape;
 class CPP_PolygonShape;
 
-#pragma pack(push, 1)
 struct Vertex {
     float x, y;      // position
     float s;      // texcoord (s = shape index as float, t unused)
 };
-#pragma pack(pop)
 
 class CPP_Shape2D_RenderPipelineManager {
     public:
