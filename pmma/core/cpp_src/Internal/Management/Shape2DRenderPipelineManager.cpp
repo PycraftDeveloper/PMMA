@@ -46,15 +46,15 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     if (VertexDataChanged) {
         glfwPostEmptyEvent();
 
-        combined_vertexes.resize(LiveVertexCount);
-        PreviousRenderContent.resize(InsertionIndex);
+        combined_vertexes[LiveBufferCount].resize(LiveVertexCount);
+        PreviousRenderContent[LivePreviousRenderContent].resize(InsertionIndex);
 
-        const bgfx::Memory* mem = bgfx::copy( // Need to use copy here due to large sizes.
-            combined_vertexes.data(),
-            (uint32_t)(combined_vertexes.size()*sizeof(Vertex)));
+        const bgfx::Memory* mem = bgfx::makeRef(
+            combined_vertexes[LiveBufferCount].data(),
+            (uint32_t)(combined_vertexes[LiveBufferCount].size()*sizeof(Vertex)));
 
         if (bgfx::isValid(m_vbh)) {
-            if (m_vertexCount != combined_vertexes.size()) {
+            if (m_vertexCount != combined_vertexes[LiveBufferCount].size()) {
                 bgfx::destroy(m_vbh);
                 m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
             } else {
@@ -63,26 +63,31 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         } else {
             m_vbh = bgfx::createDynamicVertexBuffer(mem, m_layout);
         }
-        m_vertexCount = combined_vertexes.size();
+        m_vertexCount = combined_vertexes[LiveBufferCount].size();
+
+        LiveBufferCount++;
+        if (LiveBufferCount > 3) {
+            LiveBufferCount = 0;
+        }
     }
 
     if (ColorDataChanged) {
         glfwPostEmptyEvent();
 
-        shape_colors.resize(LiveColorCount);
+        shape_colors[LiveColorBufferCount].resize(LiveColorCount);
 
-        uint32_t numColors = (uint32_t)shape_colors.size() / 4;
+        uint32_t numColors = (uint32_t)shape_colors[LiveColorBufferCount].size() / 4;
         uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
         uint32_t height = (numColors + width - 1) / width;
 
         size_t expectedSize = width * height * 4;
-        if (shape_colors.size() < expectedSize) {
-            shape_colors.resize(expectedSize, 0); // Pad with transparent black
+        if (shape_colors[LiveColorBufferCount].size() < expectedSize) {
+            shape_colors[LiveColorBufferCount].resize(expectedSize, 0); // Pad with transparent black
         }
 
-        const bgfx::Memory* texMem = bgfx::copy(
-            shape_colors.data(),
-            static_cast<uint32_t>(shape_colors.size() * sizeof(uint8_t))
+        const bgfx::Memory* texMem = bgfx::makeRef(
+            shape_colors[LiveColorBufferCount].data(),
+            static_cast<uint32_t>(shape_colors[LiveColorBufferCount].size() * sizeof(uint8_t))
         );
 
         // If texture exists but size changed, destroy and recreate it
@@ -108,6 +113,11 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         // store width/height for shader normalization
         m_colorTextureWidth  = width;
         m_colorTextureHeight = height;
+
+        LiveColorBufferCount++;
+        if (LiveColorBufferCount > 3) {
+            LiveColorBufferCount = 0;
+        }
     }
 
     // Setup rendering state
@@ -129,4 +139,9 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     // Submit the draw call to the provided viewId
     bgfx::setState(state);
     bgfx::submit(0, PMMA_Core::RenderPipelineCore->Shape2D_RenderPipelineShader->Use());
+
+    LivePreviousRenderContent++;
+    if (LivePreviousRenderContent > 3) {
+        LivePreviousRenderContent = 0;
+    }
 }
