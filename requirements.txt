@@ -3,6 +3,7 @@ numpy>=2.0
 pedalboard
 pprofile
 pyadl
+pyaudio
 requests
 send2trash
 sounddevice
