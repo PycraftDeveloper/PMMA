@@ -90,10 +90,7 @@ API to set it.");
         }
 
         bool ColorIndexChanged = false;
-        float newColorIndex = 0.0f;
-        unsigned int ShapeIndex = 0.0f;
-        PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID, &newColorIndex, &ShapeIndex);
-        float z = 1.0f - std::min(float(ShapeIndex) * 1e-6f, 1.0f);
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = true;
@@ -132,13 +129,12 @@ API to set it.");
             Vertex* v = Shape2D_RenderPipelineVertices.data();
             if (inner_radius == 0) {
                 auto &v1 = Shape2D_RenderPipelineVertices[1];
-                v1.x = cx; v1.y = cy; v1.z = z; v1.s = ColorIndex;
+                v1.x = cx; v1.y = cy; v1.s = ColorIndex;
 
                 const Vertex Center = Shape2D_RenderPipelineVertices[1];
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
                     v[0].x = outer_radius * cosA + cx;
                     v[0].y = outer_radius * sinA + cy;
-                    v[0].z = z;
                     v[0].s = ColorIndex;
 
                     v[1] = Center; // center vertex
@@ -153,12 +149,10 @@ API to set it.");
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
                     v[0].x = outer_radius * cosA + cx;
                     v[0].y = outer_radius * sinA + cy;
-                    v[0].z = z;
                     v[0].s = ColorIndex;
 
                     v[1].x = inner_radius * cosA + cx;
                     v[1].y = inner_radius * sinA + cy;
-                    v[1].z = z;
                     v[1].s = ColorIndex;
 
                     v += 2;

@@ -64,7 +64,7 @@ class CPP_RenderPipelineCore {
 
         void Add_Text_Object(CPP_TextRenderer* RenderObject);
 
-        inline void Shape2D_GetColorIndex(uint8_t* Color, unsigned int ShapeID, float* OutColorIndex, unsigned int* ShapeIndex) {
+        inline float Shape2D_GetColorIndex(uint8_t* Color, unsigned int ShapeID) {
             if (RenderData.empty()) {
                 if (!Shape_2D_RenderManagerCache.empty()) {
                     RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
@@ -76,9 +76,7 @@ class CPP_RenderPipelineCore {
 
             if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData.back())) {
                 if ((*managerPtr)->shape_colors.size() < MaxSize) {
-                    *OutColorIndex = (*managerPtr)->GetColorIndex(Color, ShapeID);
-                    *ShapeIndex = (*managerPtr)->ShapeCount;
-                    (*managerPtr)->ShapeCount++;
+                    return (*managerPtr)->GetColorIndex(Color, ShapeID);
                 } else {
                     // Too many vertexes — need a new manager
                     if (!Shape_2D_RenderManagerCache.empty()) {
@@ -89,9 +87,7 @@ class CPP_RenderPipelineCore {
                     }
 
                     if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData.back())) {
-                        *OutColorIndex = (*newManagerPtr)->GetColorIndex(Color, ShapeID);
-                        *ShapeIndex = (*newManagerPtr)->ShapeCount;
-                        (*newManagerPtr)->ShapeCount++;
+                        return (*newManagerPtr)->GetColorIndex(Color, ShapeID);
                     }
                 }
             } else {
@@ -104,9 +100,9 @@ class CPP_RenderPipelineCore {
                 }
 
                 auto& manager = *std::get<CPP_Shape2D_RenderPipelineManager*>(RenderData.back());
-                *OutColorIndex = manager.GetColorIndex(Color, ShapeID);
-                *ShapeIndex = manager.ShapeCount;
-                manager.ShapeCount++;
+                manager.GetColorIndex(Color, ShapeID);
             }
+
+            return 0; // fallback
         }
 };

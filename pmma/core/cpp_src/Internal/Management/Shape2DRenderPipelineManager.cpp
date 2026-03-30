@@ -12,7 +12,7 @@
 CPP_Shape2D_RenderPipelineManager::CPP_Shape2D_RenderPipelineManager() {
     // create vertex layout
     m_layout.begin()
-        .add(bgfx::Attrib::Position, 3, bgfx::AttribType::Float)
+        .add(bgfx::Attrib::Position, 2, bgfx::AttribType::Float)
         .add(bgfx::Attrib::TexCoord0, 1, bgfx::AttribType::Float)
         .end();
 
@@ -121,14 +121,10 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     }
 
     // Setup rendering state
-    uint64_t state = BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_PT_TRISTRIP | BGFX_STATE_DEPTH_TEST_LESS;
+    uint64_t state = BGFX_STATE_WRITE_RGB | BGFX_STATE_WRITE_A | BGFX_STATE_PT_TRISTRIP;
 
-    if (!HasAlpha) {
-        state |= BGFX_STATE_WRITE_Z;
-    } else {
-        // enable alpha blending (src * src_alpha + dst * (1 - src_alpha))
-        state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
-    }
+    // enable alpha blending (src * src_alpha + dst * (1 - src_alpha))
+    state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
 
     float info[4] = { float(m_colorTextureWidth), float(m_colorTextureHeight), 0.0f, 0.0f };
     bgfx::setUniform(u_colorInfo, info);

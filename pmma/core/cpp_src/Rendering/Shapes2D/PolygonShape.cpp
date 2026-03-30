@@ -52,10 +52,7 @@ API to set it.");
         }
 
         bool ColorIndexChanged = false;
-        float newColorIndex = 0.0f;
-        unsigned int ShapeIndex = 0.0f;
-        PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID, &newColorIndex, &ShapeIndex);
-        float z = (ShapeIndex % 4096) / 4095.0f;
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = true;

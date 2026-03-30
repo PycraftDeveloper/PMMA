@@ -20,5 +20,5 @@ void main()
                 (y + 0.5) / h);
 
     gl_Position = mul(OrthDisplayProj,
-                      vec4(a_position.xyz, 1.0));
+                      vec4(a_position.xy, 0.0, 1.0));
 }
