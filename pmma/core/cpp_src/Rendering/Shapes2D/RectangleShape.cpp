@@ -52,16 +52,19 @@ void CPP_RectangleShape::Render() {
         center[1] - halfH > displaySize[1])
         return;
 
-    uint8_t colorData[4];
-    Color->Get_RGBA(colorData);
+    uint8_t ColorData[4];
+    Color->Get_RGBA(ColorData);
 
     ColorDataChanged |= Color->GetInternalChangedToggle();
 
-    if (colorData[3] == 0)
+    if (ColorData[3] == 0)
         return;
 
     bool colorIndexChanged = false;
-    float newColorIndex = pipeline->Shape2D_GetColorIndex(colorData, ID);
+    float newColorIndex = 0.0f;
+    unsigned int ShapeIndex = 0.0f;
+    PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID, &newColorIndex, &ShapeIndex);
+    float z = (ShapeIndex % 4096) / 4095.0f;
 
     if (newColorIndex != ColorIndex) {
         ColorIndex = newColorIndex;

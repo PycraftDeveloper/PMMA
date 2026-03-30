@@ -23,7 +23,7 @@ class CPP_EllipseShape;
 class CPP_PolygonShape;
 
 struct Vertex {
-    float x, y;      // position
+    float x, y, z;      // position
     float s;      // texcoord (s = shape index as float, t unused)
 };
 
@@ -34,6 +34,7 @@ class CPP_Shape2D_RenderPipelineManager {
 
         std::array<std::vector<std::pair<uint64_t, unsigned int>>, 4> PreviousRenderContent;
         unsigned int InsertionIndex = 0;
+        unsigned int ShapeCount = 0;
 
         unsigned int ColorsInserted = 0;
         unsigned int ColorIndexesChanged = 0;
@@ -63,6 +64,7 @@ class CPP_Shape2D_RenderPipelineManager {
         bool UsingComplexColorInsertion = false;
         bool ChangedColorModes = true;
         bool PreviousFrameDataValid = false;
+        bool HasAlpha = false;
 
         CPP_Shape2D_RenderPipelineManager();
         ~CPP_Shape2D_RenderPipelineManager();
@@ -132,11 +134,19 @@ class CPP_Shape2D_RenderPipelineManager {
             } else {
                 ChangedColorModes = false;
             }
+
+            HasAlpha = false;
+
+            ShapeCount = 0;
         }
 
         void InternalRender();
 
         inline float GetColorIndex(uint8_t* Color, uint64_t ShapeID) {
+            if (!HasAlpha && Color[3] < 255) {
+                HasAlpha = true;
+            }
+
             if (!UsingComplexColorInsertion) {
                 // fast path: append (or overwrite if capacity exists) and return next index
                 size_t needBytes = (size_t)LiveColorCount + 4;
