@@ -91,16 +91,23 @@ API to set it.");
 
     uint32_t ColorValue = pack_rgba(ColorData);
 
-    ColorDataChanged = Color->GetInternalChangedToggle();
+    ColorDataChanged = ColorDataChanged || Color->GetInternalChangedToggle();
 
     if (RenderPipelineCompatible) {
         if (ColorData[3] == 0) { // Return if shape not visible
             return;
         }
 
-        if (VertexDataChanged) {
-            ColorDataChanged = false;
+        bool ColorIndexChanged = false;
+        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
+        if (newColorIndex != ColorIndex) {
+            ColorIndexChanged = true;
+            VertexDataChanged = true;
+            ColorIndex = newColorIndex;
+        }
+
+        if (VertexDataChanged) {
             unsigned int InternalPointCount = PointCount;
             float minAngle = asin(1.0f / Radius);
             unsigned int MaxPoints = std::max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
@@ -173,16 +180,7 @@ API to set it.");
             Shape2D_RenderPipelineVertices[vertexCount - 1] = Shape2D_RenderPipelineVertices[1];
         }
 
-        if (ColorDataChanged) {
-            Vertex *__restrict v = Shape2D_RenderPipelineVertices.data();
-            const size_t n = Shape2D_RenderPipelineVertices.size();
-            const uint32_t c = ColorValue;
-
-            for (size_t i = 0; i < n; ++i)
-                v[i].color = c;
-        }
-
-        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible);
+        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
         if (VertexDataChanged) {
             // Calculate data and add to buffers, Left intentionally blank for now
@@ -191,6 +189,7 @@ API to set it.");
     }
 
     VertexDataChanged = false;
+    ColorDataChanged = false;
 }
 
 void CPP_RadialPolygonShape::InternalRender() {

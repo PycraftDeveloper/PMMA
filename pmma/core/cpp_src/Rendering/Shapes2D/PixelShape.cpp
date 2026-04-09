@@ -57,7 +57,7 @@ API to set it.");
     ColorDataChanged = ColorDataChanged || Color->GetInternalChangedToggle();
 
     bool ColorIndexChanged = false;
-    float newColorIndex = 0; // PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
+    float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
     if (newColorIndex != ColorIndex) {
         ColorIndexChanged = true;
@@ -90,7 +90,7 @@ API to set it.");
         v3.y = y + 0.5f;
         v3.color = ColorIndex;
     }
-    PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, true);
+    PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, true, ColorIndexChanged);
 
     VertexDataChanged = false;
     ColorDataChanged = false;
