@@ -37,13 +37,13 @@ API to set it.");
     ShapeCenter->Get(ShapeCenterPosition);
 
     VertexDataChanged = VertexDataChanged ||
-                ShapeCenter->GetChangedToggle() ||
-                PMMA_Core::DisplayInstance->DisplaySizeChanged;
+                        ShapeCenter->GetChangedToggle() ||
+                        PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenterPosition[0] + 0.5f < 0 ||
-            ShapeCenterPosition[0] - 0.5f > DisplaySize[0] ||
-            ShapeCenterPosition[1] + 0.5f < 0 ||
-            ShapeCenterPosition[1] - 0.5f > DisplaySize[1]) {
+        ShapeCenterPosition[0] - 0.5f > DisplaySize[0] ||
+        ShapeCenterPosition[1] + 0.5f < 0 ||
+        ShapeCenterPosition[1] - 0.5f > DisplaySize[1]) {
         return;
     }
 
@@ -71,16 +71,24 @@ API to set it.");
         float y = ShapeCenterPosition[1];
 
         auto &v0 = Shape2D_RenderPipelineVertices[0];
-        v0.x = x - 0.5f; v0.y = y - 0.5f; v0.s = ColorIndex;
+        v0.x = x - 0.5f;
+        v0.y = y - 0.5f;
+        v0.color = ColorIndex;
 
         auto &v1 = Shape2D_RenderPipelineVertices[1];
-        v1.x = x + 0.5f; v1.y = y - 0.5f; v1.s = ColorIndex;
+        v1.x = x + 0.5f;
+        v1.y = y - 0.5f;
+        v1.color = ColorIndex;
 
         auto &v2 = Shape2D_RenderPipelineVertices[2];
-        v2.x = x - 0.5f; v2.y = y + 0.5f; v2.s = ColorIndex;
+        v2.x = x - 0.5f;
+        v2.y = y + 0.5f;
+        v2.color = ColorIndex;
 
         auto &v3 = Shape2D_RenderPipelineVertices[3];
-        v3.x = x + 0.5f; v3.y = y + 0.5f; v3.s = ColorIndex;
+        v3.x = x + 0.5f;
+        v3.y = y + 0.5f;
+        v3.color = ColorIndex;
     }
     PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, true, ColorIndexChanged);
 

@@ -65,13 +65,13 @@ API to set it.");
     ShapeCenter->Get(ShapeCenterPosition);
 
     VertexDataChanged = VertexDataChanged ||
-                ShapeCenter->GetChangedToggle() ||
-                PMMA_Core::DisplayInstance->DisplaySizeChanged;
+                        ShapeCenter->GetChangedToggle() ||
+                        PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenterPosition[0] + Radius < 0 ||
-            ShapeCenterPosition[0] - Radius > DisplaySize[0] ||
-            ShapeCenterPosition[1] + Radius < 0 ||
-            ShapeCenterPosition[1] - Radius > DisplaySize[1]) {
+        ShapeCenterPosition[0] - Radius > DisplaySize[0] ||
+        ShapeCenterPosition[1] + Radius < 0 ||
+        ShapeCenterPosition[1] - Radius > DisplaySize[1]) {
         return;
     }
 
@@ -81,6 +81,15 @@ API to set it.");
 
     uint8_t ColorData[4];
     Color->Get_RGBA(ColorData);
+
+    auto pack_rgba = [](const uint8_t c[4]) {
+        return (uint32_t(c[3]) << 24) |
+               (uint32_t(c[2]) << 16) |
+               (uint32_t(c[1]) << 8) |
+               (uint32_t(c[0]));
+    };
+
+    uint32_t ColorValue = pack_rgba(ColorData);
 
     ColorDataChanged = ColorDataChanged || Color->GetInternalChangedToggle();
 
@@ -126,16 +135,18 @@ API to set it.");
             float cosA = std::cos(angle);
             float sinA = std::sin(angle);
 
-            Vertex* v = Shape2D_RenderPipelineVertices.data();
+            Vertex *v = Shape2D_RenderPipelineVertices.data();
             if (inner_radius == 0) {
                 auto &v1 = Shape2D_RenderPipelineVertices[1];
-                v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+                v1.x = cx;
+                v1.y = cy;
+                v1.color = ColorValue;
 
                 const Vertex Center = Shape2D_RenderPipelineVertices[1];
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
                     v[0].x = outer_radius * cosA + cx;
                     v[0].y = outer_radius * sinA + cy;
-                    v[0].s = ColorIndex;
+                    v[0].color = ColorValue;
 
                     v[1] = Center; // center vertex
                     v += 2;
@@ -149,11 +160,11 @@ API to set it.");
                 for (unsigned int i = 0; i < InternalPointCount; ++i) {
                     v[0].x = outer_radius * cosA + cx;
                     v[0].y = outer_radius * sinA + cy;
-                    v[0].s = ColorIndex;
+                    v[0].color = ColorValue;
 
                     v[1].x = inner_radius * cosA + cx;
                     v[1].y = inner_radius * sinA + cy;
-                    v[1].s = ColorIndex;
+                    v[1].color = ColorValue;
 
                     v += 2;
 

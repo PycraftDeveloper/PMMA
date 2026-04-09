@@ -59,13 +59,13 @@ API to set it.");
     ShapeCenter->Get(ShapeCenterPosition);
 
     VertexDataChanged = VertexDataChanged ||
-                ShapeCenter->GetChangedToggle() ||
-                PMMA_Core::DisplayInstance->DisplaySizeChanged;
+                        ShapeCenter->GetChangedToggle() ||
+                        PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenterPosition[0] + HalfWidth < 0 ||
-            ShapeCenterPosition[0] - HalfWidth > DisplaySize[0] ||
-            ShapeCenterPosition[1] + HalfHeight < 0 ||
-            ShapeCenterPosition[1] - HalfHeight > DisplaySize[1]) {
+        ShapeCenterPosition[0] - HalfWidth > DisplaySize[0] ||
+        ShapeCenterPosition[1] + HalfHeight < 0 ||
+        ShapeCenterPosition[1] - HalfHeight > DisplaySize[1]) {
         return;
     }
 
@@ -127,10 +127,12 @@ API to set it.");
             float cosRot = cos(Rotation);
             float sinRot = sin(Rotation);
 
-            Vertex* v = Shape2D_RenderPipelineVertices.data();
+            Vertex *v = Shape2D_RenderPipelineVertices.data();
             if (Width < 0) {
                 auto &v1 = Shape2D_RenderPipelineVertices[1];
-                v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+                v1.x = cx;
+                v1.y = cy;
+                v1.color = ColorIndex;
 
                 const Vertex Center = Shape2D_RenderPipelineVertices[1];
                 for (unsigned int i = 0; i <= InternalPointCount; ++i) {
@@ -147,11 +149,13 @@ API to set it.");
                     float y_rot_outer = x_outer * sinRot + y_outer * cosRot;
 
                     auto &v1 = Shape2D_RenderPipelineVertices[i * 2 + 1];
-                    v1.x = cx; v1.y = cy; v1.s = ColorIndex;
+                    v1.x = cx;
+                    v1.y = cy;
+                    v1.color = ColorIndex;
 
                     v[0].x = cx + x_rot_outer;
                     v[0].y = cy + y_rot_outer;
-                    v[0].s = ColorIndex;
+                    v[0].color = ColorIndex;
 
                     v[1] = Center; // center vertex
 
@@ -180,11 +184,11 @@ API to set it.");
 
                     v[0].x = cx + x_rot_outer;
                     v[0].y = cy + y_rot_outer;
-                    v[0].s = ColorIndex;
+                    v[0].color = ColorIndex;
 
                     v[1].x = cx + x_rot_inner;
                     v[1].y = cy + y_rot_inner;
-                    v[1].s = ColorIndex;
+                    v[1].color = ColorIndex;
 
                     v += 2;
                 }
