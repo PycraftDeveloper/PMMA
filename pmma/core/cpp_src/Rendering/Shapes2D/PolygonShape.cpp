@@ -51,7 +51,7 @@ API to set it.");
         }
 
         bool ColorIndexChanged = false;
-        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
+        float newColorIndex = 0; // PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
 
         if (newColorIndex != ColorIndex) {
             ColorIndexChanged = true;
@@ -159,7 +159,7 @@ API to set it.");
                 v5.color = ColorIndex;
             }
         }
-        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);
+        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible);
     } else {
         if (VertexDataChanged) {
             // Calculate data and add to buffers, Left intentionally blank for now

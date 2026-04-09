@@ -62,7 +62,7 @@ void CPP_RectangleShape::Render() {
         return;
 
     bool colorIndexChanged = false;
-    float newColorIndex = pipeline->Shape2D_GetColorIndex(colorData, ID);
+    float newColorIndex = 0; // pipeline->Shape2D_GetColorIndex(colorData, ID);
 
     if (newColorIndex != ColorIndex) {
         ColorIndex = newColorIndex;
@@ -256,7 +256,7 @@ void CPP_RectangleShape::Render() {
         }
     }
 
-    pipeline->Add_2D_Shape_Object(this, true, colorIndexChanged);
+    pipeline->Add_2D_Shape_Object(this, true);
 
     VertexDataChanged = false;
     ColorDataChanged = false;

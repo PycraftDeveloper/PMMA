@@ -1,8 +1,8 @@
 #pragma once
 
-#include <vector>
-#include <variant>
 #include <iostream>
+#include <variant>
+#include <vector>
 
 #include <bgfx/bgfx.h>
 
@@ -13,96 +13,61 @@
 #include "Rendering/TextRenderer.hpp"
 
 using RawRenderObject = std::variant<
-    CPP_Shape2D_RenderPipelineManager*,
-    CPP_TextRenderPipelineManager*,
-    CPP_RadialPolygonShape*,
-    CPP_RectangleShape*,
-    CPP_PixelShape*,
-    CPP_LineShape*,
-    CPP_PolygonShape*,
-    CPP_EllipseShape*,
-    CPP_ArcShape*>;
+    CPP_Shape2D_RenderPipelineManager *,
+    CPP_TextRenderPipelineManager *,
+    CPP_RadialPolygonShape *,
+    CPP_RectangleShape *,
+    CPP_PixelShape *,
+    CPP_LineShape *,
+    CPP_PolygonShape *,
+    CPP_EllipseShape *,
+    CPP_ArcShape *>;
 
 class CPP_Shader;
 
 class CPP_RenderPipelineCore {
-    public:
-        std::vector<CPP_Shape2D_RenderPipelineManager*> Shape_2D_RenderManagerCache;
-        std::vector<CPP_TextRenderPipelineManager*> Text_RenderManagerCache;
-        std::vector<RawRenderObject> RenderData;
+public:
+    std::vector<CPP_Shape2D_RenderPipelineManager *> Shape_2D_RenderManagerCache;
+    std::vector<CPP_TextRenderPipelineManager *> Text_RenderManagerCache;
+    std::vector<RawRenderObject> RenderData;
 
-        bgfx::UniformHandle OrthDisplayProj;
+    bgfx::UniformHandle OrthDisplayProj;
 
-        CPP_Shader* Shape2D_RenderPipelineShader = nullptr;
+    CPP_Shader *Shape2D_RenderPipelineShader = nullptr;
 
-        uint64_t MaxSize;
-        uint32_t MaxWidth;
+    uint64_t MaxSize;
+    uint32_t MaxWidth;
 
-        CPP_RenderPipelineCore();
-        ~CPP_RenderPipelineCore();
+    CPP_RenderPipelineCore();
+    ~CPP_RenderPipelineCore();
 
-        void Render();
+    void Render();
 
-        void Reset();
+    void Reset();
 
-        template<typename T>
-        inline void Add_2D_Shape_Object(T* RenderObject, bool RenderPipelineCompatable, bool ColorIndexChanged) {
-            if (RenderData.empty()) {
-                if (!RenderPipelineCompatable) {
-                    RenderData.emplace_back(RenderObject);
-                    return;
-                }
-            }
-
+    template <typename T>
+    inline void Add_2D_Shape_Object(T *RenderObject, bool RenderPipelineCompatable) {
+        if (RenderData.empty()) {
             if (RenderPipelineCompatable) {
-                auto& manager = *std::get<CPP_Shape2D_RenderPipelineManager*>(RenderData.back());
-                manager.AddRenderTarget(RenderObject, ColorIndexChanged);
+                if (!Shape_2D_RenderManagerCache.empty()) {
+                    RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
+                    Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
+                } else {
+                    RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
+                }
             } else {
                 RenderData.emplace_back(RenderObject);
+                return;
             }
         }
 
-        void Add_Text_Object(CPP_TextRenderer* RenderObject);
-
-        inline float Shape2D_GetColorIndex(uint8_t* Color, unsigned int ShapeID) {
-            if (RenderData.empty()) {
-                if (!Shape_2D_RenderManagerCache.empty()) {
-                    RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
-                    Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
-                } else {
-                    RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
-                }
-            }
-
-            if (CPP_Shape2D_RenderPipelineManager** managerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData.back())) {
-                if ((*managerPtr)->shape_colors.size() < MaxSize) {
-                    return (*managerPtr)->GetColorIndex(Color, ShapeID);
-                } else {
-                    // Too many vertexes — need a new manager
-                    if (!Shape_2D_RenderManagerCache.empty()) {
-                        RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
-                        Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
-                    } else {
-                        RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
-                    }
-
-                    if (CPP_Shape2D_RenderPipelineManager** newManagerPtr = std::get_if<CPP_Shape2D_RenderPipelineManager*>(&RenderData.back())) {
-                        return (*newManagerPtr)->GetColorIndex(Color, ShapeID);
-                    }
-                }
-            } else {
-                // Last RenderData item is not a manager — insert new manager
-                if (!Shape_2D_RenderManagerCache.empty()) {
-                    RenderData.emplace_back(Shape_2D_RenderManagerCache.front());
-                    Shape_2D_RenderManagerCache.erase(Shape_2D_RenderManagerCache.begin());
-                } else {
-                    RenderData.emplace_back(new CPP_Shape2D_RenderPipelineManager());
-                }
-
-                auto& manager = *std::get<CPP_Shape2D_RenderPipelineManager*>(RenderData.back());
-                manager.GetColorIndex(Color, ShapeID);
-            }
-
-            return 0; // fallback
+        if (RenderPipelineCompatable) {
+            auto &manager = *std::get<CPP_Shape2D_RenderPipelineManager *>(RenderData.back());
+            manager.AddRenderTarget(RenderObject);
+        } else {
+            RenderData.emplace_back(RenderObject);
         }
+    }
+
+    void Add_Text_Object(CPP_TextRenderer *RenderObject);
 };
