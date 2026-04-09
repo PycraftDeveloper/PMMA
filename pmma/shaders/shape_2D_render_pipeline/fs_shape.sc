@@ -1,8 +1,10 @@
-$input v_color0
+$input v_uv
 
 #include "common.sh"
 
+SAMPLER2D(s_colorTex, 0);
+
 void main()
 {
-    gl_FragColor = v_color0;
+    gl_FragColor = texture2D(s_colorTex, v_uv);
 }

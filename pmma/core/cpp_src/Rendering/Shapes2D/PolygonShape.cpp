@@ -29,12 +29,13 @@ API to set it.");
 
         Logger->InternalLogError(
             30,
-            "This shape has no points set, please use `Polygon.set_points` to set it.");
+            "This shape has no points set, please use `Polygon.set_points` to set it."
+        );
         throw std::runtime_error("Shape has no points set");
     }
 
     VertexDataChanged = VertexDataChanged ||
-                        PMMA_Core::DisplayInstance->DisplaySizeChanged;
+        PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     bool RenderPipelineCompatible = true;
     // check here if the gradient has been set, if has then check it fits into the render pipeline
@@ -129,34 +130,22 @@ API to set it.");
                 Dp[1] = P1[1] - N[1] * HalfWidth;
 
                 auto &v0 = Shape2D_RenderPipelineVertices[index];
-                v0.x = A[0];
-                v0.y = A[1];
-                v0.color = ColorIndex;
+                v0.x = A[0]; v0.y = A[1]; v0.s = ColorIndex;
 
                 auto &v1 = Shape2D_RenderPipelineVertices[index + 1];
-                v1.x = B[0];
-                v1.y = B[1];
-                v1.color = ColorIndex;
+                v1.x = B[0]; v1.y = B[1]; v1.s = ColorIndex;
 
                 auto &v2 = Shape2D_RenderPipelineVertices[index + 2];
-                v2.x = C[0];
-                v2.y = C[1];
-                v2.color = ColorIndex;
+                v2.x = C[0]; v2.y = C[1]; v2.s = ColorIndex;
 
                 auto &v3 = Shape2D_RenderPipelineVertices[index + 3];
-                v3.x = C[0];
-                v3.y = C[1];
-                v3.color = ColorIndex;
+                v3.x = C[0]; v3.y = C[1]; v3.s = ColorIndex;
 
                 auto &v4 = Shape2D_RenderPipelineVertices[index + 4];
-                v4.x = B[0];
-                v4.y = B[1];
-                v4.color = ColorIndex;
+                v4.x = B[0]; v4.y = B[1]; v4.s = ColorIndex;
 
                 auto &v5 = Shape2D_RenderPipelineVertices[index + 5];
-                v5.x = Dp[0];
-                v5.y = Dp[1];
-                v5.color = ColorIndex;
+                v5.x = Dp[0]; v5.y = Dp[1]; v5.s = ColorIndex;
             }
         }
         PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);

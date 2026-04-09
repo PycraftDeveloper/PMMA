@@ -46,9 +46,9 @@ API to set it.");
     }
 
     VertexDataChanged = VertexDataChanged ||
-                        ShapeStart->GetChangedToggle() ||
-                        ShapeEnd->GetChangedToggle() ||
-                        PMMA_Core::DisplayInstance->DisplaySizeChanged;
+                ShapeStart->GetChangedToggle() ||
+                ShapeEnd->GetChangedToggle() ||
+                PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     bool RenderPipelineCompatible = true;
     // check here if the gradient has been set, if has then check it fits into the render pipeline
@@ -108,24 +108,16 @@ API to set it.");
 
             Shape2D_RenderPipelineVertices.resize(4);
             auto &v0 = Shape2D_RenderPipelineVertices[0];
-            v0.x = RotatedStart[0] - Normal[0];
-            v0.y = RotatedStart[1] - Normal[1];
-            v0.color = ColorIndex;
+            v0.x = RotatedStart[0] - Normal[0]; v0.y = RotatedStart[1] - Normal[1]; v0.s = ColorIndex;
 
             auto &v1 = Shape2D_RenderPipelineVertices[1];
-            v1.x = RotatedStart[0] + Normal[0];
-            v1.y = RotatedStart[1] + Normal[1];
-            v1.color = ColorIndex;
+            v1.x = RotatedStart[0] + Normal[0]; v1.y = RotatedStart[1] + Normal[1]; v1.s = ColorIndex;
 
             auto &v2 = Shape2D_RenderPipelineVertices[2];
-            v2.x = RotatedEnd[0] - Normal[0];
-            v2.y = RotatedEnd[1] - Normal[1];
-            v2.color = ColorIndex;
+            v2.x = RotatedEnd[0] - Normal[0]; v2.y = RotatedEnd[1] - Normal[1]; v2.s = ColorIndex;
 
             auto &v3 = Shape2D_RenderPipelineVertices[3];
-            v3.x = RotatedEnd[0] + Normal[0];
-            v3.y = RotatedEnd[1] + Normal[1];
-            v3.color = ColorIndex;
+            v3.x = RotatedEnd[0] + Normal[0]; v3.y = RotatedEnd[1] + Normal[1]; v3.s = ColorIndex;
         }
         PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);
     } else {
