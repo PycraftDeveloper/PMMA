@@ -77,7 +77,8 @@ def selectively_clean_extern():
             return ('glm' in path or
                     'FlatHashMap' in path or
                     'STB' in path or
-                    'shader_build_tools' in path)
+                    'shader_build_tools' in path or
+                    'taskflow' in path)
 
         for dirpath, dirnames, filenames in os.walk(extern_dir, topdown=False):
             full_dirpath = os.path.abspath(dirpath)

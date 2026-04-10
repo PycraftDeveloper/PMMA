@@ -1,6 +1,6 @@
-#include <vector>
 #include <cstdint>
 #include <cstring>
+#include <vector>
 
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
@@ -20,8 +20,8 @@ CPP_Shape2D_RenderPipelineManager::CPP_Shape2D_RenderPipelineManager() {
     m_vbh = BGFX_INVALID_HANDLE;
     m_tex = BGFX_INVALID_HANDLE;
 
-    s_colorTex   = bgfx::createUniform("s_colorTex", bgfx::UniformType::Sampler);
-    u_colorInfo  = bgfx::createUniform("u_colorInfo", bgfx::UniformType::Vec4);
+    s_colorTex = bgfx::createUniform("s_colorTex", bgfx::UniformType::Sampler);
+    u_colorInfo = bgfx::createUniform("u_colorInfo", bgfx::UniformType::Vec4);
 }
 
 CPP_Shape2D_RenderPipelineManager::~CPP_Shape2D_RenderPipelineManager() {
@@ -46,12 +46,11 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     if (VertexDataChanged) {
         glfwPostEmptyEvent();
 
-        combined_vertexes[LiveBufferCount].resize(LiveVertexCount);
         PreviousRenderContent[LivePreviousRenderContent].resize(InsertionIndex);
 
-        const bgfx::Memory* mem = bgfx::makeRef(
+        const bgfx::Memory *mem = bgfx::makeRef(
             combined_vertexes[LiveBufferCount].data(),
-            (uint32_t)(combined_vertexes[LiveBufferCount].size()*sizeof(Vertex)));
+            (uint32_t)(combined_vertexes[LiveBufferCount].size() * sizeof(Vertex)));
 
         if (bgfx::isValid(m_vbh)) {
             if (m_vertexCount != combined_vertexes[LiveBufferCount].size()) {
@@ -77,7 +76,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         shape_colors[LiveColorBufferCount].resize(LiveColorCount);
 
         uint32_t numColors = (uint32_t)shape_colors[LiveColorBufferCount].size() / 4;
-        uint32_t width  = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
+        uint32_t width = std::min(PMMA_Core::RenderPipelineCore->MaxWidth, numColors);
         uint32_t height = (numColors + width - 1) / width;
 
         size_t expectedSize = width * height * 4;
@@ -85,10 +84,9 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
             shape_colors[LiveColorBufferCount].resize(expectedSize, 0); // Pad with transparent black
         }
 
-        const bgfx::Memory* texMem = bgfx::makeRef(
+        const bgfx::Memory *texMem = bgfx::makeRef(
             shape_colors[LiveColorBufferCount].data(),
-            static_cast<uint32_t>(shape_colors[LiveColorBufferCount].size() * sizeof(uint8_t))
-        );
+            static_cast<uint32_t>(shape_colors[LiveColorBufferCount].size() * sizeof(uint8_t)));
 
         // If texture exists but size changed, destroy and recreate it
         if (bgfx::isValid(m_tex)) {
@@ -102,8 +100,8 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         if (!bgfx::isValid(m_tex)) {
             m_tex = bgfx::createTexture2D(
                 (uint16_t)width, (uint16_t)height,
-                false,   // hasMips
-                1,       // num layers
+                false, // hasMips
+                1,     // num layers
                 bgfx::TextureFormat::RGBA8,
                 BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
         }
@@ -111,13 +109,11 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
         bgfx::updateTexture2D(m_tex, 0, 0, 0, 0, width, height, texMem);
 
         // store width/height for shader normalization
-        m_colorTextureWidth  = width;
+        m_colorTextureWidth = width;
         m_colorTextureHeight = height;
 
         LiveColorBufferCount++;
-        if (LiveColorBufferCount > 3) {
-            LiveColorBufferCount = 0;
-        }
+        LiveColorBufferCount = LiveColorBufferCount % 4;
     }
 
     // Setup rendering state
@@ -126,7 +122,7 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     // enable alpha blending (src * src_alpha + dst * (1 - src_alpha))
     state |= BGFX_STATE_BLEND_FUNC(BGFX_STATE_BLEND_SRC_ALPHA, BGFX_STATE_BLEND_INV_SRC_ALPHA);
 
-    float info[4] = { float(m_colorTextureWidth), float(m_colorTextureHeight), 0.0f, 0.0f };
+    float info[4] = {float(m_colorTextureWidth), float(m_colorTextureHeight), 0.0f, 0.0f};
     bgfx::setUniform(u_colorInfo, info);
 
     // Set vertex buffer
@@ -139,9 +135,4 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     // Submit the draw call to the provided viewId
     bgfx::setState(state);
     bgfx::submit(0, PMMA_Core::RenderPipelineCore->Shape2D_RenderPipelineShader->Use());
-
-    LivePreviousRenderContent++;
-    if (LivePreviousRenderContent > 3) {
-        LivePreviousRenderContent = 0;
-    }
 }

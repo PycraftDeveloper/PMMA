@@ -1,126 +1,136 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 #include <glm/glm.hpp>
 
-#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
+#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Logger.hpp"
 
 class EXPORT CPP_RadialPolygonShape {
-    public:
-        CPP_Logger* Logger;
-        CPP_DisplayCoordinate* ShapeCenter;
-        CPP_Color* Color;
+public:
+    CPP_Logger *Logger;
+    CPP_DisplayCoordinate *ShapeCenter;
+    CPP_Color *Color;
 
-        std::vector<glm::vec2> VertexData;
-        std::vector<glm::vec4> ColorData;
+    std::vector<glm::vec2> VertexData;
+    std::vector<glm::vec4> ColorData;
 
-        std::vector<Vertex> Shape2D_RenderPipelineVertices;
+    std::vector<Vertex> Shape2D_RenderPipelineVertices;
+    CPP_Shape2D_RenderPipelineManager *Shape2D_RenderPipelineManager;
 
-        uint64_t ID;
+    uint64_t ID;
+    size_t ShapeIndex;
 
-        float Rotation = 0;
-        float ColorIndex = 0;
+    float Rotation = 0;
+    float ColorIndex = 0;
+    float newColorIndex = 0;
 
-        unsigned int Radius;
-        unsigned int Width = 0;
-        unsigned int PointCount = 0;
+    unsigned int Radius;
+    unsigned int Width = 0;
+    unsigned int PointCount = 0;
 
-        bool RadiusSet = false;
-        bool WidthSet = true;
-        bool HasAlpha = false;
-        bool PointCountSet = true;
-        bool VertexDataChanged = true;
-        bool ColorDataChanged = true;
+    unsigned int Location;
+    std::optional<unsigned int> PreviousLocation = std::nullopt;
 
-        CPP_RadialPolygonShape();
+    bool RadiusSet = false;
+    bool WidthSet = true;
+    bool HasAlpha = false;
+    bool PointCountSet = true;
+    bool VertexDataChanged = true;
+    bool ColorDataChanged = true;
+    bool ColorIndexChanged = true;
 
-        ~CPP_RadialPolygonShape() {
-            if (Logger != nullptr) {
-                delete Logger;
-                Logger = nullptr;
-            }
+    CPP_RadialPolygonShape();
 
-            delete ShapeCenter;
-            ShapeCenter = nullptr;
-
-            delete Color;
-            Color = nullptr;
+    ~CPP_RadialPolygonShape() {
+        if (Logger != nullptr) {
+            delete Logger;
+            Logger = nullptr;
         }
 
-        void Render();
+        delete ShapeCenter;
+        ShapeCenter = nullptr;
 
-        void InternalRender();
+        delete Color;
+        Color = nullptr;
+    }
 
-        inline void SetRadius(unsigned int in_radius) {
-            if (RadiusSet && in_radius != Radius) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
+    void Render();
+
+    void InternalRender();
+
+    unsigned int GetVertexCount();
+    void UpdateColorIndex();
+
+    inline void SetRadius(unsigned int in_radius) {
+        if (RadiusSet && in_radius != Radius) {
+            VertexDataChanged = true;
+            Shape2D_RenderPipelineVertices.clear();
+            VertexData.clear();
+        }
+
+        Radius = in_radius;
+        RadiusSet = true;
+    };
+
+    inline unsigned int GetRadius() {
+        if (!RadiusSet) {
+            if (Logger == nullptr) {
+                Logger = new CPP_Logger();
             }
-
-            Radius = in_radius;
-            RadiusSet = true;
-        };
-
-        inline unsigned int GetRadius() {
-            if (!RadiusSet) {
-                if (Logger == nullptr) {
-                    Logger = new CPP_Logger();
-                }
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not specified a radius for the arc \
+            Logger->InternalLogWarn(
+                30,
+                "You have not specified a radius for the arc \
 please use `RadialPolygon.set_radius` to set it before attempting to get it.");
-                throw std::runtime_error("Radius not set");
-            }
-            return Radius;
-        };
+            throw std::runtime_error("Radius not set");
+        }
+        return Radius;
+    };
 
-        inline void SetPointCount(unsigned int in_pointCount) {
-            if (PointCountSet && in_pointCount != PointCount) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            PointCount = in_pointCount;
-            PointCountSet = true;
-        };
-
-        unsigned int GetPointCount();
-
-        inline void SetWidth(unsigned int in_width) {
-            if (WidthSet && in_width != Width) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            Width = in_width;
-            WidthSet = true;
-        };
-
-        inline unsigned int GetWidth() const {
-            return Width;
+    inline void SetPointCount(unsigned int in_pointCount) {
+        if (PointCountSet && in_pointCount != PointCount) {
+            VertexDataChanged = true;
+            Shape2D_RenderPipelineVertices.clear();
+            VertexData.clear();
         }
 
-        inline void SetRotation(float in_rotation) {
-            if (in_rotation != Rotation) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
+        PointCount = in_pointCount;
+        PointCountSet = true;
+    };
 
-            Rotation = in_rotation;
+    unsigned int GetPointCount();
+
+    inline void SetWidth(unsigned int in_width) {
+        if (WidthSet && in_width != Width) {
+            VertexDataChanged = true;
+            Shape2D_RenderPipelineVertices.clear();
+            VertexData.clear();
         }
 
-        inline float GetRotation() const {
-            return Rotation;
+        Width = in_width;
+        WidthSet = true;
+    };
+
+    inline unsigned int GetWidth() const {
+        return Width;
+    }
+
+    inline void SetRotation(float in_rotation) {
+        if (in_rotation != Rotation) {
+            VertexDataChanged = true;
+            Shape2D_RenderPipelineVertices.clear();
+            VertexData.clear();
         }
+
+        Rotation = in_rotation;
+    }
+
+    inline float GetRotation() const {
+        return Rotation;
+    }
 };

@@ -1,16 +1,16 @@
 #pragma once
 
-#include <vector>
-#include <variant>
+#include <cstring>
 #include <iostream>
 #include <unordered_map>
 #include <unordered_set>
-#include <cstring>
+#include <variant>
+#include <vector>
 
-#include <glm/glm.hpp>
 #include <FlatHashMap/flat_hash_map.hpp>
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
+#include <glm/glm.hpp>
 
 #include "Constants.hpp"
 
@@ -23,295 +23,202 @@ class CPP_EllipseShape;
 class CPP_PolygonShape;
 
 struct Vertex {
-    float x, y;      // position
-    float s;      // texcoord (s = shape index as float, t unused)
+    float x, y; // position
+    float s;    // texcoord (s = shape index as float, t unused)
 };
 
 class CPP_Shape2D_RenderPipelineManager {
-    public:
-        std::array<std::vector<Vertex>, 4> combined_vertexes;
-        std::array<std::vector<uint8_t>, 4> shape_colors;
+public:
+    std::array<std::vector<Vertex>, 4> combined_vertexes;
+    std::array<std::vector<uint8_t>, 4> shape_colors;
 
-        std::array<std::vector<std::pair<uint64_t, unsigned int>>, 4> PreviousRenderContent;
-        unsigned int InsertionIndex = 0;
+    std::array<std::vector<std::pair<uint64_t, unsigned int>>, 4> PreviousRenderContent;
+    std::vector<std::pair<uint64_t, unsigned int>> NewRenderContent;
+    unsigned int InsertionIndex = 0;
 
-        unsigned int ColorsInserted = 0;
-        unsigned int ColorIndexesChanged = 0;
-        unsigned int m_vertexCount = 0;
+    unsigned int ColorsInserted = 0;
+    unsigned int ColorIndexesChanged = 0;
+    unsigned int m_vertexCount = 0;
 
-        std::array<ska::flat_hash_map<uint64_t, float>, 4> ColorSlotID; // needs to be float for bgfx shader access
-        std::array<ska::flat_hash_set<uint64_t>, 4> SeenThisFrame;
-        std::array<std::vector<float>, 4> FreeSlots;
+    unsigned int NextReserveSize = 0;
 
-        bgfx::VertexLayout m_layout;
-        bgfx::DynamicVertexBufferHandle m_vbh;
-        bgfx::TextureHandle m_tex;
-        bgfx::UniformHandle s_colorTex;
-        bgfx::UniformHandle u_colorInfo;
-        uint32_t m_colorTextureWidth = 0;
-        uint32_t m_colorTextureHeight = 0;
+    std::array<ska::flat_hash_map<uint64_t, float>, 4> ColorSlotID; // needs to be float for bgfx shader access
+    std::array<ska::flat_hash_set<uint64_t>, 4> SeenThisFrame;
+    std::array<std::vector<float>, 4> FreeSlots;
 
-        unsigned int LiveVertexCount = 0;
-        unsigned int LiveColorCount = 0;
+    bgfx::VertexLayout m_layout;
+    bgfx::DynamicVertexBufferHandle m_vbh;
+    bgfx::TextureHandle m_tex;
+    bgfx::UniformHandle s_colorTex;
+    bgfx::UniformHandle u_colorInfo;
+    uint32_t m_colorTextureWidth = 0;
+    uint32_t m_colorTextureHeight = 0;
 
-        short int LiveBufferCount = 0;
-        short int LiveColorBufferCount = 0;
-        short int LivePreviousRenderContent = 0;
+    unsigned int LiveVertexCount = 0;
+    unsigned int LiveColorCount = 0;
 
-        bool VertexDataChanged = true;
-        bool ColorDataChanged = true;
-        bool UsingComplexColorInsertion = false;
-        bool ChangedColorModes = true;
-        bool PreviousFrameDataValid = false;
+    short int LiveBufferCount = 0;
+    short int LiveColorBufferCount = 0;
+    short int LivePreviousRenderContent = 0;
 
-        CPP_Shape2D_RenderPipelineManager();
-        ~CPP_Shape2D_RenderPipelineManager();
+    bool VertexDataChanged = true;
+    bool ColorDataChanged = true;
+    bool UsingComplexColorInsertion = false;
+    bool ChangedColorModes = true;
+    bool PreviousFrameDataValid = false;
 
-        template<typename T>
-        inline void AddRenderTarget(T* shape, bool ColorIndexChanged)
-        {
-            if (ColorIndexChanged) {
-                ++ColorIndexesChanged;
-            }
-            ++ColorsInserted;
+    CPP_Shape2D_RenderPipelineManager();
+    ~CPP_Shape2D_RenderPipelineManager();
 
-            InternalAddRenderTarget(shape);
+    inline void Reset() {
+        VertexDataChanged = false;
+        ColorDataChanged = false;
+        PreviousFrameDataValid = true;
+        LiveVertexCount = 0;
+        LiveColorCount = 0;
+
+        InsertionIndex = 0;
+        NextReserveSize = 0;
+
+        PreviousRenderContent[LivePreviousRenderContent] = NewRenderContent;
+        NewRenderContent.clear();
+
+        LivePreviousRenderContent++;
+        if (LivePreviousRenderContent > 3) {
+            LivePreviousRenderContent = 0;
         }
 
-        inline void Reset() {
-            VertexDataChanged = false;
-            ColorDataChanged = false;
-            PreviousFrameDataValid = true;
-            LiveVertexCount = 0;
-            LiveColorCount = 0;
+        if (UsingComplexColorInsertion) {
+            std::vector<uint64_t> RecycleList;
 
-            InsertionIndex = 0;
-
-            if (UsingComplexColorInsertion) {
-                std::vector<uint64_t> RecycleList;
-
-                for (const auto& [shapeID, slot] : ColorSlotID[LiveColorBufferCount]) {
-                    if (SeenThisFrame[LiveColorBufferCount].find(shapeID) == SeenThisFrame[LiveColorBufferCount].end()) {
-                        FreeSlots[LiveColorBufferCount].push_back(static_cast<float>(slot));
-                        RecycleList.push_back(shapeID);
-                    }
-                }
-
-                // Batch erase after iteration
-                for (uint64_t shapeID : RecycleList) {
-                    ColorSlotID[LiveColorBufferCount].erase(shapeID);
-                }
-                RecycleList.clear();
-
-                size_t SeenThisFrameSize = SeenThisFrame[LiveColorBufferCount].size();
-                SeenThisFrame[LiveColorBufferCount].clear();
-                SeenThisFrame[LiveColorBufferCount].reserve(SeenThisFrameSize + 25);
-            }
-
-            bool PreviouslyUsingComplexColorInsertion = UsingComplexColorInsertion;
-
-            if (!ChangedColorModes && ColorsInserted > 0) {
-                if (ColorIndexesChanged / ColorsInserted > 0.2f) {
-                    UsingComplexColorInsertion = true;
-                } else {
-                    UsingComplexColorInsertion = false;
+            for (const auto &[shapeID, slot] : ColorSlotID[LiveColorBufferCount]) {
+                if (SeenThisFrame[LiveColorBufferCount].find(shapeID) == SeenThisFrame[LiveColorBufferCount].end()) {
+                    FreeSlots[LiveColorBufferCount].push_back(static_cast<float>(slot));
+                    RecycleList.push_back(shapeID);
                 }
             }
 
-            ColorIndexesChanged = 0;
-            ColorsInserted = 0;
-
-            if (UsingComplexColorInsertion && !PreviouslyUsingComplexColorInsertion) {
-                ColorSlotID[LiveColorBufferCount].clear();
-                FreeSlots[LiveColorBufferCount].clear();
-                shape_colors[LiveColorBufferCount].clear();
+            // Batch erase after iteration
+            for (uint64_t shapeID : RecycleList) {
+                ColorSlotID[LiveColorBufferCount].erase(shapeID);
             }
+            RecycleList.clear();
 
-            if (UsingComplexColorInsertion != PreviouslyUsingComplexColorInsertion) {
-                ChangedColorModes = true;
+            size_t SeenThisFrameSize = SeenThisFrame[LiveColorBufferCount].size();
+            SeenThisFrame[LiveColorBufferCount].clear();
+            SeenThisFrame[LiveColorBufferCount].reserve(SeenThisFrameSize + 25);
+        }
+
+        bool PreviouslyUsingComplexColorInsertion = UsingComplexColorInsertion;
+
+        if (!ChangedColorModes && ColorsInserted > 0) {
+            if (ColorIndexesChanged / ColorsInserted > 0.2f) {
+                UsingComplexColorInsertion = true;
             } else {
-                ChangedColorModes = false;
+                UsingComplexColorInsertion = false;
             }
         }
 
-        void InternalRender();
+        ColorIndexesChanged = 0;
+        ColorsInserted = 0;
 
-        inline float GetColorIndex(uint8_t* Color, uint64_t ShapeID) {
-            if (!UsingComplexColorInsertion) {
-                // fast path: append (or overwrite if capacity exists) and return next index
-                size_t needBytes = (size_t)LiveColorCount + 4;
+        if (UsingComplexColorInsertion && !PreviouslyUsingComplexColorInsertion) {
+            ColorSlotID[LiveColorBufferCount].clear();
+            FreeSlots[LiveColorBufferCount].clear();
+            shape_colors[LiveColorBufferCount].clear();
+        }
 
-                if (shape_colors[LiveColorBufferCount].size() < needBytes) {
-                    // ensure there's space for the 4 bytes we will write
-                    shape_colors[LiveColorBufferCount].resize(needBytes);
-                }
+        if (UsingComplexColorInsertion != PreviouslyUsingComplexColorInsertion) {
+            ChangedColorModes = true;
+        } else {
+            ChangedColorModes = false;
+        }
+    }
 
-                // write the 4 color bytes
-                shape_colors[LiveColorBufferCount][LiveColorCount]     = Color[0];
-                shape_colors[LiveColorBufferCount][LiveColorCount + 1] = Color[1];
-                shape_colors[LiveColorBufferCount][LiveColorCount + 2] = Color[2];
-                shape_colors[LiveColorBufferCount][LiveColorCount + 3] = Color[3];
+    void InternalRender();
 
-                // compute slot index (slot is number of color entries before this write)
-                unsigned int slotIndex = static_cast<unsigned int>(LiveColorCount / 4);
-
-                LiveColorCount += 4;
-
-                return static_cast<float>(slotIndex);
-            }
-
-            // --- Complex insertion path: try to preserve indexes ---
-            SeenThisFrame[LiveColorBufferCount].insert(ShapeID);
-
-            auto found = ColorSlotID[LiveColorBufferCount].find(ShapeID);
-            if (found != ColorSlotID[LiveColorBufferCount].end()) {
-                // already have a slot for this shape: overwrite it
-                float slotIndex = found->second;
-                size_t offset = static_cast<size_t>(slotIndex) * 4;
-                if (shape_colors[LiveColorBufferCount].size() < offset + 4) {
-                    shape_colors[LiveColorBufferCount].resize(offset + 4);
-                }
-
-                shape_colors[LiveColorBufferCount][offset]     = Color[0];
-                shape_colors[LiveColorBufferCount][offset + 1] = Color[1];
-                shape_colors[LiveColorBufferCount][offset + 2] = Color[2];
-                shape_colors[LiveColorBufferCount][offset + 3] = Color[3];
-
-                LiveColorCount += 4;
-                return slotIndex;
-            }
-
-            // not seen before: reuse a free slot if available
-            if (!FreeSlots[LiveColorBufferCount].empty()) {
-                float newSlot = FreeSlots[LiveColorBufferCount].back();
-                FreeSlots[LiveColorBufferCount].pop_back();
-
-                size_t offset = static_cast<size_t>(newSlot) * 4;
-                if (shape_colors[LiveColorBufferCount].size() < offset + 4) {
-                    // pad vector so the slot exists (could be reusing a previously freed high index)
-                    shape_colors[LiveColorBufferCount].resize(offset + 4);
-                }
-
-                shape_colors[LiveColorBufferCount][offset]     = Color[0];
-                shape_colors[LiveColorBufferCount][offset + 1] = Color[1];
-                shape_colors[LiveColorBufferCount][offset + 2] = Color[2];
-                shape_colors[LiveColorBufferCount][offset + 3] = Color[3];
-
-                ColorSlotID[LiveColorBufferCount][ShapeID] = newSlot;
-
-                LiveColorCount += 4;
-                return static_cast<float>(newSlot);
-            }
-
-            // no free slots: append at the end
+    inline float GetColorIndex(uint8_t *Color, uint64_t ShapeID) {
+        if (!UsingComplexColorInsertion) {
+            // fast path: append (or overwrite if capacity exists) and return next index
             size_t needBytes = (size_t)LiveColorCount + 4;
+
             if (shape_colors[LiveColorBufferCount].size() < needBytes) {
+                // ensure there's space for the 4 bytes we will write
                 shape_colors[LiveColorBufferCount].resize(needBytes);
             }
 
-            shape_colors[LiveColorBufferCount][LiveColorCount]     = Color[0];
+            // write the 4 color bytes
+            shape_colors[LiveColorBufferCount][LiveColorCount] = Color[0];
             shape_colors[LiveColorBufferCount][LiveColorCount + 1] = Color[1];
             shape_colors[LiveColorBufferCount][LiveColorCount + 2] = Color[2];
             shape_colors[LiveColorBufferCount][LiveColorCount + 3] = Color[3];
 
-            float slotIndex = static_cast<float>(LiveColorCount / 4);
-            ColorSlotID[LiveColorBufferCount][ShapeID] = slotIndex;
+            // compute slot index (slot is number of color entries before this write)
+            unsigned int slotIndex = static_cast<unsigned int>(LiveColorCount / 4);
+
+            LiveColorCount += 4;
+
+            return static_cast<float>(slotIndex);
+        }
+
+        // --- Complex insertion path: try to preserve indexes ---
+        SeenThisFrame[LiveColorBufferCount].insert(ShapeID);
+
+        auto found = ColorSlotID[LiveColorBufferCount].find(ShapeID);
+        if (found != ColorSlotID[LiveColorBufferCount].end()) {
+            // already have a slot for this shape: overwrite it
+            float slotIndex = found->second;
+            size_t offset = static_cast<size_t>(slotIndex) * 4;
+            if (shape_colors[LiveColorBufferCount].size() < offset + 4) {
+                shape_colors[LiveColorBufferCount].resize(offset + 4);
+            }
+
+            shape_colors[LiveColorBufferCount][offset] = Color[0];
+            shape_colors[LiveColorBufferCount][offset + 1] = Color[1];
+            shape_colors[LiveColorBufferCount][offset + 2] = Color[2];
+            shape_colors[LiveColorBufferCount][offset + 3] = Color[3];
 
             LiveColorCount += 4;
             return slotIndex;
         }
 
-        template<typename T>
-        inline void InternalAddRenderTarget(T* TargetPtr) {
-            const bool ShapeVertexDataChanged = TargetPtr->VertexDataChanged;
-            VertexDataChanged |= ShapeVertexDataChanged;
-            ColorDataChanged |= TargetPtr->ColorDataChanged;
+        // not seen before: reuse a free slot if available
+        if (!FreeSlots[LiveColorBufferCount].empty()) {
+            float newSlot = FreeSlots[LiveColorBufferCount].back();
+            FreeSlots[LiveColorBufferCount].pop_back();
 
-            const size_t currentIndex = InsertionIndex;
-            size_t insertPos = LiveVertexCount; // default append
-
-            // Pointers to combined_vertexes for maximum speed
-            Vertex* base = combined_vertexes[LiveBufferCount].data();
-            Vertex* writePtr = base + LiveVertexCount;
-
-            const auto& vertices = TargetPtr->Shape2D_RenderPipelineVertices;
-            const size_t verticesCount = vertices.size();
-
-            // FAST-PATH: shape unchanged, previous data valid → skip rewrite
-            if (currentIndex < PreviousRenderContent[LivePreviousRenderContent].size()) {
-                const auto& [existingID, existingOffset] = PreviousRenderContent[LivePreviousRenderContent][currentIndex];
-                if (TargetPtr->ID == existingID && !ShapeVertexDataChanged && PreviousFrameDataValid) {
-
-                    if (currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) {
-                        // Ensure enough capacity
-                        if (LiveVertexCount + 4 > combined_vertexes[LiveBufferCount].size()) {
-                            combined_vertexes[LiveBufferCount].resize(LiveVertexCount + 3);
-                            base = combined_vertexes[LiveBufferCount].data();
-                            writePtr = base + LiveVertexCount;
-                        }
-
-                        // Degenerate join
-                        // last vertex of previous shape
-                        Vertex last = *(writePtr - 1);
-
-                        // first vertex of new shape
-                        const Vertex& first = vertices[0];
-
-                        // second vertex (needed to resume strip correctly)
-                        const Vertex& second = vertices[1];
-
-                        // Insert proper degenerate sequence
-                        *writePtr++ = last;   // repeat last
-                        *writePtr++ = first;  // jump to first
-                        *writePtr++ = first;  // repeat first (CRUCIAL)
-                    }
-
-                    InsertionIndex++;
-                    size_t degens = (currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) ? 3 : 0;
-                    LiveVertexCount = static_cast<unsigned int>(existingOffset + verticesCount + degens);
-                    return;
-                }
+            size_t offset = static_cast<size_t>(newSlot) * 4;
+            if (shape_colors[LiveColorBufferCount].size() < offset + 4) {
+                // pad vector so the slot exists (could be reusing a previously freed high index)
+                shape_colors[LiveColorBufferCount].resize(offset + 4);
             }
 
-            // Ensure enough capacity for degenerate joins + new vertices
-            size_t requiredSize = LiveVertexCount + ((currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) ? 3 : 0) + verticesCount;
-            if (combined_vertexes[LiveBufferCount].size() < requiredSize) {
-                combined_vertexes[LiveBufferCount].resize(requiredSize);
-                base = combined_vertexes[LiveBufferCount].data();
-                writePtr = base + LiveVertexCount;
-            }
+            shape_colors[LiveColorBufferCount][offset] = Color[0];
+            shape_colors[LiveColorBufferCount][offset + 1] = Color[1];
+            shape_colors[LiveColorBufferCount][offset + 2] = Color[2];
+            shape_colors[LiveColorBufferCount][offset + 3] = Color[3];
 
-            // Degenerate join if needed
-            if (currentIndex > 0 && verticesCount >= 2 && LiveVertexCount > 0) {
-                // last vertex of previous shape
-                Vertex last = *(writePtr - 1);
+            ColorSlotID[LiveColorBufferCount][ShapeID] = newSlot;
 
-                // first vertex of new shape
-                const Vertex& first = vertices[0];
-
-                // second vertex (needed to resume strip correctly)
-                const Vertex& second = vertices[1];
-
-                // Insert proper degenerate sequence
-                *writePtr++ = last;   // repeat last
-                *writePtr++ = first;  // jump to first
-                *writePtr++ = first;  // repeat first (CRUCIAL)
-            }
-
-            // Copy new vertices in bulk
-            std::memcpy(writePtr, vertices.data(), verticesCount * sizeof(Vertex));
-            writePtr += verticesCount;
-
-            const size_t shapeStartIndex = insertPos;
-
-            // Update PreviousRenderContent[LivePreviousRenderContent]
-            if (currentIndex < PreviousRenderContent[LivePreviousRenderContent].size()) {
-                PreviousRenderContent[LivePreviousRenderContent][currentIndex] = { TargetPtr->ID, static_cast<unsigned int>(shapeStartIndex) };
-            } else {
-                PreviousRenderContent[LivePreviousRenderContent].emplace_back(TargetPtr->ID, static_cast<unsigned int>(shapeStartIndex));
-            }
-
-            InsertionIndex++;
-            LiveVertexCount = static_cast<unsigned int>(writePtr - base);
+            LiveColorCount += 4;
+            return static_cast<float>(newSlot);
         }
+
+        // no free slots: append at the end
+        size_t needBytes = (size_t)LiveColorCount + 4;
+        if (shape_colors[LiveColorBufferCount].size() < needBytes) {
+            shape_colors[LiveColorBufferCount].resize(needBytes);
+        }
+
+        shape_colors[LiveColorBufferCount][LiveColorCount] = Color[0];
+        shape_colors[LiveColorBufferCount][LiveColorCount + 1] = Color[1];
+        shape_colors[LiveColorBufferCount][LiveColorCount + 2] = Color[2];
+        shape_colors[LiveColorBufferCount][LiveColorCount + 3] = Color[3];
+
+        float slotIndex = static_cast<float>(LiveColorCount / 4);
+        ColorSlotID[LiveColorBufferCount][ShapeID] = slotIndex;
+
+        LiveColorCount += 4;
+        return slotIndex;
+    }
 };

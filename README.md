@@ -1,8 +1,8 @@
 <div align="center">
 
-  ![PMMA logo](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/SmallLogo.png)
-</div>
+![PMMA logo](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/SmallLogo.png)
 
+</div>
 
 # PMMA (Python Multi-Media API)
 
@@ -18,10 +18,10 @@ PMMA is a Python module targeted at helping you build applications in the Python
 
 ## Contents
 
-* [Installation](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation)
-* [Development Progress](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#development-progress)
-* [Credits](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-credits)
-* [About](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-about)
+- [Installation](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation)
+- [Development Progress](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#development-progress)
+- [Credits](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-credits)
+- [About](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-about)
 
 ## Installation
 
@@ -44,10 +44,11 @@ _Note: If you do not see your operating system listed above, please check the 'A
 
 _Please note, these requirements are only needed by users installing PMMA onto Linux machines and in most cases the operating systems listed above should be compatible._
 
-* In order for PMMA to work as expected, you must be using either X-Lib, or Wayland. This means that Ubuntu 22.04 DESKTOP will work, but Ubuntu 22.04 SERVER is unlikely to.
-* Additionally, you will need `glibc 2.31` or newer, this can be checked on linux using the command `ldd --version` (root not required). The result should be on the first line as shown in the image below:
+- In order for PMMA to work as expected, you must be using either X-Lib, or Wayland. This means that Ubuntu 22.04 DESKTOP will work, but Ubuntu 22.04 SERVER is unlikely to.
+- Additionally, you will need `glibc 2.31` or newer, this can be checked on linux using the command `ldd --version` (root not required). The result should be on the first line as shown in the image below:
 
 ![Example output](https://github.com/user-attachments/assets/45c4e860-e044-4c3e-96ad-1a9c3258b200)
+
 </details>
 </br>
 
@@ -66,28 +67,31 @@ We are currently working on the next minor update to PMMA, version 5.1.x. This u
 PMMA is made possible thanks to the following third party components.:
 
 C/C++ projects:
-* LIBZ - 1.3.1 - https://github.com/madler/zlib
-* Libpng - 1.6.49 - https://github.com/glennrp/libpng
-* GLFW - 3.4 - https://github.com/glfw/glfw
-* FreeType - 2-13-3 - https://gitlab.freedesktop.org/freetype/freetype
-* GLM - 0.9.3.2 - https://github.com/icaven/glm
-* HarfBuzz - 11.2.1 - https://github.com/harfbuzz/harfbuzz
-* flat_hash_map - N/A - https://github.com/skarupke/flat_hash_map
-* STB - N/A - https://github.com/nothings/stb
+
+- LIBZ - 1.3.1 - https://github.com/madler/zlib
+- Libpng - 1.6.49 - https://github.com/glennrp/libpng
+- GLFW - 3.4 - https://github.com/glfw/glfw
+- FreeType - 2-13-3 - https://gitlab.freedesktop.org/freetype/freetype
+- GLM - 0.9.3.2 - https://github.com/icaven/glm
+- HarfBuzz - 11.2.1 - https://github.com/harfbuzz/harfbuzz
+- flat_hash_map - N/A - https://github.com/skarupke/flat_hash_map
+- STB - N/A - https://github.com/nothings/stb
+- Taskflow - 4.0.0 - https://github.com/taskflow/taskflow
 
 > _Note: When downloading official compiled versions of PMMA 5 and newer these C++ projects are included by default for an easier installation process._
 
 Python projects:
-* Cython - latest - https://github.com/cython/cython
-* Numpy - >= 2.0 - https://github.com/numpy/numpy
-* Pedalboard - latest - https://github.com/spotify/pedalboard
-* Pprofile - latest - https://github.com/vpelletier/pprofile
-* Requests - latest - https://github.com/psf/requests
-* Send2Trash - latest - https://github.com/arsenetar/send2trash
-* SoundDevice - latest - https://github.com/spatialaudio/python-sounddevice/
-* SoundFile - latest - https://github.com/bastibe/python-soundfile
-* PyWin32 - latest - https://github.com/mhammond/pywin32
-* WMI - latest - https://timgolden.me.uk/python/wmi/
+
+- Cython - latest - https://github.com/cython/cython
+- Numpy - >= 2.0 - https://github.com/numpy/numpy
+- Pedalboard - latest - https://github.com/spotify/pedalboard
+- Pprofile - latest - https://github.com/vpelletier/pprofile
+- Requests - latest - https://github.com/psf/requests
+- Send2Trash - latest - https://github.com/arsenetar/send2trash
+- SoundDevice - latest - https://github.com/spatialaudio/python-sounddevice/
+- SoundFile - latest - https://github.com/bastibe/python-soundfile
+- PyWin32 - latest - https://github.com/mhammond/pywin32
+- WMI - latest - https://timgolden.me.uk/python/wmi/
 
 > _Note: These requirements are refined in the `requirements.txt` file for your convenience._
 

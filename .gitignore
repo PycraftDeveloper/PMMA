@@ -207,6 +207,9 @@ pmma/extern/include/*
 !pmma/extern/include/STB/
 !pmma/extern/include/STB/**
 
+!pmma/extern/include/taskflow/
+!pmma/extern/include/taskflow/**
+
 # ignore build
 build/*
 

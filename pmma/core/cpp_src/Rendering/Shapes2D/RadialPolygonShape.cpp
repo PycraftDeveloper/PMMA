@@ -25,7 +25,55 @@ unsigned int CPP_RadialPolygonShape::GetPointCount() {
     return PointCount;
 }
 
+unsigned int CPP_RadialPolygonShape::GetVertexCount() {
+    if (!RadiusSet) {
+        if (Logger == nullptr) {
+            Logger = new CPP_Logger();
+        }
+        Logger->InternalLogError(
+            30,
+            "This shape has no radius set, please use `RadialPolygon.set_radius` to set it.");
+        throw std::runtime_error("Shape has no radius set");
+    }
+
+    // Compute the maximum allowed point count based on radius and quality
+    float minAngle = asin(1.0f / Radius);
+    unsigned int MaxPoints = std::max(
+        3,
+        static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+
+    // Determine InternalPointCount exactly as the generator does
+    unsigned int InternalPointCount = PointCount;
+
+    if (InternalPointCount > MaxPoints || InternalPointCount < 3) {
+        InternalPointCount = MaxPoints;
+    }
+
+    // The generator produces:
+    //   InternalPointCount * 2 vertices (outer + inner/center)
+    // + 2 closing vertices
+    return InternalPointCount * 2 + 2;
+}
+
+void CPP_RadialPolygonShape::UpdateColorIndex() {
+    uint8_t ColorData[4];
+    Color->Get_RGBA(ColorData);
+
+    ColorIndexChanged = false;
+    float newColorIndex = Shape2D_RenderPipelineManager->GetColorIndex(ColorData, ID);
+
+    if (newColorIndex != ColorIndex) {
+        ColorIndexChanged = true;
+        VertexDataChanged = true;
+        ColorIndex = newColorIndex;
+    }
+}
+
 void CPP_RadialPolygonShape::Render() {
+    PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this);
+}
+
+void CPP_RadialPolygonShape::InternalRender() {
     int DisplaySize[2];
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
@@ -65,122 +113,177 @@ API to set it.");
     ShapeCenter->Get(ShapeCenterPosition);
 
     VertexDataChanged = VertexDataChanged ||
-                ShapeCenter->GetChangedToggle() ||
-                PMMA_Core::DisplayInstance->DisplaySizeChanged;
+                        ShapeCenter->GetChangedToggle() ||
+                        PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     if (ShapeCenterPosition[0] + Radius < 0 ||
-            ShapeCenterPosition[0] - Radius > DisplaySize[0] ||
-            ShapeCenterPosition[1] + Radius < 0 ||
-            ShapeCenterPosition[1] - Radius > DisplaySize[1]) {
+        ShapeCenterPosition[0] - Radius > DisplaySize[0] ||
+        ShapeCenterPosition[1] + Radius < 0 ||
+        ShapeCenterPosition[1] - Radius > DisplaySize[1]) {
         return;
     }
-
-    bool RenderPipelineCompatible = true;
-    // check here if the gradient has been set, if has then check it fits into the render pipeline
-    // otherwise render it as a normal shape.
 
     uint8_t ColorData[4];
     Color->Get_RGBA(ColorData);
 
     ColorDataChanged = ColorDataChanged || Color->GetInternalChangedToggle();
 
-    if (RenderPipelineCompatible) {
-        if (ColorData[3] == 0) { // Return if shape not visible
-            return;
-        }
-
-        bool ColorIndexChanged = false;
-        float newColorIndex = PMMA_Core::RenderPipelineCore->Shape2D_GetColorIndex(ColorData, ID);
-
-        if (newColorIndex != ColorIndex) {
-            ColorIndexChanged = true;
-            VertexDataChanged = true;
-            ColorIndex = newColorIndex;
-        }
-
-        if (VertexDataChanged) {
-            unsigned int InternalPointCount = PointCount;
-            float minAngle = asin(1.0f / Radius);
-            unsigned int MaxPoints = std::max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
-            if (InternalPointCount > MaxPoints || InternalPointCount < 3) {
-                InternalPointCount = MaxPoints;
-            }
-            float angleStep = CPP_Constants::TAU / InternalPointCount;
-
-            unsigned int outer_radius = Radius;
-
-            unsigned int inner_radius = std::max(0, static_cast<int>(Radius) - static_cast<int>(Width) * 2);
-            if (Width == 0) {
-                inner_radius = 0;
-            }
-
-            // Reserve the exact number of vertices upfront
-            size_t vertexCount = InternalPointCount * 2 + 2;
-            Shape2D_RenderPipelineVertices.resize(vertexCount);
-
-            float angle = Rotation;
-            float cx = ShapeCenterPosition[0];
-            float cy = ShapeCenterPosition[1];
-            float cosStep = std::cos(angleStep);
-            float sinStep = std::sin(angleStep);
-            float cosA = std::cos(angle);
-            float sinA = std::sin(angle);
-
-            Vertex* v = Shape2D_RenderPipelineVertices.data();
-            if (inner_radius == 0) {
-                auto &v1 = Shape2D_RenderPipelineVertices[1];
-                v1.x = cx; v1.y = cy; v1.s = ColorIndex;
-
-                const Vertex Center = Shape2D_RenderPipelineVertices[1];
-                for (unsigned int i = 0; i < InternalPointCount; ++i) {
-                    v[0].x = outer_radius * cosA + cx;
-                    v[0].y = outer_radius * sinA + cy;
-                    v[0].s = ColorIndex;
-
-                    v[1] = Center; // center vertex
-                    v += 2;
-
-                    float new_cosA = cosA * cosStep - sinA * sinStep;
-                    float new_sinA = sinA * cosStep + cosA * sinStep;
-                    cosA = new_cosA;
-                    sinA = new_sinA;
-                }
-            } else {
-                for (unsigned int i = 0; i < InternalPointCount; ++i) {
-                    v[0].x = outer_radius * cosA + cx;
-                    v[0].y = outer_radius * sinA + cy;
-                    v[0].s = ColorIndex;
-
-                    v[1].x = inner_radius * cosA + cx;
-                    v[1].y = inner_radius * sinA + cy;
-                    v[1].s = ColorIndex;
-
-                    v += 2;
-
-                    float new_cosA = cosA * cosStep - sinA * sinStep;
-                    float new_sinA = sinA * cosStep + cosA * sinStep;
-                    cosA = new_cosA;
-                    sinA = new_sinA;
-                }
-            }
-
-            // Close the shape by repeating the first pair
-            Shape2D_RenderPipelineVertices[vertexCount - 2] = Shape2D_RenderPipelineVertices[0];
-            Shape2D_RenderPipelineVertices[vertexCount - 1] = Shape2D_RenderPipelineVertices[1];
-        }
-
-        PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this, RenderPipelineCompatible, ColorIndexChanged);
-    } else {
-        if (VertexDataChanged) {
-            // Calculate data and add to buffers, Left intentionally blank for now
-        }
-        // Do NOTHING.
+    if (ColorData[3] == 0) { // Return if shape not visible
+        return;
     }
 
+    if (VertexDataChanged) {
+        unsigned int InternalPointCount = PointCount;
+        float minAngle = asin(1.0f / Radius);
+        unsigned int MaxPoints = std::max(3, static_cast<int>(1 + (CPP_Constants::TAU / minAngle) * PMMA_Registry::CurrentShapeQuality));
+        if (InternalPointCount > MaxPoints || InternalPointCount < 3) {
+            InternalPointCount = MaxPoints;
+        }
+        float angleStep = CPP_Constants::TAU / InternalPointCount;
+
+        unsigned int outer_radius = Radius;
+
+        unsigned int inner_radius = std::max(0, static_cast<int>(Radius) - static_cast<int>(Width) * 2);
+        if (Width == 0) {
+            inner_radius = 0;
+        }
+
+        // Reserve the exact number of vertices upfront
+        size_t vertexCount = InternalPointCount * 2 + 2;
+        Shape2D_RenderPipelineVertices.resize(vertexCount);
+
+        float angle = Rotation;
+        float cx = ShapeCenterPosition[0];
+        float cy = ShapeCenterPosition[1];
+        float cosStep = std::cos(angleStep);
+        float sinStep = std::sin(angleStep);
+        float cosA = std::cos(angle);
+        float sinA = std::sin(angle);
+
+        Vertex *v = Shape2D_RenderPipelineVertices.data();
+        if (inner_radius == 0) {
+            auto &v1 = Shape2D_RenderPipelineVertices[1];
+            v1.x = cx;
+            v1.y = cy;
+            v1.s = ColorIndex;
+
+            const Vertex Center = Shape2D_RenderPipelineVertices[1];
+            for (unsigned int i = 0; i < InternalPointCount; ++i) {
+                v[0].x = outer_radius * cosA + cx;
+                v[0].y = outer_radius * sinA + cy;
+                v[0].s = ColorIndex;
+
+                v[1] = Center; // center vertex
+                v += 2;
+
+                float new_cosA = cosA * cosStep - sinA * sinStep;
+                float new_sinA = sinA * cosStep + cosA * sinStep;
+                cosA = new_cosA;
+                sinA = new_sinA;
+            }
+        } else {
+            for (unsigned int i = 0; i < InternalPointCount; ++i) {
+                v[0].x = outer_radius * cosA + cx;
+                v[0].y = outer_radius * sinA + cy;
+                v[0].s = ColorIndex;
+
+                v[1].x = inner_radius * cosA + cx;
+                v[1].y = inner_radius * sinA + cy;
+                v[1].s = ColorIndex;
+
+                v += 2;
+
+                float new_cosA = cosA * cosStep - sinA * sinStep;
+                float new_sinA = sinA * cosStep + cosA * sinStep;
+                cosA = new_cosA;
+                sinA = new_sinA;
+            }
+        }
+
+        // Close the shape by repeating the first pair
+        Shape2D_RenderPipelineVertices[vertexCount - 2] = Shape2D_RenderPipelineVertices[0];
+        Shape2D_RenderPipelineVertices[vertexCount - 1] = Shape2D_RenderPipelineVertices[1];
+    }
+
+    bool writeShapeData = true;
+
+    // Cache references (avoids repeated pointer chasing)
+    auto *manager = Shape2D_RenderPipelineManager;
+    auto &prevContent = manager->PreviousRenderContent[manager->LivePreviousRenderContent];
+
+    // Check if we can skip writing
+    if (ShapeIndex < prevContent.size()) {
+        const auto &[existingID, existingOffset] = prevContent[ShapeIndex];
+        if (ID == existingID && !VertexDataChanged) {
+            writeShapeData = false;
+        }
+    }
+
+    // Reset flags
     VertexDataChanged = false;
     ColorDataChanged = false;
-}
+    PreviousLocation = Location;
 
-void CPP_RadialPolygonShape::InternalRender() {
-    // Left intentionally blank for now
+    // Cache buffer + pointers
+    auto &buffer = manager->combined_vertexes[manager->LiveBufferCount];
+    Vertex *base = buffer.data();
+    Vertex *writePtr = base + Location;
+
+    // Cache vertex data
+    const auto &verts = Shape2D_RenderPipelineVertices;
+    const size_t count = verts.size();
+
+    const bool isFirst = (Location == 0);
+    const bool isLast = (Location + count == buffer.size());
+
+    // Helper lambda for memcpy (avoids repetition + branch duplication)
+    auto writeBody = [&](Vertex *ptr) {
+        if (writeShapeData) {
+            std::memcpy(ptr, verts.data(), count * sizeof(Vertex));
+        }
+        return ptr + count;
+    };
+
+    // ---- Cases ----
+
+    // Middle shape
+    if (!isFirst && !isLast) {
+        writePtr -= 2;
+
+        // Leading degenerate vertices
+        const Vertex &first = verts.front();
+        *writePtr++ = first;
+        *writePtr++ = first;
+
+        // Body
+        writePtr = writeBody(writePtr);
+
+        // Trailing degenerate
+        *writePtr++ = verts.back();
+        return;
+    }
+
+    // First shape
+    if (isFirst && !isLast) {
+        writePtr = writeBody(writePtr);
+
+        *writePtr++ = verts.back();
+        return;
+    }
+
+    // Last shape
+    if (!isFirst && isLast) {
+        writePtr -= 2;
+
+        const Vertex &first = verts.front();
+        *writePtr++ = first;
+        *writePtr++ = first;
+
+        writePtr = writeBody(writePtr);
+        return;
+    }
+
+    // Single shape
+    // (isFirst && isLast)
+    writeBody(writePtr);
 }
