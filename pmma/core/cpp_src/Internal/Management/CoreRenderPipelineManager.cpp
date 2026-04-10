@@ -56,10 +56,12 @@ void CPP_RenderPipelineCore::Render() {
     }
 
     for (size_t i = 0; i < ThreadCount; ++i) {
-        auto chunk = taskChunks[i]; // COPY
-        Taskflow.emplace([chunk] {
-            for (auto &job : chunk)
-                job();
+        auto &chunk = taskChunks[i]; // ✅ reference
+
+        Taskflow.emplace([&chunk] {
+            for (const Task &task : chunk) {
+                task.func(task.object);
+            }
         });
     }
 

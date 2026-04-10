@@ -205,8 +205,6 @@ API to set it.");
         Shape2D_RenderPipelineVertices[vertexCount - 1] = Shape2D_RenderPipelineVertices[1];
     }
 
-    bool writeShapeData = true;
-
     // Cache references (avoids repeated pointer chasing)
     auto *manager = Shape2D_RenderPipelineManager;
     auto &prevContent = manager->PreviousRenderContent[manager->LivePreviousRenderContent];
@@ -215,75 +213,53 @@ API to set it.");
     if (ShapeIndex < prevContent.size()) {
         const auto &[existingID, existingOffset] = prevContent[ShapeIndex];
         if (ID == existingID && !VertexDataChanged) {
-            writeShapeData = false;
+            VertexDataChanged = false;
+            ColorDataChanged = false;
+            PreviousLocation = Location;
+
+            return;
         }
     }
 
-    // Reset flags
     VertexDataChanged = false;
     ColorDataChanged = false;
     PreviousLocation = Location;
 
     // Cache buffer + pointers
     auto &buffer = manager->combined_vertexes[manager->LiveBufferCount];
-    Vertex *base = buffer.data();
-    Vertex *writePtr = base + Location;
+    Vertex *__restrict base = buffer.data();
+    Vertex *__restrict writePtr = base + Location;
 
     // Cache vertex data
-    const auto &verts = Shape2D_RenderPipelineVertices;
-    const size_t count = verts.size();
+    const Vertex *__restrict src = Shape2D_RenderPipelineVertices.data();
+    const size_t count = Shape2D_RenderPipelineVertices.size();
 
-    const bool isFirst = (Location == 0);
-    const bool isLast = (Location + count == buffer.size());
+    // Precompute conditions (branch-friendly)
+    const bool notFirst = (Location != 0);
+    const bool notLast = (Location + count != buffer.size());
 
-    // Helper lambda for memcpy (avoids repetition + branch duplication)
-    auto writeBody = [&](Vertex *ptr) {
-        if (writeShapeData) {
-            std::memcpy(ptr, verts.data(), count * sizeof(Vertex));
-        }
-        return ptr + count;
-    };
+    // Cache first/last EARLY (keeps in registers)
+    const Vertex first = src[0];
+    const Vertex last = src[count - 1];
 
-    // ---- Cases ----
-
-    // Middle shape
-    if (!isFirst && !isLast) {
+    // ---- Prefix (degenerate) ----
+    // Move pointer once, branch once
+    if (notFirst) {
         writePtr -= 2;
 
-        // Leading degenerate vertices
-        const Vertex &first = verts.front();
-        *writePtr++ = first;
-        *writePtr++ = first;
-
-        // Body
-        writePtr = writeBody(writePtr);
-
-        // Trailing degenerate
-        *writePtr++ = verts.back();
-        return;
+        // Write 2 vertices directly (faster than memcpy for tiny count)
+        writePtr[0] = first;
+        writePtr[1] = first;
+        writePtr += 2;
     }
 
-    // First shape
-    if (isFirst && !isLast) {
-        writePtr = writeBody(writePtr);
+    // ---- Main body (dominant cost path) ----
+    // Bulk copy (compiler emits optimal intrinsic)
+    std::memcpy(writePtr, src, count * sizeof(Vertex));
+    writePtr += count;
 
-        *writePtr++ = verts.back();
-        return;
+    // ---- Suffix (degenerate) ----
+    if (notLast) {
+        *writePtr = last;
     }
-
-    // Last shape
-    if (!isFirst && isLast) {
-        writePtr -= 2;
-
-        const Vertex &first = verts.front();
-        *writePtr++ = first;
-        *writePtr++ = first;
-
-        writePtr = writeBody(writePtr);
-        return;
-    }
-
-    // Single shape
-    // (isFirst && isLast)
-    writeBody(writePtr);
 }

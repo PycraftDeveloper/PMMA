@@ -27,13 +27,24 @@ using RawRenderObject = std::variant<
 
 class CPP_Shader;
 
+struct Task {
+    void *object;
+    void (*func)(void *);
+};
+
+template <typename T>
+static void TaskInvoker(void *obj) {
+    T *o = static_cast<T *>(obj);
+    o->InternalRender();
+}
+
 class CPP_RenderPipelineCore {
 public:
     std::vector<CPP_Shape2D_RenderPipelineManager *> Shape_2D_RenderManagerCache;
     std::vector<CPP_TextRenderPipelineManager *> Text_RenderManagerCache;
     std::vector<RawRenderObject> RenderData;
 
-    std::vector<std::vector<std::function<void()>>> taskChunks;
+    std::vector<std::vector<Task>> taskChunks;
 
     tf::Executor ParallelExecutor;
     tf::Taskflow Taskflow;
@@ -83,10 +94,9 @@ public:
 
         manager->ColorDataChanged |= RenderObject->Color->GetInternalChangedToggle();
 
-        auto funct = &T::InternalRender;
-        taskChunks[nextChunk].emplace_back([RenderObject, funct] {
-            (RenderObject->*funct)();
-        });
+        taskChunks[nextChunk].emplace_back(Task{
+            RenderObject,
+            &TaskInvoker<T>});
 
         nextChunk++;
         nextChunk = nextChunk % ThreadCount;
