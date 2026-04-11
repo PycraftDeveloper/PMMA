@@ -225,6 +225,8 @@ API to set it.");
     ColorDataChanged = false;
     PreviousLocation = Location;
 
+    manager->VertexDataChanged = true;
+
     // Cache buffer + pointers
     auto &buffer = manager->combined_vertexes[manager->LiveBufferCount];
     Vertex *__restrict base = buffer.data();

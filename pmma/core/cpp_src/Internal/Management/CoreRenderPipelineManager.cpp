@@ -55,17 +55,21 @@ void CPP_RenderPipelineCore::Render() {
         }
     }
 
-    for (size_t i = 0; i < ThreadCount; ++i) {
-        auto &chunk = taskChunks[i]; // ✅ reference
+    if (ParallelWorkToDo) {
+        ParallelWorkToDo = false;
 
-        Taskflow.emplace([&chunk] {
-            for (const Task &task : chunk) {
-                task.func(task.object);
-            }
-        });
+        for (size_t i = 0; i < ThreadCount; ++i) {
+            auto &chunk = taskChunks[i];
+
+            Taskflow.emplace([&chunk] {
+                for (const Task &task : chunk) {
+                    task.func(task.object);
+                }
+            });
+        }
+
+        ParallelExecutor.run(Taskflow).wait();
     }
-
-    ParallelExecutor.run(Taskflow).wait();
 
     for (auto &item : RenderData) {
         std::visit([](auto *ptr) {

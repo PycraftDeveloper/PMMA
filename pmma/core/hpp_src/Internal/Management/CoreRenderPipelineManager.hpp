@@ -58,6 +58,8 @@ public:
     uint64_t MaxSize;
     uint32_t MaxWidth;
 
+    bool ParallelWorkToDo = false;
+
     CPP_RenderPipelineCore();
     ~CPP_RenderPipelineCore();
 
@@ -97,6 +99,8 @@ public:
         taskChunks[nextChunk].emplace_back(Task{
             RenderObject,
             &TaskInvoker<T>});
+
+        ParallelWorkToDo = true;
 
         nextChunk++;
         nextChunk = nextChunk % ThreadCount;
