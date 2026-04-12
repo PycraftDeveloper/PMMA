@@ -14,14 +14,6 @@
 
 #include "Constants.hpp"
 
-class CPP_RadialPolygonShape;
-class CPP_RectangleShape;
-class CPP_PixelShape;
-class CPP_LineShape;
-class CPP_ArcShape;
-class CPP_EllipseShape;
-class CPP_PolygonShape;
-
 struct Vertex {
     float x, y; // position
     float s;    // texcoord (s = shape index as float, t unused)
@@ -34,7 +26,6 @@ public:
 
     std::array<std::vector<std::pair<uint64_t, unsigned int>>, 4> PreviousRenderContent;
     std::vector<std::pair<uint64_t, unsigned int>> NewRenderContent;
-    unsigned int InsertionIndex = 0;
 
     unsigned int ColorsInserted = 0;
     unsigned int ColorIndexesChanged = 0;
@@ -54,7 +45,6 @@ public:
     uint32_t m_colorTextureWidth = 0;
     uint32_t m_colorTextureHeight = 0;
 
-    unsigned int LiveVertexCount = 0;
     unsigned int LiveColorCount = 0;
 
     short int LiveBufferCount = 0;
@@ -65,7 +55,6 @@ public:
     bool ColorDataChanged = true;
     bool UsingComplexColorInsertion = false;
     bool ChangedColorModes = true;
-    bool PreviousFrameDataValid = false;
 
     CPP_Shape2D_RenderPipelineManager();
     ~CPP_Shape2D_RenderPipelineManager();
@@ -73,11 +62,8 @@ public:
     inline void Reset() {
         VertexDataChanged = false;
         ColorDataChanged = false;
-        PreviousFrameDataValid = true;
-        LiveVertexCount = 0;
         LiveColorCount = 0;
 
-        InsertionIndex = 0;
         NextReserveSize = 0;
 
         PreviousRenderContent[LivePreviousRenderContent] = NewRenderContent;

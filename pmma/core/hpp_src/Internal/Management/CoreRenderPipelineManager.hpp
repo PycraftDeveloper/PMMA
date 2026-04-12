@@ -16,14 +16,7 @@
 
 using RawRenderObject = std::variant<
     CPP_Shape2D_RenderPipelineManager *,
-    CPP_TextRenderPipelineManager *,
-    CPP_RadialPolygonShape *,
-    CPP_RectangleShape *,
-    CPP_PixelShape *,
-    CPP_LineShape *,
-    CPP_PolygonShape *,
-    CPP_EllipseShape *,
-    CPP_ArcShape *>;
+    CPP_TextRenderPipelineManager *>;
 
 class CPP_Shader;
 
@@ -94,16 +87,18 @@ public:
         }
         ++manager->ColorsInserted;
 
-        manager->ColorDataChanged |= RenderObject->Color->GetInternalChangedToggle();
+        manager->ColorDataChanged |= RenderObject->ColorDataChanged;
 
-        taskChunks[nextChunk].emplace_back(Task{
-            RenderObject,
-            &TaskInvoker<T>});
+        if (RenderObject->VertexDataChanged) {
+            taskChunks[nextChunk].emplace_back(Task{
+                RenderObject,
+                &TaskInvoker<T>});
 
-        ParallelWorkToDo = true;
+            ParallelWorkToDo = true;
 
-        nextChunk++;
-        nextChunk = nextChunk % ThreadCount;
+            nextChunk++;
+            nextChunk = nextChunk % ThreadCount;
+        }
     }
 
     void Add_Text_Object(CPP_TextRenderer *RenderObject);

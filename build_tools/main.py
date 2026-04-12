@@ -6,4 +6,4 @@ ts_print("Automatically moving on to building PMMA.")
 
 import build_pmma
 
-# Note: Find a way of determining if geometry changing and ONLY call shape Internal Render if needed.
+# Note: Same issue as before, shapes can be added but are never removed. If shape breaks Shape2D cache, it MUST invalidate cache.

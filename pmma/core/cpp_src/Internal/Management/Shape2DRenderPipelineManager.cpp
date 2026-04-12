@@ -46,8 +46,6 @@ void CPP_Shape2D_RenderPipelineManager::InternalRender() {
     if (VertexDataChanged) {
         glfwPostEmptyEvent();
 
-        PreviousRenderContent[LivePreviousRenderContent].resize(InsertionIndex);
-
         const bgfx::Memory *mem = bgfx::makeRef(
             combined_vertexes[LiveBufferCount].data(),
             (uint32_t)(combined_vertexes[LiveBufferCount].size() * sizeof(Vertex)));

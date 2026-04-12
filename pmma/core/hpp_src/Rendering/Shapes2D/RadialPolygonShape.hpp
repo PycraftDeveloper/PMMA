@@ -13,18 +13,16 @@
 
 class EXPORT CPP_RadialPolygonShape {
 public:
-    CPP_Logger *Logger;
-    CPP_DisplayCoordinate *ShapeCenter;
-    CPP_Color *Color;
-
-    std::vector<glm::vec2> VertexData;
-    std::vector<glm::vec4> ColorData;
+    CPP_Logger *Logger = nullptr;
+    CPP_DisplayCoordinate ShapeCenter;
+    CPP_Color Color;
 
     std::vector<Vertex> Shape2D_RenderPipelineVertices;
     CPP_Shape2D_RenderPipelineManager *Shape2D_RenderPipelineManager;
 
     uint64_t ID;
     size_t ShapeIndex;
+    uint8_t ColorData[4];
 
     float Rotation = 0;
     float ColorIndex = 0;
@@ -35,7 +33,6 @@ public:
     unsigned int PointCount = 0;
 
     unsigned int Location;
-    std::optional<unsigned int> PreviousLocation = std::nullopt;
 
     bool RadiusSet = false;
     bool WidthSet = true;
@@ -52,12 +49,6 @@ public:
             delete Logger;
             Logger = nullptr;
         }
-
-        delete ShapeCenter;
-        ShapeCenter = nullptr;
-
-        delete Color;
-        Color = nullptr;
     }
 
     void Render();
@@ -71,7 +62,6 @@ public:
         if (RadiusSet && in_radius != Radius) {
             VertexDataChanged = true;
             Shape2D_RenderPipelineVertices.clear();
-            VertexData.clear();
         }
 
         Radius = in_radius;
@@ -96,7 +86,6 @@ please use `RadialPolygon.set_radius` to set it before attempting to get it.");
         if (PointCountSet && in_pointCount != PointCount) {
             VertexDataChanged = true;
             Shape2D_RenderPipelineVertices.clear();
-            VertexData.clear();
         }
 
         PointCount = in_pointCount;
@@ -109,7 +98,6 @@ please use `RadialPolygon.set_radius` to set it before attempting to get it.");
         if (WidthSet && in_width != Width) {
             VertexDataChanged = true;
             Shape2D_RenderPipelineVertices.clear();
-            VertexData.clear();
         }
 
         Width = in_width;
@@ -124,7 +112,6 @@ please use `RadialPolygon.set_radius` to set it before attempting to get it.");
         if (in_rotation != Rotation) {
             VertexDataChanged = true;
             Shape2D_RenderPipelineVertices.clear();
-            VertexData.clear();
         }
 
         Rotation = in_rotation;
