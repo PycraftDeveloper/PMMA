@@ -14,8 +14,8 @@
 class EXPORT CPP_RadialPolygonShape {
 public:
     CPP_Logger *Logger = nullptr;
-    CPP_DisplayCoordinate ShapeCenter;
-    CPP_Color Color;
+    CPP_DisplayCoordinate *ShapeCenter;
+    CPP_Color *Color;
 
     std::vector<Vertex> Shape2D_RenderPipelineVertices;
     CPP_Shape2D_RenderPipelineManager *Shape2D_RenderPipelineManager;

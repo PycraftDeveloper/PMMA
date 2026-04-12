@@ -1,6 +1,9 @@
 #include "PMMA_Core.hpp"
 
 CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
+    ShapeCenter = new CPP_DisplayCoordinate();
+    Color = new CPP_Color();
+
     ID = PMMA_Registry::ClassObject_ID_System++;
 }
 
@@ -67,7 +70,7 @@ void CPP_RadialPolygonShape::Render() {
     int DisplaySize[2];
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
 
-    if (!ShapeCenter.GetSet()) {
+    if (!ShapeCenter->GetSet()) {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
@@ -79,7 +82,7 @@ API to set it.");
     }
 
     float ShapeCenterPosition[2];
-    ShapeCenter.Get(ShapeCenterPosition);
+    ShapeCenter->Get(ShapeCenterPosition);
 
     if (ShapeCenterPosition[0] + Radius < 0 ||
         ShapeCenterPosition[0] - Radius > DisplaySize[0] ||
@@ -88,7 +91,7 @@ API to set it.");
         return;
     }
 
-    if (!Color.GetSet()) {
+    if (!Color->GetSet()) {
         if (Logger == nullptr) {
             Logger = new CPP_Logger();
         }
@@ -99,9 +102,9 @@ API to set it.");
         throw std::runtime_error("Shape has no color set");
     }
 
-    Color.Get_RGBA(ColorData);
+    Color->Get_RGBA(ColorData);
 
-    ColorDataChanged = Color.GetInternalChangedToggle();
+    ColorDataChanged = Color->GetInternalChangedToggle();
 
     if (ColorData[3] == 0) { // Return if shape not visible
         return;
@@ -117,7 +120,7 @@ API to set it.");
         throw std::runtime_error("Shape has no radius set");
     }
 
-    VertexDataChanged = ShapeCenter.GetChangedToggle() ||
+    VertexDataChanged = ShapeCenter->GetChangedToggle() ||
                         PMMA_Core::DisplayInstance->DisplaySizeChanged;
 
     PMMA_Core::RenderPipelineCore->Add_2D_Shape_Object(this);
@@ -125,7 +128,7 @@ API to set it.");
 
 void CPP_RadialPolygonShape::InternalRender() {
     float ShapeCenterPosition[2];
-    ShapeCenter.Get(ShapeCenterPosition);
+    ShapeCenter->Get(ShapeCenterPosition);
 
     if (VertexDataChanged) {
         unsigned int InternalPointCount = PointCount;
