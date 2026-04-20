@@ -1,52 +1,23 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 #include <glm/glm.hpp>
 
-#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
 class EXPORT CPP_PixelShape {
-    public:
-        CPP_Logger* Logger;
-        CPP_DisplayCoordinate* ShapeCenter;
-        CPP_Color* Color;
+public:
+    CPP_PixelShape();
 
-        std::vector<glm::vec2> VertexData;
+    ~CPP_PixelShape() {
+    }
 
-        std::vector<Vertex> Shape2D_RenderPipelineVertices;
+    void Render();
 
-        glm::vec2 ShapeSize;
-
-        uint64_t ID;
-        float ColorIndex;
-
-        bool CenterSet = false;
-        bool HasAlpha = false;
-        bool VertexDataChanged = true;
-        bool ColorDataChanged = true;
-
-        CPP_PixelShape();
-
-        ~CPP_PixelShape() {
-            if (Logger != nullptr) {
-                delete Logger;
-                Logger = nullptr;
-            }
-
-            delete ShapeCenter;
-            ShapeCenter = nullptr;
-
-            delete Color;
-            Color = nullptr;
-        }
-
-        void Render();
-
-        void InternalRender();
+    void InternalRender();
 };

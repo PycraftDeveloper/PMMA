@@ -1,174 +1,63 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 #include <glm/glm.hpp>
 
-#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
 class EXPORT CPP_ArcShape {
-    public:
-        CPP_Logger* Logger;
-        CPP_DisplayCoordinate* ShapeCenter;
-        CPP_Color* Color;
+public:
+    CPP_ArcShape();
 
-        std::vector<glm::vec2> VertexData;
+    ~CPP_ArcShape() {
+    }
 
-        std::vector<Vertex> Shape2D_RenderPipelineVertices;
+    void Render();
 
-        float Rotation = 0;
-        float StartAngle;
-        float EndAngle;
+    void InternalRender();
 
-        uint64_t ID;
-        float ColorIndex;
-        unsigned int Width = 0;
-        unsigned int PointCount = 0;
-        unsigned int Radius;
+    inline void SetStartAngle(float in_start_angle) {
+    };
 
-        bool HasAlpha = false;
-        bool VertexDataChanged = true;
-        bool ColorDataChanged = true;
-        bool StartAngleSet = false;
-        bool EndAngleSet = false;
-        bool RadiusSet = false;
+    inline float GetStartAngle() {
+        return 0.0f;
+    }
 
-        CPP_ArcShape();
+    inline void SetEndAngle(float in_end_angle) {
+    };
 
-        ~CPP_ArcShape() {
-            if (Logger != nullptr) {
-                delete Logger;
-                Logger = nullptr;
-            }
+    inline float GetEndAngle() {
+        return 0.0f;
+    }
 
-            delete ShapeCenter;
-            ShapeCenter = nullptr;
+    inline void SetWidth(unsigned int in_width) {
+    };
 
-            delete Color;
-            Color = nullptr;
-        }
+    inline unsigned int GetWidth() const {
+        return 0;
+    }
 
-        void Render();
+    inline void SetRadius(unsigned int in_radius) {
+    };
 
-        void InternalRender();
+    inline unsigned int GetRadius() {
+        return 0;
+    }
 
-        inline void SetStartAngle(float in_start_angle) {
-            if (StartAngleSet && (in_start_angle != StartAngle)) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
+    inline void SetRotation(float in_rotation) {
+    }
 
-            StartAngle = in_start_angle;
-            StartAngleSet = true;
-        };
+    inline float GetRotation() const {
+        return 0.0f;
+    }
 
-        inline float GetStartAngle() {
-            if (!StartAngleSet) {
-                if (Logger == nullptr) {
-                    Logger = new CPP_Logger();
-                }
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not specified a starting angle for the arc \
-please use `Arc.set_start_angle` to set it before attempting to get it.");
-                throw std::runtime_error("Start angle not set!");
-            }
-            return StartAngle;
-        }
+    inline void SetPointCount(unsigned int in_point_count) {
+    }
 
-        inline void SetEndAngle(float in_end_angle) {
-            if (EndAngleSet && (in_end_angle != EndAngle)) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            EndAngle = in_end_angle;
-            EndAngleSet = true;
-        };
-
-        inline float GetEndAngle() {
-            if (!EndAngleSet) {
-                if (Logger == nullptr) {
-                    Logger = new CPP_Logger();
-                }
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not specified an ending angle for the arc \
-please use `Arc.set_start_angle` to set it before attempting to get it.");
-                throw std::runtime_error("End angle not set!");
-            }
-            return EndAngle;
-        }
-
-        inline void SetWidth(unsigned int in_width) {
-            if (in_width != Width) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            Width = in_width;
-        };
-
-        inline unsigned int GetWidth() const {
-            return Width;
-        }
-
-        inline void SetRadius(unsigned int in_radius) {
-            if (in_radius != Radius) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            RadiusSet = true;
-            Radius = in_radius;
-        };
-
-        inline unsigned int GetRadius() {
-            if (!RadiusSet) {
-                if (Logger == nullptr) {
-                    Logger = new CPP_Logger();
-                }
-                Logger->InternalLogWarn(
-                    30,
-                    "You have not specified a radius for the arc \
-please use `Arc.set_radius` to set it before attempting to get it.");
-                throw std::runtime_error("Radius not set!");
-            }
-            return Radius;
-        }
-
-        inline void SetRotation(float in_rotation) {
-            if (in_rotation != Rotation) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            Rotation = in_rotation;
-        }
-
-        inline float GetRotation() const {
-            return Rotation;
-        }
-
-        inline void SetPointCount(unsigned int in_point_count) {
-            if (in_point_count != PointCount) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            PointCount = in_point_count;
-        }
-
-        unsigned int GetPointCount();
+    unsigned int GetPointCount();
 };

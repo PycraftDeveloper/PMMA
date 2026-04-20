@@ -1,152 +1,54 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 #include <glm/glm.hpp>
 
-#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
 class EXPORT CPP_PolygonShape {
-    public:
-        CPP_Logger* Logger;
-        CPP_Color* Color;
+public:
+    CPP_PolygonShape();
 
-        std::vector<glm::vec2> VertexData;
-        std::vector<glm::vec4> ColorData;
+    ~CPP_PolygonShape() {
+    }
 
-        std::vector<Vertex> Shape2D_RenderPipelineVertices;
+    void Render();
 
-        std::vector<glm::vec2> ShapePoints;
+    void InternalRender();
 
-        float Rotation = 0;
+    inline void SetPoints(unsigned int (*in_points)[2], unsigned int count) {
+    }
 
-        unsigned int Width = 1;
+    inline void GetPoints(unsigned int (*out_points)[2]) {
+    }
 
-        uint64_t ID;
-        float ColorIndex;
+    inline unsigned int GetPointCount() {
+        return 0;
+    }
 
-        bool PointsSet = false;
-        bool HasAlpha = false;
-        bool VertexDataChanged = true;
-        bool ColorDataChanged = true;
-        bool Closed = false;
+    inline void SetWidth(unsigned int in_width) {
+    };
 
-        CPP_PolygonShape();
+    inline unsigned int GetWidth() const {
+        return 0;
+    }
 
-        ~CPP_PolygonShape() {
-            if (Logger != nullptr) {
-                delete Logger;
-                Logger = nullptr;
-            }
+    inline void SetRotation(float in_rotation) {
+    }
 
-            delete Color;
-            Color = nullptr;
-        }
+    inline float GetRotation() const {
+        return 0.0f;
+    }
 
-        void Render();
+    inline void SetClosed(bool in_closed) {
+    }
 
-        void InternalRender();
-
-        inline void SetPoints(unsigned int (*in_points)[2], unsigned int count) {
-            std::vector<glm::vec2> NewShapePoints;
-
-            for (unsigned int i = 0; i < count; i++) {
-                NewShapePoints.push_back(glm::vec2(in_points[i][0], in_points[i][1]));
-            }
-
-            if (PointsSet && (
-                    count != NewShapePoints.size() * 2 ||
-                    ShapePoints.size() != NewShapePoints.size() ||
-                    !std::equal(
-                        ShapePoints.begin(),
-                        ShapePoints.end(),
-                        NewShapePoints.begin()))) {
-
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            ShapePoints = NewShapePoints;
-            PointsSet = true;
-        }
-
-        inline void GetPoints(unsigned int (*out_points)[2]) {
-            if (!PointsSet) {
-                if (Logger == nullptr) {
-                    Logger = new CPP_Logger();
-                }
-
-                Logger->InternalLogWarn(
-                    30,
-                    "This shape has no points set, please use `Polygon.set_points` to set it.");
-                throw std::runtime_error("Points not set");
-            }
-
-            for (unsigned int i = 0; i < ShapePoints.size(); i++) {
-                out_points[i][0] = static_cast<unsigned int>(ShapePoints[i].x);
-                out_points[i][1] = static_cast<unsigned int>(ShapePoints[i].y);
-            }
-        }
-
-        inline unsigned int GetPointCount() {
-            if (!PointsSet) {
-                if (Logger == nullptr) {
-                    Logger = new CPP_Logger();
-                }
-
-                Logger->InternalLogWarn(
-                    30,
-                    "This shape has no points set, please use `Polygon.set_points` to set it.");
-                throw std::runtime_error("Points not set");
-            }
-            return static_cast<unsigned int>(ShapePoints.size());
-        }
-
-        inline void SetWidth(unsigned int in_width) {
-            if (in_width != Width) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            Width = in_width;
-        };
-
-        inline unsigned int GetWidth() const {
-            return Width;
-        }
-
-        inline void SetRotation(float in_rotation) {
-            if (in_rotation != Rotation) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            Rotation = in_rotation;
-        }
-
-        inline float GetRotation() const {
-            return Rotation;
-        }
-
-        inline void SetClosed(bool in_closed) {
-            if (in_closed != Closed) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            Closed = in_closed;
-        }
-
-        inline bool GetClosed() const {
-            return Closed;
-        }
+    inline bool GetClosed() const {
+        return false;
+    }
 };

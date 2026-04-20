@@ -1,85 +1,37 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include <vector>
 #include <cstdint>
+#include <vector>
 
 #include <glm/glm.hpp>
 
-#include "Internal/Management/Shape2DRenderPipelineManager.hpp"
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
 class EXPORT CPP_LineShape {
-    public:
-        CPP_Logger* Logger;
-        CPP_DisplayCoordinate* ShapeStart;
-        CPP_DisplayCoordinate* ShapeEnd;
-        CPP_Color* Color;
+public:
+    CPP_LineShape();
 
-        std::vector<glm::vec2> VertexData;
-        std::vector<glm::vec4> ColorData;
+    ~CPP_LineShape() {
+    }
 
-        std::vector<Vertex> Shape2D_RenderPipelineVertices;
+    void Render();
 
-        float Rotation = 0;
+    void InternalRender();
 
-        uint64_t ID;
-        float ColorIndex;
-        unsigned int Width = 1;
+    inline void SetWidth(unsigned int in_width) {
+    };
 
-        bool HasAlpha = false;
-        bool VertexDataChanged = true;
-        bool ColorDataChanged = true;
+    inline unsigned int GetWidth() const {
+        return 0;
+    }
 
-        CPP_LineShape();
+    inline void SetRotation(float in_rotation) {
+    }
 
-        ~CPP_LineShape() {
-            if (Logger != nullptr) {
-                delete Logger;
-                Logger = nullptr;
-            }
-
-            delete ShapeStart;
-            ShapeStart = nullptr;
-
-            delete ShapeEnd;
-            ShapeEnd = nullptr;
-
-            delete Color;
-            Color = nullptr;
-        }
-
-        void Render();
-
-        void InternalRender();
-
-        inline void SetWidth(unsigned int in_width) {
-            if (in_width != Width) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            Width = in_width;
-        };
-
-        inline unsigned int GetWidth() const {
-            return Width;
-        }
-
-        inline void SetRotation(float in_rotation) {
-            if (in_rotation != Rotation) {
-                VertexDataChanged = true;
-                Shape2D_RenderPipelineVertices.clear();
-                VertexData.clear();
-            }
-
-            Rotation = in_rotation;
-        }
-
-        inline float GetRotation() const {
-            return Rotation;
-        }
+    inline float GetRotation() const {
+        return 0.0f;
+    }
 };
