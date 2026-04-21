@@ -35,7 +35,7 @@ set(CORE_SOURCES
     "${SRC_DIR}/Graphics/Shader.cpp"
 
     "${SRC_DIR}/Internal/Management/AnimationManager.cpp"
-    "${SRC_DIR}/Internal/Management/CoreRenderPipelineManager.cpp"
+    "${SRC_DIR}/Internal/Management/Core2D_RenderPipelineManager.cpp"
     "${SRC_DIR}/Internal/Management/EventsManager.cpp"
     "${SRC_DIR}/Internal/Management/InternalManager.cpp"
     "${SRC_DIR}/Internal/Management/LoggingManager.cpp"

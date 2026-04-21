@@ -3,20 +3,20 @@
 
 #include "PMMA_Core.hpp"
 
-const bgfx::Memory* InternalLoadShader(const std::string& filePath) {
+const bgfx::Memory *InternalLoadShader(const std::string &filePath) {
     std::ifstream file(filePath, std::ios::binary | std::ios::ate);
     std::streamsize size = file.tellg();
     file.seekg(0, std::ios::beg);
 
-    const bgfx::Memory* mem = bgfx::alloc(uint32_t(size));
-    file.read((char*)mem->data, size);
+    const bgfx::Memory *mem = bgfx::alloc(uint32_t(size));
+    file.read((char *)mem->data, size);
     return mem;
 }
 
 void CPP_Shader::CompileShaderComponent(
-        std::string RawFilePath,
-        std::string CompiledFilePath,
-        std::string Type) {
+    std::string RawFilePath,
+    std::string CompiledFilePath,
+    std::string Type) {
 
     bgfx::ShaderHandle shader_component = BGFX_INVALID_HANDLE;
 
@@ -41,32 +41,40 @@ void CPP_Shader::CompileShaderComponent(
 
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         34,
-        "PMMA is using '" + PlatformName + "' for shaders."
-    );
+        "PMMA is using '" + PlatformName + "' for shaders.");
 
     std::string Shader_C_Location = PMMA_Registry::PMMA_Location +
-        PMMA_Registry::PathSeparator + "extern" +
-        PMMA_Registry::PathSeparator + "bin" +
-        PMMA_Registry::PathSeparator + "shaderc";
+                                    PMMA_Registry::PathSeparator + "extern" +
+                                    PMMA_Registry::PathSeparator + "bin" +
+                                    PMMA_Registry::PathSeparator + "shaderc";
 
     if (PlatformName == "windows") {
         Shader_C_Location += ".exe";
     }
 
     std::string ShaderBuildToolsLocation = PMMA_Registry::PMMA_Location +
-        PMMA_Registry::PathSeparator + "extern" +
-        PMMA_Registry::PathSeparator + "shader_build_tools";
+                                           PMMA_Registry::PathSeparator + "extern" +
+                                           PMMA_Registry::PathSeparator + "shader_build_tools";
 
     std::string VaryingDefLocation = std::filesystem::path(RawFilePath).parent_path().string() +
-        PMMA_Registry::PathSeparator + "varying.def.sc";
+                                     PMMA_Registry::PathSeparator + "varying.def.sc";
 
     std::string GraphicsProfile = CPP_Shader::GetGraphicsProfile();
 
-    std::string command = Shader_C_Location + " -f " + RawFilePath + " -o " +
-        CompiledFilePath + " --type " + Type + " --platform " +
-        PlatformName + " -i " + ShaderBuildToolsLocation +
-        " --varyingdef " + VaryingDefLocation + " --profile " +
-        GraphicsProfile;
+    std::string command;
+
+    if (Type == "compute") {
+        command = Shader_C_Location + " -f " + RawFilePath + " -o " +
+                  CompiledFilePath + " --type compute" + " --platform " +
+                  PlatformName + " -i " + ShaderBuildToolsLocation + " --profile " +
+                  GraphicsProfile;
+    } else {
+        command = Shader_C_Location + " -f " + RawFilePath + " -o " +
+                  CompiledFilePath + " --type " + Type + " --platform " +
+                  PlatformName + " -i " + ShaderBuildToolsLocation +
+                  " --varyingdef " + VaryingDefLocation + " --profile " +
+                  GraphicsProfile;
+    }
 
     if (!std::filesystem::exists(CompiledFilePath)) {
         std::filesystem::create_directories(
@@ -79,11 +87,11 @@ void CPP_Shader::CompileShaderComponent(
         if (system(command.c_str()) != 0) {
             DontRepeatOutput = true;
 
-            if (IsInternalShader){
+            if (IsInternalShader) {
                 PMMA_Core::LoggingManagerInstance->InternalLogError(
                     49,
                     "PMMA was unable to compile the following shader: '" +
-                    RawFilePath + "'. This is a shader that comes included \
+                        RawFilePath + "'. This is a shader that comes included \
 with PMMA, so please report this issue to us here: \
 'https://github.com/PycraftDeveloper/PMMA/issues' so we can fix the issue. \
 We would also greatly appreciate it if you could include all information/debug/warn/error \
@@ -93,23 +101,21 @@ be specific to a single platform or graphics backend. Thank you!");
                 PMMA_Core::LoggingManagerInstance->InternalLogError(
                     49,
                     "Shader compilation failed for '" + RawFilePath +
-                    "' with command: '" + command + "'\n\n" +
-                    "To diagnose this shader compilation issue, please run the \
-command listed above in your system terminal/command prompt directly."
-                );
+                        "' with command: '" + command + "'\n\n" +
+                        "To diagnose this shader compilation issue, please run the \
+command listed above in your system terminal/command prompt directly.");
             }
             throw std::runtime_error("Shader compilation failed for '" +
-                RawFilePath + "' with command: '" + command + "'.");
+                                     RawFilePath + "' with command: '" + command + "'.");
         }
-    } catch (const std::exception& e) {
+    } catch (const std::exception &e) {
         if (!DontRepeatOutput) {
             PMMA_Core::LoggingManagerInstance->InternalLogError(
                 49,
-                "Shader compilation failed: '" + std::string(e.what()) + "'."
-            );
+                "Shader compilation failed: '" + std::string(e.what()) + "'.");
             throw std::runtime_error("Shader compilation failed for '" +
-                RawFilePath + "' with command: '" + command +
-                "'\nError: '" + std::string(e.what()) + "'.");
+                                     RawFilePath + "' with command: '" + command +
+                                     "'\nError: '" + std::string(e.what()) + "'.");
         }
         exit(49);
     }
@@ -124,18 +130,9 @@ void CPP_Shader::CompileShader(bool InternalShader) {
         if (CompiledVertexShaderPath == "") {
             std::string ShaderName = std::filesystem::path(RawVertexShaderPath).stem().string();
             if (InternalShader || !PMMA_Core::PassportInstance->IsRegistered) {
-                CompiledVertexShaderPath = PMMA_Registry::PMMA_Location
-                    + PMMA_Registry::PathSeparator + "temporary"
-                    + PMMA_Registry::PathSeparator + "shader_cache"
-                    + PMMA_Registry::PathSeparator + PlatformName
-                    + PMMA_Registry::PathSeparator + GetGraphicsProfile()
-                    + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+                CompiledVertexShaderPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "temporary" + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
             } else {
-                CompiledVertexShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath()
-                    + PMMA_Registry::PathSeparator + "shader_cache"
-                    + PMMA_Registry::PathSeparator + PlatformName
-                    + PMMA_Registry::PathSeparator + GetGraphicsProfile()
-                    + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+                CompiledVertexShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath() + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
             }
         }
     }
@@ -144,18 +141,20 @@ void CPP_Shader::CompileShader(bool InternalShader) {
         if (CompiledFragmentShaderPath == "") {
             std::string ShaderName = std::filesystem::path(RawFragmentShaderPath).stem().string();
             if (InternalShader || !PMMA_Core::PassportInstance->IsRegistered) {
-                CompiledFragmentShaderPath = PMMA_Registry::PMMA_Location
-                    + PMMA_Registry::PathSeparator + "temporary"
-                    + PMMA_Registry::PathSeparator + "shader_cache"
-                    + PMMA_Registry::PathSeparator + PlatformName
-                    + PMMA_Registry::PathSeparator + GetGraphicsProfile()
-                    + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+                CompiledFragmentShaderPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "temporary" + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
             } else {
-                CompiledFragmentShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath()
-                    + PMMA_Registry::PathSeparator + "shader_cache"
-                    + PMMA_Registry::PathSeparator + PlatformName
-                    + PMMA_Registry::PathSeparator + GetGraphicsProfile()
-                    + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+                CompiledFragmentShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath() + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+            }
+        }
+    }
+
+    if (RawComputeShaderPath != "") {
+        if (CompiledComputeShaderPath == "") {
+            std::string ShaderName = std::filesystem::path(RawComputeShaderPath).stem().string();
+            if (InternalShader || !PMMA_Core::PassportInstance->IsRegistered) {
+                CompiledComputeShaderPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "temporary" + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+            } else {
+                CompiledComputeShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath() + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
             }
         }
     }
@@ -170,6 +169,11 @@ void CPP_Shader::CompileShader(bool InternalShader) {
             CompileShaderComponent(RawFragmentShaderPath, CompiledFragmentShaderPath, "fragment");
         }
     }
+    if (!std::filesystem::exists(CompiledComputeShaderPath)) {
+        if (RawComputeShaderPath != "") {
+            CompileShaderComponent(RawComputeShaderPath, CompiledComputeShaderPath, "compute");
+        }
+    }
 
     if (CompiledVertexShaderPath != "" && CompiledFragmentShaderPath != "") {
         bgfx::ShaderHandle vertex_shader = bgfx::createShader(
@@ -180,8 +184,14 @@ void CPP_Shader::CompileShader(bool InternalShader) {
         ShaderProgram = bgfx::createProgram(
             vertex_shader,
             fragment_shader,
-            true
-        );
+            true);
+        IsCompiled = true;
+    } else if (CompiledComputeShaderPath != "") {
+        bgfx::ShaderHandle compute_shader = bgfx::createShader(
+            InternalLoadShader(CompiledComputeShaderPath));
+
+        ShaderProgram = bgfx::createProgram(
+            compute_shader, true);
         IsCompiled = true;
     } else {
         IsCompiled = false;
@@ -201,5 +211,9 @@ bgfx::ProgramHandle CPP_Shader::Use() {
 
     if (RawFragmentShaderPath == "" || CompiledFragmentShaderPath == "") {
         throw std::runtime_error("Fragment shader path is not set");
+    }
+
+    if (RawComputeShaderPath == "" || CompiledComputeShaderPath == "") {
+        throw std::runtime_error("Compute shader path is not set");
     }
 }

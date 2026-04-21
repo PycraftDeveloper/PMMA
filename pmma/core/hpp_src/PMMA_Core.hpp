@@ -27,7 +27,7 @@
 #include "Graphics/Shader.hpp"
 
 #include "Internal/Management/AnimationManager.hpp"
-#include "Internal/Management/CoreRenderPipelineManager.hpp"
+#include "Internal/Management/Core2D_RenderPipelineManager.hpp"
 #include "Internal/Management/EventsManager.hpp"
 #include "Internal/Management/InternalManager.hpp"
 #include "Internal/Management/LoggingManager.hpp"
@@ -64,7 +64,7 @@ Notes:
 namespace PMMA_Core {
 extern CPP_Display *DisplayInstance;
 
-extern CPP_RenderPipelineCore *RenderPipelineCore;
+extern CPP_Core2D_RenderPipeline *RenderPipelineCore;
 
 extern std::vector<CPP_KeyEvent_Space *> KeyEvent_Space_Instances;
 extern std::vector<CPP_KeyEvent_Apostrophe *> KeyEvent_Apostrophe_Instances;

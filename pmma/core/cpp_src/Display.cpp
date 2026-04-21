@@ -1,25 +1,25 @@
 #include <GLFW/glfw3.h>
 #include <STB/stb_image.h>
-#include <bx/platform.h>
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
+#include <bx/platform.h>
 
 // For native window handles via GLFW
 #if BX_PLATFORM_WINDOWS
-    #define GLFW_EXPOSE_NATIVE_WIN32
-    #include <GLFW/glfw3native.h>
+#define GLFW_EXPOSE_NATIVE_WIN32
+#include <GLFW/glfw3native.h>
 #elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-    #define GLFW_EXPOSE_NATIVE_X11
-    #define GLFW_EXPOSE_NATIVE_WAYLAND
-    #include <GLFW/glfw3native.h>
+#define GLFW_EXPOSE_NATIVE_X11
+#define GLFW_EXPOSE_NATIVE_WAYLAND
+#include <GLFW/glfw3native.h>
 #elif BX_PLATFORM_OSX
-    #define GLFW_EXPOSE_NATIVE_COCOA
-    #include <GLFW/glfw3native.h>
+#define GLFW_EXPOSE_NATIVE_COCOA
+#include <GLFW/glfw3native.h>
 #endif
 
 #include "PMMA_Core.hpp"
 
-void CPP_Display::PMMA_Update(GLFWwindow* Window) {
+void CPP_Display::PMMA_Update(GLFWwindow *Window) {
     glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
 
     if (PMMA_Core::KeyManagerInstance == nullptr) {
@@ -192,7 +192,8 @@ CPP_Display::CPP_Display() {
 be destroyed, closing any windows the application has created. Continue \
 use the current one instead, but consider properly garbage collecting \
 the previous display object. We are looking to support multiple windows \
-in future versions of PMMA, but it is not a priority.", false);
+in future versions of PMMA, but it is not a priority.",
+            false);
         delete PMMA_Core::DisplayInstance;
         PMMA_Core::DisplayInstance = nullptr;
     }
@@ -214,10 +215,10 @@ in future versions of PMMA, but it is not a priority.", false);
     Escape_KeyEvent = new CPP_KeyEvent_Escape();
 }
 
-GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
+GLFWmonitor *CPP_Display::GetMonitorAtPoint(unsigned int *Point) {
     int count;
 
-    GLFWmonitor** monitors = glfwGetMonitors(&count);
+    GLFWmonitor **monitors = glfwGetMonitors(&count);
 
     for (int i = 0; i < count; i++) {
         int mx, my;
@@ -226,7 +227,7 @@ GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
         unsigned int Monitor_X_Position = (unsigned int)mx;
         unsigned int Monitor_Y_Position = (unsigned int)my;
 
-        const GLFWvidmode* mode = glfwGetVideoMode(monitors[i]);
+        const GLFWvidmode *mode = glfwGetVideoMode(monitors[i]);
 
         if (Point[0] >= Monitor_X_Position && Point[0] < Monitor_X_Position + mode->width &&
             Point[1] >= Monitor_Y_Position && Point[1] < Monitor_Y_Position + mode->height) {
@@ -239,7 +240,7 @@ GLFWmonitor* CPP_Display::GetMonitorAtPoint(unsigned int* Point) {
     return glfwGetPrimaryMonitor();
 }
 
-GLFWmonitor* CPP_Display::GetTargetMonitor(GLFWwindow* window) {
+GLFWmonitor *CPP_Display::GetTargetMonitor(GLFWwindow *window) {
     int Window_X_Position, Window_Y_Position;
     glfwGetWindowPos(window, &Window_X_Position, &Window_Y_Position);
 
@@ -248,22 +249,22 @@ GLFWmonitor* CPP_Display::GetTargetMonitor(GLFWwindow* window) {
 
     unsigned int Point[2] = {
         (unsigned int)(Mouse_X_Position + Window_X_Position),
-        (unsigned int)(Mouse_Y_Position + Window_Y_Position) };
+        (unsigned int)(Mouse_Y_Position + Window_Y_Position)};
 
     return GetMonitorAtPoint(Point);
 }
 
-GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
+GLFWmonitor *CPP_Display::GetCurrentMonitor(GLFWwindow *window) {
     int Window_X_Position, Window_Y_Position;
     glfwGetWindowPos(window, &Window_X_Position, &Window_Y_Position);
 
     int count;
-    GLFWmonitor** monitors = glfwGetMonitors(&count);
+    GLFWmonitor **monitors = glfwGetMonitors(&count);
 
     for (int i = 0; i < count; i++) {
         int mx, my;
         glfwGetMonitorPos(monitors[i], &mx, &my);
-        const GLFWvidmode* mode = glfwGetVideoMode(monitors[i]);
+        const GLFWvidmode *mode = glfwGetVideoMode(monitors[i]);
 
         if (Window_X_Position >= mx && Window_X_Position < mx + mode->width &&
             Window_Y_Position >= my && Window_Y_Position < my + mode->height) {
@@ -277,13 +278,12 @@ GLFWmonitor* CPP_Display::GetCurrentMonitor(GLFWwindow* window) {
 }
 
 void CPP_Display::Create(
-        unsigned int* NewSize,
-        CPP_Display_Create_Kwargs kwargs) {
+    unsigned int *NewSize,
+    CPP_Display_Create_Kwargs kwargs) {
 
     if (!kwargs.OptionalFullScreen.has_value()) {
 
-        if (NewSize[0] == 0 && NewSize[1] == 0)
-        {
+        if (NewSize[0] == 0 && NewSize[1] == 0) {
             FullScreen = true;
         } else {
             FullScreen = false;
@@ -301,7 +301,7 @@ void CPP_Display::Create(
 
     glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
-    GLFWwindow* TemporaryWindow = glfwCreateWindow(
+    GLFWwindow *TemporaryWindow = glfwCreateWindow(
         1,
         1,
         Caption.c_str(),
@@ -311,8 +311,7 @@ void CPP_Display::Create(
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             55,
             "Failed to create GLFW window. Please ensure you installed PMMA \
-correctly. If the problem persists, please report this issue on our GitHub page."
-        );
+correctly. If the problem persists, please report this issue on our GitHub page.");
 
         throw std::runtime_error("Failed to create GLFW window");
 
@@ -330,7 +329,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         &TemporaryWindow_X_Position,
         &TemporaryWindow_Y_Position);
 
-    GLFWmonitor* CurrentMonitor = GetCurrentMonitor(TemporaryWindow);
+    GLFWmonitor *CurrentMonitor = GetCurrentMonitor(TemporaryWindow);
     int CurrentMonitor_X_Position, CurrentMonitor_Y_Position;
     glfwGetMonitorPos(
         CurrentMonitor,
@@ -341,7 +340,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
     RelativeWindow_X_Position = TemporaryWindow_X_Position - CurrentMonitor_X_Position;
     RelativeWindow_Y_Position = TemporaryWindow_Y_Position - CurrentMonitor_Y_Position;
 
-    GLFWmonitor* TargetMonitor = GetTargetMonitor(TemporaryWindow);
+    GLFWmonitor *TargetMonitor = GetTargetMonitor(TemporaryWindow);
     glfwDestroyWindow(TemporaryWindow);
     glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
 
@@ -351,7 +350,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         &TargetMonitor_X_Position,
         &TargetMonitor_Y_Position);
 
-    const GLFWvidmode* Mode = glfwGetVideoMode(TargetMonitor);
+    const GLFWvidmode *Mode = glfwGetVideoMode(TargetMonitor);
     int Monitor_Width = Mode->width;
     int Monitor_Height = Mode->height;
 
@@ -430,8 +429,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             55,
             "Failed to create GLFW window. Please ensure you installed PMMA \
-correctly. If the problem persists, please report this issue on our GitHub page."
-        );
+correctly. If the problem persists, please report this issue on our GitHub page.");
 
         throw std::runtime_error("Failed to create GLFW window");
 
@@ -444,31 +442,31 @@ correctly. If the problem persists, please report this issue on our GitHub page.
     }
 
     bgfx::PlatformData pd{};
-    pd.ndt          = nullptr;
-    pd.nwh          = nullptr;
-    pd.context      = nullptr;
-    pd.backBuffer   = nullptr;
+    pd.ndt = nullptr;
+    pd.nwh = nullptr;
+    pd.context = nullptr;
+    pd.backBuffer = nullptr;
     pd.backBufferDS = nullptr;
 
-    #if BX_PLATFORM_WINDOWS
-        pd.nwh = glfwGetWin32Window(Window);
-    #elif BX_PLATFORM_OSX
-        pd.nwh = glfwGetCocoaWindow(Window);
-    #elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-        if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
-            pd.ndt = glfwGetWaylandDisplay();
-            pd.nwh = (void*)glfwGetWaylandWindow(Window);
-        } else { // X11
-            pd.ndt = glfwGetX11Display();
-            pd.nwh = (void*)(uintptr_t)glfwGetX11Window(Window);
-        }
-    #endif
+#if BX_PLATFORM_WINDOWS
+    pd.nwh = glfwGetWin32Window(Window);
+#elif BX_PLATFORM_OSX
+    pd.nwh = glfwGetCocoaWindow(Window);
+#elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
+    if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+        pd.ndt = glfwGetWaylandDisplay();
+        pd.nwh = (void *)glfwGetWaylandWindow(Window);
+    } else { // X11
+        pd.ndt = glfwGetX11Display();
+        pd.nwh = (void *)(uintptr_t)glfwGetX11Window(Window);
+    }
+#endif
 
     bgfx::Init init;
     init.type = bgfx::RendererType::Count; // auto-detect renderer
-    init.resolution.width  = Size[0];
+    init.resolution.width = Size[0];
     init.resolution.height = Size[1];
-    init.resolution.reset  = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;
+    init.resolution.reset = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;
     init.platformData = pd;
 
     if (!bgfx::init(init)) {
@@ -480,14 +478,12 @@ correctly. If the problem persists, please report this issue on our GitHub page.
     std::string OperatingSystem = CPP_General::GetOperatingSystem();
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         46,
-        "You are running on the Operating System: '" + OperatingSystem + "'."
-    );
+        "You are running on the Operating System: '" + OperatingSystem + "'.");
 
     std::string Renderer = CPP_General::GetGraphicsBackend();
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         34,
-        "PMMA is using the '" + Renderer + "' backend for graphics."
-    );
+        "PMMA is using the '" + Renderer + "' backend for graphics.");
 
     bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
     bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
@@ -496,8 +492,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         PMMA_Core::LoggingManagerInstance->InternalLogDebug(
             33,
             "You are not using vsync. We recommend using \
-vsync to reduce visual tearing and improve frame pacing."
-        );
+vsync to reduce visual tearing and improve frame pacing.");
     }
 
     if (kwargs.IconPath == "") {
@@ -505,7 +500,7 @@ vsync to reduce visual tearing and improve frame pacing."
     }
     SetIcon(kwargs.IconPath);
 
-    PMMA_Core::RenderPipelineCore = new CPP_RenderPipelineCore();
+    PMMA_Core::RenderPipelineCore = new CPP_Core2D_RenderPipeline();
 
     PreviousDisplaySize[0] = Size[0];
     PreviousDisplaySize[1] = Size[1];
@@ -520,13 +515,13 @@ vsync to reduce visual tearing and improve frame pacing."
     WindowFillColor->Get_RGBA(out_color);
 
     uint32_t clearColor =
-    ( out_color[0]) << 24 | // R
-    ( out_color[1]) << 16 | // G
-    ( out_color[2]) <<  8 | // B
-    ( out_color[3]);        // A
+        (out_color[0]) << 24 | // R
+        (out_color[1]) << 16 | // G
+        (out_color[2]) << 8 |  // B
+        (out_color[3]);        // A
 
     bgfx::setViewClear(
-        0,  // view ID (use 0 for your main screen)
+        0, // view ID (use 0 for your main screen)
         BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH,
         clearColor,
         1.0f, // depth clear value
@@ -539,8 +534,7 @@ void CPP_Display::Clear() {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
-You can do this using `Display.create`."
-        );
+You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
@@ -548,13 +542,13 @@ You can do this using `Display.create`."
     WindowFillColor->Get_RGBA(out_color); // R (0 - 255), G (0 - 255), B (0 - 255), A (0 - 255)
 
     uint32_t clearColor =
-    ( out_color[0]) << 24 | // R
-    ( out_color[1]) << 16 | // G
-    ( out_color[2]) <<  8 | // B
-    ( out_color[3]);        // A
+        (out_color[0]) << 24 | // R
+        (out_color[1]) << 16 | // G
+        (out_color[2]) << 8 |  // B
+        (out_color[3]);        // A
 
     bgfx::setViewClear(
-        0,  // view ID (use 0 for your main screen)
+        0, // view ID (use 0 for your main screen)
         BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH,
         clearColor,
         1.0f, // depth clear value
@@ -598,9 +592,9 @@ void CPP_Display::LimitRefreshRate(unsigned int RefreshRate) {
 }
 
 unsigned int CPP_Display::CalculateRefreshRate(
-        unsigned int RefreshRate, bool LowerRefreshRate_OnMinimize,
-        bool LowerRefreshRate_OnFocusLoss,
-        bool LowerRefreshRate_OnLowBattery) {
+    unsigned int RefreshRate, bool LowerRefreshRate_OnMinimize,
+    bool LowerRefreshRate_OnFocusLoss,
+    bool LowerRefreshRate_OnLowBattery) {
 
     bool Minimized = glfwGetWindowAttrib(Window, GLFW_ICONIFIED) == GLFW_TRUE;
     bool FocusLoss = glfwGetWindowAttrib(Window, GLFW_FOCUSED) == GLFW_FALSE;
@@ -639,14 +633,13 @@ void CPP_Display::Refresh(CPP_Display_Refresh_Kwargs kwargs) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
-You can do this using `Display.create`."
-        );
+You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
     PMMA_Core::RenderPipelineCore->Render();
 
-    bgfx::touch(0);   // Ensure view 0 is cleared
+    bgfx::touch(0); // Ensure view 0 is cleared
     bgfx::frame();
 
     unsigned int MaxRefreshRate;
@@ -705,7 +698,7 @@ before you can call this function.");
     }
 
     int width, height, channels;
-    unsigned char* pixels = stbi_load(
+    unsigned char *pixels = stbi_load(
         IconPath.c_str(),
         &width,
         &height,
@@ -719,13 +712,12 @@ before you can call this function.");
         icon.pixels = pixels;
 
         glfwSetWindowIcon(Window, 1, &icon);
-        stbi_image_free(pixels);  // Don’t forget to free the image
+        stbi_image_free(pixels); // Don’t forget to free the image
     } else {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             56,
             "Failed to load icon from path: " + IconPath + ". Please \
-ensure the file exists and is a valid image file."
-        );
+ensure the file exists and is a valid image file.");
 
         throw std::runtime_error("Failed to load icon: " + IconPath);
     }
@@ -745,7 +737,7 @@ before you can call this function.");
     unsigned int new_width, new_height;
 
     if (FullScreen) {
-        GLFWmonitor* CurrentMonitor = GetCurrentMonitor(Window);
+        GLFWmonitor *CurrentMonitor = GetCurrentMonitor(Window);
         int CurrentMonitor_X_Position, CurrentMonitor_Y_Position;
         int TemporaryWindow_X_Position, TemporaryWindow_Y_Position;
         glfwGetWindowPos(
@@ -762,7 +754,7 @@ before you can call this function.");
         RelativeWindow_X_Position = TemporaryWindow_X_Position - CurrentMonitor_X_Position;
         RelativeWindow_Y_Position = TemporaryWindow_Y_Position - CurrentMonitor_Y_Position;
 
-        GLFWmonitor* TargetMonitor = GetTargetMonitor(Window);
+        GLFWmonitor *TargetMonitor = GetTargetMonitor(Window);
 
         glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
 
@@ -772,7 +764,7 @@ before you can call this function.");
             &TargetMonitor_X_Position,
             &TargetMonitor_Y_Position);
 
-        const GLFWvidmode* Mode = glfwGetVideoMode(TargetMonitor);
+        const GLFWvidmode *Mode = glfwGetVideoMode(TargetMonitor);
         int Monitor_Width = Mode->width;
         int Monitor_Height = Mode->height;
 
@@ -795,12 +787,12 @@ before you can call this function.");
         Position[1] = Window_Y_Offset;
         Size[0] = GetWidth();
         Size[1] = GetHeight();
-        const GLFWvidmode* mode = glfwGetVideoMode(CurrentMonitor);
+        const GLFWvidmode *mode = glfwGetVideoMode(CurrentMonitor);
         glfwSetWindowMonitor(Window, CurrentMonitor, 0, 0, mode->width, mode->height, 0);
         new_width = mode->width;
         new_height = mode->height;
     } else {
-        GLFWmonitor* CurrentMonitor = GetCurrentMonitor(Window);
+        GLFWmonitor *CurrentMonitor = GetCurrentMonitor(Window);
         glfwSetWindowMonitor(Window, NULL, Position[0], Position[1], Size[0], Size[1], 0);
         new_width = Size[0];
         new_height = Size[1];
