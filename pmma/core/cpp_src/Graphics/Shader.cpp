@@ -87,8 +87,6 @@ void CPP_Shader::CompileShaderComponent(
 
     bool DontRepeatOutput = false;
 
-    std::cout << "Compiling shader with command: " << command << std::endl;
-
     try {
         if (system(command.c_str()) != 0) {
             DontRepeatOutput = true;
