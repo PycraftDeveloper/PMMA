@@ -1,8 +1,8 @@
-$input v_uv
+$input v_uv, v_col
 
 #include "common.sh"
 
 void main()
 {
-    gl_FragColor = vec4(v_uv.x, v_uv.y, 1.0f, 1.0f);
+    gl_FragColor = v_col;
 }

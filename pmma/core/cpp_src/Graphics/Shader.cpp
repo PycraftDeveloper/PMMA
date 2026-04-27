@@ -56,6 +56,11 @@ void CPP_Shader::CompileShaderComponent(
                                            PMMA_Registry::PathSeparator + "extern" +
                                            PMMA_Registry::PathSeparator + "shader_build_tools";
 
+    std::string BGFX_IncludesLocation = PMMA_Registry::PMMA_Location +
+                                        PMMA_Registry::PathSeparator + "extern" +
+                                        PMMA_Registry::PathSeparator + "include" +
+                                        PMMA_Registry::PathSeparator + "bgfx";
+
     std::string VaryingDefLocation = std::filesystem::path(RawFilePath).parent_path().string() +
                                      PMMA_Registry::PathSeparator + "varying.def.sc";
 
@@ -66,8 +71,7 @@ void CPP_Shader::CompileShaderComponent(
     if (Type == "compute") {
         command = Shader_C_Location + " -f " + RawFilePath + " -o " +
                   CompiledFilePath + " --type compute" + " --platform " +
-                  PlatformName + " -i " + ShaderBuildToolsLocation + " --profile " +
-                  GraphicsProfile;
+                  PlatformName + " --profile spirv" + " -i " + BGFX_IncludesLocation;
     } else {
         command = Shader_C_Location + " -f " + RawFilePath + " -o " +
                   CompiledFilePath + " --type " + Type + " --platform " +
@@ -82,6 +86,8 @@ void CPP_Shader::CompileShaderComponent(
     }
 
     bool DontRepeatOutput = false;
+
+    std::cout << "Compiling shader with command: " << command << std::endl;
 
     try {
         if (system(command.c_str()) != 0) {

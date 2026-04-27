@@ -1,10 +1,19 @@
-$input a_position, a_texcoord0
-$output v_uv
+$input a_position, a_texcoord0, i_data0, i_data1
+$output v_uv, v_col
 
 #include "common.sh"
 
-void main() {
-    v_uv = a_texcoord0;
+uniform mat4 OrthDisplayProj;
 
-    gl_Position = vec4(a_position.x, a_position.y, 0.0, 1.0);
+void main()
+{
+    vec2 world = i_data0.xy + a_position.xy * i_data0.zw;
+
+    gl_Position = mul(OrthDisplayProj, vec4(world, 0.0, 1.0));
+
+    v_uv = a_texcoord0;
+    v_col = i_data1;
+
+    float depth = float(gl_InstanceID) * (1.0 / 16777216.0); // ~16M safe range
+    gl_Position.z = 1.0f - depth;
 }

@@ -1,25 +1,13 @@
-#include "common.sh"
+#include "bgfx_compute.sh"
 
-// -----------------------------------------------------
-// Buffers (HLSL-style for BGFX D3D backend)
-// -----------------------------------------------------
+BUFFER_RO(u_quadsPosSize, float4, 0);
+BUFFER_RW(u_tileWriteOffset, uint, 1);
+BUFFER_RW(u_tileData, uint, 2);
 
-StructuredBuffer<float4> u_quadsPosSize : register(t0);
-StructuredBuffer<float4> u_quadsExtra   : register(t1);
+uniform float4 u_screenSize_tileSize_instanceCount;
 
-RWStructuredBuffer<uint> u_tileWriteOffset : register(u2);
-RWStructuredBuffer<uint> u_tileData        : register(u3);
+NUM_THREADS(64, 1, 1)
 
-// -----------------------------------------------------
-
-cbuffer Uniforms : register(b0)
-{
-    float4 u_screenSize_tileSize_instanceCount;
-};
-
-// -----------------------------------------------------
-
-[numthreads(64, 1, 1)]
 void main()
 {
     uint id = gl_GlobalInvocationID.x;
@@ -28,36 +16,33 @@ void main()
     if (id >= instanceCount)
         return;
 
-    float4 posSize = u_quadsPosSize[id];
-    float2 pos  = posSize.xy;
-    float2 size = posSize.zw;
+    float screenW = u_screenSize_tileSize_instanceCount.x;
+    float screenH = u_screenSize_tileSize_instanceCount.y;
+    float tileSize = u_screenSize_tileSize_instanceCount.z;
+
+    float2 pos  = u_quadsPosSize[id].xy;
+    float2 size = u_quadsPosSize[id].zw;
 
     float2 minP = pos;
     float2 maxP = pos + size;
 
-    float tileSize = u_screenSize_tileSize_instanceCount.z;
+    int2 screenSize = int2(screenW, screenH);
+    int2 tileCount = max(int2(screenSize / tileSize), int2(1));
 
-    int2 screenSize = int2(
-        u_screenSize_tileSize_instanceCount.x,
-        u_screenSize_tileSize_instanceCount.y
-    );
-
-    int2 tileCount = screenSize / (int)tileSize;
-
-    int2 minTile = (int2)(minP / tileSize);
-    int2 maxTile = (int2)(maxP / tileSize);
-
-    minTile = clamp(minTile, int2(0,0), tileCount - 1);
-    maxTile = clamp(maxTile, int2(0,0), tileCount - 1);
+    int2 minTile = clamp(int2(minP / tileSize), int2(0), tileCount - 1);
+    int2 maxTile = clamp(int2(maxP / tileSize), int2(0), tileCount - 1);
 
     for (int y = minTile.y; y <= maxTile.y; y++)
     for (int x = minTile.x; x <= maxTile.x; x++)
     {
-        uint tileID = (uint)(y * tileCount.x + x);
+        uint tileID = uint(y * tileCount.x + x);
 
-        uint offset;
-        InterlockedAdd(u_tileWriteOffset[tileID], 1, offset);
+        uint offset = atomicAdd(u_tileWriteOffset[tileID], 1);
 
-        u_tileData[offset] = id;
+        if (offset < 256)
+        {
+            uint index = tileID * 256 + offset;
+            u_tileData[index] = id;
+        }
     }
 }
