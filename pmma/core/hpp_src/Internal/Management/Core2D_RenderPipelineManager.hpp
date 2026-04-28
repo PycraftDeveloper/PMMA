@@ -24,7 +24,7 @@ private:
     bgfx::IndexBufferHandle ibh;
     bgfx::InstanceDataBuffer idb;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 100'000;
+    uint32_t instanceCount = 1966;
 
     Vertex VertexData[4];
     uint16_t IndexData[6];

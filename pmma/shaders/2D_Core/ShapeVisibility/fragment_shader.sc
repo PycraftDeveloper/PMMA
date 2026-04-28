@@ -1,49 +1,39 @@
 $input v_uv
 #include <bgfx_shader.sh>
 
+uniform vec2 u_params;
+// x = radius, y = mode encoded as 0/1/2 via pre-baked weights
+
 void main()
 {
-    int u_mode = 0;
-    // -----------------------------------
-    // LOCAL SPACE (match main shader)
-    // -----------------------------------
-    vec2 center = vec2(0.5, 0.5);
-    vec2 p = v_uv - center;
+    vec2 p = v_uv - vec2(0.5, 0.5);
 
     // -----------------------------------
-    // 1. GLOBAL AABB REJECT (FASTEST)
+    // 1. ULTRA CHEAP AABB REJECT
     // -----------------------------------
     if (abs(p.x) > 0.5 || abs(p.y) > 0.5)
         discard;
 
-    // -----------------------------------
-    // 2. MODE-AWARE CONSERVATIVE REJECT
-    // (IMPORTANT: must be "safe", not perfect)
-    // -----------------------------------
-
-    if (u_mode == 0)
-    {
-        // circle mode → cheap bounding circle
-        float radius = 0.4;
-        if (dot(p, p) > radius * radius)
-            discard;
-    }
-    else if (u_mode == 1)
-    {
-        // box mode
-        float r = 0.4;
-        if (abs(p.x) > r || abs(p.y) > r)
-            discard;
-    }
-    else if (u_mode == 2)
-    {
-        // rounded rect mode → conservative AABB already sufficient
-        float r = 0.4;
-        if (abs(p.x) > r || abs(p.y) > r)
-            discard;
-    }
+    float r = u_params.x;
+    float r2 = r * r;
 
     // -----------------------------------
-    // no output (depth-only pass)
+    // 2. BRANCHLESS SHAPE REJECT
     // -----------------------------------
+
+    // Circle SDF
+    float circle = dot(p, p) - r2;
+
+    // Box SDF (cheaper form)
+    float box = max(abs(p.x), abs(p.y)) - r;
+
+    // Blend via mode weight (NO BRANCH)
+    // u_params.y = 0 => circle
+    // u_params.y = 1 => box
+    float isBox = step(0.5, u_params.y);
+
+    float reject = mix(circle, box, isBox);
+
+    if (reject > 0.0)
+        discard;
 }
