@@ -10,10 +10,6 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
         .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
         .end();
 
-    instanceLayout.begin()
-        .add(bgfx::Attrib::TexCoord1, 4, bgfx::AttribType::Float) // xy = pos, zw = size
-        .end();
-
     std::string ShaderPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "shaders" + PMMA_Registry::PathSeparator + "2D_Core" + PMMA_Registry::PathSeparator + "ShapeDefinitions";
     ShapeDefinitionsShaderProgram = new CPP_Shader();
     ShapeDefinitionsShaderProgram->LoadShaderFromFolder(ShaderPath, true);
@@ -37,13 +33,11 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
     ibh = bgfx::createIndexBuffer(
         bgfx::makeRef(IndexData, sizeof(uint16_t) * 6));
 
-    const uint32_t MaxInstances = 1000000; // scale later
-
     // Write instance data
     bgfx::allocInstanceDataBuffer(&idb, instanceCount, sizeof(InstanceData));
     InstanceData *data = (InstanceData *)idb.data;
 
-    for (uint32_t i = 0; i < instanceCount; i++) {
+    for (uint32_t i = 0; i < instanceCount - 1; i++) {
         data[i].x = rand() % 1280;
         data[i].y = rand() % 720;
         data[i].w = 50.0f;
@@ -53,6 +47,15 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
         data[i].b = rand() % 256 / 255.0f;
         data[i].a = 1.0f;
     }
+
+    data[instanceCount - 1].x = 0.0f;
+    data[instanceCount - 1].y = 0.0f;
+    data[instanceCount - 1].w = 50.0f;
+    data[instanceCount - 1].h = 50.0f;
+    data[instanceCount - 1].r = 1.0f;
+    data[instanceCount - 1].g = 0.0f;
+    data[instanceCount - 1].b = 0.0f;
+    data[instanceCount - 1].a = 1.0f;
 
     OrthDisplayProj = bgfx::createUniform("OrthDisplayProj", bgfx::UniformType::Mat4);
 };
@@ -66,7 +69,7 @@ void CPP_Core2D_RenderPipeline::Render() {
         BGFX_STATE_WRITE_RGB |
         BGFX_STATE_WRITE_A |
         BGFX_STATE_WRITE_Z |
-        BGFX_STATE_DEPTH_TEST_LESS);
+        BGFX_STATE_DEPTH_TEST_LESS | BGFX_STATE_BLEND_ALPHA);
 
     float proj[16];
     PMMA_Core::DisplayInstance->GetOrthographicProjection(proj);

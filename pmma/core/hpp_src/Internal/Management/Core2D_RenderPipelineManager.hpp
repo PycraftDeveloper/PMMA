@@ -19,7 +19,6 @@ private:
     CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
 
     bgfx::VertexLayout m_layout;
-    bgfx::VertexLayout instanceLayout;
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
     bgfx::InstanceDataBuffer idb;
