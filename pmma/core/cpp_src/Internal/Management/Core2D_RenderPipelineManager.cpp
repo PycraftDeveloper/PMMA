@@ -14,6 +14,10 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
     ShapeDefinitionsShaderProgram = new CPP_Shader();
     ShapeDefinitionsShaderProgram->LoadShaderFromFolder(ShaderPath, true);
 
+    ShaderPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "shaders" + PMMA_Registry::PathSeparator + "2D_Core" + PMMA_Registry::PathSeparator + "ShapeVisibility";
+    ShapeVisibilityShaderProgram = new CPP_Shader();
+    ShapeVisibilityShaderProgram->LoadShaderFromFolder(ShaderPath, true);
+
     VertexData[0] = {-1.0f, -1.0f, 0.0f, 0.0f};
     VertexData[1] = {1.0f, -1.0f, 1.0f, 0.0f};
     VertexData[2] = {1.0f, 1.0f, 1.0f, 1.0f};
@@ -65,15 +69,34 @@ void CPP_Core2D_RenderPipeline::Render() {
     bgfx::setIndexBuffer(ibh);
     bgfx::setInstanceDataBuffer(&idb, 0, instanceCount);
 
-    bgfx::setState(
-        BGFX_STATE_WRITE_RGB |
-        BGFX_STATE_WRITE_A |
-        BGFX_STATE_WRITE_Z |
-        BGFX_STATE_DEPTH_TEST_LESS | BGFX_STATE_BLEND_ALPHA);
-
     float proj[16];
     PMMA_Core::DisplayInstance->GetOrthographicProjection(proj);
     bgfx::setUniform(OrthDisplayProj, proj);
+
+    // -----------------------------------------
+    // PASS 1: VISIBILITY (cheap)
+    // -----------------------------------------
+    bgfx::setState(
+        BGFX_STATE_WRITE_Z |       // only write depth
+        BGFX_STATE_DEPTH_TEST_LESS // normal depth test
+    );
+
+    bgfx::submit(0, ShapeVisibilityShaderProgram->Use());
+
+    // -----------------------------------------
+    // PASS 2: SHADING (expensive)
+    // -----------------------------------------
+    bgfx::setVertexBuffer(0, vbh);
+    bgfx::setIndexBuffer(ibh);
+    bgfx::setInstanceDataBuffer(&idb, 0, instanceCount);
+
+    bgfx::setState(
+        BGFX_STATE_WRITE_RGB |
+        BGFX_STATE_WRITE_A |
+        BGFX_STATE_DEPTH_TEST_EQUAL | // only draw visible pixels
+        BGFX_STATE_BLEND_ALPHA        // keep your blending
+        // NOTE: NO WRITE_Z here
+    );
 
     bgfx::submit(0, ShapeDefinitionsShaderProgram->Use());
 }

@@ -17,6 +17,7 @@ class CPP_Shader;
 class CPP_Core2D_RenderPipeline {
 private:
     CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
+    CPP_Shader *ShapeVisibilityShaderProgram = nullptr;
 
     bgfx::VertexLayout m_layout;
     bgfx::VertexBufferHandle vbh;
