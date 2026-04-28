@@ -17,14 +17,13 @@ class CPP_Shader;
 class CPP_Core2D_RenderPipeline {
 private:
     CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
-    CPP_Shader *ShapeVisibilityShaderProgram = nullptr;
 
     bgfx::VertexLayout m_layout;
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
     bgfx::InstanceDataBuffer idb;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 1966;
+    uint32_t instanceCount = 1000;
 
     Vertex VertexData[4];
     uint16_t IndexData[6];
