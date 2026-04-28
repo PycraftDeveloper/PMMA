@@ -43,23 +43,16 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
     bgfx::allocInstanceDataBuffer(&idb, instanceCount, sizeof(InstanceData));
     InstanceData *data = (InstanceData *)idb.data;
 
-    data[0].x = 100; // rand() % 1280;
-    data[0].y = 100; // rand() % 720;
-    data[0].w = 10.0f;
-    data[0].h = 10.0f;
-    data[0].r = 1.0f;
-    data[0].g = 0.0f;
-    data[0].b = 0.0f;
-    data[0].a = 1.0f;
-
-    data[1].x = 100; // rand() % 1280;
-    data[1].y = 100; // rand() % 720;
-    data[1].w = 10.0f;
-    data[1].h = 10.0f;
-    data[1].r = 0.0f;
-    data[1].g = 1.0f;
-    data[1].b = 0.0f;
-    data[1].a = 1.0f;
+    for (uint32_t i = 0; i < instanceCount; i++) {
+        data[i].x = rand() % 1280;
+        data[i].y = rand() % 720;
+        data[i].w = 50.0f;
+        data[i].h = 50.0f;
+        data[i].r = rand() % 256 / 255.0f;
+        data[i].g = rand() % 256 / 255.0f;
+        data[i].b = rand() % 256 / 255.0f;
+        data[i].a = 1.0f;
+    }
 
     OrthDisplayProj = bgfx::createUniform("OrthDisplayProj", bgfx::UniformType::Mat4);
 };

@@ -547,6 +547,8 @@ You can do this using `Display.create`.");
         (out_color[2]) << 8 |  // B
         (out_color[3]);        // A
 
+    bgfx::setViewRect(0, 0, 0, GetWidth(), GetHeight());
+
     bgfx::setViewClear(
         0, // view ID (use 0 for your main screen)
         BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH,
@@ -554,6 +556,8 @@ You can do this using `Display.create`.");
         1.0f, // depth clear value
         0     // stencil clear value
     );
+
+    bgfx::touch(0); // Ensure view 0 is cleared
 
     PMMA_Core::RenderPipelineCore->Reset();
 
