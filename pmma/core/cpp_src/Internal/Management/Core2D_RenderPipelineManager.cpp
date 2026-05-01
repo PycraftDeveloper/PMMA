@@ -37,34 +37,21 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
     bgfx::allocInstanceDataBuffer(&idb, instanceCount, sizeof(InstanceData));
     InstanceData *data = (InstanceData *)idb.data;
 
-    for (uint32_t i = 0; i < instanceCount - 1; i++) {
+    for (uint32_t i = 0; i < instanceCount; i++) {
         data[i].x = rand() % 1280;
         data[i].y = rand() % 720;
-        data[i].w = 1.0f;
-        data[i].h = 1.0f;
+        data[i].w = 50.0f;
+        data[i].h = 50.0f;
         data[i].r = rand() % 256 / 255.0f;
         data[i].g = rand() % 256 / 255.0f;
         data[i].b = rand() % 256 / 255.0f;
         data[i].a = 1.0f;
     }
 
-    data[instanceCount - 1].x = 0.0f;
-    data[instanceCount - 1].y = 0.0f;
-    data[instanceCount - 1].w = 1.0f;
-    data[instanceCount - 1].h = 1.0f;
-    data[instanceCount - 1].r = 1.0f;
-    data[instanceCount - 1].g = 0.0f;
-    data[instanceCount - 1].b = 0.0f;
-    data[instanceCount - 1].a = 1.0f;
-
     OrthDisplayProj = bgfx::createUniform("OrthDisplayProj", bgfx::UniformType::Mat4);
 };
 
 void CPP_Core2D_RenderPipeline::Render() {
-    bgfx::setVertexBuffer(0, vbh);
-    bgfx::setIndexBuffer(ibh);
-    bgfx::setInstanceDataBuffer(&idb, 0, instanceCount);
-
     float proj[16];
     PMMA_Core::DisplayInstance->GetOrthographicProjection(proj);
     bgfx::setUniform(OrthDisplayProj, proj);
