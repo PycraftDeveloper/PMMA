@@ -21,9 +21,12 @@ private:
     bgfx::VertexLayout m_layout;
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
-    bgfx::InstanceDataBuffer idb;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 100'000;
+    uint32_t instanceCount = 1'000'000;
+    std::vector<InstanceData> instanceDataArray;
+
+    bgfx::DynamicVertexBufferHandle instanceVbh;
+    bgfx::VertexLayout instanceLayout;
 
     Vertex VertexData[4];
     uint16_t IndexData[6];
