@@ -71,7 +71,7 @@ void CPP_Shader::CompileShaderComponent(
     if (Type == "compute") {
         command = Shader_C_Location + " -f " + RawFilePath + " -o " +
                   CompiledFilePath + " --type compute" + " --platform " +
-                  PlatformName + " --profile spirv" + " -i " + BGFX_IncludesLocation;
+                  PlatformName + " --profile " + GraphicsProfile + " -i " + BGFX_IncludesLocation;
     } else {
         command = Shader_C_Location + " -f " + RawFilePath + " -o " +
                   CompiledFilePath + " --type " + Type + " --platform " +
