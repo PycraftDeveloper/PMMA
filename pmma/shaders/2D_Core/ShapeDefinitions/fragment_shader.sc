@@ -13,7 +13,7 @@ void main()
     if (abs(p.x) > 0.5 || abs(p.y) > 0.5)
         discard;
 
-    float r = 0.4;
+    float r = 0.5;
 
     // -----------------------------------
     // PRECOMPUTE SHAPES (NO BRANCHING)

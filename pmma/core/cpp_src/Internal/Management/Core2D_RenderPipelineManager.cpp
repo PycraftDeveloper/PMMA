@@ -14,10 +14,10 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
     ShapeDefinitionsShaderProgram = new CPP_Shader();
     ShapeDefinitionsShaderProgram->LoadShaderFromFolder(ShaderPath, true);
 
-    VertexData[0] = {-1.0f, -1.0f, 0.0f, 0.0f};
-    VertexData[1] = {1.0f, -1.0f, 1.0f, 0.0f};
-    VertexData[2] = {1.0f, 1.0f, 1.0f, 1.0f};
-    VertexData[3] = {-1.0f, 1.0f, 0.0f, 1.0f};
+    VertexData[0] = {-0.5f, -0.5f, 0.0f, 0.0f};
+    VertexData[1] = {0.5f, -0.5f, 1.0f, 0.0f};
+    VertexData[2] = {0.5f, 0.5f, 1.0f, 1.0f};
+    VertexData[3] = {-0.5f, 0.5f, 0.0f, 1.0f};
 
     IndexData[0] = 0;
     IndexData[1] = 1;

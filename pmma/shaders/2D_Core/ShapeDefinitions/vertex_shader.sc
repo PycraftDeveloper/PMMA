@@ -13,7 +13,4 @@ void main()
 
     v_uv = a_texcoord0;
     v_col = i_data1;
-
-    float depth = float(gl_InstanceID) * (1.0 / 16777216.0); // ~16M safe range
-    gl_Position.z = 1.0f - depth;
 }
