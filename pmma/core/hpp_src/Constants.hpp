@@ -6,18 +6,21 @@
 #include <tuple>
 #include <cstdint>
 
-struct ColorEntry {
+struct ColorEntry
+{
     std::string_view name;
     std::array<uint8_t, 3> value;
 };
 
-namespace CPP_Constants {
+namespace CPP_Constants
+{
     inline constexpr float PI = 3.141592653589793f;
     inline constexpr float TAU = 6.283185307179586f;
 
     inline constexpr float SHAPE_QUALITY = 0.27341772151898736f;
 
-    const struct HatStates {
+    struct HatStates
+    {
         static inline const std::string_view NOT_PRESSED = "HAT NOT PRESSED";
         static inline const std::string_view PRESSED_UP = "HAT PRESSED UP";
         static inline const std::string_view PRESSED_RIGHT = "HAT PRESSED RIGHT";
@@ -29,7 +32,8 @@ namespace CPP_Constants {
         static inline const std::string_view PRESSED_UP_LEFT = "HAT PRESSED UP-LEFT";
     };
 
-    const struct OperatingSystems {
+    struct OperatingSystems
+    {
         static inline const std::string_view ANDROID = "Android";
         static inline const std::string_view BSD = "BSD";
         static inline const std::string_view EMSCRIPTEN = "Emscripten";
@@ -48,7 +52,8 @@ namespace CPP_Constants {
         static inline const std::string_view UNKNOWN = "Unknown";
     };
 
-    const struct GraphicsBackends {
+    struct GraphicsBackends
+    {
         static inline const std::string_view NO_RENDERER = "No Renderer";
         static inline const std::string_view DIRECT3D11 = "Direct3D 11.0";
         static inline const std::string_view DIRECT3D12 = "Direct3D 12.0";
@@ -61,7 +66,8 @@ namespace CPP_Constants {
         static inline const std::string_view UNKNOWN = "Unknown";
     };
 
-    const struct Colors {
+    struct Colors
+    {
         static inline constexpr std::string_view RED = "red";
         static inline constexpr std::string_view ORANGE = "ora";
         static inline constexpr std::string_view YELLOW = "yel";
@@ -163,116 +169,115 @@ namespace CPP_Constants {
         static inline constexpr std::string_view FLAX = "flx";
         static inline constexpr std::string_view MYSTIC_PURPLE = "mys";
 
-        static constexpr std::array<ColorEntry, 100> ColorMap = {{
-            {RED,           {255,   0,   0}},
-            {ORANGE,        {251,  79,  19}},
-            {YELLOW,        {255, 255,   0}},
-            {GREEN,         {  0, 255,   0}},
-            {BLUE,          {  0,   0, 255}},
-            {INDIGO,        { 51,   0, 153}},
-            {VIOLET,        {143,   0, 255}},
-            {BLACK,         {  0,   0,   0}},
-            {WHITE,         {255, 255, 255}},
-            {GRAY,          {128, 128, 128}},
-            {CYAN,          {0, 255, 255}},
-            {MAGENTA,       {255, 0, 255}},
-            {LIGHT_RED,     {255, 102, 102}},
-            {LIGHT_ORANGE,  {255, 178, 102}},
-            {LIGHT_YELLOW,  {255, 255, 153}},
-            {LIGHT_GREEN,   {153, 255, 153}},
-            {LIGHT_BLUE,    {153, 204, 255}},
-            {LIGHT_INDIGO,  {109, 90, 207}},
-            {LIGHT_VIOLET,  {204, 153, 255}},
-            {SKY_BLUE,      {135, 206, 235}},
-            {GOLD,          {255, 215, 0}},
-            {SILVER,        {192, 192, 192}},
-            {BROWN,         {150, 75, 0}},
-            {PEA_GREEN,     {142, 209, 63}},
-            {OLIVE,         {128, 128, 0}},
-            {TAN,           {210, 180, 140}},
-            {NAVY,          {0, 0, 128}},
-            {MAROON,        {128, 0, 0}},
-            {PURPLE,        {128, 0, 128}},
-            {CORAL,         {255, 127, 80}},
-            {TEAL,          {0, 128, 128}},
-            {CHERRY,        {255, 20, 147}},
-            {LIME,          {204, 255, 153}},
-            {MOCCASIN,      {255, 228, 181}},
-            {BEIGE,         {245, 245, 220}},
-            {DUSK,          {169, 169, 169}},
-            {SALT,          {211, 211, 211}},
-            {LAVENDER,      {230, 230, 250}},
-            {PEACH,         {255, 218, 185}},
-            {MINT,          {48, 128, 20}},
-            {ROSE,          {255, 0, 127}},
-            {BRONZE,        {205, 127, 50}},
-            {AQUAMARINE,    {127, 255, 212}},
-            {PERIWINKLE,    {218, 112, 214}},
-            {ICE_BLUE,      {240, 255, 255}},
-            {PLUM,          {221, 160, 221}},
-            {COPPER,        {184, 115, 51}},
-            {CRIMSON,       {255, 253, 208}},
-            {PINK,          {255, 192, 203}},
-            {FOREST,        {34, 139, 34}},
-            {SAND,          {194, 178, 128}},
-            {AMBER,         {255, 191, 0}},
-            {AZURE,         {0, 127, 255}},
-            {TURQUOISE,     {64, 224, 208}},
-            {COBALT,        {0, 71, 71}},
-            {CHARCOAL,      {54, 69, 79}},
-            {IVORY,         {255, 255, 240}},
-            {MUSCAT,        {255, 250, 205}},
-            {OLIVE_DRAB,    {107, 142, 35}},
-            {SAGE_GREEN,    {189, 183, 107}},
-            {WHEAT,         {245, 222, 179}},
-            {RUBY,          {224, 17, 95}},
-            {EMERALD,       {80, 200, 120}},
-            {SLIME_GREEN,   {192, 255, 62}},
-            {ONYX,          {255, 8, 127}},
-            {SPEARMINT,     {255, 239, 213}},
-            {CHARTREUSE,    {127, 255, 0}},
-            {BLOOD_RED,     {139, 0, 0}},
-            {SPRING_GREEN,  {154, 205, 50}},
-            {DARK_RED,      {138, 0, 0}},
-            {DARK_ORANGE,   {255, 140, 0}},
-            {DARK_YELLOW,   {204, 204, 0}},
-            {DARK_GREEN,    {0, 100, 0}},
-            {DARK_BLUE,     {0, 0, 139}},
-            {DARK_INDIGO,   {75, 0, 130}},
-            {DARK_VIOLET,   {148, 0, 211}},
-            {DARK_GREY,     {64, 64, 64}},
-            {LIGHT_GREY,    {218, 218, 218}},
-            {OCHRE,         {204, 119, 34}},
-            {UMBER,         {99, 81, 71}},
-            {TERRACOTTA,    {182, 106, 80}},
-            {MUD_BROWN,     {96, 70, 15}},
-            {SAPPHIRE,      {15, 82, 186}},
-            {AMYTHYST,      {153, 102, 204}},
-            {GARNET,        {173, 54, 79}},
-            {TAUPE,         {72, 60, 50}},
-            {BUBBLEGUM,     {255, 182, 193}},
-            {MIST_ROSE,     {255, 228, 255}},
-            {HONEY,         {255, 183, 76}},
-            {SEAFOAM,       {178, 255, 255}},
-            {NEON_GREEN,    {57, 255, 20}},
-            {ELECTRIC_PINK, {255, 0, 102}},
-            {SUNFLOWER,     {255, 204, 0}},
-            {CRIMSON,       {255, 64, 64}},
-            {CERULIAN,      {0, 191, 255}},
-            {MOSS_GREEN,    {46, 139, 87}},
-            {SAFFRON,       {255, 99, 71}},
-            {APRICOT,       {255, 165, 79}},
-            {FLAX,          {238, 232, 205}},
-            {MYSTIC_PURPLE, {102, 51, 153}}
-        }};
+        static constexpr std::array<ColorEntry, 100> ColorMap = {{{RED, {255, 0, 0}},
+                                                                  {ORANGE, {251, 79, 19}},
+                                                                  {YELLOW, {255, 255, 0}},
+                                                                  {GREEN, {0, 255, 0}},
+                                                                  {BLUE, {0, 0, 255}},
+                                                                  {INDIGO, {51, 0, 153}},
+                                                                  {VIOLET, {143, 0, 255}},
+                                                                  {BLACK, {0, 0, 0}},
+                                                                  {WHITE, {255, 255, 255}},
+                                                                  {GRAY, {128, 128, 128}},
+                                                                  {CYAN, {0, 255, 255}},
+                                                                  {MAGENTA, {255, 0, 255}},
+                                                                  {LIGHT_RED, {255, 102, 102}},
+                                                                  {LIGHT_ORANGE, {255, 178, 102}},
+                                                                  {LIGHT_YELLOW, {255, 255, 153}},
+                                                                  {LIGHT_GREEN, {153, 255, 153}},
+                                                                  {LIGHT_BLUE, {153, 204, 255}},
+                                                                  {LIGHT_INDIGO, {109, 90, 207}},
+                                                                  {LIGHT_VIOLET, {204, 153, 255}},
+                                                                  {SKY_BLUE, {135, 206, 235}},
+                                                                  {GOLD, {255, 215, 0}},
+                                                                  {SILVER, {192, 192, 192}},
+                                                                  {BROWN, {150, 75, 0}},
+                                                                  {PEA_GREEN, {142, 209, 63}},
+                                                                  {OLIVE, {128, 128, 0}},
+                                                                  {TAN, {210, 180, 140}},
+                                                                  {NAVY, {0, 0, 128}},
+                                                                  {MAROON, {128, 0, 0}},
+                                                                  {PURPLE, {128, 0, 128}},
+                                                                  {CORAL, {255, 127, 80}},
+                                                                  {TEAL, {0, 128, 128}},
+                                                                  {CHERRY, {255, 20, 147}},
+                                                                  {LIME, {204, 255, 153}},
+                                                                  {MOCCASIN, {255, 228, 181}},
+                                                                  {BEIGE, {245, 245, 220}},
+                                                                  {DUSK, {169, 169, 169}},
+                                                                  {SALT, {211, 211, 211}},
+                                                                  {LAVENDER, {230, 230, 250}},
+                                                                  {PEACH, {255, 218, 185}},
+                                                                  {MINT, {48, 128, 20}},
+                                                                  {ROSE, {255, 0, 127}},
+                                                                  {BRONZE, {205, 127, 50}},
+                                                                  {AQUAMARINE, {127, 255, 212}},
+                                                                  {PERIWINKLE, {218, 112, 214}},
+                                                                  {ICE_BLUE, {240, 255, 255}},
+                                                                  {PLUM, {221, 160, 221}},
+                                                                  {COPPER, {184, 115, 51}},
+                                                                  {CRIMSON, {255, 253, 208}},
+                                                                  {PINK, {255, 192, 203}},
+                                                                  {FOREST, {34, 139, 34}},
+                                                                  {SAND, {194, 178, 128}},
+                                                                  {AMBER, {255, 191, 0}},
+                                                                  {AZURE, {0, 127, 255}},
+                                                                  {TURQUOISE, {64, 224, 208}},
+                                                                  {COBALT, {0, 71, 71}},
+                                                                  {CHARCOAL, {54, 69, 79}},
+                                                                  {IVORY, {255, 255, 240}},
+                                                                  {MUSCAT, {255, 250, 205}},
+                                                                  {OLIVE_DRAB, {107, 142, 35}},
+                                                                  {SAGE_GREEN, {189, 183, 107}},
+                                                                  {WHEAT, {245, 222, 179}},
+                                                                  {RUBY, {224, 17, 95}},
+                                                                  {EMERALD, {80, 200, 120}},
+                                                                  {SLIME_GREEN, {192, 255, 62}},
+                                                                  {ONYX, {255, 8, 127}},
+                                                                  {SPEARMINT, {255, 239, 213}},
+                                                                  {CHARTREUSE, {127, 255, 0}},
+                                                                  {BLOOD_RED, {139, 0, 0}},
+                                                                  {SPRING_GREEN, {154, 205, 50}},
+                                                                  {DARK_RED, {138, 0, 0}},
+                                                                  {DARK_ORANGE, {255, 140, 0}},
+                                                                  {DARK_YELLOW, {204, 204, 0}},
+                                                                  {DARK_GREEN, {0, 100, 0}},
+                                                                  {DARK_BLUE, {0, 0, 139}},
+                                                                  {DARK_INDIGO, {75, 0, 130}},
+                                                                  {DARK_VIOLET, {148, 0, 211}},
+                                                                  {DARK_GREY, {64, 64, 64}},
+                                                                  {LIGHT_GREY, {218, 218, 218}},
+                                                                  {OCHRE, {204, 119, 34}},
+                                                                  {UMBER, {99, 81, 71}},
+                                                                  {TERRACOTTA, {182, 106, 80}},
+                                                                  {MUD_BROWN, {96, 70, 15}},
+                                                                  {SAPPHIRE, {15, 82, 186}},
+                                                                  {AMYTHYST, {153, 102, 204}},
+                                                                  {GARNET, {173, 54, 79}},
+                                                                  {TAUPE, {72, 60, 50}},
+                                                                  {BUBBLEGUM, {255, 182, 193}},
+                                                                  {MIST_ROSE, {255, 228, 255}},
+                                                                  {HONEY, {255, 183, 76}},
+                                                                  {SEAFOAM, {178, 255, 255}},
+                                                                  {NEON_GREEN, {57, 255, 20}},
+                                                                  {ELECTRIC_PINK, {255, 0, 102}},
+                                                                  {SUNFLOWER, {255, 204, 0}},
+                                                                  {CRIMSON, {255, 64, 64}},
+                                                                  {CERULIAN, {0, 191, 255}},
+                                                                  {MOSS_GREEN, {46, 139, 87}},
+                                                                  {SAFFRON, {255, 99, 71}},
+                                                                  {APRICOT, {255, 165, 79}},
+                                                                  {FLAX, {238, 232, 205}},
+                                                                  {MYSTIC_PURPLE, {102, 51, 153}}}};
 
-        constexpr static std::optional<std::array<uint8_t,3>> FindColor(std::string_view key) {
+        constexpr static std::optional<std::array<uint8_t, 3>> FindColor(std::string_view key)
+        {
             auto it = std::find_if(
                 ColorMap.begin(), ColorMap.end(),
-                [key](const ColorEntry& e) {
+                [key](const ColorEntry &e)
+                {
                     return e.name == key;
-                }
-            );
+                });
 
             if (it != ColorMap.end())
                 return it->value;

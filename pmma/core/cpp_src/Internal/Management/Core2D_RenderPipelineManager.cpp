@@ -6,7 +6,8 @@
 #include "Internal/Management/Core2D_RenderPipelineManager.hpp"
 #include "PMMA_Core.hpp"
 
-CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
+CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline()
+{
     //
     // Quad vertex layout
     //
@@ -71,12 +72,13 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
     //
     instanceDataArray.resize(instanceCount);
 
-    for (uint32_t i = 0; i < instanceCount; ++i) {
+    for (uint32_t i = 0; i < instanceCount; ++i)
+    {
         instanceDataArray[i].x = static_cast<float>(rand() % 1280);
         instanceDataArray[i].y = static_cast<float>(rand() % 720);
 
-        instanceDataArray[i].w = 50.0f;
-        instanceDataArray[i].h = 50.0f;
+        instanceDataArray[i].w = 2.0f;
+        instanceDataArray[i].h = 2.0f;
 
         instanceDataArray[i].r = (rand() % 256) / 255.0f;
         instanceDataArray[i].g = (rand() % 256) / 255.0f;
@@ -109,7 +111,8 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
         bgfx::UniformType::Mat4);
 }
 
-void CPP_Core2D_RenderPipeline::Render() {
+void CPP_Core2D_RenderPipeline::Render()
+{
     //
     // Projection matrix
     //

@@ -2,11 +2,13 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-struct Vertex {
+struct Vertex
+{
     float x, y, u, v;
 };
 
-struct InstanceData {
+struct InstanceData
+{
     float x, y;       // position
     float w, h;       // size
     float r, g, b, a; // color
@@ -14,7 +16,8 @@ struct InstanceData {
 
 class CPP_Shader;
 
-class CPP_Core2D_RenderPipeline {
+class CPP_Core2D_RenderPipeline
+{
 private:
     CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
 
@@ -22,7 +25,7 @@ private:
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 1'000'000;
+    uint32_t instanceCount = 10'000'000;
     std::vector<InstanceData> instanceDataArray;
 
     bgfx::DynamicVertexBufferHandle instanceVbh;
@@ -35,7 +38,8 @@ private:
 public:
     CPP_Core2D_RenderPipeline();
 
-    inline void Reset() {
+    inline void Reset()
+    {
     }
 
     void Render();
