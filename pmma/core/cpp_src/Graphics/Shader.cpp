@@ -56,29 +56,16 @@ void CPP_Shader::CompileShaderComponent(
                                            PMMA_Registry::PathSeparator + "extern" +
                                            PMMA_Registry::PathSeparator + "shader_build_tools";
 
-    std::string BGFX_IncludesLocation = PMMA_Registry::PMMA_Location +
-                                        PMMA_Registry::PathSeparator + "extern" +
-                                        PMMA_Registry::PathSeparator + "include" +
-                                        PMMA_Registry::PathSeparator + "bgfx";
-
     std::string VaryingDefLocation = std::filesystem::path(RawFilePath).parent_path().string() +
                                      PMMA_Registry::PathSeparator + "varying.def.sc";
 
     std::string GraphicsProfile = CPP_Shader::GetGraphicsProfile();
 
-    std::string command;
-
-    if (Type == "compute") {
-        command = Shader_C_Location + " -f " + RawFilePath + " -o " +
-                  CompiledFilePath + " --type compute" + " --platform " +
-                  PlatformName + " --profile spirv" + " -i " + BGFX_IncludesLocation;
-    } else {
-        command = Shader_C_Location + " -f " + RawFilePath + " -o " +
-                  CompiledFilePath + " --type " + Type + " --platform " +
-                  PlatformName + " -i " + ShaderBuildToolsLocation +
-                  " --varyingdef " + VaryingDefLocation + " --profile " +
-                  GraphicsProfile;
-    }
+    std::string command = Shader_C_Location + " -f " + RawFilePath + " -o " +
+                          CompiledFilePath + " --type " + Type + " --platform " +
+                          PlatformName + " -i " + ShaderBuildToolsLocation +
+                          " --varyingdef " + VaryingDefLocation + " --profile " +
+                          GraphicsProfile;
 
     if (!std::filesystem::exists(CompiledFilePath)) {
         std::filesystem::create_directories(
@@ -152,17 +139,6 @@ void CPP_Shader::CompileShader(bool InternalShader) {
         }
     }
 
-    if (RawComputeShaderPath != "") {
-        if (CompiledComputeShaderPath == "") {
-            std::string ShaderName = std::filesystem::path(RawComputeShaderPath).stem().string();
-            if (InternalShader || !PMMA_Core::PassportInstance->IsRegistered) {
-                CompiledComputeShaderPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "temporary" + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
-            } else {
-                CompiledComputeShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath() + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
-            }
-        }
-    }
-
     if (!std::filesystem::exists(CompiledVertexShaderPath)) {
         if (RawVertexShaderPath != "") {
             CompileShaderComponent(RawVertexShaderPath, CompiledVertexShaderPath, "vertex");
@@ -171,11 +147,6 @@ void CPP_Shader::CompileShader(bool InternalShader) {
     if (!std::filesystem::exists(CompiledFragmentShaderPath)) {
         if (RawFragmentShaderPath != "") {
             CompileShaderComponent(RawFragmentShaderPath, CompiledFragmentShaderPath, "fragment");
-        }
-    }
-    if (!std::filesystem::exists(CompiledComputeShaderPath)) {
-        if (RawComputeShaderPath != "") {
-            CompileShaderComponent(RawComputeShaderPath, CompiledComputeShaderPath, "compute");
         }
     }
 
@@ -189,13 +160,6 @@ void CPP_Shader::CompileShader(bool InternalShader) {
             vertex_shader,
             fragment_shader,
             true);
-        IsCompiled = true;
-    } else if (CompiledComputeShaderPath != "") {
-        bgfx::ShaderHandle compute_shader = bgfx::createShader(
-            InternalLoadShader(CompiledComputeShaderPath));
-
-        ShaderProgram = bgfx::createProgram(
-            compute_shader, true);
         IsCompiled = true;
     } else {
         IsCompiled = false;
@@ -215,9 +179,5 @@ bgfx::ProgramHandle CPP_Shader::Use() {
 
     if (RawFragmentShaderPath == "" || CompiledFragmentShaderPath == "") {
         throw std::runtime_error("Fragment shader path is not set");
-    }
-
-    if (RawComputeShaderPath == "" || CompiledComputeShaderPath == "") {
-        throw std::runtime_error("Compute shader path is not set");
     }
 }

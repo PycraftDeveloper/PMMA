@@ -20,10 +20,8 @@ private:
 
     std::string RawVertexShaderPath = "";
     std::string RawFragmentShaderPath = "";
-    std::string RawComputeShaderPath = "";
     std::string CompiledVertexShaderPath = "";
     std::string CompiledFragmentShaderPath = "";
-    std::string CompiledComputeShaderPath = "";
 
     bool IsCompiled = false;
     bool IsInternalShader = false;
@@ -37,7 +35,7 @@ private:
         if (GraphicsBackend == CPP_Constants::GraphicsBackends::OPENGL_ES) {
             return "100_es";
         } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D11 || GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D12) {
-            return "s_5_0";
+            return "s_4_0";
         } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::METAL) {
             return "metal";
         } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::GNM) {
@@ -73,7 +71,7 @@ public:
         }
     }
 
-    void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, std::string ComputeShaderPath, bool InternalShader) {
+    void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
         bool IsCompiled;
         if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
             IsCompiled = true;
@@ -93,16 +91,6 @@ public:
             IsCompiled = false;
             RawFragmentShaderPath = FragmentShaderPath;
             CompiledFragmentShaderPath = "";
-        }
-
-        if (ComputeShaderPath.size() >= 5 && ComputeShaderPath.substr(ComputeShaderPath.size() - 5) == ".bin") {
-            IsCompiled = true;
-            CompiledComputeShaderPath = ComputeShaderPath;
-            RawComputeShaderPath = "";
-        } else {
-            IsCompiled = false;
-            RawComputeShaderPath = ComputeShaderPath;
-            CompiledComputeShaderPath = "";
         }
 
         CompileShader(InternalShader);
@@ -133,21 +121,6 @@ public:
             IsCompiled = false;
             RawFragmentShaderPath = FragmentShaderPath;
             CompiledFragmentShaderPath = "";
-        }
-
-        CompileShader(InternalShader);
-    }
-
-    void LoadComputeShader(std::string ComputeShaderPath, bool InternalShader) {
-        bool IsCompiled;
-        if (ComputeShaderPath.size() >= 5 && ComputeShaderPath.substr(ComputeShaderPath.size() - 5) == ".bin") {
-            IsCompiled = true;
-            CompiledComputeShaderPath = ComputeShaderPath;
-            RawComputeShaderPath = "";
-        } else {
-            IsCompiled = false;
-            RawComputeShaderPath = ComputeShaderPath;
-            CompiledComputeShaderPath = "";
         }
 
         CompileShader(InternalShader);
@@ -184,14 +157,6 @@ public:
                         RawFragmentShaderPath = FilePath;
                         CompiledFragmentShaderPath = "";
                     }
-                } else if (LowerFileName.find("compute") != std::string::npos) {
-                    if (IsCompiled) {
-                        CompiledComputeShaderPath = FilePath;
-                        RawComputeShaderPath = "";
-                    } else {
-                        RawComputeShaderPath = FilePath;
-                        CompiledComputeShaderPath = "";
-                    }
                 } else if (LowerFileName.substr(0, 3) == "vs_") {
                     if (IsCompiled) {
                         CompiledVertexShaderPath = FilePath;
@@ -208,19 +173,10 @@ public:
                         RawFragmentShaderPath = FilePath;
                         CompiledFragmentShaderPath = "";
                     }
-                } else if (LowerFileName.substr(0, 3) == "cs_") {
-                    if (IsCompiled) {
-                        CompiledComputeShaderPath = FilePath;
-                        RawComputeShaderPath = "";
-                    } else {
-                        RawComputeShaderPath = FilePath;
-                        CompiledComputeShaderPath = "";
-                    }
                 }
 
                 if ((CompiledVertexShaderPath != "" || RawVertexShaderPath != "") &&
-                        (CompiledFragmentShaderPath != "" || RawFragmentShaderPath != "") ||
-                    (CompiledComputeShaderPath != "" || RawComputeShaderPath != "")) {
+                    (CompiledFragmentShaderPath != "" || RawFragmentShaderPath != "")) {
                     break;
                 }
             }

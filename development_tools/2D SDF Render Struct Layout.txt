@@ -1,0 +1,56 @@
+IN UVs - TEXCOORD0 --> OUT UVs - TEXCOORD1 (Fixed)
+
+IN i_data0 - TEXCOORD7 --> OUT NONE (CONSUMED IN VS ONLY)
+IN i_data1 - TEXCOORD6 --> OUT TEXCOORD2
+IN i_data2 - TEXCOORD5 --> OUT TEXCOORD3
+NO MORE SLOTS AVAILABLE
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+vec4 i_data0     : TEXCOORD7;
+-----------------------------
+
+x: X Position (V)
+y: Y Position (V)
+z: X Size (V)
+w: Y Size (V)
+
+vec4 i_data1     : TEXCOORD6;
+-----------------------------
+
+x: X Color Texture Coordinate Start (F)
+y: Y Color Texture Coordinate Start (F)
+z: Number of Colors (F)
+w: Shape Type (See below) (F)
+
+vec4 i_data2     : TEXCOORD5;
+-----------------------------
+
+x: X Texture Texture Coordinate Start (F)
+y: Y Texture Texture Coordinate End (F)
+z: X Texture Texture Size (width) (F)
+w: Y Texture Texture Size (height) (F)
+
+vec4 i_data3     : TEXCOORD4;
+-----------------------------
+
+x: Point Count (For n sided circles/arcs/rectangles/ellipses) (F)
+y: Rotation (Rotation in plane only) (V)
+z: Width (F)
+w: UNUSED
+
+///////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////
+
+Shape Types
+===========
+
+0: Rectangle/Square
+1: Rounded Rectangle/Square
+2: Circle / Ellipse (not differentiated, depends on sizes for scale)
+3: Arc
+4: Line
+5: Text (for text rendering!)
+
+Polygon rendering not supported here
