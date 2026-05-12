@@ -71,11 +71,22 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
     //
     instanceDataArray.resize(instanceCount);
 
+    srand(time(0));
+
     for (uint32_t i = 0; i < instanceCount; ++i) {
-        instanceDataArray[i].x = static_cast<float>(rand() % 1280);
+        uint16_t x = static_cast<uint16_t>(rand() % 1280);
+        uint16_t y = static_cast<uint16_t>(rand() % 720);
+
+        // C++ Packing
+        // Use bit casting to store two 16-bit uints into one 32-bit float
+        uint32_t bits = (uint32_t(y) << 16) | uint32_t(x);
+        float packed;
+        std::memcpy(&packed, &bits, sizeof(float));
+
+        instanceDataArray[i].x = packed;
         instanceDataArray[i].y = static_cast<float>(rand() % 720);
-        instanceDataArray[i].w = 100.0f;
-        instanceDataArray[i].h = 50.0f;
+        instanceDataArray[i].w = 2.0f;
+        instanceDataArray[i].h = 2.0f;
 
         instanceDataArray[i].r = (rand() % 256) / 255.0f;
         instanceDataArray[i].g = (rand() % 256) / 255.0f;

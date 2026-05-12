@@ -11,8 +11,8 @@ NO MORE SLOTS AVAILABLE
 vec4 i_data0     : TEXCOORD7;
 -----------------------------
 
-x: X Position (V)
-y: Y Position (V)
+x: X Position COMBINED WITH Y Position (V)
+y: 
 z: X Size (V)
 w: Y Size (V)
 
@@ -32,7 +32,7 @@ y: Y Texture Texture Coordinate End (F)
 z: X Texture Texture Size (width) (F)
 w: Y Texture Texture Size (height) (F)
 
-vec4 i_data3     : TEXCOORD4;
+vec4 i_data3     : TEXCOORD4; // MUST BE CLEARED OUT AND REASSIGNED ELSEWHERE
 -----------------------------
 
 x: Point Count (For n sided circles/arcs/rectangles/ellipses) (F)

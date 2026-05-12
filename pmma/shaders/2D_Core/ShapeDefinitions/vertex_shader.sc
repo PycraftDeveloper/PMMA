@@ -7,7 +7,14 @@ uniform mat4 OrthDisplayProj;
 
 void main()
 {
-    vec2 world = i_data0.xy + a_position.xy * i_data0.zw;
+    float p = i_data0.x;
+
+    uint packedBits = floatBitsToUint(p);
+    float x = float(packedBits & 0xFFFFu);
+    float y = float(packedBits >> 16u);
+    vec2 Offset = vec2(x, y);
+
+    vec2 world = Offset + a_position.xy * i_data0.zw;
 
     gl_Position = mul(OrthDisplayProj, vec4(world, 0.0, 1.0));
 
