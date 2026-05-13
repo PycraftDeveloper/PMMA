@@ -78,7 +78,7 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
         uint16_t y = static_cast<uint16_t>(rand() % 720);
 
         instanceDataArray[i].x = PackValues(x, y);
-        instanceDataArray[i].y = PackValues(2, 2);
+        instanceDataArray[i].y = PackValues(50, 50);
         instanceDataArray[i].w = 0;
         instanceDataArray[i].h = 0;
 

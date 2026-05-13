@@ -1,47 +1,79 @@
 $input v_uv, v_col
 #include "common.sh"
 
-uniform int u_mode;
+// ------------------------------------------------------------
+// u_mode
+// 0 = Circle Outline (SDF)
+// 1 = Solid Quad
+//
+// u_width
+// Outline thickness in pixels
+// ------------------------------------------------------------
 
 void main()
 {
-    vec2 p = v_uv - vec2(0.5, 0.5);
+    int u_mode = 1;
+    int u_width = 5;
 
-    // -----------------------------------
-    // FAST AABB REJECT (shared)
-    // -----------------------------------
+    vec2 p = v_uv - vec2(0.5);
+
     if (abs(p.x) > 0.5 || abs(p.y) > 0.5)
         discard;
 
-    float r = 0.5;
+    float alpha = 1.0;
 
-    // -----------------------------------
-    // PRECOMPUTE SHAPES (NO BRANCHING)
-    // -----------------------------------
+    // ============================================================
+    // MODE 0 : SDF CIRCLE OUTLINE
+    // ============================================================
+    if (u_mode == 0)
+    {
+        float pixel = fwidth(v_uv.x);
 
-    float circleDist = dot(p, p);
-    float circle = smoothstep(r, r - 0.01, sqrt(circleDist));
+        float halfWidth = float(u_width) * pixel * 0.5;
 
-    float boxMask = step(max(abs(p.x), abs(p.y)), r);
+        // Pull radius inward so outer edge stays fixed
+        float radius = 0.5 - halfWidth;
 
-    vec2 q = abs(p) - vec2(r, r);
-    float rectMask = step(max(q.x, q.y), 0.0);
+        // Signed distance from circle edge
+        float dist = length(p) - radius;
 
-    // -----------------------------------
-    // MODE SELECTION (BRANCHLESS)
-    // -----------------------------------
+        // Ring mask
+        //
+        // abs(dist) gives distance from the circumference itself
+        //
+        alpha = 1.0 - smoothstep(
+            halfWidth - pixel,
+            halfWidth + pixel,
+            abs(dist)
+        );
 
-    float m0 = step(-0.5, float(u_mode)) * step(float(u_mode), 0.5);
-    float m1 = step(0.5, float(u_mode)) * step(float(u_mode), 1.5);
-    float m2 = step(1.5, float(u_mode)) * step(float(u_mode), 2.5);
+        if (alpha <= 0.0)
+            discard;
+    }
 
-    float alpha =
-        circle * m0 +
-        boxMask * m1 +
-        rectMask * m2;
+    // ============================================================
+    // MODE 1 : SOLID COLOR
+    // ============================================================
+    else if (u_mode == 1)
+    {
+        float pixel = fwidth(v_uv.x);
 
-    if (alpha <= 0.0)
-        discard;
+        float width = float(u_width) * pixel;
+
+        // Distance to outer box edge
+        float outer = max(abs(p.x), abs(p.y)) - 0.5;
+
+        // Inner box shrinks inward
+        float inner = max(abs(p.x), abs(p.y)) - (0.5 - width);
+
+        // Border mask
+        alpha =
+            (1.0 - smoothstep(0.0, pixel, outer)) *
+            smoothstep(0.0, pixel, inner);
+
+        if (alpha <= 0.0)
+            discard;
+    }
 
     gl_FragColor = vec4(v_col.rgb, v_col.a * alpha);
 }
