@@ -12,32 +12,24 @@ vec4 i_data0     : TEXCOORD7;
 -----------------------------
 
 x: X Position COMBINED WITH Y Position (V)
-y: 
-z: X Size (V)
-w: Y Size (V)
+y: X Size COMBINED WITH Y Size (V)
+z: Point Count COMBINED WITH Width (F)
+w: Rotation (Rotation in plane only) (V)
 
 vec4 i_data1     : TEXCOORD6;
 -----------------------------
 
-x: X Color Texture Coordinate Start (F)
-y: Y Color Texture Coordinate Start (F)
-z: Number of Colors (F)
-w: Shape Type (See below) (F)
+x: X Color Texture Coordinate Start COMBINED WITH Y Color Texture Coordinate Start (F) (as ints, divide in shader)
+y: Number of Colors COMBINED WITH Shape Type (See below) (F)
+z: X Texture Texture Coordinate Start COMBINED WITH Y Texture Texture Coordinate End (F) (as ints, divide in shader)
+w: X Texture Texture Size (width) COMBINED WITH Y Texture Texture Size (height) (F) (as ints, divide in shader)
 
 vec4 i_data2     : TEXCOORD5;
 -----------------------------
 
-x: X Texture Texture Coordinate Start (F)
-y: Y Texture Texture Coordinate End (F)
-z: X Texture Texture Size (width) (F)
-w: Y Texture Texture Size (height) (F)
-
-vec4 i_data3     : TEXCOORD4; // MUST BE CLEARED OUT AND REASSIGNED ELSEWHERE
------------------------------
-
-x: Point Count (For n sided circles/arcs/rectangles/ellipses) (F)
-y: Rotation (Rotation in plane only) (V)
-z: Width (F)
+x: UNUSED
+y: UNUSED
+z: UNUSED
 w: UNUSED
 
 ///////////////////////////////////////////////////////////////////////

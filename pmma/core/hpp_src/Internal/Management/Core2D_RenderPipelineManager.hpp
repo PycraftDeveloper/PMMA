@@ -1,4 +1,6 @@
 #pragma once
+#include <cstdint>
+
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
@@ -22,7 +24,7 @@ private:
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 5'000'000'000;
+    uint32_t instanceCount = 1'000;
     std::vector<InstanceData> instanceDataArray;
 
     bgfx::DynamicVertexBufferHandle instanceVbh;
@@ -36,6 +38,13 @@ public:
     CPP_Core2D_RenderPipeline();
 
     inline void Reset() {
+    }
+
+    inline float PackValues(uint16_t value_one, uint16_t value_two) {
+        uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);
+        float packed;
+        std::memcpy(&packed, &bits, sizeof(float));
+        return packed;
     }
 
     void Render();

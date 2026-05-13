@@ -158,6 +158,12 @@ interactions) [y/n] (Recommended: n): ")
 total_time = get_execution_time(build_pmma, build_debug, build_for_python)[0]
 print(f"PMMA Build took {total_time:.2f} seconds")
 
+try:
+    shutil.rmtree(shader_cache_dir)
+    print("Cleared stale shader cache.")
+except Exception as error:
+    print(f"Unable to reset shader cache due to error: '{error}'")
+
 if build_for_python:
     total_time = get_execution_time(run_setup)[0]
     print(f"Running Setup.py took {total_time:.2f} seconds")
