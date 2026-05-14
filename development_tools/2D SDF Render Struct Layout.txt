@@ -13,13 +13,13 @@ vec4 i_data0     : TEXCOORD7;
 
 x: X Position COMBINED WITH Y Position (V)
 y: X Size COMBINED WITH Y Size (V)
-z: Point Count COMBINED WITH Width (F)
+z: Point Count COMBINED WITH Width COMBINED WITH Gradient Type (See below) (F)
 w: Rotation (Rotation in plane only) (V)
 
 vec4 i_data1     : TEXCOORD6;
 -----------------------------
 
-x: X Color Texture Coordinate Start COMBINED WITH Y Color Texture Coordinate Start (F) (as ints, divide in shader)
+x: Color Start Index (F) (as ints, divide in shader)
 y: Number of Colors COMBINED WITH Shape Type (See below) (F)
 z: X Texture Texture Coordinate Start COMBINED WITH Y Texture Texture Coordinate End (F) (as ints, divide in shader)
 w: X Texture Texture Size (width) COMBINED WITH Y Texture Texture Size (height) (F) (as ints, divide in shader)
@@ -46,3 +46,48 @@ Shape Types
 5: Text (for text rendering!)
 
 Polygon rendering not supported here
+
+Gradient Types
+==============
+
+0: Filled / Solid Color
+1: Linear Horizontal 2 color
+2: Linear Vertical 2 color
+3: Radial 2 color
+4: Conical Top 2 color
+5: Conical Bottom 2 color
+6: Conical Left 2 color
+7: Conical Right 2 color
+8: Conical Top Left 2 color
+9: Conical Top Right 2 color
+10: Conical Bottom Left 2 color
+11: Conical Bottom Right 2 color
+12: Diamond 2 color
+13: Diamond Offset 2 color
+14: Linear Horizontal 3 color
+15: Linear Vertical 3 color
+16: Radial 3 color
+17: Conical Top 3 color
+18: Conical Bottom 3 color
+19: Conical Left 3 color
+20: Conical Right 3 color
+21: Conical Top Left 3 color
+22: Conical Top Right 3 color
+23: Conical Bottom Left 3 color
+24: Conical Bottom Right 3 color
+25: Diamond 3 color
+26: Diamond Offset 3 color
+27: Linear Horizontal 4 color
+28: Linear Vertical 4 color
+29: Radial 4 color
+30: Conical Top 4 color
+31: Conical Bottom 4 color
+32: Conical Left 4 color
+33: Conical Right 4 color
+34: Conical Top Left 4 color
+35: Conical Top Right 4 color
+36: Conical Bottom Left 4 color
+37: Conical Bottom Right 4 color
+38: Diamond 4 color
+39: Diamond Offset 4 color
+40: Corner Gradient 4 color

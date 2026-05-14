@@ -12,8 +12,8 @@ $input v_uv, v_col
 
 void main()
 {
-    int u_mode = 1;
-    int u_width = 5;
+    int u_mode = 0;
+    int u_width = 100;
 
     vec2 p = v_uv - vec2(0.5);
 

@@ -16,12 +16,15 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
         .end();
 
     //
-    // Instance layout
+    // Instance layout, see 2D SDF Render Struct Layout
     //
     instanceLayout.begin()
-        .add(bgfx::Attrib::TexCoord7, 4, bgfx::AttribType::Float) // x, y, w, h
-        .add(bgfx::Attrib::TexCoord6, 4, bgfx::AttribType::Float) // r, g, b, a
+        .add(bgfx::Attrib::TexCoord7, 4, bgfx::AttribType::Float)
+        .add(bgfx::Attrib::TexCoord6, 4, bgfx::AttribType::Float)
         .end();
+
+    s_colorTex = bgfx::createUniform("s_colorTex", bgfx::UniformType::Sampler);
+    u_colorInfo = bgfx::createUniform("u_colorInfo", bgfx::UniformType::Vec4);
 
     //
     // Shader
@@ -77,15 +80,20 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
         uint16_t x = static_cast<uint16_t>(rand() % 1280);
         uint16_t y = static_cast<uint16_t>(rand() % 720);
 
-        instanceDataArray[i].x = PackValues(x, y);
-        instanceDataArray[i].y = PackValues(50, 50);
-        instanceDataArray[i].w = 0;
-        instanceDataArray[i].h = 0;
+        uint8_t Color[4] = {
+            (rand() % 256),
+            (rand() % 256),
+            (rand() % 256),
+            (rand() % 256)};
 
-        instanceDataArray[i].r = (rand() % 256) / 255.0f;
-        instanceDataArray[i].g = (rand() % 256) / 255.0f;
-        instanceDataArray[i].b = (rand() % 256) / 255.0f;
-        instanceDataArray[i].a = (rand() % 256) / 255.0f;
+        instanceDataArray[i].position = PackValues(x, y);                            // i_data0.x
+        instanceDataArray[i].size = PackValues(100, 100);                            // i_data0.y
+        instanceDataArray[i].point_count_width_gradient_type = PackValues(0, 10, 0); // i_data0.z
+        instanceDataArray[i].rotation = 0;                                           // i_data0.w
+        instanceDataArray[i].color_index = ColorTexture.AddColor(Color);             // i_data1.x
+        instanceDataArray[i].shape_type = 0;                                         // i_data1.y
+        instanceDataArray[i].texture_position = PackValues(0, 0);                    // i_data1.z
+        instanceDataArray[i].texture_size = PackValues(0, 0);                        // i_data1.w
     }
 
     //
@@ -105,48 +113,42 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
             instanceDataArray.data(),
             instanceCount * sizeof(InstanceData)));
 
-    //
-    // Projection uniform
-    //
     OrthDisplayProj = bgfx::createUniform(
         "OrthDisplayProj",
         bgfx::UniformType::Mat4);
+
+    const bgfx::Caps *caps = bgfx::getCaps();
+
+    ColorTexture.MaxTextureDimension = std::min(
+        (uint32_t)caps->limits.maxTextureSize,
+        (uint32_t)std::numeric_limits<uint16_t>::max());
 }
 
 void CPP_Core2D_RenderPipeline::Render() {
-    //
-    // Projection matrix
-    //
+    ColorTexture.Assemble();
+
     float proj[16];
     PMMA_Core::DisplayInstance->GetOrthographicProjection(proj);
-
     bgfx::setUniform(OrthDisplayProj, proj);
 
-    //
-    // Bind quad geometry
-    //
+    float info[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
+    bgfx::setUniform(u_colorInfo, info);
+
     bgfx::setVertexBuffer(0, vbh);
     bgfx::setIndexBuffer(ibh);
 
-    //
-    // Bind instance buffer PROPERLY
-    //
     bgfx::setInstanceDataBuffer(
         instanceVbh,
         0,
         instanceCount);
 
-    //
-    // Render state
-    //
+    bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTexture, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
+
     bgfx::setState(
         BGFX_STATE_WRITE_RGB |
         BGFX_STATE_WRITE_A |
         BGFX_STATE_BLEND_ALPHA);
 
-    //
-    // Submit draw
-    //
     bgfx::submit(
         0,
         ShapeDefinitionsShaderProgram->Use());
