@@ -43,7 +43,7 @@ private:
         } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::VULKAN) {
             return "spirv";
         } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::OPENGL) {
-            return "120";
+            return "150";
         } else {
             if (Logger == nullptr) {
                 Logger = new CPP_Logger();

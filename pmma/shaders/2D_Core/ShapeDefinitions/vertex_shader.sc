@@ -1,5 +1,5 @@
 $input a_position, a_texcoord0, i_data0, i_data1
-$output v_uv, v_col
+$output v_uv, v_col0, v_col1, v_col2, v_col3, v_data2, v_data3
 
 #include "common.sh"
 
@@ -40,19 +40,47 @@ vec4 ExtractColor(float ColorIndex) {
 
 void main()
 {
+    // Instance Data Extraction
     vec2 Offset = Unpack2Values(i_data0.x);
     vec2 Size = Unpack2Values(i_data0.y);
     vec3 PointCountWidthGradientType = Unpack3Values(i_data0.z);
     float Rotation = i_data0.w;
     float ColorIndex = i_data1.x;
     float ShapeType = i_data1.y;
-    vec2 TexturePosition = Unpack2Values(i_data1.z) / vec2(u_colorInfo.xy);
-    vec2 TextureSize = Unpack2Values(i_data1.w) / vec2(u_colorInfo.xy);
 
-    vec2 world = Offset + a_position.xy * Size;
+    v_data2.x = i_data0.z;
+    v_data2.y = ShapeType;
+    v_data2.z = i_data1.z;
+    v_data2.w = i_data1.w;
+
+    v_data3.x = u_colorInfo.x;
+    v_data3.y = u_colorInfo.y;
+
+    // Rotation
+    float cos_a = cos(Rotation);
+    float sin_a = sin(Rotation);
+    float rotated_x = a_position.x * cos_a - a_position.y * sin_a;
+    float rotated_y = a_position.x * sin_a + a_position.y * cos_a;
+
+    // Positioning
+    vec2 world = Offset + vec2(rotated_x, rotated_y) * Size;
 
     gl_Position = mul(OrthDisplayProj, vec4(world, 0.0, 1.0));
 
+    // UV Passthrough
     v_uv = a_texcoord0;
-    v_col = ExtractColor(ColorIndex); // no color (or black/transparent) here
+
+    // Color Extraction
+    v_col0 = ExtractColor(ColorIndex);
+    if (PointCountWidthGradientType.z > 0) {
+        v_col1 = ExtractColor(ColorIndex + 1);
+    }
+
+    if (PointCountWidthGradientType.z > 13 && PointCountWidthGradientType.z <= 26) {
+        v_col2 = ExtractColor(ColorIndex + 2);
+    }
+
+    if (PointCountWidthGradientType.z > 26) {
+        v_col3 = ExtractColor(ColorIndex + 3);
+    }
 }
