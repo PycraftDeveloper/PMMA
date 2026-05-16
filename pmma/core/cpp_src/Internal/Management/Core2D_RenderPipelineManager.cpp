@@ -116,7 +116,7 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
 
         // i_data0
         instance.position = PackValues(x, y);
-        instance.size = PackValues(100, 100);
+        instance.size = PackValues(rand() % 100, rand() % 100);
         instance.point_count_gradient_type = PackValues(0, 0);
         instance.rotation = rotationRadians;
         // i_data1
@@ -125,6 +125,23 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
         instance.texture_position = PackValues(730, 169);
         instance.texture_size = PackValues(480, 690);
     }
+
+    //
+    // Create LARGE persistent dynamic instance buffer
+    //
+    instanceVbh = bgfx::createDynamicVertexBuffer(
+        instanceCount,
+        instanceLayout);
+
+    //
+    // Upload initial instance data
+    //
+    bgfx::update(
+        instanceVbh,
+        0,
+        bgfx::copy(
+            instanceDataArray.data(),
+            instanceCount * sizeof(InstanceData)));
 
     //
     // Texture limits
@@ -138,140 +155,31 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
 }
 
 void CPP_Core2D_RenderPipeline::Render() {
-    //
-    // Assemble texture atlas
-    //
     ColorTexture.Assemble();
 
-    //
-    // Projection matrix
-    //
     float proj[16];
     PMMA_Core::DisplayInstance->GetOrthographicProjection(proj);
+    bgfx::setUniform(OrthDisplayProj, proj);
 
-    bgfx::setUniform(
-        OrthDisplayProj,
-        proj);
+    float info[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
+    bgfx::setUniform(u_colorInfo, info);
 
-    //
-    // Color texture info
-    //
-    float info[4] =
-        {
-            float(ColorTexture.m_colorTextureWidth),
-            float(ColorTexture.m_colorTextureHeight),
-            0.0f,
-            0.0f};
+    bgfx::setVertexBuffer(0, vbh);
+    bgfx::setIndexBuffer(ibh);
 
-    bgfx::setUniform(
-        u_colorInfo,
-        info);
-
-    //
-    // Shared geometry
-    //
-    bgfx::setVertexBuffer(
+    bgfx::setInstanceDataBuffer(
+        instanceVbh,
         0,
-        vbh);
+        instanceCount);
 
-    bgfx::setIndexBuffer(
-        ibh);
+    bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTexture, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
 
-    //
-    // Shared texture
-    //
-    bgfx::setTexture(
-        0,
-        s_colorTex,
-        ColorTexture.ColorTexture,
-        BGFX_SAMPLER_U_CLAMP |
-            BGFX_SAMPLER_V_CLAMP |
-            BGFX_SAMPLER_POINT);
-
-    //
-    // Render state
-    //
     bgfx::setState(
         BGFX_STATE_WRITE_RGB |
         BGFX_STATE_WRITE_A |
         BGFX_STATE_BLEND_ALPHA);
 
-    //
-    // Determine transient instance capacity
-    //
-
-    const uint16_t instanceStride =
-        instanceLayout.getStride();
-
-    const uint32_t availableInstances =
-        bgfx::getAvailInstanceDataBuffer(
-            instanceCount,
-            instanceStride); // expects stride not layout
-
-    if (availableInstances == 0) {
-        return;
-    }
-
-    //
-    // Submit in chunks
-    //
-    uint32_t remaining = instanceCount;
-    uint32_t offset = 0;
-
-    while (remaining > 0) {
-        //
-        // Query available transient space THIS FRAME
-        //
-        uint32_t avail =
-            bgfx::getAvailInstanceDataBuffer(
-                remaining,
-                instanceStride);
-
-        if (avail == 0) {
-            break;
-        }
-
-        //
-        // Number of instances in this submission
-        //
-        const uint32_t batchSize =
-            std::min(avail, remaining);
-
-        //
-        // Allocate transient instance buffer
-        //
-        bgfx::InstanceDataBuffer idb;
-
-        bgfx::allocInstanceDataBuffer(
-            &idb,
-            batchSize,
-            instanceStride);
-
-        //
-        // Copy CPU instance data
-        //
-        std::memcpy(
-            idb.data,
-            instanceDataArray.data() + offset,
-            batchSize * sizeof(InstanceData));
-
-        //
-        // Bind instance buffer
-        //
-        bgfx::setInstanceDataBuffer(
-            &idb);
-
-        //
-        // Submit draw
-        //
-        bgfx::submit(
-            0,
-            ShapeDefinitionsShaderProgram->Use());
-
-        //
-        // Advance
-        //
-        offset += batchSize;
-        remaining -= batchSize;
-    }
+    bgfx::submit(
+        0,
+        ShapeDefinitionsShaderProgram->Use());
 }

@@ -110,9 +110,10 @@ private:
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 10;
+    uint32_t instanceCount = 100'000;
     std::vector<InstanceData> instanceDataArray;
 
+    bgfx::DynamicVertexBufferHandle instanceVbh;
     bgfx::VertexLayout instanceLayout;
 
     Vertex VertexData[4];
