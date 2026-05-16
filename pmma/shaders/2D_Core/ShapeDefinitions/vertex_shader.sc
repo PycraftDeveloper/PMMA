@@ -1,5 +1,5 @@
 $input a_position, a_texcoord0, i_data0, i_data1
-$output v_uv, v_data0, v_data1, v_col0
+$output v_uv, v_data0, v_data1, v_data2, v_col0
 
 #include "common.sh"
 
@@ -35,17 +35,21 @@ void main()
     vec2 Offset = Unpack2Values(i_data0.x);
     vec2 Size = Unpack2Values(i_data0.y);
     vec2 PointCountGradientType = Unpack2Values(i_data0.z);
+    vec2 ShapeTypeWidth = Unpack2Values(i_data1.y);
     float Rotation = i_data0.w;
     float ColorIndex = i_data1.x;
+    vec2 TextureStart = Unpack2Values(i_data1.z) / vec2(u_colorInfo.xy);
+    vec2 TextureEnd = Unpack2Values(i_data1.w) / vec2(u_colorInfo.xy);
 
-    v_data0.x = i_data0.z;
-    v_data0.y = i_data1.x;
-    v_data0.z = i_data1.y;
-    v_data0.w = i_data1.z;
-
-    v_data1.x = i_data1.w;
-    v_data1.y = u_colorInfo.x;
-    v_data1.z = u_colorInfo.y;
+    v_data0.x = PointCountGradientType.x; // Point Count
+    v_data0.y = PointCountGradientType.y; // Gradient Type
+    v_data0.z = ColorIndex;
+    v_data0.w = ShapeTypeWidth.x; // Shape Type
+    v_data1.x = ShapeTypeWidth.y; // Width
+    v_data1.y = TextureStart.x;
+    v_data1.z = TextureStart.y;
+    v_data1.w = TextureEnd.x;
+    v_data2.x = TextureEnd.y;
 
     // Rotation
     float cos_a = cos(Rotation);

@@ -1,13 +1,7 @@
-$input v_uv, v_data0, v_data1, v_col0
+$input v_uv, v_data0, v_data1, v_data2, v_col0
 #include "common.sh"
 
 SAMPLER2D(s_colorTex, 0);
-
-vec2 Unpack2Values(float data) {
-    uint PackedData = floatBitsToUint(data);
-
-    return vec2(float(PackedData & 0xFFFFu), float(PackedData >> 16u));
-}
 
 vec4 ExtractColor(float ColorIndex, vec2 colorInfo) {
     float idxF = floor(ColorIndex + 0.5);
@@ -35,24 +29,22 @@ void main()
     float alpha = 1.0;
 
     // Instance Data Extraction
-    vec2 colorInfo = vec2(v_data1.yz);
-
-    vec2 PointCountGradientType = Unpack2Values(v_data0.x);
-    float ColorIndex = v_data0.y;
-    vec2 ShapeTypeWidth = Unpack2Values(v_data0.z);
-    vec2 TexturePosition = Unpack2Values(v_data0.w) / colorInfo.xy;
-    vec2 TextureSize = Unpack2Values(v_data1.x) / colorInfo.xy;
-    uint ShapeType = uint(ShapeTypeWidth.x);
-    uint debugShape = ShapeType;
+    uint PointCount = uint(v_data0.x);
+    uint GradientType = uint(v_data0.y);
+    uint ColorIndex = uint(v_data0.z);
+    uint ShapeType = uint(v_data0.w);
+    uint Width = uint(v_data1.x);
+    vec2 TextureStart = vec2(v_data1.yz);
+    vec2 TextureEnd = vec2(v_data1.w, v_data2.x);
 
     // ============================================================
     // MODE 0 : SDF CIRCLE OUTLINE
     // ============================================================
-    if (ShapeType == 0)
+    if (ShapeType == 0u)
     {
         float pixel = fwidth(v_uv.x);
 
-        float halfWidth = float(ShapeTypeWidth.y) * pixel * 0.5;
+        float halfWidth = float(Width) * pixel * 0.5;
 
         // Pull radius inward so outer edge stays fixed
         float radius = 0.5 - halfWidth;
@@ -77,11 +69,11 @@ void main()
     // ============================================================
     // MODE 1 : SOLID COLOR
     // ============================================================
-    else if (ShapeType == 1)
+    else if (ShapeType == 1u)
     {
         float pixel = fwidth(v_uv.x);
 
-        float width = float(ShapeTypeWidth.y) * pixel;
+        float width = float(Width) * pixel;
 
         // Distance to outer box edge
         float outer = max(abs(p.x), abs(p.y)) - 0.5;
@@ -98,7 +90,5 @@ void main()
             discard;
     }
 
-    float dummy = colorInfo.x + PointCountGradientType.x + ColorIndex + TexturePosition.x + TextureSize.x;
-    gl_FragColor = vec4(debugShape == 0u, debugShape == 1u, debugShape > 1u, 1.0);
-    //gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
+    gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
 }

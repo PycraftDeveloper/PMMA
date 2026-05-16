@@ -67,8 +67,6 @@ void CPP_Shader::CompileShaderComponent(
                           " --varyingdef " + VaryingDefLocation + " --profile " +
                           GraphicsProfile;
 
-    std::cout << command << std::endl;
-
     if (!std::filesystem::exists(CompiledFilePath)) {
         std::filesystem::create_directories(
             std::filesystem::path(CompiledFilePath).parent_path());
