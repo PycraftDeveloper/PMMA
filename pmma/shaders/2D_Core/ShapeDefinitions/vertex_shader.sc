@@ -14,15 +14,6 @@ vec2 Unpack2Values(float data) {
     return vec2(float(PackedData & 0xFFFFu), float(PackedData >> 16u));
 }
 
-vec3 Unpack3Values(float data) {
-    uint PackedData = floatBitsToUint(data);
-
-    uint val_three = (PackedData >> 24u) & 0xFFu;
-    uint val_two   = (PackedData >> 16u) & 0xFFu;
-    uint val_one   = (PackedData >> 8u)  & 0xFFu;
-    return vec3(float(val_one), float(val_two), float(val_three));
-}
-
 vec4 ExtractColor(float ColorIndex) {
     float idxF = floor(ColorIndex + 0.5);
 
@@ -43,13 +34,12 @@ void main()
     // Instance Data Extraction
     vec2 Offset = Unpack2Values(i_data0.x);
     vec2 Size = Unpack2Values(i_data0.y);
-    vec3 PointCountWidthGradientType = Unpack3Values(i_data0.z);
+    vec2 PointCountGradientType = Unpack2Values(i_data0.z);
     float Rotation = i_data0.w;
     float ColorIndex = i_data1.x;
-    float ShapeType = i_data1.y;
 
     v_data2.x = i_data0.z;
-    v_data2.y = ShapeType;
+    v_data2.y = i_data1.y;
     v_data2.z = i_data1.z;
     v_data2.w = i_data1.w;
 
@@ -72,15 +62,19 @@ void main()
 
     // Color Extraction
     v_col0 = ExtractColor(ColorIndex);
-    if (PointCountWidthGradientType.z > 0) {
+    v_col1 = vec4(0.0, 0.0, 0.0, 0.0);
+    v_col2 = vec4(0.0, 0.0, 0.0, 0.0);
+    v_col3 = vec4(0.0, 0.0, 0.0, 0.0);
+
+    if (PointCountGradientType.y > 0.0) {
         v_col1 = ExtractColor(ColorIndex + 1);
     }
 
-    if (PointCountWidthGradientType.z > 13 && PointCountWidthGradientType.z <= 26) {
+    if (PointCountGradientType.y > 13.0 && PointCountGradientType.y <= 26.0) {
         v_col2 = ExtractColor(ColorIndex + 2);
     }
 
-    if (PointCountWidthGradientType.z > 26) {
+    if (PointCountGradientType.y > 26.0) {
         v_col3 = ExtractColor(ColorIndex + 3);
     }
 }

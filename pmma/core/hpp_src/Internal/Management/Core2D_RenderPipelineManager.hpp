@@ -10,8 +10,8 @@ struct Vertex {
 
 struct InstanceData {
     float position, size;
-    float point_count_width_gradient_type, rotation;
-    float color_index, shape_type;
+    float point_count_gradient_type, rotation;
+    float color_index, shape_type_width;
     float texture_position, texture_size;
 };
 

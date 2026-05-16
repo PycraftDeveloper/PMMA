@@ -13,14 +13,14 @@ vec4 i_data0     : TEXCOORD7;
 
 x: X Position COMBINED WITH Y Position (V)
 y: X Size COMBINED WITH Y Size (V)
-z: Point Count COMBINED WITH Width COMBINED WITH Gradient Type (See below) (F)
+z: Point Count COMBINED WITH Gradient Type (See below) (F)
 w: Rotation (Rotation in plane only) (V)
 
 vec4 i_data1     : TEXCOORD6;
 -----------------------------
 
 x: Color Start Index (F) (as ints, divide in shader)
-y: Number of Colors COMBINED WITH Shape Type (See below) (F)
+y: Shape Type COMBINED WITH Width (See below) (F)
 z: X Texture Texture Coordinate Start COMBINED WITH Y Texture Texture Coordinate End (F) (as ints, divide in shader)
 w: X Texture Texture Size (width) COMBINED WITH Y Texture Texture Size (height) (F) (as ints, divide in shader)
 

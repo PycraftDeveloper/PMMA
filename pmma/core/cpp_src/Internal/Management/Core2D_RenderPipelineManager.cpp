@@ -88,15 +88,17 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
 
         float rotation_degrees = rand() % 360;
 
-        instanceDataArray[i].position = PackValues(x, y);                                     // i_data0.x
-        instanceDataArray[i].size = PackValues(100, 100);                                     // i_data0.y
-        instanceDataArray[i].point_count_width_gradient_type = PackValues(0, rand() % 50, 0); // i_data0.z
-        instanceDataArray[i].rotation = rotation_degrees * (3.14159265f / 180.0f);            // i_data0.w
-        instanceDataArray[i].color_index = ColorTexture.AddColor(Color);                      // i_data1.x
-        instanceDataArray[i].shape_type = 0;                                                  // rand() % 2;                                         // i_data1.y
-        instanceDataArray[i].texture_position = PackValues(0, 0);                             // i_data1.z
-        instanceDataArray[i].texture_size = PackValues(0, 0);                                 // i_data1.w
+        instanceDataArray[i].position = PackValues(x, y);                          // i_data0.x
+        instanceDataArray[i].size = PackValues(100, 100);                          // i_data0.y
+        instanceDataArray[i].point_count_gradient_type = PackValues(0, 0);         // i_data0.z
+        instanceDataArray[i].rotation = rotation_degrees * (3.14159265f / 180.0f); // i_data0.w
+        instanceDataArray[i].color_index = ColorTexture.AddColor(Color);           // i_data1.x
+        instanceDataArray[i].shape_type_width = PackValues(1, 10);                 // i_data1.y
+        instanceDataArray[i].texture_position = PackValues(0, 0);                  // i_data1.z
+        instanceDataArray[i].texture_size = PackValues(0, 0);                      // i_data1.w
     }
+
+    std::cout << PackValues(1, 10) << std::endl;
 
     //
     // Create LARGE persistent dynamic instance buffer

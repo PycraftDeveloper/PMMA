@@ -16,15 +16,6 @@ vec2 Unpack2Values(float data) {
     return vec2(float(PackedData & 0xFFFFu), float(PackedData >> 16u));
 }
 
-vec3 Unpack3Values(float data) {
-    uint PackedData = floatBitsToUint(data);
-
-    uint val_three = (PackedData >> 24u) & 0xFFu;
-    uint val_two   = (PackedData >> 16u) & 0xFFu;
-    uint val_one   = (PackedData >> 8u)  & 0xFFu;
-    return vec3(float(val_one), float(val_two), float(val_three));
-}
-
 void main()
 {
     // Early exit
@@ -37,18 +28,20 @@ void main()
 
     // Instance Data Extraction
     vec2 colorInfo = vec2(v_data3.xy);
-    vec3 PointCountWidthGradientType = Unpack3Values(v_data2.x);
+    vec2 PointCountGradientType = Unpack2Values(v_data2.x);
     vec2 TexturePosition = Unpack2Values(v_data2.z) / vec2(colorInfo.xy);
     vec2 TextureSize = Unpack2Values(v_data2.w) / vec2(colorInfo.xy);
+    vec2 ShapeTypeWidth = Unpack2Values(v_data2.y);
+    uint ShapeType = uint(ShapeTypeWidth.x);
 
     // ============================================================
     // MODE 0 : SDF CIRCLE OUTLINE
     // ============================================================
-    if (v_data2.y == 0.0)
+    if (ShapeType == 0)
     {
         float pixel = fwidth(v_uv.x);
 
-        float halfWidth = float(PointCountWidthGradientType.y) * pixel * 0.5;
+        float halfWidth = float(ShapeTypeWidth.y) * pixel * 0.5;
 
         // Pull radius inward so outer edge stays fixed
         float radius = 0.5 - halfWidth;
@@ -73,11 +66,11 @@ void main()
     // ============================================================
     // MODE 1 : SOLID COLOR
     // ============================================================
-    else if (v_data2.y == 1.0)
+    else if (ShapeType == 1)
     {
         float pixel = fwidth(v_uv.x);
 
-        float width = float(PointCountWidthGradientType.y) * pixel;
+        float width = float(ShapeTypeWidth.y) * pixel;
 
         // Distance to outer box edge
         float outer = max(abs(p.x), abs(p.y)) - 0.5;
