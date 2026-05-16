@@ -35,7 +35,7 @@ endif()
 
 ExternalProject_Add(bgfx
     GIT_REPOSITORY https://github.com/bkaradzic/bgfx.cmake.git
-    GIT_TAG v1.129.8930-495
+    GIT_TAG v1.143.9248-540
     CMAKE_GENERATOR Ninja
     CMAKE_ARGS
         -DCMAKE_INSTALL_PREFIX=${OUTPUT_DIR}

@@ -1,5 +1,5 @@
 $input a_position, a_texcoord0, i_data0, i_data1
-$output v_uv, v_col0, v_col1, v_col2, v_col3, v_data2, v_data3
+$output v_uv, v_data0, v_data1, v_col0
 
 #include "common.sh"
 
@@ -38,13 +38,14 @@ void main()
     float Rotation = i_data0.w;
     float ColorIndex = i_data1.x;
 
-    v_data2.x = i_data0.z;
-    v_data2.y = i_data1.y;
-    v_data2.z = i_data1.z;
-    v_data2.w = i_data1.w;
+    v_data0.x = i_data0.z;
+    v_data0.y = i_data1.x;
+    v_data0.z = i_data1.y;
+    v_data0.w = i_data1.z;
 
-    v_data3.x = u_colorInfo.x;
-    v_data3.y = u_colorInfo.y;
+    v_data1.x = i_data1.w;
+    v_data1.y = u_colorInfo.x;
+    v_data1.z = u_colorInfo.y;
 
     // Rotation
     float cos_a = cos(Rotation);
@@ -62,19 +63,4 @@ void main()
 
     // Color Extraction
     v_col0 = ExtractColor(ColorIndex);
-    v_col1 = vec4(0.0, 0.0, 0.0, 0.0);
-    v_col2 = vec4(0.0, 0.0, 0.0, 0.0);
-    v_col3 = vec4(0.0, 0.0, 0.0, 0.0);
-
-    if (PointCountGradientType.y > 0.0) {
-        v_col1 = ExtractColor(ColorIndex + 1);
-    }
-
-    if (PointCountGradientType.y > 13.0 && PointCountGradientType.y <= 26.0) {
-        v_col2 = ExtractColor(ColorIndex + 2);
-    }
-
-    if (PointCountGradientType.y > 26.0) {
-        v_col3 = ExtractColor(ColorIndex + 3);
-    }
 }

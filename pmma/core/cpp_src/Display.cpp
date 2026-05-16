@@ -19,211 +19,150 @@
 
 #include "PMMA_Core.hpp"
 
-void CPP_Display::PMMA_Update(GLFWwindow *Window)
-{
+void CPP_Display::PMMA_Update(GLFWwindow *Window) {
     glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
 
-    if (PMMA_Core::KeyManagerInstance == nullptr)
-    {
-        if (PMMA_Registry::KeyboardEventInstanceCount > 0)
-        {
+    if (PMMA_Core::KeyManagerInstance == nullptr) {
+        if (PMMA_Registry::KeyboardEventInstanceCount > 0) {
             PMMA_Core::KeyManagerInstance = new CPP_InternalKeyEventManager();
             glfwSetKeyCallback(Window, CPP_InternalKeyEventManager::KeyCallback);
         }
-    }
-    else
-    {
-        if (PMMA_Registry::KeyboardEventInstanceCount <= 0)
-        {
+    } else {
+        if (PMMA_Registry::KeyboardEventInstanceCount <= 0) {
             glfwSetKeyCallback(Window, nullptr);
             delete PMMA_Core::KeyManagerInstance;
             PMMA_Core::KeyManagerInstance = nullptr;
             PMMA_Registry::KeyboardEventInstanceCount = 0;
-        }
-        else
-        {
+        } else {
             PMMA_Core::KeyManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA_Core::TextManagerInstance == nullptr)
-    {
-        if (PMMA_Registry::TextEventInstanceCount > 0)
-        {
+    if (PMMA_Core::TextManagerInstance == nullptr) {
+        if (PMMA_Registry::TextEventInstanceCount > 0) {
             PMMA_Core::TextManagerInstance = new CPP_InternalTextEventManager();
             glfwSetCharCallback(Window, CPP_InternalTextEventManager::TextCallback);
         }
-    }
-    else
-    {
-        if (PMMA_Registry::TextEventInstanceCount <= 0)
-        {
+    } else {
+        if (PMMA_Registry::TextEventInstanceCount <= 0) {
             glfwSetCharCallback(Window, nullptr);
             delete PMMA_Core::TextManagerInstance;
             PMMA_Core::TextManagerInstance = nullptr;
             PMMA_Registry::TextEventInstanceCount = 0;
-        }
-        else
-        {
+        } else {
             PMMA_Core::TextManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA_Core::MousePositionManagerInstance == nullptr)
-    {
-        if (PMMA_Registry::MousePositionEventInstanceCount > 0)
-        {
+    if (PMMA_Core::MousePositionManagerInstance == nullptr) {
+        if (PMMA_Registry::MousePositionEventInstanceCount > 0) {
             PMMA_Core::MousePositionManagerInstance = new CPP_InternalMousePositionEventManager();
             glfwSetCursorPosCallback(Window, CPP_InternalMousePositionEventManager::CursorPositionCallback);
         }
-    }
-    else
-    {
-        if (PMMA_Registry::MousePositionEventInstanceCount <= 0)
-        {
+    } else {
+        if (PMMA_Registry::MousePositionEventInstanceCount <= 0) {
             glfwSetCursorPosCallback(Window, nullptr);
             delete PMMA_Core::MousePositionManagerInstance;
             PMMA_Core::MousePositionManagerInstance = nullptr;
             PMMA_Registry::MousePositionEventInstanceCount = 0;
-        }
-        else
-        {
+        } else {
             PMMA_Core::MousePositionManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA_Core::MouseEnterWindowManagerInstance == nullptr)
-    {
-        if (PMMA_Registry::MouseEnterWindowEventInstanceCount > 0)
-        {
+    if (PMMA_Core::MouseEnterWindowManagerInstance == nullptr) {
+        if (PMMA_Registry::MouseEnterWindowEventInstanceCount > 0) {
             PMMA_Core::MouseEnterWindowManagerInstance = new CPP_InternalMouseEnterWindowEventManager();
             glfwSetCursorEnterCallback(Window, CPP_InternalMouseEnterWindowEventManager::CursorEnterCallback);
         }
-    }
-    else
-    {
-        if (PMMA_Registry::MouseEnterWindowEventInstanceCount <= 0)
-        {
+    } else {
+        if (PMMA_Registry::MouseEnterWindowEventInstanceCount <= 0) {
             glfwSetCursorEnterCallback(Window, nullptr);
             delete PMMA_Core::MouseEnterWindowManagerInstance;
             PMMA_Core::MouseEnterWindowManagerInstance = nullptr;
             PMMA_Registry::MouseEnterWindowEventInstanceCount = 0;
-        }
-        else
-        {
+        } else {
             PMMA_Core::MouseEnterWindowManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA_Core::MouseButtonManagerInstance == nullptr)
-    {
-        if (PMMA_Registry::MouseButtonEventInstanceCount > 0)
-        {
+    if (PMMA_Core::MouseButtonManagerInstance == nullptr) {
+        if (PMMA_Registry::MouseButtonEventInstanceCount > 0) {
             PMMA_Core::MouseButtonManagerInstance = new CPP_InternalMouseButtonEventManager();
             glfwSetMouseButtonCallback(Window, CPP_InternalMouseButtonEventManager::MouseButtonCallback);
         }
-    }
-    else
-    {
-        if (PMMA_Registry::MouseButtonEventInstanceCount <= 0)
-        {
+    } else {
+        if (PMMA_Registry::MouseButtonEventInstanceCount <= 0) {
             glfwSetMouseButtonCallback(Window, nullptr);
             delete PMMA_Core::MouseButtonManagerInstance;
             PMMA_Core::MouseButtonManagerInstance = nullptr;
             PMMA_Registry::MouseButtonEventInstanceCount = 0;
-        }
-        else
-        {
+        } else {
             PMMA_Core::MouseButtonManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA_Core::MouseScrollManagerInstance == nullptr)
-    {
-        if (PMMA_Registry::MouseScrollEventInstanceCount > 0)
-        {
+    if (PMMA_Core::MouseScrollManagerInstance == nullptr) {
+        if (PMMA_Registry::MouseScrollEventInstanceCount > 0) {
             PMMA_Core::MouseScrollManagerInstance = new CPP_InternalMouseScrollEventManager();
             glfwSetScrollCallback(Window, CPP_InternalMouseScrollEventManager::ScrollCallback);
         }
-    }
-    else
-    {
-        if (PMMA_Registry::MouseScrollEventInstanceCount <= 0)
-        {
+    } else {
+        if (PMMA_Registry::MouseScrollEventInstanceCount <= 0) {
             glfwSetScrollCallback(Window, nullptr);
             delete PMMA_Core::MouseScrollManagerInstance;
             PMMA_Core::MouseScrollManagerInstance = nullptr;
             PMMA_Registry::MouseScrollEventInstanceCount = 0;
-        }
-        else
-        {
+        } else {
             PMMA_Core::MouseScrollManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA_Core::ControllerManagerInstance == nullptr)
-    {
-        if (PMMA_Registry::ControllerEventInstanceCount > 0)
-        {
+    if (PMMA_Core::ControllerManagerInstance == nullptr) {
+        if (PMMA_Registry::ControllerEventInstanceCount > 0) {
             PMMA_Core::ControllerManagerInstance = new CPP_InternalControllerEventManager();
             glfwSetJoystickCallback(CPP_InternalControllerEventManager::JoystickCallback);
         }
-    }
-    else
-    {
-        if (PMMA_Registry::ControllerEventInstanceCount <= 0)
-        {
+    } else {
+        if (PMMA_Registry::ControllerEventInstanceCount <= 0) {
             glfwSetJoystickCallback(nullptr);
             delete PMMA_Core::ControllerManagerInstance;
             PMMA_Core::ControllerManagerInstance = nullptr;
             PMMA_Registry::ControllerEventInstanceCount = 0;
-        }
-        else
-        {
+        } else {
             PMMA_Core::ControllerManagerInstance->Update(Window);
         }
     }
 
-    if (PMMA_Core::DropManagerInstance == nullptr)
-    {
-        if (PMMA_Registry::DropEventInstanceCount > 0)
-        {
+    if (PMMA_Core::DropManagerInstance == nullptr) {
+        if (PMMA_Registry::DropEventInstanceCount > 0) {
             PMMA_Core::DropManagerInstance = new CPP_InternalDropEventManager();
             glfwSetDropCallback(Window, CPP_InternalDropEventManager::DropCallback);
         }
-    }
-    else
-    {
-        if (PMMA_Registry::DropEventInstanceCount <= 0)
-        {
+    } else {
+        if (PMMA_Registry::DropEventInstanceCount <= 0) {
             glfwSetDropCallback(Window, nullptr);
             delete PMMA_Core::DropManagerInstance;
             PMMA_Core::DropManagerInstance = nullptr;
             PMMA_Registry::DropEventInstanceCount = 0;
-        }
-        else
-        {
+        } else {
             PMMA_Core::DropManagerInstance->Update(Window);
         }
     }
 
-    if (glfwWindowShouldClose(Window))
-    {
+    if (glfwWindowShouldClose(Window)) {
         PMMA_Registry::IsApplicationRunning = false;
     }
 
-    if (!PMMA_Registry::UserSetEscapeKeyShouldCloseWindow)
-    {
+    if (!PMMA_Registry::UserSetEscapeKeyShouldCloseWindow) {
         PMMA_Registry::EscapeKeyShouldCloseWindow = FullScreen;
     }
 
-    if (PMMA_Registry::EscapeKeyShouldCloseWindow && Escape_KeyEvent->GetPressed())
-    {
+    if (PMMA_Registry::EscapeKeyShouldCloseWindow && Escape_KeyEvent->GetPressed()) {
         PMMA_Registry::IsApplicationRunning = false;
     }
 
-    if (PMMA_Registry::F11KeyShouldToggleFullScreen && F11_KeyEvent->GetPressed())
-    {
+    if (PMMA_Registry::F11KeyShouldToggleFullScreen && F11_KeyEvent->GetPressed()) {
         ToggleFullScreen();
     }
 
@@ -232,8 +171,7 @@ void CPP_Display::PMMA_Update(GLFWwindow *Window)
 
     DisplaySizeChanged = false;
 
-    if (DisplaySize[0] != PreviousDisplaySize[0] || DisplaySize[1] != PreviousDisplaySize[1])
-    {
+    if (DisplaySize[0] != PreviousDisplaySize[0] || DisplaySize[1] != PreviousDisplaySize[1]) {
         OrthographicProjectionSet = false;
         DisplaySizeChanged = true;
         bgfx::reset(DisplaySize[0], DisplaySize[1], BGFX_RESET_NONE);
@@ -244,12 +182,10 @@ void CPP_Display::PMMA_Update(GLFWwindow *Window)
     }
 }
 
-CPP_Display::CPP_Display()
-{
+CPP_Display::CPP_Display() {
     Logger = new CPP_Logger();
 
-    if (PMMA_Core::DisplayInstance != nullptr)
-    {
+    if (PMMA_Core::DisplayInstance != nullptr) {
         Logger->InternalLogDebug(
             21,
             "A display instance already exists. The previous one will \
@@ -266,8 +202,7 @@ in future versions of PMMA, but it is not a priority.",
     WindowFillColor = new CPP_Color();
     WindowFillColor->LinkedToDisplayBackground = true;
 
-    if (!PMMA_Registry::GLFW_Initialized)
-    {
+    if (!PMMA_Registry::GLFW_Initialized) {
         glfwInit();
         PMMA_Registry::GLFW_Initialized = true;
     }
@@ -280,14 +215,12 @@ in future versions of PMMA, but it is not a priority.",
     Escape_KeyEvent = new CPP_KeyEvent_Escape();
 }
 
-GLFWmonitor *CPP_Display::GetMonitorAtPoint(unsigned int *Point)
-{
+GLFWmonitor *CPP_Display::GetMonitorAtPoint(unsigned int *Point) {
     int count;
 
     GLFWmonitor **monitors = glfwGetMonitors(&count);
 
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         int mx, my;
         glfwGetMonitorPos(monitors[i], &mx, &my);
 
@@ -297,8 +230,7 @@ GLFWmonitor *CPP_Display::GetMonitorAtPoint(unsigned int *Point)
         const GLFWvidmode *mode = glfwGetVideoMode(monitors[i]);
 
         if (Point[0] >= Monitor_X_Position && Point[0] < Monitor_X_Position + mode->width &&
-            Point[1] >= Monitor_Y_Position && Point[1] < Monitor_Y_Position + mode->height)
-        {
+            Point[1] >= Monitor_Y_Position && Point[1] < Monitor_Y_Position + mode->height) {
             // Found the monitor where the mouse cursor is
             return monitors[i];
         }
@@ -308,8 +240,7 @@ GLFWmonitor *CPP_Display::GetMonitorAtPoint(unsigned int *Point)
     return glfwGetPrimaryMonitor();
 }
 
-GLFWmonitor *CPP_Display::GetTargetMonitor(GLFWwindow *window)
-{
+GLFWmonitor *CPP_Display::GetTargetMonitor(GLFWwindow *window) {
     int Window_X_Position, Window_Y_Position;
     glfwGetWindowPos(window, &Window_X_Position, &Window_Y_Position);
 
@@ -323,23 +254,20 @@ GLFWmonitor *CPP_Display::GetTargetMonitor(GLFWwindow *window)
     return GetMonitorAtPoint(Point);
 }
 
-GLFWmonitor *CPP_Display::GetCurrentMonitor(GLFWwindow *window)
-{
+GLFWmonitor *CPP_Display::GetCurrentMonitor(GLFWwindow *window) {
     int Window_X_Position, Window_Y_Position;
     glfwGetWindowPos(window, &Window_X_Position, &Window_Y_Position);
 
     int count;
     GLFWmonitor **monitors = glfwGetMonitors(&count);
 
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         int mx, my;
         glfwGetMonitorPos(monitors[i], &mx, &my);
         const GLFWvidmode *mode = glfwGetVideoMode(monitors[i]);
 
         if (Window_X_Position >= mx && Window_X_Position < mx + mode->width &&
-            Window_Y_Position >= my && Window_Y_Position < my + mode->height)
-        {
+            Window_Y_Position >= my && Window_Y_Position < my + mode->height) {
             // Found the monitor where the window is
             return monitors[i];
         }
@@ -351,23 +279,16 @@ GLFWmonitor *CPP_Display::GetCurrentMonitor(GLFWwindow *window)
 
 void CPP_Display::Create(
     unsigned int *NewSize,
-    CPP_Display_Create_Kwargs kwargs)
-{
+    CPP_Display_Create_Kwargs kwargs) {
 
-    if (!kwargs.OptionalFullScreen.has_value())
-    {
+    if (!kwargs.OptionalFullScreen.has_value()) {
 
-        if (NewSize[0] == 0 && NewSize[1] == 0)
-        {
+        if (NewSize[0] == 0 && NewSize[1] == 0) {
             FullScreen = true;
-        }
-        else
-        {
+        } else {
             FullScreen = false;
         }
-    }
-    else
-    {
+    } else {
         FullScreen = kwargs.OptionalFullScreen.value();
     }
 
@@ -386,8 +307,7 @@ void CPP_Display::Create(
         Caption.c_str(),
         NULL,
         NULL);
-    if (!TemporaryWindow)
-    {
+    if (!TemporaryWindow) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             55,
             "Failed to create GLFW window. Please ensure you installed PMMA \
@@ -396,8 +316,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         throw std::runtime_error("Failed to create GLFW window");
 
         PMMA_Registry::GLFW_References--;
-        if (PMMA_Registry::GLFW_References <= 0)
-        {
+        if (PMMA_Registry::GLFW_References <= 0) {
             PMMA_Registry::GLFW_Initialized = false;
             glfwTerminate();
         }
@@ -435,41 +354,31 @@ correctly. If the problem persists, please report this issue on our GitHub page.
     int Monitor_Width = Mode->width;
     int Monitor_Height = Mode->height;
 
-    if (RelativeWindow_X_Position > Monitor_Width - Size[0])
-    {
+    if (RelativeWindow_X_Position > Monitor_Width - Size[0]) {
         RelativeWindow_X_Position = Monitor_Width - Size[0];
     }
-    if (RelativeWindow_Y_Position > Monitor_Height - Size[1])
-    {
+    if (RelativeWindow_Y_Position > Monitor_Height - Size[1]) {
         RelativeWindow_Y_Position = Monitor_Height - Size[1];
     }
-    if (RelativeWindow_X_Position < 0)
-    {
+    if (RelativeWindow_X_Position < 0) {
         RelativeWindow_X_Position = 0;
     }
-    if (RelativeWindow_Y_Position < 0)
-    {
+    if (RelativeWindow_Y_Position < 0) {
         RelativeWindow_Y_Position = 0;
     }
 
     int Window_X_Offset = TargetMonitor_X_Position + RelativeWindow_X_Position;
     int Window_Y_Offset = TargetMonitor_Y_Position + RelativeWindow_Y_Position;
 
-    if (NewSize[0] > 0)
-    {
+    if (NewSize[0] > 0) {
         Size[0] = NewSize[0];
-    }
-    else
-    {
+    } else {
         Size[0] = Monitor_Width;
     }
 
-    if (NewSize[1] > 0)
-    {
+    if (NewSize[1] > 0) {
         Size[1] = NewSize[1];
-    }
-    else
-    {
+    } else {
         Size[1] = Monitor_Height;
     }
 
@@ -478,37 +387,28 @@ correctly. If the problem persists, please report this issue on our GitHub page.
 
     glfwWindowHint(GLFW_TRANSPARENT_FRAMEBUFFER, GLFW_FALSE);
 
-    if (Resizable)
-    {
+    if (Resizable) {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_TRUE);
-    }
-    else
-    {
+    } else {
         glfwWindowHint(GLFW_RESIZABLE, GLFW_FALSE);
     }
 
-    if (NoFrame)
-    {
+    if (NoFrame) {
         glfwWindowHint(GLFW_DECORATED, GLFW_FALSE);
-    }
-    else
-    {
+    } else {
         glfwWindowHint(GLFW_DECORATED, GLFW_TRUE);
     }
 
     glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
 
-    if (FullScreen)
-    {
+    if (FullScreen) {
         Window = glfwCreateWindow(
             Size[0],
             Size[1],
             Caption.c_str(),
             TargetMonitor,
             NULL);
-    }
-    else
-    {
+    } else {
         Window = glfwCreateWindow(
             Size[0],
             Size[1],
@@ -516,8 +416,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
             NULL,
             NULL);
 
-        if (Centered)
-        {
+        if (Centered) {
             int Window_X_Offset = TargetMonitor_X_Position + (Monitor_Width - Size[0]) / 2;
             int Window_Y_Offset = TargetMonitor_Y_Position + (Monitor_Height - Size[1]) / 2;
         }
@@ -526,8 +425,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         glfwSetWindowPos(Window, Window_X_Offset, Window_Y_Offset);
     }
 
-    if (!Window)
-    {
+    if (!Window) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             55,
             "Failed to create GLFW window. Please ensure you installed PMMA \
@@ -536,8 +434,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         throw std::runtime_error("Failed to create GLFW window");
 
         PMMA_Registry::GLFW_References--;
-        if (PMMA_Registry::GLFW_References <= 0)
-        {
+        if (PMMA_Registry::GLFW_References <= 0) {
             PMMA_Registry::GLFW_Initialized = false;
             glfwTerminate();
         }
@@ -556,27 +453,23 @@ correctly. If the problem persists, please report this issue on our GitHub page.
 #elif BX_PLATFORM_OSX
     pd.nwh = glfwGetCocoaWindow(Window);
 #elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-    if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND)
-    {
+    if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
         pd.ndt = glfwGetWaylandDisplay();
         pd.nwh = (void *)glfwGetWaylandWindow(Window);
-    }
-    else
-    { // X11
+    } else { // X11
         pd.ndt = glfwGetX11Display();
         pd.nwh = (void *)(uintptr_t)glfwGetX11Window(Window);
     }
 #endif
 
     bgfx::Init init;
-    init.type = bgfx::RendererType::OpenGL; // bgfx::RendererType::Count; // auto-detect renderer
+    init.type = bgfx::RendererType::Direct3D11; // bgfx::RendererType::Count; // auto-detect renderer
     init.resolution.width = Size[0];
     init.resolution.height = Size[1];
     init.resolution.reset = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;
     init.platformData = pd;
 
-    if (!bgfx::init(init))
-    {
+    if (!bgfx::init(init)) {
         throw std::runtime_error("Failed to initialize BGFX");
     }
 
@@ -595,16 +488,14 @@ correctly. If the problem persists, please report this issue on our GitHub page.
     bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
     bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
 
-    if (!Vsync)
-    {
+    if (!Vsync) {
         PMMA_Core::LoggingManagerInstance->InternalLogDebug(
             33,
             "You are not using vsync. We recommend using \
 vsync to reduce visual tearing and improve frame pacing.");
     }
 
-    if (kwargs.IconPath == "")
-    {
+    if (kwargs.IconPath == "") {
         kwargs.IconPath = DefaultIconPath;
     }
     SetIcon(kwargs.IconPath);
@@ -615,8 +506,7 @@ vsync to reduce visual tearing and improve frame pacing.");
     PreviousDisplaySize[1] = Size[1];
 
     // Sets default fill color
-    if (!WindowFillColor->GetSet())
-    {
+    if (!WindowFillColor->GetSet()) {
         uint8_t fill_color[4] = {0, 0, 0, 255};
         WindowFillColor->Set_RGBA(fill_color);
     }
@@ -639,10 +529,8 @@ vsync to reduce visual tearing and improve frame pacing.");
     );
 }
 
-void CPP_Display::Clear()
-{
-    if (Window == nullptr)
-    {
+void CPP_Display::Clear() {
+    if (Window == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -673,18 +561,15 @@ You can do this using `Display.create`.");
 
     PMMA_Core::RenderPipelineCore->Reset();
 
-    if (PMMA_Core::AnimationManagerInstance != nullptr)
-    {
-        if (PMMA_Core::AnimationManagerInstance->Update())
-        { // returns true if no longer needed
+    if (PMMA_Core::AnimationManagerInstance != nullptr) {
+        if (PMMA_Core::AnimationManagerInstance->Update()) { // returns true if no longer needed
             delete PMMA_Core::AnimationManagerInstance;
             PMMA_Core::AnimationManagerInstance = nullptr;
         }
     }
 }
 
-void CPP_Display::LimitRefreshRate(unsigned int RefreshRate)
-{
+void CPP_Display::LimitRefreshRate(unsigned int RefreshRate) {
     float estimate = 0.001f;
     float average = 0.001f;
     unsigned int samples = 1;
@@ -695,8 +580,7 @@ void CPP_Display::LimitRefreshRate(unsigned int RefreshRate)
     float TargetFrameTime = 1.0f / static_cast<float>(RefreshRate);
     float SleepTime = TargetFrameTime - FrameDuration.count();
 
-    while (SleepTime > average)
-    {
+    while (SleepTime > average) {
         std::chrono::high_resolution_clock::time_point s = std::chrono::high_resolution_clock::now();
         std::this_thread::sleep_for(std::chrono::milliseconds(1));
         std::chrono::high_resolution_clock::time_point e = std::chrono::high_resolution_clock::now();
@@ -707,16 +591,14 @@ void CPP_Display::LimitRefreshRate(unsigned int RefreshRate)
     }
 
     std::chrono::high_resolution_clock::time_point s = std::chrono::high_resolution_clock::now();
-    while (std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - s).count() < SleepTime)
-    {
+    while (std::chrono::duration<float>(std::chrono::high_resolution_clock::now() - s).count() < SleepTime) {
     }
 }
 
 unsigned int CPP_Display::CalculateRefreshRate(
     unsigned int RefreshRate, bool LowerRefreshRate_OnMinimize,
     bool LowerRefreshRate_OnFocusLoss,
-    bool LowerRefreshRate_OnLowBattery)
-{
+    bool LowerRefreshRate_OnLowBattery) {
 
     bool Minimized = glfwGetWindowAttrib(Window, GLFW_ICONIFIED) == GLFW_TRUE;
     bool FocusLoss = glfwGetWindowAttrib(Window, GLFW_FOCUSED) == GLFW_FALSE;
@@ -724,43 +606,34 @@ unsigned int CPP_Display::CalculateRefreshRate(
 
     unsigned int OriginalRefreshRate = RefreshRate;
 
-    if (Minimized && LowerRefreshRate_OnMinimize)
-    {
+    if (Minimized && LowerRefreshRate_OnMinimize) {
         RefreshRate /= 5;
     }
 
-    if (FocusLoss && LowerRefreshRate_OnFocusLoss)
-    {
+    if (FocusLoss && LowerRefreshRate_OnFocusLoss) {
         RefreshRate /= 2;
     }
 
-    if (LowBattery && LowerRefreshRate_OnLowBattery)
-    {
+    if (LowBattery && LowerRefreshRate_OnLowBattery) {
         RefreshRate /= 2;
     }
 
-    if (Minimized)
-    {
+    if (Minimized) {
         RefreshRate = std::max(RefreshRate, 5u);
-    }
-    else
-    {
+    } else {
         RefreshRate = std::max(RefreshRate, RefreshRate / 2);
     }
 
-    if (RefreshRate > OriginalRefreshRate)
-    {
+    if (RefreshRate > OriginalRefreshRate) {
         RefreshRate = OriginalRefreshRate;
     }
 
     return RefreshRate;
 }
 
-void CPP_Display::Refresh(CPP_Display_Refresh_Kwargs kwargs)
-{
+void CPP_Display::Refresh(CPP_Display_Refresh_Kwargs kwargs) {
 
-    if (Window == nullptr)
-    {
+    if (Window == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -775,49 +648,35 @@ You can do this using `Display.create`.");
 
     unsigned int MaxRefreshRate;
 
-    if (kwargs.LimitRefreshRate)
-    {
-        if (!kwargs.MaxRefreshRate.has_value())
-        {
-            if (GetIsWindowUsingVsync())
-            {
+    if (kwargs.LimitRefreshRate) {
+        if (!kwargs.MaxRefreshRate.has_value()) {
+            if (GetIsWindowUsingVsync()) {
                 MaxRefreshRate = 0;
-            }
-            else
-            {
+            } else {
                 MaxRefreshRate = 60;
             }
-        }
-        else
-        {
+        } else {
             MaxRefreshRate = kwargs.MaxRefreshRate.value();
         }
 
-        if (kwargs.MinRefreshRate == 0)
-        {
+        if (kwargs.MinRefreshRate == 0) {
             glfwWaitEvents();
-        }
-        else
-        {
+        } else {
             glfwWaitEventsTimeout(1.0f / kwargs.MinRefreshRate);
         }
-    }
-    else
-    {
+    } else {
         glfwPollEvents();
     }
 
     PMMA_Update(Window);
 
-    if (kwargs.LimitRefreshRate)
-    {
+    if (kwargs.LimitRefreshRate) {
         MaxRefreshRate = CPP_Display::CalculateRefreshRate(
             MaxRefreshRate, kwargs.LowerRefreshRate_OnMinimize,
             kwargs.LowerRefreshRate_OnFocusLoss,
             kwargs.LowerRefreshRate_OnLowBattery);
 
-        if (MaxRefreshRate > 0)
-        {
+        if (MaxRefreshRate > 0) {
             LimitRefreshRate(MaxRefreshRate);
         }
     }
@@ -829,10 +688,8 @@ You can do this using `Display.create`.");
     StartTime = std::chrono::high_resolution_clock::now();
 }
 
-void CPP_Display::SetIcon(std::string IconPath)
-{
-    if (Window == nullptr)
-    {
+void CPP_Display::SetIcon(std::string IconPath) {
+    if (Window == nullptr) {
         Logger->InternalLogError(
             18,
             "You need to create a display using `Display.create` \
@@ -840,8 +697,7 @@ before you can call this function.");
         throw std::runtime_error("Display not created yet!");
     }
 
-    if (IconPath == "")
-    {
+    if (IconPath == "") {
         IconPath = DefaultIconPath;
     }
 
@@ -853,8 +709,7 @@ before you can call this function.");
         &channels,
         4);
 
-    if (pixels)
-    {
+    if (pixels) {
         GLFWimage icon;
         icon.width = width;
         icon.height = height;
@@ -862,9 +717,7 @@ before you can call this function.");
 
         glfwSetWindowIcon(Window, 1, &icon);
         stbi_image_free(pixels); // Don’t forget to free the image
-    }
-    else
-    {
+    } else {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             56,
             "Failed to load icon from path: " + IconPath + ". Please \
@@ -874,10 +727,8 @@ ensure the file exists and is a valid image file.");
     }
 }
 
-void CPP_Display::ToggleFullScreen()
-{
-    if (Window == nullptr)
-    {
+void CPP_Display::ToggleFullScreen() {
+    if (Window == nullptr) {
         Logger->InternalLogError(
             18,
             "You need to create a display using `Display.create` \
@@ -889,8 +740,7 @@ before you can call this function.");
 
     unsigned int new_width, new_height;
 
-    if (FullScreen)
-    {
+    if (FullScreen) {
         GLFWmonitor *CurrentMonitor = GetCurrentMonitor(Window);
         int CurrentMonitor_X_Position, CurrentMonitor_Y_Position;
         int TemporaryWindow_X_Position, TemporaryWindow_Y_Position;
@@ -922,20 +772,16 @@ before you can call this function.");
         int Monitor_Width = Mode->width;
         int Monitor_Height = Mode->height;
 
-        if (RelativeWindow_X_Position > Monitor_Width - Size[0])
-        {
+        if (RelativeWindow_X_Position > Monitor_Width - Size[0]) {
             RelativeWindow_X_Position = Monitor_Width - Size[0];
         }
-        if (RelativeWindow_Y_Position > Monitor_Height - Size[1])
-        {
+        if (RelativeWindow_Y_Position > Monitor_Height - Size[1]) {
             RelativeWindow_Y_Position = Monitor_Height - Size[1];
         }
-        if (RelativeWindow_X_Position < 0)
-        {
+        if (RelativeWindow_X_Position < 0) {
             RelativeWindow_X_Position = 0;
         }
-        if (RelativeWindow_Y_Position < 0)
-        {
+        if (RelativeWindow_Y_Position < 0) {
             RelativeWindow_Y_Position = 0;
         }
 
@@ -949,9 +795,7 @@ before you can call this function.");
         glfwSetWindowMonitor(Window, CurrentMonitor, 0, 0, mode->width, mode->height, 0);
         new_width = mode->width;
         new_height = mode->height;
-    }
-    else
-    {
+    } else {
         GLFWmonitor *CurrentMonitor = GetCurrentMonitor(Window);
         glfwSetWindowMonitor(Window, NULL, Position[0], Position[1], Size[0], Size[1], 0);
         new_width = Size[0];
@@ -959,58 +803,48 @@ before you can call this function.");
     }
 }
 
-CPP_Display::~CPP_Display()
-{
-    if (PMMA_Core::RenderPipelineCore != nullptr)
-    {
+CPP_Display::~CPP_Display() {
+    if (PMMA_Core::RenderPipelineCore != nullptr) {
         delete PMMA_Core::RenderPipelineCore;
         PMMA_Core::RenderPipelineCore = nullptr;
     }
 
-    if (PMMA_Core::KeyManagerInstance != nullptr)
-    {
+    if (PMMA_Core::KeyManagerInstance != nullptr) {
         delete PMMA_Core::KeyManagerInstance;
         PMMA_Core::KeyManagerInstance = nullptr;
     }
 
-    if (PMMA_Core::TextManagerInstance != nullptr)
-    {
+    if (PMMA_Core::TextManagerInstance != nullptr) {
         delete PMMA_Core::TextManagerInstance;
         PMMA_Core::TextManagerInstance = nullptr;
     }
 
-    if (PMMA_Core::MousePositionManagerInstance != nullptr)
-    {
+    if (PMMA_Core::MousePositionManagerInstance != nullptr) {
         delete PMMA_Core::MousePositionManagerInstance;
         PMMA_Core::MousePositionManagerInstance = nullptr;
     }
 
-    if (PMMA_Core::MouseEnterWindowManagerInstance != nullptr)
-    {
+    if (PMMA_Core::MouseEnterWindowManagerInstance != nullptr) {
         delete PMMA_Core::MouseEnterWindowManagerInstance;
         PMMA_Core::MouseEnterWindowManagerInstance = nullptr;
     }
 
-    if (PMMA_Core::MouseButtonManagerInstance != nullptr)
-    {
+    if (PMMA_Core::MouseButtonManagerInstance != nullptr) {
         delete PMMA_Core::MouseButtonManagerInstance;
         PMMA_Core::MouseButtonManagerInstance = nullptr;
     }
 
-    if (PMMA_Core::MouseScrollManagerInstance != nullptr)
-    {
+    if (PMMA_Core::MouseScrollManagerInstance != nullptr) {
         delete PMMA_Core::MouseScrollManagerInstance;
         PMMA_Core::MouseScrollManagerInstance = nullptr;
     }
 
-    if (PMMA_Core::ControllerManagerInstance != nullptr)
-    {
+    if (PMMA_Core::ControllerManagerInstance != nullptr) {
         delete PMMA_Core::ControllerManagerInstance;
         PMMA_Core::ControllerManagerInstance = nullptr;
     }
 
-    if (PMMA_Core::DropManagerInstance != nullptr)
-    {
+    if (PMMA_Core::DropManagerInstance != nullptr) {
         delete PMMA_Core::DropManagerInstance;
         PMMA_Core::DropManagerInstance = nullptr;
     }
@@ -1021,8 +855,7 @@ CPP_Display::~CPP_Display()
     Window = nullptr;
 
     PMMA_Registry::GLFW_References--;
-    if (PMMA_Registry::GLFW_References <= 0)
-    {
+    if (PMMA_Registry::GLFW_References <= 0) {
         PMMA_Registry::GLFW_Initialized = false;
         glfwTerminate();
     }

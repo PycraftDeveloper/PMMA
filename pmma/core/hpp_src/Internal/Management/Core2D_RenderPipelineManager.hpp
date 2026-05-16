@@ -110,10 +110,9 @@ private:
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 100'000;
+    uint32_t instanceCount = 10;
     std::vector<InstanceData> instanceDataArray;
 
-    bgfx::DynamicVertexBufferHandle instanceVbh;
     bgfx::VertexLayout instanceLayout;
 
     Vertex VertexData[4];
@@ -129,13 +128,27 @@ public:
     CPP_Core2D_RenderPipeline();
 
     ~CPP_Core2D_RenderPipeline() {
-        if (bgfx::isValid(u_colorInfo)) {
-            bgfx::destroy(u_colorInfo);
+        if (bgfx::isValid(vbh)) {
+            bgfx::destroy(vbh);
+        }
+
+        if (bgfx::isValid(ibh)) {
+            bgfx::destroy(ibh);
         }
 
         if (bgfx::isValid(s_colorTex)) {
             bgfx::destroy(s_colorTex);
         }
+
+        if (bgfx::isValid(u_colorInfo)) {
+            bgfx::destroy(u_colorInfo);
+        }
+
+        if (bgfx::isValid(OrthDisplayProj)) {
+            bgfx::destroy(OrthDisplayProj);
+        }
+
+        delete ShapeDefinitionsShaderProgram;
     };
 
     inline void Reset() {
