@@ -18,6 +18,12 @@ vec4 ExtractColor(float ColorIndex, vec2 colorInfo) {
     return texture2DLod(s_colorTex, color_uv, 0.0);
 }
 
+float sdRoundRect(vec2 p, vec2 b, float r)
+{
+    vec2 q = abs(p) - (b - vec2(r, r));
+    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+}
+
 void main()
 {
     // Early exit
@@ -36,34 +42,61 @@ void main()
     uint Width = uint(v_data1.x);
     vec2 TextureStart = vec2(v_data1.yz);
     vec2 TextureEnd = vec2(v_data1.w, v_data2.x);
+    uint ShapeProperty = uint(v_data2.y); // corner radius for ShapeType 1
 
     // ============================================================
-    // MODE 0 : SDF CIRCLE OUTLINE
+    // MODE 0 : SDF CIRCLE / POLYGON OUTLINE
     // ============================================================
     if (ShapeType == 0u)
     {
-        float pixel = fwidth(v_uv.x);
+        float r = length(p);
 
+        float pixel = fwidth(r);
         float halfWidth = float(Width) * pixel * 0.5;
 
-        // Pull radius inward so outer edge stays fixed
         float radius = 0.5 - halfWidth;
 
-        // Signed distance from circle edge
-        float dist = length(p) - radius;
+        if (PointCount < 3u)
+        {
+            float dist = r - radius;
 
-        // Ring mask
-        //
-        // abs(dist) gives distance from the circumference itself
-        //
-        alpha = 1.0 - smoothstep(
-            halfWidth - pixel,
-            halfWidth + pixel,
-            abs(dist)
-        );
+            alpha = 1.0 - smoothstep(
+                halfWidth - pixel,
+                halfWidth + pixel,
+                abs(dist)
+            );
 
-        if (alpha <= 0.0)
-            discard;
+            if (alpha <= 0.0)
+                discard;
+        }
+        else
+        {
+            float N = float(PointCount);
+            float sector = 6.28318530718 / N;
+
+            float angle = atan2(p.y, p.x);
+
+            // wrap into sector
+            float a = mod(angle + sector * 0.5, sector) - sector * 0.5;
+
+            // direction vector in sector space
+            vec2 dir = vec2(cos(a), sin(a));
+
+            // key trick: project onto edge normal axis
+            float edge = cos(sector * 0.5);
+
+            // stable polygon SDF approximation
+            float dist = r * cos(a) / edge - radius;
+
+            alpha = 1.0 - smoothstep(
+                halfWidth - pixel,
+                halfWidth + pixel,
+                abs(dist)
+            );
+
+            if (alpha <= 0.0)
+                discard;
+        }
     }
 
     // ============================================================
@@ -71,20 +104,121 @@ void main()
     // ============================================================
     else if (ShapeType == 1u)
     {
-        float pixel = fwidth(v_uv.x);
+        float pixel = max(fwidth(p.x), fwidth(p.y));
 
-        float width = float(Width) * pixel;
+        float borderWidth = float(Width) * pixel;
 
-        // Distance to outer box edge
-        float outer = max(abs(p.x), abs(p.y)) - 0.5;
+        // Corner radius from instance data
+        float radius = float(ShapeProperty) * pixel;
 
-        // Inner box shrinks inward
-        float inner = max(abs(p.x), abs(p.y)) - (0.5 - width);
+        // Clamp radius so it never exceeds box size
+        radius = clamp(radius, 0.0, 0.5);
 
+        // ------------------------------------------------------------
+        // Outer rounded rect
+        // ------------------------------------------------------------
+
+        float outerDist = sdRoundRect(
+            p,
+            vec2(0.5, 0.5),
+            radius
+        );
+
+        // ------------------------------------------------------------
+        // Inner rounded rect
+        // ------------------------------------------------------------
+
+        float innerRadius = max(radius - borderWidth, 0.0);
+
+        float innerDist = sdRoundRect(
+            p,
+            vec2(0.5 - borderWidth, 0.5 - borderWidth),
+            innerRadius
+        );
+
+        // ------------------------------------------------------------
         // Border mask
-        alpha =
-            (1.0 - smoothstep(0.0, pixel, outer)) *
-            smoothstep(0.0, pixel, inner);
+        // ------------------------------------------------------------
+
+        float outerAlpha =
+            1.0 - smoothstep(0.0, pixel, outerDist);
+
+        float innerAlpha =
+            1.0 - smoothstep(0.0, pixel, innerDist);
+
+        alpha = outerAlpha * (1.0 - innerAlpha);
+
+        if (alpha <= 0.0)
+            discard;
+    } else if (ShapeType == 2u)
+    {
+        float r = length(p);
+
+        // AA only
+        float aa = fwidth(r);
+
+        // ------------------------------------------------------------
+        // Stable geometric width
+        // ------------------------------------------------------------
+
+        float width = float(Width) / 100.0;
+
+        float outerRadius = 0.5;
+
+        float innerRadius =
+            max(outerRadius - width, 0.0);
+
+        // ------------------------------------------------------------
+        // Arc angles
+        // ------------------------------------------------------------
+
+        float StartAngle = 0.0;
+
+        float EndAngle = (ShapeProperty / 182.0) * (3.14159265359 / 180.0);
+
+        float angle = atan2(p.y, p.x);
+
+        angle = mod(angle + 6.28318530718,
+                    6.28318530718);
+
+        // ------------------------------------------------------------
+        // Proper annulus SDF
+        // ------------------------------------------------------------
+
+        float outerDist =
+            r - outerRadius;
+
+        float innerDist =
+            innerRadius - r;
+
+        float ringDist =
+            max(outerDist, innerDist);
+
+        // ------------------------------------------------------------
+        // Angular mask
+        // ------------------------------------------------------------
+
+        float arcMask;
+
+        if (EndAngle >= 6.28318530718)
+        {
+            arcMask = 1.0;
+        }
+        else
+        {
+            arcMask =
+                step(StartAngle, angle) *
+                step(angle, EndAngle);
+        }
+
+        // ------------------------------------------------------------
+        // Anti-aliased ring
+        // ------------------------------------------------------------
+
+        float ringAlpha =
+            1.0 - smoothstep(-aa, aa, ringDist);
+
+        alpha = ringAlpha * arcMask;
 
         if (alpha <= 0.0)
             discard;

@@ -463,7 +463,7 @@ correctly. If the problem persists, please report this issue on our GitHub page.
 #endif
 
     bgfx::Init init;
-    init.type = bgfx::RendererType::Direct3D11; // bgfx::RendererType::Count; // auto-detect renderer
+    init.type = bgfx::RendererType::Count; // auto-detect renderer
     init.resolution.width = Size[0];
     init.resolution.height = Size[1];
     init.resolution.reset = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;

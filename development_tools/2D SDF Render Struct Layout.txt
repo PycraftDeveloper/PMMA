@@ -1,9 +1,7 @@
 IN UVs - TEXCOORD0 --> OUT UVs - TEXCOORD1 (Fixed)
 
-IN i_data0 - TEXCOORD7 --> OUT NONE (CONSUMED IN VS ONLY)
-IN i_data1 - TEXCOORD6 --> OUT TEXCOORD2
-IN i_data2 - TEXCOORD5 --> OUT TEXCOORD3
-NO MORE SLOTS AVAILABLE
+IN i_data0 - TEXCOORD7
+IN i_data1 - TEXCOORD6
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
@@ -27,26 +25,16 @@ w: X Texture Texture Size (width) COMBINED WITH Y Texture Texture Size (height) 
 v_data1.y = TextureSize x
 v_data1.z = TextureSize y
 
-vec4 i_data2     : TEXCOORD5;
------------------------------
-
-x: UNUSED
-y: UNUSED
-z: UNUSED
-w: UNUSED
-
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////
 
 Shape Types
 ===========
 
-0: Rectangle/Square
-1: Rounded Rectangle/Square
-2: Circle / Ellipse (not differentiated, depends on sizes for scale)
-3: Arc
-4: Line
-5: Text (for text rendering!)
+0: Circle / Ellipse (not differentiated, depends on sizes for scale)
+1: Rectangle/Square
+2: Arc
+3: Line
 
 Polygon rendering not supported here
 

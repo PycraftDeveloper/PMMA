@@ -108,20 +108,16 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
                 static_cast<uint8_t>(rand() % 256),
                 static_cast<uint8_t>(rand() % 256)};
 
-        float rotationRadians =
-            float(rand() % 360) *
-            (3.14159265359f / 180.0f);
-
         InstanceData &instance = instanceDataArray[i];
 
         // i_data0
         instance.position = PackValues(x, y);
-        instance.size = PackValues(rand() % 100, rand() % 100);
+        instance.size = PackValues(100, 100);
         instance.point_count_gradient_type = PackValues(0, 0);
-        instance.rotation = rotationRadians;
+        instance.rotation_shape_property = PackValues((rand() % 360) * 182, 300 * 182);
         // i_data1
         instance.color_index = ColorTexture.AddColor(Color);
-        instance.shape_type_width = PackValues(rand() % 2, rand() % 50);
+        instance.shape_type_width = PackValues(2, 20);
         instance.texture_position = PackValues(730, 169);
         instance.texture_size = PackValues(480, 690);
     }

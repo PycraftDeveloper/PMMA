@@ -10,7 +10,7 @@ struct Vertex {
 
 struct InstanceData {
     float position, size;
-    float point_count_gradient_type, rotation;
+    float point_count_gradient_type, rotation_shape_property;
     float color_index, shape_type_width;
     float texture_position, texture_size;
 };
@@ -110,7 +110,7 @@ private:
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 100'000;
+    uint32_t instanceCount = 16; // max: 16'777'216
     std::vector<InstanceData> instanceDataArray;
 
     bgfx::DynamicVertexBufferHandle instanceVbh;
