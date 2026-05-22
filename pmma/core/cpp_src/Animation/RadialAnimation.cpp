@@ -2,7 +2,7 @@
 
 #include "PMMA_Core.hpp"
 
-CPP_RadialAnimation::CPP_RadialAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr) {
+CPP_RadialAnimation::CPP_RadialAnimation(CPP_DisplayCoordinate *NewTargetCoordinatePtr) {
     TargetCoordinatePtr = NewTargetCoordinatePtr;
 
     StartCoordinatePtr = new CPP_DisplayCoordinate();
@@ -42,7 +42,7 @@ void CPP_RadialAnimation::Start() {
     StartTime = std::chrono::high_resolution_clock::now();
     RunTime = std::chrono::seconds(0);
 
-    float start_position[2];
+    uint16_t start_position[2];
     StartCoordinatePtr->Get(start_position);
     TargetCoordinatePtr->Set(start_position);
 }

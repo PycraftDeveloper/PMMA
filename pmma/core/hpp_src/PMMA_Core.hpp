@@ -64,7 +64,7 @@ Notes:
 namespace PMMA_Core {
 extern CPP_Display *DisplayInstance;
 
-extern CPP_Core2D_RenderPipeline *RenderPipelineCore;
+extern CPP_Core2D_RenderPipelineManager *RenderPipelineCore;
 
 extern std::vector<CPP_KeyEvent_Space *> KeyEvent_Space_Instances;
 extern std::vector<CPP_KeyEvent_Apostrophe *> KeyEvent_Apostrophe_Instances;

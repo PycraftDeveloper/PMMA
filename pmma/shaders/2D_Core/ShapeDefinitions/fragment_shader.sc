@@ -65,9 +65,6 @@ void main()
                         halfWidth + pixel,
                         abs(dist)
                     );
-
-            if (alpha <= 0.0)
-                discard;
         }
         else
         {
@@ -93,9 +90,6 @@ void main()
                         halfWidth + pixel,
                         abs(dist)
                     );
-
-            if (alpha <= 0.0)
-                discard;
         }
     }
 
@@ -147,9 +141,6 @@ void main()
             1.0 - smoothstep(0.0, pixel, innerDist);
 
         alpha = outerAlpha * (1.0 - innerAlpha);
-
-        if (alpha <= 0.0)
-            discard;
     }
     // ============================================================
     // MODE 2 : ARC
@@ -223,9 +214,6 @@ void main()
             1.0 - smoothstep(-aa, aa, ringDist);
 
         alpha = ringAlpha * arcMask;
-
-        if (alpha <= 0.0)
-            discard;
     }
 
     // ============================================================
@@ -235,6 +223,7 @@ void main()
     {
         vec2 uv = v_uv;
 
+        // endpoints in UV space
         vec2 a = v_data2.zw;
         vec2 b = v_data3.xy;
 
@@ -245,10 +234,14 @@ void main()
             max(float(Width) * uvPerPixel * 0.5,
                 uvPerPixel * 0.5);
 
+        float aa = uvPerPixel;
+
         vec2 ba = b - a;
         float len = max(length(ba), 1e-6);
+
         vec2 dir = ba / len;
 
+        // local coordinates
         vec2 pa = uv - a;
 
         float x = dot(pa, dir);
@@ -256,44 +249,36 @@ void main()
 
         float dist;
 
+        // ------------------------------------------------------------
+        // Square caps
+        // ------------------------------------------------------------
         if (PointCount < 3u)
         {
-            float x = dot(pa, dir);
-            float y = dot(pa, vec2(-dir.y, dir.x));
+            vec2 d =
+                abs(vec2(x - len * 0.5, y)) -
+                    vec2(len * 0.5, radius);
 
-            float halfW = radius;
-
-            // clamp segment
-            float cx = clamp(x, 0.0, len);
-
-            // distance to segment center rectangle
-            vec2 d = vec2(x - cx, y);
-
-            dist = max(abs(d.x), abs(d.y)) - halfW;
+            dist =
+                length(max(d, 0.0)) +
+                    min(max(d.x, d.y), 0.0);
         }
+        // ------------------------------------------------------------
+        // Rounded caps
+        // ------------------------------------------------------------
         else
         {
-            // --------------------------------------------------------
-            // ROUND CAPS (capsule SDF)
-            // --------------------------------------------------------
-
             float h =
                 clamp(x / len, 0.0, 1.0);
 
-            vec2 closest =
-                pa - ba * h;
-
-            dist = length(closest) - radius;
+            dist =
+                length(pa - ba * h) - radius;
         }
-
-        float aa = uvPerPixel;
 
         alpha =
             1.0 - smoothstep(0.0, aa, dist);
-
-        if (alpha <= 0.0)
-            discard;
     }
+    if (alpha <= 0.0)
+        discard;
 
     gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
 }

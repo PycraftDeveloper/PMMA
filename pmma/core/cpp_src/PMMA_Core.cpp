@@ -7,7 +7,7 @@
 
 namespace PMMA_Core {
 CPP_Display *DisplayInstance = nullptr;
-CPP_Core2D_RenderPipeline *RenderPipelineCore = nullptr;
+CPP_Core2D_RenderPipelineManager *RenderPipelineCore = nullptr;
 
 std::vector<CPP_KeyEvent_Space *> KeyEvent_Space_Instances;
 std::vector<CPP_KeyEvent_Apostrophe *> KeyEvent_Apostrophe_Instances;

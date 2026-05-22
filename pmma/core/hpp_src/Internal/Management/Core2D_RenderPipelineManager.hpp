@@ -1,8 +1,13 @@
 #pragma once
 #include <cstdint>
+#include <vector>
 
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
+
+class CPP_Core2D_RenderPipelineInstance;
+
+class CPP_LineShape;
 
 struct Vertex {
     float x, y, u, v;
@@ -17,9 +22,7 @@ struct InstanceData {
     float pack3, pack4 = 0;
 };
 
-class CPP_Shader;
-
-class CPP_Core2D_RenderPipeline_ColorTexture {
+class CPP_Core2D_ColorTexture {
 private:
     std::vector<uint8_t> ShapeColors;
     uint32_t ColorCount = 0;
@@ -31,11 +34,11 @@ public:
     uint32_t m_colorTextureHeight = 0;
     uint32_t MaxTextureDimension;
 
-    CPP_Core2D_RenderPipeline_ColorTexture() {
+    CPP_Core2D_ColorTexture() {
         ColorTexture = BGFX_INVALID_HANDLE;
     }
 
-    ~CPP_Core2D_RenderPipeline_ColorTexture() {
+    ~CPP_Core2D_ColorTexture() {
         if (bgfx::isValid(ColorTexture)) {
             bgfx::destroy(ColorTexture);
         }
@@ -58,8 +61,8 @@ public:
     }
 
     void Reset() {
-        // ShapeColors.clear();
-        // ColorCount = 0;
+        ShapeColors.clear();
+        ColorCount = 0;
     }
 
     void Assemble() {
@@ -104,76 +107,21 @@ public:
     }
 };
 
-class CPP_Core2D_RenderPipeline {
+class CPP_Core2D_RenderPipelineManager {
 private:
-    CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
-
-    bgfx::VertexLayout m_layout;
-    bgfx::VertexBufferHandle vbh;
-    bgfx::IndexBufferHandle ibh;
-    bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 5; // max: 16'777'216
-    std::vector<InstanceData> instanceDataArray;
-
-    bgfx::DynamicVertexBufferHandle instanceVbh;
-    bgfx::VertexLayout instanceLayout;
-
-    Vertex VertexData[4];
-    uint16_t IndexData[6];
-    uint32_t numTiles;
-
-    bgfx::UniformHandle u_colorInfo;
-    bgfx::UniformHandle s_colorTex;
-
-    CPP_Core2D_RenderPipeline_ColorTexture ColorTexture;
+    std::vector<CPP_Core2D_RenderPipelineInstance *> RenderPipelineInstances;
 
 public:
-    CPP_Core2D_RenderPipeline();
-
-    ~CPP_Core2D_RenderPipeline() {
-        if (bgfx::isValid(vbh)) {
-            bgfx::destroy(vbh);
+    ~CPP_Core2D_RenderPipelineManager() {
+        for (CPP_Core2D_RenderPipelineInstance *instance : RenderPipelineInstances) {
+            delete instance;
         }
-
-        if (bgfx::isValid(ibh)) {
-            bgfx::destroy(ibh);
-        }
-
-        if (bgfx::isValid(s_colorTex)) {
-            bgfx::destroy(s_colorTex);
-        }
-
-        if (bgfx::isValid(u_colorInfo)) {
-            bgfx::destroy(u_colorInfo);
-        }
-
-        if (bgfx::isValid(OrthDisplayProj)) {
-            bgfx::destroy(OrthDisplayProj);
-        }
-
-        delete ShapeDefinitionsShaderProgram;
-    };
-
-    inline void Reset() {
-        ColorTexture.Reset();
+        RenderPipelineInstances.clear();
     }
 
-    inline float PackValues(uint16_t value_one, uint16_t value_two) {
-        uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);
-        float packed;
-        std::memcpy(&packed, &bits, sizeof(float));
-        return packed;
-    }
+    void Add(CPP_LineShape *lineShape);
 
-    inline float PackValues(uint8_t value_one, uint8_t value_two, uint8_t value_three) {
-        uint32_t bits = (static_cast<uint32_t>(value_three) << 24) |
-                        (static_cast<uint32_t>(value_two) << 16) |
-                        (static_cast<uint32_t>(value_one) << 8); // Leaving lowest 8 bits empty/0
-
-        float packed;
-        std::memcpy(&packed, &bits, sizeof(float));
-        return packed;
-    }
+    void Reset();
 
     void Render();
 };

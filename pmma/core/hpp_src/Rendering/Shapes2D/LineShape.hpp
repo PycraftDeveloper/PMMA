@@ -12,26 +12,51 @@
 
 class EXPORT CPP_LineShape {
 public:
+    CPP_Logger *Logger;
+    CPP_DisplayCoordinate *ShapeStart;
+    CPP_DisplayCoordinate *ShapeEnd;
+    CPP_Color *Color;
+
+    float Rotation = 0;
+
+    uint64_t ID;
+    unsigned int Width = 1;
+
+    bool ColorDataChanged = true;
+
     CPP_LineShape();
 
     ~CPP_LineShape() {
+        if (Logger != nullptr) {
+            delete Logger;
+            Logger = nullptr;
+        }
+
+        delete ShapeStart;
+        ShapeStart = nullptr;
+
+        delete ShapeEnd;
+        ShapeEnd = nullptr;
+
+        delete Color;
+        Color = nullptr;
     }
 
     void Render();
 
-    void InternalRender();
-
     inline void SetWidth(unsigned int in_width) {
+        Width = in_width;
     };
 
     inline unsigned int GetWidth() const {
-        return 0;
+        return Width;
     }
 
     inline void SetRotation(float in_rotation) {
+        Rotation = in_rotation;
     }
 
     inline float GetRotation() const {
-        return 0.0f;
+        return Rotation;
     }
 };

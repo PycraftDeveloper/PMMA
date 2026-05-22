@@ -4,115 +4,116 @@
 #include <chrono>
 #include <iostream>
 
-#include "Internal/Management/AnimationManager.hpp"
-#include "CoreTypes.hpp"
 #include "AdvancedMathematics.hpp"
+#include "CoreTypes.hpp"
+#include "Internal/Management/AnimationManager.hpp"
 
-class EXPORT CPP_RadialAnimation: public CPP_AnimationCore {
-    public:
-        CPP_DisplayCoordinate* TargetCoordinatePtr;
-        CPP_DisplayCoordinate* StartCoordinatePtr;
-        CPP_DisplayCoordinate* CenterCoordinatePtr;
+class EXPORT CPP_RadialAnimation : public CPP_AnimationCore {
+public:
+    CPP_DisplayCoordinate *TargetCoordinatePtr;
+    CPP_DisplayCoordinate *StartCoordinatePtr;
+    CPP_DisplayCoordinate *CenterCoordinatePtr;
 
-        std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
-        std::chrono::duration<float> Duration;
-        std::chrono::duration<float> RunTime;
+    std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
+    std::chrono::duration<float> Duration;
+    std::chrono::duration<float> RunTime;
 
-        bool Playing = false;
-        bool Paused = false;
-        bool Repeat = false;
+    bool Playing = false;
+    bool Paused = false;
+    bool Repeat = false;
 
-        CPP_RadialAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr);
+    CPP_RadialAnimation(CPP_DisplayCoordinate *NewTargetCoordinatePtr);
 
-        ~CPP_RadialAnimation();
+    ~CPP_RadialAnimation();
 
-        inline bool Update(std::chrono::duration<float> FrameTime) override {
-            // Return TRUE if animation finished
-            if (Paused) {
-                return false;
-            }
-
-            RunTime += FrameTime;
-
-            float start_pos[2];
-            float center_pos[2];
-            StartCoordinatePtr->Get(start_pos);
-            CenterCoordinatePtr->Get(center_pos); // Now the "center" of orbit
-
-            // radius = start - center
-            float dx = static_cast<float>(start_pos[0]) - static_cast<float>(center_pos[0]);
-            float dy = static_cast<float>(start_pos[1]) - static_cast<float>(center_pos[1]);
-            float radius = std::sqrt(dx * dx + dy * dy);
-
-            // Initial angle (from center to start)
-            float initial_angle = std::atan2(dy, dx);
-
-            // Normalized progress [0,1]
-            float t = RunTime.count() / Duration.count();
-            if (t > 1.0f) t = 1.0f;
-
-            float sweep = 2.0f * 3.14159265f * t;  // one full orbit
-            float angle = initial_angle + sweep;
-
-            // Compute new position
-            float new_location[2];
-            new_location[0] = static_cast<float>(center_pos[0] + std::cos(angle) * radius);
-            new_location[1] = static_cast<float>(center_pos[1] + std::sin(angle) * radius);
-
-            TargetCoordinatePtr->Set(new_location);
-
-            if (RunTime >= Duration) {
-                RunTime = Duration;
-
-                if (!Repeat) {
-                    Playing = false;
-                    return true;
-                }
-
-                if (Repeat) {
-                    RunTime = std::chrono::seconds(0);
-                }
-            }
+    inline bool Update(std::chrono::duration<float> FrameTime) override {
+        // Return TRUE if animation finished
+        if (Paused) {
             return false;
         }
 
-        void Start();
+        RunTime += FrameTime;
 
-        void Stop();
+        uint16_t start_pos[2];
+        uint16_t center_pos[2];
+        StartCoordinatePtr->Get(start_pos);
+        CenterCoordinatePtr->Get(center_pos); // Now the "center" of orbit
 
-        inline void Pause() {
-            Paused = true;
+        // radius = start - center
+        float dx = static_cast<float>(start_pos[0]) - static_cast<float>(center_pos[0]);
+        float dy = static_cast<float>(start_pos[1]) - static_cast<float>(center_pos[1]);
+        float radius = std::sqrt(dx * dx + dy * dy);
+
+        // Initial angle (from center to start)
+        float initial_angle = std::atan2(dy, dx);
+
+        // Normalized progress [0,1]
+        float t = RunTime.count() / Duration.count();
+        if (t > 1.0f)
+            t = 1.0f;
+
+        float sweep = 2.0f * 3.14159265f * t; // one full orbit
+        float angle = initial_angle + sweep;
+
+        // Compute new position
+        uint16_t new_location[2];
+        new_location[0] = static_cast<uint16_t>(center_pos[0] + std::cos(angle) * radius);
+        new_location[1] = static_cast<uint16_t>(center_pos[1] + std::sin(angle) * radius);
+
+        TargetCoordinatePtr->Set(new_location);
+
+        if (RunTime >= Duration) {
+            RunTime = Duration;
+
+            if (!Repeat) {
+                Playing = false;
+                return true;
+            }
+
+            if (Repeat) {
+                RunTime = std::chrono::seconds(0);
+            }
         }
+        return false;
+    }
 
-        inline void Resume() {
-            Paused = false;
-        }
+    void Start();
 
-        inline void SetDuration(float NewDuration) {
-            Duration = std::chrono::duration<float>(NewDuration);
-        }
+    void Stop();
 
-        inline float GetDuration() {
-            return Duration.count();
-        }
+    inline void Pause() {
+        Paused = true;
+    }
 
-        inline float GetRemainingDuration() {
-            return (Duration - RunTime).count();
-        }
+    inline void Resume() {
+        Paused = false;
+    }
 
-        inline bool IsPlaying() {
-            return Playing;
-        }
+    inline void SetDuration(float NewDuration) {
+        Duration = std::chrono::duration<float>(NewDuration);
+    }
 
-        inline bool IsPaused() {
-            return Paused;
-        }
+    inline float GetDuration() {
+        return Duration.count();
+    }
 
-        inline void SetRepeating(bool NewRepeating) {
-            Repeat = NewRepeating;
-        }
+    inline float GetRemainingDuration() {
+        return (Duration - RunTime).count();
+    }
 
-        inline bool IsRepeating() {
-            return Repeat;
-        }
+    inline bool IsPlaying() {
+        return Playing;
+    }
+
+    inline bool IsPaused() {
+        return Paused;
+    }
+
+    inline void SetRepeating(bool NewRepeating) {
+        Repeat = NewRepeating;
+    }
+
+    inline bool IsRepeating() {
+        return Repeat;
+    }
 };

@@ -4,143 +4,141 @@
 #include <chrono>
 #include <iostream>
 
-#include "Internal/Management/AnimationManager.hpp"
-#include "CoreTypes.hpp"
 #include "AdvancedMathematics.hpp"
+#include "CoreTypes.hpp"
+#include "Internal/Management/AnimationManager.hpp"
 #include "Logger.hpp"
 
-class EXPORT CPP_LinearAnimation: public CPP_AnimationCore {
-    public:
-        CPP_DisplayCoordinate* TargetCoordinatePtr;
-        CPP_DisplayCoordinate* StartCoordinatePtr;
-        CPP_DisplayCoordinate* EndCoordinatePtr;
-        CPP_Logger* Logger;
+class EXPORT CPP_LinearAnimation : public CPP_AnimationCore {
+public:
+    CPP_DisplayCoordinate *TargetCoordinatePtr;
+    CPP_DisplayCoordinate *StartCoordinatePtr;
+    CPP_DisplayCoordinate *EndCoordinatePtr;
+    CPP_Logger *Logger;
 
-        std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
-        std::chrono::duration<float> Duration;
-        std::chrono::duration<float> RunTime;
+    std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
+    std::chrono::duration<float> Duration;
+    std::chrono::duration<float> RunTime;
 
-        bool Playing = false;
-        bool Paused = false;
-        bool Loop = false;
-        bool Repeat = false;
+    bool Playing = false;
+    bool Paused = false;
+    bool Loop = false;
+    bool Repeat = false;
 
-        CPP_LinearAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr);
+    CPP_LinearAnimation(CPP_DisplayCoordinate *NewTargetCoordinatePtr);
 
-        ~CPP_LinearAnimation();
+    ~CPP_LinearAnimation();
 
-        inline bool Update(std::chrono::duration<float> FrameTime) override { // Return TRUE if animation finished
-            if (Paused) {
-                return false;
-            }
-
-            RunTime += FrameTime;
-
-            float new_location[2];
-            float start_pos[2];
-            float end_pos[2];
-
-            StartCoordinatePtr->Get(start_pos);
-            EndCoordinatePtr->Get(end_pos);
-
-            new_location[0] = CPP_AdvancedMathematics::Lerp(
-                (float)start_pos[0], (float)end_pos[0],
-                Duration.count(), RunTime.count());
-
-            new_location[1] = CPP_AdvancedMathematics::Lerp(
-                (float)start_pos[1], (float)end_pos[1],
-                Duration.count(), RunTime.count());
-
-            TargetCoordinatePtr->Set(new_location);
-
-            if (RunTime >= Duration) {
-                RunTime = Duration;
-
-                if (!(Repeat || Loop)) {
-                    Playing = false;
-                    return true;
-                }
-
-                if (Repeat) {
-                    RunTime = std::chrono::seconds(0);
-                }
-
-                if (Loop) { // Switch start and end
-                    CPP_DisplayCoordinate* TempPtr = StartCoordinatePtr;
-                    StartCoordinatePtr = EndCoordinatePtr;
-                    EndCoordinatePtr = TempPtr;
-
-                    RunTime = std::chrono::seconds(0);
-                }
-            }
+    inline bool Update(std::chrono::duration<float> FrameTime) override { // Return TRUE if animation finished
+        if (Paused) {
             return false;
         }
 
-        void Start();
+        RunTime += FrameTime;
 
-        void Stop();
+        uint16_t new_location[2];
+        uint16_t start_pos[2];
+        uint16_t end_pos[2];
 
-        inline void Pause() {
-            Paused = true;
+        StartCoordinatePtr->Get(start_pos);
+        EndCoordinatePtr->Get(end_pos);
+
+        new_location[0] = CPP_AdvancedMathematics::Lerp(
+            (float)start_pos[0], (float)end_pos[0],
+            Duration.count(), RunTime.count());
+
+        new_location[1] = CPP_AdvancedMathematics::Lerp(
+            (float)start_pos[1], (float)end_pos[1],
+            Duration.count(), RunTime.count());
+
+        TargetCoordinatePtr->Set(new_location);
+
+        if (RunTime >= Duration) {
+            RunTime = Duration;
+
+            if (!(Repeat || Loop)) {
+                Playing = false;
+                return true;
+            }
+
+            if (Repeat) {
+                RunTime = std::chrono::seconds(0);
+            }
+
+            if (Loop) { // Switch start and end
+                CPP_DisplayCoordinate *TempPtr = StartCoordinatePtr;
+                StartCoordinatePtr = EndCoordinatePtr;
+                EndCoordinatePtr = TempPtr;
+
+                RunTime = std::chrono::seconds(0);
+            }
         }
+        return false;
+    }
 
-        inline void Resume() {
-            Paused = false;
-        }
+    void Start();
 
-        inline void SetDuration(float NewDuration) {
-            Duration = std::chrono::duration<float>(NewDuration);
-        }
+    void Stop();
 
-        inline float GetDuration() {
-            return Duration.count();
-        }
+    inline void Pause() {
+        Paused = true;
+    }
 
-        inline float GetRemainingDuration() {
-            return (Duration - RunTime).count();
-        }
+    inline void Resume() {
+        Paused = false;
+    }
 
-        inline bool IsPlaying() {
-            return Playing;
-        }
+    inline void SetDuration(float NewDuration) {
+        Duration = std::chrono::duration<float>(NewDuration);
+    }
 
-        inline bool IsPaused() {
-            return Paused;
-        }
+    inline float GetDuration() {
+        return Duration.count();
+    }
 
-        inline void SetLooping(bool NewLooping) {
-            if (Repeat && NewLooping) {
-                Logger->InternalLogWarn(
-                    40,
-                    "This animation has already been set to repeat. The \
+    inline float GetRemainingDuration() {
+        return (Duration - RunTime).count();
+    }
+
+    inline bool IsPlaying() {
+        return Playing;
+    }
+
+    inline bool IsPaused() {
+        return Paused;
+    }
+
+    inline void SetLooping(bool NewLooping) {
+        if (Repeat && NewLooping) {
+            Logger->InternalLogWarn(
+                40,
+                "This animation has already been set to repeat. The \
 looping and repeating modes are mutually exclusive - meaning they cannot be \
 both set - as they customize the same behaviour. We have turned off Repeat \
-as that was what was previous set."
-                );
-                Repeat = false;
-            }
-            Loop = NewLooping;
+as that was what was previous set.");
+            Repeat = false;
         }
+        Loop = NewLooping;
+    }
 
-        inline bool IsLooping() {
-            return Loop;
-        }
+    inline bool IsLooping() {
+        return Loop;
+    }
 
-        inline void SetRepeating(bool NewRepeating) {
-            if (Loop && NewRepeating) {
-                Logger->InternalLogWarn(
-                    40,
-                    "This animation has already been set to loop. The \
+    inline void SetRepeating(bool NewRepeating) {
+        if (Loop && NewRepeating) {
+            Logger->InternalLogWarn(
+                40,
+                "This animation has already been set to loop. The \
 looping and repeating modes are mutually exclusive - meaning they cannot be \
 both set - as they customize the same behaviour. We have turned off Looping \
-as that was what was previous set."
-                );
-                Loop = false;
-            }
-            Repeat = NewRepeating;
+as that was what was previous set.");
+            Loop = false;
         }
+        Repeat = NewRepeating;
+    }
 
-        inline bool IsRepeating() {
-            return Repeat;
-        }
+    inline bool IsRepeating() {
+        return Repeat;
+    }
 };
