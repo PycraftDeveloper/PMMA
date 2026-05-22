@@ -13,6 +13,8 @@ struct InstanceData {
     float point_count_gradient_type, rotation_shape_property;
     float color_index, shape_type_width;
     float texture_position, texture_size;
+    float line_start, line_end;
+    float pack3, pack4 = 0;
 };
 
 class CPP_Shader;
@@ -110,7 +112,7 @@ private:
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
     bgfx::UniformHandle OrthDisplayProj;
-    uint32_t instanceCount = 16; // max: 16'777'216
+    uint32_t instanceCount = 5; // max: 16'777'216
     std::vector<InstanceData> instanceDataArray;
 
     bgfx::DynamicVertexBufferHandle instanceVbh;

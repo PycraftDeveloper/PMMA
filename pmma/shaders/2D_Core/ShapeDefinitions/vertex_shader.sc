@@ -1,5 +1,5 @@
-$input a_position, a_texcoord0, i_data0, i_data1
-$output v_uv, v_data0, v_data1, v_data2, v_col0
+$input a_position , a_texcoord0 , i_data0 , i_data1 , i_data2
+$output v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 
 #include "common.sh"
 
@@ -24,7 +24,7 @@ vec4 ExtractColor(float ColorIndex) {
     float y = floor(idxF / w);
 
     vec2 color_uv = vec2((x + 0.5) / w,
-                (y + 0.5) / h);
+            (y + 0.5) / h);
 
     return texture2DLod(s_colorTex, color_uv, 0.0);
 }
@@ -40,6 +40,8 @@ void main()
     float ColorIndex = i_data1.x;
     vec2 TextureStart = Unpack2Values(i_data1.z) / vec2(u_colorInfo.xy);
     vec2 TextureEnd = Unpack2Values(i_data1.w) / vec2(u_colorInfo.xy);
+    vec2 LineStart = Unpack2Values(i_data2.x);
+    vec2 LineEnd = Unpack2Values(i_data2.y);
 
     v_data0.x = PointCountGradientType.x; // Point Count
     v_data0.y = PointCountGradientType.y; // Gradient Type
@@ -51,6 +53,10 @@ void main()
     v_data1.w = TextureEnd.x;
     v_data2.x = TextureEnd.y;
     v_data2.y = RotationShapeProperty.y; // Shape Property (corner radius, end angle exct...)
+    v_data2.z = LineStart.x;
+    v_data2.w = LineStart.y;
+    v_data3.x = LineEnd.x;
+    v_data3.y = LineEnd.y;
 
     // Rotation
     float Rotation = (RotationShapeProperty.x / 182.0) * (3.14159265359 / 180.0);

@@ -24,6 +24,7 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
     instanceLayout.begin()
         .add(bgfx::Attrib::TexCoord7, 4, bgfx::AttribType::Float)
         .add(bgfx::Attrib::TexCoord6, 4, bgfx::AttribType::Float)
+        .add(bgfx::Attrib::TexCoord5, 4, bgfx::AttribType::Float)
         .end();
 
     //
@@ -117,9 +118,12 @@ CPP_Core2D_RenderPipeline::CPP_Core2D_RenderPipeline() {
         instance.rotation_shape_property = PackValues((rand() % 360) * 182, 300 * 182);
         // i_data1
         instance.color_index = ColorTexture.AddColor(Color);
-        instance.shape_type_width = PackValues(2, 20);
+        instance.shape_type_width = PackValues(3, 20);
         instance.texture_position = PackValues(730, 169);
         instance.texture_size = PackValues(480, 690);
+        // i_data2
+        instance.line_start = PackValues(0, 0);
+        instance.line_end = PackValues(1, 1);
     }
 
     //

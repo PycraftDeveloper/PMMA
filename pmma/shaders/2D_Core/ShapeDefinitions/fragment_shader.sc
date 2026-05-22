@@ -1,4 +1,4 @@
-$input v_uv, v_data0, v_data1, v_data2, v_col0
+$input v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 #include "common.sh"
 
 SAMPLER2D(s_colorTex, 0);
@@ -13,7 +13,7 @@ vec4 ExtractColor(float ColorIndex, vec2 colorInfo) {
     float y = floor(idxF / w);
 
     vec2 color_uv = vec2((x + 0.5) / w,
-                (y + 0.5) / h);
+            (y + 0.5) / h);
 
     return texture2DLod(s_colorTex, color_uv, 0.0);
 }
@@ -61,10 +61,10 @@ void main()
             float dist = r - radius;
 
             alpha = 1.0 - smoothstep(
-                halfWidth - pixel,
-                halfWidth + pixel,
-                abs(dist)
-            );
+                        halfWidth - pixel,
+                        halfWidth + pixel,
+                        abs(dist)
+                    );
 
             if (alpha <= 0.0)
                 discard;
@@ -89,10 +89,10 @@ void main()
             float dist = r * cos(a) / edge - radius;
 
             alpha = 1.0 - smoothstep(
-                halfWidth - pixel,
-                halfWidth + pixel,
-                abs(dist)
-            );
+                        halfWidth - pixel,
+                        halfWidth + pixel,
+                        abs(dist)
+                    );
 
             if (alpha <= 0.0)
                 discard;
@@ -100,7 +100,7 @@ void main()
     }
 
     // ============================================================
-    // MODE 1 : SOLID COLOR
+    // MODE 1 : SOLID COLOR / ROUNDED RECTANGLE
     // ============================================================
     else if (ShapeType == 1u)
     {
@@ -119,10 +119,10 @@ void main()
         // ------------------------------------------------------------
 
         float outerDist = sdRoundRect(
-            p,
-            vec2(0.5, 0.5),
-            radius
-        );
+                p,
+                vec2(0.5, 0.5),
+                radius
+            );
 
         // ------------------------------------------------------------
         // Inner rounded rect
@@ -131,10 +131,10 @@ void main()
         float innerRadius = max(radius - borderWidth, 0.0);
 
         float innerDist = sdRoundRect(
-            p,
-            vec2(0.5 - borderWidth, 0.5 - borderWidth),
-            innerRadius
-        );
+                p,
+                vec2(0.5 - borderWidth, 0.5 - borderWidth),
+                innerRadius
+            );
 
         // ------------------------------------------------------------
         // Border mask
@@ -150,7 +150,11 @@ void main()
 
         if (alpha <= 0.0)
             discard;
-    } else if (ShapeType == 2u)
+    }
+    // ============================================================
+    // MODE 2 : ARC
+    // ============================================================
+    else if (ShapeType == 2u)
     {
         float r = length(p);
 
@@ -179,7 +183,7 @@ void main()
         float angle = atan2(p.y, p.x);
 
         angle = mod(angle + 6.28318530718,
-                    6.28318530718);
+                6.28318530718);
 
         // ------------------------------------------------------------
         // Proper annulus SDF
@@ -208,7 +212,7 @@ void main()
         {
             arcMask =
                 step(StartAngle, angle) *
-                step(angle, EndAngle);
+                    step(angle, EndAngle);
         }
 
         // ------------------------------------------------------------
@@ -219,6 +223,73 @@ void main()
             1.0 - smoothstep(-aa, aa, ringDist);
 
         alpha = ringAlpha * arcMask;
+
+        if (alpha <= 0.0)
+            discard;
+    }
+
+    // ============================================================
+    // MODE 3 : LINE
+    // ============================================================
+    else if (ShapeType == 3u)
+    {
+        vec2 uv = v_uv;
+
+        vec2 a = v_data2.zw;
+        vec2 b = v_data3.xy;
+
+        float uvPerPixel =
+            max(fwidth(uv.x), fwidth(uv.y));
+
+        float radius =
+            max(float(Width) * uvPerPixel * 0.5,
+                uvPerPixel * 0.5);
+
+        vec2 ba = b - a;
+        float len = max(length(ba), 1e-6);
+        vec2 dir = ba / len;
+
+        vec2 pa = uv - a;
+
+        float x = dot(pa, dir);
+        float y = dot(pa, vec2(-dir.y, dir.x));
+
+        float dist;
+
+        if (PointCount < 3u)
+        {
+            float x = dot(pa, dir);
+            float y = dot(pa, vec2(-dir.y, dir.x));
+
+            float halfW = radius;
+
+            // clamp segment
+            float cx = clamp(x, 0.0, len);
+
+            // distance to segment center rectangle
+            vec2 d = vec2(x - cx, y);
+
+            dist = max(abs(d.x), abs(d.y)) - halfW;
+        }
+        else
+        {
+            // --------------------------------------------------------
+            // ROUND CAPS (capsule SDF)
+            // --------------------------------------------------------
+
+            float h =
+                clamp(x / len, 0.0, 1.0);
+
+            vec2 closest =
+                pa - ba * h;
+
+            dist = length(closest) - radius;
+        }
+
+        float aa = uvPerPixel;
+
+        alpha =
+            1.0 - smoothstep(0.0, aa, dist);
 
         if (alpha <= 0.0)
             discard;
