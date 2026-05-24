@@ -187,8 +187,6 @@ std::uniform_int_distribution<uint32_t> SeedDistribution;
 
 std::chrono::high_resolution_clock::time_point StartupTime = std::chrono::high_resolution_clock::now();
 
-uint64_t ClassObject_ID_System = 0;
-
 unsigned int KeyboardEventInstanceCount = 0;
 unsigned int TextEventInstanceCount = 0;
 unsigned int MousePositionEventInstanceCount = 0;

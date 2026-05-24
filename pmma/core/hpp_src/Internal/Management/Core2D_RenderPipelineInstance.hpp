@@ -81,91 +81,26 @@ public:
         ShapePropertyChanged = false;
     }
 
-    inline float PackValues(uint16_t value_one, uint16_t value_two) {
-        uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);
-        float packed;
-        std::memcpy(&packed, &bits, sizeof(float));
-        return packed;
-    }
-
-    inline float PackValues(uint8_t value_one, uint8_t value_two, uint8_t value_three) {
-        uint32_t bits = (static_cast<uint32_t>(value_three) << 24) |
-                        (static_cast<uint32_t>(value_two) << 16) |
-                        (static_cast<uint32_t>(value_one) << 8); // Leaving lowest 8 bits empty/0
-
-        float packed;
-        std::memcpy(&packed, &bits, sizeof(float));
-        return packed;
-    }
-
     void Add(CPP_LineShape *lineShape) {
         instanceCount++;
 
-        InstanceData instance;
-        uint16_t start_position[2], end_position[2];
-        lineShape->ShapeStart->Get(start_position);
-        lineShape->ShapeEnd->Get(end_position);
-
-        float width = abs((float)end_position[0] - start_position[0]);
-        float height = abs((float)end_position[1] - start_position[1]);
-
-        if (width == 0.0f)
-            width = 1.0f;
-        if (height == 0.0f)
-            height = 1.0f;
-
-        float rel_start_x = (start_position[0] <= end_position[0]) ? 0.0f : 1.0f;
-        float rel_end_x = (start_position[0] <= end_position[0]) ? 1.0f : 0.0f;
-
-        float rel_start_y = (start_position[1] <= end_position[1]) ? 0.0f : 1.0f;
-        float rel_end_y = (start_position[1] <= end_position[1]) ? 1.0f : 0.0f;
-
-        instance.position = PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
-        instance.size = PackValues((uint16_t)width, (uint16_t)height);
-        instance.point_count_gradient_type = PackValues(0, 0);
-        instance.rotation_shape_property = PackValues(lineShape->GetRotation() * 182, 0);
-
-        uint8_t Color[4];
-        lineShape->Color->Get_RGBA(Color);
-        instance.color_index = ColorTexture.AddColor(Color);
-        instance.shape_type_width = PackValues(3, lineShape->GetWidth());
-        instance.texture_position = PackValues(0, 0);
-        instance.texture_size = PackValues(0, 0);
-
-        instance.line_start = PackValues(rel_start_x, rel_start_y);
-        instance.line_end = PackValues(rel_end_x, rel_end_y);
+        lineShape->ShapeInstanceData.color_index = ColorTexture.AddColor(lineShape->Color, lineShape->ID, lineShape->ColorDataChanged);
 
         ColorChanged |= lineShape->ColorDataChanged;
         ShapePropertyChanged |= lineShape->ShapePropertyChanged;
 
-        instanceDataArray[BufferID].push_back(instance);
+        instanceDataArray[BufferID].push_back(lineShape->ShapeInstanceData);
     }
 
     void Add(CPP_RadialPolygonShape *radialPolygonShape) {
         instanceCount++;
 
-        InstanceData instance;
-        uint16_t start_position[2];
-        radialPolygonShape->ShapeCenter->Get(start_position);
-        unsigned int radius = radialPolygonShape->GetRadius() * 2;
-
-        // Existing packing logic
-        instance.position = PackValues(start_position[0], start_position[1]);
-        instance.size = PackValues((uint16_t)radius, (uint16_t)radius);
-        instance.point_count_gradient_type = PackValues(0, 0);
-        instance.rotation_shape_property = PackValues(radialPolygonShape->GetRotation() * 182, 0);
-
-        uint8_t Color[4];
-        radialPolygonShape->Color->Get_RGBA(Color);
-        instance.color_index = ColorTexture.AddColor(Color);
-        instance.shape_type_width = PackValues(0, radialPolygonShape->GetWidth());
-        instance.texture_position = PackValues(0, 0);
-        instance.texture_size = PackValues(0, 0);
+        radialPolygonShape->ShapeInstanceData.color_index = ColorTexture.AddColor(radialPolygonShape->Color, radialPolygonShape->ID, radialPolygonShape->ColorDataChanged);
 
         ColorChanged |= radialPolygonShape->ColorDataChanged;
         ShapePropertyChanged |= radialPolygonShape->ShapePropertyChanged;
 
-        instanceDataArray[BufferID].push_back(instance);
+        instanceDataArray[BufferID].push_back(radialPolygonShape->ShapeInstanceData);
     }
 
     void Render();

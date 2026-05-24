@@ -244,8 +244,6 @@ extern std::uniform_int_distribution<uint32_t> SeedDistribution;
 
 extern std::chrono::high_resolution_clock::time_point StartupTime;
 
-extern uint64_t ClassObject_ID_System;
-
 extern unsigned int KeyboardEventInstanceCount;
 extern unsigned int TextEventInstanceCount;
 extern unsigned int MousePositionEventInstanceCount;

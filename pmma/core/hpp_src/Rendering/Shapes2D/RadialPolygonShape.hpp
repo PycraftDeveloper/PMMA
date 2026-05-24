@@ -16,7 +16,9 @@ public:
     CPP_DisplayCoordinate *ShapeCenter;
     CPP_Color *Color;
 
-    uint64_t ID;
+    InstanceData ShapeInstanceData;
+
+    uintptr_t ID;
 
     float Rotation = 0;
     float ColorIndex = 0;

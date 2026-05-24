@@ -26,7 +26,11 @@ struct InstanceData {
 class CPP_Core2D_ColorTexture {
 private:
     std::vector<uint8_t> ShapeColors;
+    std::vector<uintptr_t> PreviousShapeIDs;
+    std::vector<uintptr_t> CurrentShapeIDs;
     uint32_t ColorCount = 0;
+
+    bool UsingCache = false;
 
 public:
     bgfx::TextureHandle ColorTexture;
@@ -45,17 +49,30 @@ public:
         }
     }
 
-    uint32_t AddColor(uint8_t *Color) {
+    uint32_t AddColor(CPP_Color *Color, uintptr_t ShapeID, bool ColorDataChanged) {
+        if (UsingCache && PreviousShapeIDs.size() > ColorCount / 4 && PreviousShapeIDs[ColorCount / 4] == ShapeID) {
+            // If the shape already has a color and it's just changed, update it in place
+            if (ColorDataChanged) {
+                size_t index = ColorCount - 4;
+
+                Color->Get_RGBA(&ShapeColors[index]);
+            }
+            CurrentShapeIDs.push_back(ShapeID);
+            ColorCount += 4;
+            return (ColorCount - 4) / 4; // Return existing color index
+        }
+
+        UsingCache = false;
+
+        CurrentShapeIDs.push_back(ShapeID);
+
         size_t needBytes = (size_t)ColorCount + 4;
 
         if (ShapeColors.size() < needBytes) {
             ShapeColors.resize(needBytes);
         }
 
-        ShapeColors[ColorCount] = Color[0];
-        ShapeColors[ColorCount + 1] = Color[1];
-        ShapeColors[ColorCount + 2] = Color[2];
-        ShapeColors[ColorCount + 3] = Color[3];
+        Color->Get_RGBA(&ShapeColors[ColorCount]);
 
         ColorCount += 4;
         return ColorCount - 4;
@@ -64,6 +81,9 @@ public:
     void Reset() {
         ShapeColors.clear();
         ColorCount = 0;
+        PreviousShapeIDs = CurrentShapeIDs;
+        CurrentShapeIDs.clear();
+        UsingCache = true;
     }
 
     void Assemble() {
@@ -118,6 +138,23 @@ public:
 
     void Add(CPP_LineShape *lineShape);
     void Add(CPP_RadialPolygonShape *radialPolygonShape);
+
+    inline float PackValues(uint16_t value_one, uint16_t value_two) {
+        uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);
+        float packed;
+        std::memcpy(&packed, &bits, sizeof(float));
+        return packed;
+    }
+
+    inline float PackValues(uint8_t value_one, uint8_t value_two, uint8_t value_three) {
+        uint32_t bits = (static_cast<uint32_t>(value_three) << 24) |
+                        (static_cast<uint32_t>(value_two) << 16) |
+                        (static_cast<uint32_t>(value_one) << 8); // Leaving lowest 8 bits empty/0
+
+        float packed;
+        std::memcpy(&packed, &bits, sizeof(float));
+        return packed;
+    }
 
     void Reset();
 

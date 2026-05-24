@@ -17,9 +17,11 @@ public:
     CPP_DisplayCoordinate *ShapeEnd;
     CPP_Color *Color;
 
+    InstanceData ShapeInstanceData;
+
     float Rotation = 0;
 
-    uint64_t ID;
+    uintptr_t ID;
     unsigned int Width = 1;
 
     bool ColorDataChanged = true;
