@@ -55,6 +55,14 @@ public:
             if (ColorDataChanged) {
                 size_t index = ColorCount - 4;
 
+                size_t needBytes = (size_t)ColorCount + 4;
+
+                if (ShapeColors.size() < needBytes) {
+                    ShapeColors.resize(needBytes);
+                }
+
+                std::cout << Color << " " << index << " " << ShapeColors.size() << std::endl;
+
                 Color->Get_RGBA(&ShapeColors[index]);
             }
             if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
