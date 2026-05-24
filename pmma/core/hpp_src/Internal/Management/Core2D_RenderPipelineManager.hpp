@@ -57,14 +57,30 @@ public:
 
                 Color->Get_RGBA(&ShapeColors[index]);
             }
-            CurrentShapeIDs.push_back(ShapeID);
+            if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
+                size_t currentShapeIndex = ColorCount / 4;
+
+                if (currentShapeIndex < CurrentShapeIDs.size()) {
+                    CurrentShapeIDs.resize(currentShapeIndex);
+                }
+
+                CurrentShapeIDs.push_back(ShapeID);
+            }
             ColorCount += 4;
             return (ColorCount - 4) / 4; // Return existing color index
         }
 
         UsingCache = false;
 
-        CurrentShapeIDs.push_back(ShapeID);
+        if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
+            size_t currentShapeIndex = ColorCount / 4;
+
+            if (currentShapeIndex < CurrentShapeIDs.size()) {
+                CurrentShapeIDs.resize(currentShapeIndex);
+            }
+
+            CurrentShapeIDs.push_back(ShapeID);
+        }
 
         size_t needBytes = (size_t)ColorCount + 4;
 
@@ -82,7 +98,6 @@ public:
         ShapeColors.clear();
         ColorCount = 0;
         PreviousShapeIDs = CurrentShapeIDs;
-        CurrentShapeIDs.clear();
         UsingCache = true;
     }
 
