@@ -13,7 +13,9 @@ void CPP_LineShape::Render() {
         ShapePropertyChanged |= ShapeStart->GetChangedToggle() || ShapeEnd->GetChangedToggle();
     }
 
-    ColorDataChanged |= Color->GetChangedToggle();
+    if (!ColorDataChanged) {
+        ColorDataChanged = Color->GetChangedToggle();
+    }
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2], end_position[2];

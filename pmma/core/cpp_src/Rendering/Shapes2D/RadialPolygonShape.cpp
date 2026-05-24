@@ -12,7 +12,9 @@ void CPP_RadialPolygonShape::Render() {
         ShapePropertyChanged = ShapeCenter->GetChangedToggle();
     }
 
-    ColorDataChanged |= Color->GetChangedToggle();
+    if (!ColorDataChanged) {
+        ColorDataChanged = Color->GetChangedToggle();
+    }
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2];

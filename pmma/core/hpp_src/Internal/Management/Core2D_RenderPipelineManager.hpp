@@ -50,56 +50,59 @@ public:
     }
 
     uint32_t AddColor(CPP_Color *Color, uintptr_t ShapeID, bool ColorDataChanged) {
-        if (UsingCache && PreviousShapeIDs.size() > ColorCount / 4 && PreviousShapeIDs[ColorCount / 4] == ShapeID) {
-            // If the shape already has a color and it's just changed, update it in place
+        size_t currentShapeIndex = ColorCount / 4;
+
+        // 1. Safe Cache Check
+        if (UsingCache && currentShapeIndex < PreviousShapeIDs.size() && PreviousShapeIDs[currentShapeIndex] == ShapeID) {
+
+            // Calculate target index safely assuming 4 values per color
+            size_t targetIndex = (ColorCount >= 4) ? (ColorCount - 4) : 0;
+
             if (ColorDataChanged) {
-                size_t index = ColorCount - 4;
-
-                size_t needBytes = (size_t)ColorCount + 4;
-
-                if (ShapeColors.size() < needBytes) {
-                    ShapeColors.resize(needBytes);
+                // Ensure the vector is large enough to fit all 4 values starting at targetIndex
+                size_t requiredSize = targetIndex + 4;
+                if (ShapeColors.size() < requiredSize) {
+                    ShapeColors.resize(requiredSize);
                 }
 
-                std::cout << Color << " " << index << " " << ShapeColors.size() << std::endl;
-
-                Color->Get_RGBA(&ShapeColors[index]);
+                // Safe to write 4 elements now
+                Color->Get_RGBA(&ShapeColors[targetIndex]);
             }
-            if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
-                size_t currentShapeIndex = ColorCount / 4;
 
+            // Maintain the active shape tracking list
+            if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
                 if (currentShapeIndex < CurrentShapeIDs.size()) {
                     CurrentShapeIDs.resize(currentShapeIndex);
                 }
-
                 CurrentShapeIDs.push_back(ShapeID);
             }
-            ColorCount += 4;
-            return (ColorCount - 4) / 4; // Return existing color index
+
+            return (uint32_t)(targetIndex / 4);
         }
 
+        // 2. Cache Miss / Fresh Insertion Path
         UsingCache = false;
 
         if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
-            size_t currentShapeIndex = ColorCount / 4;
-
             if (currentShapeIndex < CurrentShapeIDs.size()) {
                 CurrentShapeIDs.resize(currentShapeIndex);
             }
-
             CurrentShapeIDs.push_back(ShapeID);
         }
 
+        // Ensure space for 4 new values at the end
         size_t needBytes = (size_t)ColorCount + 4;
-
         if (ShapeColors.size() < needBytes) {
             ShapeColors.resize(needBytes);
         }
 
+        // Safe to write 4 elements at the tail
         Color->Get_RGBA(&ShapeColors[ColorCount]);
 
+        uint32_t assignedIndex = (uint32_t)currentShapeIndex;
         ColorCount += 4;
-        return ColorCount - 4;
+
+        return assignedIndex;
     }
 
     void Reset() {
