@@ -170,6 +170,8 @@ CPP_LoggingManager *LoggingManagerInstance = nullptr;
 PowerSavingManager PowerSavingManagerInstance;
 
 CPP_AnimationManager *AnimationManagerInstance = nullptr;
+
+CPP_FastRandom *RandomGenerator = new CPP_FastRandom();
 } // namespace PMMA_Core
 
 namespace PMMA_Registry {

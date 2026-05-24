@@ -41,8 +41,6 @@ struct CPP_Proportion_Configure_Kwargs {
 
 class EXPORT CPP_Color {
 private:
-    CPP_Logger *Logger;
-
     CPP_PerlinNoise *R_PerlinNoiseGenerator = nullptr;
     CPP_PerlinNoise *G_PerlinNoiseGenerator = nullptr;
     CPP_PerlinNoise *B_PerlinNoiseGenerator = nullptr;
@@ -104,14 +102,9 @@ public:
             G_FractalBrownianMotionGenerator = nullptr;
             B_FractalBrownianMotionGenerator = nullptr;
             A_FractalBrownianMotionGenerator = nullptr;
-        }
 
-        delete RandomColorGenerator;
-        RandomColorGenerator = nullptr;
-
-        if (Logger != nullptr) {
-            delete Logger;
-            Logger = nullptr;
+            delete RandomColorGenerator;
+            RandomColorGenerator = nullptr;
         }
     }
 
@@ -135,6 +128,7 @@ public:
         B_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 2, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
         A_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 3, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
+        RandomColorGenerator = new CPP_FastRandom();
         RandomColorGenerator->SetSeed(new_seed);
 
         seed = new_seed;
@@ -144,57 +138,13 @@ public:
         Configured = true;
     }
 
-    inline uint32_t GetSeed() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return seed;
-    }
+    uint32_t GetSeed();
 
-    inline uint32_t GetOctaves() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return octaves;
-    }
+    uint32_t GetOctaves();
 
-    inline float GetFrequency() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return frequency;
-    }
+    float GetFrequency();
 
-    inline float GetAmplitude() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return amplitude;
-    }
+    float GetAmplitude();
 
     inline void GenerateFromRandom(bool GenerateAlpha = true) {
         uint8_t in_color[4];
@@ -213,185 +163,17 @@ public:
         Set_RGBA(in_color);
     }
 
-    inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha = true) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
+    void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha = true);
 
-        float OutputColor[4];
-        OutputColor[0] = R_PerlinNoiseGenerator->Noise1D(value + r_offset);
-        OutputColor[1] = G_PerlinNoiseGenerator->Noise1D(value + g_offset);
-        OutputColor[2] = B_PerlinNoiseGenerator->Noise1D(value + b_offset);
-        if (GenerateAlpha) {
-            OutputColor[3] = A_PerlinNoiseGenerator->Noise1D(value + a_offset);
-        } else {
-            OutputColor[3] = 1.0f;
-        }
+    void GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha = true);
 
-        uint8_t in_color[4];
-        in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
-        in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
-        in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
-        in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
+    void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three, bool GenerateAlpha = true);
 
-        Set_RGBA(in_color);
-    }
+    void GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha = true);
 
-    inline void GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha = true) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
+    void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha = true);
 
-        float OutputColor[4];
-        OutputColor[0] = R_PerlinNoiseGenerator->Noise2D(value_one + r_offset, value_two + r_offset);
-        OutputColor[1] = G_PerlinNoiseGenerator->Noise2D(value_one + g_offset, value_two + g_offset);
-        OutputColor[2] = B_PerlinNoiseGenerator->Noise2D(value_one + b_offset, value_two + b_offset);
-        if (GenerateAlpha) {
-            OutputColor[3] = A_PerlinNoiseGenerator->Noise2D(value_one + a_offset, value_two + a_offset);
-        } else {
-            OutputColor[3] = 1.0f;
-        }
-
-        uint8_t in_color[4];
-        in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
-        in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
-        in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
-        in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
-
-        Set_RGBA(in_color);
-    }
-
-    inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three, bool GenerateAlpha = true) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        float OutputColor[4];
-        OutputColor[0] = R_PerlinNoiseGenerator->Noise3D(value_one + r_offset, value_two + r_offset, value_three + r_offset);
-        OutputColor[1] = G_PerlinNoiseGenerator->Noise3D(value_one + g_offset, value_two + g_offset, value_three + g_offset);
-        OutputColor[2] = B_PerlinNoiseGenerator->Noise3D(value_one + b_offset, value_two + b_offset, value_three + b_offset);
-        if (GenerateAlpha) {
-            OutputColor[3] = A_PerlinNoiseGenerator->Noise3D(value_one + a_offset, value_two + a_offset, value_three + a_offset);
-        } else {
-            OutputColor[3] = 1.0f;
-        }
-
-        uint8_t in_color[4];
-        in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
-        in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
-        in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
-        in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
-
-        Set_RGBA(in_color);
-    }
-
-    inline void GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha = true) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        float OutputColor[4];
-        OutputColor[0] = R_FractalBrownianMotionGenerator->Noise1D(value + r_offset);
-        OutputColor[1] = G_FractalBrownianMotionGenerator->Noise1D(value + g_offset);
-        OutputColor[2] = B_FractalBrownianMotionGenerator->Noise1D(value + b_offset);
-        if (GenerateAlpha) {
-            OutputColor[3] = A_FractalBrownianMotionGenerator->Noise1D(value + a_offset);
-        } else {
-            OutputColor[3] = 1.0f;
-        }
-
-        uint8_t in_color[4];
-        in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
-        in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
-        in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
-        in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
-
-        Set_RGBA(in_color);
-    }
-
-    inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha = true) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        float OutputColor[4];
-        OutputColor[0] = R_FractalBrownianMotionGenerator->Noise2D(value_one + r_offset, value_two + r_offset);
-        OutputColor[1] = G_FractalBrownianMotionGenerator->Noise2D(value_one + g_offset, value_two + g_offset);
-        OutputColor[2] = B_FractalBrownianMotionGenerator->Noise2D(value_one + b_offset, value_two + b_offset);
-        if (GenerateAlpha) {
-            OutputColor[3] = A_FractalBrownianMotionGenerator->Noise2D(value_one + a_offset, value_two + a_offset);
-        } else {
-            OutputColor[3] = 1.0f;
-        }
-
-        uint8_t in_color[4];
-        in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
-        in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
-        in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
-        in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
-
-        Set_RGBA(in_color);
-    }
-
-    inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three, bool GenerateAlpha = true) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        float OutputColor[4];
-        OutputColor[0] = R_FractalBrownianMotionGenerator->Noise3D(value_one + r_offset, value_two + r_offset, value_three + r_offset);
-        OutputColor[1] = G_FractalBrownianMotionGenerator->Noise3D(value_one + g_offset, value_two + g_offset, value_three + g_offset);
-        OutputColor[2] = B_FractalBrownianMotionGenerator->Noise3D(value_one + b_offset, value_two + b_offset, value_three + b_offset);
-        if (GenerateAlpha) {
-            OutputColor[3] = A_FractalBrownianMotionGenerator->Noise3D(value_one + a_offset, value_two + a_offset, value_three + a_offset);
-        } else {
-            OutputColor[3] = 1.0f;
-        }
-
-        uint8_t in_color[4];
-        in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
-        in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
-        in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
-        in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
-
-        Set_RGBA(in_color);
-    }
+    void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three, bool GenerateAlpha = true);
 
     inline bool GetSet() {
         return IsSet;
@@ -417,85 +199,15 @@ public:
     void Set_HEX(std::string input_color);
     void Set_HEXA(std::string input_color);
 
-    inline void Get_RGBA(uint8_t *out_color) {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                30,
-                "You have not set a color - please set a color \
-before attempting to get it.");
+    void Get_RGBA(uint8_t *out_color);
+    void Get_RGB(uint8_t *out_color);
 
-            throw std::runtime_error("Color not set!");
-        }
-
-        out_color[0] = InternalColor[0];
-        out_color[1] = InternalColor[1];
-        out_color[2] = InternalColor[2];
-        out_color[3] = InternalColor[3];
-    }
-
-    inline void Get_RGB(uint8_t *out_color) {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogWarn(
-                30,
-                "You have not set a color - please set a color \
-before attempting to get it.");
-
-            throw std::runtime_error("Color not set!");
-        }
-
-        out_color[0] = InternalColor[0];
-        out_color[1] = InternalColor[1];
-        out_color[2] = InternalColor[2];
-    }
-
-    inline std::string Get_HEXA() {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                30,
-                "You have not set a color - please set a color \
-before attempting to get it.");
-
-            throw std::runtime_error("Color not set!");
-        }
-
-        return std::format(
-            "#{0:02X}{1:02X}{2:02X}{3:02X}",
-            InternalColor[0], InternalColor[1], InternalColor[2],
-            InternalColor[3]);
-    }
-
-    inline std::string Get_HEX() {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogWarn(
-                30,
-                "You have not set a color - please set a color \
-before attempting to get it.");
-
-            throw std::runtime_error("Color not set!");
-        }
-
-        return std::format(
-            "#{0:02X}{1:02X}{2:02X}", InternalColor[0],
-            InternalColor[1], InternalColor[2]);
-    }
+    std::string Get_HEXA();
+    std::string Get_HEX();
 };
 
 class EXPORT CPP_DisplayCoordinate {
 private:
-    CPP_Logger *Logger = nullptr;
-
     CPP_PerlinNoise *X_PerlinNoiseGenerator = nullptr;
     CPP_PerlinNoise *Y_PerlinNoiseGenerator = nullptr;
 
@@ -538,14 +250,9 @@ public:
 
             X_FractalBrownianMotionGenerator = nullptr;
             Y_FractalBrownianMotionGenerator = nullptr;
-        }
 
-        delete RandomCoordGenerator;
-        RandomCoordGenerator = nullptr;
-
-        if (Logger != nullptr) {
-            delete Logger;
-            Logger = nullptr;
+            delete RandomCoordGenerator;
+            RandomCoordGenerator = nullptr;
         }
     }
 
@@ -561,57 +268,10 @@ public:
         return IsSet;
     }
 
-    inline uint32_t GetSeed() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return seed;
-    }
-
-    inline uint32_t GetOctaves() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return octaves;
-    }
-
-    inline float GetFrequency() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return frequency;
-    }
-
-    inline float GetAmplitude() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return amplitude;
-    }
+    uint32_t GetSeed();
+    uint32_t GetOctaves();
+    float GetFrequency();
+    float GetAmplitude();
 
     void SetCentered();
 
@@ -635,21 +295,7 @@ public:
         IsSet = true;
     }
 
-    inline void Get(uint16_t *out) {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogWarn(
-                30,
-                "You have not set a display coordinate - please set a \
-display coordinate before attempting to get it.");
-            throw std::runtime_error("Display coordinate not set!");
-        }
-
-        out[0] = DisplayCoordinate[0];
-        out[1] = DisplayCoordinate[1];
-    }
+    void Get(uint16_t *out);
 };
 
 class EXPORT CPP_Angle {

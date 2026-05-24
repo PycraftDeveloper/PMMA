@@ -227,6 +227,8 @@ extern CPP_LoggingManager *LoggingManagerInstance;
 extern PowerSavingManager PowerSavingManagerInstance;
 
 extern CPP_AnimationManager *AnimationManagerInstance;
+
+extern CPP_FastRandom *RandomGenerator;
 } // namespace PMMA_Core
 
 namespace PMMA_Registry {

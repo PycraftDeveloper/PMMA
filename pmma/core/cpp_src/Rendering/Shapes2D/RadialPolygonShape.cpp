@@ -1,14 +1,14 @@
 #include "PMMA_Core.hpp"
 
 CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
-}
+    ShapeCenter = new CPP_DisplayCoordinate();
+    Color = new CPP_Color();
 
-unsigned int CPP_RadialPolygonShape::GetPointCount() {
-    return 0;
+    ID = PMMA_Registry::ClassObject_ID_System++;
 }
 
 void CPP_RadialPolygonShape::Render() {
-}
-
-void CPP_RadialPolygonShape::InternalRender() {
+    PMMA_Core::RenderPipelineCore->Add(this);
+    ColorDataChanged = false;
+    ShapePropertyChanged = false;
 }

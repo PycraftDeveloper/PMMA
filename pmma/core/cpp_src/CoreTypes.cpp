@@ -3,7 +3,7 @@
 #include "PMMA_Core.hpp"
 
 CPP_Color::CPP_Color() {
-    RandomColorGenerator = new CPP_FastRandom();
+    RandomColorGenerator = PMMA_Core::RandomGenerator;
 }
 
 void CPP_Color::Set_ColorName(std::string color_name) {
@@ -18,6 +18,207 @@ void CPP_Color::Set_ColorName(std::string color_name) {
 
     auto &rgb = Color.value();
     uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
+    Set_RGBA(in_color);
+}
+
+uint32_t CPP_Color::GetSeed() {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return seed;
+}
+
+uint32_t CPP_Color::GetOctaves() {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return octaves;
+}
+
+float CPP_Color::GetFrequency() {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return frequency;
+}
+
+float CPP_Color::GetAmplitude() {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return amplitude;
+}
+
+void CPP_Color::GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha) {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    float OutputColor[4];
+    OutputColor[0] = R_PerlinNoiseGenerator->Noise1D(value + r_offset);
+    OutputColor[1] = G_PerlinNoiseGenerator->Noise1D(value + g_offset);
+    OutputColor[2] = B_PerlinNoiseGenerator->Noise1D(value + b_offset);
+    if (GenerateAlpha) {
+        OutputColor[3] = A_PerlinNoiseGenerator->Noise1D(value + a_offset);
+    } else {
+        OutputColor[3] = 1.0f;
+    }
+
+    uint8_t in_color[4];
+    in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+    in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+    in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+    in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
+
+    Set_RGBA(in_color);
+}
+void CPP_Color::GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha) {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    float OutputColor[4];
+    OutputColor[0] = R_PerlinNoiseGenerator->Noise2D(value_one + r_offset, value_two + r_offset);
+    OutputColor[1] = G_PerlinNoiseGenerator->Noise2D(value_one + g_offset, value_two + g_offset);
+    OutputColor[2] = B_PerlinNoiseGenerator->Noise2D(value_one + b_offset, value_two + b_offset);
+    if (GenerateAlpha) {
+        OutputColor[3] = A_PerlinNoiseGenerator->Noise2D(value_one + a_offset, value_two + a_offset);
+    } else {
+        OutputColor[3] = 1.0f;
+    }
+
+    uint8_t in_color[4];
+    in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+    in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+    in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+    in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
+
+    Set_RGBA(in_color);
+}
+
+void CPP_Color::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three, bool GenerateAlpha) {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    float OutputColor[4];
+    OutputColor[0] = R_PerlinNoiseGenerator->Noise3D(value_one + r_offset, value_two + r_offset, value_three + r_offset);
+    OutputColor[1] = G_PerlinNoiseGenerator->Noise3D(value_one + g_offset, value_two + g_offset, value_three + g_offset);
+    OutputColor[2] = B_PerlinNoiseGenerator->Noise3D(value_one + b_offset, value_two + b_offset, value_three + b_offset);
+    if (GenerateAlpha) {
+        OutputColor[3] = A_PerlinNoiseGenerator->Noise3D(value_one + a_offset, value_two + a_offset, value_three + a_offset);
+    } else {
+        OutputColor[3] = 1.0f;
+    }
+
+    uint8_t in_color[4];
+    in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+    in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+    in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+    in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
+
+    Set_RGBA(in_color);
+}
+
+void CPP_Color::GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha) {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    float OutputColor[4];
+    OutputColor[0] = R_FractalBrownianMotionGenerator->Noise1D(value + r_offset);
+    OutputColor[1] = G_FractalBrownianMotionGenerator->Noise1D(value + g_offset);
+    OutputColor[2] = B_FractalBrownianMotionGenerator->Noise1D(value + b_offset);
+    if (GenerateAlpha) {
+        OutputColor[3] = A_FractalBrownianMotionGenerator->Noise1D(value + a_offset);
+    } else {
+        OutputColor[3] = 1.0f;
+    }
+
+    uint8_t in_color[4];
+    in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+    in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+    in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+    in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
+
+    Set_RGBA(in_color);
+}
+
+void CPP_Color::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha) {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    float OutputColor[4];
+    OutputColor[0] = R_FractalBrownianMotionGenerator->Noise2D(value_one + r_offset, value_two + r_offset);
+    OutputColor[1] = G_FractalBrownianMotionGenerator->Noise2D(value_one + g_offset, value_two + g_offset);
+    OutputColor[2] = B_FractalBrownianMotionGenerator->Noise2D(value_one + b_offset, value_two + b_offset);
+    if (GenerateAlpha) {
+        OutputColor[3] = A_FractalBrownianMotionGenerator->Noise2D(value_one + a_offset, value_two + a_offset);
+    } else {
+        OutputColor[3] = 1.0f;
+    }
+
+    uint8_t in_color[4];
+    in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+    in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+    in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+    in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
+
+    Set_RGBA(in_color);
+}
+
+void CPP_Color::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three, bool GenerateAlpha) {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    float OutputColor[4];
+    OutputColor[0] = R_FractalBrownianMotionGenerator->Noise3D(value_one + r_offset, value_two + r_offset, value_three + r_offset);
+    OutputColor[1] = G_FractalBrownianMotionGenerator->Noise3D(value_one + g_offset, value_two + g_offset, value_three + g_offset);
+    OutputColor[2] = B_FractalBrownianMotionGenerator->Noise3D(value_one + b_offset, value_two + b_offset, value_three + b_offset);
+    if (GenerateAlpha) {
+        OutputColor[3] = A_FractalBrownianMotionGenerator->Noise3D(value_one + a_offset, value_two + a_offset, value_three + a_offset);
+    } else {
+        OutputColor[3] = 1.0f;
+    }
+
+    uint8_t in_color[4];
+    in_color[0] = (uint8_t)((1 + OutputColor[0]) * half_color_max);
+    in_color[1] = (uint8_t)((1 + OutputColor[1]) * half_color_max);
+    in_color[2] = (uint8_t)((1 + OutputColor[2]) * half_color_max);
+    in_color[3] = (uint8_t)((1 + OutputColor[3]) * half_color_max);
+
     Set_RGBA(in_color);
 }
 
@@ -45,6 +246,68 @@ void CPP_Color::Set_RGBA(uint8_t *in_color) {
             PMMA_Core::DisplayInstance->TriggerEventRefresh();
         }
     }
+}
+
+void CPP_Color::Get_RGBA(uint8_t *out_color) {
+    if (!IsSet) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            30,
+            "You have not set a color - please set a color \
+before attempting to get it.");
+
+        throw std::runtime_error("Color not set!");
+    }
+
+    out_color[0] = InternalColor[0];
+    out_color[1] = InternalColor[1];
+    out_color[2] = InternalColor[2];
+    out_color[3] = InternalColor[3];
+}
+
+void CPP_Color::Get_RGB(uint8_t *out_color) {
+    if (!IsSet) {
+        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a color - please set a color \
+before attempting to get it.");
+
+        throw std::runtime_error("Color not set!");
+    }
+
+    out_color[0] = InternalColor[0];
+    out_color[1] = InternalColor[1];
+    out_color[2] = InternalColor[2];
+}
+
+std::string CPP_Color::Get_HEXA() {
+    if (!IsSet) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            30,
+            "You have not set a color - please set a color \
+before attempting to get it.");
+
+        throw std::runtime_error("Color not set!");
+    }
+
+    return std::format(
+        "#{0:02X}{1:02X}{2:02X}{3:02X}",
+        InternalColor[0], InternalColor[1], InternalColor[2],
+        InternalColor[3]);
+}
+
+std::string CPP_Color::Get_HEX() {
+    if (!IsSet) {
+        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a color - please set a color \
+before attempting to get it.");
+
+        throw std::runtime_error("Color not set!");
+    }
+
+    return std::format(
+        "#{0:02X}{1:02X}{2:02X}", InternalColor[0],
+        InternalColor[1], InternalColor[2]);
 }
 
 uint8_t hexByte(char a, char b) {
@@ -106,10 +369,7 @@ void CPP_Color::Set_HEXA(std::string input_color) {
 }
 
 void CPP_Color::Set_RGB(uint8_t *in_color) {
-    if (Logger == nullptr) {
-        Logger = new CPP_Logger();
-    }
-    Logger->InternalLogDebug(
+    PMMA_Core::LoggingManagerInstance->InternalLogDebug(
         9,
         "The alpha channel is automatically set to opaque.");
 
@@ -152,10 +412,7 @@ void CPP_Color::Set_HEX(std::string input_color) {
         hexByte(input_color[2], input_color[3]),
         hexByte(input_color[4], input_color[5])};
 
-    if (Logger == nullptr) {
-        Logger = new CPP_Logger();
-    }
-    Logger->InternalLogDebug(
+    PMMA_Core::LoggingManagerInstance->InternalLogDebug(
         9,
         "The alpha channel is automatically set to opaque.");
 
@@ -194,10 +451,62 @@ You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
-    RandomCoordGenerator = new CPP_FastRandom();
-    Logger = new CPP_Logger();
+    RandomCoordGenerator = PMMA_Core::RandomGenerator;
 
     PMMA_Core::DisplayInstance->GetSize(DisplaySize);
+}
+
+void CPP_DisplayCoordinate::Get(uint16_t *out) {
+    if (!IsSet) {
+        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a display coordinate - please set a \
+display coordinate before attempting to get it.");
+        throw std::runtime_error("Display coordinate not set!");
+    }
+
+    out[0] = DisplayCoordinate[0];
+    out[1] = DisplayCoordinate[1];
+}
+
+uint32_t CPP_DisplayCoordinate::GetSeed() {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return seed;
+}
+
+uint32_t CPP_DisplayCoordinate::GetOctaves() {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return octaves;
+}
+
+float CPP_DisplayCoordinate::GetFrequency() {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return frequency;
+}
+
+float CPP_DisplayCoordinate::GetAmplitude() {
+    if (!Configured) {
+        PMMA_Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return amplitude;
 }
 
 void CPP_DisplayCoordinate::Configure(CPP_DisplayCoordinate_Configure_Kwargs kwargs) {
@@ -216,6 +525,7 @@ void CPP_DisplayCoordinate::Configure(CPP_DisplayCoordinate_Configure_Kwargs kwa
     X_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
     Y_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
+    RandomCoordGenerator = new CPP_FastRandom();
     RandomCoordGenerator->SetSeed(new_seed);
 
     seed = new_seed;

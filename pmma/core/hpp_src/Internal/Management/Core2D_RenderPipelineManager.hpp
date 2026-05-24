@@ -8,6 +8,7 @@
 class CPP_Core2D_RenderPipelineInstance;
 
 class CPP_LineShape;
+class CPP_RadialPolygonShape;
 
 struct Vertex {
     float x, y, u, v;
@@ -18,7 +19,7 @@ struct InstanceData {
     float point_count_gradient_type, rotation_shape_property;
     float color_index, shape_type_width;
     float texture_position, texture_size;
-    float line_start, line_end;
+    float line_start = 0, line_end = 0;
     float pack3, pack4 = 0;
 };
 
@@ -110,16 +111,13 @@ public:
 class CPP_Core2D_RenderPipelineManager {
 private:
     std::vector<CPP_Core2D_RenderPipelineInstance *> RenderPipelineInstances;
+    std::vector<CPP_Core2D_RenderPipelineInstance *> CachedRenderPipelineInstances;
 
 public:
-    ~CPP_Core2D_RenderPipelineManager() {
-        for (CPP_Core2D_RenderPipelineInstance *instance : RenderPipelineInstances) {
-            delete instance;
-        }
-        RenderPipelineInstances.clear();
-    }
+    ~CPP_Core2D_RenderPipelineManager();
 
     void Add(CPP_LineShape *lineShape);
+    void Add(CPP_RadialPolygonShape *radialPolygonShape);
 
     void Reset();
 

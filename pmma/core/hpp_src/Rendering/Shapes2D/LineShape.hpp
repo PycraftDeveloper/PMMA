@@ -23,6 +23,7 @@ public:
     unsigned int Width = 1;
 
     bool ColorDataChanged = true;
+    bool ShapePropertyChanged = true;
 
     CPP_LineShape();
 
@@ -45,6 +46,9 @@ public:
     void Render();
 
     inline void SetWidth(unsigned int in_width) {
+        if (in_width != Width) {
+            ShapePropertyChanged = true;
+        }
         Width = in_width;
     };
 
@@ -53,6 +57,9 @@ public:
     }
 
     inline void SetRotation(float in_rotation) {
+        if (in_rotation != Rotation) {
+            ShapePropertyChanged = true;
+        }
         Rotation = in_rotation;
     }
 

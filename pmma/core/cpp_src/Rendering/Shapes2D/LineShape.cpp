@@ -10,4 +10,6 @@ CPP_LineShape::CPP_LineShape() {
 
 void CPP_LineShape::Render() {
     PMMA_Core::RenderPipelineCore->Add(this);
+    ColorDataChanged = false;
+    ShapePropertyChanged = false;
 }
