@@ -25,7 +25,7 @@ private:
     bgfx::UniformHandle OrthDisplayProj;
     std::vector<InstanceData> instanceDataArray;
 
-    bgfx::DynamicVertexBufferHandle instanceVbh;
+    bgfx::DynamicVertexBufferHandle instanceVbh = BGFX_INVALID_HANDLE;
     bgfx::VertexLayout instanceLayout;
 
     Vertex VertexData[4];
@@ -36,9 +36,10 @@ private:
     bgfx::UniformHandle s_colorTex;
 
     CPP_Core2D_ColorTexture ColorTexture;
+    uint32_t PreviousInstanceCount = 0;
 
 public:
-    uint32_t instanceCount = 5; // max: 16'777'216
+    uint32_t instanceCount = 0; // max: 16'777'216
 
     CPP_Core2D_RenderPipelineInstance();
 
@@ -69,6 +70,7 @@ public:
     inline void Reset() {
         ColorTexture.Reset();
         instanceDataArray.clear();
+        PreviousInstanceCount = instanceCount;
         instanceCount = 0;
     }
 
@@ -131,6 +133,8 @@ public:
         // Assuming PackValues accepts floats or converts normalized values appropriately
         instance.line_start = PackValues(rel_start_x, rel_start_y);
         instance.line_end = PackValues(rel_end_x, rel_end_y);
+
+        instanceDataArray.push_back(instance);
     }
 
     void Render();
