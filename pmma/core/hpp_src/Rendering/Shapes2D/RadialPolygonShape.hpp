@@ -12,9 +12,8 @@
 
 class EXPORT CPP_RadialPolygonShape {
 public:
-    CPP_Logger *Logger;
-    CPP_DisplayCoordinate *ShapeCenter;
-    CPP_Color *Color;
+    CPP_DisplayCoordinate ShapeCenter;
+    CPP_Color Color;
 
     InstanceData ShapeInstanceData;
 
@@ -23,9 +22,9 @@ public:
     float Rotation = 0;
     float ColorIndex = 0;
 
-    unsigned int Radius;
-    unsigned int Width = 0;
-    unsigned int PointCount = 0;
+    uint16_t Radius;
+    uint16_t Width = 0;
+    uint16_t PointCount = 0;
 
     bool RadiusSet = false;
     bool WidthSet = true;
@@ -36,22 +35,9 @@ public:
 
     CPP_RadialPolygonShape();
 
-    ~CPP_RadialPolygonShape() {
-        if (Logger != nullptr) {
-            delete Logger;
-            Logger = nullptr;
-        }
-
-        delete ShapeCenter;
-        ShapeCenter = nullptr;
-
-        delete Color;
-        Color = nullptr;
-    }
-
     void Render();
 
-    inline void SetRadius(unsigned int in_radius) {
+    inline void SetRadius(uint16_t in_radius) {
         if (in_radius != Radius) {
             ShapePropertyChanged = true;
         }
@@ -59,21 +45,9 @@ public:
         RadiusSet = true;
     };
 
-    inline unsigned int GetRadius() {
-        if (!RadiusSet) {
-            if (Logger == nullptr) {
-                Logger = new CPP_Logger();
-            }
-            Logger->InternalLogWarn(
-                30,
-                "You have not specified a radius for the arc \
-please use `RadialPolygon.set_radius` to set it before attempting to get it.");
-            throw std::runtime_error("Radius not set");
-        }
-        return Radius;
-    };
+    inline uint16_t GetRadius();
 
-    inline void SetPointCount(unsigned int in_pointCount) {
+    inline void SetPointCount(uint16_t in_pointCount) {
         if (in_pointCount != PointCount) {
             ShapePropertyChanged = true;
         }
@@ -82,7 +56,11 @@ please use `RadialPolygon.set_radius` to set it before attempting to get it.");
         PointCountSet = true;
     };
 
-    inline void SetWidth(unsigned int in_width) {
+    uint16_t GetPointCount() {
+        return PointCount;
+    }
+
+    inline void SetWidth(uint16_t in_width) {
         if (in_width != Width) {
             ShapePropertyChanged = true;
         }
@@ -91,7 +69,7 @@ please use `RadialPolygon.set_radius` to set it before attempting to get it.");
         WidthSet = true;
     };
 
-    inline unsigned int GetWidth() const {
+    inline uint16_t GetWidth() const {
         return Width;
     }
 

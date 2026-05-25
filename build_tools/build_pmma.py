@@ -162,7 +162,10 @@ try:
     shutil.rmtree(shader_cache_dir)
     print("Cleared stale shader cache.")
 except Exception as error:
-    print(f"Unable to reset shader cache due to error: '{error}'")
+    if (type(error) != FileNotFoundError):
+        print(f"Unable to reset shader cache due to error: '{error}'")
+    else:
+        print("No stale shader cache found. Continuing...")
 
 if build_for_python:
     total_time = get_execution_time(run_setup)[0]

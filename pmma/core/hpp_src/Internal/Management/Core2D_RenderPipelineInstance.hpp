@@ -81,10 +81,10 @@ public:
         ShapePropertyChanged = false;
     }
 
-    void Add(CPP_LineShape *lineShape) {
+    inline void Add(CPP_LineShape *lineShape) {
         instanceCount++;
 
-        lineShape->ShapeInstanceData.color_index = ColorTexture.AddColor(lineShape->Color, lineShape->ID, lineShape->ColorDataChanged);
+        lineShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&lineShape->Color, lineShape->ID, lineShape->ColorDataChanged);
 
         ColorChanged |= lineShape->ColorDataChanged;
         ShapePropertyChanged |= lineShape->ShapePropertyChanged;
@@ -92,10 +92,10 @@ public:
         instanceDataArray[BufferID].push_back(lineShape->ShapeInstanceData);
     }
 
-    void Add(CPP_RadialPolygonShape *radialPolygonShape) {
+    inline void Add(CPP_RadialPolygonShape *radialPolygonShape) {
         instanceCount++;
 
-        radialPolygonShape->ShapeInstanceData.color_index = ColorTexture.AddColor(radialPolygonShape->Color, radialPolygonShape->ID, radialPolygonShape->ColorDataChanged);
+        radialPolygonShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&radialPolygonShape->Color, radialPolygonShape->ID, radialPolygonShape->ColorDataChanged);
 
         ColorChanged |= radialPolygonShape->ColorDataChanged;
         ShapePropertyChanged |= radialPolygonShape->ShapePropertyChanged;

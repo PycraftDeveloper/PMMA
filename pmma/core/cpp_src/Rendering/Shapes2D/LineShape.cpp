@@ -1,26 +1,22 @@
 #include "PMMA_Core.hpp"
 
 CPP_LineShape::CPP_LineShape() {
-    ShapeStart = new CPP_DisplayCoordinate();
-    ShapeEnd = new CPP_DisplayCoordinate();
-    Color = new CPP_Color();
-
     ID = reinterpret_cast<uintptr_t>(this);
 }
 
 void CPP_LineShape::Render() {
     if (!ShapePropertyChanged) {
-        ShapePropertyChanged |= ShapeStart->GetChangedToggle() || ShapeEnd->GetChangedToggle();
+        ShapePropertyChanged |= ShapeStart.GetChangedToggle() || ShapeEnd.GetChangedToggle();
     }
 
     if (!ColorDataChanged) {
-        ColorDataChanged = Color->GetChangedToggle();
+        ColorDataChanged = Color.GetInternalChangedToggle();
     }
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2], end_position[2];
-        ShapeStart->Get(start_position);
-        ShapeEnd->Get(end_position);
+        ShapeStart.Get(start_position);
+        ShapeEnd.Get(end_position);
 
         float width = abs((float)end_position[0] - start_position[0]);
         float height = abs((float)end_position[1] - start_position[1]);
@@ -40,10 +36,10 @@ void CPP_LineShape::Render() {
 
         ShapeInstanceData.position = rpc->PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
         ShapeInstanceData.size = rpc->PackValues((uint16_t)width, (uint16_t)height);
-        ShapeInstanceData.point_count_gradient_type = rpc->PackValues(0, 0);
-        ShapeInstanceData.rotation_shape_property = rpc->PackValues(GetRotation() * 182, 0);
+        ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
+        ShapeInstanceData.rotation_shape_property = rpc->PackValues(Rotation * 182, 0);
 
-        ShapeInstanceData.shape_type_width = rpc->PackValues(3, GetWidth());
+        ShapeInstanceData.shape_type_width = rpc->PackValues(3, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
 

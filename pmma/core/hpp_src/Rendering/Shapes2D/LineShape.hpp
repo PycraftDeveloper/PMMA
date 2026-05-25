@@ -12,49 +12,47 @@
 
 class EXPORT CPP_LineShape {
 public:
-    CPP_Logger *Logger;
-    CPP_DisplayCoordinate *ShapeStart;
-    CPP_DisplayCoordinate *ShapeEnd;
-    CPP_Color *Color;
+    CPP_DisplayCoordinate ShapeStart;
+    CPP_DisplayCoordinate ShapeEnd;
+    CPP_Color Color;
 
     InstanceData ShapeInstanceData;
 
     float Rotation = 0;
+    uint16_t PointCount = 0;
 
     uintptr_t ID;
-    unsigned int Width = 1;
+    uint16_t Width = 1;
 
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
+    bool PointCountSet = true;
 
     CPP_LineShape();
 
-    ~CPP_LineShape() {
-        if (Logger != nullptr) {
-            delete Logger;
-            Logger = nullptr;
-        }
-
-        delete ShapeStart;
-        ShapeStart = nullptr;
-
-        delete ShapeEnd;
-        ShapeEnd = nullptr;
-
-        delete Color;
-        Color = nullptr;
-    }
-
     void Render();
 
-    inline void SetWidth(unsigned int in_width) {
+    inline void SetPointCount(uint16_t in_pointCount) {
+        if (in_pointCount != PointCount) {
+            ShapePropertyChanged = true;
+        }
+
+        PointCount = in_pointCount;
+        PointCountSet = true;
+    };
+
+    uint16_t GetPointCount() {
+        return PointCount;
+    }
+
+    inline void SetWidth(uint16_t in_width) {
         if (in_width != Width) {
             ShapePropertyChanged = true;
         }
         Width = in_width;
     };
 
-    inline unsigned int GetWidth() const {
+    inline uint16_t GetWidth() const {
         return Width;
     }
 

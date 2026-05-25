@@ -51,45 +51,63 @@ void main()
     {
         float r = length(p);
 
-        float pixel = fwidth(r);
-        float halfWidth = float(Width) * pixel * 0.5;
+        // Get standard screen-space pixel width for anti-aliasing
+        float pixel = max(fwidth(p.x), fwidth(p.y));
 
-        float radius = 0.5 - halfWidth;
+        // Outer radius stays strictly bounded at the UV edge
+        float outerRadius = 0.5 - pixel;
 
         if (PointCount < 3u)
         {
-            float dist = r - radius;
+            // --- CIRCLE RENDERING ---
+            float outerDist = r - outerRadius;
 
-            alpha = 1.0 - smoothstep(
-                        halfWidth - pixel,
-                        halfWidth + pixel,
-                        abs(dist)
-                    );
+            if (Width == 0u)
+            {
+                // Solid Filled Circle
+                alpha = 1.0 - smoothstep(0.0, pixel, outerDist);
+            }
+            else
+            {
+                // Uniform Ring (Width extends strictly inward)
+                float borderWidth = float(Width) * pixel;
+                float innerRadius = max(outerRadius - borderWidth, 0.0);
+                float innerDist = innerRadius - r;
+
+                float ringDist = max(outerDist, innerDist);
+                alpha = 1.0 - smoothstep(0.0, pixel, ringDist);
+            }
         }
         else
         {
+            // --- POLYGON RENDERING ---
             float N = float(PointCount);
             float sector = 6.28318530718 / N;
-
             float angle = atan2(p.y, p.x);
 
-            // wrap into sector
+            // Wrap geometry into a single symmetric sector
             float a = mod(angle + sector * 0.5, sector) - sector * 0.5;
-
-            // direction vector in sector space
-            vec2 dir = vec2(cos(a), sin(a));
-
-            // key trick: project onto edge normal axis
             float edge = cos(sector * 0.5);
 
-            // stable polygon SDF approximation
-            float dist = r * cos(a) / edge - radius;
+            // True planar distance to the polygon edge boundary
+            float outerDist = (r * cos(a) / edge) - outerRadius;
 
-            alpha = 1.0 - smoothstep(
-                        halfWidth - pixel,
-                        halfWidth + pixel,
-                        abs(dist)
-                    );
+            if (Width == 0u)
+            {
+                // Solid Filled Polygon
+                alpha = 1.0 - smoothstep(0.0, pixel, outerDist);
+            }
+            else
+            {
+                // Uniform Polygon Border (Extends strictly inward)
+                float borderWidth = float(Width) * pixel;
+
+                // Project border thickness cleanly along the normal axis
+                float innerDist = (outerRadius - borderWidth) - (r * cos(a) / edge);
+
+                float polyBorderDist = max(outerDist, innerDist);
+                alpha = 1.0 - smoothstep(0.0, pixel, polyBorderDist);
+            }
         }
     }
 
