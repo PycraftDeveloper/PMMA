@@ -42,7 +42,11 @@ void main()
     uint Width = uint(v_data1.x);
     vec2 TextureStart = vec2(v_data1.yz);
     vec2 TextureEnd = vec2(v_data1.w, v_data2.x);
-    uint ShapeProperty = uint(v_data2.y); // corner radius for ShapeType 1
+    uint ShapePropertyOne = uint(v_data2.y);
+    uint ShapePropertyTwo = uint(v_data2.z);
+    uint ShapePropertyThree = uint(v_data2.w);
+    uint ShapePropertyFour = uint(v_data3.x);
+    uint ShapePropertyFive = uint(v_data3.y);
 
     // ============================================================
     // MODE 0 : SDF CIRCLE / POLYGON OUTLINE
@@ -121,7 +125,7 @@ void main()
         float borderWidth = float(Width) * pixel;
 
         // Corner radius from instance data
-        float radius = float(ShapeProperty) * pixel;
+        float radius = float(ShapePropertyOne) * pixel;
 
         // Clamp radius so it never exceeds box size
         radius = clamp(radius, 0.0, 0.5);
@@ -185,9 +189,9 @@ void main()
         // Arc angles
         // ------------------------------------------------------------
 
-        float StartAngle = 0.0;
+        float StartAngle = (ShapePropertyOne / 182.0) * (3.14159265359 / 180.0); // Start angle in degrees from instance data
 
-        float EndAngle = (ShapeProperty / 182.0) * (3.14159265359 / 180.0);
+        float EndAngle = (ShapePropertyTwo / 182.0) * (3.14159265359 / 180.0);
 
         float angle = atan2(p.y, p.x);
 
@@ -242,8 +246,8 @@ void main()
         vec2 uv = v_uv;
 
         // endpoints in UV space
-        vec2 a = v_data2.zw;
-        vec2 b = v_data3.xy;
+        vec2 a = vec2(ShapePropertyOne, ShapePropertyTwo);
+        vec2 b = vec2(ShapePropertyThree, ShapePropertyFour);
 
         float uvPerPixel =
             max(fwidth(uv.x), fwidth(uv.y));

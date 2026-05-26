@@ -35,7 +35,7 @@ void CPP_RadialPolygonShape::Render() {
         ShapeInstanceData.position = rpc->PackValues(start_position[0], start_position[1]);
         ShapeInstanceData.size = rpc->PackValues(radius, radius);
         ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
-        ShapeInstanceData.rotation_shape_property = rpc->PackValues(Rotation * 182, 0);
+        ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, 0);
         ShapeInstanceData.shape_type_width = rpc->PackValues(0, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);

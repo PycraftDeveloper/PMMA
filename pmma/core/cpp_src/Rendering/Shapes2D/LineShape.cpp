@@ -37,14 +37,14 @@ void CPP_LineShape::Render() {
         ShapeInstanceData.position = rpc->PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
         ShapeInstanceData.size = rpc->PackValues((uint16_t)width, (uint16_t)height);
         ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
-        ShapeInstanceData.rotation_shape_property = rpc->PackValues(Rotation * 182, 0);
+        ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, rel_start_x);
 
         ShapeInstanceData.shape_type_width = rpc->PackValues(3, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
 
-        ShapeInstanceData.line_start = rpc->PackValues(rel_start_x, rel_start_y);
-        ShapeInstanceData.line_end = rpc->PackValues(rel_end_x, rel_end_y);
+        ShapeInstanceData.shape_property_two = rpc->PackValues(rel_start_y, rel_end_x);
+        ShapeInstanceData.shape_property_three = rpc->PackValues(rel_end_y, 0);
     }
 
     PMMA_Core::RenderPipelineCore->Add(this);

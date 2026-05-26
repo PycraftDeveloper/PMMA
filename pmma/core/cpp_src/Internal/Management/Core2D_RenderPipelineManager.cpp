@@ -53,6 +53,31 @@ void CPP_Core2D_RenderPipelineManager::Add(CPP_RadialPolygonShape *radialPolygon
     lastInstance->Add(radialPolygonShape);
 }
 
+void CPP_Core2D_RenderPipelineManager::Add(CPP_ArcShape *arcShape) {
+    if (RenderPipelineInstances.empty()) {
+        if (CachedRenderPipelineInstances.empty()) {
+            RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
+        } else {
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
+            CachedRenderPipelineInstances.pop_back();
+        }
+    }
+
+    CPP_Core2D_RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
+
+    if (lastInstance->instanceCount >= 16777216) {
+        if (CachedRenderPipelineInstances.empty()) {
+            RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
+        } else {
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
+            CachedRenderPipelineInstances.pop_back();
+        }
+        lastInstance = RenderPipelineInstances.back();
+    }
+
+    lastInstance->Add(arcShape);
+}
+
 void CPP_Core2D_RenderPipelineManager::Reset() {
     for (CPP_Core2D_RenderPipelineInstance *instance : RenderPipelineInstances) {
         instance->Reset();

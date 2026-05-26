@@ -36,12 +36,12 @@ void main()
     vec2 Size = Unpack2Values(i_data0.y);
     vec2 PointCountGradientType = Unpack2Values(i_data0.z);
     vec2 ShapeTypeWidth = Unpack2Values(i_data1.y);
-    vec2 RotationShapeProperty = Unpack2Values(i_data0.w);
+    vec2 RotationShapePropertyOne = Unpack2Values(i_data0.w);
     float ColorIndex = i_data1.x;
     vec2 TextureStart = Unpack2Values(i_data1.z) / vec2(u_colorInfo.xy);
     vec2 TextureEnd = Unpack2Values(i_data1.w) / vec2(u_colorInfo.xy);
-    vec2 LineStart = Unpack2Values(i_data2.x);
-    vec2 LineEnd = Unpack2Values(i_data2.y);
+    vec2 ShapePropertyTwo = Unpack2Values(i_data2.x);
+    vec2 ShapePropertyThree = Unpack2Values(i_data2.y);
 
     v_data0.x = PointCountGradientType.x; // Point Count
     v_data0.y = PointCountGradientType.y; // Gradient Type
@@ -52,14 +52,14 @@ void main()
     v_data1.z = TextureStart.y;
     v_data1.w = TextureEnd.x;
     v_data2.x = TextureEnd.y;
-    v_data2.y = RotationShapeProperty.y; // Shape Property (corner radius, end angle exct...)
-    v_data2.z = LineStart.x;
-    v_data2.w = LineStart.y;
-    v_data3.x = LineEnd.x;
-    v_data3.y = LineEnd.y;
+    v_data2.y = RotationShapePropertyOne.y; // Shape Property (corner radius, end angle exct...)
+    v_data2.z = ShapePropertyTwo.x;
+    v_data2.w = ShapePropertyTwo.y;
+    v_data3.x = ShapePropertyThree.x;
+    v_data3.y = ShapePropertyThree.y;
 
     // Rotation
-    float Rotation = (RotationShapeProperty.x / 182.0) * (3.14159265359 / 180.0);
+    float Rotation = (RotationShapePropertyOne.x / 182.0) * (3.14159265359 / 180.0);
     float cos_a = cos(Rotation);
     float sin_a = sin(Rotation);
     float rotated_x = a_position.x * cos_a - a_position.y * sin_a;

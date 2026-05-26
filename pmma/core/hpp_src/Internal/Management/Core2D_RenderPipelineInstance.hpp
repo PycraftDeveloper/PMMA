@@ -103,5 +103,16 @@ public:
         instanceDataArray[BufferID].push_back(radialPolygonShape->ShapeInstanceData);
     }
 
+    inline void Add(CPP_ArcShape *arcShape) {
+        instanceCount++;
+
+        arcShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&arcShape->Color, arcShape->ID, arcShape->ColorDataChanged);
+
+        ColorChanged |= arcShape->ColorDataChanged;
+        ShapePropertyChanged |= arcShape->ShapePropertyChanged;
+
+        instanceDataArray[BufferID].push_back(arcShape->ShapeInstanceData);
+    }
+
     void Render();
 };

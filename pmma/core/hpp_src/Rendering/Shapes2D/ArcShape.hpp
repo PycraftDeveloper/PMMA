@@ -8,56 +8,99 @@
 
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
-#include "Logger.hpp"
 
 class EXPORT CPP_ArcShape {
 public:
-    CPP_ArcShape();
+    CPP_DisplayCoordinate ShapeCenter;
+    CPP_Color Color;
 
-    ~CPP_ArcShape() {
-    }
+    InstanceData ShapeInstanceData;
+
+    float Rotation = 0;
+    float StartAngle;
+    float EndAngle;
+
+    uint64_t ID;
+    uint16_t Width = 0;
+    uint16_t PointCount = 0;
+    uint16_t Radius;
+
+    bool ColorDataChanged = true;
+    bool ShapePropertyChanged = true;
+    bool StartAngleSet = false;
+    bool EndAngleSet = false;
+    bool RadiusSet = false;
+
+    CPP_ArcShape();
 
     void Render();
 
-    void InternalRender();
-
     inline void SetStartAngle(float in_start_angle) {
+        if (StartAngleSet && (in_start_angle != StartAngle)) {
+            ShapePropertyChanged = true;
+        }
+
+        StartAngle = in_start_angle;
+        StartAngleSet = true;
     };
 
-    inline float GetStartAngle() {
-        return 0.0f;
-    }
+    float GetStartAngle();
 
     inline void SetEndAngle(float in_end_angle) {
+        if (EndAngleSet && (in_end_angle != EndAngle)) {
+            ShapePropertyChanged = true;
+        }
+
+        EndAngle = in_end_angle;
+        EndAngleSet = true;
     };
 
-    inline float GetEndAngle() {
-        return 0.0f;
-    }
+    float GetEndAngle();
 
     inline void SetWidth(unsigned int in_width) {
+        if (in_width != Width) {
+            ShapePropertyChanged = true;
+        }
+
+        Width = in_width;
     };
 
     inline unsigned int GetWidth() const {
-        return 0;
+        return Width;
     }
 
     inline void SetRadius(unsigned int in_radius) {
+        if (in_radius != Radius) {
+            ShapePropertyChanged = true;
+        }
+
+        RadiusSet = true;
+        Radius = in_radius;
     };
 
-    inline unsigned int GetRadius() {
-        return 0;
-    }
+    unsigned int GetRadius();
 
     inline void SetRotation(float in_rotation) {
+        if (in_rotation != Rotation) {
+            ShapePropertyChanged = true;
+        }
+
+        Rotation = in_rotation;
     }
 
     inline float GetRotation() const {
-        return 0.0f;
+        return Rotation;
     }
 
-    inline void SetPointCount(unsigned int in_point_count) {
+    inline void SetPointCount(uint16_t in_point_count) {
+        if (in_point_count != PointCount) {
+            ShapePropertyChanged = true;
+        }
+
+        PointCount = in_point_count;
     }
 
-    unsigned int GetPointCount();
+    uint16_t GetPointCount() {
+        return PointCount;
+    }
 };
