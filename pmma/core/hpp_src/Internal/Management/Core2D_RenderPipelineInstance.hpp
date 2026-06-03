@@ -19,6 +19,11 @@ class EXPORT CPP_Core2D_RenderPipelineInstance {
 private:
     CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
 
+    std::vector<uintptr_t> PreviousShapeIDs;
+    std::vector<uintptr_t> CurrentShapeIDs;
+
+    bool UsingCache = false;
+
     bgfx::VertexLayout m_layout;
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
@@ -79,28 +84,103 @@ public:
         instanceCount = 0;
         ColorChanged = false;
         ShapePropertyChanged = false;
+        PreviousShapeIDs = CurrentShapeIDs;
+        CurrentShapeIDs.clear();
+        UsingCache = true;
     }
 
     inline void Add(CPP_LineShape *lineShape) {
-        instanceCount++;
-
         lineShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&lineShape->Color, lineShape->ID, lineShape->ColorDataChanged);
 
         ColorChanged |= lineShape->ColorDataChanged;
         ShapePropertyChanged |= lineShape->ShapePropertyChanged;
 
+        if (instanceCount >= PreviousShapeIDs.size()) {
+            UsingCache = false;
+        }
+
+        if (UsingCache && instanceCount < PreviousShapeIDs.size() && PreviousShapeIDs[instanceCount] == ShapeID) {
+            if (ShapePropertyChanged) {
+                size_t requiredSize = instanceCount + 1;
+                if (ShapeColors.size() < requiredSize) {
+                    ShapeColors.resize(requiredSize);
+                }
+                instanceDataArray[BufferID].push_back(lineShape->ShapeInstanceData);
+            }
+
+            if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
+                if (instanceCount < CurrentShapeIDs.size()) {
+                    CurrentShapeIDs.resize(instanceCount);
+                }
+                CurrentShapeIDs.push_back(ShapeID);
+            }
+
+            instanceCount++;
+            return;
+        }
+
+        UsingCache = false;
+
+        if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
+            if (instanceCount < CurrentShapeIDs.size()) {
+                CurrentShapeIDs.resize(instanceCount);
+            }
+            CurrentShapeIDs.push_back(ShapeID);
+        }
+
+        size_t needBytes = targetIndex + 1;
+        if (ShapeColors.size() < needBytes) {
+            ShapeColors.resize(needBytes);
+        }
         instanceDataArray[BufferID].push_back(lineShape->ShapeInstanceData);
+        instanceCount++;
     }
 
     inline void Add(CPP_RadialPolygonShape *radialPolygonShape) {
-        instanceCount++;
-
         radialPolygonShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&radialPolygonShape->Color, radialPolygonShape->ID, radialPolygonShape->ColorDataChanged);
 
         ColorChanged |= radialPolygonShape->ColorDataChanged;
         ShapePropertyChanged |= radialPolygonShape->ShapePropertyChanged;
 
+        if (instanceCount >= PreviousShapeIDs.size()) {
+            UsingCache = false;
+        }
+
+        if (UsingCache && instanceCount < PreviousShapeIDs.size() && PreviousShapeIDs[instanceCount] == ShapeID) {
+            if (ShapePropertyChanged) {
+                size_t requiredSize = instanceCount + 1;
+                if (ShapeColors.size() < requiredSize) {
+                    ShapeColors.resize(requiredSize);
+                }
+                instanceDataArray[BufferID].push_back(radialPolygonShape->ShapeInstanceData);
+            }
+
+            if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
+                if (instanceCount < CurrentShapeIDs.size()) {
+                    CurrentShapeIDs.resize(instanceCount);
+                }
+                CurrentShapeIDs.push_back(ShapeID);
+            }
+
+            instanceCount++;
+            return;
+        }
+
+        UsingCache = false;
+
+        if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
+            if (instanceCount < CurrentShapeIDs.size()) {
+                CurrentShapeIDs.resize(instanceCount);
+            }
+            CurrentShapeIDs.push_back(ShapeID);
+        }
+
+        size_t needBytes = targetIndex + 1;
+        if (ShapeColors.size() < needBytes) {
+            ShapeColors.resize(needBytes);
+        }
         instanceDataArray[BufferID].push_back(radialPolygonShape->ShapeInstanceData);
+        instanceCount++;
     }
 
     inline void Add(CPP_ArcShape *arcShape) {

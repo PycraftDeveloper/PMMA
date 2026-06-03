@@ -20,7 +20,7 @@ def configure(self, component):
             "-DCMAKE_BUILD_TYPE=Release",
             f"-DINSTALL_DIR={extern_dir}",
             "-DCMAKE_UNITY_BUILD=ON",
-            f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
+            f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count()}"
         ], cmake_temp_dir, config_log_file
     )
 
