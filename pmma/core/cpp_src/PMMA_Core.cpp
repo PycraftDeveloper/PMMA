@@ -250,21 +250,6 @@ warning and improve backwards compatibility in PMMA 6.");
 
     PMMA_Registry::IsPowerSavingModeEnabled = CPP_General::Is_Power_Saving_Mode_Enabled(true);
 
-    if (PMMA_Registry::IsPowerSavingModeEnabled)
-    {
-        PMMA_Core::PowerSavingManagerInstance.updateCounter = 30; // Reset the counter to a lower value if power saving mode is enabled
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
-        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
-            1,
-            "Your device is running in power saving mode.", true);
-    }
-    else
-    {
-        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
-            2,
-            "Your device is not running in power saving mode.", true);
-    }
-
     if (PMMA_Registry::CPU_Supports_AVX512)
     {
         PMMA_Core::LoggingManagerInstance->InternalLogInfo(
