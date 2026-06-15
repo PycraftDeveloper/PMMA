@@ -299,7 +299,7 @@ void main()
         alpha =
             1.0 - smoothstep(0.0, aa, dist);
     }
-    if (alpha <= 0.0) {
+    if (alpha <= 0.00392156862) { // If less than 1/255, discard to avoid unnecessary blending
         discard;
     }
 

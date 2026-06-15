@@ -59,13 +59,17 @@ void main()
     v_data3.x = ShapePropertyThree.x;
     v_data3.y = ShapePropertyThree.y;
 
+    // 1. Scale the local vertex positions first
+    vec2 scaled_pos = a_position * Size;
+
+    // 2. Rotate the already-scaled positions
     float cos_a = cos(Rotation);
     float sin_a = sin(Rotation);
-    float rotated_x = a_position.x * cos_a - a_position.y * sin_a;
-    float rotated_y = a_position.x * sin_a + a_position.y * cos_a;
+    float rotated_x = scaled_pos.x * cos_a - scaled_pos.y * sin_a;
+    float rotated_y = scaled_pos.x * sin_a + scaled_pos.y * cos_a;
 
-    // Positioning
-    vec2 world = Offset + vec2(rotated_x, rotated_y) * Size;
+    // 3. Apply the translation offset
+    vec2 world = Offset + vec2(rotated_x, rotated_y);
 
     gl_Position = mul(OrthDisplayProj, vec4(world, 0.0, 1.0));
 
