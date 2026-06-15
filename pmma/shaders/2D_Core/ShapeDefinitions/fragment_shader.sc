@@ -34,6 +34,8 @@ void main()
 
     float alpha = 1.0;
 
+    float pixel = length(vec2(dFdx(p.x), dFdx(p.y)));
+
     // Instance Data Extraction
     uint PointCount = uint(v_data0.x);
     uint GradientType = uint(v_data0.y);
@@ -54,9 +56,6 @@ void main()
     if (ShapeType == 0u)
     {
         float r = length(p);
-
-        // Get standard screen-space pixel width for anti-aliasing
-        float pixel = max(fwidth(p.x), fwidth(p.y));
 
         // Outer radius stays strictly bounded at the UV edge
         float outerRadius = 0.5 - pixel;
@@ -120,8 +119,6 @@ void main()
     // ============================================================
     else if (ShapeType == 1u)
     {
-        float pixel = max(fwidth(p.x), fwidth(p.y));
-
         float borderWidth = float(Width) * pixel;
 
         // Corner radius from instance data
@@ -171,19 +168,31 @@ void main()
     {
         float r = length(p);
 
-        // AA only
-        float aa = fwidth(r);
+        // Anti-aliasing using the stable screen pixel factor
+        float aa = pixel;
+
+        float outerRadius = 0.5 - pixel; // Keep edge crisp within UV bounds
 
         // ------------------------------------------------------------
-        // Stable geometric width
+        // Proper annulus/disc SDF (Filled by default when Width == 0)
         // ------------------------------------------------------------
+        float ringDist;
 
-        float width = float(Width) / 100.0;
+        if (Width == 0u)
+        {
+            // Solid Filled Arc
+            ringDist = r - outerRadius;
+        }
+        else
+        {
+            // Uniform Ring Arc (Width extends strictly inward)
+            float borderWidth = float(Width) * pixel;
+            float innerRadius = max(outerRadius - borderWidth, 0.0);
 
-        float outerRadius = 0.5;
-
-        float innerRadius =
-            max(outerRadius - width, 0.0);
+            float outerDist = r - outerRadius;
+            float innerDist = innerRadius - r;
+            ringDist = max(outerDist, innerDist);
+        }
 
         // ------------------------------------------------------------
         // Arc angles
@@ -197,19 +206,6 @@ void main()
 
         angle = mod(angle + 6.28318530718,
                 6.28318530718);
-
-        // ------------------------------------------------------------
-        // Proper annulus SDF
-        // ------------------------------------------------------------
-
-        float outerDist =
-            r - outerRadius;
-
-        float innerDist =
-            innerRadius - r;
-
-        float ringDist =
-            max(outerDist, innerDist);
 
         // ------------------------------------------------------------
         // Angular mask
@@ -229,7 +225,7 @@ void main()
         }
 
         // ------------------------------------------------------------
-        // Anti-aliased ring
+        // Anti-aliased ring or solid fill
         // ------------------------------------------------------------
 
         float ringAlpha =
