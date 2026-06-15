@@ -4,6 +4,7 @@ IN i_data0 - TEXCOORD7
 IN i_data1 - TEXCOORD6
 
 ///////////////////////////////////////////////////////////////////////
+IN vertex shader
 ///////////////////////////////////////////////////////////////////////
 
 vec4 i_data0     : TEXCOORD7;
@@ -12,7 +13,7 @@ vec4 i_data0     : TEXCOORD7;
 x: X Position COMBINED WITH Y Position (V)
 y: X Size COMBINED WITH Y Size (V)
 z: Point Count COMBINED WITH Gradient Type (See below) (F) [Maps to: v_data0.x]
-w: Rotation (Rotation in plane only) (V)
+w: Rotation (Rotation in plane only) COMBINED WITH Shape Property 1 (V)
 
 vec4 i_data1     : TEXCOORD6;
 -----------------------------
@@ -22,8 +23,49 @@ y: Shape Type COMBINED WITH Width (See below) (F) [Maps to: v_data0.z]
 z: X Texture Texture Coordinate Start COMBINED WITH Y Texture Texture Coordinate End (F) (as ints, divide in shader) [Maps to: v_data0.w]
 w: X Texture Texture Size (width) COMBINED WITH Y Texture Texture Size (height) (F) (as ints, divide in shader) [Maps to: v_data1.x]
 
-v_data1.y = TextureSize x
-v_data1.z = TextureSize y
+vec4 i_data2     : TEXCOORD5;
+-----------------------------
+
+x: Shape Property Two (two values packed)
+y: Shape Property Three (single value)
+z: UNUSED
+w: UNUSED
+
+///////////////////////////////////////////////////////////////////////
+OUT vertex shader (No packing here)
+///////////////////////////////////////////////////////////////////////
+
+vec4 v_data0     : TEXCOORD2;
+-----------------------------
+
+x: Point Count
+y: Gradient Type
+z: Color Index
+w: Shape Type
+
+vec4 v_data1     : TEXCOORD3;
+-----------------------------
+
+x: Line Width
+y: Texture Start X
+z: Texture Start Y
+w: Texture End X
+
+vec4 v_data2     : TEXCOORD4;
+-----------------------------
+
+x: Texture End Y
+y: Shape Property One
+z: Shape Property Two (Packed value one)
+w: Shape Property Two (Packed value two)
+
+vec4 v_data3     : TEXCOORD5;
+-----------------------------
+
+x: Shape Property Three (Packed value one)
+y: Shape Property Three (Packed value two)
+z: UNUSED
+w: UNUSED
 
 ///////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////

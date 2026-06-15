@@ -26,7 +26,6 @@ public:
 
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
-    bool PointCountSet = true;
 
     CPP_LineShape();
 
@@ -38,7 +37,6 @@ public:
         }
 
         PointCount = in_pointCount;
-        PointCountSet = true;
     };
 
     uint16_t GetPointCount() {

@@ -42,6 +42,7 @@ void main()
     vec2 TextureEnd = Unpack2Values(i_data1.w) / vec2(u_colorInfo.xy);
     vec2 ShapePropertyTwo = Unpack2Values(i_data2.x);
     vec2 ShapePropertyThree = Unpack2Values(i_data2.y);
+    float Rotation = RotationShapePropertyOne.x * 0.0000960012; // equ to '/ 182' in RADIANS
 
     v_data0.x = PointCountGradientType.x; // Point Count
     v_data0.y = PointCountGradientType.y; // Gradient Type
@@ -58,8 +59,6 @@ void main()
     v_data3.x = ShapePropertyThree.x;
     v_data3.y = ShapePropertyThree.y;
 
-    // Rotation
-    float Rotation = (RotationShapePropertyOne.x / 182.0) * (3.14159265359 / 180.0);
     float cos_a = cos(Rotation);
     float sin_a = sin(Rotation);
     float rotated_x = a_position.x * cos_a - a_position.y * sin_a;
@@ -70,9 +69,7 @@ void main()
 
     gl_Position = mul(OrthDisplayProj, vec4(world, 0.0, 1.0));
 
-    // UV Passthrough
     v_uv = a_texcoord0;
 
-    // Color Extraction
     v_col0 = ExtractColor(ColorIndex);
 }

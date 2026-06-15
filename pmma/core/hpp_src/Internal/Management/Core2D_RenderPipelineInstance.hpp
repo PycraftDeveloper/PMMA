@@ -5,6 +5,7 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
+#include "Internal/Management/Core2D_ColorTexture.hpp"
 #include "Internal/Management/Core2D_RenderPipelineManager.hpp"
 #include "Rendering/Shapes2D/ArcShape.hpp"
 #include "Rendering/Shapes2D/EllipseShape.hpp"
@@ -15,8 +16,7 @@
 class CPP_Shader;
 class CPP_Core2D_ColorTexture;
 
-class EXPORT CPP_Core2D_RenderPipelineInstance
-{
+class EXPORT CPP_Core2D_RenderPipelineInstance {
 private:
     CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
 
@@ -54,40 +54,32 @@ public:
 
     CPP_Core2D_RenderPipelineInstance();
 
-    ~CPP_Core2D_RenderPipelineInstance()
-    {
-        if (bgfx::isValid(vbh))
-        {
+    ~CPP_Core2D_RenderPipelineInstance() {
+        if (bgfx::isValid(vbh)) {
             bgfx::destroy(vbh);
         }
 
-        if (bgfx::isValid(ibh))
-        {
+        if (bgfx::isValid(ibh)) {
             bgfx::destroy(ibh);
         }
 
-        if (bgfx::isValid(s_colorTex))
-        {
+        if (bgfx::isValid(s_colorTex)) {
             bgfx::destroy(s_colorTex);
         }
 
-        if (bgfx::isValid(u_colorInfo))
-        {
+        if (bgfx::isValid(u_colorInfo)) {
             bgfx::destroy(u_colorInfo);
         }
 
-        if (bgfx::isValid(OrthDisplayProj))
-        {
+        if (bgfx::isValid(OrthDisplayProj)) {
             bgfx::destroy(OrthDisplayProj);
         }
 
         delete ShapeDefinitionsShaderProgram;
     };
 
-    inline void Reset()
-    {
+    inline void Reset() {
         ColorTexture.Reset();
-        instanceDataArray[BufferID].clear();
         PreviousInstanceCount = instanceCount;
         instanceCount = 0;
         ColorChanged = false;
@@ -97,8 +89,7 @@ public:
         UsingCache = true;
     }
 
-    inline void Add(CPP_LineShape *lineShape)
-    {
+    inline void Add(CPP_LineShape *lineShape) {
         uintptr_t ShapeID = lineShape->ID;
 
         lineShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&lineShape->Color, ShapeID, lineShape->ColorDataChanged);
@@ -106,20 +97,20 @@ public:
         ColorChanged |= lineShape->ColorDataChanged;
         ShapePropertyChanged |= lineShape->ShapePropertyChanged;
 
-        if (instanceCount >= PreviousShapeIDs[BufferID].size())
-        {
+        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
             UsingCache = false;
         }
 
-        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID)
-        {
-            if (ShapePropertyChanged)
-            {
-                instanceDataArray[BufferID].push_back(lineShape->ShapeInstanceData);
+        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID) {
+            if (ShapePropertyChanged) {
+                if (instanceCount < instanceDataArray[BufferID].size()) {
+                    instanceDataArray[BufferID][instanceCount] = lineShape->ShapeInstanceData;
+                } else {
+                    instanceDataArray[BufferID].push_back(lineShape->ShapeInstanceData);
+                }
             }
 
-            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID)
-            {
+            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
                 CurrentShapeIDs[BufferID].push_back(ShapeID);
             }
 
@@ -129,10 +120,8 @@ public:
 
         UsingCache = false;
 
-        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID)
-        {
-            if (instanceCount < CurrentShapeIDs[BufferID].size())
-            {
+        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+            if (instanceCount < CurrentShapeIDs[BufferID].size()) {
                 CurrentShapeIDs[BufferID].resize(instanceCount);
             }
             CurrentShapeIDs[BufferID].push_back(ShapeID);
@@ -142,8 +131,49 @@ public:
         instanceCount++;
     }
 
-    inline void Add(CPP_RadialPolygonShape *radialPolygonShape)
-    {
+    inline void Add(CPP_EllipseShape *ellipseShape) {
+        uintptr_t ShapeID = ellipseShape->ID;
+
+        ellipseShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&ellipseShape->Color, ShapeID, ellipseShape->ColorDataChanged);
+
+        ColorChanged |= ellipseShape->ColorDataChanged;
+        ShapePropertyChanged |= ellipseShape->ShapePropertyChanged;
+
+        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
+            UsingCache = false;
+        }
+
+        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID) {
+            if (ShapePropertyChanged) {
+                if (instanceCount < instanceDataArray[BufferID].size()) {
+                    instanceDataArray[BufferID][instanceCount] = ellipseShape->ShapeInstanceData;
+                } else {
+                    instanceDataArray[BufferID].push_back(ellipseShape->ShapeInstanceData);
+                }
+            }
+
+            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+                CurrentShapeIDs[BufferID].push_back(ShapeID);
+            }
+
+            instanceCount++;
+            return;
+        }
+
+        UsingCache = false;
+
+        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+            if (instanceCount < CurrentShapeIDs[BufferID].size()) {
+                CurrentShapeIDs[BufferID].resize(instanceCount);
+            }
+            CurrentShapeIDs[BufferID].push_back(ShapeID);
+        }
+
+        instanceDataArray[BufferID].push_back(ellipseShape->ShapeInstanceData);
+        instanceCount++;
+    }
+
+    inline void Add(CPP_RadialPolygonShape *radialPolygonShape) {
         uintptr_t ShapeID = radialPolygonShape->ID;
 
         radialPolygonShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&radialPolygonShape->Color, ShapeID, radialPolygonShape->ColorDataChanged);
@@ -151,22 +181,21 @@ public:
         ColorChanged |= radialPolygonShape->ColorDataChanged;
         ShapePropertyChanged |= radialPolygonShape->ShapePropertyChanged;
 
-        if (instanceCount >= PreviousShapeIDs[BufferID].size())
-        {
+        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
             UsingCache = false;
         }
 
-        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID)
-        {
-            if (ShapePropertyChanged)
-            {
-                instanceDataArray[BufferID].push_back(radialPolygonShape->ShapeInstanceData);
+        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID) {
+            if (ShapePropertyChanged) {
+                if (instanceCount < instanceDataArray[BufferID].size()) {
+                    instanceDataArray[BufferID][instanceCount] = radialPolygonShape->ShapeInstanceData;
+                } else {
+                    instanceDataArray[BufferID].push_back(radialPolygonShape->ShapeInstanceData);
+                }
             }
 
-            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID)
-            {
-                if (instanceCount < CurrentShapeIDs[BufferID].size())
-                {
+            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+                if (instanceCount < CurrentShapeIDs[BufferID].size()) {
                     CurrentShapeIDs[BufferID].resize(instanceCount);
                 }
                 CurrentShapeIDs[BufferID].push_back(ShapeID);
@@ -178,8 +207,7 @@ public:
 
         UsingCache = false;
 
-        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID)
-        {
+        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
             CurrentShapeIDs[BufferID].push_back(ShapeID);
         }
 
@@ -187,8 +215,7 @@ public:
         instanceCount++;
     }
 
-    inline void Add(CPP_ArcShape *arcShape)
-    {
+    inline void Add(CPP_ArcShape *arcShape) {
         uintptr_t ShapeID = arcShape->ID;
 
         arcShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&arcShape->Color, ShapeID, arcShape->ColorDataChanged);
@@ -196,22 +223,21 @@ public:
         ColorChanged |= arcShape->ColorDataChanged;
         ShapePropertyChanged |= arcShape->ShapePropertyChanged;
 
-        if (instanceCount >= PreviousShapeIDs[BufferID].size())
-        {
+        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
             UsingCache = false;
         }
 
-        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID)
-        {
-            if (ShapePropertyChanged)
-            {
-                instanceDataArray[BufferID].push_back(arcShape->ShapeInstanceData);
+        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID) {
+            if (ShapePropertyChanged) {
+                if (instanceCount < instanceDataArray[BufferID].size()) {
+                    instanceDataArray[BufferID][instanceCount] = arcShape->ShapeInstanceData;
+                } else {
+                    instanceDataArray[BufferID].push_back(arcShape->ShapeInstanceData);
+                }
             }
 
-            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID)
-            {
-                if (instanceCount < CurrentShapeIDs[BufferID].size())
-                {
+            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+                if (instanceCount < CurrentShapeIDs[BufferID].size()) {
                     CurrentShapeIDs[BufferID].resize(instanceCount);
                 }
                 CurrentShapeIDs[BufferID].push_back(ShapeID);
@@ -223,8 +249,7 @@ public:
 
         UsingCache = false;
 
-        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID)
-        {
+        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
             CurrentShapeIDs[BufferID].push_back(ShapeID);
         }
 

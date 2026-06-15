@@ -4,17 +4,6 @@ CPP_RadialPolygonShape::CPP_RadialPolygonShape() {
     ID = reinterpret_cast<uintptr_t>(this);
 }
 
-uint16_t CPP_RadialPolygonShape::GetRadius() {
-    if (!RadiusSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
-            30,
-            "You have not specified a radius for the arc \
-please use `RadialPolygon.set_radius` to set it before attempting to get it.");
-        throw std::runtime_error("Radius not set");
-    }
-    return Radius;
-};
-
 void CPP_RadialPolygonShape::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged = ShapeCenter.GetChangedToggle();

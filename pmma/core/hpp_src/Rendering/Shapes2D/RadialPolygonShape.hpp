@@ -8,7 +8,6 @@
 
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
-#include "Logger.hpp"
 
 class EXPORT CPP_RadialPolygonShape {
 public:
@@ -27,9 +26,7 @@ public:
     uint16_t PointCount = 0;
 
     bool RadiusSet = false;
-    bool WidthSet = true;
     bool HasAlpha = false;
-    bool PointCountSet = true;
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
@@ -45,7 +42,9 @@ public:
         RadiusSet = true;
     };
 
-    inline uint16_t GetRadius();
+    inline uint16_t GetRadius() {
+        return Radius;
+    }
 
     inline void SetPointCount(uint16_t in_pointCount) {
         if (in_pointCount != PointCount) {
@@ -53,7 +52,6 @@ public:
         }
 
         PointCount = in_pointCount;
-        PointCountSet = true;
     };
 
     uint16_t GetPointCount() {
@@ -66,7 +64,6 @@ public:
         }
 
         Width = in_width;
-        WidthSet = true;
     };
 
     inline uint16_t GetWidth() const {

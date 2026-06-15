@@ -87,7 +87,7 @@ void main()
             // --- POLYGON RENDERING ---
             float N = float(PointCount);
             float sector = 6.28318530718 / N;
-            float angle = atan2(p.y, p.x);
+            float angle = atan2(p.y, p.x); // Apply rotation from instance data
 
             // Wrap geometry into a single symmetric sector
             float a = mod(angle + sector * 0.5, sector) - sector * 0.5;
@@ -299,8 +299,9 @@ void main()
         alpha =
             1.0 - smoothstep(0.0, aa, dist);
     }
-    if (alpha <= 0.0)
+    if (alpha <= 0.0) {
         discard;
+    }
 
     gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
 }
