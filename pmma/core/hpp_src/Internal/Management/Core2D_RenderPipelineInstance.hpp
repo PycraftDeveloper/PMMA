@@ -86,6 +86,7 @@ public:
         ShapePropertyChanged = false;
         PreviousShapeIDs[BufferID] = CurrentShapeIDs[BufferID];
         CurrentShapeIDs[BufferID].clear();
+        CurrentShapeIDs[BufferID].shrink_to_fit();
         UsingCache = true;
     }
 
@@ -126,6 +127,8 @@ public:
             }
             CurrentShapeIDs[BufferID].push_back(ShapeID);
         }
+
+        instanceDataArray[BufferID].resize(instanceCount);
 
         instanceDataArray[BufferID].push_back(lineShape->ShapeInstanceData);
         instanceCount++;
@@ -169,6 +172,8 @@ public:
             CurrentShapeIDs[BufferID].push_back(ShapeID);
         }
 
+        instanceDataArray[BufferID].resize(instanceCount);
+
         instanceDataArray[BufferID].push_back(ellipseShape->ShapeInstanceData);
         instanceCount++;
     }
@@ -211,6 +216,8 @@ public:
             CurrentShapeIDs[BufferID].push_back(ShapeID);
         }
 
+        instanceDataArray[BufferID].resize(instanceCount);
+
         instanceDataArray[BufferID].push_back(radialPolygonShape->ShapeInstanceData);
         instanceCount++;
     }
@@ -252,6 +259,8 @@ public:
         if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
             CurrentShapeIDs[BufferID].push_back(ShapeID);
         }
+
+        instanceDataArray[BufferID].resize(instanceCount);
 
         instanceDataArray[BufferID].push_back(arcShape->ShapeInstanceData);
         instanceCount++;

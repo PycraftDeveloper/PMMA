@@ -3,19 +3,13 @@ $input v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 
 SAMPLER2D(s_colorTex, 0);
 
-vec4 ExtractColor(float ColorIndex, vec2 colorInfo) {
-    float idxF = floor(ColorIndex + 0.5);
+// ------------------------------------------------------------
+// Utility
+// ------------------------------------------------------------
 
-    float w = colorInfo.x;
-    float h = colorInfo.y;
-
-    float x = mod(idxF, w);
-    float y = floor(idxF / w);
-
-    vec2 color_uv = vec2((x + 0.5) / w,
-            (y + 0.5) / h);
-
-    return texture2DLod(s_colorTex, color_uv, 0.0);
+float aaMask(float d, float aa)
+{
+    return clamp(0.5 - d / aa, 0.0, 1.0);
 }
 
 float sdRoundRect(vec2 p, vec2 b, float r)
@@ -24,280 +18,188 @@ float sdRoundRect(vec2 p, vec2 b, float r)
     return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
 }
 
+// ------------------------------------------------------------
+// Main
+// ------------------------------------------------------------
+
 void main()
 {
-    // Early exit
     vec2 p = v_uv - vec2(0.5, 0.5);
 
     if (abs(p.x) > 0.5 || abs(p.y) > 0.5)
         discard;
 
-    float alpha = 1.0;
+    float dx = dFdx(p.x);
+    float dy = dFdx(p.y);
 
-    float pixel = length(vec2(dFdx(p.x), dFdx(p.y)));
+    float pixel = length(vec2(dx, dy));
+    float aa = pixel;
 
-    // Instance Data Extraction
-    uint PointCount = uint(v_data0.x);
-    uint GradientType = uint(v_data0.y);
-    uint ColorIndex = uint(v_data0.z);
-    uint ShapeType = uint(v_data0.w);
-    uint Width = uint(v_data1.x);
-    vec2 TextureStart = vec2(v_data1.yz);
-    vec2 TextureEnd = vec2(v_data1.w, v_data2.x);
-    uint ShapePropertyOne = uint(v_data2.y);
-    uint ShapePropertyTwo = uint(v_data2.z);
-    uint ShapePropertyThree = uint(v_data2.w);
-    uint ShapePropertyFour = uint(v_data3.x);
-    uint ShapePropertyFive = uint(v_data3.y);
+    float r2 = dot(p, p);
+    float r = sqrt(r2);
+
+    // ------------------------------------------------------------
+    // Instance data
+    // ------------------------------------------------------------
+
+    float pointCount = v_data0.x;
+    float shapeType = v_data0.w;
+
+    float width = v_data1.x;
+
+    float p1 = v_data2.y;
+    float p2 = v_data2.z;
+    float p3 = v_data2.w;
+    float p4 = v_data3.x;
+
+    float outerRadius = 0.5 - pixel;
+    float border = width * pixel;
+
+    float alpha = 0.0;
 
     // ============================================================
-    // MODE 0 : SDF CIRCLE / POLYGON OUTLINE
+    // MODE 0: CIRCLE / POLYGON
     // ============================================================
-    if (ShapeType == 0u)
+
+    if (shapeType < 0.5)
     {
-        float r = length(p);
+        float outerDist = r - outerRadius;
 
-        // Outer radius stays strictly bounded at the UV edge
-        float outerRadius = 0.5 - pixel;
+        float circleFill = aaMask(outerDist, aa);
 
-        if (PointCount < 3u)
+        float innerRadius = outerRadius - border;
+        innerRadius = max(innerRadius, 0.0);
+
+        float innerDist = innerRadius - r;
+        float circleRing = aaMask(max(outerDist, innerDist), aa);
+
+        float circleAlpha = (width < 0.5) ? circleFill : circleRing;
+
+        // ---------------- POLYGON ----------------
+
+        float polyAlpha = circleAlpha;
+
+        if (pointCount >= 3.0)
         {
-            // --- CIRCLE RENDERING ---
-            float outerDist = r - outerRadius;
-
-            if (Width == 0u)
-            {
-                // Solid Filled Circle
-                alpha = 1.0 - smoothstep(0.0, pixel, outerDist);
-            }
-            else
-            {
-                // Uniform Ring (Width extends strictly inward)
-                float borderWidth = float(Width) * pixel;
-                float innerRadius = max(outerRadius - borderWidth, 0.0);
-                float innerDist = innerRadius - r;
-
-                float ringDist = max(outerDist, innerDist);
-                alpha = 1.0 - smoothstep(0.0, pixel, ringDist);
-            }
-        }
-        else
-        {
-            // --- POLYGON RENDERING ---
-            float N = float(PointCount);
+            float N = max(pointCount, 3.0);
             float sector = 6.28318530718 / N;
-            float angle = atan2(p.y, p.x); // Apply rotation from instance data
 
-            // Wrap geometry into a single symmetric sector
-            float a = mod(angle + sector * 0.5, sector) - sector * 0.5;
+            float angle = atan2(p.y, p.x);
+            angle += (angle < 0.0) * 6.28318530718;
+
+            float sectorAngle =
+                mod(angle + sector * 0.5, sector) - sector * 0.5;
+
             float edge = cos(sector * 0.5);
 
-            // True planar distance to the polygon edge boundary
-            float outerDist = (r * cos(a) / edge) - outerRadius;
+            float proj = (r * cos(sectorAngle)) / edge;
 
-            if (Width == 0u)
-            {
-                // Solid Filled Polygon
-                alpha = 1.0 - smoothstep(0.0, pixel, outerDist);
-            }
-            else
-            {
-                // Uniform Polygon Border (Extends strictly inward)
-                float borderWidth = float(Width) * pixel;
+            float polyOuter = proj - outerRadius;
+            float polyInner = (outerRadius - border) - proj;
 
-                // Project border thickness cleanly along the normal axis
-                float innerDist = (outerRadius - borderWidth) - (r * cos(a) / edge);
+            float polyDist = (width < 0.5)
+                ? polyOuter : max(polyOuter, polyInner);
 
-                float polyBorderDist = max(outerDist, innerDist);
-                alpha = 1.0 - smoothstep(0.0, pixel, polyBorderDist);
-            }
+            polyAlpha = aaMask(polyDist, aa);
         }
+
+        alpha = polyAlpha;
     }
 
     // ============================================================
-    // MODE 1 : SOLID COLOR / ROUNDED RECTANGLE
+    // MODE 1: ROUND RECT
     // ============================================================
-    else if (ShapeType == 1u)
+
+    else if (shapeType < 1.5)
     {
-        float borderWidth = float(Width) * pixel;
+        float radius = clamp(p1 * pixel, 0.0, 0.5);
 
-        // Corner radius from instance data
-        float radius = float(ShapePropertyOne) * pixel;
+        float outerRR = sdRoundRect(p, vec2(0.5, 0.5), radius);
 
-        // Clamp radius so it never exceeds box size
-        radius = clamp(radius, 0.0, 0.5);
-
-        // ------------------------------------------------------------
-        // Outer rounded rect
-        // ------------------------------------------------------------
-
-        float outerDist = sdRoundRect(
+        float innerRR = sdRoundRect(
                 p,
-                vec2(0.5, 0.5),
-                radius
+                vec2(0.5 - border, 0.5 - border),
+                max(radius - border, 0.0)
             );
 
-        // ------------------------------------------------------------
-        // Inner rounded rect
-        // ------------------------------------------------------------
+        float rrFill = aaMask(outerRR, aa);
+        float rrInner = aaMask(innerRR, aa);
 
-        float innerRadius = max(radius - borderWidth, 0.0);
-
-        float innerDist = sdRoundRect(
-                p,
-                vec2(0.5 - borderWidth, 0.5 - borderWidth),
-                innerRadius
-            );
-
-        // ------------------------------------------------------------
-        // Border mask
-        // ------------------------------------------------------------
-
-        float outerAlpha =
-            1.0 - smoothstep(0.0, pixel, outerDist);
-
-        float innerAlpha =
-            1.0 - smoothstep(0.0, pixel, innerDist);
-
-        alpha = outerAlpha * (1.0 - innerAlpha);
+        alpha = (width < 0.5)
+            ? rrFill : rrFill * (1.0 - rrInner);
     }
+
     // ============================================================
-    // MODE 2 : ARC
+    // MODE 2: ARC
     // ============================================================
-    else if (ShapeType == 2u)
+
+    else if (shapeType < 2.5)
     {
-        float r = length(p);
+        float outerD = r - outerRadius;
 
-        // Anti-aliasing using the stable screen pixel factor
-        float aa = pixel;
+        float innerR = max(outerRadius - border, 0.0);
+        float innerD = innerR - r;
 
-        float outerRadius = 0.5 - pixel; // Keep edge crisp within UV bounds
+        float ringDist = (width < 0.5)
+            ? outerD : max(outerD, innerD);
 
-        // ------------------------------------------------------------
-        // Proper annulus/disc SDF (Filled by default when Width == 0)
-        // ------------------------------------------------------------
-        float ringDist;
-
-        if (Width == 0u)
-        {
-            // Solid Filled Arc
-            ringDist = r - outerRadius;
-        }
-        else
-        {
-            // Uniform Ring Arc (Width extends strictly inward)
-            float borderWidth = float(Width) * pixel;
-            float innerRadius = max(outerRadius - borderWidth, 0.0);
-
-            float outerDist = r - outerRadius;
-            float innerDist = innerRadius - r;
-            ringDist = max(outerDist, innerDist);
-        }
-
-        // ------------------------------------------------------------
-        // Arc angles
-        // ------------------------------------------------------------
-
-        float StartAngle = (ShapePropertyOne / 182.0) * (3.14159265359 / 180.0); // Start angle in degrees from instance data
-
-        float EndAngle = (ShapePropertyTwo / 182.0) * (3.14159265359 / 180.0);
+        float arcBase = aaMask(ringDist, aa);
 
         float angle = atan2(p.y, p.x);
+        angle += (angle < 0.0) * 6.28318530718;
 
-        angle = mod(angle + 6.28318530718,
-                6.28318530718);
-
-        // ------------------------------------------------------------
-        // Angular mask
-        // ------------------------------------------------------------
+        float startA = (p1 / 182.0) * 0.01745329251;
+        float endA = (p2 / 182.0) * 0.01745329251;
 
         float arcMask;
 
-        if (EndAngle >= 6.28318530718)
-        {
+        if (endA >= 6.28318530718)
             arcMask = 1.0;
-        }
         else
-        {
-            arcMask =
-                step(StartAngle, angle) *
-                    step(angle, EndAngle);
-        }
+            arcMask = step(startA, angle) * step(angle, endA);
 
-        // ------------------------------------------------------------
-        // Anti-aliased ring or solid fill
-        // ------------------------------------------------------------
-
-        float ringAlpha =
-            1.0 - smoothstep(-aa, aa, ringDist);
-
-        alpha = ringAlpha * arcMask;
+        alpha = arcBase * arcMask;
     }
 
     // ============================================================
-    // MODE 3 : LINE
+    // MODE 3: LINE
     // ============================================================
-    else if (ShapeType == 3u)
+
+    else
     {
-        vec2 uv = v_uv;
-
-        // endpoints in UV space
-        vec2 a = vec2(ShapePropertyOne, ShapePropertyTwo);
-        vec2 b = vec2(ShapePropertyThree, ShapePropertyFour);
-
-        float uvPerPixel =
-            max(fwidth(uv.x), fwidth(uv.y));
-
-        float radius =
-            max(float(Width) * uvPerPixel * 0.5,
-                uvPerPixel * 0.5);
-
-        float aa = uvPerPixel;
+        vec2 a = vec2(p1, p2);
+        vec2 b = vec2(p3, p4);
 
         vec2 ba = b - a;
-        float len = max(length(ba), 1e-6);
+        float lenBA = max(length(ba), 1e-6);
+        vec2 dir = ba / lenBA;
 
-        vec2 dir = ba / len;
-
-        // local coordinates
-        vec2 pa = uv - a;
+        vec2 pa = v_uv - a;
 
         float x = dot(pa, dir);
         float y = dot(pa, vec2(-dir.y, dir.x));
 
-        float dist;
+        float halfLen = lenBA * 0.5;
+        float rad = pixel * 0.5;
 
-        // ------------------------------------------------------------
-        // Square caps
-        // ------------------------------------------------------------
-        if (PointCount < 3u)
-        {
-            vec2 d =
-                abs(vec2(x - len * 0.5, y)) -
-                    vec2(len * 0.5, radius);
+        float dx = abs(x - halfLen);
+        float dy = abs(y);
 
-            dist =
-                length(max(d, 0.0)) +
-                    min(max(d.x, d.y), 0.0);
-        }
-        // ------------------------------------------------------------
-        // Rounded caps
-        // ------------------------------------------------------------
-        else
-        {
-            float h =
-                clamp(x / len, 0.0, 1.0);
+        float square =
+            length(max(vec2(dx, dy) - vec2(halfLen, rad), 0.0))
+                + min(max(x - halfLen, y - rad), 0.0);
 
-            dist =
-                length(pa - ba * h) - radius;
-        }
+        float t = clamp(x / lenBA, 0.0, 1.0);
+        float roundLine = length(pa - ba * t) - rad;
 
-        alpha =
-            1.0 - smoothstep(0.0, aa, dist);
+        float lineDist = (pointCount < 3.0)
+            ? square : roundLine;
+
+        alpha = aaMask(lineDist, aa);
     }
-    if (alpha <= 0.00392156862) { // If less than 1/255, discard to avoid unnecessary blending
-        discard;
-    }
+
+    // final cutoff (branchless)
+    alpha *= step(0.0039, alpha);
 
     gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
 }

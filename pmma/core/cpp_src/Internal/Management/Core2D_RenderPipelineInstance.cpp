@@ -90,6 +90,9 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
     }
 
     if (ShapePropertyChanged) {
+        instanceDataArray[BufferID].resize(instanceCount); // Free memory if instanceCount decreased
+        instanceDataArray[BufferID].shrink_to_fit();       // Free memory if instanceCount decreased
+
         PMMA_Core::DisplayInstance->TriggerEventRefresh();
 
         const bgfx::Memory *instanceDataMem = bgfx::makeRef(
