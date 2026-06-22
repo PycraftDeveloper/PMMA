@@ -78,24 +78,25 @@ void main()
 
     if (shapeType < 0.5)
     {
-        // Compute an ellipse by normalizing coordinates to a uniform radius unit
-        float max_dim = max(half_size.x, half_size.y);
-        vec2 ellipse_scale = half_size / max_dim;
+        // Compute the implicit equation for an ellipse: (x/a)^2 + (y/b)^2 - 1 = 0
+        // We factor out the dimensions so we can work with a normalized radius metric
+        vec2 normalized_p = p_pixel / half_size;
+        float ellipse_eq = dot(normalized_p, normalized_p) - 1.0;
 
-        // Scale coordinate space to transform perfect circles into true ellipses
-        vec2 p_ellipse = p_pixel / ellipse_scale;
-        float r_ellipse = length(p_ellipse);
+        // Use hardware derivatives to find the screen-space gradient magnitude
+        // This calculates exactly how much ellipse_eq changes per screen pixel
+        float screen_gradient = length(vec2(dFdx(ellipse_eq), dFdy(ellipse_eq)));
 
-        float outerRadius = max_dim - aa;
-        float outerDist = r_ellipse - outerRadius;
+        // Prevent division by zero for safety
+        screen_gradient = max(screen_gradient, 0.0001);
 
-        // Re-scale distance field back to screenspace pixels for uniform AA border stroke
-        outerDist *= min(ellipse_scale.x, ellipse_scale.y);
+        // Divide the equation value by its gradient to get perfect screen-space pixels
+        float outerDist = ellipse_eq / screen_gradient;
 
         float circleFill = aaMask(outerDist, aa);
-        float innerRadius = max(outerRadius - border, 0.0);
-        float innerDist = innerRadius - r_ellipse;
-        innerDist *= min(ellipse_scale.x, ellipse_scale.y);
+
+        // For the inner ring, we shift the distance inward by the exact border width
+        float innerDist = -outerDist - border;
 
         float circleRing = aaMask(max(outerDist, innerDist), aa);
         float circleAlpha = (width < 0.5) ? circleFill : circleRing;
