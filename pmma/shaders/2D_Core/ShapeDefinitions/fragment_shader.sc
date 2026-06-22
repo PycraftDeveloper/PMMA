@@ -78,24 +78,14 @@ void main()
 
     if (shapeType < 0.5)
     {
-        // Compute the implicit equation for an ellipse: (x/a)^2 + (y/b)^2 - 1 = 0
-        // We factor out the dimensions so we can work with a normalized radius metric
         vec2 normalized_p = p_pixel / half_size;
         float ellipse_eq = dot(normalized_p, normalized_p) - 1.0;
 
-        // Use hardware derivatives to find the screen-space gradient magnitude
-        // This calculates exactly how much ellipse_eq changes per screen pixel
         float screen_gradient = length(vec2(dFdx(ellipse_eq), dFdy(ellipse_eq)));
-
-        // Prevent division by zero for safety
         screen_gradient = max(screen_gradient, 0.0001);
 
-        // Divide the equation value by its gradient to get perfect screen-space pixels
         float outerDist = ellipse_eq / screen_gradient;
-
         float circleFill = aaMask(outerDist, aa);
-
-        // For the inner ring, we shift the distance inward by the exact border width
         float innerDist = -outerDist - border;
 
         float circleRing = aaMask(max(outerDist, innerDist), aa);
@@ -107,16 +97,23 @@ void main()
             float N = max(pointCount, 3.0);
             float sector = 6.28318530718 / N;
 
-            float angle = atan2(p_pixel.y, p_pixel.x);
+            // To make the polygon scale with the ellipse axes,
+            // we calculate the angles and projections using normalized coordinates
+            float angle = atan2(normalized_p.y, normalized_p.x);
             angle += (angle < 0.0) * 6.28318530718;
 
             float sectorAngle = mod(angle + sector * 0.5, sector) - sector * 0.5;
             float edge = cos(sector * 0.5);
-            float proj = (length(p_pixel) * cos(sectorAngle)) / edge;
 
-            float min_radius = min(half_size.x, half_size.y) - aa;
-            float polyOuter = proj - min_radius;
-            float polyInner = (min_radius - border) - proj;
+            // Calculate the raw, unscaled implicit distance for the polygon
+            float raw_poly_proj = (length(normalized_p) * cos(sectorAngle)) / edge - 1.0;
+
+            // Correct the polygon distance using hardware derivatives to match the screen grid
+            float poly_gradient = length(vec2(dFdx(raw_poly_proj), dFdy(raw_poly_proj)));
+            poly_gradient = max(poly_gradient, 0.0001);
+
+            float polyOuter = raw_poly_proj / poly_gradient;
+            float polyInner = -polyOuter - border;
 
             float polyDist = (width < 0.5) ? polyOuter : max(polyOuter, polyInner);
             polyAlpha = aaMask(polyDist, aa);
