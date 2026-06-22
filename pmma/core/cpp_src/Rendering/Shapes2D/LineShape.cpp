@@ -1,10 +1,6 @@
 #include "PMMA_Core.hpp"
 
-CPP_LineShape::CPP_LineShape() {
-    ID = reinterpret_cast<uintptr_t>(this);
-}
-
-void CPP_LineShape::Render() {
+void PMMA::Rendering::TwoD::CPP_Line::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged |= ShapeStart.GetChangedToggle() || ShapeEnd.GetChangedToggle();
     }

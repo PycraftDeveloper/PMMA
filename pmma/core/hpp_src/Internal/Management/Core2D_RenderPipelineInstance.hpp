@@ -90,7 +90,7 @@ public:
         UsingCache = true;
     }
 
-    inline void Add(CPP_LineShape *lineShape) {
+    inline void Add(PMMA::Rendering::TwoD::CPP_Line *lineShape) {
         uintptr_t ShapeID = lineShape->ID;
 
         lineShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&lineShape->Color, ShapeID, lineShape->ColorDataChanged);
@@ -134,7 +134,7 @@ public:
         instanceCount++;
     }
 
-    inline void Add(CPP_RectangleShape *rectangleShape) {
+    inline void Add(PMMA::Rendering::TwoD::CPP_Rectangle *rectangleShape) {
         uintptr_t ShapeID = rectangleShape->ID;
 
         rectangleShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&rectangleShape->Color, ShapeID, rectangleShape->ColorDataChanged);
@@ -178,7 +178,7 @@ public:
         instanceCount++;
     }
 
-    inline void Add(CPP_EllipseShape *ellipseShape) {
+    inline void Add(PMMA::Rendering::TwoD::CPP_Ellipse *ellipseShape) {
         uintptr_t ShapeID = ellipseShape->ID;
 
         ellipseShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&ellipseShape->Color, ShapeID, ellipseShape->ColorDataChanged);
@@ -222,7 +222,7 @@ public:
         instanceCount++;
     }
 
-    inline void Add(CPP_RadialPolygonShape *radialPolygonShape) {
+    inline void Add(PMMA::Rendering::TwoD::CPP_RadialPolygon *radialPolygonShape) {
         uintptr_t ShapeID = radialPolygonShape->ID;
 
         radialPolygonShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&radialPolygonShape->Color, ShapeID, radialPolygonShape->ColorDataChanged);
@@ -266,7 +266,7 @@ public:
         instanceCount++;
     }
 
-    inline void Add(CPP_ArcShape *arcShape) {
+    inline void Add(PMMA::Rendering::TwoD::CPP_Arc *arcShape) {
         uintptr_t ShapeID = arcShape->ID;
 
         arcShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&arcShape->Color, ShapeID, arcShape->ColorDataChanged);

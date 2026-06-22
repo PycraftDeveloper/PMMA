@@ -13,7 +13,7 @@ CPP_Core2D_RenderPipelineManager::~CPP_Core2D_RenderPipelineManager() {
     CachedRenderPipelineInstances.clear();
 }
 
-void CPP_Core2D_RenderPipelineManager::Add(CPP_LineShape *lineShape) {
+void CPP_Core2D_RenderPipelineManager::Add(PMMA::Rendering::TwoD::CPP_Line *lineShape) {
     if (RenderPipelineInstances.empty()) {
         RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
     }
@@ -28,7 +28,7 @@ void CPP_Core2D_RenderPipelineManager::Add(CPP_LineShape *lineShape) {
     lastInstance->Add(lineShape);
 }
 
-void CPP_Core2D_RenderPipelineManager::Add(CPP_RadialPolygonShape *radialPolygonShape) {
+void CPP_Core2D_RenderPipelineManager::Add(PMMA::Rendering::TwoD::CPP_RadialPolygon *radialPolygonShape) {
     if (RenderPipelineInstances.empty()) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
@@ -53,7 +53,7 @@ void CPP_Core2D_RenderPipelineManager::Add(CPP_RadialPolygonShape *radialPolygon
     lastInstance->Add(radialPolygonShape);
 }
 
-void CPP_Core2D_RenderPipelineManager::Add(CPP_ArcShape *arcShape) {
+void CPP_Core2D_RenderPipelineManager::Add(PMMA::Rendering::TwoD::CPP_Arc *arcShape) {
     if (RenderPipelineInstances.empty()) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
@@ -78,7 +78,7 @@ void CPP_Core2D_RenderPipelineManager::Add(CPP_ArcShape *arcShape) {
     lastInstance->Add(arcShape);
 }
 
-void CPP_Core2D_RenderPipelineManager::Add(CPP_RectangleShape *rectangleShape) {
+void CPP_Core2D_RenderPipelineManager::Add(PMMA::Rendering::TwoD::CPP_Rectangle *rectangleShape) {
     if (RenderPipelineInstances.empty()) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
@@ -103,7 +103,7 @@ void CPP_Core2D_RenderPipelineManager::Add(CPP_RectangleShape *rectangleShape) {
     lastInstance->Add(rectangleShape);
 }
 
-void CPP_Core2D_RenderPipelineManager::Add(CPP_EllipseShape *ellipseShape) {
+void CPP_Core2D_RenderPipelineManager::Add(PMMA::Rendering::TwoD::CPP_Ellipse *ellipseShape) {
     if (RenderPipelineInstances.empty()) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());

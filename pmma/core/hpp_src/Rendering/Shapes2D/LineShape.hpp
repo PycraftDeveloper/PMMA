@@ -10,7 +10,8 @@
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
-class EXPORT CPP_LineShape {
+namespace PMMA::Rendering::TwoD {
+class EXPORT CPP_Line {
 public:
     CPP_DisplayCoordinate ShapeStart;
     CPP_DisplayCoordinate ShapeEnd;
@@ -27,7 +28,9 @@ public:
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
-    CPP_LineShape();
+    inline CPP_Line() {
+        ID = reinterpret_cast<uintptr_t>(this);
+    }
 
     void Render();
 
@@ -65,3 +68,4 @@ public:
         return Rotation;
     }
 };
+}

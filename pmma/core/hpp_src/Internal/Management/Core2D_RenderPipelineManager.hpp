@@ -7,11 +7,13 @@
 
 class CPP_Core2D_RenderPipelineInstance;
 
-class CPP_LineShape;
-class CPP_RadialPolygonShape;
-class CPP_ArcShape;
-class CPP_EllipseShape;
-class CPP_RectangleShape;
+namespace PMMA::Rendering::TwoD {
+class CPP_Line;
+class CPP_Arc;
+class CPP_Ellipse;
+class CPP_RadialPolygon;
+class CPP_Rectangle;
+} // namespace PMMA::Rendering::TwoD
 
 struct Vertex {
     float x, y, u, v;
@@ -34,11 +36,11 @@ private:
 public:
     ~CPP_Core2D_RenderPipelineManager();
 
-    void Add(CPP_LineShape *lineShape);
-    void Add(CPP_RadialPolygonShape *radialPolygonShape);
-    void Add(CPP_ArcShape *arcShape);
-    void Add(CPP_EllipseShape *ellipseShape);
-    void Add(CPP_RectangleShape *rectangleShape);
+    void Add(PMMA::Rendering::TwoD::CPP_Line *lineShape);
+    void Add(PMMA::Rendering::TwoD::CPP_RadialPolygon *radialPolygonShape);
+    void Add(PMMA::Rendering::TwoD::CPP_Arc *arcShape);
+    void Add(PMMA::Rendering::TwoD::CPP_Ellipse *ellipseShape);
+    void Add(PMMA::Rendering::TwoD::CPP_Rectangle *rectangleShape);
 
     inline float PackValues(uint16_t value_one, uint16_t value_two) {
         uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);

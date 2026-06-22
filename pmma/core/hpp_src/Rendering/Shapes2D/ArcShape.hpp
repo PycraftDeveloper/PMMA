@@ -9,7 +9,8 @@
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
 
-class EXPORT CPP_ArcShape {
+namespace PMMA::Rendering::TwoD {
+class EXPORT CPP_Arc {
 public:
     CPP_DisplayCoordinate ShapeCenter;
     CPP_Color Color;
@@ -21,17 +22,21 @@ public:
     float EndAngle;
 
     uint64_t ID;
+
     uint16_t Width = 0;
     uint16_t PointCount = 0;
     uint16_t Radius;
 
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
+
     bool StartAngleSet = false;
     bool EndAngleSet = false;
     bool RadiusSet = false;
 
-    CPP_ArcShape();
+    inline CPP_Arc() {
+        ID = reinterpret_cast<uintptr_t>(this);
+    }
 
     void Render();
 
@@ -69,7 +74,7 @@ public:
         return Width;
     }
 
-    inline void SetRadius(unsigned int in_radius) {
+    inline void SetRadius(uint16_t in_radius) {
         if (in_radius != Radius) {
             ShapePropertyChanged = true;
         }
@@ -78,7 +83,7 @@ public:
         Radius = in_radius;
     };
 
-    unsigned int GetRadius();
+    uint16_t GetRadius();
 
     inline void SetRotation(float in_rotation) {
         if (in_rotation != Rotation) {
@@ -104,3 +109,4 @@ public:
         return PointCount;
     }
 };
+}

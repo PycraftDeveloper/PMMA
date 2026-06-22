@@ -9,7 +9,8 @@
 #include "Constants.hpp"
 #include "CoreTypes.hpp"
 
-class EXPORT CPP_RadialPolygonShape {
+namespace PMMA::Rendering::TwoD {
+class EXPORT CPP_RadialPolygon {
 public:
     CPP_DisplayCoordinate ShapeCenter;
     CPP_Color Color;
@@ -19,7 +20,6 @@ public:
     uintptr_t ID;
 
     float Rotation = 0;
-    float ColorIndex = 0;
 
     uint16_t Radius;
     uint16_t Width = 0;
@@ -30,7 +30,9 @@ public:
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
-    CPP_RadialPolygonShape();
+    inline CPP_RadialPolygon() {
+        ID = reinterpret_cast<uintptr_t>(this);
+    }
 
     void Render();
 
@@ -42,9 +44,7 @@ public:
         RadiusSet = true;
     };
 
-    inline uint16_t GetRadius() {
-        return Radius;
-    }
+    inline uint16_t GetRadius();
 
     inline void SetPointCount(uint16_t in_pointCount) {
         if (in_pointCount != PointCount) {
@@ -82,3 +82,4 @@ public:
         return Rotation;
     }
 };
+}

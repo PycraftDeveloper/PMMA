@@ -10,7 +10,8 @@
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
-class EXPORT CPP_EllipseShape {
+namespace PMMA::Rendering::TwoD {
+class EXPORT CPP_Ellipse {
 public:
     CPP_DisplayCoordinate ShapeCenter;
     CPP_Color Color;
@@ -20,16 +21,18 @@ public:
     uintptr_t ID;
 
     float Rotation = 0;
-    float ColorIndex = 0;
 
     uint16_t Width = 0;
     uint16_t PointCount = 0;
-    uint16_t ShapeSize[2] = {10, 10};
+    uint16_t ShapeSize[2];
 
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
+    bool ShapeSizeSet = false;
 
-    CPP_EllipseShape();
+    inline CPP_Ellipse() {
+        ID = reinterpret_cast<uintptr_t>(this);
+    }
 
     void Render();
 
@@ -40,12 +43,10 @@ public:
 
         ShapeSize[0] = in_size[0];
         ShapeSize[1] = in_size[1];
+        ShapeSizeSet = true;
     };
 
-    inline void GetSize(uint16_t *out_size) {
-        out_size[0] = ShapeSize[0];
-        out_size[1] = ShapeSize[1];
-    }
+    void GetSize(uint16_t *out_size);
 
     inline void SetPointCount(uint16_t in_pointCount) {
         if (in_pointCount != PointCount) {
@@ -83,3 +84,4 @@ public:
         return Rotation;
     }
 };
+}

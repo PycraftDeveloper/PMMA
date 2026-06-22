@@ -10,7 +10,8 @@
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
-class EXPORT CPP_RectangleShape {
+namespace PMMA::Rendering::TwoD {
+class EXPORT CPP_Rectangle {
 public:
     CPP_DisplayCoordinate ShapeCenter;
     CPP_Color Color;
@@ -19,16 +20,16 @@ public:
 
     float Rotation = 0;
 
-    uint16_t ShapeSize[2] = {10, 10};
+    uint16_t ShapeSize[2];
     uint64_t ID;
     uint16_t Width = 0;
-    uint16_t PointCount = 0;
     uint16_t CornerRadius = 0;
 
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
+    bool ShapeSizeSet = false;
 
-    inline CPP_RectangleShape() {
+    inline CPP_Rectangle() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 
@@ -41,24 +42,10 @@ public:
 
         ShapeSize[0] = in_size[0];
         ShapeSize[1] = in_size[1];
+        ShapeSizeSet = true;
     };
 
-    inline void GetSize(uint16_t *out_size) {
-        out_size[0] = ShapeSize[0];
-        out_size[1] = ShapeSize[1];
-    }
-
-    inline void SetPointCount(uint16_t in_pointCount) {
-        if (in_pointCount != PointCount) {
-            ShapePropertyChanged = true;
-        }
-
-        PointCount = in_pointCount;
-    };
-
-    uint16_t GetPointCount() {
-        return PointCount;
-    }
+    void GetSize(uint16_t *out_size);
 
     inline void SetWidth(uint16_t in_width) {
         if (in_width != Width) {
@@ -96,3 +83,4 @@ public:
         return CornerRadius;
     }
 };
+}
