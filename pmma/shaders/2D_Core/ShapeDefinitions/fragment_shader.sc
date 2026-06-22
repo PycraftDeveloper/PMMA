@@ -130,20 +130,24 @@ void main()
 
     else if (shapeType < 1.5)
     {
-        // 2. POINT COUNT & CORNER LOGIC
-        // If pointCount < 3, override individual inputs to force a smooth/max rounded corner
         float max_possible_rad = min(half_size.x, half_size.y);
 
-        vec4 corners = vec4(p1, p1, p1, p1);
-        if (pointCount < 3.0) {
-            corners = vec4(max_possible_rad, max_possible_rad, max_possible_rad, max_possible_rad); // Overrides corners to completely smooth rounded caps
-        }
+        vec4 corners = vec4(p1);
 
-        // Clamp radii safely to half-extents using real pixels
-        corners = clamp(corners, vec4(0.0, 0.0, 0.0, 0.0), vec4(max_possible_rad, max_possible_rad, max_possible_rad, max_possible_rad));
+        // safety clamp
+        corners = clamp(
+                corners,
+                vec4(0.0),
+                vec4(max_possible_rad)
+            );
 
         float outerRR = sdRoundRectPermutated(p_pixel, half_size, corners);
-        float innerRR = sdRoundRectPermutated(p_pixel, half_size - vec2(border, border), max(corners - vec4(border, border, border, border), vec4(0.0, 0.0, 0.0, 0.0)));
+
+        float innerRR = sdRoundRectPermutated(
+                p_pixel,
+                half_size - vec2(border),
+                max(corners - vec4(border), vec4(0.0))
+            );
 
         float rrFill = aaMask(outerRR, aa);
         float rrInner = aaMask(innerRR, aa);
