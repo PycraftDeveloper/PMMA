@@ -12,16 +12,21 @@ float aaMask(float d, float aa)
     return clamp(0.5 - d / aa, 0.0, 1.0);
 }
 
-// Fixed Signed Distance Function for a Rectangle with per-corner radii
+// Fixed quadrant selection for 4 unique corners
 float sdRoundRectPermutated(vec2 p, vec2 b, vec4 r)
 {
-    // Select the correct radius based on which quadrant the pixel lies in
-    vec2 r_sel = (p.x > 0.0) ? ((p.y > 0.0) ? r.xy : r.zw) : ((p.y > 0.0) ? r.xx : r.yy);
-    // Fallback simplified logic for 4 unique corners:
-    float rad = (p.x > 0.0 && p.y > 0.0) ? r.x : // Top Right
-        (p.x < 0.0 && p.y > 0.0) ? r.y : // Top Left
-        (p.x < 0.0 && p.y < 0.0) ? r.z : // Bottom Left
-        r.w; // Bottom Right
+    // Explicitly identify which corner the pixel belongs to
+    float rad = 0.0;
+    if (p.x >= 0.0) {
+        if (p.y >= 0.0) rad = r.x; // Top Right (p1)
+        else rad = r.w; // Bottom Right (p4)
+    } else {
+        if (p.y >= 0.0) rad = r.y; // Top Left (p2)
+        else rad = r.z; // Bottom Left (p3)
+    }
+
+    // Ensure the radius never exceeds the local side boundaries
+    rad = min(rad, min(b.x, b.y));
 
     vec2 q = abs(p) - b + vec2(rad, rad);
     return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - rad;
@@ -33,26 +38,22 @@ float sdRoundRectPermutated(vec2 p, vec2 b, vec4 r)
 
 void main()
 {
-    // 1. GLOBAL ASPECT RATIO & SCALE CORRECTION
-    // Calculate the screen-space size of the UV quad to find true pixel metrics
+    // Global screen-space coordinate evaluation
     vec2 dx_uv = dFdx(v_uv);
     vec2 dy_uv = dFdy(v_uv);
 
-    // Determine the absolute pixel dimensions of the rendering quad
+    // Total absolute size of the rendering canvas in screenspace pixels
     vec2 quad_pixel_size = vec2(1.0 / length(vec2(dx_uv.x, dy_uv.x)), 1.0 / length(vec2(dx_uv.y, dy_uv.y)));
 
-    // Convert 0->1 UV space to absolute pixel space centered at (0,0)
+    // Transform coordinates into pixel displacements relative to center
     vec2 p_pixel = (v_uv - vec2(0.5, 0.5)) * quad_pixel_size;
     vec2 half_size = quad_pixel_size * 0.5;
 
-    // Boundary discard check using absolute pixels
+    // Discard any fragments escaping the primary boundary
     if (abs(p_pixel.x) > half_size.x || abs(p_pixel.y) > half_size.y)
         discard;
 
-    // Global Anti-Aliasing factor is exactly 1 screen pixel wide now
     float aa = 1.0;
-
-    float r = length(p_pixel);
 
     // ------------------------------------------------------------
     // Instance data
@@ -61,11 +62,9 @@ void main()
     float pointCount = v_data0.x;
     float shapeType = v_data0.w;
 
-    // Width is now processed directly as a uniform pixel thickness
     float width = v_data1.x;
     float border = width;
 
-    // Raw input radii from vertex data
     float p1 = v_data2.y;
     float p2 = v_data2.z;
     float p3 = v_data2.w;
@@ -74,19 +73,31 @@ void main()
     float alpha = 0.0;
 
     // ============================================================
-    // MODE 0: CIRCLE / POLYGON
+    // MODE 0: ELLIPSE / POLYGON
     // ============================================================
 
     if (shapeType < 0.5)
     {
-        float outerRadius = min(half_size.x, half_size.y) - aa;
-        float outerDist = r - outerRadius;
+        // Compute an ellipse by normalizing coordinates to a uniform radius unit
+        float max_dim = max(half_size.x, half_size.y);
+        vec2 ellipse_scale = half_size / max_dim;
+
+        // Scale coordinate space to transform perfect circles into true ellipses
+        vec2 p_ellipse = p_pixel / ellipse_scale;
+        float r_ellipse = length(p_ellipse);
+
+        float outerRadius = max_dim - aa;
+        float outerDist = r_ellipse - outerRadius;
+
+        // Re-scale distance field back to screenspace pixels for uniform AA border stroke
+        outerDist *= min(ellipse_scale.x, ellipse_scale.y);
+
         float circleFill = aaMask(outerDist, aa);
-
         float innerRadius = max(outerRadius - border, 0.0);
-        float innerDist = innerRadius - r;
-        float circleRing = aaMask(max(outerDist, innerDist), aa);
+        float innerDist = innerRadius - r_ellipse;
+        innerDist *= min(ellipse_scale.x, ellipse_scale.y);
 
+        float circleRing = aaMask(max(outerDist, innerDist), aa);
         float circleAlpha = (width < 0.5) ? circleFill : circleRing;
         float polyAlpha = circleAlpha;
 
@@ -100,10 +111,11 @@ void main()
 
             float sectorAngle = mod(angle + sector * 0.5, sector) - sector * 0.5;
             float edge = cos(sector * 0.5);
-            float proj = (r * cos(sectorAngle)) / edge;
+            float proj = (length(p_pixel) * cos(sectorAngle)) / edge;
 
-            float polyOuter = proj - outerRadius;
-            float polyInner = (outerRadius - border) - proj;
+            float min_radius = min(half_size.x, half_size.y) - aa;
+            float polyOuter = proj - min_radius;
+            float polyInner = (min_radius - border) - proj;
 
             float polyDist = (width < 0.5) ? polyOuter : max(polyOuter, polyInner);
             polyAlpha = aaMask(polyDist, aa);
@@ -122,7 +134,7 @@ void main()
         // If pointCount < 3, override individual inputs to force a smooth/max rounded corner
         float max_possible_rad = min(half_size.x, half_size.y);
 
-        vec4 corners = vec4(p1, p2, p3, p4);
+        vec4 corners = vec4(p1, p1, p1, p1);
         if (pointCount < 3.0) {
             corners = vec4(max_possible_rad, max_possible_rad, max_possible_rad, max_possible_rad); // Overrides corners to completely smooth rounded caps
         }
@@ -145,11 +157,12 @@ void main()
 
     else if (shapeType < 2.5)
     {
+        float r_pixel = length(p_pixel);
         float outerRadius = min(half_size.x, half_size.y) - aa;
-        float outerD = r - outerRadius;
+        float outerD = r_pixel - outerRadius;
 
         float innerR = max(outerRadius - border, 0.0);
-        float innerD = innerR - r;
+        float innerD = innerR - r_pixel;
 
         float ringDist = (width < 0.5) ? outerD : max(outerD, innerD);
         float arcBase = aaMask(ringDist, aa);
@@ -175,9 +188,8 @@ void main()
 
     else
     {
-        // Re-scale line anchors from UV ratios into real working pixel positions
         vec2 a = v_data2.yz * quad_pixel_size;
-        vec2 b = v_data2.wz * quad_pixel_size; // Map p3, p4 safely
+        vec2 b = v_data2.wz * quad_pixel_size;
 
         vec2 ba = b - a;
         float lenBA = max(length(ba), 1e-6);
@@ -203,7 +215,6 @@ void main()
         alpha = aaMask(lineDist, aa);
     }
 
-    // final cutoff (branchless)
     alpha *= step(0.0039, alpha);
 
     gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
