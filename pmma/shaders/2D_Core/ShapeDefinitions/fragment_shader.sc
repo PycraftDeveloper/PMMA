@@ -132,21 +132,21 @@ void main()
     {
         float max_possible_rad = min(half_size.x, half_size.y);
 
-        vec4 corners = vec4(p1);
+        vec4 corners = vec4(p1, p1, p1, p1);
 
         // safety clamp
         corners = clamp(
                 corners,
-                vec4(0.0),
-                vec4(max_possible_rad)
+                vec4(0.0, 0.0, 0.0, 0.0),
+                vec4(max_possible_rad, max_possible_rad, max_possible_rad, max_possible_rad)
             );
 
         float outerRR = sdRoundRectPermutated(p_pixel, half_size, corners);
 
         float innerRR = sdRoundRectPermutated(
                 p_pixel,
-                half_size - vec2(border),
-                max(corners - vec4(border), vec4(0.0))
+                half_size - vec2(border, border),
+                max(corners - vec4(border, border, border, border), vec4(0.0, 0.0, 0.0, 0.0))
             );
 
         float rrFill = aaMask(outerRR, aa);
