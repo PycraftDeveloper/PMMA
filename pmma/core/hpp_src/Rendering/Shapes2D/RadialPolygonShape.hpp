@@ -26,7 +26,6 @@ public:
     uint16_t PointCount = 0;
 
     bool RadiusSet = false;
-    bool HasAlpha = false;
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 

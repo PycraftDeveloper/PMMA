@@ -35,7 +35,7 @@ void PMMA::Rendering::TwoD::CPP_Line::Render() {
         ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
         ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, rel_start_x);
 
-        ShapeInstanceData.shape_type_width = rpc->PackValues(3, Width);
+        ShapeInstanceData.shape_type_width = rpc->PackValues(4, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
 

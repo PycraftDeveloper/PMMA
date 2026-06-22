@@ -34,7 +34,7 @@ void PMMA::Rendering::TwoD::CPP_Rectangle::Render() {
         ShapeInstanceData.size = rpc->PackValues(Size[0], Size[1]);
         ShapeInstanceData.point_count_gradient_type = rpc->PackValues(0, 0); // no point count here
         ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, CornerRadius);
-        ShapeInstanceData.shape_type_width = rpc->PackValues(1, Width);
+        ShapeInstanceData.shape_type_width = rpc->PackValues(2, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
     }

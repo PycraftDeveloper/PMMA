@@ -89,7 +89,7 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
         ColorTexture.Assemble();
     }
 
-    if (ShapePropertyChanged) {
+    if (ShapePropertyChanged || !bgfx::isValid(instanceVbh)) {
         instanceDataArray[BufferID].resize(instanceCount); // Free memory if instanceCount decreased
         instanceDataArray[BufferID].shrink_to_fit();       // Free memory if instanceCount decreased
 
@@ -100,7 +100,7 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
             instanceCount * sizeof(InstanceData));
 
         if (bgfx::isValid(instanceVbh)) {
-            if (instanceCount != PreviousInstanceCount) {
+            if (instanceCount != ActiveBufferCount) {
                 bgfx::destroy(instanceVbh);
                 instanceVbh = bgfx::createDynamicVertexBuffer(
                     instanceDataMem,
@@ -116,6 +116,13 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
                 instanceDataMem,
                 instanceLayout);
         }
+
+        ActiveBufferCount = instanceCount;
+
+        PreviousShapeIDs[BufferID] = CurrentShapeIDs[BufferID];
+
+        CurrentShapeIDs[BufferID].clear();
+        CurrentShapeIDs[BufferID].shrink_to_fit();
 
         BufferID = (BufferID + 1) % 4;
     }
@@ -133,7 +140,7 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
     bgfx::setInstanceDataBuffer(
         instanceVbh,
         0,
-        instanceCount);
+        ActiveBufferCount);
 
     bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTexture, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
 

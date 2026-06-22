@@ -15,17 +15,52 @@ CPP_Core2D_RenderPipelineManager::~CPP_Core2D_RenderPipelineManager() {
 
 void CPP_Core2D_RenderPipelineManager::Add(PMMA::Rendering::TwoD::CPP_Line *lineShape) {
     if (RenderPipelineInstances.empty()) {
-        RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
+        if (CachedRenderPipelineInstances.empty()) {
+            RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
+        } else {
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
+            CachedRenderPipelineInstances.pop_back();
+        }
     }
 
     CPP_Core2D_RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
 
     if (lastInstance->instanceCount >= 16777216) {
-        RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
+        if (CachedRenderPipelineInstances.empty()) {
+            RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
+        } else {
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
+            CachedRenderPipelineInstances.pop_back();
+        }
         lastInstance = RenderPipelineInstances.back();
     }
 
     lastInstance->Add(lineShape);
+}
+
+void CPP_Core2D_RenderPipelineManager::Add(PMMA::Rendering::TwoD::CPP_Pixel *pixelShape) {
+    if (RenderPipelineInstances.empty()) {
+        if (CachedRenderPipelineInstances.empty()) {
+            RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
+        } else {
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
+            CachedRenderPipelineInstances.pop_back();
+        }
+    }
+
+    CPP_Core2D_RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
+
+    if (lastInstance->instanceCount >= 16777216) {
+        if (CachedRenderPipelineInstances.empty()) {
+            RenderPipelineInstances.push_back(new CPP_Core2D_RenderPipelineInstance());
+        } else {
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
+            CachedRenderPipelineInstances.pop_back();
+        }
+        lastInstance = RenderPipelineInstances.back();
+    }
+
+    lastInstance->Add(pixelShape);
 }
 
 void CPP_Core2D_RenderPipelineManager::Add(PMMA::Rendering::TwoD::CPP_RadialPolygon *radialPolygonShape) {

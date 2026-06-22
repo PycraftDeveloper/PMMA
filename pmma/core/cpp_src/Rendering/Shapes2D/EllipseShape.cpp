@@ -34,7 +34,7 @@ void PMMA::Rendering::TwoD::CPP_Ellipse::Render() {
         ShapeInstanceData.size = rpc->PackValues(Size[0], Size[1]);
         ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
         ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, 0);
-        ShapeInstanceData.shape_type_width = rpc->PackValues(0, Width);
+        ShapeInstanceData.shape_type_width = rpc->PackValues(1, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
     }

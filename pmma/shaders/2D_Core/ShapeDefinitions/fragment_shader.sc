@@ -73,10 +73,17 @@ void main()
     float alpha = 0.0;
 
     // ============================================================
-    // MODE 0: ELLIPSE / POLYGON
+    // MODE 0: SOLID AND SIMPLE
+    // ============================================================
+    if (shapeType < 0.5) {
+        alpha = 1.0;
+    }
+
+    // ============================================================
+    // MODE 1: ELLIPSE / POLYGON
     // ============================================================
 
-    if (shapeType < 0.5)
+    else if (shapeType < 1.5)
     {
         vec2 normalized_p = p_pixel / half_size;
         float ellipse_eq = dot(normalized_p, normalized_p) - 1.0;
@@ -123,10 +130,10 @@ void main()
     }
 
     // ============================================================
-    // MODE 1: ROUND RECT
+    // MODE 2: ROUND RECT
     // ============================================================
 
-    else if (shapeType < 1.5)
+    else if (shapeType < 2.5)
     {
         float max_possible_rad = min(half_size.x, half_size.y);
 
@@ -154,10 +161,10 @@ void main()
     }
 
     // ============================================================
-    // MODE 2: ARC
+    // MODE 3: ARC
     // ============================================================
 
-    else if (shapeType < 2.5)
+    else if (shapeType < 3.5)
     {
         float r_pixel = length(p_pixel);
         float outerRadius = min(half_size.x, half_size.y) - aa;
@@ -185,7 +192,7 @@ void main()
     }
 
     // ============================================================
-    // MODE 3: LINE
+    // MODE 4: LINE
     // ============================================================
 
     else

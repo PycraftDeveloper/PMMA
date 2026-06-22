@@ -55,7 +55,7 @@ void PMMA::Rendering::TwoD::CPP_Arc::Render() {
         ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
         ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, GetStartAngle() * 182);
 
-        ShapeInstanceData.shape_type_width = rpc->PackValues(2, Width);
+        ShapeInstanceData.shape_type_width = rpc->PackValues(3, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
 

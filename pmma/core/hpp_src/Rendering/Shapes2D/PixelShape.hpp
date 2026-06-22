@@ -10,14 +10,23 @@
 #include "CoreTypes.hpp"
 #include "Logger.hpp"
 
-class EXPORT CPP_PixelShape {
+namespace PMMA::Rendering::TwoD {
+class EXPORT CPP_Pixel {
 public:
-    CPP_PixelShape();
+    CPP_DisplayCoordinate ShapeCenter;
+    CPP_Color Color;
 
-    ~CPP_PixelShape() {
+    InstanceData ShapeInstanceData;
+
+    uintptr_t ID;
+
+    bool ColorDataChanged = true;
+    bool ShapePropertyChanged = true;
+
+    inline CPP_Pixel() {
+        ID = reinterpret_cast<uintptr_t>(this);
     }
 
     void Render();
-
-    void InternalRender();
 };
+} // namespace PMMA::Rendering::TwoD

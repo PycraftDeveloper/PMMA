@@ -13,6 +13,7 @@ class CPP_Arc;
 class CPP_Ellipse;
 class CPP_RadialPolygon;
 class CPP_Rectangle;
+class CPP_Pixel;
 } // namespace PMMA::Rendering::TwoD
 
 struct Vertex {
@@ -41,6 +42,7 @@ public:
     void Add(PMMA::Rendering::TwoD::CPP_Arc *arcShape);
     void Add(PMMA::Rendering::TwoD::CPP_Ellipse *ellipseShape);
     void Add(PMMA::Rendering::TwoD::CPP_Rectangle *rectangleShape);
+    void Add(PMMA::Rendering::TwoD::CPP_Pixel *pixelShape);
 
     inline float PackValues(uint16_t value_one, uint16_t value_two) {
         uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);

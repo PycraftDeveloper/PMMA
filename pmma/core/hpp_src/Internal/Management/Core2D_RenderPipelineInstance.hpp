@@ -10,6 +10,7 @@
 #include "Rendering/Shapes2D/ArcShape.hpp"
 #include "Rendering/Shapes2D/EllipseShape.hpp"
 #include "Rendering/Shapes2D/LineShape.hpp"
+#include "Rendering/Shapes2D/PixelShape.hpp"
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
 
@@ -42,7 +43,7 @@ private:
     bgfx::UniformHandle s_colorTex;
 
     CPP_Core2D_ColorTexture ColorTexture;
-    uint32_t PreviousInstanceCount = 0;
+    uint32_t ActiveBufferCount = 0;
 
     char BufferID = 0;
 
@@ -50,7 +51,7 @@ private:
     bool ShapePropertyChanged = true;
 
 public:
-    uint32_t instanceCount = 0; // max: 16'777'216
+    uint32_t instanceCount = 0;
 
     CPP_Core2D_RenderPipelineInstance();
 
@@ -80,13 +81,10 @@ public:
 
     inline void Reset() {
         ColorTexture.Reset();
-        PreviousInstanceCount = instanceCount;
         instanceCount = 0;
+
         ColorChanged = false;
         ShapePropertyChanged = false;
-        PreviousShapeIDs[BufferID] = CurrentShapeIDs[BufferID];
-        CurrentShapeIDs[BufferID].clear();
-        CurrentShapeIDs[BufferID].shrink_to_fit();
         UsingCache = true;
     }
 
@@ -131,6 +129,50 @@ public:
         instanceDataArray[BufferID].resize(instanceCount);
 
         instanceDataArray[BufferID].push_back(lineShape->ShapeInstanceData);
+        instanceCount++;
+    }
+
+    inline void Add(PMMA::Rendering::TwoD::CPP_Pixel *pixelShape) {
+        uintptr_t ShapeID = pixelShape->ID;
+
+        pixelShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&pixelShape->Color, ShapeID, pixelShape->ColorDataChanged);
+
+        ColorChanged |= pixelShape->ColorDataChanged;
+        ShapePropertyChanged |= pixelShape->ShapePropertyChanged;
+
+        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
+            UsingCache = false;
+        }
+
+        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID) {
+            if (ShapePropertyChanged) {
+                if (instanceCount < instanceDataArray[BufferID].size()) {
+                    instanceDataArray[BufferID][instanceCount] = pixelShape->ShapeInstanceData;
+                } else {
+                    instanceDataArray[BufferID].push_back(pixelShape->ShapeInstanceData);
+                }
+            }
+
+            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+                CurrentShapeIDs[BufferID].push_back(ShapeID);
+            }
+
+            instanceCount++;
+            return;
+        }
+
+        UsingCache = false;
+
+        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+            if (instanceCount < CurrentShapeIDs[BufferID].size()) {
+                CurrentShapeIDs[BufferID].resize(instanceCount);
+            }
+            CurrentShapeIDs[BufferID].push_back(ShapeID);
+        }
+
+        instanceDataArray[BufferID].resize(instanceCount);
+
+        instanceDataArray[BufferID].push_back(pixelShape->ShapeInstanceData);
         instanceCount++;
     }
 
