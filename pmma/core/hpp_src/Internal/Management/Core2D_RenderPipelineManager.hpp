@@ -11,6 +11,7 @@ class CPP_LineShape;
 class CPP_RadialPolygonShape;
 class CPP_ArcShape;
 class CPP_EllipseShape;
+class CPP_RectangleShape;
 
 struct Vertex {
     float x, y, u, v;
@@ -37,6 +38,7 @@ public:
     void Add(CPP_RadialPolygonShape *radialPolygonShape);
     void Add(CPP_ArcShape *arcShape);
     void Add(CPP_EllipseShape *ellipseShape);
+    void Add(CPP_RectangleShape *rectangleShape);
 
     inline float PackValues(uint16_t value_one, uint16_t value_two) {
         uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);

@@ -12,10 +12,19 @@ float aaMask(float d, float aa)
     return clamp(0.5 - d / aa, 0.0, 1.0);
 }
 
-float sdRoundRect(vec2 p, vec2 b, float r)
+// Fixed Signed Distance Function for a Rectangle with per-corner radii
+float sdRoundRectPermutated(vec2 p, vec2 b, vec4 r)
 {
-    vec2 q = abs(p) - (b - vec2(r, r));
-    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - r;
+    // Select the correct radius based on which quadrant the pixel lies in
+    vec2 r_sel = (p.x > 0.0) ? ((p.y > 0.0) ? r.xy : r.zw) : ((p.y > 0.0) ? r.xx : r.yy);
+    // Fallback simplified logic for 4 unique corners:
+    float rad = (p.x > 0.0 && p.y > 0.0) ? r.x : // Top Right
+        (p.x < 0.0 && p.y > 0.0) ? r.y : // Top Left
+        (p.x < 0.0 && p.y < 0.0) ? r.z : // Bottom Left
+        r.w; // Bottom Right
+
+    vec2 q = abs(p) - b + vec2(rad, rad);
+    return length(max(q, 0.0)) + min(max(q.x, q.y), 0.0) - rad;
 }
 
 // ------------------------------------------------------------
@@ -24,19 +33,26 @@ float sdRoundRect(vec2 p, vec2 b, float r)
 
 void main()
 {
-    vec2 p = v_uv - vec2(0.5, 0.5);
+    // 1. GLOBAL ASPECT RATIO & SCALE CORRECTION
+    // Calculate the screen-space size of the UV quad to find true pixel metrics
+    vec2 dx_uv = dFdx(v_uv);
+    vec2 dy_uv = dFdy(v_uv);
 
-    if (abs(p.x) > 0.5 || abs(p.y) > 0.5)
+    // Determine the absolute pixel dimensions of the rendering quad
+    vec2 quad_pixel_size = vec2(1.0 / length(vec2(dx_uv.x, dy_uv.x)), 1.0 / length(vec2(dx_uv.y, dy_uv.y)));
+
+    // Convert 0->1 UV space to absolute pixel space centered at (0,0)
+    vec2 p_pixel = (v_uv - vec2(0.5, 0.5)) * quad_pixel_size;
+    vec2 half_size = quad_pixel_size * 0.5;
+
+    // Boundary discard check using absolute pixels
+    if (abs(p_pixel.x) > half_size.x || abs(p_pixel.y) > half_size.y)
         discard;
 
-    float dx = dFdx(p.x);
-    float dy = dFdx(p.y);
+    // Global Anti-Aliasing factor is exactly 1 screen pixel wide now
+    float aa = 1.0;
 
-    float pixel = length(vec2(dx, dy));
-    float aa = pixel;
-
-    float r2 = dot(p, p);
-    float r = sqrt(r2);
+    float r = length(p_pixel);
 
     // ------------------------------------------------------------
     // Instance data
@@ -45,15 +61,15 @@ void main()
     float pointCount = v_data0.x;
     float shapeType = v_data0.w;
 
+    // Width is now processed directly as a uniform pixel thickness
     float width = v_data1.x;
+    float border = width;
 
+    // Raw input radii from vertex data
     float p1 = v_data2.y;
     float p2 = v_data2.z;
     float p3 = v_data2.w;
     float p4 = v_data3.x;
-
-    float outerRadius = 0.5 - pixel;
-    float border = width * pixel;
 
     float alpha = 0.0;
 
@@ -63,20 +79,15 @@ void main()
 
     if (shapeType < 0.5)
     {
+        float outerRadius = min(half_size.x, half_size.y) - aa;
         float outerDist = r - outerRadius;
-
         float circleFill = aaMask(outerDist, aa);
 
-        float innerRadius = outerRadius - border;
-        innerRadius = max(innerRadius, 0.0);
-
+        float innerRadius = max(outerRadius - border, 0.0);
         float innerDist = innerRadius - r;
         float circleRing = aaMask(max(outerDist, innerDist), aa);
 
         float circleAlpha = (width < 0.5) ? circleFill : circleRing;
-
-        // ---------------- POLYGON ----------------
-
         float polyAlpha = circleAlpha;
 
         if (pointCount >= 3.0)
@@ -84,22 +95,17 @@ void main()
             float N = max(pointCount, 3.0);
             float sector = 6.28318530718 / N;
 
-            float angle = atan2(p.y, p.x);
+            float angle = atan2(p_pixel.y, p_pixel.x);
             angle += (angle < 0.0) * 6.28318530718;
 
-            float sectorAngle =
-                mod(angle + sector * 0.5, sector) - sector * 0.5;
-
+            float sectorAngle = mod(angle + sector * 0.5, sector) - sector * 0.5;
             float edge = cos(sector * 0.5);
-
             float proj = (r * cos(sectorAngle)) / edge;
 
             float polyOuter = proj - outerRadius;
             float polyInner = (outerRadius - border) - proj;
 
-            float polyDist = (width < 0.5)
-                ? polyOuter : max(polyOuter, polyInner);
-
+            float polyDist = (width < 0.5) ? polyOuter : max(polyOuter, polyInner);
             polyAlpha = aaMask(polyDist, aa);
         }
 
@@ -112,21 +118,25 @@ void main()
 
     else if (shapeType < 1.5)
     {
-        float radius = clamp(p1 * pixel, 0.0, 0.5);
+        // 2. POINT COUNT & CORNER LOGIC
+        // If pointCount < 3, override individual inputs to force a smooth/max rounded corner
+        float max_possible_rad = min(half_size.x, half_size.y);
 
-        float outerRR = sdRoundRect(p, vec2(0.5, 0.5), radius);
+        vec4 corners = vec4(p1, p2, p3, p4);
+        if (pointCount < 3.0) {
+            corners = vec4(max_possible_rad, max_possible_rad, max_possible_rad, max_possible_rad); // Overrides corners to completely smooth rounded caps
+        }
 
-        float innerRR = sdRoundRect(
-                p,
-                vec2(0.5 - border, 0.5 - border),
-                max(radius - border, 0.0)
-            );
+        // Clamp radii safely to half-extents using real pixels
+        corners = clamp(corners, vec4(0.0, 0.0, 0.0, 0.0), vec4(max_possible_rad, max_possible_rad, max_possible_rad, max_possible_rad));
+
+        float outerRR = sdRoundRectPermutated(p_pixel, half_size, corners);
+        float innerRR = sdRoundRectPermutated(p_pixel, half_size - vec2(border, border), max(corners - vec4(border, border, border, border), vec4(0.0, 0.0, 0.0, 0.0)));
 
         float rrFill = aaMask(outerRR, aa);
         float rrInner = aaMask(innerRR, aa);
 
-        alpha = (width < 0.5)
-            ? rrFill : rrFill * (1.0 - rrInner);
+        alpha = (width < 0.5) ? rrFill : rrFill * (1.0 - rrInner);
     }
 
     // ============================================================
@@ -135,24 +145,22 @@ void main()
 
     else if (shapeType < 2.5)
     {
+        float outerRadius = min(half_size.x, half_size.y) - aa;
         float outerD = r - outerRadius;
 
         float innerR = max(outerRadius - border, 0.0);
         float innerD = innerR - r;
 
-        float ringDist = (width < 0.5)
-            ? outerD : max(outerD, innerD);
-
+        float ringDist = (width < 0.5) ? outerD : max(outerD, innerD);
         float arcBase = aaMask(ringDist, aa);
 
-        float angle = atan2(p.y, p.x);
+        float angle = atan2(p_pixel.y, p_pixel.x);
         angle += (angle < 0.0) * 6.28318530718;
 
         float startA = (p1 / 182.0) * 0.01745329251;
         float endA = (p2 / 182.0) * 0.01745329251;
 
         float arcMask;
-
         if (endA >= 6.28318530718)
             arcMask = 1.0;
         else
@@ -167,34 +175,31 @@ void main()
 
     else
     {
-        vec2 a = vec2(p1, p2);
-        vec2 b = vec2(p3, p4);
+        // Re-scale line anchors from UV ratios into real working pixel positions
+        vec2 a = v_data2.yz * quad_pixel_size;
+        vec2 b = v_data2.wz * quad_pixel_size; // Map p3, p4 safely
 
         vec2 ba = b - a;
         float lenBA = max(length(ba), 1e-6);
         vec2 dir = ba / lenBA;
 
-        vec2 pa = v_uv - a;
+        vec2 pa = (v_uv * quad_pixel_size) - a;
 
         float x = dot(pa, dir);
         float y = dot(pa, vec2(-dir.y, dir.x));
 
         float halfLen = lenBA * 0.5;
-        float rad = pixel * 0.5;
+        float rad = 0.5;
 
         float dx = abs(x - halfLen);
         float dy = abs(y);
 
-        float square =
-            length(max(vec2(dx, dy) - vec2(halfLen, rad), 0.0))
-                + min(max(x - halfLen, y - rad), 0.0);
+        float square = length(max(vec2(dx, dy) - vec2(halfLen, rad), 0.0)) + min(max(x - halfLen, y - rad), 0.0);
 
         float t = clamp(x / lenBA, 0.0, 1.0);
         float roundLine = length(pa - ba * t) - rad;
 
-        float lineDist = (pointCount < 3.0)
-            ? square : roundLine;
-
+        float lineDist = (pointCount < 3.0) ? square : roundLine;
         alpha = aaMask(lineDist, aa);
     }
 

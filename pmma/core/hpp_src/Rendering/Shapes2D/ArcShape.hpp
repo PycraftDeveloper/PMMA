@@ -57,7 +57,7 @@ public:
 
     float GetEndAngle();
 
-    inline void SetWidth(unsigned int in_width) {
+    inline void SetWidth(uint16_t in_width) {
         if (in_width != Width) {
             ShapePropertyChanged = true;
         }
@@ -65,7 +65,7 @@ public:
         Width = in_width;
     };
 
-    inline unsigned int GetWidth() const {
+    inline uint16_t GetWidth() const {
         return Width;
     }
 

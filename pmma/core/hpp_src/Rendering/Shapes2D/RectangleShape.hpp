@@ -12,45 +12,87 @@
 
 class EXPORT CPP_RectangleShape {
 public:
-    CPP_RectangleShape();
+    CPP_DisplayCoordinate ShapeCenter;
+    CPP_Color Color;
 
-    ~CPP_RectangleShape() {
+    InstanceData ShapeInstanceData;
+
+    float Rotation = 0;
+
+    uint16_t ShapeSize[2] = {10, 10};
+    uint64_t ID;
+    uint16_t Width = 0;
+    uint16_t PointCount = 0;
+    uint16_t CornerRadius = 0;
+
+    bool ColorDataChanged = true;
+    bool ShapePropertyChanged = true;
+
+    inline CPP_RectangleShape() {
+        ID = reinterpret_cast<uintptr_t>(this);
     }
 
     void Render();
 
-    void InternalRender();
+    inline void SetSize(uint16_t *in_size) {
+        if (in_size[0] != ShapeSize[0] || in_size[1] != ShapeSize[1]) {
+            ShapePropertyChanged = true;
+        }
 
-    inline void SimpleApplyRotation(float *position, float *shape_center, float RotationSin, float RotationCos, unsigned int HalfWidth, unsigned int HalfHeight, float *out) {
-    }
-
-    inline void ComplexApplyRotation(float *point, float *shape_center, float RotationSin, float RotationCos, float *out) {
-    }
-
-    inline void SetSize(unsigned int *in_size) {
+        ShapeSize[0] = in_size[0];
+        ShapeSize[1] = in_size[1];
     };
 
-    inline void GetSize(unsigned int *out_size) {
+    inline void GetSize(uint16_t *out_size) {
+        out_size[0] = ShapeSize[0];
+        out_size[1] = ShapeSize[1];
     }
 
-    inline void SetWidth(unsigned int in_width) {
+    inline void SetPointCount(uint16_t in_pointCount) {
+        if (in_pointCount != PointCount) {
+            ShapePropertyChanged = true;
+        }
+
+        PointCount = in_pointCount;
     };
 
-    inline unsigned int GetWidth() const {
-        return 0;
+    uint16_t GetPointCount() {
+        return PointCount;
+    }
+
+    inline void SetWidth(uint16_t in_width) {
+        if (in_width != Width) {
+            ShapePropertyChanged = true;
+        }
+
+        Width = in_width;
+    };
+
+    inline uint16_t GetWidth() const {
+        return Width;
     }
 
     inline void SetRotation(float in_rotation) {
+        if (in_rotation != Rotation) {
+            ShapePropertyChanged = true;
+        }
+
+        Rotation = in_rotation;
     }
 
     inline float GetRotation() const {
-        return 0.0f;
+        return Rotation;
     }
 
-    inline void SetCornerRadius(unsigned int in_corner_radius) {
+    inline void SetCornerRadius(uint16_t in_corner_radius) {
+        if (in_corner_radius != CornerRadius) {
+            ShapePropertyChanged = true;
+        }
+
+        CornerRadius = in_corner_radius;
     }
 
-    inline unsigned int GetCornerRadius() const {
-        return 0;
+    inline uint16_t GetCornerRadius() const {
+        return CornerRadius;
     }
 };

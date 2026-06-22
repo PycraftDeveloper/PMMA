@@ -134,6 +134,50 @@ public:
         instanceCount++;
     }
 
+    inline void Add(CPP_RectangleShape *rectangleShape) {
+        uintptr_t ShapeID = rectangleShape->ID;
+
+        rectangleShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&rectangleShape->Color, ShapeID, rectangleShape->ColorDataChanged);
+
+        ColorChanged |= rectangleShape->ColorDataChanged;
+        ShapePropertyChanged |= rectangleShape->ShapePropertyChanged;
+
+        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
+            UsingCache = false;
+        }
+
+        if (UsingCache && instanceCount < PreviousShapeIDs[BufferID].size() && PreviousShapeIDs[BufferID][instanceCount] == ShapeID) {
+            if (ShapePropertyChanged) {
+                if (instanceCount < instanceDataArray[BufferID].size()) {
+                    instanceDataArray[BufferID][instanceCount] = rectangleShape->ShapeInstanceData;
+                } else {
+                    instanceDataArray[BufferID].push_back(rectangleShape->ShapeInstanceData);
+                }
+            }
+
+            if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+                CurrentShapeIDs[BufferID].push_back(ShapeID);
+            }
+
+            instanceCount++;
+            return;
+        }
+
+        UsingCache = false;
+
+        if (CurrentShapeIDs[BufferID].empty() || CurrentShapeIDs[BufferID].back() != ShapeID) {
+            if (instanceCount < CurrentShapeIDs[BufferID].size()) {
+                CurrentShapeIDs[BufferID].resize(instanceCount);
+            }
+            CurrentShapeIDs[BufferID].push_back(ShapeID);
+        }
+
+        instanceDataArray[BufferID].resize(instanceCount);
+
+        instanceDataArray[BufferID].push_back(rectangleShape->ShapeInstanceData);
+        instanceCount++;
+    }
+
     inline void Add(CPP_EllipseShape *ellipseShape) {
         uintptr_t ShapeID = ellipseShape->ID;
 
