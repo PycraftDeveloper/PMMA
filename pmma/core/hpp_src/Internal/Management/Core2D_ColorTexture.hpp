@@ -1,4 +1,5 @@
 #pragma once
+#include <algorithm>
 #include <cstdint>
 #include <vector>
 
@@ -9,28 +10,28 @@
 
 class CPP_Core2D_ColorTexture {
 private:
-    std::vector<uint8_t> PreviousColorData;
+    std::array<std::vector<uint8_t>, 4> PreviousColorData;
     std::vector<uint8_t> CurrentColorData;
-    std::vector<uintptr_t> PreviousShapeIDs;
+
+    std::array<std::vector<uintptr_t>, 4> PreviousShapeIDs;
     std::vector<uintptr_t> CurrentShapeIDs;
+
     uint32_t ShapeCount = 0;
     uint32_t PreviousShapeCount = 0;
-    uint32_t CurrentDataSize = 0;
+
+    char BufferID = 0;
+    char PreviousBufferID = 0;
 
     bool ColorChanged = true;
 
 public:
     bool UsingCache = false;
 
-    bgfx::TextureHandle ColorTexture;
+    bgfx::TextureHandle ColorTexture = BGFX_INVALID_HANDLE;
 
     uint32_t m_colorTextureWidth = 0;
     uint32_t m_colorTextureHeight = 0;
-    uint32_t MaxTextureDimension;
-
-    CPP_Core2D_ColorTexture() {
-        ColorTexture = BGFX_INVALID_HANDLE;
-    }
+    uint32_t MaxTextureDimension = 1024;
 
     ~CPP_Core2D_ColorTexture() {
         if (bgfx::isValid(ColorTexture)) {
@@ -38,102 +39,119 @@ public:
         }
     }
 
+    // ------------------------------------------------------------
+    // ADD COLOR (hot path)
+    // ------------------------------------------------------------
     inline uint32_t AddColor(CPP_Color *Color, uintptr_t ShapeID, bool ColorDataChanged) {
         ColorChanged |= ColorDataChanged;
 
-        if (UsingCache && ShapeCount < CurrentDataSize && CurrentShapeIDs[ShapeCount] == ShapeID) {
-            if (ColorDataChanged) {
-                size_t requiredSize = ShapeCount * 4;
-                if (CurrentDataSize < requiredSize) {
-                    CurrentColorData.resize(requiredSize);
-                }
-                Color->Get_RGBA(&CurrentColorData[ShapeCount * 4]);
-            }
+        uint32_t idx = ShapeCount++;
+        uint32_t byteIndex = idx * 4;
 
-            ShapeCount++;
-            return ShapeCount;
+        // Ensure buffer size (safe + single responsibility)
+        if (byteIndex + 4 > CurrentColorData.size()) {
+            CurrentColorData.resize(byteIndex + 4);
         }
 
-        UsingCache = false;
-
-        if (ShapeCount >= CurrentDataSize) {
-            size_t requiredSize = ShapeCount * 4;
-            if (CurrentDataSize < requiredSize) {
-                CurrentColorData.resize(requiredSize);
-            }
-            Color->Get_RGBA(&CurrentColorData[ShapeCount * 4]);
-
-            CurrentShapeIDs.push_back(ShapeID);
-            CurrentDataSize++;
-        } else {
-            Color->Get_RGBA(&CurrentColorData[ShapeCount * 4]);
-            CurrentShapeIDs[ShapeCount] = ShapeID;
+        // Ensure ID buffer size
+        if (idx >= CurrentShapeIDs.size()) {
+            CurrentShapeIDs.resize(idx + 1);
         }
-        ShapeCount++;
 
-        return ShapeCount;
+        bool cacheHit =
+            UsingCache &&
+            idx < PreviousShapeIDs[BufferID].size() &&
+            PreviousShapeIDs[BufferID][idx] == ShapeID;
+
+        if (!cacheHit || ColorDataChanged) {
+            Color->Get_RGBA(&CurrentColorData[byteIndex]);
+        } else if (cacheHit) {
+            // reuse previous color data
+            const uint8_t *prev =
+                PreviousColorData[BufferID].data() + byteIndex;
+
+            CurrentColorData[byteIndex + 0] = prev[0];
+            CurrentColorData[byteIndex + 1] = prev[1];
+            CurrentColorData[byteIndex + 2] = prev[2];
+            CurrentColorData[byteIndex + 3] = prev[3];
+        }
+
+        CurrentShapeIDs[idx] = ShapeID;
+
+        return idx;
     }
 
+    // ------------------------------------------------------------
+    // RESET (start new frame)
+    // ------------------------------------------------------------
     inline void Reset() {
         ShapeCount = 0;
         UsingCache = true;
         ColorChanged = false;
 
-        CurrentShapeIDs = PreviousShapeIDs;
-        CurrentColorData = PreviousColorData;
-
-        CurrentDataSize = CurrentColorData.size();
+        CurrentShapeIDs = PreviousShapeIDs[PreviousBufferID];
+        CurrentColorData = PreviousColorData[PreviousBufferID];
     }
 
+    // ------------------------------------------------------------
+    // ASSEMBLE (upload texture)
+    // ------------------------------------------------------------
     inline void Assemble() {
-        if (ColorChanged || ShapeCount != PreviousShapeCount || !bgfx::isValid(ColorTexture)) {
-            CurrentColorData.resize(ShapeCount * 4);
-            CurrentColorData.shrink_to_fit();
+        if (!ColorChanged && ShapeCount == PreviousShapeCount && bgfx::isValid(ColorTexture))
+            return;
 
-            CurrentShapeIDs.resize(ShapeCount);
-            CurrentShapeIDs.shrink_to_fit();
+        uint32_t numColors = ShapeCount;
 
-            PreviousShapeIDs = CurrentShapeIDs;
-            PreviousColorData = CurrentColorData;
+        uint32_t width = std::min(MaxTextureDimension, numColors);
+        width = std::max(width, 1u);
 
-            uint32_t CurrentBufferSize = PreviousColorData.size();
+        uint32_t height = (numColors + width - 1) / width;
 
-            uint32_t numColors = (uint32_t)ShapeCount;
-            uint32_t width = std::min(MaxTextureDimension, numColors);
-            uint32_t height = (numColors + width - 1) / width;
+        size_t requiredSize = width * height * 4;
+        size_t dataSize = ShapeCount * 4;
 
-            size_t expectedSize = width * height * 4;
-            if (CurrentBufferSize < expectedSize) {
-                PreviousColorData.resize(expectedSize, 0); // Pad with transparent black
+        CurrentColorData.resize(dataSize);
+
+        // Copy into persistent buffer for BGFX
+        PreviousColorData[BufferID] = CurrentColorData;
+        PreviousShapeIDs[BufferID] = CurrentShapeIDs;
+
+        const std::vector<uint8_t> &gpuData = PreviousColorData[BufferID];
+
+        const bgfx::Memory *texMem = bgfx::copy(
+            gpuData.data(),
+            static_cast<uint32_t>(gpuData.size()));
+
+        if (bgfx::isValid(ColorTexture)) {
+            if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
+                bgfx::destroy(ColorTexture);
+                ColorTexture = BGFX_INVALID_HANDLE;
             }
-
-            const bgfx::Memory *texMem = bgfx::copy(
-                PreviousColorData.data(),
-                static_cast<uint32_t>(CurrentBufferSize * sizeof(uint8_t)));
-
-            // If texture exists but size changed, destroy and recreate it
-            if (bgfx::isValid(ColorTexture)) {
-                if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
-                    bgfx::destroy(ColorTexture);
-                    ColorTexture = BGFX_INVALID_HANDLE;
-                }
-            }
-
-            // create texture if missing
-            if (!bgfx::isValid(ColorTexture)) {
-                ColorTexture = bgfx::createTexture2D(
-                    (uint16_t)width, (uint16_t)height,
-                    false, // hasMips
-                    1,     // num layers
-                    bgfx::TextureFormat::RGBA8,
-                    BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
-            }
-
-            bgfx::updateTexture2D(ColorTexture, 0, 0, 0, 0, width, height, texMem);
-
-            // store width/height for shader normalization
-            m_colorTextureWidth = width;
-            m_colorTextureHeight = height;
         }
+
+        if (!bgfx::isValid(ColorTexture)) {
+            ColorTexture = bgfx::createTexture2D(
+                (uint16_t)width,
+                (uint16_t)height,
+                false,
+                1,
+                bgfx::TextureFormat::RGBA8,
+                BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
+        }
+
+        bgfx::updateTexture2D(
+            ColorTexture,
+            0, 0, 0, 0,
+            width,
+            height,
+            texMem);
+
+        m_colorTextureWidth = width;
+        m_colorTextureHeight = height;
+
+        PreviousShapeCount = ShapeCount;
+
+        PreviousBufferID = BufferID;
+        BufferID = (BufferID + 1) % 4;
     }
 };

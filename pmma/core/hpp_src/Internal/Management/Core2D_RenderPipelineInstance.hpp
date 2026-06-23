@@ -42,6 +42,7 @@ private:
     CPP_Core2D_ColorTexture ColorTexture;
 
     char BufferID = 0;
+    char PreviousBufferID = 0;
 
     bool ColorChanged = true;
     bool ShapePropertyChanged = true;
@@ -83,8 +84,8 @@ public:
         ShapePropertyChanged = false;
         UsingCache = true;
 
-        CurrentShapeIDs = PreviousShapeIDs[BufferID];
-        CurrentInstanceData = PreviousInstanceData[BufferID];
+        CurrentShapeIDs = PreviousShapeIDs[PreviousBufferID];
+        CurrentInstanceData = PreviousInstanceData[PreviousBufferID];
 
         CurrentDataSize = CurrentInstanceData.size();
     }
