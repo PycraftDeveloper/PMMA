@@ -107,10 +107,10 @@ public:
 
         uint32_t height = (numColors + width - 1) / width;
 
-        size_t requiredSize = width * height * 4;
-        size_t dataSize = ShapeCount * 4;
+        size_t expectedSize = static_cast<size_t>(width) * height * 4;
 
-        CurrentColorData.resize(dataSize);
+        // Ensure buffer is FULL texture size (not logical size)
+        CurrentColorData.resize(expectedSize, 0); // <-- PAD WITH TRANSPARENT BLACK
 
         // Copy into persistent buffer for BGFX
         PreviousColorData[BufferID] = CurrentColorData;
@@ -118,7 +118,7 @@ public:
 
         const std::vector<uint8_t> &gpuData = PreviousColorData[BufferID];
 
-        const bgfx::Memory *texMem = bgfx::copy(
+        const bgfx::Memory *texMem = bgfx::makeRef(
             gpuData.data(),
             static_cast<uint32_t>(gpuData.size()));
 

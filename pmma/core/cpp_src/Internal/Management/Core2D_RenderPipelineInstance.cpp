@@ -153,8 +153,6 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
         BGFX_STATE_WRITE_A |
         BGFX_STATE_BLEND_ALPHA);
 
-    std::cout << "R" << std::endl;
-
     bgfx::submit(
         0,
         ShapeDefinitionsShaderProgram->Use());
