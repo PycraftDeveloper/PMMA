@@ -7,12 +7,6 @@
 
 #include "Internal/Management/Core2D_ColorTexture.hpp"
 #include "Internal/Management/Core2D_RenderPipelineManager.hpp"
-#include "Rendering/Shapes2D/ArcShape.hpp"
-#include "Rendering/Shapes2D/EllipseShape.hpp"
-#include "Rendering/Shapes2D/LineShape.hpp"
-#include "Rendering/Shapes2D/PixelShape.hpp"
-#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
-#include "Rendering/Shapes2D/RectangleShape.hpp"
 
 class CPP_Shader;
 class CPP_Core2D_ColorTexture;
@@ -40,6 +34,7 @@ private:
     uint16_t IndexData[6];
     uint32_t numTiles;
     uint32_t PreviousBufferSize = 0;
+    uint32_t CurrentDataSize = 0;
 
     bgfx::UniformHandle u_colorInfo;
     bgfx::UniformHandle s_colorTex;
@@ -90,23 +85,24 @@ public:
 
         CurrentShapeIDs = PreviousShapeIDs[BufferID];
         CurrentInstanceData = PreviousInstanceData[BufferID];
+
+        CurrentDataSize = CurrentInstanceData.size();
     }
 
-    inline void Add(PMMA::Rendering::TwoD::CPP_Line *lineShape) {
+    template <typename T>
+    inline void Add(T *lineShape) {
         uintptr_t ShapeID = lineShape->ID;
 
-        lineShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&lineShape->Color, ShapeID, lineShape->ColorDataChanged);
+        auto &instance = lineShape->ShapeInstanceData;
+
+        instance.color_index = ColorTexture.AddColor(&lineShape->Color, ShapeID, lineShape->ColorDataChanged);
 
         ColorChanged |= lineShape->ColorDataChanged;
         ShapePropertyChanged |= lineShape->ShapePropertyChanged;
 
-        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
-            UsingCache = false;
-        }
-
-        if (UsingCache && instanceCount < CurrentInstanceData.size() && CurrentShapeIDs[instanceCount] == ShapeID) {
+        if (UsingCache && instanceCount < CurrentDataSize && CurrentShapeIDs[instanceCount] == ShapeID) {
             if (lineShape->ShapePropertyChanged) {
-                CurrentInstanceData[instanceCount] = lineShape->ShapeInstanceData;
+                CurrentInstanceData[instanceCount] = instance;
             }
 
             instanceCount++;
@@ -115,160 +111,14 @@ public:
 
         UsingCache = false;
 
-        CurrentInstanceData.resize(instanceCount);
-        CurrentShapeIDs.resize(instanceCount);
-        CurrentInstanceData.push_back(lineShape->ShapeInstanceData);
-        CurrentShapeIDs.push_back(ShapeID);
-        instanceCount++;
-    }
-
-    inline void Add(PMMA::Rendering::TwoD::CPP_Pixel *pixelShape) {
-        uintptr_t ShapeID = pixelShape->ID;
-
-        pixelShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&pixelShape->Color, ShapeID, pixelShape->ColorDataChanged);
-
-        ColorChanged |= pixelShape->ColorDataChanged;
-        ShapePropertyChanged |= pixelShape->ShapePropertyChanged;
-
-        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
-            UsingCache = false;
+        if (instanceCount >= CurrentDataSize) {
+            CurrentInstanceData.push_back(instance);
+            CurrentShapeIDs.push_back(ShapeID);
+            CurrentDataSize++;
+        } else {
+            CurrentInstanceData[instanceCount] = instance;
+            CurrentShapeIDs[instanceCount] = ShapeID;
         }
-
-        if (UsingCache && instanceCount < CurrentInstanceData.size() && CurrentShapeIDs[instanceCount] == ShapeID) {
-            if (pixelShape->ShapePropertyChanged) {
-                CurrentInstanceData[instanceCount] = pixelShape->ShapeInstanceData;
-            }
-
-            instanceCount++;
-            return;
-        }
-
-        UsingCache = false;
-
-        CurrentInstanceData.resize(instanceCount);
-        CurrentShapeIDs.resize(instanceCount);
-        CurrentInstanceData.push_back(pixelShape->ShapeInstanceData);
-        CurrentShapeIDs.push_back(ShapeID);
-        instanceCount++;
-    }
-
-    inline void Add(PMMA::Rendering::TwoD::CPP_Rectangle *rectangleShape) {
-        uintptr_t ShapeID = rectangleShape->ID;
-
-        rectangleShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&rectangleShape->Color, ShapeID, rectangleShape->ColorDataChanged);
-
-        ColorChanged |= rectangleShape->ColorDataChanged;
-        ShapePropertyChanged |= rectangleShape->ShapePropertyChanged;
-
-        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
-            UsingCache = false;
-        }
-
-        if (UsingCache && instanceCount < CurrentInstanceData.size() && CurrentShapeIDs[instanceCount] == ShapeID) {
-            if (rectangleShape->ShapePropertyChanged) {
-                CurrentInstanceData[instanceCount] = rectangleShape->ShapeInstanceData;
-            }
-
-            instanceCount++;
-            return;
-        }
-
-        UsingCache = false;
-
-        CurrentInstanceData.resize(instanceCount);
-        CurrentShapeIDs.resize(instanceCount);
-        CurrentInstanceData.push_back(rectangleShape->ShapeInstanceData);
-        CurrentShapeIDs.push_back(ShapeID);
-        instanceCount++;
-    }
-
-    inline void Add(PMMA::Rendering::TwoD::CPP_Ellipse *ellipseShape) {
-        uintptr_t ShapeID = ellipseShape->ID;
-
-        ellipseShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&ellipseShape->Color, ShapeID, ellipseShape->ColorDataChanged);
-
-        ColorChanged |= ellipseShape->ColorDataChanged;
-        ShapePropertyChanged |= ellipseShape->ShapePropertyChanged;
-
-        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
-            UsingCache = false;
-        }
-
-        if (UsingCache && instanceCount < CurrentInstanceData.size() && CurrentShapeIDs[instanceCount] == ShapeID) {
-            if (ellipseShape->ShapePropertyChanged) {
-                CurrentInstanceData[instanceCount] = ellipseShape->ShapeInstanceData;
-            }
-
-            instanceCount++;
-            return;
-        }
-
-        UsingCache = false;
-
-        CurrentInstanceData.resize(instanceCount);
-        CurrentShapeIDs.resize(instanceCount);
-        CurrentInstanceData.push_back(ellipseShape->ShapeInstanceData);
-        CurrentShapeIDs.push_back(ShapeID);
-        instanceCount++;
-    }
-
-    inline void Add(PMMA::Rendering::TwoD::CPP_RadialPolygon *radialPolygonShape) {
-        uintptr_t ShapeID = radialPolygonShape->ID;
-
-        radialPolygonShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&radialPolygonShape->Color, ShapeID, radialPolygonShape->ColorDataChanged);
-
-        ColorChanged |= radialPolygonShape->ColorDataChanged;
-        ShapePropertyChanged |= radialPolygonShape->ShapePropertyChanged;
-
-        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
-            UsingCache = false;
-        }
-
-        if (UsingCache && instanceCount < CurrentInstanceData.size() && CurrentShapeIDs[instanceCount] == ShapeID) {
-            if (radialPolygonShape->ShapePropertyChanged) {
-                CurrentInstanceData[instanceCount] = radialPolygonShape->ShapeInstanceData;
-            }
-
-            instanceCount++;
-            return;
-        }
-
-        UsingCache = false;
-
-        CurrentInstanceData.resize(instanceCount);
-        CurrentShapeIDs.resize(instanceCount);
-        CurrentInstanceData.push_back(radialPolygonShape->ShapeInstanceData);
-        CurrentShapeIDs.push_back(ShapeID);
-        instanceCount++;
-    }
-
-    inline void Add(PMMA::Rendering::TwoD::CPP_Arc *arcShape) {
-        uintptr_t ShapeID = arcShape->ID;
-
-        arcShape->ShapeInstanceData.color_index = ColorTexture.AddColor(&arcShape->Color, ShapeID, arcShape->ColorDataChanged);
-
-        ColorChanged |= arcShape->ColorDataChanged;
-        ShapePropertyChanged |= arcShape->ShapePropertyChanged;
-
-        if (instanceCount >= PreviousShapeIDs[BufferID].size()) {
-            UsingCache = false;
-        }
-
-        if (UsingCache && instanceCount < CurrentInstanceData.size() && CurrentShapeIDs[instanceCount] == ShapeID) {
-            if (arcShape->ShapePropertyChanged) {
-                CurrentInstanceData[instanceCount] = arcShape->ShapeInstanceData;
-            }
-
-            instanceCount++;
-            return;
-        }
-
-        UsingCache = false;
-
-        CurrentInstanceData.resize(instanceCount);
-        CurrentShapeIDs.resize(instanceCount);
-        CurrentInstanceData.push_back(arcShape->ShapeInstanceData);
-        CurrentShapeIDs.push_back(ShapeID);
         instanceCount++;
     }
 

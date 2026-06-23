@@ -37,10 +37,6 @@ public:
         size_t currentShapeIndex = ColorCount / 4;
         size_t targetIndex = ColorCount;
 
-        if (currentShapeIndex >= PreviousShapeIDs.size()) {
-            UsingCache = false;
-        }
-
         if (UsingCache && currentShapeIndex < PreviousShapeIDs.size() && PreviousShapeIDs[currentShapeIndex] == ShapeID) {
             if (ColorDataChanged) {
                 size_t requiredSize = targetIndex + 4;
