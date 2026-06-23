@@ -89,18 +89,26 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
         ColorTexture.Assemble();
     }
 
-    if (ShapePropertyChanged || !bgfx::isValid(instanceVbh)) {
-        instanceDataArray[BufferID].resize(instanceCount); // Free memory if instanceCount decreased
-        instanceDataArray[BufferID].shrink_to_fit();       // Free memory if instanceCount decreased
+    if (ShapePropertyChanged || instanceCount != PreviousBufferSize || !bgfx::isValid(instanceVbh)) {
+        CurrentInstanceData.resize(instanceCount); // Free memory if instanceCount decreased
+        CurrentInstanceData.shrink_to_fit();       // Free memory if instanceCount decreased
+
+        CurrentShapeIDs.resize(instanceCount);
+        CurrentShapeIDs.shrink_to_fit();
+
+        PreviousShapeIDs[BufferID] = CurrentShapeIDs;
+        PreviousInstanceData[BufferID] = CurrentInstanceData;
 
         PMMA_Core::DisplayInstance->TriggerEventRefresh();
 
+        uint32_t CurrentBufferSize = PreviousInstanceData[BufferID].size();
+
         const bgfx::Memory *instanceDataMem = bgfx::makeRef(
-            instanceDataArray[BufferID].data(),
-            instanceCount * sizeof(InstanceData));
+            PreviousInstanceData[BufferID].data(),
+            CurrentBufferSize * sizeof(InstanceData));
 
         if (bgfx::isValid(instanceVbh)) {
-            if (instanceCount != ActiveBufferCount) {
+            if (CurrentBufferSize != PreviousBufferSize) {
                 bgfx::destroy(instanceVbh);
                 instanceVbh = bgfx::createDynamicVertexBuffer(
                     instanceDataMem,
@@ -117,12 +125,7 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
                 instanceLayout);
         }
 
-        ActiveBufferCount = instanceCount;
-
-        PreviousShapeIDs[BufferID] = CurrentShapeIDs[BufferID];
-
-        CurrentShapeIDs[BufferID].clear();
-        CurrentShapeIDs[BufferID].shrink_to_fit();
+        PreviousBufferSize = CurrentBufferSize;
 
         BufferID = (BufferID + 1) % 4;
     }
@@ -140,7 +143,7 @@ void CPP_Core2D_RenderPipelineInstance::Render() {
     bgfx::setInstanceDataBuffer(
         instanceVbh,
         0,
-        ActiveBufferCount);
+        PreviousBufferSize);
 
     bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTexture, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
 
