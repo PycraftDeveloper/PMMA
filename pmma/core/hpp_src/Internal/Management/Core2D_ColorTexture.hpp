@@ -9,10 +9,15 @@
 
 class CPP_Core2D_ColorTexture {
 private:
-    std::vector<uint8_t> ShapeColors;
+    std::vector<uint8_t> PreviousColorData;
+    std::vector<uint8_t> CurrentColorData;
     std::vector<uintptr_t> PreviousShapeIDs;
     std::vector<uintptr_t> CurrentShapeIDs;
-    uint32_t ColorCount = 0;
+    uint32_t ShapeCount = 0;
+    uint32_t PreviousShapeCount = 0;
+    uint32_t CurrentDataSize = 0;
+
+    bool ColorChanged = true;
 
 public:
     bool UsingCache = false;
@@ -34,94 +39,101 @@ public:
     }
 
     inline uint32_t AddColor(CPP_Color *Color, uintptr_t ShapeID, bool ColorDataChanged) {
-        size_t currentShapeIndex = ColorCount / 4;
-        size_t targetIndex = ColorCount;
+        ColorChanged |= ColorDataChanged;
 
-        if (UsingCache && currentShapeIndex < PreviousShapeIDs.size() && PreviousShapeIDs[currentShapeIndex] == ShapeID) {
+        if (UsingCache && ShapeCount < CurrentDataSize && CurrentShapeIDs[ShapeCount] == ShapeID) {
             if (ColorDataChanged) {
-                size_t requiredSize = targetIndex + 4;
-                if (ShapeColors.size() < requiredSize) {
-                    ShapeColors.resize(requiredSize);
+                size_t requiredSize = ShapeCount * 4;
+                if (CurrentDataSize < requiredSize) {
+                    CurrentColorData.resize(requiredSize);
                 }
-                Color->Get_RGBA(&ShapeColors[targetIndex]);
+                Color->Get_RGBA(&CurrentColorData[ShapeCount * 4]);
             }
 
-            if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
-                if (currentShapeIndex < CurrentShapeIDs.size()) {
-                    CurrentShapeIDs.resize(currentShapeIndex);
-                }
-                CurrentShapeIDs.push_back(ShapeID);
-            }
-
-            ColorCount += 4;
-            return (uint32_t)currentShapeIndex;
+            ShapeCount++;
+            return ShapeCount;
         }
 
         UsingCache = false;
 
-        if (CurrentShapeIDs.empty() || CurrentShapeIDs.back() != ShapeID) {
-            if (currentShapeIndex < CurrentShapeIDs.size()) {
-                CurrentShapeIDs.resize(currentShapeIndex);
+        if (ShapeCount >= CurrentDataSize) {
+            size_t requiredSize = ShapeCount * 4;
+            if (CurrentDataSize < requiredSize) {
+                CurrentColorData.resize(requiredSize);
             }
+            Color->Get_RGBA(&CurrentColorData[ShapeCount * 4]);
+
             CurrentShapeIDs.push_back(ShapeID);
+            CurrentDataSize++;
+        } else {
+            Color->Get_RGBA(&CurrentColorData[ShapeCount * 4]);
+            CurrentShapeIDs[ShapeCount] = ShapeID;
         }
+        ShapeCount++;
 
-        size_t needBytes = targetIndex + 4;
-        if (ShapeColors.size() < needBytes) {
-            ShapeColors.resize(needBytes);
-        }
-
-        Color->Get_RGBA(&ShapeColors[targetIndex]);
-        ColorCount += 4;
-
-        return (uint32_t)currentShapeIndex;
+        return ShapeCount;
     }
 
     inline void Reset() {
-        ColorCount = 0;
-        PreviousShapeIDs = CurrentShapeIDs;
-        CurrentShapeIDs.clear();
+        ShapeCount = 0;
         UsingCache = true;
+        ColorChanged = false;
+
+        CurrentShapeIDs = PreviousShapeIDs;
+        CurrentColorData = PreviousColorData;
+
+        CurrentDataSize = CurrentColorData.size();
     }
 
     inline void Assemble() {
-        ShapeColors.resize(ColorCount);
+        if (ColorChanged || ShapeCount != PreviousShapeCount || !bgfx::isValid(ColorTexture)) {
+            CurrentColorData.resize(ShapeCount * 4);
+            CurrentColorData.shrink_to_fit();
 
-        uint32_t numColors = (uint32_t)ShapeColors.size() / 4;
-        uint32_t width = std::min(MaxTextureDimension, numColors);
-        uint32_t height = (numColors + width - 1) / width;
+            CurrentShapeIDs.resize(ShapeCount);
+            CurrentShapeIDs.shrink_to_fit();
 
-        size_t expectedSize = width * height * 4;
-        if (ShapeColors.size() < expectedSize) {
-            ShapeColors.resize(expectedSize, 0); // Pad with transparent black
-        }
+            PreviousShapeIDs = CurrentShapeIDs;
+            PreviousColorData = CurrentColorData;
 
-        const bgfx::Memory *texMem = bgfx::copy(
-            ShapeColors.data(),
-            static_cast<uint32_t>(ShapeColors.size() * sizeof(uint8_t)));
+            uint32_t CurrentBufferSize = PreviousColorData.size();
 
-        // If texture exists but size changed, destroy and recreate it
-        if (bgfx::isValid(ColorTexture)) {
-            if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
-                bgfx::destroy(ColorTexture);
-                ColorTexture = BGFX_INVALID_HANDLE;
+            uint32_t numColors = (uint32_t)ShapeCount;
+            uint32_t width = std::min(MaxTextureDimension, numColors);
+            uint32_t height = (numColors + width - 1) / width;
+
+            size_t expectedSize = width * height * 4;
+            if (CurrentBufferSize < expectedSize) {
+                PreviousColorData.resize(expectedSize, 0); // Pad with transparent black
             }
+
+            const bgfx::Memory *texMem = bgfx::copy(
+                PreviousColorData.data(),
+                static_cast<uint32_t>(CurrentBufferSize * sizeof(uint8_t)));
+
+            // If texture exists but size changed, destroy and recreate it
+            if (bgfx::isValid(ColorTexture)) {
+                if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
+                    bgfx::destroy(ColorTexture);
+                    ColorTexture = BGFX_INVALID_HANDLE;
+                }
+            }
+
+            // create texture if missing
+            if (!bgfx::isValid(ColorTexture)) {
+                ColorTexture = bgfx::createTexture2D(
+                    (uint16_t)width, (uint16_t)height,
+                    false, // hasMips
+                    1,     // num layers
+                    bgfx::TextureFormat::RGBA8,
+                    BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
+            }
+
+            bgfx::updateTexture2D(ColorTexture, 0, 0, 0, 0, width, height, texMem);
+
+            // store width/height for shader normalization
+            m_colorTextureWidth = width;
+            m_colorTextureHeight = height;
         }
-
-        // create texture if missing
-        if (!bgfx::isValid(ColorTexture)) {
-            ColorTexture = bgfx::createTexture2D(
-                (uint16_t)width, (uint16_t)height,
-                false, // hasMips
-                1,     // num layers
-                bgfx::TextureFormat::RGBA8,
-                BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
-        }
-
-        bgfx::updateTexture2D(ColorTexture, 0, 0, 0, 0, width, height, texMem);
-
-        // store width/height for shader normalization
-        m_colorTextureWidth = width;
-        m_colorTextureHeight = height;
     }
 };
