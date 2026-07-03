@@ -1,5 +1,5 @@
-#include "Internal/Management/Core2D/RenderPipelineManager.hpp"
-#include "Internal/Management/Core2D/RenderPipelineInstance.hpp"
+#include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
+#include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 
 PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager::~CPP_RenderPipelineManager() {
     for (PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance *instance : RenderPipelineInstances) {

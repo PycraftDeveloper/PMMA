@@ -19,7 +19,7 @@
 #include "CoreTypes.hpp"
 #include "Events/KeyEvents.hpp"
 #include "Events/WindowEvents.hpp"
-#include "Internal/Management/Core2D/RenderPipelineManager.hpp"
+#include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 #include "Logger.hpp"
 
 /**

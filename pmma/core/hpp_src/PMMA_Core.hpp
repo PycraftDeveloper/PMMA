@@ -26,11 +26,12 @@
 
 #include "Graphics/Shader.hpp"
 
-#include "Internal/Management/AnimationManager.hpp"
-#include "Internal/Management/Core2D/RenderPipelineManager.hpp"
-#include "Internal/Management/EventsManager.hpp"
-#include "Internal/Management/InternalManager.hpp"
-#include "Internal/Management/LoggingManager.hpp"
+#include "Internal/AnimationManager.hpp"
+#include "Internal/EventsManager.hpp"
+#include "Internal/InternalManager.hpp"
+#include "Internal/LoggingManager.hpp"
+
+#include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 
 #include "Internal/Utility/CPU_FeatureSetUtils.hpp"
 #include "Internal/Utility/FontUtils.hpp"

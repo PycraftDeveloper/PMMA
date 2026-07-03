@@ -6,7 +6,7 @@
 #include <string>
 #include <vector>
 
-#include "Internal/Management/Core2D/RenderPipelineInstance.hpp"
+#include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
 PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::CPP_RenderPipelineInstance() {

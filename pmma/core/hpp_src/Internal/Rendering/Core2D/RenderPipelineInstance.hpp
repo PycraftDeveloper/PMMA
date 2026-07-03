@@ -5,8 +5,8 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-#include "Internal/Management/Core2D/ColorTexture.hpp"
-#include "Internal/Management/Core2D/RenderPipelineManager.hpp"
+#include "Internal/Rendering/Core2D/ColorTexture.hpp"
+#include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 
 class CPP_Shader;
 

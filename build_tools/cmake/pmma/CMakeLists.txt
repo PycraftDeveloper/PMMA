@@ -34,12 +34,13 @@ set(CORE_SOURCES
 
     "${SRC_DIR}/Graphics/Shader.cpp"
 
-    "${SRC_DIR}/Internal/Management/AnimationManager.cpp"
-    "${SRC_DIR}/Internal/Management/Core2D/RenderPipelineManager.cpp"
-    "${SRC_DIR}/Internal/Management/Core2D/RenderPipelineInstance.cpp"
-    "${SRC_DIR}/Internal/Management/EventsManager.cpp"
-    "${SRC_DIR}/Internal/Management/InternalManager.cpp"
-    "${SRC_DIR}/Internal/Management/LoggingManager.cpp"
+    "${SRC_DIR}/Internal/AnimationManager.cpp"
+    "${SRC_DIR}/Internal/EventsManager.cpp"
+    "${SRC_DIR}/Internal/InternalManager.cpp"
+    "${SRC_DIR}/Internal/LoggingManager.cpp"
+
+    "${SRC_DIR}/Internal/Rendering/Core2D/RenderPipelineManager.cpp"
+    "${SRC_DIR}/Internal/Rendering/Core2D/RenderPipelineInstance.cpp"
 
     "${SRC_DIR}/Internal/Utility/CPU_FeatureSetUtils.cpp"
     "${SRC_DIR}/Internal/Utility/FontUtils.cpp"
