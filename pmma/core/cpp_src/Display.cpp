@@ -473,6 +473,11 @@ displays");
         }
 
         bgfx::setDebug(BGFX_DEBUG_NONE);
+
+        std::string Renderer = CPP_General::GetGraphicsBackend();
+        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+            34,
+            "PMMA is using the '" + Renderer + "' backend for graphics.");
     } else {
         void *nwh = nullptr;
 
@@ -495,16 +500,6 @@ displays");
         DisplayID = PMMA_Registry::SecondaryDisplayIDs.front();
         PMMA_Registry::SecondaryDisplayIDs.erase(PMMA_Registry::SecondaryDisplayIDs.begin());
     }
-
-    std::string OperatingSystem = CPP_General::GetOperatingSystem();
-    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
-        46,
-        "You are running on the Operating System: '" + OperatingSystem + "'.");
-
-    std::string Renderer = CPP_General::GetGraphicsBackend();
-    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
-        34,
-        "PMMA is using the '" + Renderer + "' backend for graphics.");
 
     bgfx::setViewClear(DisplayID, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
     bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
@@ -589,7 +584,7 @@ You can do this using `Display.create`.");
 
     RenderPipelineCore->Reset();
 
-    if (PMMA_Core::AnimationManagerInstance != nullptr) {
+    if (PMMA_Core::AnimationManagerInstance != nullptr && !IsSecondaryDisplay) {
         if (PMMA_Core::AnimationManagerInstance->Update()) { // returns true if no longer needed
             delete PMMA_Core::AnimationManagerInstance;
             PMMA_Core::AnimationManagerInstance = nullptr;
@@ -679,6 +674,12 @@ You can do this using `Display.create`.");
     unsigned int MaxRefreshRate;
 
     if (!IsSecondaryDisplay) {
+        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+            62,
+            "Always ensure that the master display is refreshed last as \
+this controls both frame timing and events. Also, refreshing the master \
+display updates all secondary displays.");
+
         bgfx::frame();
 
         if (kwargs.LimitRefreshRate) {

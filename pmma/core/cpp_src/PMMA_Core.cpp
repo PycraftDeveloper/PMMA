@@ -239,6 +239,11 @@ void PMMA_Initialize(std::string location) {
         12,
         "Welcome to Python Multi-Media API (PMMA) version: " + PMMA_Registry::Current_PMMA_Version);
 
+    std::string OperatingSystem = CPP_General::GetOperatingSystem();
+    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+        46,
+        "You are running on the Operating System: '" + OperatingSystem + "'.");
+
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
         14,
         "Please note that PMMA is currently in a developmental state, \
