@@ -47,7 +47,7 @@ void PMMA::Rendering::TwoD::CPP_Arc::Render() {
         ShapeCenter.Get(start_position);
         uint16_t radius = GetRadius() * 2;
 
-        auto rpc = PMMA_Core::RenderPipelineCore;
+        auto rpc = PMMA_Core::ActiveDisplayInstance->RenderPipelineCore;
 
         // Existing packing logic
         ShapeInstanceData.position = rpc->PackValues(start_position[0], start_position[1]);
@@ -62,7 +62,7 @@ void PMMA::Rendering::TwoD::CPP_Arc::Render() {
         ShapeInstanceData.shape_property_two = rpc->PackValues(GetEndAngle() * 182, 0);
     }
 
-    PMMA_Core::RenderPipelineCore->Add(this);
+    PMMA_Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

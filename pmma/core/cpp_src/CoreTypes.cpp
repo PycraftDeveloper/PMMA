@@ -242,8 +242,8 @@ void CPP_Color::Set_RGBA(uint8_t *in_color) {
     IsSet = true;
 
     if (LinkedToDisplayBackground && Changed) {
-        if (PMMA_Core::DisplayInstance != nullptr) {
-            PMMA_Core::DisplayInstance->TriggerEventRefresh();
+        if (PMMA_Core::ActiveDisplayInstance != nullptr) {
+            PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
 }
@@ -362,8 +362,8 @@ void CPP_Color::Set_HEXA(std::string input_color) {
     IsSet = true;
 
     if (LinkedToDisplayBackground && Changed) {
-        if (PMMA_Core::DisplayInstance != nullptr) {
-            PMMA_Core::DisplayInstance->TriggerEventRefresh();
+        if (PMMA_Core::ActiveDisplayInstance != nullptr) {
+            PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
 }
@@ -392,8 +392,8 @@ void CPP_Color::Set_RGB(uint8_t *in_color) {
     IsSet = true;
 
     if (LinkedToDisplayBackground && Changed) {
-        if (PMMA_Core::DisplayInstance != nullptr) {
-            PMMA_Core::DisplayInstance->TriggerEventRefresh();
+        if (PMMA_Core::ActiveDisplayInstance != nullptr) {
+            PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
 }
@@ -436,14 +436,14 @@ void CPP_Color::Set_HEX(std::string input_color) {
     IsSet = true;
 
     if (LinkedToDisplayBackground && Changed) {
-        if (PMMA_Core::DisplayInstance != nullptr) {
-            PMMA_Core::DisplayInstance->TriggerEventRefresh();
+        if (PMMA_Core::ActiveDisplayInstance != nullptr) {
+            PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
 }
 
 CPP_DisplayCoordinate::CPP_DisplayCoordinate() {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -453,7 +453,7 @@ You can do this using `Display.create`.");
 
     RandomCoordGenerator = PMMA_Core::RandomGenerator;
 
-    PMMA_Core::DisplayInstance->GetSize(DisplaySize);
+    PMMA_Core::ActiveDisplayInstance->GetSize(DisplaySize);
 }
 
 void CPP_DisplayCoordinate::Get(uint16_t *out) {
@@ -536,7 +536,7 @@ void CPP_DisplayCoordinate::Configure(CPP_DisplayCoordinate_Configure_Kwargs kwa
 }
 
 void CPP_DisplayCoordinate::SetCentered() {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -544,12 +544,12 @@ You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
-    if (PMMA_Core::DisplayInstance->DisplaySizeChanged) {
-        PMMA_Core::DisplayInstance->GetSize(DisplaySize);
+    if (PMMA_Core::ActiveDisplayInstance->DisplaySizeChanged) {
+        PMMA_Core::ActiveDisplayInstance->GetSize(DisplaySize);
     }
 
     unsigned int new_coord[2];
-    PMMA_Core::DisplayInstance->GetCenterPosition(new_coord);
+    PMMA_Core::ActiveDisplayInstance->GetCenterPosition(new_coord);
 
     uint16_t coord_float[2];
     coord_float[0] = static_cast<uint16_t>(new_coord[0]);
@@ -559,7 +559,7 @@ You can do this using `Display.create`.");
 }
 
 void CPP_DisplayCoordinate::GenerateFromRandom() {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -567,8 +567,8 @@ You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
-    if (PMMA_Core::DisplayInstance->DisplaySizeChanged) {
-        PMMA_Core::DisplayInstance->GetSize(DisplaySize);
+    if (PMMA_Core::ActiveDisplayInstance->DisplaySizeChanged) {
+        PMMA_Core::ActiveDisplayInstance->GetSize(DisplaySize);
     }
 
     uint16_t new_coord[2];
@@ -579,7 +579,7 @@ You can do this using `Display.create`.");
 }
 
 void CPP_DisplayCoordinate::GenerateFrom1DPerlinNoise(float value) {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -595,11 +595,11 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise1D(value + x_offset);
     new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise1D(value + y_offset);
     new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
 
@@ -607,7 +607,7 @@ You can do this using `Display.create`.");
 }
 
 void CPP_DisplayCoordinate::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -623,11 +623,11 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise2D(value_one + x_offset, value_two + x_offset);
     new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise2D(value_one + y_offset, value_two + y_offset);
     new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
 
@@ -635,7 +635,7 @@ You can do this using `Display.create`.");
 }
 
 void CPP_DisplayCoordinate::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -651,11 +651,11 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise3D(value_one + x_offset, value_two + x_offset, value_three + x_offset);
     new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise3D(value_one + y_offset, value_two + y_offset, value_three + y_offset);
     new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
 
@@ -663,7 +663,7 @@ You can do this using `Display.create`.");
 }
 
 void CPP_DisplayCoordinate::GenerateFrom1DFractalBrownianMotion(float value) {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -679,11 +679,11 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise1D(value + x_offset);
     new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise1D(value + y_offset);
     new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
 
@@ -691,7 +691,7 @@ You can do this using `Display.create`.");
 }
 
 void CPP_DisplayCoordinate::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -707,11 +707,11 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise2D(value_one + x_offset, value_two + x_offset);
     new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise2D(value_one + y_offset, value_two + y_offset);
     new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
 
@@ -719,7 +719,7 @@ You can do this using `Display.create`.");
 }
 
 void CPP_DisplayCoordinate::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
-    if (PMMA_Core::DisplayInstance == nullptr) {
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
         PMMA_Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
@@ -735,11 +735,11 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise3D(value_one + x_offset, value_two + x_offset, value_three + x_offset);
     new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::DisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise3D(value_one + y_offset, value_two + y_offset, value_three + y_offset);
     new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
 

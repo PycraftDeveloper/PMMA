@@ -67,3 +67,4 @@ Notes:
 58 - Cannot compile shader for graphics profile
 59 - The specified PMMA Path is
 60 - Color name unknown
+61 - Making master display

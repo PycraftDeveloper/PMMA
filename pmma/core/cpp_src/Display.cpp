@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include <GLFW/glfw3.h>
 #include <STB/stb_image.h>
 #include <bgfx/bgfx.h>
@@ -184,20 +186,6 @@ void CPP_Display::PMMA_Update(GLFWwindow *Window) {
 
 CPP_Display::CPP_Display() {
     Logger = new CPP_Logger();
-
-    if (PMMA_Core::DisplayInstance != nullptr) {
-        Logger->InternalLogDebug(
-            21,
-            "A display instance already exists. The previous one will \
-be destroyed, closing any windows the application has created. Continue \
-use the current one instead, but consider properly garbage collecting \
-the previous display object. We are looking to support multiple windows \
-in future versions of PMMA, but it is not a priority.",
-            false);
-        delete PMMA_Core::DisplayInstance;
-        PMMA_Core::DisplayInstance = nullptr;
-    }
-    PMMA_Core::DisplayInstance = this;
 
     WindowFillColor = new CPP_Color();
     WindowFillColor->LinkedToDisplayBackground = true;
@@ -441,39 +429,72 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         return;
     }
 
-    bgfx::PlatformData pd{};
-    pd.ndt = nullptr;
-    pd.nwh = nullptr;
-    pd.context = nullptr;
-    pd.backBuffer = nullptr;
-    pd.backBufferDS = nullptr;
+    if (PMMA_Core::MasterDisplayInstance == nullptr) {
+        PMMA_Core::MasterDisplayInstance = this;
+
+        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+            61,
+            "This is the first display created in this application. It \
+is now set as the master display. All other displays created after this \
+will be considered secondary displays. Note: You cannot change the master \
+display once it is set, closing the master display will close all other \
+displays");
+
+        bgfx::PlatformData pd{};
+        pd.ndt = nullptr;
+        pd.nwh = nullptr;
+        pd.context = nullptr;
+        pd.backBuffer = nullptr;
+        pd.backBufferDS = nullptr;
 
 #if BX_PLATFORM_WINDOWS
-    pd.nwh = glfwGetWin32Window(Window);
+        pd.nwh = glfwGetWin32Window(Window);
 #elif BX_PLATFORM_OSX
-    pd.nwh = glfwGetCocoaWindow(Window);
+        pd.nwh = glfwGetCocoaWindow(Window);
 #elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
-    if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
-        pd.ndt = glfwGetWaylandDisplay();
-        pd.nwh = (void *)glfwGetWaylandWindow(Window);
-    } else { // X11
-        pd.ndt = glfwGetX11Display();
-        pd.nwh = (void *)(uintptr_t)glfwGetX11Window(Window);
-    }
+        if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+            pd.ndt = glfwGetWaylandDisplay();
+            pd.nwh = (void *)glfwGetWaylandWindow(Window);
+        } else { // X11
+            pd.ndt = glfwGetX11Display();
+            pd.nwh = (void *)(uintptr_t)glfwGetX11Window(Window);
+        }
 #endif
 
-    bgfx::Init init;
-    init.type = bgfx::RendererType::Count; // auto-detect renderer
-    init.resolution.width = Size[0];
-    init.resolution.height = Size[1];
-    init.resolution.reset = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;
-    init.platformData = pd;
+        bgfx::Init init;
+        init.type = bgfx::RendererType::Count; // auto-detect renderer
+        init.resolution.width = Size[0];
+        init.resolution.height = Size[1];
+        init.resolution.reset = Vsync ? BGFX_RESET_VSYNC : BGFX_RESET_NONE;
+        init.platformData = pd;
 
-    if (!bgfx::init(init)) {
-        throw std::runtime_error("Failed to initialize BGFX");
+        if (!bgfx::init(init)) {
+            throw std::runtime_error("Failed to initialize BGFX");
+        }
+
+        bgfx::setDebug(BGFX_DEBUG_NONE);
+    } else {
+        void *nwh = nullptr;
+
+#if BX_PLATFORM_WINDOWS
+        nwh = glfwGetWin32Window(Window);
+#elif BX_PLATFORM_OSX
+        nwh = glfwGetCocoaWindow(Window);
+#elif BX_PLATFORM_LINUX || BX_PLATFORM_BSD
+        if (glfwGetPlatform() == GLFW_PLATFORM_WAYLAND) {
+            nwh = (void *)glfwGetWaylandWindow(Window);
+        } else { // X11
+            nwh = (void *)(uintptr_t)glfwGetX11Window(Window);
+        }
+#endif
+
+        // Create a framebuffer using the native window handle
+        DisplayFrameBufferHandle = bgfx::createFrameBuffer(nwh, uint16_t(Size[0]), uint16_t(Size[1]));
+
+        IsSecondaryDisplay = true;
+        DisplayID = PMMA_Registry::SecondaryDisplayIDs.front();
+        PMMA_Registry::SecondaryDisplayIDs.erase(PMMA_Registry::SecondaryDisplayIDs.begin());
     }
-
-    bgfx::setDebug(BGFX_DEBUG_NONE);
 
     std::string OperatingSystem = CPP_General::GetOperatingSystem();
     PMMA_Core::LoggingManagerInstance->InternalLogInfo(
@@ -485,8 +506,9 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         34,
         "PMMA is using the '" + Renderer + "' backend for graphics.");
 
-    bgfx::setViewClear(0, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
+    bgfx::setViewClear(DisplayID, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
     bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
+    bgfx::setViewFrameBuffer(DisplayID, DisplayFrameBufferHandle);
 
     if (!Vsync) {
         PMMA_Core::LoggingManagerInstance->InternalLogDebug(
@@ -500,7 +522,7 @@ vsync to reduce visual tearing and improve frame pacing.");
     }
     SetIcon(kwargs.IconPath);
 
-    PMMA_Core::RenderPipelineCore = new PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager();
+    RenderPipelineCore = new PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager();
 
     PreviousDisplaySize[0] = Size[0];
     PreviousDisplaySize[1] = Size[1];
@@ -521,12 +543,16 @@ vsync to reduce visual tearing and improve frame pacing.");
         (out_color[3]);        // A
 
     bgfx::setViewClear(
-        0, // view ID (use 0 for your main screen)
+        DisplayID, // view ID (use 0 for your main screen)
         BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH,
         clearColor,
         1.0f, // depth clear value
         0     // stencil clear value
     );
+
+    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
+        PMMA_Core::ActiveDisplayInstance = this;
+    }
 }
 
 void CPP_Display::Clear() {
@@ -547,19 +573,21 @@ You can do this using `Display.create`.");
         (out_color[2]) << 8 |  // B
         (out_color[3]);        // A
 
-    bgfx::setViewRect(0, 0, 0, GetWidth(), GetHeight());
+    bgfx::setViewRect(DisplayID, 0, 0, GetWidth(), GetHeight());
+
+    bgfx::setViewFrameBuffer(DisplayID, DisplayFrameBufferHandle);
 
     bgfx::setViewClear(
-        0, // view ID (use 0 for your main screen)
+        DisplayID, // view ID (use 0 for your main screen)
         BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH,
         clearColor,
         1.0f, // depth clear value
         0     // stencil clear value
     );
 
-    bgfx::touch(0); // Ensure view 0 is cleared
+    bgfx::touch(DisplayID); // Ensure view DisplayID is cleared
 
-    PMMA_Core::RenderPipelineCore->Reset();
+    RenderPipelineCore->Reset();
 
     if (PMMA_Core::AnimationManagerInstance != nullptr) {
         if (PMMA_Core::AnimationManagerInstance->Update()) { // returns true if no longer needed
@@ -641,51 +669,59 @@ You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
-    PMMA_Core::RenderPipelineCore->Render();
+    bgfx::setViewRect(DisplayID, 0, 0, GetWidth(), GetHeight());
+    bgfx::setViewFrameBuffer(DisplayID, DisplayFrameBufferHandle);
 
-    bgfx::touch(0); // Ensure view 0 is cleared
-    bgfx::frame();
+    RenderPipelineCore->Render();
+
+    bgfx::touch(DisplayID); // Ensure view DisplayID is cleared
 
     unsigned int MaxRefreshRate;
 
-    if (kwargs.LimitRefreshRate) {
-        if (!kwargs.MaxRefreshRate.has_value()) {
-            if (GetIsWindowUsingVsync()) {
-                MaxRefreshRate = 0;
+    if (!IsSecondaryDisplay) {
+        bgfx::frame();
+
+        if (kwargs.LimitRefreshRate) {
+            if (!kwargs.MaxRefreshRate.has_value()) {
+                if (GetIsWindowUsingVsync()) {
+                    MaxRefreshRate = 0;
+                } else {
+                    MaxRefreshRate = 60;
+                }
             } else {
-                MaxRefreshRate = 60;
+                MaxRefreshRate = kwargs.MaxRefreshRate.value();
+            }
+
+            if (kwargs.MinRefreshRate == 0) {
+                glfwWaitEvents();
+            } else {
+                glfwWaitEventsTimeout(1.0f / kwargs.MinRefreshRate);
             }
         } else {
-            MaxRefreshRate = kwargs.MaxRefreshRate.value();
+            glfwPollEvents();
         }
-
-        if (kwargs.MinRefreshRate == 0) {
-            glfwWaitEvents();
-        } else {
-            glfwWaitEventsTimeout(1.0f / kwargs.MinRefreshRate);
-        }
-    } else {
-        glfwPollEvents();
     }
 
     PMMA_Update(Window);
 
-    if (kwargs.LimitRefreshRate) {
-        MaxRefreshRate = CPP_Display::CalculateRefreshRate(
-            MaxRefreshRate, kwargs.LowerRefreshRate_OnMinimize,
-            kwargs.LowerRefreshRate_OnFocusLoss,
-            kwargs.LowerRefreshRate_OnLowBattery);
+    if (!IsSecondaryDisplay) {
+        if (kwargs.LimitRefreshRate) {
+            MaxRefreshRate = CPP_Display::CalculateRefreshRate(
+                MaxRefreshRate, kwargs.LowerRefreshRate_OnMinimize,
+                kwargs.LowerRefreshRate_OnFocusLoss,
+                kwargs.LowerRefreshRate_OnLowBattery);
 
-        if (MaxRefreshRate > 0) {
-            LimitRefreshRate(MaxRefreshRate);
+            if (MaxRefreshRate > 0) {
+                LimitRefreshRate(MaxRefreshRate);
+            }
         }
+
+        std::chrono::high_resolution_clock::time_point EndTime = std::chrono::high_resolution_clock::now();
+        std::chrono::duration<float> FrameDuration = EndTime - StartTime;
+        RefreshTime = std::chrono::duration<float>(EndTime - StartTime).count();
+
+        StartTime = std::chrono::high_resolution_clock::now();
     }
-
-    std::chrono::high_resolution_clock::time_point EndTime = std::chrono::high_resolution_clock::now();
-    std::chrono::duration<float> FrameDuration = EndTime - StartTime;
-    RefreshTime = std::chrono::duration<float>(EndTime - StartTime).count();
-
-    StartTime = std::chrono::high_resolution_clock::now();
 }
 
 void CPP_Display::SetIcon(std::string IconPath) {
@@ -804,9 +840,11 @@ before you can call this function.");
 }
 
 CPP_Display::~CPP_Display() {
-    if (PMMA_Core::RenderPipelineCore != nullptr) {
-        delete PMMA_Core::RenderPipelineCore;
-        PMMA_Core::RenderPipelineCore = nullptr;
+    PMMA_Registry::SecondaryDisplayIDs.push_back(DisplayID);
+
+    if (RenderPipelineCore != nullptr) {
+        delete RenderPipelineCore;
+        RenderPipelineCore = nullptr;
     }
 
     if (PMMA_Core::KeyManagerInstance != nullptr) {
@@ -849,7 +887,10 @@ CPP_Display::~CPP_Display() {
         PMMA_Core::DropManagerInstance = nullptr;
     }
 
-    bgfx::shutdown();
+    if (!IsSecondaryDisplay) {
+        PMMA_Core::MasterDisplayInstance = nullptr;
+        bgfx::shutdown();
+    }
 
     glfwDestroyWindow(Window);
     Window = nullptr;
@@ -859,8 +900,6 @@ CPP_Display::~CPP_Display() {
         PMMA_Registry::GLFW_Initialized = false;
         glfwTerminate();
     }
-
-    PMMA_Core::DisplayInstance = nullptr;
 
     delete WindowFillColor;
     WindowFillColor = nullptr;
@@ -872,4 +911,8 @@ CPP_Display::~CPP_Display() {
 
     delete Logger;
     Logger = nullptr;
+}
+
+void CPP_Display::SetAsActiveDisplay() {
+    PMMA_Core::ActiveDisplayInstance = this;
 }

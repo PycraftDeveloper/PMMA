@@ -63,9 +63,8 @@ Notes:
 */
 
 namespace PMMA_Core {
-extern CPP_Display *DisplayInstance;
-
-extern PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager *RenderPipelineCore;
+extern CPP_Display *ActiveDisplayInstance;
+extern CPP_Display *MasterDisplayInstance;
 
 extern std::vector<CPP_KeyEvent_Space *> KeyEvent_Space_Instances;
 extern std::vector<CPP_KeyEvent_Apostrophe *> KeyEvent_Apostrophe_Instances;
@@ -233,6 +232,7 @@ extern CPP_FastRandom *RandomGenerator;
 } // namespace PMMA_Core
 
 namespace PMMA_Registry {
+extern std::vector<unsigned char> SecondaryDisplayIDs;
 extern std::string PMMA_Location;
 extern std::string PathSeparator;
 extern std::string Current_PMMA_Version;

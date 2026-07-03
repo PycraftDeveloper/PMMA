@@ -25,7 +25,7 @@ void PMMA::Rendering::TwoD::CPP_Rectangle::Render() {
         uint16_t start_position[2];
         ShapeCenter.Get(start_position);
 
-        auto rpc = PMMA_Core::RenderPipelineCore;
+        auto rpc = PMMA_Core::ActiveDisplayInstance->RenderPipelineCore;
         uint16_t Size[2];
         GetSize(Size);
 
@@ -39,7 +39,7 @@ void PMMA::Rendering::TwoD::CPP_Rectangle::Render() {
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
     }
 
-    PMMA_Core::RenderPipelineCore->Add(this);
+    PMMA_Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

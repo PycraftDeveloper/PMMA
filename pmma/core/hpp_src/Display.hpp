@@ -115,6 +115,10 @@ public:
     CPP_KeyEvent_F11 *F11_KeyEvent;
     CPP_KeyEvent_Escape *Escape_KeyEvent;
 
+    PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager *RenderPipelineCore;
+
+    unsigned char DisplayID = 0;
+
 private:
     CPP_Logger *Logger;
 
@@ -123,6 +127,8 @@ private:
 
     GLFWmonitor *Monitor = nullptr;
     GLFWwindow *Window = nullptr;
+
+    bgfx::FrameBufferHandle DisplayFrameBufferHandle = BGFX_INVALID_HANDLE;
 
     float OrthographicProjection[16] = {0.0f};
 
@@ -144,6 +150,7 @@ private:
     bool Centered;
     bool Maximized;
     bool OrthographicProjectionSet = false;
+    bool IsSecondaryDisplay = false;
 
 public:
     bool DisplaySizeChanged = true;
@@ -740,6 +747,8 @@ public:
     inline bool IsWindowCreated() {
         return Window != nullptr;
     }
+
+    void SetAsActiveDisplay();
 };
 
 #ifdef _MSC_VER

@@ -2,11 +2,13 @@
 #include <STB/stb_image.h>
 
 #include <filesystem>
+#include <numeric>
 
 #include "PMMA_Core.hpp"
 
 namespace PMMA_Core {
-CPP_Display *DisplayInstance = nullptr;
+CPP_Display *ActiveDisplayInstance = nullptr;
+CPP_Display *MasterDisplayInstance = nullptr;
 PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager *RenderPipelineCore = nullptr;
 
 std::vector<CPP_KeyEvent_Space *> KeyEvent_Space_Instances;
@@ -175,6 +177,8 @@ CPP_FastRandom *RandomGenerator = new CPP_FastRandom();
 } // namespace PMMA_Core
 
 namespace PMMA_Registry {
+std::vector<unsigned char> SecondaryDisplayIDs;
+
 std::string PMMA_Location = "";
 std::string PathSeparator = std::string(1, std::filesystem::path::preferred_separator);
 std::string Current_PMMA_Version = "5.0.16";
@@ -278,6 +282,10 @@ how PMMA and Python interact.");
 #endif
 
     PMMA_Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread = std::thread(PowerSavingUpdaterThread);
+
+    PMMA_Registry::SecondaryDisplayIDs.reserve(255);
+    PMMA_Registry::SecondaryDisplayIDs.resize(255);
+    std::iota(PMMA_Registry::SecondaryDisplayIDs.begin(), PMMA_Registry::SecondaryDisplayIDs.end(), 1);
 }
 
 void PMMA_Uninitialize() {
