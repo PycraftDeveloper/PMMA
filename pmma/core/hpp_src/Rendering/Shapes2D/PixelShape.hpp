@@ -16,7 +16,7 @@ public:
     CPP_DisplayCoordinate ShapeCenter;
     CPP_Color Color;
 
-    InstanceData ShapeInstanceData;
+    PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
     uintptr_t ID;
 

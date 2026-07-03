@@ -5,13 +5,15 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-#include "Internal/Management/Core2D_ColorTexture.hpp"
-#include "Internal/Management/Core2D_RenderPipelineManager.hpp"
+#include "Internal/Management/Core2D/ColorTexture.hpp"
+#include "Internal/Management/Core2D/RenderPipelineManager.hpp"
 
 class CPP_Shader;
-class CPP_Core2D_ColorTexture;
 
-class EXPORT CPP_Core2D_RenderPipelineInstance {
+namespace PMMA::Internal::Rendering::Core2D {
+class CPP_ColorTexture;
+
+class EXPORT CPP_RenderPipelineInstance {
 private:
     CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
 
@@ -39,7 +41,7 @@ private:
     bgfx::UniformHandle u_colorInfo;
     bgfx::UniformHandle s_colorTex;
 
-    CPP_Core2D_ColorTexture ColorTexture;
+    CPP_ColorTexture ColorTexture;
 
     char BufferID = 0;
     char PreviousBufferID = 0;
@@ -50,9 +52,9 @@ private:
 public:
     uint32_t instanceCount = 0;
 
-    CPP_Core2D_RenderPipelineInstance();
+    CPP_RenderPipelineInstance();
 
-    ~CPP_Core2D_RenderPipelineInstance() {
+    ~CPP_RenderPipelineInstance() {
         if (bgfx::isValid(vbh)) {
             bgfx::destroy(vbh);
         }
@@ -125,3 +127,4 @@ public:
 
     void Render();
 };
+} // namespace PMMA::Internal::Rendering::Core2D

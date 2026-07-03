@@ -17,7 +17,7 @@ public:
     CPP_DisplayCoordinate ShapeEnd;
     CPP_Color Color;
 
-    InstanceData ShapeInstanceData;
+    PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
     float Rotation = 0;
     uint16_t PointCount = 0;

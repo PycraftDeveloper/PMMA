@@ -8,7 +8,8 @@
 
 #include "CoreTypes.hpp"
 
-class CPP_Core2D_ColorTexture {
+namespace PMMA::Internal::Rendering::Core2D {
+class CPP_ColorTexture {
 private:
     std::array<std::vector<uint8_t>, 4> PreviousColorData;
     std::vector<uint8_t> CurrentColorData;
@@ -33,7 +34,7 @@ public:
     uint32_t m_colorTextureHeight = 0;
     uint32_t MaxTextureDimension = 1024;
 
-    ~CPP_Core2D_ColorTexture() {
+    ~CPP_ColorTexture() {
         if (bgfx::isValid(ColorTexture)) {
             bgfx::destroy(ColorTexture);
         }
@@ -155,3 +156,4 @@ public:
         BufferID = (BufferID + 1) % 4;
     }
 };
+} // namespace PMMA::Internal::Rendering::Core2D

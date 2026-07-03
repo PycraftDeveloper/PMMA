@@ -6,10 +6,10 @@
 #include <string>
 #include <vector>
 
-#include "Internal/Management/Core2D_RenderPipelineInstance.hpp"
+#include "Internal/Management/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
-CPP_Core2D_RenderPipelineInstance::CPP_Core2D_RenderPipelineInstance() {
+PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::CPP_RenderPipelineInstance() {
     m_layout.begin()
         .add(bgfx::Attrib::Position, 2, bgfx::AttribType::Float)
         .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
@@ -82,7 +82,7 @@ CPP_Core2D_RenderPipelineInstance::CPP_Core2D_RenderPipelineInstance() {
             (uint32_t)std::numeric_limits<uint16_t>::max());
 }
 
-void CPP_Core2D_RenderPipelineInstance::Render() {
+void PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::Render() {
     if (ColorChanged || !ColorTexture.UsingCache) {
         PMMA_Core::DisplayInstance->TriggerEventRefresh();
 

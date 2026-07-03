@@ -500,7 +500,7 @@ vsync to reduce visual tearing and improve frame pacing.");
     }
     SetIcon(kwargs.IconPath);
 
-    PMMA_Core::RenderPipelineCore = new CPP_Core2D_RenderPipelineManager();
+    PMMA_Core::RenderPipelineCore = new PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager();
 
     PreviousDisplaySize[0] = Size[0];
     PreviousDisplaySize[1] = Size[1];

@@ -5,8 +5,6 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-class CPP_Core2D_RenderPipelineInstance;
-
 namespace PMMA::Rendering::TwoD {
 class CPP_Line;
 class CPP_Arc;
@@ -15,6 +13,9 @@ class CPP_RadialPolygon;
 class CPP_Rectangle;
 class CPP_Pixel;
 } // namespace PMMA::Rendering::TwoD
+
+namespace PMMA::Internal::Rendering::Core2D {
+class CPP_RenderPipelineInstance;
 
 struct Vertex {
     float x, y, u, v;
@@ -29,13 +30,13 @@ struct InstanceData {
     float shape_property_four = 0, shape_property_five = 0;
 };
 
-class CPP_Core2D_RenderPipelineManager {
+class CPP_RenderPipelineManager {
 private:
-    std::vector<CPP_Core2D_RenderPipelineInstance *> RenderPipelineInstances;
-    std::vector<CPP_Core2D_RenderPipelineInstance *> CachedRenderPipelineInstances;
+    std::vector<CPP_RenderPipelineInstance *> RenderPipelineInstances;
+    std::vector<CPP_RenderPipelineInstance *> CachedRenderPipelineInstances;
 
 public:
-    ~CPP_Core2D_RenderPipelineManager();
+    ~CPP_RenderPipelineManager();
 
     void Add(PMMA::Rendering::TwoD::CPP_Line *lineShape);
     void Add(PMMA::Rendering::TwoD::CPP_RadialPolygon *radialPolygonShape);
@@ -65,3 +66,4 @@ public:
 
     void Render();
 };
+} // namespace PMMA::Internal::Rendering::Core2D
