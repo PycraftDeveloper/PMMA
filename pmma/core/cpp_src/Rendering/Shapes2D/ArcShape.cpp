@@ -2,7 +2,7 @@
 
 float PMMA::Rendering::TwoD::CPP_Arc::GetStartAngle() {
     if (!StartAngleSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not specified a starting angle for the arc \
 please use `Arc.set_start_angle` to set it before attempting to get it.");
@@ -13,7 +13,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
 
 float PMMA::Rendering::TwoD::CPP_Arc::GetEndAngle() {
     if (!EndAngleSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not specified an ending angle for the arc \
 please use `Arc.set_start_angle` to set it before attempting to get it.");
@@ -24,7 +24,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
 
 uint16_t PMMA::Rendering::TwoD::CPP_Arc::GetRadius() {
     if (!RadiusSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not specified a radius for the arc \
 please use `Arc.set_radius` to set it before attempting to get it.");
@@ -47,7 +47,7 @@ void PMMA::Rendering::TwoD::CPP_Arc::Render() {
         ShapeCenter.Get(start_position);
         uint16_t radius = GetRadius() * 2;
 
-        auto rpc = PMMA_Core::ActiveDisplayInstance->RenderPipelineCore;
+        auto rpc = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore;
 
         // Existing packing logic
         ShapeInstanceData.position = rpc->PackValues(start_position[0], start_position[1]);
@@ -62,7 +62,7 @@ void PMMA::Rendering::TwoD::CPP_Arc::Render() {
         ShapeInstanceData.shape_property_two = rpc->PackValues(GetEndAngle() * 182, 0);
     }
 
-    PMMA_Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
+    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

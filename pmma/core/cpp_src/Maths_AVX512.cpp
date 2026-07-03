@@ -2,12 +2,12 @@
 
 #include "PMMA_Core.hpp"
 
-void CPP_AdvancedMathematics::ArrayRanger_AVX512(
-            const float* values,
-            const unsigned int length,
-            const float* old_range,
-            const float* new_range,
-            float* out) {
+void PMMA::Maths::ArrayRanger_AVX512(
+    const float *values,
+    const unsigned int length,
+    const float *old_range,
+    const float *new_range,
+    float *out) {
 
     const unsigned int vec_size = 16; // AVX-512 processes 16 floats at a time
     unsigned int i = 0;

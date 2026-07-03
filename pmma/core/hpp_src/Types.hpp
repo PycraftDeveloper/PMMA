@@ -6,40 +6,41 @@
 #include <random>
 #include <thread>
 
-#include "AdvancedMathematics.hpp"
 #include "FractalBrownianMotion.hpp"
 #include "Logger.hpp"
+#include "Maths.hpp"
 #include "Random.hpp"
 
-struct CPP_Color_Configure_Kwargs {
+namespace PMMA::Types {
+struct Color_Configure_Kwargs {
     std::optional<uint32_t> seed = std::nullopt;
     uint32_t octaves = 2;
     float frequency = 0.75f;
     float amplitude = 1.0f;
 };
 
-struct CPP_DisplayCoordinate_Configure_Kwargs {
+struct DisplayCoordinate_Configure_Kwargs {
     std::optional<uint32_t> seed = std::nullopt;
     uint32_t octaves = 2;
     float frequency = 0.75f;
     float amplitude = 1.0f;
 };
 
-struct CPP_Angle_Configure_Kwargs {
+struct Angle_Configure_Kwargs {
     std::optional<uint32_t> seed = std::nullopt;
     uint32_t octaves = 2;
     float frequency = 0.75f;
     float amplitude = 1.0f;
 };
 
-struct CPP_Proportion_Configure_Kwargs {
+struct Proportion_Configure_Kwargs {
     std::optional<uint32_t> seed = std::nullopt;
     uint32_t octaves = 2;
     float frequency = 0.75f;
     float amplitude = 1.0f;
 };
 
-class EXPORT CPP_Color {
+class EXPORT Color {
 private:
     CPP_PerlinNoise *R_PerlinNoiseGenerator = nullptr;
     CPP_PerlinNoise *G_PerlinNoiseGenerator = nullptr;
@@ -63,10 +64,10 @@ private:
     float half_color_max = 255.f / 2.f;
 
     float offset_range[2] = {0.f, 1.f};
-    float r_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
-    float g_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
-    float b_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
-    float a_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
+    float r_offset = PMMA::Maths::RandomFloat(offset_range);
+    float g_offset = PMMA::Maths::RandomFloat(offset_range);
+    float b_offset = PMMA::Maths::RandomFloat(offset_range);
+    float a_offset = PMMA::Maths::RandomFloat(offset_range);
 
     const float noise_range[2] = {-1.f, 1.f};
     const float color_range[2] = {0, 255};
@@ -79,9 +80,9 @@ private:
 public:
     bool LinkedToDisplayBackground = false;
 
-    CPP_Color();
+    Color();
 
-    ~CPP_Color() {
+    ~Color() {
         if (Configured) {
             delete R_PerlinNoiseGenerator;
             delete G_PerlinNoiseGenerator;
@@ -108,7 +109,7 @@ public:
         }
     }
 
-    inline void Configure(CPP_Color_Configure_Kwargs kwargs = {}) {
+    inline void Configure(Color_Configure_Kwargs kwargs = {}) {
         uint32_t new_seed;
 
         if (!kwargs.seed.has_value()) {
@@ -206,7 +207,7 @@ public:
     std::string Get_HEX();
 };
 
-class EXPORT CPP_DisplayCoordinate {
+class EXPORT DisplayCoordinate {
 private:
     CPP_PerlinNoise *X_PerlinNoiseGenerator = nullptr;
     CPP_PerlinNoise *Y_PerlinNoiseGenerator = nullptr;
@@ -214,7 +215,7 @@ private:
     CPP_FractalBrownianMotion *X_FractalBrownianMotionGenerator = nullptr;
     CPP_FractalBrownianMotion *Y_FractalBrownianMotionGenerator = nullptr;
 
-    uint16_t DisplayCoordinate[2] = {0, 0}; // Default display coordinate is (0, 0)
+    uint16_t Coordinate[2] = {0, 0}; // Default display coordinate is (0, 0)
 
     CPP_FastRandom *RandomCoordGenerator = nullptr;
     int DisplaySize[2];
@@ -225,8 +226,8 @@ private:
     float amplitude;
 
     float offset_range[2] = {0.f, 1.f};
-    float x_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
-    float y_offset = CPP_AdvancedMathematics::RandomFloat(offset_range);
+    float x_offset = PMMA::Maths::RandomFloat(offset_range);
+    float y_offset = PMMA::Maths::RandomFloat(offset_range);
 
     const float noise_range[2] = {-1.f, 1.f};
 
@@ -235,9 +236,9 @@ private:
     bool Configured = false;
 
 public:
-    CPP_DisplayCoordinate();
+    DisplayCoordinate();
 
-    ~CPP_DisplayCoordinate() {
+    ~DisplayCoordinate() {
         if (Configured) {
             delete X_PerlinNoiseGenerator;
             delete Y_PerlinNoiseGenerator;
@@ -256,7 +257,7 @@ public:
         }
     }
 
-    void Configure(CPP_DisplayCoordinate_Configure_Kwargs kwargs = {});
+    void Configure(DisplayCoordinate_Configure_Kwargs kwargs = {});
 
     inline bool GetChangedToggle() {
         bool OldChanged = Changed;
@@ -286,10 +287,10 @@ public:
     void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three);
 
     inline void Set(uint16_t *in_coordinate) {
-        if (in_coordinate[0] != DisplayCoordinate[0] || in_coordinate[1] != DisplayCoordinate[1]) {
+        if (in_coordinate[0] != Coordinate[0] || in_coordinate[1] != Coordinate[1]) {
             Changed = true;
-            DisplayCoordinate[0] = in_coordinate[0];
-            DisplayCoordinate[1] = in_coordinate[1];
+            Coordinate[0] = in_coordinate[0];
+            Coordinate[1] = in_coordinate[1];
         }
 
         IsSet = true;
@@ -298,7 +299,7 @@ public:
     void Get(uint16_t *out);
 };
 
-class EXPORT CPP_Angle {
+class EXPORT Angle {
 private:
     CPP_Logger *Logger;
     CPP_PerlinNoise *PerlinNoiseGenerator = nullptr;
@@ -321,7 +322,7 @@ private:
     bool IsSet = false;
 
 public:
-    ~CPP_Angle() {
+    ~Angle() {
         if (Configured) {
             delete PerlinNoiseGenerator;
             delete FractalBrownianMotionGenerator;
@@ -336,7 +337,7 @@ public:
         }
     }
 
-    inline void Configure(CPP_Angle_Configure_Kwargs kwargs = {}) {
+    inline void Configure(Angle_Configure_Kwargs kwargs = {}) {
         uint32_t new_seed;
 
         if (!kwargs.seed.has_value()) {
@@ -411,7 +412,7 @@ public:
     }
 
     inline void GenerateFromRandom() {
-        float converted_in_angle = CPP_AdvancedMathematics::RandomFloat(angle_range);
+        float converted_in_angle = PMMA::Maths::RandomFloat(angle_range);
 
         if (converted_in_angle != InternalAngle) {
             Changed = true;
@@ -433,7 +434,7 @@ public:
         }
 
         InternalAngle = PerlinNoiseGenerator->Noise1D(value);
-        float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
 
         if (converted_in_angle != InternalAngle) {
             Changed = true;
@@ -455,7 +456,7 @@ public:
         }
 
         InternalAngle = PerlinNoiseGenerator->Noise2D(value_one, value_two);
-        float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
 
         if (converted_in_angle != InternalAngle) {
             Changed = true;
@@ -477,7 +478,7 @@ public:
         }
 
         InternalAngle = PerlinNoiseGenerator->Noise3D(value_one, value_two, value_three);
-        float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
 
         if (converted_in_angle != InternalAngle) {
             Changed = true;
@@ -499,7 +500,7 @@ public:
         }
 
         InternalAngle = FractalBrownianMotionGenerator->Noise1D(value);
-        float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
 
         if (converted_in_angle != InternalAngle) {
             Changed = true;
@@ -521,7 +522,7 @@ public:
         }
 
         InternalAngle = FractalBrownianMotionGenerator->Noise2D(value_one, value_two);
-        float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
 
         if (converted_in_angle != InternalAngle) {
             Changed = true;
@@ -543,7 +544,7 @@ public:
         }
 
         InternalAngle = FractalBrownianMotionGenerator->Noise3D(value_one, value_two, value_three);
-        float converted_in_angle = CPP_AdvancedMathematics::Ranger(InternalAngle, noise_range, angle_range);
+        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
 
         if (converted_in_angle != InternalAngle) {
             Changed = true;
@@ -613,7 +614,7 @@ before attempting to get it.");
     }
 };
 
-class EXPORT CPP_Proportion {
+class EXPORT Proportion {
 private:
     CPP_Logger *Logger;
 
@@ -635,7 +636,7 @@ private:
     bool Changed = true;
 
 public:
-    ~CPP_Proportion() {
+    ~Proportion() {
         if (Configured) {
             delete PerlinNoiseGenerator;
             delete FractalBrownianMotionGenerator;
@@ -650,7 +651,7 @@ public:
         }
     }
 
-    inline void Configure(CPP_Proportion_Configure_Kwargs kwargs = {}) {
+    inline void Configure(Proportion_Configure_Kwargs kwargs = {}) {
         uint32_t new_seed;
 
         if (!kwargs.seed.has_value()) {
@@ -725,7 +726,7 @@ public:
     }
 
     inline void GenerateFromRandom() {
-        float converted_in_proportion = CPP_AdvancedMathematics::RandomFloat(proportion_range);
+        float converted_in_proportion = PMMA::Maths::RandomFloat(proportion_range);
 
         if (converted_in_proportion != InternalProportion) {
             Changed = true;
@@ -747,7 +748,7 @@ public:
         }
 
         InternalProportion = PerlinNoiseGenerator->Noise1D(value);
-        float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
 
         if (converted_in_proportion != InternalProportion) {
             Changed = true;
@@ -769,7 +770,7 @@ public:
         }
 
         InternalProportion = PerlinNoiseGenerator->Noise2D(value_one, value_two);
-        float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
 
         if (converted_in_proportion != InternalProportion) {
             Changed = true;
@@ -791,7 +792,7 @@ public:
         }
 
         InternalProportion = PerlinNoiseGenerator->Noise3D(value_one, value_two, value_three);
-        float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
 
         if (converted_in_proportion != InternalProportion) {
             Changed = true;
@@ -813,7 +814,7 @@ public:
         }
 
         InternalProportion = FractalBrownianMotionGenerator->Noise1D(value);
-        float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
 
         if (converted_in_proportion != InternalProportion) {
             Changed = true;
@@ -835,7 +836,7 @@ public:
         }
 
         InternalProportion = FractalBrownianMotionGenerator->Noise2D(value_one, value_two);
-        float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
 
         if (converted_in_proportion != InternalProportion) {
             Changed = true;
@@ -857,7 +858,7 @@ public:
         }
 
         InternalProportion = FractalBrownianMotionGenerator->Noise3D(value_one, value_two, value_three);
-        float converted_in_proportion = CPP_AdvancedMathematics::Ranger(InternalProportion, noise_range, proportion_range);
+        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
 
         if (converted_in_proportion != InternalProportion) {
             Changed = true;
@@ -927,3 +928,4 @@ before attempting to get it.");
         return InternalProportion;
     }
 };
+}

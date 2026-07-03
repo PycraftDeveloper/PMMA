@@ -2,11 +2,11 @@
 
 #include "PMMA_Core.hpp"
 
-CPP_LinearAnimation::CPP_LinearAnimation(CPP_DisplayCoordinate *NewTargetCoordinatePtr) {
+CPP_LinearAnimation::CPP_LinearAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr) {
     TargetCoordinatePtr = NewTargetCoordinatePtr;
 
-    StartCoordinatePtr = new CPP_DisplayCoordinate();
-    EndCoordinatePtr = new CPP_DisplayCoordinate();
+    StartCoordinatePtr = new PMMA::Types::DisplayCoordinate();
+    EndCoordinatePtr = new PMMA::Types::DisplayCoordinate();
     Logger = new CPP_Logger();
 }
 
@@ -37,11 +37,11 @@ void CPP_LinearAnimation::Start() {
 
     Playing = true;
 
-    if (PMMA_Core::AnimationManagerInstance == nullptr) {
-        PMMA_Core::AnimationManagerInstance = new CPP_AnimationManager();
+    if (PMMA::Core::AnimationManagerInstance == nullptr) {
+        PMMA::Core::AnimationManagerInstance = new CPP_AnimationManager();
     }
 
-    PMMA_Core::AnimationManagerInstance->AddAnimation(this);
+    PMMA::Core::AnimationManagerInstance->AddAnimation(this);
 
     StartTime = std::chrono::high_resolution_clock::now();
     RunTime = std::chrono::seconds(0);
@@ -56,6 +56,6 @@ void CPP_LinearAnimation::Stop() {
         return;
     }
 
-    PMMA_Core::AnimationManagerInstance->RemoveAnimation(this);
+    PMMA::Core::AnimationManagerInstance->RemoveAnimation(this);
     Playing = false;
 }

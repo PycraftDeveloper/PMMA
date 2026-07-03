@@ -31,7 +31,7 @@ Welcome to the roadmap for PMMA, here you will find out what we have been workin
                 margin-left: auto;
                 margin-right: auto;
                 justify-content: center;">
-            <div title="Advanced Mathematics" style="width:14px; height:14px; background-color: #F75C03; border-radius: 4px; border-width: 2px; border-style: solid; border-color: black;"></div>
+            <div title="Maths" style="width:14px; height:14px; background-color: #F75C03; border-radius: 4px; border-width: 2px; border-style: solid; border-color: black;"></div>
             <div title="2D Animation" style="width:14px; height:14px; background-color: #F75C03; border-radius: 4px; border-width: 2px; border-style: solid; border-color: black;"></div>
             <div title="Controller Events" style="width:14px; height:14px; background-color: #28A745; border-radius: 4px; border-width: 2px; border-style: solid; border-color: black;"></div>
             <div title="Display" style="width:14px; height:14px; background-color: #F4C20D; border-radius: 4px; border-width: 2px; border-style: solid; border-color: black;"></div>

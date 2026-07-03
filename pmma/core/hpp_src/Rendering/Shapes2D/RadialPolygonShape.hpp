@@ -7,13 +7,13 @@
 #include <glm/glm.hpp>
 
 #include "Constants.hpp"
-#include "CoreTypes.hpp"
+#include "Types.hpp"
 
 namespace PMMA::Rendering::TwoD {
 class EXPORT CPP_RadialPolygon {
 public:
-    CPP_DisplayCoordinate ShapeCenter;
-    CPP_Color Color;
+    PMMA::Types::DisplayCoordinate ShapeCenter;
+    PMMA::Types::Color Color;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 

@@ -4,50 +4,50 @@
 #include <iostream>
 #include <string>
 
-namespace CPP_General {
-    EXPORT std::string Get_PMMA_Location();
+namespace PMMA::General {
+EXPORT std::string Get_PMMA_Location();
 
-    EXPORT bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh);
+EXPORT bool Is_Power_Saving_Mode_Enabled(bool ForceRefresh);
 
-    EXPORT bool Is_DebugModeEnabled();
+EXPORT bool Is_DebugModeEnabled();
 
-    EXPORT void Set_DebugModeEnabled(bool DebugMode);
+EXPORT void Set_DebugModeEnabled(bool DebugMode);
 
-    EXPORT bool IsWindowCreated();
+EXPORT bool IsWindowCreated();
 
-    EXPORT bool IsApplicationRunning();
+EXPORT bool IsApplicationRunning();
 
-    EXPORT bool IsEscapeKeyToCloseWindow();
+EXPORT bool IsEscapeKeyToCloseWindow();
 
-    EXPORT void SetEscapeKeyToCloseWindow(bool EscapeKeyToCloseWindow);
+EXPORT void SetEscapeKeyToCloseWindow(bool EscapeKeyToCloseWindow);
 
-    EXPORT bool IsF11KeyToToggleFullscreen();
+EXPORT bool IsF11KeyToToggleFullscreen();
 
-    EXPORT void SetF11KeyToToggleFullscreen(bool F11KeyToToggleFullscreen);
+EXPORT void SetF11KeyToToggleFullscreen(bool F11KeyToToggleFullscreen);
 
-    EXPORT std::string GetCurrent_PMMA_Version();
+EXPORT std::string GetCurrent_PMMA_Version();
 
-    EXPORT std::string GetLatest_PMMA_Version();
+EXPORT std::string GetLatest_PMMA_Version();
 
-    EXPORT void SetLatest_PMMA_Version(std::string latest_version);
+EXPORT void SetLatest_PMMA_Version(std::string latest_version);
 
-    EXPORT bool IsUpdateAvailable();
+EXPORT bool IsUpdateAvailable();
 
-    EXPORT double GetApplicationStartTime();
+EXPORT double GetApplicationStartTime();
 
-    EXPORT double GetApplicationRunTime();
+EXPORT double GetApplicationRunTime();
 
-    EXPORT float GetShapeQuality();
+EXPORT float GetShapeQuality();
 
-    EXPORT void SetShapeQuality(float quality);
+EXPORT void SetShapeQuality(float quality);
 
-    EXPORT void Let_PMMA_ControlShapeQuality();
+EXPORT void Let_PMMA_ControlShapeQuality();
 
-    EXPORT void SetLocale(std::string locale);
+EXPORT void SetLocale(std::string locale);
 
-    EXPORT std::string GetLocale();
+EXPORT std::string GetLocale();
 
-    EXPORT std::string GetOperatingSystem();
+EXPORT std::string GetOperatingSystem();
 
-    EXPORT std::string GetGraphicsBackend();
-}
+EXPORT std::string GetGraphicsBackend();
+} // namespace PMMA::General

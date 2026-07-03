@@ -20,7 +20,7 @@ void CPP_Shader::CompileShaderComponent(
 
     bgfx::ShaderHandle shader_component = BGFX_INVALID_HANDLE;
 
-    std::string PlatformName = CPP_General::GetOperatingSystem();
+    std::string PlatformName = PMMA::General::GetOperatingSystem();
     if (PlatformName == CPP_Constants::OperatingSystems::ANDROID) {
         PlatformName = "android";
     } else if (PlatformName == CPP_Constants::OperatingSystems::EMSCRIPTEN) {
@@ -39,25 +39,25 @@ void CPP_Shader::CompileShaderComponent(
         throw std::runtime_error("Unsupported platform: " + PlatformName);
     }
 
-    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+    PMMA::Core::LoggingManagerInstance->InternalLogInfo(
         34,
         "PMMA is using '" + PlatformName + "' for shaders.");
 
-    std::string Shader_C_Location = PMMA_Registry::PMMA_Location +
-                                    PMMA_Registry::PathSeparator + "extern" +
-                                    PMMA_Registry::PathSeparator + "bin" +
-                                    PMMA_Registry::PathSeparator + "shaderc";
+    std::string Shader_C_Location = PMMA::Registry::PMMA_Location +
+                                    PMMA::Registry::PathSeparator + "extern" +
+                                    PMMA::Registry::PathSeparator + "bin" +
+                                    PMMA::Registry::PathSeparator + "shaderc";
 
     if (PlatformName == "windows") {
         Shader_C_Location += ".exe";
     }
 
-    std::string ShaderBuildToolsLocation = PMMA_Registry::PMMA_Location +
-                                           PMMA_Registry::PathSeparator + "extern" +
-                                           PMMA_Registry::PathSeparator + "shader_build_tools";
+    std::string ShaderBuildToolsLocation = PMMA::Registry::PMMA_Location +
+                                           PMMA::Registry::PathSeparator + "extern" +
+                                           PMMA::Registry::PathSeparator + "shader_build_tools";
 
     std::string VaryingDefLocation = std::filesystem::path(RawFilePath).parent_path().string() +
-                                     PMMA_Registry::PathSeparator + "varying.def.sc";
+                                     PMMA::Registry::PathSeparator + "varying.def.sc";
 
     std::string GraphicsProfile = CPP_Shader::GetGraphicsProfile();
 
@@ -79,7 +79,7 @@ void CPP_Shader::CompileShaderComponent(
             DontRepeatOutput = true;
 
             if (IsInternalShader) {
-                PMMA_Core::LoggingManagerInstance->InternalLogError(
+                PMMA::Core::LoggingManagerInstance->InternalLogError(
                     49,
                     "PMMA was unable to compile the following shader: '" +
                         RawFilePath + "'. This is a shader that comes included \
@@ -89,7 +89,7 @@ We would also greatly appreciate it if you could include all information/debug/w
 logs from your application run to help us diagnose the issue as it could \
 be specific to a single platform or graphics backend. Thank you!");
             } else {
-                PMMA_Core::LoggingManagerInstance->InternalLogError(
+                PMMA::Core::LoggingManagerInstance->InternalLogError(
                     49,
                     "Shader compilation failed for '" + RawFilePath +
                         "' with command: '" + command + "'\n\n" +
@@ -101,7 +101,7 @@ command listed above in your system terminal/command prompt directly.");
         }
     } catch (const std::exception &e) {
         if (!DontRepeatOutput) {
-            PMMA_Core::LoggingManagerInstance->InternalLogError(
+            PMMA::Core::LoggingManagerInstance->InternalLogError(
                 49,
                 "Shader compilation failed: '" + std::string(e.what()) + "'.");
             throw std::runtime_error("Shader compilation failed for '" +
@@ -115,15 +115,15 @@ command listed above in your system terminal/command prompt directly.");
 void CPP_Shader::CompileShader(bool InternalShader) {
     IsInternalShader = InternalShader;
 
-    std::string PlatformName = CPP_General::GetOperatingSystem();
+    std::string PlatformName = PMMA::General::GetOperatingSystem();
 
     if (RawVertexShaderPath != "") {
         if (CompiledVertexShaderPath == "") {
             std::string ShaderName = std::filesystem::path(RawVertexShaderPath).stem().string();
-            if (InternalShader || !PMMA_Core::PassportInstance->IsRegistered) {
-                CompiledVertexShaderPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "temporary" + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+            if (InternalShader || !PMMA::Core::PassportInstance->IsRegistered) {
+                CompiledVertexShaderPath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "temporary" + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
             } else {
-                CompiledVertexShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath() + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+                CompiledVertexShaderPath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
             }
         }
     }
@@ -131,10 +131,10 @@ void CPP_Shader::CompileShader(bool InternalShader) {
     if (RawFragmentShaderPath != "") {
         if (CompiledFragmentShaderPath == "") {
             std::string ShaderName = std::filesystem::path(RawFragmentShaderPath).stem().string();
-            if (InternalShader || !PMMA_Core::PassportInstance->IsRegistered) {
-                CompiledFragmentShaderPath = PMMA_Registry::PMMA_Location + PMMA_Registry::PathSeparator + "temporary" + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+            if (InternalShader || !PMMA::Core::PassportInstance->IsRegistered) {
+                CompiledFragmentShaderPath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "temporary" + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
             } else {
-                CompiledFragmentShaderPath = PMMA_Core::PassportInstance->GetTemporaryPath() + PMMA_Registry::PathSeparator + "shader_cache" + PMMA_Registry::PathSeparator + PlatformName + PMMA_Registry::PathSeparator + GetGraphicsProfile() + PMMA_Registry::PathSeparator + ShaderName + ".bin";
+                CompiledFragmentShaderPath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
             }
         }
     }

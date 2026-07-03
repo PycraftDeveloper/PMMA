@@ -10,9 +10,9 @@
 #include <GLFW/glfw3.h>
 
 #include "Constants.hpp"
-#include "CoreTypes.hpp"
 #include "Internal/EventsManager.hpp"
 #include "Logger.hpp"
+#include "Types.hpp"
 
 class EXPORT CPP_ControllerEvent {
 private:
@@ -102,14 +102,14 @@ public:
 private:
     CPP_Logger *Logger;
 
-    CPP_Proportion *GamePad_Left_Trigger = nullptr;
-    CPP_Proportion *GamePad_Right_Trigger = nullptr;
-    CPP_Proportion *GamePad_Left_Stick_X = nullptr;
-    CPP_Proportion *GamePad_Left_Stick_Y = nullptr;
-    CPP_Proportion *GamePad_Right_Stick_X = nullptr;
-    CPP_Proportion *GamePad_Right_Stick_Y = nullptr;
+    PMMA::Types::Proportion *GamePad_Left_Trigger = nullptr;
+    PMMA::Types::Proportion *GamePad_Right_Trigger = nullptr;
+    PMMA::Types::Proportion *GamePad_Left_Stick_X = nullptr;
+    PMMA::Types::Proportion *GamePad_Left_Stick_Y = nullptr;
+    PMMA::Types::Proportion *GamePad_Right_Stick_X = nullptr;
+    PMMA::Types::Proportion *GamePad_Right_Stick_Y = nullptr;
 
-    std::vector<CPP_Proportion> RawAxesData;
+    std::vector<PMMA::Types::Proportion> RawAxesData;
     std::vector<bool> RawButtonData;
     std::vector<std::string_view> RawHatStateData;
     std::string RawName;
@@ -142,12 +142,12 @@ public:
         GamePad_DPad_Down_Button = new CPP_ButtonPressedEvent();
         GamePad_DPad_Left_Button = new CPP_ButtonPressedEvent();
 
-        GamePad_Left_Trigger = new CPP_Proportion();
-        GamePad_Right_Trigger = new CPP_Proportion();
-        GamePad_Left_Stick_X = new CPP_Proportion();
-        GamePad_Left_Stick_Y = new CPP_Proportion();
-        GamePad_Right_Stick_X = new CPP_Proportion();
-        GamePad_Right_Stick_Y = new CPP_Proportion();
+        GamePad_Left_Trigger = new PMMA::Types::Proportion();
+        GamePad_Right_Trigger = new PMMA::Types::Proportion();
+        GamePad_Left_Stick_X = new PMMA::Types::Proportion();
+        GamePad_Left_Stick_Y = new PMMA::Types::Proportion();
+        GamePad_Right_Stick_X = new PMMA::Types::Proportion();
+        GamePad_Right_Stick_Y = new PMMA::Types::Proportion();
 
         ID = new_ID;
         Connected = false;

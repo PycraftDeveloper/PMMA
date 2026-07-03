@@ -4,15 +4,15 @@
 #include <chrono>
 #include <iostream>
 
-#include "AdvancedMathematics.hpp"
-#include "CoreTypes.hpp"
 #include "Internal/AnimationManager.hpp"
+#include "Maths.hpp"
+#include "Types.hpp"
 
 class EXPORT CPP_RadialAnimation : public CPP_AnimationCore {
 public:
-    CPP_DisplayCoordinate *TargetCoordinatePtr;
-    CPP_DisplayCoordinate *StartCoordinatePtr;
-    CPP_DisplayCoordinate *CenterCoordinatePtr;
+    PMMA::Types::DisplayCoordinate *TargetCoordinatePtr;
+    PMMA::Types::DisplayCoordinate *StartCoordinatePtr;
+    PMMA::Types::DisplayCoordinate *CenterCoordinatePtr;
 
     std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
     std::chrono::duration<float> Duration;
@@ -22,7 +22,7 @@ public:
     bool Paused = false;
     bool Repeat = false;
 
-    CPP_RadialAnimation(CPP_DisplayCoordinate *NewTargetCoordinatePtr);
+    CPP_RadialAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr);
 
     ~CPP_RadialAnimation();
 

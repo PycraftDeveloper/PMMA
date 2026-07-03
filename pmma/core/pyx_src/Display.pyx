@@ -11,13 +11,13 @@ cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
 
-from CoreTypes cimport Color, CPP_Color
+from Types cimport CPP_Color, Color
 
 np.import_array()
 
 # Declare the external C++ function
 cdef extern from "Display.hpp" nogil:
-    cdef cppclass CPP_Display_Create_Kwargs:
+    cdef cppclass Display_Create_Kwargs "PMMA::Display_Create_Kwargs":
         string Caption
         string IconPath
         optional[bool] OptionalFullScreen
@@ -27,7 +27,7 @@ cdef extern from "Display.hpp" nogil:
         bool Centered
         bool Maximized
 
-    cdef cppclass CPP_Display_Refresh_Kwargs:
+    cdef cppclass Display_Refresh_Kwargs "PMMA::Display_Refresh_Kwargs":
         unsigned int MinRefreshRate
         optional[unsigned int] MaxRefreshRate
         bool LimitRefreshRate
@@ -35,12 +35,12 @@ cdef extern from "Display.hpp" nogil:
         bool LowerRefreshRate_OnFocusLoss
         bool LowerRefreshRate_OnLowBattery
 
-    cdef cppclass CPP_Display:
+    cdef cppclass CPP_Display "PMMA::Display":
         CPP_Color* WindowFillColor
 
         void Create(
             unsigned int* NewSize,
-            CPP_Display_Create_Kwargs kwargs) except + nogil
+            Display_Create_Kwargs kwargs) except + nogil
 
         inline void CenterWindow() except + nogil
 
@@ -75,7 +75,7 @@ cdef extern from "Display.hpp" nogil:
         inline unsigned int GetCurrentMonitorRefreshRate() except + nogil
         inline void GetOrthographicProjection(float* out) except + nogil
 
-        void Refresh(CPP_Display_Refresh_Kwargs kwargs) except + nogil
+        void Refresh(Display_Refresh_Kwargs kwargs) except + nogil
 
         inline void TriggerEventRefresh() except + nogil
 
@@ -83,25 +83,25 @@ cdef extern from "Display.hpp" nogil:
 
 cdef class Display:
     cdef:
-        CPP_Display* cpp_class_ptr
-        Color cpp_window_fill_color_format
+        CPP_Display* class_ptr
+        Color window_fill_color_format
         bool using_numpy_arrays
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_Display()
+        self.class_ptr = new CPP_Display()
 
-        self.cpp_window_fill_color_format = Color()
-        self.cpp_window_fill_color_format.set_pointer(self.cpp_class_ptr.WindowFillColor)
+        self.window_fill_color_format = Color()
+        self.window_fill_color_format.set_pointer(self.class_ptr.WindowFillColor)
 
         self.using_numpy_arrays = False
 
     def __dealloc__(self):
-        del self.cpp_class_ptr
-        self.cpp_class_ptr = NULL
+        del self.class_ptr
+        self.class_ptr = NULL
 
     property window_fill_color:
         def __get__(self):
-            return self.cpp_window_fill_color_format
+            return self.window_fill_color_format
 
     def create(
             self,
@@ -119,7 +119,7 @@ cdef class Display:
             string encoded_caption = caption.encode('utf-8')
             string encoded_icon = icon.encode('utf-8')
             unsigned int* size_ptr
-            CPP_Display_Create_Kwargs kwargs
+            Display_Create_Kwargs kwargs
 
         Utility.Registry.render_thread = threading.current_thread()
 
@@ -144,15 +144,15 @@ cdef class Display:
         kwargs.Centered = centered
         kwargs.Maximized = maximized
 
-        self.cpp_class_ptr.Create(
+        self.class_ptr.Create(
             size_ptr,
             kwargs)
 
     def get_width(self):
-        return self.cpp_class_ptr.GetWidth()
+        return self.class_ptr.GetWidth()
 
     def get_height(self):
-        return self.cpp_class_ptr.GetHeight()
+        return self.class_ptr.GetHeight()
 
     def get_orthographic_projection(self):
         cdef:
@@ -162,7 +162,7 @@ cdef class Display:
         projection_np = np.empty(16, dtype=np.float32, order='C')
         projection_ptr = <float*>&projection_np[0]
 
-        self.cpp_class_ptr.GetOrthographicProjection(projection_ptr)
+        self.class_ptr.GetOrthographicProjection(projection_ptr)
 
         if self.using_numpy_arrays:
             return projection_np
@@ -177,7 +177,7 @@ cdef class Display:
         size_np = np.empty(2, dtype=np.int32, order='C')
         size_ptr = <int*>&size_np[0]
 
-        self.cpp_class_ptr.GetSize(size_ptr)
+        self.class_ptr.GetSize(size_ptr)
 
         if self.using_numpy_arrays:
             return size_np
@@ -196,7 +196,7 @@ cdef class Display:
 
         position_ptr = <unsigned int*>&position_np[0]
 
-        self.cpp_class_ptr.SetRelativeWindowPosition(position_ptr)
+        self.class_ptr.SetRelativeWindowPosition(position_ptr)
 
     def set_absolute_window_position(self, position):
         cdef:
@@ -210,33 +210,33 @@ cdef class Display:
 
         position_ptr = <unsigned int*>&position_np[0]
 
-        self.cpp_class_ptr.SetAbsoluteWindowPosition(position_ptr)
+        self.class_ptr.SetAbsoluteWindowPosition(position_ptr)
 
     def center_window(self):
-        self.cpp_class_ptr.CenterWindow()
+        self.class_ptr.CenterWindow()
 
     @Utility.require_render_thread
     def clear(self):
-        self.cpp_class_ptr.Clear()
+        self.class_ptr.Clear()
 
     def set_window_in_focus(self):
-        self.cpp_class_ptr.SetWindowInFocus()
+        self.class_ptr.SetWindowInFocus()
 
     def set_window_minimized(self, value):
-        self.cpp_class_ptr.SetWindowMinimized(value)
+        self.class_ptr.SetWindowMinimized(value)
 
     def set_window_maximized(self, value):
-        self.cpp_class_ptr.SetWindowMaximized(value)
+        self.class_ptr.SetWindowMaximized(value)
 
     def set_caption(self, caption):
         cdef:
             string encoded_caption = caption.encode('utf-8')
 
-        self.cpp_class_ptr.SetCaption(encoded_caption)
+        self.class_ptr.SetCaption(encoded_caption)
 
     def get_caption(self):
-        cdef string cpp_str = self.cpp_class_ptr.GetCaption()
-        return cpp_str.c_str().decode('utf-8')
+        cdef string str = self.class_ptr.GetCaption()
+        return str.c_str().decode('utf-8')
 
     def get_center(self, object_size=None):
         cdef:
@@ -256,7 +256,7 @@ cdef class Display:
 
             object_size_ptr = <unsigned int*>&object_size_np[0]
 
-            self.cpp_class_ptr.GetCenterPosition(object_size_ptr, out_ptr)
+            self.class_ptr.GetCenterPosition(object_size_ptr, out_ptr)
 
             if isinstance(object_size, np.ndarray):
                 return out_np
@@ -266,7 +266,7 @@ cdef class Display:
                 else:
                     return out_np.tolist()
 
-        self.cpp_class_ptr.GetCenterPosition(out_ptr)
+        self.class_ptr.GetCenterPosition(out_ptr)
 
         if self.using_numpy_arrays:
             return out_np
@@ -274,7 +274,7 @@ cdef class Display:
             return out_np.tolist()
 
     def get_aspect_ratio(self):
-        return self.cpp_class_ptr.GetAspectRatio()
+        return self.class_ptr.GetAspectRatio()
 
     @Utility.require_render_thread
     def refresh(
@@ -284,7 +284,7 @@ cdef class Display:
             lower_refresh_rate_on_focus_loss=True,
             lower_refresh_rate_on_low_battery=True):
 
-        cdef CPP_Display_Refresh_Kwargs kwargs
+        cdef Display_Refresh_Kwargs kwargs
 
         kwargs.MinRefreshRate = min_refresh_rate
         if max_refresh_rate is None:
@@ -296,51 +296,51 @@ cdef class Display:
         kwargs.LowerRefreshRate_OnFocusLoss = lower_refresh_rate_on_focus_loss
         kwargs.LowerRefreshRate_OnLowBattery = lower_refresh_rate_on_low_battery
 
-        self.cpp_class_ptr.Refresh(kwargs)
+        self.class_ptr.Refresh(kwargs)
 
     def trigger_event_refresh(self):
-        self.cpp_class_ptr.TriggerEventRefresh()
+        self.class_ptr.TriggerEventRefresh()
 
     def get_frame_rate(self):
-        return self.cpp_class_ptr.GetFrameRate()
+        return self.class_ptr.GetFrameRate()
 
     def get_frame_time(self):
-        return self.cpp_class_ptr.GetFrameTime()
+        return self.class_ptr.GetFrameTime()
 
     def set_icon(self, icon_path):
         cdef encoded_icon_path = icon_path.encode('utf-8')
 
-        self.cpp_class_ptr.SetIcon(icon_path)
+        self.class_ptr.SetIcon(icon_path)
 
     def toggle_full_screen(self):
-        self.cpp_class_ptr.ToggleFullScreen()
+        self.class_ptr.ToggleFullScreen()
 
     def is_window_in_focus(self):
-        return self.cpp_class_ptr.GetIsWindowInFocus()
+        return self.class_ptr.GetIsWindowInFocus()
 
     def is_window_minimized(self):
-        return self.cpp_class_ptr.GetIsWindowMinimized()
+        return self.class_ptr.GetIsWindowMinimized()
 
     def is_window_resizable(self):
-        return self.cpp_class_ptr.GetIsWindowResizable()
+        return self.class_ptr.GetIsWindowResizable()
 
     def is_window_visible(self):
-        return self.cpp_class_ptr.GetIsWindowVisible()
+        return self.class_ptr.GetIsWindowVisible()
 
     def is_window_always_on_top(self):
-        return self.cpp_class_ptr.GetIsWindowAlwaysOnTop()
+        return self.class_ptr.GetIsWindowAlwaysOnTop()
 
     def is_window_auto_minimize(self):
-        return self.cpp_class_ptr.GetIsWindowAutoMinimize()
+        return self.class_ptr.GetIsWindowAutoMinimize()
 
     def is_window_maximized(self):
-        return self.cpp_class_ptr.GetIsWindowMaximized()
+        return self.class_ptr.GetIsWindowMaximized()
 
     def get_msaa_samples(self):
-        return self.cpp_class_ptr.GetWindow_MSAA_Samples()
+        return self.class_ptr.GetWindow_MSAA_Samples()
 
     def is_window_using_vsync(self):
-        return self.cpp_class_ptr.GetIsWindowUsingVsync()
+        return self.class_ptr.GetIsWindowUsingVsync()
 
     def get_current_monitor_refresh_rate(self):
-        return self.cpp_class_ptr.GetCurrentMonitorRefreshRate()
+        return self.class_ptr.GetCurrentMonitorRefreshRate()

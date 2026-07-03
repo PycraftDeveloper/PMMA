@@ -46,25 +46,25 @@
 
 #include "Rendering/TextRenderer.hpp"
 
-#include "AdvancedMathematics.hpp"
 #include "Constants.hpp"
-#include "CoreTypes.hpp"
 #include "Display.hpp"
 #include "FractalBrownianMotion.hpp"
 #include "General.hpp"
 #include "Logger.hpp"
+#include "Maths.hpp"
 #include "Passport.hpp"
 #include "PerlinNoise.hpp"
 #include "Random.hpp"
+#include "Types.hpp"
 
 /*
 Notes:
     > Internal events MUST have a default 'safe value' to return before the event manager is initialized.
 */
 
-namespace PMMA_Core {
-extern CPP_Display *ActiveDisplayInstance;
-extern CPP_Display *MasterDisplayInstance;
+namespace PMMA::Core {
+extern PMMA::Display *ActiveDisplayInstance;
+extern PMMA::Display *MasterDisplayInstance;
 
 extern std::vector<CPP_KeyEvent_Space *> KeyEvent_Space_Instances;
 extern std::vector<CPP_KeyEvent_Apostrophe *> KeyEvent_Apostrophe_Instances;
@@ -229,9 +229,9 @@ extern PowerSavingManager PowerSavingManagerInstance;
 extern CPP_AnimationManager *AnimationManagerInstance;
 
 extern CPP_FastRandom *RandomGenerator;
-} // namespace PMMA_Core
+} // namespace PMMA::Core
 
-namespace PMMA_Registry {
+namespace PMMA::Registry {
 extern std::vector<unsigned char> SecondaryDisplayIDs;
 extern std::string PMMA_Location;
 extern std::string PathSeparator;
@@ -268,7 +268,7 @@ extern bool EscapeKeyShouldCloseWindow;
 extern bool UserSetEscapeKeyShouldCloseWindow;
 extern bool F11KeyShouldToggleFullScreen;
 extern bool UserDefinedShapeQuality;
-} // namespace PMMA_Registry
+} // namespace PMMA::Registry
 
 EXPORT void PMMA_Initialize(std::string location);
 

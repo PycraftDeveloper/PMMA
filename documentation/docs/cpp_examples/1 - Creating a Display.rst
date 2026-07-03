@@ -17,12 +17,12 @@ This example has the same functionality as the Python version with the same name
         PMMA_Initialize(path);
 
         // Create a display object.
-        CPP_Display* display = new CPP_Display();
+        Display* display = new Display();
         unsigned int size[2] = { 1280, 720 };
         display->Create(size);
 
         // Start the main loop
-        while (CPP_General::IsApplicationRunning()) {
+        while (PMMA::General::IsApplicationRunning()) {
             // Clear the display.
             display->Clear();
 
@@ -38,17 +38,17 @@ This example has the same functionality as the Python version with the same name
 Detailed Breakdown
 ------------------
 
-The above code block is one of the most fundamental building blocks of any graphical application using PMMA. The display is where we will render (or draw however we will be using rendering as the key work for all future examples) all of our 2D and 3D graphics. In addition to creating a display, this code also sets up a main loop (or game loop) that will keep the application running until the user decides to close it, which is handled by the :code:`CPP_General::IsApplicationRunning()` method.
+The above code block is one of the most fundamental building blocks of any graphical application using PMMA. The display is where we will render (or draw however we will be using rendering as the key work for all future examples) all of our 2D and 3D graphics. In addition to creating a display, this code also sets up a main loop (or game loop) that will keep the application running until the user decides to close it, which is handled by the :code:`PMMA::General::IsApplicationRunning()` method.
 
-In this code example the :code:`CPP_Display()` class is used to create a new display object. This object represents the window or screen where all graphical content will be rendered. The :code:`CPP_Display->Create` method is then use to create the actual window with any specific customization options we would like to use. In this case we are simply setting the window size to 1280x720 pixels, which is a common resolution for many applications. If you do not specify a size, PMMA will default to a full-screen window using the current display resolution. If you specify a size, by default PMMA will create a windowed display, but you can also specify that you would like a full-screen display by passing the :code:`fullscreen=True` key-word argument to the :code:`CPP_Display.create()` method. There are many other customization options available when creating a display, for more information on these options please refer to the official PMMA documentation. Please note that some of the parameters available for the :code:`CPP_Display.create()` method may not be adjusted after the display has been created, so it is important to set them correctly when creating the display.
+In this code example the :code:`Display()` class is used to create a new display object. This object represents the window or screen where all graphical content will be rendered. The :code:`Display->Create` method is then use to create the actual window with any specific customization options we would like to use. In this case we are simply setting the window size to 1280x720 pixels, which is a common resolution for many applications. If you do not specify a size, PMMA will default to a full-screen window using the current display resolution. If you specify a size, by default PMMA will create a windowed display, but you can also specify that you would like a full-screen display by passing the :code:`fullscreen=True` key-word argument to the :code:`Display.create()` method. There are many other customization options available when creating a display, for more information on these options please refer to the official PMMA documentation. Please note that some of the parameters available for the :code:`Display.create()` method may not be adjusted after the display has been created, so it is important to set them correctly when creating the display.
 
 The :code:`pmma.General.is_application_running()` method checks if the application is still running and returns :code:`True` if it is, and :code:`False` if it has been requested to close. This is typically done by the user clicking the close button on the window or in full-screen windows only, by pressing the 'Esc' key. This ensures that if you haven't yet implemented any event handling in your application, the user can still close the application gracefully.
 
-The :code:`CPP_Display->Clear()` method is used to clear the display at the beginning of each iteration of the main loop. This ensures that any previous drawings are removed before we draw new content. Whilst you may want to keep the contents of the previous frame, it is generally a bad idea to omit this step as it makes the display more vulnerable to graphical glitches and artifacts - like for example when resizing the window, maximizing or minimizing it or if you have any on-screen overlays like MSI Afterburner's On Screen Display (OSD), which PMMA's display supports you using.
+The :code:`Display->Clear()` method is used to clear the display at the beginning of each iteration of the main loop. This ensures that any previous drawings are removed before we draw new content. Whilst you may want to keep the contents of the previous frame, it is generally a bad idea to omit this step as it makes the display more vulnerable to graphical glitches and artifacts - like for example when resizing the window, maximizing or minimizing it or if you have any on-screen overlays like MSI Afterburner's On Screen Display (OSD), which PMMA's display supports you using.
 
-You should ensure that any rendering you wish to do is performed between the :code:`CPP_Display->Clear()` and :code:`CPP_Display->Refresh()` calls. The :code:`CPP_Display->Refresh()` method is responsible for updating the display with any new graphical content. Any rendering that occurs before :code:`CPP_Display->Clear()` will not be visible on the display, as it will be cleared away at the start of the next loop iteration, and the same applies for any rendering that occurs after :code:`CPP_Display->Refresh()`, as the display will not be updated again until the next loop iteration. Its also important to note that in PMMA, it is recommended that any content is only rendered once per loop iteration (in this situation also known as a frame), as rendering multiple times per frame may cause previous render calls to the same object to be ignored or changed in unexpected ways.
+You should ensure that any rendering you wish to do is performed between the :code:`Display->Clear()` and :code:`Display->Refresh()` calls. The :code:`Display->Refresh()` method is responsible for updating the display with any new graphical content. Any rendering that occurs before :code:`Display->Clear()` will not be visible on the display, as it will be cleared away at the start of the next loop iteration, and the same applies for any rendering that occurs after :code:`Display->Refresh()`, as the display will not be updated again until the next loop iteration. Its also important to note that in PMMA, it is recommended that any content is only rendered once per loop iteration (in this situation also known as a frame), as rendering multiple times per frame may cause previous render calls to the same object to be ignored or changed in unexpected ways.
 
-The :code:`CPP_Display->Refresh()` method also dynamically limits the refresh rate of the display, which can be beneficial for performance and power consumption. In the above example we have allowed PMMA to automatically use a feature called 'V-Sync' (Vertical Synchronization), which synchronizes the display's refresh rate with the monitor's refresh rate. This helps to prevent screen tearing and provides a smoother visual experience. If you wish to control wether V-Sync is used it can be adjusted when creating the display as shown in the example below:
+The :code:`Display->Refresh()` method also dynamically limits the refresh rate of the display, which can be beneficial for performance and power consumption. In the above example we have allowed PMMA to automatically use a feature called 'V-Sync' (Vertical Synchronization), which synchronizes the display's refresh rate with the monitor's refresh rate. This helps to prevent screen tearing and provides a smoother visual experience. If you wish to control wether V-Sync is used it can be adjusted when creating the display as shown in the example below:
 
 .. code-block:: cpp
 
@@ -63,12 +63,12 @@ The :code:`CPP_Display->Refresh()` method also dynamically limits the refresh ra
     PMMA_Initialize(path);
 
     // Create a display object.
-    CPP_Display* display = new CPP_Display();
+    Display* display = new Display();
     unsigned int size[2] = { 1280, 720 };
     display->Create(size, { .Vsync = false });
 
     // Start the main loop
-    while (CPP_General::IsApplicationRunning()) {
+    while (PMMA::General::IsApplicationRunning()) {
         // Clear the display.
         display->Clear();
 
@@ -81,7 +81,7 @@ The :code:`CPP_Display->Refresh()` method also dynamically limits the refresh ra
     return 0;
     }
 
-In the above example now V-Sync is disabled. PMMA will now dynamically adjust the refresh rate of the application dynamically based on how the application is interacted with and when content changes on-screen. The default behaviour is to go as low as 5 frames per second and as high as 60 frames per second. If you wish to set a custom frame rate limit, you can do so by passing integer values to the :code:`min_refresh_rate` and :code:`max_refresh_rate` key-word arguments of the :code:`CPP_Display->Refresh()` method as shown in the example below:
+In the above example now V-Sync is disabled. PMMA will now dynamically adjust the refresh rate of the application dynamically based on how the application is interacted with and when content changes on-screen. The default behaviour is to go as low as 5 frames per second and as high as 60 frames per second. If you wish to set a custom frame rate limit, you can do so by passing integer values to the :code:`min_refresh_rate` and :code:`max_refresh_rate` key-word arguments of the :code:`Display->Refresh()` method as shown in the example below:
 
 .. code-block:: cpp
 
@@ -96,12 +96,12 @@ In the above example now V-Sync is disabled. PMMA will now dynamically adjust th
         PMMA_Initialize(path);
 
         // Create a display object.
-        CPP_Display* display = new CPP_Display();
+        Display* display = new Display();
         unsigned int size[2] = { 1280, 720 };
         display->Create(size, { .Vsync = false });
 
         // Start the main loop
-        while (CPP_General::IsApplicationRunning()) {
+        while (PMMA::General::IsApplicationRunning()) {
             // Clear the display.
             display->Clear();
 
@@ -114,14 +114,14 @@ In the above example now V-Sync is disabled. PMMA will now dynamically adjust th
         return 0;
     }
 
-In addition to a manually specified refresh rate minimum and maximum, PMMA will also automatically adjust the refresh rate based on the current application context. This means that if the display is minimized, not in focus or the device is in power saving mode, PMMA will automatically reduce the refresh rate to conserve system resources. This behavior can be disabled or customized by adjusting the key-word arguments of the :code:`CPP_Display->Refresh()` method. For more information on these options, please refer to the official PMMA documentation.
+In addition to a manually specified refresh rate minimum and maximum, PMMA will also automatically adjust the refresh rate based on the current application context. This means that if the display is minimized, not in focus or the device is in power saving mode, PMMA will automatically reduce the refresh rate to conserve system resources. This behavior can be disabled or customized by adjusting the key-word arguments of the :code:`Display->Refresh()` method. For more information on these options, please refer to the official PMMA documentation.
 
 Extensions
 ----------
 
 Below are some additional examples of how you can further customize and extend the display created in the above example!
 
-Did you can use :code:`CPP_Display->WindowFillColor` to set a custom color for the window (instead of being black which is the default), here is an example of this in action:
+Did you can use :code:`Display->WindowFillColor` to set a custom color for the window (instead of being black which is the default), here is an example of this in action:
 
 .. code-block:: cpp
 
@@ -136,7 +136,7 @@ Did you can use :code:`CPP_Display->WindowFillColor` to set a custom color for t
         PMMA_Initialize(path);
 
         // Create a display object.
-        CPP_Display* display = new CPP_Display();
+        Display* display = new Display();
         unsigned int size[2] = { 1280, 720 };
         display->Create(size);
 
@@ -144,7 +144,7 @@ Did you can use :code:`CPP_Display->WindowFillColor` to set a custom color for t
         display->WindowFillColor->GenerateFromRandom();
 
         // Start the main loop
-        while (CPP_General::IsApplicationRunning()) {
+        while (PMMA::General::IsApplicationRunning()) {
             // Clear the display.
             display->Clear();
 
@@ -172,7 +172,7 @@ Please note though that setting the window fill color randomly every frame (yes,
         PMMA_Initialize(path);
 
         // Create a display object.
-        CPP_Display* display = new CPP_Display();
+        Display* display = new Display();
         unsigned int size[2] = { 1280, 720 };
         display->Create(size);
 
@@ -180,9 +180,9 @@ Please note though that setting the window fill color randomly every frame (yes,
         display->WindowFillColor->Configure();
 
         // Start the main loop
-        while (CPP_General::IsApplicationRunning()) {
+        while (PMMA::General::IsApplicationRunning()) {
             // Use 1D Perlin noise to generate a smooth color transition over time
-            display->WindowFillColor->GenerateFrom1DPerlinNoise(static_cast<float>(CPP_General::GetApplicationRunTime()));
+            display->WindowFillColor->GenerateFrom1DPerlinNoise(static_cast<float>(PMMA::General::GetApplicationRunTime()));
 
             // Clear the display.
             display->Clear();
@@ -196,7 +196,7 @@ Please note though that setting the window fill color randomly every frame (yes,
         return 0;
     }
 
-You can also set and change the window title or icon at any time using the :code:`CPP_Display->SetCaption()` and :code:`CPP_Display->SetIcon()` methods respectively. Here is an example of changing the window title dynamically based on the current frame count:
+You can also set and change the window title or icon at any time using the :code:`Display->SetCaption()` and :code:`Display->SetIcon()` methods respectively. Here is an example of changing the window title dynamically based on the current frame count:
 
 .. code-block:: cpp
 
@@ -211,14 +211,14 @@ You can also set and change the window title or icon at any time using the :code
         PMMA_Initialize(path);
 
         // Create a display object.
-        CPP_Display* display = new CPP_Display();
+        Display* display = new Display();
         unsigned int size[2] = { 1280, 720 };
         display->Create(size);
 
         unsigned int frame_count = 0;
 
         // Start the main loop
-        while (CPP_General::IsApplicationRunning()) {
+        while (PMMA::General::IsApplicationRunning()) {
             frame_count++;
 
             // Update the window title with the current frame count

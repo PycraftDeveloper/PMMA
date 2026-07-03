@@ -34,12 +34,12 @@ PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::CPP_RenderPipelin
         bgfx::UniformType::Mat4);
 
     std::string ShaderPath =
-        PMMA_Registry::PMMA_Location +
-        PMMA_Registry::PathSeparator +
+        PMMA::Registry::PMMA_Location +
+        PMMA::Registry::PathSeparator +
         "shaders" +
-        PMMA_Registry::PathSeparator +
+        PMMA::Registry::PathSeparator +
         "2D_Core" +
-        PMMA_Registry::PathSeparator +
+        PMMA::Registry::PathSeparator +
         "ShapeDefinitions";
 
     ShapeDefinitionsShaderProgram = new CPP_Shader();
@@ -84,7 +84,7 @@ PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::CPP_RenderPipelin
 
 void PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::Render() {
     if (ColorChanged || !ColorTexture.UsingCache) {
-        PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
+        PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
 
         ColorTexture.Assemble();
     }
@@ -99,7 +99,7 @@ void PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::Render() {
         PreviousShapeIDs[BufferID] = CurrentShapeIDs;
         PreviousInstanceData[BufferID] = CurrentInstanceData;
 
-        PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
+        PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
 
         uint32_t CurrentBufferSize = PreviousInstanceData[BufferID].size();
 
@@ -132,7 +132,7 @@ void PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::Render() {
     }
 
     float proj[16];
-    PMMA_Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
+    PMMA::Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
     bgfx::setUniform(OrthDisplayProj, proj);
 
     float info[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
@@ -154,6 +154,6 @@ void PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::Render() {
         BGFX_STATE_BLEND_ALPHA);
 
     bgfx::submit(
-        PMMA_Core::ActiveDisplayInstance->DisplayID,
+        PMMA::Core::ActiveDisplayInstance->DisplayID,
         ShapeDefinitionsShaderProgram->Use());
 }

@@ -69,3 +69,4 @@ Notes:
 60 - Color name unknown
 61 - Making master display
 62 - Master display should be updated last
+63 - Minimum Operating System approved window size

@@ -42,11 +42,11 @@ _Registry.update_checking_thread = threading.Thread(
     daemon=True)
 _Registry.update_checking_thread.start()
 
-from pmma.build.AdvancedMathematics import AdvancedMathematics
+from pmma.build.Maths import Maths
 from pmma.build.PerlinNoise import PerlinNoise
 from pmma.build.FractalBrownianMotion import FractalBrownianMotion
 from pmma.build.Display import Display
-import pmma.build.CoreTypes as CoreTypes
+import pmma.build.Types as Types
 import pmma.build.KeyEvents as KeyEvents
 import pmma.build.KeyPadEvents as KeyPadEvents
 import pmma.build.WindowEvents as WindowEvents

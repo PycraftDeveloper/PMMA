@@ -2,39 +2,39 @@
 
 from libcpp cimport bool
 from libcpp.string cimport string
-from libc.stdint cimport uint8_t, uint32_t
+from libc.stdint cimport uint8_t, uint16_t, uint32_t
 from libcpp.optional cimport optional
 cimport numpy as np
 
-cdef extern from "CoreTypes.hpp" nogil:
-    cdef cppclass CPP_Color_Configure_Kwargs:
+cdef extern from "Types.hpp" nogil:
+    cdef cppclass Color_Configure_Kwargs "PMMA::Types::Color_Configure_Kwargs":
         optional[uint32_t] seed
         uint32_t octaves
         float frequency
         float amplitude
 
-    cdef cppclass CPP_DisplayCoordinate_Configure_Kwargs:
+    cdef cppclass DisplayCoordinate_Configure_Kwargs "PMMA::Types::DisplayCoordinate_Configure_Kwargs":
         optional[uint32_t] seed
         uint32_t octaves
         float frequency
         float amplitude
 
-    cdef cppclass CPP_Angle_Configure_Kwargs:
+    cdef cppclass Angle_Configure_Kwargs "PMMA::Types::Angle_Configure_Kwargs":
         optional[uint32_t] seed
         uint32_t octaves
         float frequency
         float amplitude
 
-    cdef cppclass CPP_Proportion_Configure_Kwargs:
+    cdef cppclass Proportion_Configure_Kwargs "PMMA::Types::Proportion_Configure_Kwargs":
         optional[uint32_t] seed
         uint32_t octaves
         float frequency
         float amplitude
 
-    cdef cppclass CPP_Color:
-        CPP_Color() except + nogil
+    cdef cppclass CPP_Color "PMMA::Types::Color":
+        Color() except + nogil
 
-        inline void Configure(CPP_Color_Configure_Kwargs kwargs) except + nogil
+        inline void Configure(Color_Configure_Kwargs kwargs) except + nogil
 
         inline void GenerateFromRandom(bool GenerateAlpha) except + nogil
         inline void GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha) except + nogil
@@ -62,10 +62,10 @@ cdef extern from "CoreTypes.hpp" nogil:
         inline float GetAmplitude() except + nogil
         inline bool GetSet() except + nogil
 
-    cdef cppclass CPP_DisplayCoordinate:
-        CPP_DisplayCoordinate() except + nogil
+    cdef cppclass CPP_DisplayCoordinate "PMMA::Types::DisplayCoordinate":
+        DisplayCoordinate() except + nogil
 
-        void Configure(CPP_DisplayCoordinate_Configure_Kwargs kwargs) except + nogil
+        void Configure(DisplayCoordinate_Configure_Kwargs kwargs) except + nogil
 
         void SetCentered() except + nogil
         void GenerateFromRandom() except + nogil
@@ -76,8 +76,8 @@ cdef extern from "CoreTypes.hpp" nogil:
         void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) except + nogil
         void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) except + nogil
 
-        void Get(float* out_coordinate) except +
-        void Set(float* in_coordinate) except +
+        void Get(uint16_t* out_coordinate) except +
+        void Set(uint16_t* in_coordinate) except +
 
         unsigned int GetSeed() except + nogil
         unsigned int GetOctaves() except + nogil
@@ -85,10 +85,10 @@ cdef extern from "CoreTypes.hpp" nogil:
         float GetAmplitude() except + nogil
         bool GetSet() except + nogil
 
-    cdef cppclass CPP_Angle:
-        CPP_Angle() except + nogil
+    cdef cppclass CPP_Angle "PMMA::Types::Angle":
+        Angle() except + nogil
 
-        void Configure(CPP_Angle_Configure_Kwargs kwargs) except +
+        void Configure(Angle_Configure_Kwargs kwargs) except +
 
         inline void GenerateFromRandom() except + nogil
         inline void GenerateFrom1DPerlinNoise(float value) except + nogil
@@ -110,10 +110,10 @@ cdef extern from "CoreTypes.hpp" nogil:
         inline float GetAmplitude() except + nogil
         inline bool GetSet() except + nogil
 
-    cdef cppclass CPP_Proportion:
-        CPP_Proportion() except + nogil
+    cdef cppclass CPP_Proportion "PMMA::Types::Proportion":
+        Proportion() except + nogil
 
-        void Configure(CPP_Proportion_Configure_Kwargs kwargs) except +
+        void Configure(Proportion_Configure_Kwargs kwargs) except +
 
         inline void GenerateFromRandom() except + nogil
         inline void GenerateFrom1DPerlinNoise(float value) except + nogil
@@ -208,7 +208,7 @@ cdef class DisplayCoordinate:
     cpdef void set_coord_array(self, in_coord)
 
     cpdef tuple get_coord(self)
-    cpdef void set_coord(self, float x, float y)
+    cpdef void set_coord(self, uint16_t x, uint16_t y)
 
 cdef class Angle:
     cdef CPP_Angle* cpp_class_ptr

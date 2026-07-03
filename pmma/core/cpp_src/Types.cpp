@@ -2,15 +2,15 @@
 
 #include "PMMA_Core.hpp"
 
-CPP_Color::CPP_Color() {
-    RandomColorGenerator = PMMA_Core::RandomGenerator;
+PMMA::Types::Color::Color() {
+    RandomColorGenerator = PMMA::Core::RandomGenerator;
 }
 
-void CPP_Color::Set_ColorName(std::string color_name) {
+void PMMA::Types::Color::Set_ColorName(std::string color_name) {
     std::optional<std::array<uint8_t, 3>> Color = CPP_Constants::Colors::FindColor(color_name);
 
     if (!Color.has_value()) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             60,
             "The color name '" + color_name + "' is not recognized.");
         throw std::runtime_error("Unrecognized color name!");
@@ -21,9 +21,9 @@ void CPP_Color::Set_ColorName(std::string color_name) {
     Set_RGBA(in_color);
 }
 
-uint32_t CPP_Color::GetSeed() {
+uint32_t PMMA::Types::Color::GetSeed() {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -31,9 +31,9 @@ uint32_t CPP_Color::GetSeed() {
     return seed;
 }
 
-uint32_t CPP_Color::GetOctaves() {
+uint32_t PMMA::Types::Color::GetOctaves() {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -41,9 +41,9 @@ uint32_t CPP_Color::GetOctaves() {
     return octaves;
 }
 
-float CPP_Color::GetFrequency() {
+float PMMA::Types::Color::GetFrequency() {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -51,9 +51,9 @@ float CPP_Color::GetFrequency() {
     return frequency;
 }
 
-float CPP_Color::GetAmplitude() {
+float PMMA::Types::Color::GetAmplitude() {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -61,9 +61,9 @@ float CPP_Color::GetAmplitude() {
     return amplitude;
 }
 
-void CPP_Color::GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha) {
+void PMMA::Types::Color::GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha) {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -87,9 +87,9 @@ void CPP_Color::GenerateFrom1DPerlinNoise(float value, bool GenerateAlpha) {
 
     Set_RGBA(in_color);
 }
-void CPP_Color::GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha) {
+void PMMA::Types::Color::GenerateFrom2DPerlinNoise(float value_one, float value_two, bool GenerateAlpha) {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -114,9 +114,9 @@ void CPP_Color::GenerateFrom2DPerlinNoise(float value_one, float value_two, bool
     Set_RGBA(in_color);
 }
 
-void CPP_Color::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three, bool GenerateAlpha) {
+void PMMA::Types::Color::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three, bool GenerateAlpha) {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -141,9 +141,9 @@ void CPP_Color::GenerateFrom3DPerlinNoise(float value_one, float value_two, floa
     Set_RGBA(in_color);
 }
 
-void CPP_Color::GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha) {
+void PMMA::Types::Color::GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAlpha) {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -168,9 +168,9 @@ void CPP_Color::GenerateFrom1DFractalBrownianMotion(float value, bool GenerateAl
     Set_RGBA(in_color);
 }
 
-void CPP_Color::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha) {
+void PMMA::Types::Color::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two, bool GenerateAlpha) {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -195,9 +195,9 @@ void CPP_Color::GenerateFrom2DFractalBrownianMotion(float value_one, float value
     Set_RGBA(in_color);
 }
 
-void CPP_Color::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three, bool GenerateAlpha) {
+void PMMA::Types::Color::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three, bool GenerateAlpha) {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -222,7 +222,7 @@ void CPP_Color::GenerateFrom3DFractalBrownianMotion(float value_one, float value
     Set_RGBA(in_color);
 }
 
-void CPP_Color::Set_RGBA(uint8_t *in_color) {
+void PMMA::Types::Color::Set_RGBA(uint8_t *in_color) {
     bool Different = false;
     for (int i = 0; i < 4; i++) {
         if (in_color[i] != InternalColor[i]) {
@@ -242,15 +242,15 @@ void CPP_Color::Set_RGBA(uint8_t *in_color) {
     IsSet = true;
 
     if (LinkedToDisplayBackground && Changed) {
-        if (PMMA_Core::ActiveDisplayInstance != nullptr) {
-            PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
+        if (PMMA::Core::ActiveDisplayInstance != nullptr) {
+            PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
 }
 
-void CPP_Color::Get_RGBA(uint8_t *out_color) {
+void PMMA::Types::Color::Get_RGBA(uint8_t *out_color) {
     if (!IsSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             30,
             "You have not set a color - please set a color \
 before attempting to get it.");
@@ -264,9 +264,9 @@ before attempting to get it.");
     out_color[3] = InternalColor[3];
 }
 
-void CPP_Color::Get_RGB(uint8_t *out_color) {
+void PMMA::Types::Color::Get_RGB(uint8_t *out_color) {
     if (!IsSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not set a color - please set a color \
 before attempting to get it.");
@@ -279,9 +279,9 @@ before attempting to get it.");
     out_color[2] = InternalColor[2];
 }
 
-std::string CPP_Color::Get_HEXA() {
+std::string PMMA::Types::Color::Get_HEXA() {
     if (!IsSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             30,
             "You have not set a color - please set a color \
 before attempting to get it.");
@@ -295,9 +295,9 @@ before attempting to get it.");
         InternalColor[3]);
 }
 
-std::string CPP_Color::Get_HEX() {
+std::string PMMA::Types::Color::Get_HEX() {
     if (!IsSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not set a color - please set a color \
 before attempting to get it.");
@@ -328,7 +328,7 @@ uint8_t hexByte(char a, char b) {
     return (hex(a) << 4) | hex(b);
 }
 
-void CPP_Color::Set_HEXA(std::string input_color) {
+void PMMA::Types::Color::Set_HEXA(std::string input_color) {
     if (!input_color.empty() && input_color[0] == '#') {
         input_color.erase(0, 1);
     }
@@ -362,14 +362,14 @@ void CPP_Color::Set_HEXA(std::string input_color) {
     IsSet = true;
 
     if (LinkedToDisplayBackground && Changed) {
-        if (PMMA_Core::ActiveDisplayInstance != nullptr) {
-            PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
+        if (PMMA::Core::ActiveDisplayInstance != nullptr) {
+            PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
 }
 
-void CPP_Color::Set_RGB(uint8_t *in_color) {
-    PMMA_Core::LoggingManagerInstance->InternalLogDebug(
+void PMMA::Types::Color::Set_RGB(uint8_t *in_color) {
+    PMMA::Core::LoggingManagerInstance->InternalLogDebug(
         9,
         "The alpha channel is automatically set to opaque.");
 
@@ -392,13 +392,13 @@ void CPP_Color::Set_RGB(uint8_t *in_color) {
     IsSet = true;
 
     if (LinkedToDisplayBackground && Changed) {
-        if (PMMA_Core::ActiveDisplayInstance != nullptr) {
-            PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
+        if (PMMA::Core::ActiveDisplayInstance != nullptr) {
+            PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
 }
 
-void CPP_Color::Set_HEX(std::string input_color) {
+void PMMA::Types::Color::Set_HEX(std::string input_color) {
     if (!input_color.empty() && input_color[0] == '#') {
         input_color.erase(0, 1);
     }
@@ -412,7 +412,7 @@ void CPP_Color::Set_HEX(std::string input_color) {
         hexByte(input_color[2], input_color[3]),
         hexByte(input_color[4], input_color[5])};
 
-    PMMA_Core::LoggingManagerInstance->InternalLogDebug(
+    PMMA::Core::LoggingManagerInstance->InternalLogDebug(
         9,
         "The alpha channel is automatically set to opaque.");
 
@@ -436,42 +436,42 @@ void CPP_Color::Set_HEX(std::string input_color) {
     IsSet = true;
 
     if (LinkedToDisplayBackground && Changed) {
-        if (PMMA_Core::ActiveDisplayInstance != nullptr) {
-            PMMA_Core::ActiveDisplayInstance->TriggerEventRefresh();
+        if (PMMA::Core::ActiveDisplayInstance != nullptr) {
+            PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
 }
 
-CPP_DisplayCoordinate::CPP_DisplayCoordinate() {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+PMMA::Types::DisplayCoordinate::DisplayCoordinate() {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
-    RandomCoordGenerator = PMMA_Core::RandomGenerator;
+    RandomCoordGenerator = PMMA::Core::RandomGenerator;
 
-    PMMA_Core::ActiveDisplayInstance->GetSize(DisplaySize);
+    PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
 }
 
-void CPP_DisplayCoordinate::Get(uint16_t *out) {
+void PMMA::Types::DisplayCoordinate::Get(uint16_t *out) {
     if (!IsSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not set a display coordinate - please set a \
 display coordinate before attempting to get it.");
         throw std::runtime_error("Display coordinate not set!");
     }
 
-    out[0] = DisplayCoordinate[0];
-    out[1] = DisplayCoordinate[1];
+    out[0] = Coordinate[0];
+    out[1] = Coordinate[1];
 }
 
-uint32_t CPP_DisplayCoordinate::GetSeed() {
+uint32_t PMMA::Types::DisplayCoordinate::GetSeed() {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -479,9 +479,9 @@ uint32_t CPP_DisplayCoordinate::GetSeed() {
     return seed;
 }
 
-uint32_t CPP_DisplayCoordinate::GetOctaves() {
+uint32_t PMMA::Types::DisplayCoordinate::GetOctaves() {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -489,9 +489,9 @@ uint32_t CPP_DisplayCoordinate::GetOctaves() {
     return octaves;
 }
 
-float CPP_DisplayCoordinate::GetFrequency() {
+float PMMA::Types::DisplayCoordinate::GetFrequency() {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -499,9 +499,9 @@ float CPP_DisplayCoordinate::GetFrequency() {
     return frequency;
 }
 
-float CPP_DisplayCoordinate::GetAmplitude() {
+float PMMA::Types::DisplayCoordinate::GetAmplitude() {
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -509,7 +509,7 @@ float CPP_DisplayCoordinate::GetAmplitude() {
     return amplitude;
 }
 
-void CPP_DisplayCoordinate::Configure(CPP_DisplayCoordinate_Configure_Kwargs kwargs) {
+void PMMA::Types::DisplayCoordinate::Configure(DisplayCoordinate_Configure_Kwargs kwargs) {
     uint32_t new_seed;
 
     if (!kwargs.seed.has_value()) {
@@ -535,21 +535,21 @@ void CPP_DisplayCoordinate::Configure(CPP_DisplayCoordinate_Configure_Kwargs kwa
     Configured = true;
 }
 
-void CPP_DisplayCoordinate::SetCentered() {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+void PMMA::Types::DisplayCoordinate::SetCentered() {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
-    if (PMMA_Core::ActiveDisplayInstance->DisplaySizeChanged) {
-        PMMA_Core::ActiveDisplayInstance->GetSize(DisplaySize);
+    if (PMMA::Core::ActiveDisplayInstance->DisplaySizeChanged) {
+        PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
     }
 
     unsigned int new_coord[2];
-    PMMA_Core::ActiveDisplayInstance->GetCenterPosition(new_coord);
+    PMMA::Core::ActiveDisplayInstance->GetCenterPosition(new_coord);
 
     uint16_t coord_float[2];
     coord_float[0] = static_cast<uint16_t>(new_coord[0]);
@@ -558,17 +558,17 @@ You can do this using `Display.create`.");
     Set(coord_float);
 }
 
-void CPP_DisplayCoordinate::GenerateFromRandom() {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+void PMMA::Types::DisplayCoordinate::GenerateFromRandom() {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
 
-    if (PMMA_Core::ActiveDisplayInstance->DisplaySizeChanged) {
-        PMMA_Core::ActiveDisplayInstance->GetSize(DisplaySize);
+    if (PMMA::Core::ActiveDisplayInstance->DisplaySizeChanged) {
+        PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
     }
 
     uint16_t new_coord[2];
@@ -578,16 +578,16 @@ You can do this using `Display.create`.");
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinate::GenerateFrom1DPerlinNoise(float value) {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+void PMMA::Types::DisplayCoordinate::GenerateFrom1DPerlinNoise(float value) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -595,27 +595,27 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise1D(value + x_offset);
-    new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise1D(value + y_offset);
-    new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
 
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinate::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+void PMMA::Types::DisplayCoordinate::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -623,27 +623,27 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise2D(value_one + x_offset, value_two + x_offset);
-    new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise2D(value_one + y_offset, value_two + y_offset);
-    new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
 
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinate::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+void PMMA::Types::DisplayCoordinate::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -651,27 +651,27 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise3D(value_one + x_offset, value_two + x_offset, value_three + x_offset);
-    new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise3D(value_one + y_offset, value_two + y_offset, value_three + y_offset);
-    new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
 
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinate::GenerateFrom1DFractalBrownianMotion(float value) {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+void PMMA::Types::DisplayCoordinate::GenerateFrom1DFractalBrownianMotion(float value) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -679,27 +679,27 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise1D(value + x_offset);
-    new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise1D(value + y_offset);
-    new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
 
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinate::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+void PMMA::Types::DisplayCoordinate::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -707,27 +707,27 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise2D(value_one + x_offset, value_two + x_offset);
-    new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise2D(value_one + y_offset, value_two + y_offset);
-    new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
 
     Set(new_coord);
 }
 
-void CPP_DisplayCoordinate::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
-    if (PMMA_Core::ActiveDisplayInstance == nullptr) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+void PMMA::Types::DisplayCoordinate::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
             "You need to create a display before using this function. \
 You can do this using `Display.create`.");
         throw std::runtime_error("Display not created yet!");
     }
     if (!Configured) {
-        PMMA_Core::LoggingManagerInstance->InternalLogError(
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
             "You need to configure this component before calling this.");
         throw std::runtime_error("You need to configure this component first!");
@@ -735,13 +735,13 @@ You can do this using `Display.create`.");
 
     uint16_t new_coord[2];
 
-    float x_range[2] = {0, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise3D(value_one + x_offset, value_two + x_offset, value_three + x_offset);
-    new_coord[0] = CPP_AdvancedMathematics::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
 
-    float y_range[2] = {1, (float)PMMA_Core::ActiveDisplayInstance->GetWidth()};
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise3D(value_one + y_offset, value_two + y_offset, value_three + y_offset);
-    new_coord[1] = CPP_AdvancedMathematics::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
 
     Set(new_coord);
 }

@@ -7,8 +7,8 @@
 #include <glm/glm.hpp>
 
 #include "Constants.hpp"
-#include "CoreTypes.hpp"
 #include "Logger.hpp"
+#include "Types.hpp"
 
 class EXPORT CPP_PolygonShape {
 public:

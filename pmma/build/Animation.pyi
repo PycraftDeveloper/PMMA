@@ -1,4 +1,4 @@
-from pmma.build.CoreTypes import DisplayCoordinate
+from pmma.build.Types import DisplayCoordinate
 
 class Linear:
     start_position: DisplayCoordinate

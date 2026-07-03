@@ -9,14 +9,14 @@ cimport numpy as np
 
 import pmma.core.py_src.Utility as Utility
 
-from CoreTypes cimport Color, CPP_Color, DisplayCoordinate, CPP_DisplayCoordinate
+from Types cimport Color, CPP_Color, DisplayCoordinate, DisplayCoordinate
 
 np.import_array()
 
 # Declare the external C++ function
 cdef extern from "Rendering/Shapes2D/RadialPolygonShape.hpp" nogil:
     cdef cppclass CPP_RadialPolygonShape:
-        CPP_DisplayCoordinate* ShapeCenter
+        DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         inline void SetRadius(unsigned int in_radius) except + nogil
@@ -33,7 +33,7 @@ cdef extern from "Rendering/Shapes2D/RadialPolygonShape.hpp" nogil:
 
 cdef extern from "Rendering/Shapes2D/RectangleShape.hpp" nogil:
     cdef cppclass CPP_RectangleShape:
-        CPP_DisplayCoordinate* ShapeCenter
+        DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         inline void SetCornerRadius(unsigned int in_corner_radius) except + nogil
@@ -50,15 +50,15 @@ cdef extern from "Rendering/Shapes2D/RectangleShape.hpp" nogil:
 
 cdef extern from "Rendering/Shapes2D/PixelShape.hpp" nogil:
     cdef cppclass CPP_PixelShape:
-        CPP_DisplayCoordinate* ShapeCenter
+        DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         void Render() except + nogil
 
 cdef extern from "Rendering/Shapes2D/LineShape.hpp" nogil:
     cdef cppclass CPP_LineShape:
-        CPP_DisplayCoordinate* ShapeStart
-        CPP_DisplayCoordinate* ShapeEnd
+        DisplayCoordinate* ShapeStart
+        DisplayCoordinate* ShapeEnd
         CPP_Color* Color
 
         inline void SetRotation(float rotation) except + nogil
@@ -88,7 +88,7 @@ cdef extern from "Rendering/Shapes2D/PolygonShape.hpp" nogil:
 
 cdef extern from "Rendering/Shapes2D/ArcShape.hpp" nogil:
     cdef cppclass CPP_ArcShape:
-        CPP_DisplayCoordinate* ShapeCenter
+        DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         inline void SetRotation(float rotation) except + nogil
@@ -109,7 +109,7 @@ cdef extern from "Rendering/Shapes2D/ArcShape.hpp" nogil:
 
 cdef extern from "Rendering/Shapes2D/EllipseShape.hpp" nogil:
     cdef cppclass CPP_EllipseShape:
-        CPP_DisplayCoordinate* ShapeCenter
+        DisplayCoordinate* ShapeCenter
         CPP_Color* Color
 
         inline void SetPointCount(unsigned int in_point_count) except + nogil

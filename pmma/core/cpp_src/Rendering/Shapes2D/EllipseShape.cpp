@@ -2,7 +2,7 @@
 
 void PMMA::Rendering::TwoD::CPP_Ellipse::GetSize(uint16_t *out_size) {
     if (!ShapeSizeSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not specified a size for the ellipse \
 please use `Ellipse.SetSize` to set it before attempting to get it.");
@@ -25,7 +25,7 @@ void PMMA::Rendering::TwoD::CPP_Ellipse::Render() {
         uint16_t start_position[2];
         ShapeCenter.Get(start_position);
 
-        auto rpc = PMMA_Core::ActiveDisplayInstance->RenderPipelineCore;
+        auto rpc = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore;
         uint16_t Size[2];
         GetSize(Size);
 
@@ -39,7 +39,7 @@ void PMMA::Rendering::TwoD::CPP_Ellipse::Render() {
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
     }
 
-    PMMA_Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
+    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

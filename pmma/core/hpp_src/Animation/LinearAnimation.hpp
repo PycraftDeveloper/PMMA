@@ -4,16 +4,16 @@
 #include <chrono>
 #include <iostream>
 
-#include "AdvancedMathematics.hpp"
-#include "CoreTypes.hpp"
 #include "Internal/AnimationManager.hpp"
 #include "Logger.hpp"
+#include "Maths.hpp"
+#include "Types.hpp"
 
 class EXPORT CPP_LinearAnimation : public CPP_AnimationCore {
 public:
-    CPP_DisplayCoordinate *TargetCoordinatePtr;
-    CPP_DisplayCoordinate *StartCoordinatePtr;
-    CPP_DisplayCoordinate *EndCoordinatePtr;
+    PMMA::Types::DisplayCoordinate *TargetCoordinatePtr;
+    PMMA::Types::DisplayCoordinate *StartCoordinatePtr;
+    PMMA::Types::DisplayCoordinate *EndCoordinatePtr;
     CPP_Logger *Logger;
 
     std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
@@ -25,7 +25,7 @@ public:
     bool Loop = false;
     bool Repeat = false;
 
-    CPP_LinearAnimation(CPP_DisplayCoordinate *NewTargetCoordinatePtr);
+    CPP_LinearAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr);
 
     ~CPP_LinearAnimation();
 
@@ -43,11 +43,11 @@ public:
         StartCoordinatePtr->Get(start_pos);
         EndCoordinatePtr->Get(end_pos);
 
-        new_location[0] = (uint16_t)CPP_AdvancedMathematics::Lerp(
+        new_location[0] = (uint16_t)PMMA::Maths::Lerp(
             (float)start_pos[0], (float)end_pos[0],
             Duration.count(), RunTime.count());
 
-        new_location[1] = (uint16_t)CPP_AdvancedMathematics::Lerp(
+        new_location[1] = (uint16_t)PMMA::Maths::Lerp(
             (float)start_pos[1], (float)end_pos[1],
             Duration.count(), RunTime.count());
 
@@ -66,7 +66,7 @@ public:
             }
 
             if (Loop) { // Switch start and end
-                CPP_DisplayCoordinate *TempPtr = StartCoordinatePtr;
+                PMMA::Types::DisplayCoordinate *TempPtr = StartCoordinatePtr;
                 StartCoordinatePtr = EndCoordinatePtr;
                 EndCoordinatePtr = TempPtr;
 

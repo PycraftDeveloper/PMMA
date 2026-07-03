@@ -28,7 +28,7 @@ void PMMA::Rendering::TwoD::CPP_Line::Render() {
         float rel_start_y = (start_position[1] <= end_position[1]) ? 0.0f : 1.0f;
         float rel_end_y = (start_position[1] <= end_position[1]) ? 1.0f : 0.0f;
 
-        auto rpc = PMMA_Core::ActiveDisplayInstance->RenderPipelineCore;
+        auto rpc = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore;
 
         ShapeInstanceData.position = rpc->PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
         ShapeInstanceData.size = rpc->PackValues((uint16_t)width, (uint16_t)height);
@@ -43,7 +43,7 @@ void PMMA::Rendering::TwoD::CPP_Line::Render() {
         ShapeInstanceData.shape_property_three = rpc->PackValues(rel_end_y, 0);
     }
 
-    PMMA_Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
+    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

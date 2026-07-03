@@ -5,11 +5,11 @@ from libcpp.string cimport string
 
 from Logger cimport Logger
 
-from CoreTypes cimport Color, CPP_Color, DisplayCoordinate, CPP_DisplayCoordinate
+from Types cimport Color, CPP_Color, DisplayCoordinate, DisplayCoordinate
 
 cdef extern from "Rendering/TextRenderer.hpp" nogil:
     cdef cppclass CPP_TextRenderer:
-        CPP_DisplayCoordinate* Position
+        DisplayCoordinate* Position
         CPP_Color* ForegroundColor
         CPP_Color* BackgroundColor
 

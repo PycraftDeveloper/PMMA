@@ -55,12 +55,12 @@ set(CORE_SOURCES
     "${SRC_DIR}/Rendering/Shapes2D/EllipseShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/PolygonShape.cpp"
 
-    "${SRC_DIR}/AdvancedMathematics_BASE.cpp"
+    "${SRC_DIR}/Maths_BASE.cpp"
     "${SRC_DIR}/Display.cpp"
     "${SRC_DIR}/FractalBrownianMotion.cpp"
     "${SRC_DIR}/General.cpp"
     "${SRC_DIR}/Logger.cpp"
-    "${SRC_DIR}/CoreTypes.cpp"
+    "${SRC_DIR}/Types.cpp"
     "${SRC_DIR}/Passport.cpp"
     "${SRC_DIR}/PerlinNoise_BASE.cpp"
     "${SRC_DIR}/PMMA_Core.cpp"
@@ -88,7 +88,7 @@ endif()
 if(NOT APPLE)
     # AVX2
     add_library(AVX2_obj OBJECT
-	    "${SRC_DIR}/AdvancedMathematics_AVX2.cpp"
+	    "${SRC_DIR}/Maths_AVX2.cpp"
 	    "${SRC_DIR}/PerlinNoise_AVX2.cpp")
 
     if (MSVC)
@@ -113,7 +113,7 @@ if(NOT APPLE)
 
     # AVX-512
     add_library(AVX512_obj OBJECT
-	    "${SRC_DIR}/AdvancedMathematics_AVX512.cpp"
+	    "${SRC_DIR}/Maths_AVX512.cpp"
 	    "${SRC_DIR}/PerlinNoise_AVX512.cpp")
 
     if (MSVC)

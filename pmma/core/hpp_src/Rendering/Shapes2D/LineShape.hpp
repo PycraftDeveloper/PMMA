@@ -7,15 +7,15 @@
 #include <glm/glm.hpp>
 
 #include "Constants.hpp"
-#include "CoreTypes.hpp"
 #include "Logger.hpp"
+#include "Types.hpp"
 
 namespace PMMA::Rendering::TwoD {
 class EXPORT CPP_Line {
 public:
-    CPP_DisplayCoordinate ShapeStart;
-    CPP_DisplayCoordinate ShapeEnd;
-    CPP_Color Color;
+    PMMA::Types::DisplayCoordinate ShapeStart;
+    PMMA::Types::DisplayCoordinate ShapeEnd;
+    PMMA::Types::Color Color;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
@@ -68,4 +68,4 @@ public:
         return Rotation;
     }
 };
-}
+} // namespace PMMA::Rendering::TwoD

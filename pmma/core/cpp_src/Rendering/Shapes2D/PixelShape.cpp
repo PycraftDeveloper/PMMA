@@ -13,7 +13,7 @@ void PMMA::Rendering::TwoD::CPP_Pixel::Render() {
         uint16_t start_position[2];
         ShapeCenter.Get(start_position);
 
-        auto rpc = PMMA_Core::ActiveDisplayInstance->RenderPipelineCore;
+        auto rpc = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore;
 
         // Existing packing logic
         ShapeInstanceData.position = rpc->PackValues(start_position[0], start_position[1]);
@@ -25,7 +25,7 @@ void PMMA::Rendering::TwoD::CPP_Pixel::Render() {
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
     }
 
-    PMMA_Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
+    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

@@ -10,55 +10,55 @@
 
 #include "PMMA_Core.hpp"
 
-std::string CPP_General::Get_PMMA_Location() {
-    return PMMA_Registry::PMMA_Location;
+std::string PMMA::General::Get_PMMA_Location() {
+    return PMMA::Registry::PMMA_Location;
 }
 
-bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
+bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
     if (!ForceRefresh) {
-        return PMMA_Registry::IsPowerSavingModeEnabled; // Return cached value if not forcing a refresh
+        return PMMA::Registry::IsPowerSavingModeEnabled; // Return cached value if not forcing a refresh
     }
 
 #if defined(_WIN32)
     SYSTEM_POWER_STATUS power_status = {};
     if (GetSystemPowerStatus(&power_status)) {
         if (power_status.SystemStatusFlag == 1) {
-            if (!PMMA_Registry::IsPowerSavingModeEnabled) {
-                PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+            if (!PMMA::Registry::IsPowerSavingModeEnabled) {
+                PMMA::Core::LoggingManagerInstance->InternalLogInfo(
                     1,
                     "Your device is running in power saving mode.", true);
             }
-            PMMA_Registry::IsPowerSavingModeEnabled = true;
-            PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
-            if (!PMMA_Registry::UserDefinedShapeQuality) {
-                PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+            PMMA::Registry::IsPowerSavingModeEnabled = true;
+            PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
+            if (!PMMA::Registry::UserDefinedShapeQuality) {
+                PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
             }
             return true;
         }
         if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
-            if (!PMMA_Registry::IsPowerSavingModeEnabled) {
-                PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+            if (!PMMA::Registry::IsPowerSavingModeEnabled) {
+                PMMA::Core::LoggingManagerInstance->InternalLogInfo(
                     1,
                     "Your device is running in power saving mode.", true);
             }
-            PMMA_Registry::IsPowerSavingModeEnabled = true;
-            PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
-            if (!PMMA_Registry::UserDefinedShapeQuality) {
-                PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+            PMMA::Registry::IsPowerSavingModeEnabled = true;
+            PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
+            if (!PMMA::Registry::UserDefinedShapeQuality) {
+                PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
             }
             return true; // Low battery test
         }
     }
 
-    if (PMMA_Registry::IsPowerSavingModeEnabled) {
-        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+    if (PMMA::Registry::IsPowerSavingModeEnabled) {
+        PMMA::Core::LoggingManagerInstance->InternalLogInfo(
             2,
             "Your device is not running in power saving mode.", true);
     }
-    PMMA_Registry::IsPowerSavingModeEnabled = false;
-    PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-    if (!PMMA_Registry::UserDefinedShapeQuality) {
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+    PMMA::Registry::IsPowerSavingModeEnabled = false;
+    PMMA::Core::PowerSavingManagerInstance.updateCounter = 15;
+    if (!PMMA::Registry::UserDefinedShapeQuality) {
+        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
     }
     return false;
 
@@ -71,15 +71,15 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                 std::ifstream statusFile(entry.path() / "status");
                 std::string status;
                 if (statusFile >> status && status == "Discharging") {
-                    if (!PMMA_Registry::IsPowerSavingModeEnabled) {
-                        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+                    if (!PMMA::Registry::IsPowerSavingModeEnabled) {
+                        PMMA::Core::LoggingManagerInstance->InternalLogInfo(
                             1,
                             "Your device is running in power saving mode.", true);
                     }
-                    PMMA_Registry::IsPowerSavingModeEnabled = true;
-                    PMMA_Core::PowerSavingManagerInstance.updateCounter = 30;
-                    if (!PMMA_Registry::UserDefinedShapeQuality) {
-                        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+                    PMMA::Registry::IsPowerSavingModeEnabled = true;
+                    PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
+                    if (!PMMA::Registry::UserDefinedShapeQuality) {
+                        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
                     }
                     return true;
                 }
@@ -88,82 +88,82 @@ bool CPP_General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
     } catch (const std::filesystem::filesystem_error &error) {
         std::cerr << "Filesystem error: " << error.what() << "\n";
     }
-    if (PMMA_Registry::IsPowerSavingModeEnabled) {
-        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+    if (PMMA::Registry::IsPowerSavingModeEnabled) {
+        PMMA::Core::LoggingManagerInstance->InternalLogInfo(
             2,
             "Your device is not running in power saving mode.", true);
     }
-    PMMA_Registry::IsPowerSavingModeEnabled = false;
-    PMMA_Core::PowerSavingManagerInstance.updateCounter = 15;
-    if (!PMMA_Registry::UserDefinedShapeQuality) {
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+    PMMA::Registry::IsPowerSavingModeEnabled = false;
+    PMMA::Core::PowerSavingManagerInstance.updateCounter = 15;
+    if (!PMMA::Registry::UserDefinedShapeQuality) {
+        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
     }
     return false;
 
 #else
-    PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+    PMMA::Core::LoggingManagerInstance->InternalLogInfo(
         7,
         "Your platform is not supported for power saving mode \
 checking using PMMA.");
 
-    if (PMMA_Registry::IsPowerSavingModeEnabled) {
-        PMMA_Core::LoggingManagerInstance->InternalLogInfo(
+    if (PMMA::Registry::IsPowerSavingModeEnabled) {
+        PMMA::Core::LoggingManagerInstance->InternalLogInfo(
             2,
             "Your device is not running in power saving mode.", true);
     }
-    PMMA_Registry::IsPowerSavingModeEnabled = false;
-    PMMA_Core::PowerSavingManagerInstance.running = false;
-    PMMA_Core::PowerSavingManagerInstance.updateCounter = 5;
-    if (!PMMA_Registry::UserDefinedShapeQuality) {
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+    PMMA::Registry::IsPowerSavingModeEnabled = false;
+    PMMA::Core::PowerSavingManagerInstance.running = false;
+    PMMA::Core::PowerSavingManagerInstance.updateCounter = 5;
+    if (!PMMA::Registry::UserDefinedShapeQuality) {
+        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
     }
     return false;
 #endif
 }
 
-bool CPP_General::Is_DebugModeEnabled() {
-    return PMMA_Registry::IsDebuggingModeEnabled;
+bool PMMA::General::Is_DebugModeEnabled() {
+    return PMMA::Registry::IsDebuggingModeEnabled;
 }
 
-void CPP_General::Set_DebugModeEnabled(bool DebugMode) {
-    PMMA_Registry::IsDebuggingModeEnabled = DebugMode;
+void PMMA::General::Set_DebugModeEnabled(bool DebugMode) {
+    PMMA::Registry::IsDebuggingModeEnabled = DebugMode;
 }
 
-bool CPP_General::IsWindowCreated() {
-    return (PMMA_Core::ActiveDisplayInstance != nullptr && PMMA_Core::ActiveDisplayInstance->IsWindowCreated());
+bool PMMA::General::IsWindowCreated() {
+    return (PMMA::Core::ActiveDisplayInstance != nullptr && PMMA::Core::ActiveDisplayInstance->GetIsWindowCreated());
 }
 
-bool CPP_General::IsApplicationRunning() {
-    return PMMA_Registry::IsApplicationRunning;
+bool PMMA::General::IsApplicationRunning() {
+    return PMMA::Registry::IsApplicationRunning;
 }
 
-bool CPP_General::IsEscapeKeyToCloseWindow() {
-    return PMMA_Registry::EscapeKeyShouldCloseWindow;
+bool PMMA::General::IsEscapeKeyToCloseWindow() {
+    return PMMA::Registry::EscapeKeyShouldCloseWindow;
 }
 
-void CPP_General::SetEscapeKeyToCloseWindow(bool EscapeKeyShouldCloseWindow) {
-    PMMA_Registry::EscapeKeyShouldCloseWindow = EscapeKeyShouldCloseWindow;
-    PMMA_Registry::UserSetEscapeKeyShouldCloseWindow = true;
+void PMMA::General::SetEscapeKeyToCloseWindow(bool EscapeKeyShouldCloseWindow) {
+    PMMA::Registry::EscapeKeyShouldCloseWindow = EscapeKeyShouldCloseWindow;
+    PMMA::Registry::UserSetEscapeKeyShouldCloseWindow = true;
 }
 
-bool CPP_General::IsF11KeyToToggleFullscreen() {
-    return PMMA_Registry::F11KeyShouldToggleFullScreen;
+bool PMMA::General::IsF11KeyToToggleFullscreen() {
+    return PMMA::Registry::F11KeyShouldToggleFullScreen;
 }
 
-void CPP_General::SetF11KeyToToggleFullscreen(bool F11KeyShouldToggleFullScreen) {
-    PMMA_Registry::F11KeyShouldToggleFullScreen = F11KeyShouldToggleFullScreen;
+void PMMA::General::SetF11KeyToToggleFullscreen(bool F11KeyShouldToggleFullScreen) {
+    PMMA::Registry::F11KeyShouldToggleFullScreen = F11KeyShouldToggleFullScreen;
 }
 
-std::string CPP_General::GetCurrent_PMMA_Version() {
-    return PMMA_Registry::Current_PMMA_Version;
+std::string PMMA::General::GetCurrent_PMMA_Version() {
+    return PMMA::Registry::Current_PMMA_Version;
 }
 
-std::string CPP_General::GetLatest_PMMA_Version() {
-    return PMMA_Registry::Latest_PMMA_Version;
+std::string PMMA::General::GetLatest_PMMA_Version() {
+    return PMMA::Registry::Latest_PMMA_Version;
 }
 
-void CPP_General::SetLatest_PMMA_Version(std::string latest_version) {
-    PMMA_Registry::Latest_PMMA_Version = latest_version;
+void PMMA::General::SetLatest_PMMA_Version(std::string latest_version) {
+    PMMA::Registry::Latest_PMMA_Version = latest_version;
 }
 
 std::string PadVersionString(std::string item) {
@@ -176,16 +176,16 @@ std::string PadVersionString(std::string item) {
     return padded_string;
 }
 
-bool CPP_General::IsUpdateAvailable() {
+bool PMMA::General::IsUpdateAvailable() {
     std::string padded_current_version;
     std::string split_current_version[3];
     unsigned int split_count = 0;
-    for (unsigned int i = 0; i < PMMA_Registry::Current_PMMA_Version.length(); i++) {
-        if (PMMA_Registry::Current_PMMA_Version[i] == '.') {
+    for (unsigned int i = 0; i < PMMA::Registry::Current_PMMA_Version.length(); i++) {
+        if (PMMA::Registry::Current_PMMA_Version[i] == '.') {
             split_count++;
             continue;
         }
-        split_current_version[split_count] += PMMA_Registry::Current_PMMA_Version[i];
+        split_current_version[split_count] += PMMA::Registry::Current_PMMA_Version[i];
     }
 
     for (unsigned int i = 0; i < 3; i++) {
@@ -195,12 +195,12 @@ bool CPP_General::IsUpdateAvailable() {
     std::string padded_latest_version;
     std::string split_latest_version[3];
     split_count = 0;
-    for (unsigned int i = 0; i < PMMA_Registry::Latest_PMMA_Version.length(); i++) {
-        if (PMMA_Registry::Latest_PMMA_Version[i] == '.') {
+    for (unsigned int i = 0; i < PMMA::Registry::Latest_PMMA_Version.length(); i++) {
+        if (PMMA::Registry::Latest_PMMA_Version[i] == '.') {
             split_count++;
             continue;
         }
-        split_latest_version[split_count] += PMMA_Registry::Latest_PMMA_Version[i];
+        split_latest_version[split_count] += PMMA::Registry::Latest_PMMA_Version[i];
     }
 
     for (unsigned int i = 0; i < 3; i++) {
@@ -211,7 +211,7 @@ bool CPP_General::IsUpdateAvailable() {
     uint64_t numerical_latest_version = std::stoull(padded_latest_version);
 
     if (numerical_current_version > numerical_latest_version) {
-        PMMA_Core::LoggingManagerInstance->InternalLogDebug(
+        PMMA::Core::LoggingManagerInstance->InternalLogDebug(
             22,
             "Thank you for using a pre-released version of PMMA! Please \
 note that there will likely be issues or missing/broken features as we work \
@@ -223,50 +223,50 @@ by creating a new issue here: 'https://github.com/PycraftDeveloper/PMMA/issues'.
     return numerical_current_version < numerical_latest_version;
 }
 
-double CPP_General::GetApplicationStartTime() {
-    return PMMA_Registry::StartupTime.time_since_epoch().count() / 1000000000.0;
+double PMMA::General::GetApplicationStartTime() {
+    return PMMA::Registry::StartupTime.time_since_epoch().count() / 1000000000.0;
 }
 
-double CPP_General::GetApplicationRunTime() {
+double PMMA::General::GetApplicationRunTime() {
     std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
-    return (current_time - PMMA_Registry::StartupTime).count() / 1000000000.0;
+    return (current_time - PMMA::Registry::StartupTime).count() / 1000000000.0;
 }
 
-float CPP_General::GetShapeQuality() {
-    return PMMA_Registry::CurrentShapeQuality;
+float PMMA::General::GetShapeQuality() {
+    return PMMA::Registry::CurrentShapeQuality;
 }
 
-void CPP_General::SetShapeQuality(float ShapeQuality) {
+void PMMA::General::SetShapeQuality(float ShapeQuality) {
     if (ShapeQuality > CPP_Constants::SHAPE_QUALITY) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             41,
             "You have set the shape quality to a very high value of: " +
                 std::to_string(ShapeQuality) +
                 ". This is typically not necessary and may cause performance \
 issues. Please consider setting the shape quality to a lower value.");
     }
-    PMMA_Registry::CurrentShapeQuality = ShapeQuality;
-    PMMA_Registry::UserDefinedShapeQuality = true;
+    PMMA::Registry::CurrentShapeQuality = ShapeQuality;
+    PMMA::Registry::UserDefinedShapeQuality = true;
 }
 
-void CPP_General::Let_PMMA_ControlShapeQuality() {
-    if (PMMA_Registry::IsPowerSavingModeEnabled) {
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+void PMMA::General::Let_PMMA_ControlShapeQuality() {
+    if (PMMA::Registry::IsPowerSavingModeEnabled) {
+        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
     } else {
-        PMMA_Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
     }
-    PMMA_Registry::UserDefinedShapeQuality = false;
+    PMMA::Registry::UserDefinedShapeQuality = false;
 }
 
-void CPP_General::SetLocale(std::string locale) {
-    PMMA_Registry::Locale = locale;
+void PMMA::General::SetLocale(std::string locale) {
+    PMMA::Registry::Locale = locale;
 }
 
-std::string CPP_General::GetLocale() {
-    return PMMA_Registry::Locale;
+std::string PMMA::General::GetLocale() {
+    return PMMA::Registry::Locale;
 }
 
-std::string CPP_General::GetOperatingSystem() {
+std::string PMMA::General::GetOperatingSystem() {
 #if BX_PLATFORM_ANDROID
     return std::string(CPP_Constants::OperatingSystems::ANDROID);
 #elif BX_PLATFORM_BSD
@@ -302,7 +302,7 @@ std::string CPP_General::GetOperatingSystem() {
 #endif
 }
 
-std::string CPP_General::GetGraphicsBackend() {
+std::string PMMA::General::GetGraphicsBackend() {
     bgfx::RendererType::Enum backend = bgfx::getRendererType();
 
     switch (backend) {

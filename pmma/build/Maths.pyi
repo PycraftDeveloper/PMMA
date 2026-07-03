@@ -19,7 +19,7 @@ Float1D = Union[npt.NDArray[np.float32], Iterable[float]]
 
 Numerical = Union[float, int]
 
-class AdvancedMathematics:
+class Maths:
     @staticmethod
     def lerp(x1: float, x2: float, duration: float, current_duration: float) -> float: ...
 

@@ -31,7 +31,7 @@ private:
     void CompileShaderComponent(std::string RawFilePath, std::string CompiledFilePath, std::string Type);
 
     std::string GetGraphicsProfile() {
-        std::string GraphicsBackend = CPP_General::GetGraphicsBackend();
+        std::string GraphicsBackend = PMMA::General::GetGraphicsBackend();
         if (GraphicsBackend == CPP_Constants::GraphicsBackends::OPENGL_ES) {
             return "100_es";
         } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D11 || GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D12) {

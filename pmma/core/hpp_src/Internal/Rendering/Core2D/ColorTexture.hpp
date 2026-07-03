@@ -6,7 +6,7 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-#include "CoreTypes.hpp"
+#include "Types.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
 class CPP_ColorTexture {
@@ -43,7 +43,7 @@ public:
     // ------------------------------------------------------------
     // ADD COLOR (hot path)
     // ------------------------------------------------------------
-    inline uint32_t AddColor(CPP_Color *Color, uintptr_t ShapeID, bool ColorDataChanged) {
+    inline uint32_t AddColor(PMMA::Types::Color *Color, uintptr_t ShapeID, bool ColorDataChanged) {
         ColorChanged |= ColorDataChanged;
 
         uint32_t idx = ShapeCount++;

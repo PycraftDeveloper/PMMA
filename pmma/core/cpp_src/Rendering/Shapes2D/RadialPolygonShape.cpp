@@ -2,7 +2,7 @@
 
 uint16_t PMMA::Rendering::TwoD::CPP_RadialPolygon::GetRadius() {
     if (!RadiusSet) {
-        PMMA_Core::LoggingManagerInstance->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not specified a radius for the arc \
 please use `Arc.set_radius` to set it before attempting to get it.");
@@ -25,7 +25,7 @@ void PMMA::Rendering::TwoD::CPP_RadialPolygon::Render() {
         ShapeCenter.Get(start_position);
         uint16_t radius = GetRadius() * 2;
 
-        auto rpc = PMMA_Core::ActiveDisplayInstance->RenderPipelineCore;
+        auto rpc = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore;
 
         // Existing packing logic
         ShapeInstanceData.position = rpc->PackValues(start_position[0], start_position[1]);
@@ -37,7 +37,7 @@ void PMMA::Rendering::TwoD::CPP_RadialPolygon::Render() {
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
     }
 
-    PMMA_Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
+    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

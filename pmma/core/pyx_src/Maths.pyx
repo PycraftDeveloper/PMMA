@@ -7,7 +7,7 @@ from Logger cimport Logger
 
 np.import_array()
 
-cdef extern from "AdvancedMathematics.hpp" namespace "CPP_AdvancedMathematics" nogil:
+cdef extern from "Maths.hpp" namespace "PMMA::Maths" nogil:
     float PythagoreanDifference(const float x1, const float y1, const float x2, const float y2) except + nogil
     float PythagoreanDistance(const float x, const float y) except + nogil
     float SmoothStep(const float value) except + nogil
@@ -23,7 +23,7 @@ cdef extern from "AdvancedMathematics.hpp" namespace "CPP_AdvancedMathematics" n
     void PerspectiveFOV(const float fov, const float aspect_ratio, const float near_plane, const float far_plane, float (*out)[4]) except + nogil
     float Lerp(float start, float end, float duration, float current_duration) except + nogil
 
-cdef class AdvancedMathematics:
+cdef class Maths:
     cdef:
         Logger logger
 
@@ -32,7 +32,7 @@ cdef class AdvancedMathematics:
 
         self.logger.internal_log_debug(
             24,
-            ("AdvancedMathematics.init - You don't need to instantiate "
+            ("Maths.init - You don't need to instantiate "
                 "this class in order to use it."),
             False
         )

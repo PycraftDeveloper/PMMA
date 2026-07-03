@@ -7,14 +7,14 @@
 #include <glm/glm.hpp>
 
 #include "Constants.hpp"
-#include "CoreTypes.hpp"
 #include "Logger.hpp"
+#include "Types.hpp"
 
 namespace PMMA::Rendering::TwoD {
 class EXPORT CPP_Rectangle {
 public:
-    CPP_DisplayCoordinate ShapeCenter;
-    CPP_Color Color;
+    PMMA::Types::DisplayCoordinate ShapeCenter;
+    PMMA::Types::Color Color;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
@@ -83,4 +83,4 @@ public:
         return CornerRadius;
     }
 };
-}
+} // namespace PMMA::Rendering::TwoD

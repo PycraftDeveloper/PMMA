@@ -1,17 +1,17 @@
 # cython: boundscheck=False, wraparound=False, cdivision=True, nonecheck=False, initializedcheck=False
 
 from libcpp cimport bool
-from libc.stdint cimport uint8_t
+from libc.stdint cimport uint8_t, uint16_t, uint32_t
 
 import random
 
 import numpy as np
 cimport numpy as np
 
-from CoreTypes cimport (
+from Types cimport (
     CPP_Color, Color, CPP_DisplayCoordinate, DisplayCoordinate,
-    CPP_Color_Configure_Kwargs, CPP_DisplayCoordinate_Configure_Kwargs,
-    CPP_Angle_Configure_Kwargs, CPP_Proportion_Configure_Kwargs)
+    Color_Configure_Kwargs, DisplayCoordinate_Configure_Kwargs,
+    Angle_Configure_Kwargs, Proportion_Configure_Kwargs)
 
 np.import_array()
 
@@ -32,7 +32,7 @@ cdef class Color:
         self.owns_cpp_class_ptr = False
 
     cpdef void configure(self, seed=None, octaves=2, frequency=0.75, amplitude=1.0):
-        cdef CPP_Color_Configure_Kwargs kwargs
+        cdef Color_Configure_Kwargs kwargs
 
         if seed is None:
             kwargs.seed.reset()
@@ -214,7 +214,7 @@ cdef class DisplayCoordinate:
         self.owns_cpp_class_ptr = False
 
     cpdef void configure(self, seed=None, octaves=2, frequency=0.75, amplitude=1.0):
-        cdef CPP_DisplayCoordinate_Configure_Kwargs kwargs
+        cdef DisplayCoordinate_Configure_Kwargs kwargs
 
         if seed is None:
             kwargs.seed.reset()
@@ -267,11 +267,11 @@ cdef class DisplayCoordinate:
 
     cpdef get_coord_array(self, bint detect_format=True):
         cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] out_coordinate_np
-            float* out_coordinate_ptr
+            np.ndarray[np.uint16_t, ndim=1, mode='c'] out_coordinate_np
+            uint16_t* out_coordinate_ptr
 
-        out_coordinate_np = np.empty(2, dtype=np.float32, order='C')
-        out_coordinate_ptr = <float*>&out_coordinate_np[0]
+        out_coordinate_np = np.empty(2, dtype=np.uint16, order='C')
+        out_coordinate_ptr = <uint16_t*>&out_coordinate_np[0]
         self.cpp_class_ptr.Get(out_coordinate_ptr)
 
         if detect_format:
@@ -284,26 +284,26 @@ cdef class DisplayCoordinate:
 
     cpdef void set_coord_array(self, in_coord):
         cdef:
-            np.ndarray[np.float32_t, ndim=1, mode='c'] in_coordinate_np
-            float* in_coordinate_ptr
+            np.ndarray[np.uint16_t, ndim=1, mode='c'] in_coordinate_np
+            uint16_t* in_coordinate_ptr
 
-        if not isinstance(in_coord, np.ndarray) or in_coord.dtype != np.float32 or not in_coord.flags['C_CONTIGUOUS']:
-            in_coordinate_np = np.array(in_coord, dtype=np.float32, order='C')
+        if not isinstance(in_coord, np.ndarray) or in_coord.dtype != np.uint16 or not in_coord.flags['C_CONTIGUOUS']:
+            in_coordinate_np = np.array(in_coord, dtype=np.uint16, order='C')
             self.using_numpy_arrays = True
         else:
             in_coordinate_np = in_coord
             self.using_numpy_arrays = False
 
-        in_coordinate_ptr = <float*>&in_coordinate_np[0]
+        in_coordinate_ptr = <uint16_t*>&in_coordinate_np[0]
         self.cpp_class_ptr.Set(in_coordinate_ptr)
 
     cpdef tuple get_coord(self):
-        cdef float coords[2]
+        cdef uint16_t coords[2]
         self.cpp_class_ptr.Get(&coords[0])
         return coords[0], coords[1]
 
-    cpdef void set_coord(self, float x, float y):
-        cdef float coords[2]
+    cpdef void set_coord(self, uint16_t x, uint16_t y):
+        cdef uint16_t coords[2]
         coords[0] = x
         coords[1] = y
         self.cpp_class_ptr.Set(&coords[0])
@@ -323,7 +323,7 @@ cdef class Angle:
         self.owns_cpp_class_ptr = False
 
     cpdef void configure(self, seed=None, octaves=2, frequency=0.75, amplitude=1.0):
-        cdef CPP_Angle_Configure_Kwargs kwargs
+        cdef Angle_Configure_Kwargs kwargs
 
         if seed is None:
             kwargs.seed.reset()
@@ -400,7 +400,7 @@ cdef class Proportion:
         self.owns_cpp_class_ptr = False
 
     cpdef void configure(self, seed=None, octaves=2, frequency=0.75, amplitude=1.0):
-        cdef CPP_Proportion_Configure_Kwargs kwargs
+        cdef Proportion_Configure_Kwargs kwargs
 
         if seed is None:
             kwargs.seed.reset()
