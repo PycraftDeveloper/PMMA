@@ -90,8 +90,8 @@ def make_ext(component, extra_cpp=None, add_numpy=False, raw_depends=[]):
 ext_modules = [
     make_ext("Maths.pyx", add_numpy=True),
     make_ext("Display.pyx", add_numpy=True, raw_depends=["Types.pyx"]),
-    #make_ext(os.path.join("Events", "KeyEvents.pyx")),
-    #make_ext(os.path.join("Events", "KeyPadEvents.pyx")),
+    make_ext(os.path.join("Events", "KeyEvents.pyx")),
+    make_ext(os.path.join("Events", "KeyPadEvents.pyx")),
     #make_ext(os.path.join("Events", "WindowEvents.pyx")),
     #make_ext(os.path.join("Events", "ControllerEvents.pyx"), add_numpy=True),
     #make_ext(os.path.join("Events", "MouseEvents.pyx"), add_numpy=True),
@@ -136,7 +136,7 @@ if __name__ == '__main__':
 
     setup(
         name="pmma",
-        version="5.0.16",
+        version="5.1.0",
         author="PycraftDev",
         author_email="thomasjebbo@gmail.com",
         description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",
@@ -146,6 +146,7 @@ if __name__ == '__main__':
         project_urls={
             "Bug Tracker": "https://github.com/PycraftDeveloper/PMMA/issues",
         },
+        license="MIT",
         classifiers=[
             "Development Status :: 3 - Alpha", # Becomes beta with release of PMMA 6.
             "Environment :: Console",
@@ -156,7 +157,6 @@ if __name__ == '__main__':
             "Intended Audience :: Information Technology",
             "Intended Audience :: Other Audience",
             "Intended Audience :: Science/Research",
-            "License :: OSI Approved :: MIT License",
             "Natural Language :: English",
             "Operating System :: Microsoft :: Windows :: Windows 8",
             "Operating System :: Microsoft :: Windows :: Windows 8.1",

@@ -2,8 +2,8 @@
 
 from libcpp cimport bool
 
-cdef extern from "Events/KeyPadEvents.hpp" nogil:
-    cdef cppclass CPP_ButtonPressedEvent:
+cdef extern from "Internal/Events/InternalEvents.hpp" nogil:
+    cdef cppclass CPP_ButtonPressed "PMMA::Internal::Events::ButtonPressed":
         inline bool GetPressed() except + nogil
 
         inline bool GetPressedToggle() except + nogil
@@ -20,59 +20,94 @@ cdef extern from "Events/KeyPadEvents.hpp" nogil:
         inline float GetLongPressDuration() except + nogil
         inline float GetDoublePressDuration() except + nogil
 
-    cdef cppclass CPP_KeyPadEvent_0(CPP_ButtonPressedEvent):
+cdef extern from "Events/KeyPadEvents.hpp" nogil:
+    cdef cppclass _CPP_KeyPadEvent_0(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_1(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_0 CPP_KeyPadEvent_0 "PMMA::Events::KeyPad_0"
+
+    cdef cppclass _CPP_KeyPadEvent_1(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_2(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_1 CPP_KeyPadEvent_1 "PMMA::Events::KeyPad_1"
+
+    cdef cppclass _CPP_KeyPadEvent_2(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_3(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_2 CPP_KeyPadEvent_2 "PMMA::Events::KeyPad_2"
+
+    cdef cppclass _CPP_KeyPadEvent_3(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_4(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_3 CPP_KeyPadEvent_3 "PMMA::Events::KeyPad_3"
+
+    cdef cppclass _CPP_KeyPadEvent_4(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_5(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_4 CPP_KeyPadEvent_4 "PMMA::Events::KeyPad_4"
+
+    cdef cppclass _CPP_KeyPadEvent_5(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_6(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_5 CPP_KeyPadEvent_5 "PMMA::Events::KeyPad_5"
+
+    cdef cppclass _CPP_KeyPadEvent_6(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_7(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_6 CPP_KeyPadEvent_6 "PMMA::Events::KeyPad_6"
+
+    cdef cppclass _CPP_KeyPadEvent_7(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_8(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_7 CPP_KeyPadEvent_7 "PMMA::Events::KeyPad_7"
+
+    cdef cppclass _CPP_KeyPadEvent_8(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_9(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_8 CPP_KeyPadEvent_8 "PMMA::Events::KeyPad_8"
+
+    cdef cppclass _CPP_KeyPadEvent_9(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_Decimal(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_9 CPP_KeyPadEvent_9 "PMMA::Events::KeyPad_9"
+
+    cdef cppclass _CPP_KeyPadEvent_Decimal(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_Divide(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_Decimal CPP_KeyPadEvent_Decimal "PMMA::Events::KeyPad_Decimal"
+
+    cdef cppclass _CPP_KeyPadEvent_Divide(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_Multiply(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_Divide CPP_KeyPadEvent_Divide "PMMA::Events::KeyPad_Divide"
+
+    cdef cppclass _CPP_KeyPadEvent_Multiply(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_Subtract(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_Multiply CPP_KeyPadEvent_Multiply "PMMA::Events::KeyPad_Multiply"
+
+    cdef cppclass _CPP_KeyPadEvent_Subtract(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_Add(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_Subtract CPP_KeyPadEvent_Subtract "PMMA::Events::KeyPad_Subtract"
+
+    cdef cppclass _CPP_KeyPadEvent_Add(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_Enter(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_Add CPP_KeyPadEvent_Add "PMMA::Events::KeyPad_Add"
+
+    cdef cppclass _CPP_KeyPadEvent_Enter(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_KeyPadEvent_Equal(CPP_ButtonPressedEvent):
+    ctypedef _CPP_KeyPadEvent_Enter CPP_KeyPadEvent_Enter "PMMA::Events::KeyPad_Enter"
+
+    cdef cppclass _CPP_KeyPadEvent_Equal(CPP_ButtonPressed):
         pass
 
-cdef class ButtonPressedEvent:
-    cdef CPP_ButtonPressedEvent* cpp_base_class_ptr
+    ctypedef _CPP_KeyPadEvent_Equal CPP_KeyPadEvent_Equal "PMMA::Events::KeyPad_Equal"
+
+cdef class ButtonPressed:
+    cdef CPP_ButtonPressed* cpp_base_class_ptr
 
     def get_pressed(self):
         return self.cpp_base_class_ptr.GetPressed()
@@ -107,7 +142,7 @@ cdef class ButtonPressedEvent:
     def set_long_press_duration(self, duration):
         self.cpp_base_class_ptr.SetLongPressDuration(duration)
 
-cdef class Zero(ButtonPressedEvent):
+cdef class Zero(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_0* cpp_class_ptr
 
@@ -119,7 +154,7 @@ cdef class Zero(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class One(ButtonPressedEvent):
+cdef class One(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_1* cpp_class_ptr
 
@@ -131,7 +166,7 @@ cdef class One(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Two(ButtonPressedEvent):
+cdef class Two(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_2* cpp_class_ptr
 
@@ -143,7 +178,7 @@ cdef class Two(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Three(ButtonPressedEvent):
+cdef class Three(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_3* cpp_class_ptr
 
@@ -155,7 +190,7 @@ cdef class Three(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Four(ButtonPressedEvent):
+cdef class Four(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_4* cpp_class_ptr
 
@@ -167,7 +202,7 @@ cdef class Four(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Five(ButtonPressedEvent):
+cdef class Five(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_5* cpp_class_ptr
 
@@ -179,7 +214,7 @@ cdef class Five(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Six(ButtonPressedEvent):
+cdef class Six(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_6* cpp_class_ptr
 
@@ -191,7 +226,7 @@ cdef class Six(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Seven(ButtonPressedEvent):
+cdef class Seven(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_7* cpp_class_ptr
 
@@ -203,7 +238,7 @@ cdef class Seven(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Eight(ButtonPressedEvent):
+cdef class Eight(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_8* cpp_class_ptr
 
@@ -215,7 +250,7 @@ cdef class Eight(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Nine(ButtonPressedEvent):
+cdef class Nine(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_9* cpp_class_ptr
 
@@ -227,7 +262,7 @@ cdef class Nine(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Decimal(ButtonPressedEvent):
+cdef class Decimal(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_Decimal* cpp_class_ptr
 
@@ -239,7 +274,7 @@ cdef class Decimal(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Divide(ButtonPressedEvent):
+cdef class Divide(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_Divide* cpp_class_ptr
 
@@ -251,7 +286,7 @@ cdef class Divide(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Multiply(ButtonPressedEvent):
+cdef class Multiply(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_Multiply* cpp_class_ptr
 
@@ -263,7 +298,7 @@ cdef class Multiply(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Subtract(ButtonPressedEvent):
+cdef class Subtract(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_Subtract* cpp_class_ptr
 
@@ -275,7 +310,7 @@ cdef class Subtract(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Add(ButtonPressedEvent):
+cdef class Add(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_Add* cpp_class_ptr
 
@@ -287,7 +322,7 @@ cdef class Add(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Enter(ButtonPressedEvent):
+cdef class Enter(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_Enter* cpp_class_ptr
 
@@ -299,7 +334,7 @@ cdef class Enter(ButtonPressedEvent):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class Equal(ButtonPressedEvent):
+cdef class Equal(ButtonPressed):
     cdef:
         CPP_KeyPadEvent_Equal* cpp_class_ptr
 

@@ -181,7 +181,7 @@ std::vector<unsigned char> SecondaryDisplayIDs;
 
 std::string PMMA_Location = "";
 std::string PathSeparator = std::string(1, std::filesystem::path::preferred_separator);
-std::string Current_PMMA_Version = "5.0.16";
+std::string Current_PMMA_Version = "5.1.0";
 std::string Latest_PMMA_Version = "";
 std::string Locale = "en-US";
 
