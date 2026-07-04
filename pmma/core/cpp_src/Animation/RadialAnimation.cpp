@@ -2,14 +2,14 @@
 
 #include "PMMA_Core.hpp"
 
-CPP_RadialAnimation::CPP_RadialAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr) {
+PMMA::Animation::RadialAnimation::RadialAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr) {
     TargetCoordinatePtr = NewTargetCoordinatePtr;
 
     StartCoordinatePtr = new PMMA::Types::DisplayCoordinate();
     CenterCoordinatePtr = new PMMA::Types::DisplayCoordinate();
 }
 
-CPP_RadialAnimation::~CPP_RadialAnimation() {
+PMMA::Animation::RadialAnimation::~RadialAnimation() {
     if (TargetCoordinatePtr != nullptr) {
         delete TargetCoordinatePtr;
         TargetCoordinatePtr = nullptr;
@@ -26,7 +26,7 @@ CPP_RadialAnimation::~CPP_RadialAnimation() {
     }
 }
 
-void CPP_RadialAnimation::Start() {
+void PMMA::Animation::RadialAnimation::RadialAnimation::Start() {
     if (Playing) {
         return;
     }
@@ -47,7 +47,7 @@ void CPP_RadialAnimation::Start() {
     TargetCoordinatePtr->Set(start_position);
 }
 
-void CPP_RadialAnimation::Stop() {
+void PMMA::Animation::RadialAnimation::RadialAnimation::Stop() {
     if (!Playing) {
         return;
     }

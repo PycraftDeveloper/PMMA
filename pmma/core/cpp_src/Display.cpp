@@ -26,8 +26,8 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (PMMA::Core::KeyManagerInstance == nullptr) {
         if (PMMA::Registry::KeyboardEventInstanceCount > 0) {
-            PMMA::Core::KeyManagerInstance = new CPP_InternalKeyEventManager();
-            glfwSetKeyCallback(Window, CPP_InternalKeyEventManager::KeyCallback);
+            PMMA::Core::KeyManagerInstance = new PMMA::Internal::Events::InternalKeyManager();
+            glfwSetKeyCallback(Window, PMMA::Internal::Events::InternalKeyManager::KeyCallback);
         }
     } else {
         if (PMMA::Registry::KeyboardEventInstanceCount <= 0) {
@@ -42,8 +42,8 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (PMMA::Core::TextManagerInstance == nullptr) {
         if (PMMA::Registry::TextEventInstanceCount > 0) {
-            PMMA::Core::TextManagerInstance = new CPP_InternalTextEventManager();
-            glfwSetCharCallback(Window, CPP_InternalTextEventManager::TextCallback);
+            PMMA::Core::TextManagerInstance = new PMMA::Internal::Events::InternalTextManager();
+            glfwSetCharCallback(Window, PMMA::Internal::Events::InternalTextManager::TextCallback);
         }
     } else {
         if (PMMA::Registry::TextEventInstanceCount <= 0) {
@@ -58,8 +58,8 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (PMMA::Core::MousePositionManagerInstance == nullptr) {
         if (PMMA::Registry::MousePositionEventInstanceCount > 0) {
-            PMMA::Core::MousePositionManagerInstance = new CPP_InternalMousePositionEventManager();
-            glfwSetCursorPosCallback(Window, CPP_InternalMousePositionEventManager::CursorPositionCallback);
+            PMMA::Core::MousePositionManagerInstance = new PMMA::Internal::Events::InternalMousePositionManager();
+            glfwSetCursorPosCallback(Window, PMMA::Internal::Events::InternalMousePositionManager::CursorPositionCallback);
         }
     } else {
         if (PMMA::Registry::MousePositionEventInstanceCount <= 0) {
@@ -74,8 +74,8 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (PMMA::Core::MouseEnterWindowManagerInstance == nullptr) {
         if (PMMA::Registry::MouseEnterWindowEventInstanceCount > 0) {
-            PMMA::Core::MouseEnterWindowManagerInstance = new CPP_InternalMouseEnterWindowEventManager();
-            glfwSetCursorEnterCallback(Window, CPP_InternalMouseEnterWindowEventManager::CursorEnterCallback);
+            PMMA::Core::MouseEnterWindowManagerInstance = new PMMA::Internal::Events::InternalMouseEnterWindowManager();
+            glfwSetCursorEnterCallback(Window, PMMA::Internal::Events::InternalMouseEnterWindowManager::CursorEnterCallback);
         }
     } else {
         if (PMMA::Registry::MouseEnterWindowEventInstanceCount <= 0) {
@@ -90,8 +90,8 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (PMMA::Core::MouseButtonManagerInstance == nullptr) {
         if (PMMA::Registry::MouseButtonEventInstanceCount > 0) {
-            PMMA::Core::MouseButtonManagerInstance = new CPP_InternalMouseButtonEventManager();
-            glfwSetMouseButtonCallback(Window, CPP_InternalMouseButtonEventManager::MouseButtonCallback);
+            PMMA::Core::MouseButtonManagerInstance = new PMMA::Internal::Events::InternalMouseButtonManager();
+            glfwSetMouseButtonCallback(Window, PMMA::Internal::Events::InternalMouseButtonManager::MouseButtonCallback);
         }
     } else {
         if (PMMA::Registry::MouseButtonEventInstanceCount <= 0) {
@@ -106,8 +106,8 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (PMMA::Core::MouseScrollManagerInstance == nullptr) {
         if (PMMA::Registry::MouseScrollEventInstanceCount > 0) {
-            PMMA::Core::MouseScrollManagerInstance = new CPP_InternalMouseScrollEventManager();
-            glfwSetScrollCallback(Window, CPP_InternalMouseScrollEventManager::ScrollCallback);
+            PMMA::Core::MouseScrollManagerInstance = new PMMA::Internal::Events::InternalMouseScrollManager();
+            glfwSetScrollCallback(Window, PMMA::Internal::Events::InternalMouseScrollManager::ScrollCallback);
         }
     } else {
         if (PMMA::Registry::MouseScrollEventInstanceCount <= 0) {
@@ -122,8 +122,8 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (PMMA::Core::ControllerManagerInstance == nullptr) {
         if (PMMA::Registry::ControllerEventInstanceCount > 0) {
-            PMMA::Core::ControllerManagerInstance = new CPP_InternalControllerEventManager();
-            glfwSetJoystickCallback(CPP_InternalControllerEventManager::JoystickCallback);
+            PMMA::Core::ControllerManagerInstance = new PMMA::Internal::Events::InternalControllerManager();
+            glfwSetJoystickCallback(PMMA::Internal::Events::InternalControllerManager::JoystickCallback);
         }
     } else {
         if (PMMA::Registry::ControllerEventInstanceCount <= 0) {
@@ -138,8 +138,8 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (PMMA::Core::DropManagerInstance == nullptr) {
         if (PMMA::Registry::DropEventInstanceCount > 0) {
-            PMMA::Core::DropManagerInstance = new CPP_InternalDropEventManager();
-            glfwSetDropCallback(Window, CPP_InternalDropEventManager::DropCallback);
+            PMMA::Core::DropManagerInstance = new PMMA::Internal::Events::InternalDropManager();
+            glfwSetDropCallback(Window, PMMA::Internal::Events::InternalDropManager::DropCallback);
         }
     } else {
         if (PMMA::Registry::DropEventInstanceCount <= 0) {
@@ -191,7 +191,7 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 }
 
 PMMA::Display::Display() {
-    Logger = new CPP_Logger();
+    Logger = new PMMA::Logger();
 
     WindowFillColor = new PMMA::Types::Color();
     WindowFillColor->LinkedToDisplayBackground = true;
@@ -205,8 +205,8 @@ PMMA::Display::Display() {
 
     DefaultIconPath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "resources" + PMMA::Registry::PathSeparator + "Icon.png";
 
-    F11_KeyEvent = new CPP_KeyEvent_F11();
-    Escape_KeyEvent = new CPP_KeyEvent_Escape();
+    F11_KeyEvent = new PMMA::Events::Key_F11();
+    Escape_KeyEvent = new PMMA::Events::Key_Escape();
 }
 
 GLFWmonitor *PMMA::Display::GetMonitorAtPoint(unsigned int *Point) {

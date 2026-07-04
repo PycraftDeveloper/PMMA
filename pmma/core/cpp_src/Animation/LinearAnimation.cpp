@@ -2,15 +2,15 @@
 
 #include "PMMA_Core.hpp"
 
-CPP_LinearAnimation::CPP_LinearAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr) {
+PMMA::Animation::LinearAnimation::LinearAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr) {
     TargetCoordinatePtr = NewTargetCoordinatePtr;
 
     StartCoordinatePtr = new PMMA::Types::DisplayCoordinate();
     EndCoordinatePtr = new PMMA::Types::DisplayCoordinate();
-    Logger = new CPP_Logger();
+    Logger = new PMMA::Logger();
 }
 
-CPP_LinearAnimation::~CPP_LinearAnimation() {
+PMMA::Animation::LinearAnimation::LinearAnimation::~LinearAnimation() {
     if (TargetCoordinatePtr != nullptr) {
         delete TargetCoordinatePtr;
         TargetCoordinatePtr = nullptr;
@@ -30,7 +30,7 @@ CPP_LinearAnimation::~CPP_LinearAnimation() {
     Logger = nullptr;
 }
 
-void CPP_LinearAnimation::Start() {
+void PMMA::Animation::LinearAnimation::LinearAnimation::Start() {
     if (Playing) {
         return;
     }
@@ -51,7 +51,7 @@ void CPP_LinearAnimation::Start() {
     TargetCoordinatePtr->Set(start_position);
 }
 
-void CPP_LinearAnimation::Stop() {
+void PMMA::Animation::LinearAnimation::LinearAnimation::Stop() {
     if (!Playing) {
         return;
     }

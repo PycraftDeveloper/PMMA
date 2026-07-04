@@ -16,7 +16,7 @@
 class CPP_Shader {
 private:
     bgfx::ProgramHandle ShaderProgram = BGFX_INVALID_HANDLE;
-    CPP_Logger *Logger;
+    PMMA::Logger *Logger;
 
     std::string RawVertexShaderPath = "";
     std::string RawFragmentShaderPath = "";
@@ -32,21 +32,21 @@ private:
 
     std::string GetGraphicsProfile() {
         std::string GraphicsBackend = PMMA::General::GetGraphicsBackend();
-        if (GraphicsBackend == CPP_Constants::GraphicsBackends::OPENGL_ES) {
+        if (GraphicsBackend == PMMA::Constants::GraphicsBackends::OPENGL_ES) {
             return "100_es";
-        } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D11 || GraphicsBackend == CPP_Constants::GraphicsBackends::DIRECT3D12) {
+        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::DIRECT3D11 || GraphicsBackend == PMMA::Constants::GraphicsBackends::DIRECT3D12) {
             return "s_4_0";
-        } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::METAL) {
+        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::METAL) {
             return "metal";
-        } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::GNM) {
+        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::GNM) {
             return "pssl";
-        } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::VULKAN) {
+        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::VULKAN) {
             return "spirv";
-        } else if (GraphicsBackend == CPP_Constants::GraphicsBackends::OPENGL) {
+        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::OPENGL) {
             return "150";
         } else {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
 
             Logger->InternalLogError(
@@ -182,7 +182,7 @@ public:
             }
         } catch (const std::filesystem::filesystem_error &error) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
 
             Logger->InternalLogWarn(

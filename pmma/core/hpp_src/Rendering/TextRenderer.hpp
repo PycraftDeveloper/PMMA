@@ -11,7 +11,7 @@ public:
     PMMA::Types::DisplayCoordinate *Position;
     PMMA::Types::Color *ForegroundColor;
     PMMA::Types::Color *BackgroundColor;
-    CPP_Logger *Logger;
+    PMMA::Logger *Logger;
 
     std::string Text = "";
     std::string Font;
@@ -68,7 +68,7 @@ public:
     inline void SetFont(std::string NewFont) {
         if (!std::filesystem::exists(NewFont)) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 51,

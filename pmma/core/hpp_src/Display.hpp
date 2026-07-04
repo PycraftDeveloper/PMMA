@@ -113,15 +113,15 @@ public:
      * Used to control the background color of the window.
      */
     PMMA::Types::Color *WindowFillColor = nullptr;
-    CPP_KeyEvent_F11 *F11_KeyEvent;
-    CPP_KeyEvent_Escape *Escape_KeyEvent;
+    PMMA::Events::Key_F11 *F11_KeyEvent;
+    PMMA::Events::Key_Escape *Escape_KeyEvent;
 
     PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager *RenderPipelineCore;
 
     unsigned char DisplayID = 0;
 
 private:
-    CPP_Logger *Logger;
+    PMMA::Logger *Logger;
 
     std::string Caption = "PMMA Display";
     std::string DefaultIconPath;

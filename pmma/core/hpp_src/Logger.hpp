@@ -3,7 +3,8 @@
 
 #include <string>
 
-class EXPORT CPP_Logger {
+namespace PMMA {
+class EXPORT Logger {
 public:
     void SetLogToFile(bool NewLogToFile);
     void SetLogToConsole(bool NewLogToConsole);
@@ -33,3 +34,4 @@ public:
     void InternalLogWarn(int ID, std::string Content, bool RepeatForEffect = true);
     void InternalLogError(int ID, std::string Content, bool RepeatForEffect = true);
 };
+}

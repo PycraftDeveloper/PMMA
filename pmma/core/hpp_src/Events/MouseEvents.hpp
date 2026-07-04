@@ -1,9 +1,11 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include "Internal/EventsManager.hpp"
+#include "Internal/Events/EventsManager.hpp"
+#include "Internal/Events/InternalEvents.hpp"
 
-class EXPORT CPP_MousePositionEvent {
+namespace PMMA::Events {
+class EXPORT Mouse_Position {
 private:
     float position[2] = {0, 0};
     float previous_position[2] = {0, 0};
@@ -12,8 +14,8 @@ private:
     bool Enabled = true;
 
 public:
-    CPP_MousePositionEvent();
-    ~CPP_MousePositionEvent();
+    Mouse_Position();
+    ~Mouse_Position();
 
     inline void Update(float x_value, float y_value) {
         if (!Enabled) {
@@ -55,15 +57,15 @@ public:
     };
 };
 
-class EXPORT CPP_MouseEnterWindowEvent {
+class EXPORT Mouse_EnterWindow {
 private:
     bool IsEntered = false;
     bool IsEnteredToggle = false;
     bool Enabled = true;
 
 public:
-    CPP_MouseEnterWindowEvent();
-    ~CPP_MouseEnterWindowEvent();
+    Mouse_EnterWindow();
+    ~Mouse_EnterWindow();
 
     inline void Update(bool NewIsEntered) {
         if (!Enabled) {
@@ -96,55 +98,55 @@ public:
     };
 };
 
-class EXPORT CPP_MouseButtonEvent_Left : public CPP_ButtonPressedEvent {
+class EXPORT Mouse_Button_Left : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_MouseButtonEvent_Left();
-    ~CPP_MouseButtonEvent_Left();
+    Mouse_Button_Left();
+    ~Mouse_Button_Left();
 };
 
-class EXPORT CPP_MouseButtonEvent_Right : public CPP_ButtonPressedEvent {
+class EXPORT Mouse_Button_Right : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_MouseButtonEvent_Right();
-    ~CPP_MouseButtonEvent_Right();
+    Mouse_Button_Right();
+    ~Mouse_Button_Right();
 };
 
-class EXPORT CPP_MouseButtonEvent_Middle : public CPP_ButtonPressedEvent {
+class EXPORT Mouse_Button_Middle : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_MouseButtonEvent_Middle();
-    ~CPP_MouseButtonEvent_Middle();
+    Mouse_Button_Middle();
+    ~Mouse_Button_Middle();
 };
 
-class EXPORT CPP_MouseButtonEvent_0 : public CPP_ButtonPressedEvent {
+class EXPORT MouseButton_0 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_MouseButtonEvent_0();
-    ~CPP_MouseButtonEvent_0();
+    MouseButton_0();
+    ~MouseButton_0();
 };
 
-class EXPORT CPP_MouseButtonEvent_1 : public CPP_ButtonPressedEvent {
+class EXPORT MouseButton_1 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_MouseButtonEvent_1();
-    ~CPP_MouseButtonEvent_1();
+    MouseButton_1();
+    ~MouseButton_1();
 };
 
-class EXPORT CPP_MouseButtonEvent_2 : public CPP_ButtonPressedEvent {
+class EXPORT MouseButton_2 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_MouseButtonEvent_2();
-    ~CPP_MouseButtonEvent_2();
+    MouseButton_2();
+    ~MouseButton_2();
 };
 
-class EXPORT CPP_MouseButtonEvent_3 : public CPP_ButtonPressedEvent {
+class EXPORT MouseButton_3 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_MouseButtonEvent_3();
-    ~CPP_MouseButtonEvent_3();
+    MouseButton_3();
+    ~MouseButton_3();
 };
 
-class EXPORT CPP_MouseButtonEvent_4 : public CPP_ButtonPressedEvent {
+class EXPORT MouseButton_4 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_MouseButtonEvent_4();
-    ~CPP_MouseButtonEvent_4();
+    MouseButton_4();
+    ~MouseButton_4();
 };
 
-class EXPORT CPP_MouseScrollEvent {
+class EXPORT Mouse_Scroll {
 private:
     float Position[2] = {0, 0};
     float Delta[2] = {0, 0};
@@ -152,9 +154,9 @@ private:
     bool IsEnabled = true;
 
 public:
-    CPP_MouseScrollEvent();
+    Mouse_Scroll();
 
-    ~CPP_MouseScrollEvent();
+    ~Mouse_Scroll();
 
     inline void Update(float delta_x, float delta_y) {
         if (!IsEnabled) {
@@ -226,3 +228,4 @@ public:
         IsEnabled = NewIsEnabled;
     };
 };
+} // namespace PMMA::Events

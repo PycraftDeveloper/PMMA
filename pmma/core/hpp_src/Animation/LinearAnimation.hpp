@@ -9,12 +9,13 @@
 #include "Maths.hpp"
 #include "Types.hpp"
 
-class EXPORT CPP_LinearAnimation : public CPP_AnimationCore {
+namespace PMMA::Animation {
+class EXPORT LinearAnimation : public CPP_AnimationCore {
 public:
     PMMA::Types::DisplayCoordinate *TargetCoordinatePtr;
     PMMA::Types::DisplayCoordinate *StartCoordinatePtr;
     PMMA::Types::DisplayCoordinate *EndCoordinatePtr;
-    CPP_Logger *Logger;
+    PMMA::Logger *Logger;
 
     std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
     std::chrono::duration<float> Duration;
@@ -25,9 +26,9 @@ public:
     bool Loop = false;
     bool Repeat = false;
 
-    CPP_LinearAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr);
+    LinearAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr);
 
-    ~CPP_LinearAnimation();
+    ~LinearAnimation();
 
     inline bool Update(std::chrono::duration<float> FrameTime) override { // Return TRUE if animation finished
         if (Paused) {
@@ -142,3 +143,4 @@ as that was what was previous set.");
         return Repeat;
     }
 };
+}

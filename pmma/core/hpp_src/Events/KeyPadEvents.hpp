@@ -1,106 +1,109 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include "Internal/EventsManager.hpp"
+#include "Internal/Events/EventsManager.hpp"
+#include "Internal/Events/InternalEvents.hpp"
 
-class EXPORT CPP_KeyPadEvent_0 : public CPP_ButtonPressedEvent {
+namespace PMMA::Events {
+class EXPORT KeyPad_0 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_0();
-    ~CPP_KeyPadEvent_0();
+    KeyPad_0();
+    ~KeyPad_0();
 };
 
-class EXPORT CPP_KeyPadEvent_1 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_1 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_1();
-    ~CPP_KeyPadEvent_1();
+    KeyPad_1();
+    ~KeyPad_1();
 };
 
-class EXPORT CPP_KeyPadEvent_2 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_2 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_2();
-    ~CPP_KeyPadEvent_2();
+    KeyPad_2();
+    ~KeyPad_2();
 };
 
-class EXPORT CPP_KeyPadEvent_3 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_3 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_3();
-    ~CPP_KeyPadEvent_3();
+    KeyPad_3();
+    ~KeyPad_3();
 };
 
-class EXPORT CPP_KeyPadEvent_4 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_4 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_4();
-    ~CPP_KeyPadEvent_4();
+    KeyPad_4();
+    ~KeyPad_4();
 };
 
-class EXPORT CPP_KeyPadEvent_5 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_5 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_5();
-    ~CPP_KeyPadEvent_5();
+    KeyPad_5();
+    ~KeyPad_5();
 };
 
-class EXPORT CPP_KeyPadEvent_6 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_6 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_6();
-    ~CPP_KeyPadEvent_6();
+    KeyPad_6();
+    ~KeyPad_6();
 };
 
-class EXPORT CPP_KeyPadEvent_7 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_7 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_7();
-    ~CPP_KeyPadEvent_7();
+    KeyPad_7();
+    ~KeyPad_7();
 };
 
-class EXPORT CPP_KeyPadEvent_8 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_8 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_8();
-    ~CPP_KeyPadEvent_8();
+    KeyPad_8();
+    ~KeyPad_8();
 };
 
-class EXPORT CPP_KeyPadEvent_9 : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_9 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_9();
-    ~CPP_KeyPadEvent_9();
+    KeyPad_9();
+    ~KeyPad_9();
 };
 
-class EXPORT CPP_KeyPadEvent_Decimal : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_Decimal : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_Decimal();
-    ~CPP_KeyPadEvent_Decimal();
+    KeyPad_Decimal();
+    ~KeyPad_Decimal();
 };
 
-class EXPORT CPP_KeyPadEvent_Divide : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_Divide : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_Divide();
-    ~CPP_KeyPadEvent_Divide();
+    KeyPad_Divide();
+    ~KeyPad_Divide();
 };
 
-class EXPORT CPP_KeyPadEvent_Multiply : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_Multiply : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_Multiply();
-    ~CPP_KeyPadEvent_Multiply();
+    KeyPad_Multiply();
+    ~KeyPad_Multiply();
 };
 
-class EXPORT CPP_KeyPadEvent_Subtract : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_Subtract : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_Subtract();
-    ~CPP_KeyPadEvent_Subtract();
+    KeyPad_Subtract();
+    ~KeyPad_Subtract();
 };
 
-class EXPORT CPP_KeyPadEvent_Add : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_Add : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_Add();
-    ~CPP_KeyPadEvent_Add();
+    KeyPad_Add();
+    ~KeyPad_Add();
 };
 
-class EXPORT CPP_KeyPadEvent_Enter : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_Enter : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_Enter();
-    ~CPP_KeyPadEvent_Enter();
+    KeyPad_Enter();
+    ~KeyPad_Enter();
 };
 
-class EXPORT CPP_KeyPadEvent_Equal : public CPP_ButtonPressedEvent {
+class EXPORT KeyPad_Equal : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyPadEvent_Equal();
-    ~CPP_KeyPadEvent_Equal();
+    KeyPad_Equal();
+    ~KeyPad_Equal();
 };
+}

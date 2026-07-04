@@ -301,7 +301,7 @@ public:
 
 class EXPORT Angle {
 private:
-    CPP_Logger *Logger;
+    PMMA::Logger *Logger;
     CPP_PerlinNoise *PerlinNoiseGenerator = nullptr;
     CPP_FractalBrownianMotion *FractalBrownianMotionGenerator = nullptr;
 
@@ -362,7 +362,7 @@ public:
     inline uint32_t GetSeed() {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -375,7 +375,7 @@ public:
     inline uint32_t GetOctaves() {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -388,7 +388,7 @@ public:
     inline float GetFrequency() {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -401,7 +401,7 @@ public:
     inline float GetAmplitude() {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -425,7 +425,7 @@ public:
     inline void GenerateFrom1DPerlinNoise(float value) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -447,7 +447,7 @@ public:
     inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -469,7 +469,7 @@ public:
     inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -491,7 +491,7 @@ public:
     inline void GenerateFrom1DFractalBrownianMotion(float value) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -513,7 +513,7 @@ public:
     inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -535,7 +535,7 @@ public:
     inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -586,7 +586,7 @@ public:
     inline float Get_Radians() {
         if (!IsSet) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogWarn(
                 30,
@@ -601,7 +601,7 @@ before attempting to get it.");
     inline float Get_Degrees() {
         if (!IsSet) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogWarn(
                 30,
@@ -616,7 +616,7 @@ before attempting to get it.");
 
 class EXPORT Proportion {
 private:
-    CPP_Logger *Logger;
+    PMMA::Logger *Logger;
 
     CPP_PerlinNoise *PerlinNoiseGenerator = nullptr;
     CPP_FractalBrownianMotion *FractalBrownianMotionGenerator = nullptr;
@@ -676,7 +676,7 @@ public:
     inline uint32_t GetSeed() {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -689,7 +689,7 @@ public:
     inline uint32_t GetOctaves() {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -702,7 +702,7 @@ public:
     inline float GetFrequency() {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -715,7 +715,7 @@ public:
     inline float GetAmplitude() {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -739,7 +739,7 @@ public:
     inline void GenerateFrom1DPerlinNoise(float value) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -761,7 +761,7 @@ public:
     inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -783,7 +783,7 @@ public:
     inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -805,7 +805,7 @@ public:
     inline void GenerateFrom1DFractalBrownianMotion(float value) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -827,7 +827,7 @@ public:
     inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -849,7 +849,7 @@ public:
     inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
         if (!Configured) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogError(
                 13,
@@ -901,7 +901,7 @@ public:
     inline float Get_Percentage() {
         if (!IsSet) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogWarn(
                 30,
@@ -916,7 +916,7 @@ before attempting to get it.");
     inline float Get_Decimal() {
         if (!IsSet) {
             if (Logger == nullptr) {
-                Logger = new CPP_Logger();
+                Logger = new PMMA::Logger();
             }
             Logger->InternalLogWarn(
                 30,

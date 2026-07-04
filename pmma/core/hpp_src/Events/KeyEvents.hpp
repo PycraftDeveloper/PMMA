@@ -1,646 +1,649 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include "Internal/EventsManager.hpp"
+#include "Internal/Events/EventsManager.hpp"
+#include "Internal/Events/InternalEvents.hpp"
 
-class EXPORT CPP_KeyEvent_Space : public CPP_ButtonPressedEvent {
+namespace PMMA::Events {
+class EXPORT Key_Space : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Space();
-    ~CPP_KeyEvent_Space();
+    Key_Space();
+    ~Key_Space();
 };
 
-class EXPORT CPP_KeyEvent_Apostrophe : public CPP_ButtonPressedEvent {
+class EXPORT Key_Apostrophe : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Apostrophe();
-    ~CPP_KeyEvent_Apostrophe();
+    Key_Apostrophe();
+    ~Key_Apostrophe();
 };
 
-class EXPORT CPP_KeyEvent_Comma : public CPP_ButtonPressedEvent {
+class EXPORT Key_Comma : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Comma();
-    ~CPP_KeyEvent_Comma();
+    Key_Comma();
+    ~Key_Comma();
 };
 
-class EXPORT CPP_KeyEvent_Minus : public CPP_ButtonPressedEvent {
+class EXPORT Key_Minus : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Minus();
-    ~CPP_KeyEvent_Minus();
+    Key_Minus();
+    ~Key_Minus();
 };
 
-class EXPORT CPP_KeyEvent_Period : public CPP_ButtonPressedEvent {
+class EXPORT Key_Period : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Period();
-    ~CPP_KeyEvent_Period();
+    Key_Period();
+    ~Key_Period();
 };
 
-class EXPORT CPP_KeyEvent_Slash : public CPP_ButtonPressedEvent {
+class EXPORT Key_Slash : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Slash();
-    ~CPP_KeyEvent_Slash();
+    Key_Slash();
+    ~Key_Slash();
 };
 
-class EXPORT CPP_KeyEvent_0 : public CPP_ButtonPressedEvent {
+class EXPORT Key_0 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_0();
-    ~CPP_KeyEvent_0();
+    Key_0();
+    ~Key_0();
 };
 
-class EXPORT CPP_KeyEvent_1 : public CPP_ButtonPressedEvent {
+class EXPORT Key_1 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_1();
-    ~CPP_KeyEvent_1();
+    Key_1();
+    ~Key_1();
 };
 
-class EXPORT CPP_KeyEvent_2 : public CPP_ButtonPressedEvent {
+class EXPORT Key_2 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_2();
-    ~CPP_KeyEvent_2();
+    Key_2();
+    ~Key_2();
 };
 
-class EXPORT CPP_KeyEvent_3 : public CPP_ButtonPressedEvent {
+class EXPORT Key_3 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_3();
-    ~CPP_KeyEvent_3();
+    Key_3();
+    ~Key_3();
 };
 
-class EXPORT CPP_KeyEvent_4 : public CPP_ButtonPressedEvent {
+class EXPORT Key_4 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_4();
-    ~CPP_KeyEvent_4();
+    Key_4();
+    ~Key_4();
 };
 
-class EXPORT CPP_KeyEvent_5 : public CPP_ButtonPressedEvent {
+class EXPORT Key_5 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_5();
-    ~CPP_KeyEvent_5();
+    Key_5();
+    ~Key_5();
 };
 
-class EXPORT CPP_KeyEvent_6 : public CPP_ButtonPressedEvent {
+class EXPORT Key_6 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_6();
-    ~CPP_KeyEvent_6();
+    Key_6();
+    ~Key_6();
 };
 
-class EXPORT CPP_KeyEvent_7 : public CPP_ButtonPressedEvent {
+class EXPORT Key_7 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_7();
-    ~CPP_KeyEvent_7();
+    Key_7();
+    ~Key_7();
 };
 
-class EXPORT CPP_KeyEvent_8 : public CPP_ButtonPressedEvent {
+class EXPORT Key_8 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_8();
-    ~CPP_KeyEvent_8();
+    Key_8();
+    ~Key_8();
 };
 
-class EXPORT CPP_KeyEvent_9 : public CPP_ButtonPressedEvent {
+class EXPORT Key_9 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_9();
-    ~CPP_KeyEvent_9();
+    Key_9();
+    ~Key_9();
 };
 
-class EXPORT CPP_KeyEvent_Semicolon : public CPP_ButtonPressedEvent {
+class EXPORT Key_Semicolon : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Semicolon();
-    ~CPP_KeyEvent_Semicolon();
+    Key_Semicolon();
+    ~Key_Semicolon();
 };
 
-class EXPORT CPP_KeyEvent_Equal : public CPP_ButtonPressedEvent {
+class EXPORT Key_Equal : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Equal();
-    ~CPP_KeyEvent_Equal();
+    Key_Equal();
+    ~Key_Equal();
 };
 
-class EXPORT CPP_KeyEvent_A : public CPP_ButtonPressedEvent {
+class EXPORT Key_A : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_A();
-    ~CPP_KeyEvent_A();
+    Key_A();
+    ~Key_A();
 };
 
-class EXPORT CPP_KeyEvent_B : public CPP_ButtonPressedEvent {
+class EXPORT Key_B : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_B();
-    ~CPP_KeyEvent_B();
+    Key_B();
+    ~Key_B();
 };
 
-class EXPORT CPP_KeyEvent_C : public CPP_ButtonPressedEvent {
+class EXPORT Key_C : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_C();
-    ~CPP_KeyEvent_C();
+    Key_C();
+    ~Key_C();
 };
 
-class EXPORT CPP_KeyEvent_D : public CPP_ButtonPressedEvent {
+class EXPORT Key_D : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_D();
-    ~CPP_KeyEvent_D();
+    Key_D();
+    ~Key_D();
 };
 
-class EXPORT CPP_KeyEvent_E : public CPP_ButtonPressedEvent {
+class EXPORT Key_E : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_E();
-    ~CPP_KeyEvent_E();
+    Key_E();
+    ~Key_E();
 };
 
-class EXPORT CPP_KeyEvent_F : public CPP_ButtonPressedEvent {
+class EXPORT Key_F : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F();
-    ~CPP_KeyEvent_F();
+    Key_F();
+    ~Key_F();
 };
 
-class EXPORT CPP_KeyEvent_G : public CPP_ButtonPressedEvent {
+class EXPORT Key_G : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_G();
-    ~CPP_KeyEvent_G();
+    Key_G();
+    ~Key_G();
 };
 
-class EXPORT CPP_KeyEvent_H : public CPP_ButtonPressedEvent {
+class EXPORT Key_H : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_H();
-    ~CPP_KeyEvent_H();
+    Key_H();
+    ~Key_H();
 };
 
-class EXPORT CPP_KeyEvent_I : public CPP_ButtonPressedEvent {
+class EXPORT Key_I : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_I();
-    ~CPP_KeyEvent_I();
+    Key_I();
+    ~Key_I();
 };
 
-class EXPORT CPP_KeyEvent_J : public CPP_ButtonPressedEvent {
+class EXPORT Key_J : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_J();
-    ~CPP_KeyEvent_J();
+    Key_J();
+    ~Key_J();
 };
 
-class EXPORT CPP_KeyEvent_K : public CPP_ButtonPressedEvent {
+class EXPORT Key_K : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_K();
-    ~CPP_KeyEvent_K();
+    Key_K();
+    ~Key_K();
 };
 
-class EXPORT CPP_KeyEvent_L : public CPP_ButtonPressedEvent {
+class EXPORT Key_L : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_L();
-    ~CPP_KeyEvent_L();
+    Key_L();
+    ~Key_L();
 };
 
-class EXPORT CPP_KeyEvent_M : public CPP_ButtonPressedEvent {
+class EXPORT Key_M : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_M();
-    ~CPP_KeyEvent_M();
+    Key_M();
+    ~Key_M();
 };
 
-class EXPORT CPP_KeyEvent_N : public CPP_ButtonPressedEvent {
+class EXPORT Key_N : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_N();
-    ~CPP_KeyEvent_N();
+    Key_N();
+    ~Key_N();
 };
 
-class EXPORT CPP_KeyEvent_O : public CPP_ButtonPressedEvent {
+class EXPORT Key_O : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_O();
-    ~CPP_KeyEvent_O();
+    Key_O();
+    ~Key_O();
 };
 
-class EXPORT CPP_KeyEvent_P : public CPP_ButtonPressedEvent {
+class EXPORT Key_P : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_P();
-    ~CPP_KeyEvent_P();
+    Key_P();
+    ~Key_P();
 };
 
-class EXPORT CPP_KeyEvent_Q : public CPP_ButtonPressedEvent {
+class EXPORT Key_Q : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Q();
-    ~CPP_KeyEvent_Q();
+    Key_Q();
+    ~Key_Q();
 };
 
-class EXPORT CPP_KeyEvent_R : public CPP_ButtonPressedEvent {
+class EXPORT Key_R : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_R();
-    ~CPP_KeyEvent_R();
+    Key_R();
+    ~Key_R();
 };
 
-class EXPORT CPP_KeyEvent_S : public CPP_ButtonPressedEvent {
+class EXPORT Key_S : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_S();
-    ~CPP_KeyEvent_S();
+    Key_S();
+    ~Key_S();
 };
 
-class EXPORT CPP_KeyEvent_T : public CPP_ButtonPressedEvent {
+class EXPORT Key_T : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_T();
-    ~CPP_KeyEvent_T();
+    Key_T();
+    ~Key_T();
 };
 
-class EXPORT CPP_KeyEvent_U : public CPP_ButtonPressedEvent {
+class EXPORT Key_U : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_U();
-    ~CPP_KeyEvent_U();
+    Key_U();
+    ~Key_U();
 };
 
-class EXPORT CPP_KeyEvent_V : public CPP_ButtonPressedEvent {
+class EXPORT Key_V : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_V();
-    ~CPP_KeyEvent_V();
+    Key_V();
+    ~Key_V();
 };
 
-class EXPORT CPP_KeyEvent_W : public CPP_ButtonPressedEvent {
+class EXPORT Key_W : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_W();
-    ~CPP_KeyEvent_W();
+    Key_W();
+    ~Key_W();
 };
 
-class EXPORT CPP_KeyEvent_X : public CPP_ButtonPressedEvent {
+class EXPORT Key_X : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_X();
-    ~CPP_KeyEvent_X();
+    Key_X();
+    ~Key_X();
 };
 
-class EXPORT CPP_KeyEvent_Y : public CPP_ButtonPressedEvent {
+class EXPORT Key_Y : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Y();
-    ~CPP_KeyEvent_Y();
+    Key_Y();
+    ~Key_Y();
 };
 
-class EXPORT CPP_KeyEvent_Z : public CPP_ButtonPressedEvent {
+class EXPORT Key_Z : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Z();
-    ~CPP_KeyEvent_Z();
+    Key_Z();
+    ~Key_Z();
 };
 
-class EXPORT CPP_KeyEvent_Left_Bracket : public CPP_ButtonPressedEvent {
+class EXPORT Key_Left_Bracket : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Left_Bracket();
-    ~CPP_KeyEvent_Left_Bracket();
+    Key_Left_Bracket();
+    ~Key_Left_Bracket();
 };
 
-class EXPORT CPP_KeyEvent_Backslash : public CPP_ButtonPressedEvent {
+class EXPORT Key_Backslash : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Backslash();
-    ~CPP_KeyEvent_Backslash();
+    Key_Backslash();
+    ~Key_Backslash();
 };
 
-class EXPORT CPP_KeyEvent_Right_Bracket : public CPP_ButtonPressedEvent {
+class EXPORT Key_Right_Bracket : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Right_Bracket();
-    ~CPP_KeyEvent_Right_Bracket();
+    Key_Right_Bracket();
+    ~Key_Right_Bracket();
 };
 
-class EXPORT CPP_KeyEvent_Grave_Accent : public CPP_ButtonPressedEvent {
+class EXPORT Key_Grave_Accent : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Grave_Accent();
-    ~CPP_KeyEvent_Grave_Accent();
+    Key_Grave_Accent();
+    ~Key_Grave_Accent();
 };
 
-class EXPORT CPP_KeyEvent_World_1 : public CPP_ButtonPressedEvent {
+class EXPORT Key_World_1 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_World_1();
-    ~CPP_KeyEvent_World_1();
+    Key_World_1();
+    ~Key_World_1();
 };
 
-class EXPORT CPP_KeyEvent_World_2 : public CPP_ButtonPressedEvent {
+class EXPORT Key_World_2 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_World_2();
-    ~CPP_KeyEvent_World_2();
+    Key_World_2();
+    ~Key_World_2();
 };
 
-class EXPORT CPP_KeyEvent_Escape : public CPP_ButtonPressedEvent {
+class EXPORT Key_Escape : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Escape();
-    ~CPP_KeyEvent_Escape();
+    Key_Escape();
+    ~Key_Escape();
 };
 
-class EXPORT CPP_KeyEvent_Enter : public CPP_ButtonPressedEvent {
+class EXPORT Key_Enter : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Enter();
-    ~CPP_KeyEvent_Enter();
+    Key_Enter();
+    ~Key_Enter();
 };
 
-class EXPORT CPP_KeyEvent_Tab : public CPP_ButtonPressedEvent {
+class EXPORT Key_Tab : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Tab();
-    ~CPP_KeyEvent_Tab();
+    Key_Tab();
+    ~Key_Tab();
 };
 
-class EXPORT CPP_KeyEvent_Backspace : public CPP_ButtonPressedEvent {
+class EXPORT Key_Backspace : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Backspace();
-    ~CPP_KeyEvent_Backspace();
+    Key_Backspace();
+    ~Key_Backspace();
 };
 
-class EXPORT CPP_KeyEvent_Insert : public CPP_ButtonPressedEvent {
+class EXPORT Key_Insert : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Insert();
-    ~CPP_KeyEvent_Insert();
+    Key_Insert();
+    ~Key_Insert();
 };
 
-class EXPORT CPP_KeyEvent_Delete : public CPP_ButtonPressedEvent {
+class EXPORT Key_Delete : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Delete();
-    ~CPP_KeyEvent_Delete();
+    Key_Delete();
+    ~Key_Delete();
 };
 
-class EXPORT CPP_KeyEvent_Right : public CPP_ButtonPressedEvent {
+class EXPORT Key_Right : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Right();
-    ~CPP_KeyEvent_Right();
+    Key_Right();
+    ~Key_Right();
 };
 
-class EXPORT CPP_KeyEvent_Left : public CPP_ButtonPressedEvent {
+class EXPORT Key_Left : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Left();
-    ~CPP_KeyEvent_Left();
+    Key_Left();
+    ~Key_Left();
 };
 
-class EXPORT CPP_KeyEvent_Down : public CPP_ButtonPressedEvent {
+class EXPORT Key_Down : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Down();
-    ~CPP_KeyEvent_Down();
+    Key_Down();
+    ~Key_Down();
 };
 
-class EXPORT CPP_KeyEvent_Up : public CPP_ButtonPressedEvent {
+class EXPORT Key_Up : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Up();
-    ~CPP_KeyEvent_Up();
+    Key_Up();
+    ~Key_Up();
 };
 
-class EXPORT CPP_KeyEvent_Page_Up : public CPP_ButtonPressedEvent {
+class EXPORT Key_Page_Up : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Page_Up();
-    ~CPP_KeyEvent_Page_Up();
+    Key_Page_Up();
+    ~Key_Page_Up();
 };
 
-class EXPORT CPP_KeyEvent_Page_Down : public CPP_ButtonPressedEvent {
+class EXPORT Key_Page_Down : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Page_Down();
-    ~CPP_KeyEvent_Page_Down();
+    Key_Page_Down();
+    ~Key_Page_Down();
 };
 
-class EXPORT CPP_KeyEvent_Home : public CPP_ButtonPressedEvent {
+class EXPORT Key_Home : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Home();
-    ~CPP_KeyEvent_Home();
+    Key_Home();
+    ~Key_Home();
 };
 
-class EXPORT CPP_KeyEvent_End : public CPP_ButtonPressedEvent {
+class EXPORT Key_End : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_End();
-    ~CPP_KeyEvent_End();
+    Key_End();
+    ~Key_End();
 };
 
-class EXPORT CPP_KeyEvent_Caps_Lock : public CPP_ButtonPressedEvent {
+class EXPORT Key_Caps_Lock : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Caps_Lock();
-    ~CPP_KeyEvent_Caps_Lock();
+    Key_Caps_Lock();
+    ~Key_Caps_Lock();
 };
 
-class EXPORT CPP_KeyEvent_Scroll_Lock : public CPP_ButtonPressedEvent {
+class EXPORT Key_Scroll_Lock : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Scroll_Lock();
-    ~CPP_KeyEvent_Scroll_Lock();
+    Key_Scroll_Lock();
+    ~Key_Scroll_Lock();
 };
 
-class EXPORT CPP_KeyEvent_Num_Lock : public CPP_ButtonPressedEvent {
+class EXPORT Key_Num_Lock : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Num_Lock();
-    ~CPP_KeyEvent_Num_Lock();
+    Key_Num_Lock();
+    ~Key_Num_Lock();
 };
 
-class EXPORT CPP_KeyEvent_Print_Screen : public CPP_ButtonPressedEvent {
+class EXPORT Key_Print_Screen : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Print_Screen();
-    ~CPP_KeyEvent_Print_Screen();
+    Key_Print_Screen();
+    ~Key_Print_Screen();
 };
 
-class EXPORT CPP_KeyEvent_Pause : public CPP_ButtonPressedEvent {
+class EXPORT Key_Pause : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Pause();
-    ~CPP_KeyEvent_Pause();
+    Key_Pause();
+    ~Key_Pause();
 };
 
-class EXPORT CPP_KeyEvent_F1 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F1 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F1();
-    ~CPP_KeyEvent_F1();
+    Key_F1();
+    ~Key_F1();
 };
 
-class EXPORT CPP_KeyEvent_F2 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F2 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F2();
-    ~CPP_KeyEvent_F2();
+    Key_F2();
+    ~Key_F2();
 };
 
-class EXPORT CPP_KeyEvent_F3 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F3 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F3();
-    ~CPP_KeyEvent_F3();
+    Key_F3();
+    ~Key_F3();
 };
 
-class EXPORT CPP_KeyEvent_F4 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F4 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F4();
-    ~CPP_KeyEvent_F4();
+    Key_F4();
+    ~Key_F4();
 };
 
-class EXPORT CPP_KeyEvent_F5 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F5 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F5();
-    ~CPP_KeyEvent_F5();
+    Key_F5();
+    ~Key_F5();
 };
 
-class EXPORT CPP_KeyEvent_F6 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F6 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F6();
-    ~CPP_KeyEvent_F6();
+    Key_F6();
+    ~Key_F6();
 };
 
-class EXPORT CPP_KeyEvent_F7 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F7 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F7();
-    ~CPP_KeyEvent_F7();
+    Key_F7();
+    ~Key_F7();
 };
 
-class EXPORT CPP_KeyEvent_F8 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F8 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F8();
-    ~CPP_KeyEvent_F8();
+    Key_F8();
+    ~Key_F8();
 };
 
-class EXPORT CPP_KeyEvent_F9 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F9 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F9();
-    ~CPP_KeyEvent_F9();
+    Key_F9();
+    ~Key_F9();
 };
 
-class EXPORT CPP_KeyEvent_F10 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F10 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F10();
-    ~CPP_KeyEvent_F10();
+    Key_F10();
+    ~Key_F10();
 };
 
-class EXPORT CPP_KeyEvent_F11 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F11 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F11();
-    ~CPP_KeyEvent_F11();
+    Key_F11();
+    ~Key_F11();
 };
 
-class EXPORT CPP_KeyEvent_F12 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F12 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F12();
-    ~CPP_KeyEvent_F12();
+    Key_F12();
+    ~Key_F12();
 };
 
-class EXPORT CPP_KeyEvent_F13 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F13 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F13();
-    ~CPP_KeyEvent_F13();
+    Key_F13();
+    ~Key_F13();
 };
 
-class EXPORT CPP_KeyEvent_F14 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F14 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F14();
-    ~CPP_KeyEvent_F14();
+    Key_F14();
+    ~Key_F14();
 };
 
-class EXPORT CPP_KeyEvent_F15 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F15 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F15();
-    ~CPP_KeyEvent_F15();
+    Key_F15();
+    ~Key_F15();
 };
 
-class EXPORT CPP_KeyEvent_F16 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F16 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F16();
-    ~CPP_KeyEvent_F16();
+    Key_F16();
+    ~Key_F16();
 };
 
-class EXPORT CPP_KeyEvent_F17 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F17 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F17();
-    ~CPP_KeyEvent_F17();
+    Key_F17();
+    ~Key_F17();
 };
 
-class EXPORT CPP_KeyEvent_F18 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F18 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F18();
-    ~CPP_KeyEvent_F18();
+    Key_F18();
+    ~Key_F18();
 };
 
-class EXPORT CPP_KeyEvent_F19 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F19 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F19();
-    ~CPP_KeyEvent_F19();
+    Key_F19();
+    ~Key_F19();
 };
 
-class EXPORT CPP_KeyEvent_F20 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F20 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F20();
-    ~CPP_KeyEvent_F20();
+    Key_F20();
+    ~Key_F20();
 };
 
-class EXPORT CPP_KeyEvent_F21 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F21 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F21();
-    ~CPP_KeyEvent_F21();
+    Key_F21();
+    ~Key_F21();
 };
 
-class EXPORT CPP_KeyEvent_F22 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F22 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F22();
-    ~CPP_KeyEvent_F22();
+    Key_F22();
+    ~Key_F22();
 };
 
-class EXPORT CPP_KeyEvent_F23 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F23 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F23();
-    ~CPP_KeyEvent_F23();
+    Key_F23();
+    ~Key_F23();
 };
 
-class EXPORT CPP_KeyEvent_F24 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F24 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F24();
-    ~CPP_KeyEvent_F24();
+    Key_F24();
+    ~Key_F24();
 };
 
-class EXPORT CPP_KeyEvent_F25 : public CPP_ButtonPressedEvent {
+class EXPORT Key_F25 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_F25();
-    ~CPP_KeyEvent_F25();
+    Key_F25();
+    ~Key_F25();
 };
 
-class EXPORT CPP_KeyEvent_Left_Shift : public CPP_ButtonPressedEvent {
+class EXPORT Key_Left_Shift : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Left_Shift();
-    ~CPP_KeyEvent_Left_Shift();
+    Key_Left_Shift();
+    ~Key_Left_Shift();
 };
 
-class EXPORT CPP_KeyEvent_Left_Control : public CPP_ButtonPressedEvent {
+class EXPORT Key_Left_Control : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Left_Control();
-    ~CPP_KeyEvent_Left_Control();
+    Key_Left_Control();
+    ~Key_Left_Control();
 };
 
-class EXPORT CPP_KeyEvent_Left_Alt : public CPP_ButtonPressedEvent {
+class EXPORT Key_Left_Alt : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Left_Alt();
-    ~CPP_KeyEvent_Left_Alt();
+    Key_Left_Alt();
+    ~Key_Left_Alt();
 };
 
-class EXPORT CPP_KeyEvent_Left_Super : public CPP_ButtonPressedEvent {
+class EXPORT Key_Left_Super : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Left_Super();
-    ~CPP_KeyEvent_Left_Super();
+    Key_Left_Super();
+    ~Key_Left_Super();
 };
 
-class EXPORT CPP_KeyEvent_Right_Shift : public CPP_ButtonPressedEvent {
+class EXPORT Key_Right_Shift : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Right_Shift();
-    ~CPP_KeyEvent_Right_Shift();
+    Key_Right_Shift();
+    ~Key_Right_Shift();
 };
 
-class EXPORT CPP_KeyEvent_Right_Control : public CPP_ButtonPressedEvent {
+class EXPORT Key_Right_Control : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Right_Control();
-    ~CPP_KeyEvent_Right_Control();
+    Key_Right_Control();
+    ~Key_Right_Control();
 };
 
-class EXPORT CPP_KeyEvent_Right_Alt : public CPP_ButtonPressedEvent {
+class EXPORT Key_Right_Alt : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Right_Alt();
-    ~CPP_KeyEvent_Right_Alt();
+    Key_Right_Alt();
+    ~Key_Right_Alt();
 };
 
-class EXPORT CPP_KeyEvent_Right_Super : public CPP_ButtonPressedEvent {
+class EXPORT Key_Right_Super : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Right_Super();
-    ~CPP_KeyEvent_Right_Super();
+    Key_Right_Super();
+    ~Key_Right_Super();
 };
 
-class EXPORT CPP_KeyEvent_Shift : public CPP_ButtonPressedEvent {
+class EXPORT Key_Shift : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Shift();
-    ~CPP_KeyEvent_Shift();
+    Key_Shift();
+    ~Key_Shift();
 };
 
-class EXPORT CPP_KeyEvent_Control : public CPP_ButtonPressedEvent {
+class EXPORT Key_Control : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Control();
-    ~CPP_KeyEvent_Control();
+    Key_Control();
+    ~Key_Control();
 };
 
-class EXPORT CPP_KeyEvent_Alt : public CPP_ButtonPressedEvent {
+class EXPORT Key_Alt : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Alt();
-    ~CPP_KeyEvent_Alt();
+    Key_Alt();
+    ~Key_Alt();
 };
 
-class EXPORT CPP_KeyEvent_Super : public CPP_ButtonPressedEvent {
+class EXPORT Key_Super : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Super();
-    ~CPP_KeyEvent_Super();
+    Key_Super();
+    ~Key_Super();
 };
 
-class EXPORT CPP_KeyEvent_Menu : public CPP_ButtonPressedEvent {
+class EXPORT Key_Menu : public PMMA::Internal::Events::ButtonPressed {
 public:
-    CPP_KeyEvent_Menu();
-    ~CPP_KeyEvent_Menu();
+    Key_Menu();
+    ~Key_Menu();
 };
+} // namespace PMMA::Events

@@ -8,7 +8,8 @@
 #include "Maths.hpp"
 #include "Types.hpp"
 
-class EXPORT CPP_RadialAnimation : public CPP_AnimationCore {
+namespace PMMA::Animation {
+class EXPORT RadialAnimation : public CPP_AnimationCore {
 public:
     PMMA::Types::DisplayCoordinate *TargetCoordinatePtr;
     PMMA::Types::DisplayCoordinate *StartCoordinatePtr;
@@ -22,9 +23,9 @@ public:
     bool Paused = false;
     bool Repeat = false;
 
-    CPP_RadialAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr);
+    RadialAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr);
 
-    ~CPP_RadialAnimation();
+    ~RadialAnimation();
 
     inline bool Update(std::chrono::duration<float> FrameTime) override {
         // Return TRUE if animation finished
@@ -117,3 +118,4 @@ public:
         return Repeat;
     }
 };
+}
