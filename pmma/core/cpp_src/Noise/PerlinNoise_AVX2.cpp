@@ -11,10 +11,8 @@ __m256 Fade_AVX2(__m256 t) noexcept {
     return _mm256_add_ps(
         _mm256_add_ps(
             _mm256_mul_ps(_mm256_set1_ps(6.0f), t5),
-            _mm256_mul_ps(_mm256_set1_ps(-15.0f), t4)
-        ),
-        _mm256_mul_ps(_mm256_set1_ps(10.0f), t3)
-    );
+            _mm256_mul_ps(_mm256_set1_ps(-15.0f), t4)),
+        _mm256_mul_ps(_mm256_set1_ps(10.0f), t3));
 }
 
 __m256 Lerp_AVX2(__m256 t, __m256 a, __m256 b) noexcept {
@@ -23,14 +21,14 @@ __m256 Lerp_AVX2(__m256 t, __m256 a, __m256 b) noexcept {
 
 __m256 Grad1D_AVX2(__m256i hash, __m256 x) noexcept {
     __m256i bit3 = _mm256_and_si256(hash, _mm256_set1_epi32(8)); // either 0 or 8
-    __m256i sign = _mm256_slli_epi32(bit3, 28); // 8 << 28 = 0x80000000 (sign bit)
+    __m256i sign = _mm256_slli_epi32(bit3, 28);                  // 8 << 28 = 0x80000000 (sign bit)
     __m256 sign_ps = _mm256_castsi256_ps(sign);
     __m256 x_signed = _mm256_xor_ps(x, sign_ps);
     return x_signed;
 }
 
 __m256 Grad2D_AVX2(__m256i hash, __m256 x, __m256 y) noexcept {
-    __m256i h = _mm256_and_si256(hash, _mm256_set1_epi32(7));  // h & 7
+    __m256i h = _mm256_and_si256(hash, _mm256_set1_epi32(7)); // h & 7
 
     // u = (h & 1) ? y : x
     __m256i bit0_mask = _mm256_and_si256(h, _mm256_set1_epi32(1));
@@ -43,8 +41,8 @@ __m256 Grad2D_AVX2(__m256i hash, __m256 x, __m256 y) noexcept {
     __m256 v = _mm256_blendv_ps(y, x, mask_v);
 
     // sign masks: bit 2 and bit 3 decide sign for u and v
-    __m256i bit2 = _mm256_and_si256(h, _mm256_set1_epi32(4));  // bit 2 mask
-    __m256i bit3 = _mm256_and_si256(h, _mm256_set1_epi32(8));  // bit 3 mask
+    __m256i bit2 = _mm256_and_si256(h, _mm256_set1_epi32(4)); // bit 2 mask
+    __m256i bit3 = _mm256_and_si256(h, _mm256_set1_epi32(8)); // bit 3 mask
 
     __m256i sign_u_mask = _mm256_slli_epi32(_mm256_srli_epi32(bit2, 2), 31); // move bit 2 to sign bit
     __m256i sign_v_mask = _mm256_slli_epi32(_mm256_srli_epi32(bit3, 3), 31); // move bit 3 to sign bit
@@ -57,7 +55,7 @@ __m256 Grad2D_AVX2(__m256i hash, __m256 x, __m256 y) noexcept {
 }
 
 __m256 Grad3D_AVX2(__m256i hash, __m256 x, __m256 y, __m256 z) noexcept {
-    __m256i h = _mm256_and_si256(hash, _mm256_set1_epi32(15));  // h & 15
+    __m256i h = _mm256_and_si256(hash, _mm256_set1_epi32(15)); // h & 15
     __m256 hf = _mm256_cvtepi32_ps(h);
 
     // u = (h > 7.5) ? x : y
@@ -86,15 +84,15 @@ __m256 Grad3D_AVX2(__m256i hash, __m256 x, __m256 y, __m256 z) noexcept {
     return _mm256_add_ps(u, v);
 }
 
-__m256i GatherPerm_AVX2(const std::array<uint32_t, 512>& Permutations, __m256i indices) noexcept {
+__m256i GatherPerm_AVX2(const std::array<uint32_t, 512> &Permutations, __m256i indices) noexcept {
     // Mask indices to [0..511]
     __m256i masked = _mm256_and_si256(indices, _mm256_set1_epi32(511));
 
     // Gather with cast to const int*
-    return _mm256_i32gather_epi32(reinterpret_cast<const int*>(Permutations.data()), masked, 4);
+    return _mm256_i32gather_epi32(reinterpret_cast<const int *>(Permutations.data()), masked, 4);
 }
 
-__m256 Noise1D_AVX2(const std::array<uint32_t, 512>& Permutations, const __m256 x_vec) noexcept {
+__m256 Noise1D_AVX2(const std::array<uint32_t, 512> &Permutations, const __m256 x_vec) noexcept {
     // floor(x)
     __m256 cx_f = _mm256_floor_ps(x_vec);
     __m256i cx = _mm256_cvttps_epi32(cx_f);
@@ -125,7 +123,7 @@ __m256 Noise1D_AVX2(const std::array<uint32_t, 512>& Permutations, const __m256 
     return res;
 }
 
-__m256 Noise2D_AVX2(const std::array<uint32_t, 512>& Permutations, const float F2, const __m256 x_vec, const __m256 y_vec) noexcept {
+__m256 Noise2D_AVX2(const std::array<uint32_t, 512> &Permutations, const float F2, const __m256 x_vec, const __m256 y_vec) noexcept {
     __m256 cx_f = _mm256_floor_ps(x_vec);
     __m256i cx = _mm256_cvttps_epi32(cx_f);
     __m256 fx = _mm256_sub_ps(x_vec, cx_f);
@@ -170,7 +168,7 @@ __m256 Noise2D_AVX2(const std::array<uint32_t, 512>& Permutations, const float F
     return res;
 }
 
-__m256 Noise3D_AVX2(const std::array<uint32_t, 512>& Permutations, const float F3,
+__m256 Noise3D_AVX2(const std::array<uint32_t, 512> &Permutations, const float F3,
                     const __m256 x_vec, const __m256 y_vec, const __m256 z_vec) noexcept {
 
     // floor(x,y,z)
@@ -205,12 +203,12 @@ __m256 Noise3D_AVX2(const std::array<uint32_t, 512>& Permutations, const float F
     // Hash coordinate of cube corners
 
     // perm(X)
-    __m256i permX  = GatherPerm_AVX2(Permutations, X);
+    __m256i permX = GatherPerm_AVX2(Permutations, X);
     __m256i permXP1 = GatherPerm_AVX2(Permutations, XP1);
 
     // perm(X) + Y wrapped by 255
-    __m256i A  = _mm256_and_si256(_mm256_add_epi32(permX, Y), mask255);
-    __m256i B  = _mm256_and_si256(_mm256_add_epi32(permXP1, Y), mask255);
+    __m256i A = _mm256_and_si256(_mm256_add_epi32(permX, Y), mask255);
+    __m256i B = _mm256_and_si256(_mm256_add_epi32(permXP1, Y), mask255);
     __m256i A1 = _mm256_and_si256(_mm256_add_epi32(permX, YP1), mask255);
     __m256i B1 = _mm256_and_si256(_mm256_add_epi32(permXP1, YP1), mask255);
 
@@ -231,14 +229,14 @@ __m256 Noise3D_AVX2(const std::array<uint32_t, 512>& Permutations, const float F
     __m256 fzm1 = _mm256_sub_ps(fz, _mm256_set1_ps(1));
 
     // Compute gradients at the eight corners
-    __m256 g000 = Grad3D_AVX2(AA,  fx,   fy,   fz);
-    __m256 g100 = Grad3D_AVX2(BA,  fxm1, fy,   fz);
-    __m256 g010 = Grad3D_AVX2(AB,  fx,   fym1, fz);
-    __m256 g110 = Grad3D_AVX2(BB,  fxm1, fym1, fz);
+    __m256 g000 = Grad3D_AVX2(AA, fx, fy, fz);
+    __m256 g100 = Grad3D_AVX2(BA, fxm1, fy, fz);
+    __m256 g010 = Grad3D_AVX2(AB, fx, fym1, fz);
+    __m256 g110 = Grad3D_AVX2(BB, fxm1, fym1, fz);
 
-    __m256 g001 = Grad3D_AVX2(AA1, fx,   fy,   fzm1);
-    __m256 g101 = Grad3D_AVX2(BA1, fxm1, fy,   fzm1);
-    __m256 g011 = Grad3D_AVX2(AB1, fx,   fym1, fzm1);
+    __m256 g001 = Grad3D_AVX2(AA1, fx, fy, fzm1);
+    __m256 g101 = Grad3D_AVX2(BA1, fxm1, fy, fzm1);
+    __m256 g011 = Grad3D_AVX2(AB1, fx, fym1, fzm1);
     __m256 g111 = Grad3D_AVX2(BB1, fxm1, fym1, fzm1);
 
     // Trilinear interpolation
@@ -255,7 +253,7 @@ __m256 Noise3D_AVX2(const std::array<uint32_t, 512>& Permutations, const float F
     return res;
 }
 
-void CPP_PerlinNoise::ArrayNoise1D_AVX2(const float* values, const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::ArrayNoise1D_AVX2(const float *values, const unsigned int length, float *out) const {
     unsigned int i = 0;
     for (; i + 8 <= length; i += 8) {
         __m256 x = _mm256_loadu_ps(&values[i]);
@@ -268,16 +266,16 @@ void CPP_PerlinNoise::ArrayNoise1D_AVX2(const float* values, const unsigned int 
     }
 }
 
-void CPP_PerlinNoise::ArrayNoise2D_AVX2(const float (*values)[2], const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::ArrayNoise2D_AVX2(const float (*values)[2], const unsigned int length, float *out) const {
     unsigned int i = 0;
     for (; i + 8 <= length; i += 8) {
         __m256 x, y;
-        x = _mm256_set_ps(values[i+7][0], values[i+6][0], values[i+5][0], values[i+4][0],
-                          values[i+3][0], values[i+2][0], values[i+1][0], values[i+0][0]);
-        y = _mm256_set_ps(values[i+7][1], values[i+6][1], values[i+5][1], values[i+4][1],
-                          values[i+3][1], values[i+2][1], values[i+1][1], values[i+0][1]);
+        x = _mm256_set_ps(values[i + 7][0], values[i + 6][0], values[i + 5][0], values[i + 4][0],
+                          values[i + 3][0], values[i + 2][0], values[i + 1][0], values[i + 0][0]);
+        y = _mm256_set_ps(values[i + 7][1], values[i + 6][1], values[i + 5][1], values[i + 4][1],
+                          values[i + 3][1], values[i + 2][1], values[i + 1][1], values[i + 0][1]);
 
-        __m256 r = Noise2D_AVX2(Permutations, F2, x, y);  // Assume AVX implementation exists
+        __m256 r = Noise2D_AVX2(Permutations, F2, x, y); // Assume AVX implementation exists
         _mm256_storeu_ps(&out[i], r);
     }
 
@@ -286,16 +284,16 @@ void CPP_PerlinNoise::ArrayNoise2D_AVX2(const float (*values)[2], const unsigned
     }
 }
 
-void CPP_PerlinNoise::ArrayNoise3D_AVX2(const float (*values)[3], const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::ArrayNoise3D_AVX2(const float (*values)[3], const unsigned int length, float *out) const {
     unsigned int i = 0;
     for (; i + 8 <= length; i += 8) {
         __m256 x, y, z;
-        x = _mm256_set_ps(values[i+7][0], values[i+6][0], values[i+5][0], values[i+4][0],
-                          values[i+3][0], values[i+2][0], values[i+1][0], values[i+0][0]);
-        y = _mm256_set_ps(values[i+7][1], values[i+6][1], values[i+5][1], values[i+4][1],
-                          values[i+3][1], values[i+2][1], values[i+1][1], values[i+0][1]);
-        z = _mm256_set_ps(values[i+7][2], values[i+6][2], values[i+5][2], values[i+4][2],
-                          values[i+3][2], values[i+2][2], values[i+1][2], values[i+0][2]);
+        x = _mm256_set_ps(values[i + 7][0], values[i + 6][0], values[i + 5][0], values[i + 4][0],
+                          values[i + 3][0], values[i + 2][0], values[i + 1][0], values[i + 0][0]);
+        y = _mm256_set_ps(values[i + 7][1], values[i + 6][1], values[i + 5][1], values[i + 4][1],
+                          values[i + 3][1], values[i + 2][1], values[i + 1][1], values[i + 0][1]);
+        z = _mm256_set_ps(values[i + 7][2], values[i + 6][2], values[i + 5][2], values[i + 4][2],
+                          values[i + 3][2], values[i + 2][2], values[i + 1][2], values[i + 0][2]);
 
         __m256 r = Noise3D_AVX2(Permutations, F3, x, y, z);
         _mm256_storeu_ps(&out[i], r);
@@ -306,7 +304,7 @@ void CPP_PerlinNoise::ArrayNoise3D_AVX2(const float (*values)[3], const unsigned
     }
 }
 
-void CPP_PerlinNoise::RangeNoise1D_AVX2(const float* x_range, const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::RangeNoise1D_AVX2(const float *x_range, const unsigned int length, float *out) const {
     float x = x_range[0];
     float dx = (x_range[1] - x_range[0]) / length;
 
@@ -331,7 +329,7 @@ void CPP_PerlinNoise::RangeNoise1D_AVX2(const float* x_range, const unsigned int
     }
 }
 
-void CPP_PerlinNoise::RangeNoise2D_AVX2(const float* x_range, const float* y_range, const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::RangeNoise2D_AVX2(const float *x_range, const float *y_range, const unsigned int length, float *out) const {
     float x = x_range[0];
     float y = y_range[0];
     float dx = (x_range[1] - x_range[0]) / length;
@@ -361,7 +359,7 @@ void CPP_PerlinNoise::RangeNoise2D_AVX2(const float* x_range, const float* y_ran
     }
 }
 
-void CPP_PerlinNoise::RangeNoise3D_AVX2(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::RangeNoise3D_AVX2(const float *x_range, const float *y_range, const float *z_range, const unsigned int length, float *out) const {
     float x = x_range[0];
     float y = y_range[0];
     float z = z_range[0];

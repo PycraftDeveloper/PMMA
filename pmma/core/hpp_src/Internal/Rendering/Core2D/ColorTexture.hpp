@@ -9,7 +9,7 @@
 #include "Types.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
-class CPP_ColorTexture {
+class ColorTexture {
 private:
     std::array<std::vector<uint8_t>, 4> PreviousColorData;
     std::vector<uint8_t> CurrentColorData;
@@ -28,15 +28,15 @@ private:
 public:
     bool UsingCache = false;
 
-    bgfx::TextureHandle ColorTexture = BGFX_INVALID_HANDLE;
+    bgfx::TextureHandle ColorTextureHandle = BGFX_INVALID_HANDLE;
 
     uint32_t m_colorTextureWidth = 0;
     uint32_t m_colorTextureHeight = 0;
     uint32_t MaxTextureDimension = 1024;
 
-    ~CPP_ColorTexture() {
-        if (bgfx::isValid(ColorTexture)) {
-            bgfx::destroy(ColorTexture);
+    ~ColorTexture() {
+        if (bgfx::isValid(ColorTextureHandle)) {
+            bgfx::destroy(ColorTextureHandle);
         }
     }
 
@@ -98,7 +98,7 @@ public:
     // ASSEMBLE (upload texture)
     // ------------------------------------------------------------
     inline void Assemble() {
-        if (!ColorChanged && ShapeCount == PreviousShapeCount && bgfx::isValid(ColorTexture))
+        if (!ColorChanged && ShapeCount == PreviousShapeCount && bgfx::isValid(ColorTextureHandle))
             return;
 
         uint32_t numColors = ShapeCount;
@@ -123,15 +123,15 @@ public:
             gpuData.data(),
             static_cast<uint32_t>(gpuData.size()));
 
-        if (bgfx::isValid(ColorTexture)) {
+        if (bgfx::isValid(ColorTextureHandle)) {
             if (m_colorTextureWidth != width || m_colorTextureHeight != height) {
-                bgfx::destroy(ColorTexture);
-                ColorTexture = BGFX_INVALID_HANDLE;
+                bgfx::destroy(ColorTextureHandle);
+                ColorTextureHandle = BGFX_INVALID_HANDLE;
             }
         }
 
-        if (!bgfx::isValid(ColorTexture)) {
-            ColorTexture = bgfx::createTexture2D(
+        if (!bgfx::isValid(ColorTextureHandle)) {
+            ColorTextureHandle = bgfx::createTexture2D(
                 (uint16_t)width,
                 (uint16_t)height,
                 false,
@@ -141,7 +141,7 @@ public:
         }
 
         bgfx::updateTexture2D(
-            ColorTexture,
+            ColorTextureHandle,
             0, 0, 0, 0,
             width,
             height,

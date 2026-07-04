@@ -10,8 +10,8 @@
 #include "Logger.hpp"
 #include "Types.hpp"
 
-namespace PMMA::Rendering::TwoD {
-class EXPORT CPP_Line {
+namespace PMMA::Rendering::TwoD::Shapes {
+class EXPORT Line {
 public:
     PMMA::Types::DisplayCoordinate ShapeStart;
     PMMA::Types::DisplayCoordinate ShapeEnd;
@@ -28,7 +28,7 @@ public:
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
-    inline CPP_Line() {
+    inline Line() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 

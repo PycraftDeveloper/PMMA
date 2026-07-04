@@ -11,10 +11,8 @@ __m512 Fade_AVX512(__m512 t) noexcept {
     return _mm512_add_ps(
         _mm512_add_ps(
             _mm512_mul_ps(_mm512_set1_ps(6.0f), t5),
-            _mm512_mul_ps(_mm512_set1_ps(-15.0f), t4)
-        ),
-        _mm512_mul_ps(_mm512_set1_ps(10.0f), t3)
-    );
+            _mm512_mul_ps(_mm512_set1_ps(-15.0f), t4)),
+        _mm512_mul_ps(_mm512_set1_ps(10.0f), t3));
 }
 
 __m512 Lerp_AVX512(__m512 t, __m512 a, __m512 b) noexcept {
@@ -22,9 +20,9 @@ __m512 Lerp_AVX512(__m512 t, __m512 a, __m512 b) noexcept {
 }
 
 __m512 Grad1D_AVX512(__m512i hash, __m512 x) noexcept {
-    __m512i h = _mm512_and_si512(hash, _mm512_set1_epi32(15)); // h & 15
+    __m512i h = _mm512_and_si512(hash, _mm512_set1_epi32(15));                                           // h & 15
     __m512 sign = _mm512_castsi512_ps(_mm512_slli_epi32(_mm512_and_si512(h, _mm512_set1_epi32(8)), 28)); // get sign bit
-    __m512 x_signed = _mm512_xor_ps(x, sign); // flip sign
+    __m512 x_signed = _mm512_xor_ps(x, sign);                                                            // flip sign
     return x_signed;
 }
 
@@ -35,26 +33,26 @@ __m512 Grad2D_AVX512(__m512i hash, __m512 x, __m512 y) noexcept {
 
     // u: choose x when (h&1)==0, else y
     __mmask16 mu = _mm512_cmpeq_epi32_mask(
-                       _mm512_and_epi32(h, _mm512_set1_epi32(1)),
-                       _mm512_setzero_epi32());
+        _mm512_and_epi32(h, _mm512_set1_epi32(1)),
+        _mm512_setzero_epi32());
     __m512 u = _mm512_mask_blend_ps(mu, y, x);
 
     // v: choose y when (h&2)!=0, else x
     // equivalently: choose x when (h&2)==0
     __mmask16 mv = _mm512_cmpeq_epi32_mask(
-                       _mm512_and_epi32(h, _mm512_set1_epi32(2)),
-                       _mm512_setzero_epi32());
+        _mm512_and_epi32(h, _mm512_set1_epi32(2)),
+        _mm512_setzero_epi32());
     __m512 v = _mm512_mask_blend_ps(mv, x, y);
 
     // apply sign flips
     __m512 sign_u = _mm512_castsi512_ps(
-                        _mm512_slli_epi32(
-                            _mm512_and_epi32(h, _mm512_set1_epi32(4)),
-                            29));
+        _mm512_slli_epi32(
+            _mm512_and_epi32(h, _mm512_set1_epi32(4)),
+            29));
     __m512 sign_v = _mm512_castsi512_ps(
-                        _mm512_slli_epi32(
-                            _mm512_and_epi32(h, _mm512_set1_epi32(8)),
-                            28));
+        _mm512_slli_epi32(
+            _mm512_and_epi32(h, _mm512_set1_epi32(8)),
+            28));
 
     u = _mm512_xor_ps(u, sign_u);
     v = _mm512_xor_ps(v, sign_v);
@@ -63,10 +61,9 @@ __m512 Grad2D_AVX512(__m512i hash, __m512 x, __m512 y) noexcept {
 }
 
 __m512 Grad3D_AVX512(__m512i hash,
-                            __m512 x,
-                            __m512 y,
-                            __m512 z) noexcept
-{
+                     __m512 x,
+                     __m512 y,
+                     __m512 z) noexcept {
     // h = hash & 15
     __m512i h = _mm512_and_epi32(hash, _mm512_set1_epi32(15));
 
@@ -83,11 +80,11 @@ __m512 Grad3D_AVX512(__m512i hash,
 
     // mask bits for v: (h&1)==0 OR (h&2)==0
     __mmask16 m1_zero = _mm512_cmpeq_epi32_mask(
-                           _mm512_and_epi32(h, _mm512_set1_epi32(1)),
-                           _mm512_setzero_epi32());
+        _mm512_and_epi32(h, _mm512_set1_epi32(1)),
+        _mm512_setzero_epi32());
     __mmask16 m2_zero = _mm512_cmpeq_epi32_mask(
-                           _mm512_and_epi32(h, _mm512_set1_epi32(2)),
-                           _mm512_setzero_epi32());
+        _mm512_and_epi32(h, _mm512_set1_epi32(2)),
+        _mm512_setzero_epi32());
     __mmask16 mask_v = m1_zero | m2_zero;
 
     // v = mask_v ? z : y
@@ -95,9 +92,9 @@ __m512 Grad3D_AVX512(__m512i hash,
 
     // sign masks: h&8 → sign of u, h&4 → sign of v
     __m512i smu = _mm512_slli_epi32(
-                      _mm512_and_epi32(h, _mm512_set1_epi32(8)), 28);
+        _mm512_and_epi32(h, _mm512_set1_epi32(8)), 28);
     __m512i smv = _mm512_slli_epi32(
-                      _mm512_and_epi32(h, _mm512_set1_epi32(4)), 29);
+        _mm512_and_epi32(h, _mm512_set1_epi32(4)), 29);
 
     // xor to flip sign bits
     u = _mm512_xor_ps(u, _mm512_castsi512_ps(smu));
@@ -107,7 +104,7 @@ __m512 Grad3D_AVX512(__m512i hash,
     return _mm512_add_ps(u, v);
 }
 
-__m512i GatherPerm_AVX512(const std::array<uint32_t, 512>& Permutations, __m512i indices) noexcept {
+__m512i GatherPerm_AVX512(const std::array<uint32_t, 512> &Permutations, __m512i indices) noexcept {
     // Mask indices to [0..511]
     __m512i masked = _mm512_and_epi32(indices, _mm512_set1_epi32(511));
 
@@ -115,7 +112,7 @@ __m512i GatherPerm_AVX512(const std::array<uint32_t, 512>& Permutations, __m512i
     return _mm512_i32gather_epi32(masked, Permutations.data(), 4);
 }
 
-__m512 Noise1D_AVX512(const std::array<uint32_t, 512>& Permutations, const __m512 x_vec) noexcept {
+__m512 Noise1D_AVX512(const std::array<uint32_t, 512> &Permutations, const __m512 x_vec) noexcept {
     // floor(x)
     __m512 cx_f = _mm512_floor_ps(x_vec);
     __m512i cx = _mm512_cvttps_epi32(cx_f);
@@ -146,7 +143,7 @@ __m512 Noise1D_AVX512(const std::array<uint32_t, 512>& Permutations, const __m51
     return res;
 }
 
-__m512 Noise2D_AVX512(const std::array<uint32_t, 512>& Permutations, const float F2, const __m512 x_vec, const __m512 y_vec) noexcept {
+__m512 Noise2D_AVX512(const std::array<uint32_t, 512> &Permutations, const float F2, const __m512 x_vec, const __m512 y_vec) noexcept {
     // floor(x)
     __m512 cx_f = _mm512_floor_ps(x_vec);
     __m512i cx = _mm512_cvttps_epi32(cx_f);
@@ -187,12 +184,12 @@ __m512 Noise2D_AVX512(const std::array<uint32_t, 512>& Permutations, const float
     // lerp along x, then y
     __m512 lerpX0 = Lerp_AVX512(u, g00, g10);
     __m512 lerpX1 = Lerp_AVX512(u, g01, g11);
-    __m512 res = _mm512_mul_ps( Lerp_AVX512(v, lerpX0, lerpX1), _mm512_set1_ps(F2) );
+    __m512 res = _mm512_mul_ps(Lerp_AVX512(v, lerpX0, lerpX1), _mm512_set1_ps(F2));
 
     return res;
 }
 
-__m512 Noise3D_AVX512(const std::array<uint32_t, 512>& Permutations, const float F3, const __m512 x_vec, const __m512 y_vec, const __m512 z_vec) noexcept {
+__m512 Noise3D_AVX512(const std::array<uint32_t, 512> &Permutations, const float F3, const __m512 x_vec, const __m512 y_vec, const __m512 z_vec) noexcept {
     // floor(x)
     __m512 cx_f = _mm512_floor_ps(x_vec);
     __m512i cx = _mm512_cvttps_epi32(cx_f);
@@ -217,17 +214,17 @@ __m512 Noise3D_AVX512(const std::array<uint32_t, 512>& Permutations, const float
 
     // compute corner perms
     __m512i pX = GatherPerm_AVX512(Permutations, X), pX1 = GatherPerm_AVX512(Permutations, XP1);
-    __m512i A   = _mm512_add_epi32(pX, Y), B  = _mm512_add_epi32(pX1, Y);
-    __m512i AA  = _mm512_add_epi32(GatherPerm_AVX512(Permutations, A), Z),
-            AB  = _mm512_add_epi32(GatherPerm_AVX512(Permutations, A), ZP1);
-    __m512i BA  = _mm512_add_epi32(GatherPerm_AVX512(Permutations, B), Z),
-            BB  = _mm512_add_epi32(GatherPerm_AVX512(Permutations, B), ZP1);
+    __m512i A = _mm512_add_epi32(pX, Y), B = _mm512_add_epi32(pX1, Y);
+    __m512i AA = _mm512_add_epi32(GatherPerm_AVX512(Permutations, A), Z),
+            AB = _mm512_add_epi32(GatherPerm_AVX512(Permutations, A), ZP1);
+    __m512i BA = _mm512_add_epi32(GatherPerm_AVX512(Permutations, B), Z),
+            BB = _mm512_add_epi32(GatherPerm_AVX512(Permutations, B), ZP1);
 
     // fetch all permutation values
-    __m512i P_AA  = GatherPerm_AVX512(Permutations, AA), PB_AA1 = GatherPerm_AVX512(Permutations, _mm512_add_epi32(AA, _mm512_set1_epi32(1)));
-    __m512i P_AB  = GatherPerm_AVX512(Permutations, AB), PB_AB1 = GatherPerm_AVX512(Permutations, _mm512_add_epi32(AB, _mm512_set1_epi32(1)));
-    __m512i P_BA  = GatherPerm_AVX512(Permutations, BA), PB_BA1 = GatherPerm_AVX512(Permutations, _mm512_add_epi32(BA, _mm512_set1_epi32(1)));
-    __m512i P_BB  = GatherPerm_AVX512(Permutations, BB), PB_BB1 = GatherPerm_AVX512(Permutations, _mm512_add_epi32(BB, _mm512_set1_epi32(1)));
+    __m512i P_AA = GatherPerm_AVX512(Permutations, AA), PB_AA1 = GatherPerm_AVX512(Permutations, _mm512_add_epi32(AA, _mm512_set1_epi32(1)));
+    __m512i P_AB = GatherPerm_AVX512(Permutations, AB), PB_AB1 = GatherPerm_AVX512(Permutations, _mm512_add_epi32(AB, _mm512_set1_epi32(1)));
+    __m512i P_BA = GatherPerm_AVX512(Permutations, BA), PB_BA1 = GatherPerm_AVX512(Permutations, _mm512_add_epi32(BA, _mm512_set1_epi32(1)));
+    __m512i P_BB = GatherPerm_AVX512(Permutations, BB), PB_BB1 = GatherPerm_AVX512(Permutations, _mm512_add_epi32(BB, _mm512_set1_epi32(1)));
 
     // Pre-calc offsets
     __m512 fxm1 = _mm512_sub_ps(fx, _mm512_set1_ps(1));
@@ -258,7 +255,7 @@ __m512 Noise3D_AVX512(const std::array<uint32_t, 512>& Permutations, const float
     return res;
 }
 
-void CPP_PerlinNoise::ArrayNoise1D_AVX512(const float* values, const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::ArrayNoise1D_AVX512(const float *values, const unsigned int length, float *out) const {
     unsigned int i = 0;
     for (; i + 16 <= length; i += 16) {
         __m512 x = _mm512_loadu_ps(&values[i]);
@@ -271,24 +268,22 @@ void CPP_PerlinNoise::ArrayNoise1D_AVX512(const float* values, const unsigned in
     }
 }
 
-void CPP_PerlinNoise::ArrayNoise2D_AVX512(const float (*values)[2], const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::ArrayNoise2D_AVX512(const float (*values)[2], const unsigned int length, float *out) const {
     unsigned int i = 0;
     for (; i + 16 <= length; i += 16) {
         __m512 x, y;
         x = _mm512_set_ps(
-            values[i+15][0], values[i+14][0], values[i+13][0], values[i+12][0],
-            values[i+11][0], values[i+10][0], values[i+9][0],  values[i+8][0],
-            values[i+7][0],  values[i+6][0],  values[i+5][0],  values[i+4][0],
-            values[i+3][0],  values[i+2][0],  values[i+1][0],  values[i+0][0]
-        );
+            values[i + 15][0], values[i + 14][0], values[i + 13][0], values[i + 12][0],
+            values[i + 11][0], values[i + 10][0], values[i + 9][0], values[i + 8][0],
+            values[i + 7][0], values[i + 6][0], values[i + 5][0], values[i + 4][0],
+            values[i + 3][0], values[i + 2][0], values[i + 1][0], values[i + 0][0]);
         y = _mm512_set_ps(
-            values[i+15][1], values[i+14][1], values[i+13][1], values[i+12][1],
-            values[i+11][1], values[i+10][1], values[i+9][1],  values[i+8][1],
-            values[i+7][1],  values[i+6][1],  values[i+5][1],  values[i+4][1],
-            values[i+3][1],  values[i+2][1],  values[i+1][1],  values[i+0][1]
-        );
+            values[i + 15][1], values[i + 14][1], values[i + 13][1], values[i + 12][1],
+            values[i + 11][1], values[i + 10][1], values[i + 9][1], values[i + 8][1],
+            values[i + 7][1], values[i + 6][1], values[i + 5][1], values[i + 4][1],
+            values[i + 3][1], values[i + 2][1], values[i + 1][1], values[i + 0][1]);
 
-        __m512 r = Noise2D_AVX512(Permutations, F2, x, y);  // Assume AVX implementation exists
+        __m512 r = Noise2D_AVX512(Permutations, F2, x, y); // Assume AVX implementation exists
         _mm512_storeu_ps(&out[i], r);
     }
 
@@ -297,28 +292,25 @@ void CPP_PerlinNoise::ArrayNoise2D_AVX512(const float (*values)[2], const unsign
     }
 }
 
-void CPP_PerlinNoise::ArrayNoise3D_AVX512(const float (*values)[3], const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::ArrayNoise3D_AVX512(const float (*values)[3], const unsigned int length, float *out) const {
     unsigned int i = 0;
     for (; i + 16 <= length; i += 16) {
         __m512 x, y, z;
         x = _mm512_set_ps(
-            values[i+15][0], values[i+14][0], values[i+13][0], values[i+12][0],
-            values[i+11][0], values[i+10][0], values[i+9][0],  values[i+8][0],
-            values[i+7][0],  values[i+6][0],  values[i+5][0],  values[i+4][0],
-            values[i+3][0],  values[i+2][0],  values[i+1][0],  values[i+0][0]
-        );
+            values[i + 15][0], values[i + 14][0], values[i + 13][0], values[i + 12][0],
+            values[i + 11][0], values[i + 10][0], values[i + 9][0], values[i + 8][0],
+            values[i + 7][0], values[i + 6][0], values[i + 5][0], values[i + 4][0],
+            values[i + 3][0], values[i + 2][0], values[i + 1][0], values[i + 0][0]);
         y = _mm512_set_ps(
-            values[i+15][1], values[i+14][1], values[i+13][1], values[i+12][1],
-            values[i+11][1], values[i+10][1], values[i+9][1],  values[i+8][1],
-            values[i+7][1],  values[i+6][1],  values[i+5][1],  values[i+4][1],
-            values[i+3][1],  values[i+2][1],  values[i+1][1],  values[i+0][1]
-        );
+            values[i + 15][1], values[i + 14][1], values[i + 13][1], values[i + 12][1],
+            values[i + 11][1], values[i + 10][1], values[i + 9][1], values[i + 8][1],
+            values[i + 7][1], values[i + 6][1], values[i + 5][1], values[i + 4][1],
+            values[i + 3][1], values[i + 2][1], values[i + 1][1], values[i + 0][1]);
         z = _mm512_set_ps(
-            values[i+15][2], values[i+14][2], values[i+13][2], values[i+12][2],
-            values[i+11][2], values[i+10][2], values[i+9][2],  values[i+8][2],
-            values[i+7][2],  values[i+6][2],  values[i+5][2],  values[i+4][2],
-            values[i+3][2],  values[i+2][2],  values[i+1][2],  values[i+0][2]
-        );
+            values[i + 15][2], values[i + 14][2], values[i + 13][2], values[i + 12][2],
+            values[i + 11][2], values[i + 10][2], values[i + 9][2], values[i + 8][2],
+            values[i + 7][2], values[i + 6][2], values[i + 5][2], values[i + 4][2],
+            values[i + 3][2], values[i + 2][2], values[i + 1][2], values[i + 0][2]);
 
         __m512 r = Noise3D_AVX512(Permutations, F3, x, y, z);
         _mm512_storeu_ps(&out[i], r);
@@ -329,7 +321,7 @@ void CPP_PerlinNoise::ArrayNoise3D_AVX512(const float (*values)[3], const unsign
     }
 }
 
-void CPP_PerlinNoise::RangeNoise1D_AVX512(const float* x_range, const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::RangeNoise1D_AVX512(const float *x_range, const unsigned int length, float *out) const {
     float x = x_range[0];
     float dx = (x_range[1] - x_range[0]) / length;
 
@@ -337,8 +329,7 @@ void CPP_PerlinNoise::RangeNoise1D_AVX512(const float* x_range, const unsigned i
 
     __m512 offset = _mm512_set_ps(
         15.f, 14.f, 13.f, 12.f, 11.f, 10.f, 9.f, 8.f,
-        7.f,  6.f,  5.f,  4.f,  3.f,  2.f, 1.f, 0.f
-    );
+        7.f, 6.f, 5.f, 4.f, 3.f, 2.f, 1.f, 0.f);
 
     for (; i + 16 <= length; i += 8) {
         __m512 dx_vec = _mm512_set1_ps(dx);
@@ -357,7 +348,7 @@ void CPP_PerlinNoise::RangeNoise1D_AVX512(const float* x_range, const unsigned i
     }
 }
 
-void CPP_PerlinNoise::RangeNoise2D_AVX512(const float* x_range, const float* y_range, const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::RangeNoise2D_AVX512(const float *x_range, const float *y_range, const unsigned int length, float *out) const {
     float x = x_range[0];
     float y = y_range[0];
     float dx = (x_range[1] - x_range[0]) / length;
@@ -367,8 +358,7 @@ void CPP_PerlinNoise::RangeNoise2D_AVX512(const float* x_range, const float* y_r
 
     __m512 offset = _mm512_set_ps(
         15.f, 14.f, 13.f, 12.f, 11.f, 10.f, 9.f, 8.f,
-        7.f,  6.f,  5.f,  4.f,  3.f,  2.f, 1.f, 0.f
-    );
+        7.f, 6.f, 5.f, 4.f, 3.f, 2.f, 1.f, 0.f);
 
     for (; i + 16 <= length; i += 16) {
         __m512 dx_vec = _mm512_set1_ps(dx);
@@ -390,7 +380,7 @@ void CPP_PerlinNoise::RangeNoise2D_AVX512(const float* x_range, const float* y_r
     }
 }
 
-void CPP_PerlinNoise::RangeNoise3D_AVX512(const float* x_range, const float* y_range, const float* z_range, const unsigned int length, float* out) const {
+void PMMA::Noise::PerlinNoise::RangeNoise3D_AVX512(const float *x_range, const float *y_range, const float *z_range, const unsigned int length, float *out) const {
     float x = x_range[0];
     float y = y_range[0];
     float z = z_range[0];
@@ -403,8 +393,7 @@ void CPP_PerlinNoise::RangeNoise3D_AVX512(const float* x_range, const float* y_r
     // Create offset vector: lanes from 0 to 15
     __m512 offset = _mm512_set_ps(
         15.f, 14.f, 13.f, 12.f, 11.f, 10.f, 9.f, 8.f,
-        7.f,  6.f,  5.f,  4.f,  3.f,  2.f, 1.f, 0.f
-    );
+        7.f, 6.f, 5.f, 4.f, 3.f, 2.f, 1.f, 0.f);
 
     for (; i + 16 <= length; i += 16) {
         __m512 dx_vec = _mm512_set1_ps(dx);

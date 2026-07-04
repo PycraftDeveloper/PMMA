@@ -13,7 +13,8 @@
 #include "General.hpp"
 #include "Logger.hpp"
 
-class CPP_Shader {
+namespace PMMA::Graphics {
+class Shader {
 private:
     bgfx::ProgramHandle ShaderProgram = BGFX_INVALID_HANDLE;
     PMMA::Logger *Logger;
@@ -60,7 +61,7 @@ this as a GitHub issue so we can add support for it.");
     }
 
 public:
-    ~CPP_Shader() {
+    ~Shader() {
         if (bgfx::isValid(ShaderProgram)) {
             bgfx::destroy(ShaderProgram);
         }
@@ -197,3 +198,4 @@ public:
 
     bgfx::ProgramHandle Use();
 };
+}

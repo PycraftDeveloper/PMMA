@@ -13,7 +13,7 @@ const bgfx::Memory *InternalLoadShader(const std::string &filePath) {
     return mem;
 }
 
-void CPP_Shader::CompileShaderComponent(
+void PMMA::Graphics::Shader::CompileShaderComponent(
     std::string RawFilePath,
     std::string CompiledFilePath,
     std::string Type) {
@@ -21,19 +21,19 @@ void CPP_Shader::CompileShaderComponent(
     bgfx::ShaderHandle shader_component = BGFX_INVALID_HANDLE;
 
     std::string PlatformName = PMMA::General::GetOperatingSystem();
-    if (PlatformName == CPP_Constants::OperatingSystems::ANDROID) {
+    if (PlatformName == PMMA::Constants::OperatingSystems::ANDROID) {
         PlatformName = "android";
-    } else if (PlatformName == CPP_Constants::OperatingSystems::EMSCRIPTEN) {
+    } else if (PlatformName == PMMA::Constants::OperatingSystems::EMSCRIPTEN) {
         PlatformName = "asm.js";
-    } else if (PlatformName == CPP_Constants::OperatingSystems::IOS) {
+    } else if (PlatformName == PMMA::Constants::OperatingSystems::IOS) {
         PlatformName = "ios";
-    } else if (PlatformName == CPP_Constants::OperatingSystems::LINUX) {
+    } else if (PlatformName == PMMA::Constants::OperatingSystems::LINUX) {
         PlatformName = "linux";
-    } else if (PlatformName == CPP_Constants::OperatingSystems::PS4) {
+    } else if (PlatformName == PMMA::Constants::OperatingSystems::PS4) {
         PlatformName = "orbis";
-    } else if (PlatformName == CPP_Constants::OperatingSystems::MACOS) {
+    } else if (PlatformName == PMMA::Constants::OperatingSystems::MACOS) {
         PlatformName = "osx";
-    } else if (PlatformName == CPP_Constants::OperatingSystems::WINDOWS) {
+    } else if (PlatformName == PMMA::Constants::OperatingSystems::WINDOWS) {
         PlatformName = "windows";
     } else {
         throw std::runtime_error("Unsupported platform: " + PlatformName);
@@ -59,7 +59,7 @@ void CPP_Shader::CompileShaderComponent(
     std::string VaryingDefLocation = std::filesystem::path(RawFilePath).parent_path().string() +
                                      PMMA::Registry::PathSeparator + "varying.def.sc";
 
-    std::string GraphicsProfile = CPP_Shader::GetGraphicsProfile();
+    std::string GraphicsProfile = PMMA::Graphics::Shader::GetGraphicsProfile();
 
     std::string command = Shader_C_Location + " -f " + RawFilePath + " -o " +
                           CompiledFilePath + " --type " + Type + " --platform " +
@@ -112,7 +112,7 @@ command listed above in your system terminal/command prompt directly.");
     }
 }
 
-void CPP_Shader::CompileShader(bool InternalShader) {
+void PMMA::Graphics::Shader::CompileShader(bool InternalShader) {
     IsInternalShader = InternalShader;
 
     std::string PlatformName = PMMA::General::GetOperatingSystem();
@@ -166,7 +166,7 @@ void CPP_Shader::CompileShader(bool InternalShader) {
     }
 }
 
-bgfx::ProgramHandle CPP_Shader::Use() {
+bgfx::ProgramHandle PMMA::Graphics::Shader::Use() {
     if (IsCompiled) {
         return ShaderProgram;
     } else {

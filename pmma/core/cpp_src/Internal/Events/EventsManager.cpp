@@ -22,77 +22,77 @@ inline std::string encode_utf8(unsigned int codepoint) {
     return out;
 }
 
-CPP_InternalTextEventManager::CPP_InternalTextEventManager() {
+PMMA::Internal::Events::InternalTextManager::InternalTextManager() {
     Active = false;
 }
 
-CPP_InternalTextEventManager::~CPP_InternalTextEventManager() {
+PMMA::Internal::Events::InternalTextManager::~InternalTextManager() {
     Active = false;
 }
 
-void CPP_InternalTextEventManager::Update(GLFWwindow *Window) {
+void PMMA::Internal::Events::InternalTextManager::Update(GLFWwindow *Window) {
     for (int i = 0; i < PMMA::Core::TextEventInstances.size(); i++) {
         PMMA::Core::TextEventInstances[i]->GenericUpdate(Window);
     }
     Active = true;
 }
 
-void CPP_InternalTextEventManager::TextCallback(GLFWwindow *window, unsigned int codepoint) {
+void PMMA::Internal::Events::InternalTextManager::TextCallback(GLFWwindow *window, unsigned int codepoint) {
     std::string NewTextContent = encode_utf8(codepoint);
     for (int i = 0; i < PMMA::Core::TextEventInstances.size(); i++) {
         PMMA::Core::TextEventInstances[i]->Update(NewTextContent);
     }
 }
 
-CPP_InternalMousePositionEventManager::CPP_InternalMousePositionEventManager() {
+PMMA::Internal::Events::InternalMousePositionManager::InternalMousePositionManager() {
     Active = false;
 }
 
-CPP_InternalMousePositionEventManager::~CPP_InternalMousePositionEventManager() {
+PMMA::Internal::Events::InternalMousePositionManager::~InternalMousePositionManager() {
     Active = false;
 }
 
-void CPP_InternalMousePositionEventManager::Update(GLFWwindow *Window) {
+void PMMA::Internal::Events::InternalMousePositionManager::Update(GLFWwindow *Window) {
     Active = true;
 }
 
-void CPP_InternalMousePositionEventManager::CursorPositionCallback(GLFWwindow *window, double xpos, double ypos) {
+void PMMA::Internal::Events::InternalMousePositionManager::CursorPositionCallback(GLFWwindow *window, double xpos, double ypos) {
     for (unsigned int i = 0; i < PMMA::Core::MousePositionEvent_Instances.size(); i++) {
         PMMA::Core::MousePositionEvent_Instances[i]->Update(static_cast<float>(xpos), static_cast<float>(ypos));
     }
 }
 
-CPP_InternalMouseEnterWindowEventManager::CPP_InternalMouseEnterWindowEventManager() {
+PMMA::Internal::Events::InternalMouseEnterWindowManager::InternalMouseEnterWindowManager() {
     Active = false;
 }
 
-CPP_InternalMouseEnterWindowEventManager::~CPP_InternalMouseEnterWindowEventManager() {
+PMMA::Internal::Events::InternalMouseEnterWindowManager::~InternalMouseEnterWindowManager() {
     Active = false;
 }
 
-void CPP_InternalMouseEnterWindowEventManager::Update(GLFWwindow *Window) {
+void PMMA::Internal::Events::InternalMouseEnterWindowManager::Update(GLFWwindow *Window) {
     Active = true;
 }
 
-void CPP_InternalMouseEnterWindowEventManager::CursorEnterCallback(GLFWwindow *window, int entered) {
+void PMMA::Internal::Events::InternalMouseEnterWindowManager::CursorEnterCallback(GLFWwindow *window, int entered) {
     for (unsigned int i = 0; i < PMMA::Core::MouseEnterWindowEvent_Instances.size(); i++) {
         PMMA::Core::MouseEnterWindowEvent_Instances[i]->Update(entered);
     }
 }
 
-CPP_InternalMouseButtonEventManager::CPP_InternalMouseButtonEventManager() {
+PMMA::Internal::Events::InternalMouseButtonManager::InternalMouseButtonManager() {
     Active = false;
 }
 
-CPP_InternalMouseButtonEventManager::~CPP_InternalMouseButtonEventManager() {
+PMMA::Internal::Events::InternalMouseButtonManager::~InternalMouseButtonManager() {
     Active = false;
 }
 
-void CPP_InternalMouseButtonEventManager::Update(GLFWwindow *Window) {
+void PMMA::Internal::Events::InternalMouseButtonManager::Update(GLFWwindow *Window) {
     Active = true;
 }
 
-void CPP_InternalMouseButtonEventManager::MouseButtonCallback(GLFWwindow *window, int button, int action, int mods) {
+void PMMA::Internal::Events::InternalMouseButtonManager::MouseButtonCallback(GLFWwindow *window, int button, int action, int mods) {
     if (button == GLFW_MOUSE_BUTTON_LEFT) {
         for (unsigned int i = 0; i < PMMA::Core::MouseButtonEvent_Left_Instances.size(); i++) {
             PMMA::Core::MouseButtonEvent_Left_Instances[i]->Update(action != GLFW_RELEASE);
@@ -130,34 +130,34 @@ void CPP_InternalMouseButtonEventManager::MouseButtonCallback(GLFWwindow *window
     }
 }
 
-CPP_InternalMouseScrollEventManager::CPP_InternalMouseScrollEventManager() {
+PMMA::Internal::Events::InternalMouseScrollManager::InternalMouseScrollManager() {
     Active = false;
 }
 
-CPP_InternalMouseScrollEventManager::~CPP_InternalMouseScrollEventManager() {
+PMMA::Internal::Events::InternalMouseScrollManager::~InternalMouseScrollManager() {
     Active = false;
 }
 
-void CPP_InternalMouseScrollEventManager::Update(GLFWwindow *Window) {
+void PMMA::Internal::Events::InternalMouseScrollManager::Update(GLFWwindow *Window) {
     Active = true;
 }
 
-void CPP_InternalMouseScrollEventManager::ScrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
+void PMMA::Internal::Events::InternalMouseScrollManager::ScrollCallback(GLFWwindow *window, double xoffset, double yoffset) {
     for (int i = 0; i < PMMA::Core::MouseScrollEventInstances.size(); i++) {
         PMMA::Core::MouseScrollEventInstances[i]->Update(xoffset, yoffset);
     }
 }
 
-CPP_InternalControllerEventManager::CPP_InternalControllerEventManager() {
+PMMA::Internal::Events::InternalControllerManager::InternalControllerManager() {
     Active = false;
 
     for (unsigned int i = 0; i < 16; i++) {
-        PMMA::Core::InternalControllerEventInstances.emplace_back(new CPP_InternalControllerEvent(i));
+        PMMA::Core::InternalControllerEventInstances.emplace_back(new PMMA::Internal::Events::InternalController(i));
         PMMA::Core::InternalControllerEventInstances[i]->UpdateConnection(glfwJoystickPresent(i) == GLFW_TRUE);
     }
 }
 
-CPP_InternalControllerEventManager::~CPP_InternalControllerEventManager() {
+PMMA::Internal::Events::InternalControllerManager::~InternalControllerManager() {
     Active = false;
 
     for (unsigned int i = 0; i < 16; i++) {
@@ -166,8 +166,8 @@ CPP_InternalControllerEventManager::~CPP_InternalControllerEventManager() {
     PMMA::Core::InternalControllerEventInstances.clear();
 }
 
-void CPP_InternalControllerEventManager::Update(GLFWwindow *Window) {
-    std::vector<CPP_InternalControllerEvent *> ConnectedControllers;
+void PMMA::Internal::Events::InternalControllerManager::Update(GLFWwindow *Window) {
+    std::vector<PMMA::Internal::Events::InternalController *> ConnectedControllers;
     for (int i = 0; i < PMMA::Core::InternalControllerEventInstances.size(); i++) {
         if (PMMA::Core::InternalControllerEventInstances[i]->GetConnected()) {
             ConnectedControllers.push_back(PMMA::Core::InternalControllerEventInstances[i]);
@@ -186,23 +186,23 @@ void CPP_InternalControllerEventManager::Update(GLFWwindow *Window) {
     }
 }
 
-void CPP_InternalControllerEventManager::JoystickCallback(int jid, int event) {
+void PMMA::Internal::Events::InternalControllerManager::JoystickCallback(int jid, int event) {
     PMMA::Core::InternalControllerEventInstances[jid]->UpdateConnection(event == GLFW_CONNECTED);
 }
 
-CPP_InternalDropEventManager::CPP_InternalDropEventManager() {
+PMMA::Internal::Events::InternalDropManager::InternalDropManager() {
     Active = false;
 }
 
-CPP_InternalDropEventManager::~CPP_InternalDropEventManager() {
+PMMA::Internal::Events::InternalDropManager::~InternalDropManager() {
     Active = false;
 }
 
-void CPP_InternalDropEventManager::Update(GLFWwindow *Window) {
+void PMMA::Internal::Events::InternalDropManager::Update(GLFWwindow *Window) {
     Active = true;
 }
 
-void CPP_InternalDropEventManager::DropCallback(GLFWwindow *window, int count, const char **paths) {
+void PMMA::Internal::Events::InternalDropManager::DropCallback(GLFWwindow *window, int count, const char **paths) {
     std::vector<std::string> PathList;
     for (int i = 0; i < count; i++) {
         PathList.push_back(paths[i]);
@@ -213,20 +213,20 @@ void CPP_InternalDropEventManager::DropCallback(GLFWwindow *window, int count, c
     }
 }
 
-CPP_InternalKeyEventManager::CPP_InternalKeyEventManager() {
+PMMA::Internal::Events::InternalKeyManager::InternalKeyManager() {
     Active = false;
 
-    Left_Shift_Instance = new CPP_KeyEvent_Left_Shift();
-    Right_Shift_Instance = new CPP_KeyEvent_Right_Shift();
-    Left_Control_Instance = new CPP_KeyEvent_Left_Control();
-    Right_Control_Instance = new CPP_KeyEvent_Right_Control();
-    Left_Alt_Instance = new CPP_KeyEvent_Left_Alt();
-    Right_Alt_Instance = new CPP_KeyEvent_Right_Alt();
-    Left_Super_Instance = new CPP_KeyEvent_Left_Super();
-    Right_Super_Instance = new CPP_KeyEvent_Right_Super();
+    Left_Shift_Instance = new PMMA::Events::Key_Left_Shift();
+    Right_Shift_Instance = new PMMA::Events::Key_Right_Shift();
+    Left_Control_Instance = new PMMA::Events::Key_Left_Control();
+    Right_Control_Instance = new PMMA::Events::Key_Right_Control();
+    Left_Alt_Instance = new PMMA::Events::Key_Left_Alt();
+    Right_Alt_Instance = new PMMA::Events::Key_Right_Alt();
+    Left_Super_Instance = new PMMA::Events::Key_Left_Super();
+    Right_Super_Instance = new PMMA::Events::Key_Right_Super();
 }
 
-CPP_InternalKeyEventManager::~CPP_InternalKeyEventManager() {
+PMMA::Internal::Events::InternalKeyManager::~InternalKeyManager() {
     Active = false;
 
     delete Left_Shift_Instance;
@@ -248,7 +248,7 @@ CPP_InternalKeyEventManager::~CPP_InternalKeyEventManager() {
     Right_Super_Instance = nullptr;
 }
 
-void CPP_InternalKeyEventManager::Update(GLFWwindow *Window) {
+void PMMA::Internal::Events::InternalKeyManager::Update(GLFWwindow *Window) {
     for (unsigned int i = 0; i < PMMA::Core::KeyEvent_Shift_Instances.size(); i++) {
         PMMA::Core::KeyEvent_Shift_Instances[i]->Update((Left_Shift_Instance->GetPressed() || Right_Shift_Instance->GetPressed()));
     }
@@ -268,7 +268,7 @@ void CPP_InternalKeyEventManager::Update(GLFWwindow *Window) {
     Active = true;
 }
 
-void CPP_InternalKeyEventManager::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+void PMMA::Internal::Events::InternalKeyManager::KeyCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if (key == GLFW_KEY_SPACE) {
         for (unsigned int i = 0; i < PMMA::Core::KeyEvent_Space_Instances.size(); i++) {
             PMMA::Core::KeyEvent_Space_Instances[i]->Update(action != GLFW_RELEASE);

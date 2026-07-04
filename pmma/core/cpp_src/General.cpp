@@ -31,7 +31,7 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             PMMA::Registry::IsPowerSavingModeEnabled = true;
             PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
             if (!PMMA::Registry::UserDefinedShapeQuality) {
-                PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+                PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY * 0.5f;
             }
             return true;
         }
@@ -44,7 +44,7 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             PMMA::Registry::IsPowerSavingModeEnabled = true;
             PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
             if (!PMMA::Registry::UserDefinedShapeQuality) {
-                PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+                PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY * 0.5f;
             }
             return true; // Low battery test
         }
@@ -58,7 +58,7 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
     PMMA::Registry::IsPowerSavingModeEnabled = false;
     PMMA::Core::PowerSavingManagerInstance.updateCounter = 15;
     if (!PMMA::Registry::UserDefinedShapeQuality) {
-        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
     }
     return false;
 
@@ -79,7 +79,7 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                     PMMA::Registry::IsPowerSavingModeEnabled = true;
                     PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
                     if (!PMMA::Registry::UserDefinedShapeQuality) {
-                        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+                        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY * 0.5f;
                     }
                     return true;
                 }
@@ -96,7 +96,7 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
     PMMA::Registry::IsPowerSavingModeEnabled = false;
     PMMA::Core::PowerSavingManagerInstance.updateCounter = 15;
     if (!PMMA::Registry::UserDefinedShapeQuality) {
-        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
     }
     return false;
 
@@ -115,7 +115,7 @@ checking using PMMA.");
     PMMA::Core::PowerSavingManagerInstance.running = false;
     PMMA::Core::PowerSavingManagerInstance.updateCounter = 5;
     if (!PMMA::Registry::UserDefinedShapeQuality) {
-        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
     }
     return false;
 #endif
@@ -237,7 +237,7 @@ float PMMA::General::GetShapeQuality() {
 }
 
 void PMMA::General::SetShapeQuality(float ShapeQuality) {
-    if (ShapeQuality > CPP_Constants::SHAPE_QUALITY) {
+    if (ShapeQuality > PMMA::Constants::SHAPE_QUALITY) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             41,
             "You have set the shape quality to a very high value of: " +
@@ -251,9 +251,9 @@ issues. Please consider setting the shape quality to a lower value.");
 
 void PMMA::General::Let_PMMA_ControlShapeQuality() {
     if (PMMA::Registry::IsPowerSavingModeEnabled) {
-        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY * 0.5f;
+        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY * 0.5f;
     } else {
-        PMMA::Registry::CurrentShapeQuality = CPP_Constants::SHAPE_QUALITY;
+        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
     }
     PMMA::Registry::UserDefinedShapeQuality = false;
 }
@@ -268,37 +268,37 @@ std::string PMMA::General::GetLocale() {
 
 std::string PMMA::General::GetOperatingSystem() {
 #if BX_PLATFORM_ANDROID
-    return std::string(CPP_Constants::OperatingSystems::ANDROID);
+    return std::string(PMMA::Constants::OperatingSystems::ANDROID);
 #elif BX_PLATFORM_BSD
-    return std::string(CPP_Constants::OperatingSystems::BSD);
+    return std::string(PMMA::Constants::OperatingSystems::BSD);
 #elif BX_PLATFORM_EMSCRIPTEN
-    return std::string(CPP_Constants::OperatingSystems::EMSCRIPTEN);
+    return std::string(PMMA::Constants::OperatingSystems::EMSCRIPTEN);
 #elif BX_PLATFORM_HAIKU
-    return std::string(CPP_Constants::OperatingSystems::HAIKU);
+    return std::string(PMMA::Constants::OperatingSystems::HAIKU);
 #elif BX_PLATFORM_HURD
-    return std::string(CPP_Constants::OperatingSystems::HURD);
+    return std::string(PMMA::Constants::OperatingSystems::HURD);
 #elif BX_PLATFORM_IOS
-    return std::string(CPP_Constants::OperatingSystems::IOS);
+    return std::string(PMMA::Constants::OperatingSystems::IOS);
 #elif BX_PLATFORM_LINUX
-    return std::string(CPP_Constants::OperatingSystems::LINUX);
+    return std::string(PMMA::Constants::OperatingSystems::LINUX);
 #elif BX_PLATFORM_NX
-    return std::string(CPP_Constants::OperatingSystems::NX);
+    return std::string(PMMA::Constants::OperatingSystems::NX);
 #elif BX_PLATFORM_OSX
-    return std::string(CPP_Constants::OperatingSystems::OSX);
+    return std::string(PMMA::Constants::OperatingSystems::OSX);
 #elif BX_PLATFORM_PS4
-    return std::string(CPP_Constants::OperatingSystems::PS4);
+    return std::string(PMMA::Constants::OperatingSystems::PS4);
 #elif BX_PLATFORM_PS5
-    return std::string(CPP_Constants::OperatingSystems::PS5);
+    return std::string(PMMA::Constants::OperatingSystems::PS5);
 #elif BX_PLATFORM_VISIONOS
-    return std::string(CPP_Constants::OperatingSystems::VISIONOS);
+    return std::string(PMMA::Constants::OperatingSystems::VISIONOS);
 #elif BX_PLATFORM_WINDOWS
-    return std::string(CPP_Constants::OperatingSystems::WINDOWS);
+    return std::string(PMMA::Constants::OperatingSystems::WINDOWS);
 #elif BX_PLATFORM_WINRT
-    return std::string(CPP_Constants::OperatingSystems::WINRT);
+    return std::string(PMMA::Constants::OperatingSystems::WINRT);
 #elif BX_PLATFORM_XBOXONE
-    return std::string(CPP_Constants::OperatingSystems::XBOXONE);
+    return std::string(PMMA::Constants::OperatingSystems::XBOXONE);
 #else
-    return std::string(CPP_Constants::OperatingSystems::UNKNOWN);
+    return std::string(PMMA::Constants::OperatingSystems::UNKNOWN);
 #endif
 }
 
@@ -307,24 +307,24 @@ std::string PMMA::General::GetGraphicsBackend() {
 
     switch (backend) {
     case bgfx::RendererType::Noop:
-        return std::string(CPP_Constants::GraphicsBackends::NO_RENDERER);
+        return std::string(PMMA::Constants::GraphicsBackends::NO_RENDERER);
     case bgfx::RendererType::Direct3D11:
-        return std::string(CPP_Constants::GraphicsBackends::DIRECT3D11);
+        return std::string(PMMA::Constants::GraphicsBackends::DIRECT3D11);
     case bgfx::RendererType::Direct3D12:
-        return std::string(CPP_Constants::GraphicsBackends::DIRECT3D12);
+        return std::string(PMMA::Constants::GraphicsBackends::DIRECT3D12);
     case bgfx::RendererType::Gnm:
-        return std::string(CPP_Constants::GraphicsBackends::GNM);
+        return std::string(PMMA::Constants::GraphicsBackends::GNM);
     case bgfx::RendererType::Metal:
-        return std::string(CPP_Constants::GraphicsBackends::METAL);
+        return std::string(PMMA::Constants::GraphicsBackends::METAL);
     case bgfx::RendererType::Nvn:
-        return std::string(CPP_Constants::GraphicsBackends::NVN);
+        return std::string(PMMA::Constants::GraphicsBackends::NVN);
     case bgfx::RendererType::OpenGLES:
-        return std::string(CPP_Constants::GraphicsBackends::OPENGL_ES);
+        return std::string(PMMA::Constants::GraphicsBackends::OPENGL_ES);
     case bgfx::RendererType::OpenGL:
-        return std::string(CPP_Constants::GraphicsBackends::OPENGL);
+        return std::string(PMMA::Constants::GraphicsBackends::OPENGL);
     case bgfx::RendererType::Vulkan:
-        return std::string(CPP_Constants::GraphicsBackends::VULKAN);
+        return std::string(PMMA::Constants::GraphicsBackends::VULKAN);
     default:
-        return std::string(CPP_Constants::GraphicsBackends::UNKNOWN);
+        return std::string(PMMA::Constants::GraphicsBackends::UNKNOWN);
     }
 }

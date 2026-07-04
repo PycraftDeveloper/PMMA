@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-bool CPP_AnimationManager::Update() {
+bool PMMA::Internal::AnimationManager::Update() {
     std::chrono::time_point<std::chrono::high_resolution_clock> CurrentTime = std::chrono::high_resolution_clock::now();
 
     std::chrono::duration<float> FrameTime;
@@ -14,7 +14,7 @@ bool CPP_AnimationManager::Update() {
 
     LastFrameTime = CurrentTime;
 
-    std::vector<CPP_AnimationCore*> FinishedAnimations;
+    std::vector<PMMA::Internal::AnimationCore *> FinishedAnimations;
 
     for (unsigned int i = 0; i < CurrentlyPlayingAnimations.size(); i++) {
         if (CurrentlyPlayingAnimations[i]->Update(FrameTime)) {

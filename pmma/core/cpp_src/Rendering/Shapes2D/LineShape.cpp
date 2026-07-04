@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-void PMMA::Rendering::TwoD::CPP_Line::Render() {
+void PMMA::Rendering::TwoD::Shapes::Line::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged |= ShapeStart.GetChangedToggle() || ShapeEnd.GetChangedToggle();
     }

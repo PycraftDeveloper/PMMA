@@ -49,12 +49,12 @@
 
 #include "Constants.hpp"
 #include "Display.hpp"
-#include "FractalBrownianMotion.hpp"
 #include "General.hpp"
 #include "Logger.hpp"
 #include "Maths.hpp"
+#include "Noise/FractalBrownianMotion.hpp"
+#include "Noise/PerlinNoise.hpp"
 #include "Passport.hpp"
-#include "PerlinNoise.hpp"
 #include "Random.hpp"
 #include "Types.hpp"
 
@@ -192,7 +192,7 @@ extern std::vector<PMMA::Events::KeyPad_Add *> KeyPadEvent_Add_Instances;
 extern std::vector<PMMA::Events::KeyPad_Enter *> KeyPadEvent_Enter_Instances;
 extern std::vector<PMMA::Events::KeyPad_Equal *> KeyPadEvent_Equal_Instances;
 
-extern std::vector<CPP_TextEvent *> TextEventInstances;
+extern std::vector<PMMA::Events::Text *> TextEventInstances;
 
 extern std::vector<PMMA::Events::Mouse_Position *> MousePositionEvent_Instances;
 extern std::vector<PMMA::Events::Mouse_EnterWindow *> MouseEnterWindowEvent_Instances;
@@ -200,18 +200,18 @@ extern std::vector<PMMA::Events::Mouse_EnterWindow *> MouseEnterWindowEvent_Inst
 extern std::vector<PMMA::Events::Mouse_Button_Left *> MouseButtonEvent_Left_Instances;
 extern std::vector<PMMA::Events::Mouse_Button_Right *> MouseButtonEvent_Right_Instances;
 extern std::vector<PMMA::Events::Mouse_Button_Middle *> MouseButtonEvent_Middle_Instances;
-extern std::vector<PMMA::Events::MouseButton_0 *> MouseButtonEvent_0_Instances;
-extern std::vector<PMMA::Events::MouseButton_1 *> MouseButtonEvent_1_Instances;
-extern std::vector<PMMA::Events::MouseButton_2 *> MouseButtonEvent_2_Instances;
-extern std::vector<PMMA::Events::MouseButton_3 *> MouseButtonEvent_3_Instances;
-extern std::vector<PMMA::Events::MouseButton_4 *> MouseButtonEvent_4_Instances;
+extern std::vector<PMMA::Events::Mouse_Button_0 *> MouseButtonEvent_0_Instances;
+extern std::vector<PMMA::Events::Mouse_Button_1 *> MouseButtonEvent_1_Instances;
+extern std::vector<PMMA::Events::Mouse_Button_2 *> MouseButtonEvent_2_Instances;
+extern std::vector<PMMA::Events::Mouse_Button_3 *> MouseButtonEvent_3_Instances;
+extern std::vector<PMMA::Events::Mouse_Button_4 *> MouseButtonEvent_4_Instances;
 
 extern std::vector<PMMA::Events::Mouse_Scroll *> MouseScrollEventInstances;
 
 extern std::vector<PMMA::Internal::Events::InternalController *> InternalControllerEventInstances;
 extern std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
 
-extern std::vector<CPP_DropEvent *> DropEvent_Instances;
+extern std::vector<PMMA::Events::Drop *> DropEvent_Instances;
 
 extern PMMA::Internal::Events::InternalKeyManager *KeyManagerInstance;
 extern PMMA::Internal::Events::InternalTextManager *TextManagerInstance;
@@ -222,14 +222,14 @@ extern PMMA::Internal::Events::InternalMouseScrollManager *MouseScrollManagerIns
 extern PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance;
 extern PMMA::Internal::Events::InternalDropManager *DropManagerInstance;
 
-extern CPP_Passport *PassportInstance;
-extern CPP_LoggingManager *LoggingManagerInstance;
+extern PMMA::Passport *PassportInstance;
+extern PMMA::Internal::LoggingManager *LoggingManagerInstance;
 
 extern PowerSavingManager PowerSavingManagerInstance;
 
-extern CPP_AnimationManager *AnimationManagerInstance;
+extern PMMA::Internal::AnimationManager *AnimationManagerInstance;
 
-extern CPP_FastRandom *RandomGenerator;
+extern PMMA::FastRandom *RandomGenerator;
 } // namespace PMMA::Core
 
 namespace PMMA::Registry {

@@ -9,7 +9,7 @@
 #include "Types.hpp"
 
 namespace PMMA::Animation {
-class EXPORT RadialAnimation : public CPP_AnimationCore {
+class EXPORT RadialAnimation : public PMMA::Internal::AnimationCore {
 public:
     PMMA::Types::DisplayCoordinate *TargetCoordinatePtr;
     PMMA::Types::DisplayCoordinate *StartCoordinatePtr;

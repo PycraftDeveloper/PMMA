@@ -9,7 +9,7 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
-PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::CPP_RenderPipelineInstance() {
+PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstance() {
     m_layout.begin()
         .add(bgfx::Attrib::Position, 2, bgfx::AttribType::Float)
         .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
@@ -42,7 +42,7 @@ PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::CPP_RenderPipelin
         PMMA::Registry::PathSeparator +
         "ShapeDefinitions";
 
-    ShapeDefinitionsShaderProgram = new CPP_Shader();
+    ShapeDefinitionsShaderProgram = new PMMA::Graphics::Shader();
     ShapeDefinitionsShaderProgram->LoadShaderFromFolder(
         ShaderPath,
         true);
@@ -82,7 +82,7 @@ PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::CPP_RenderPipelin
             (uint32_t)std::numeric_limits<uint16_t>::max());
 }
 
-void PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::Render() {
+void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
     if (ColorChanged || !ColorTexture.UsingCache) {
         PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
 
@@ -146,7 +146,7 @@ void PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineInstance::Render() {
         0,
         PreviousBufferSize);
 
-    bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTexture, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
+    bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
 
     bgfx::setState(
         BGFX_STATE_WRITE_RGB |

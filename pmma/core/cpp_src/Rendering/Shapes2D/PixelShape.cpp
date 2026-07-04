@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-void PMMA::Rendering::TwoD::CPP_Pixel::Render() {
+void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged = ShapeCenter.GetChangedToggle();
     }

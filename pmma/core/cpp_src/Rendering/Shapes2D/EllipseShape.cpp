@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-void PMMA::Rendering::TwoD::CPP_Ellipse::GetSize(uint16_t *out_size) {
+void PMMA::Rendering::TwoD::Shapes::Ellipse::GetSize(uint16_t *out_size) {
     if (!ShapeSizeSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -12,7 +12,7 @@ please use `Ellipse.SetSize` to set it before attempting to get it.");
     out_size[1] = ShapeSize[1];
 }
 
-void PMMA::Rendering::TwoD::CPP_Ellipse::Render() {
+void PMMA::Rendering::TwoD::Shapes::Ellipse::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged = ShapeCenter.GetChangedToggle();
     }

@@ -57,17 +57,17 @@ void ClearOldLogs(std::string LogDirectory, unsigned int KeepCount) {
     }
 }
 
-CPP_LoggingManager::CPP_LoggingManager() {
+PMMA::Internal::LoggingManager::LoggingManager() {
     LogDebug = PMMA::Registry::IsDebuggingModeEnabled;
 }
 
-CPP_LoggingManager::~CPP_LoggingManager() {
+PMMA::Internal::LoggingManager::~LoggingManager() {
     if (LogToFile && std::filesystem::exists(LogFileLocation)) {
         ClearOldLogs(LogFileLocation, KeepCount);
     }
 }
 
-void CPP_LoggingManager::SetLogToFile(bool NewLogToFile) {
+void PMMA::Internal::LoggingManager::SetLogToFile(bool NewLogToFile) {
     LogToFile = NewLogToFile;
     LogToFileSpecifiedByUser = true;
 
@@ -107,7 +107,7 @@ cannot be stored and only displayed at runtime.");
     LogToFileSpecifiedByUser = false;
 }
 
-void CPP_LoggingManager::Log(std::string Content) {
+void PMMA::Internal::LoggingManager::Log(std::string Content) {
     if (LogToConsole) {
 #ifdef USE_PYTHON
         PyGILState_STATE gstate = PyGILState_Ensure();
@@ -127,7 +127,7 @@ void CPP_LoggingManager::Log(std::string Content) {
     }
 }
 
-void CPP_LoggingManager::FileCatchUp() {
+void PMMA::Internal::LoggingManager::FileCatchUp() {
     if (LogToFile && ContentToLogToFile.size() > 0) {
         std::string fullPath = LogFileLocation + PMMA::Registry::PathSeparator + LogFileName;
 
@@ -154,14 +154,14 @@ void CPP_LoggingManager::FileCatchUp() {
     }
 }
 
-void CPP_LoggingManager::SetLogFileLocation(std::string NewLogFileLocation) {
+void PMMA::Internal::LoggingManager::SetLogFileLocation(std::string NewLogFileLocation) {
     LogFileLocation = NewLogFileLocation;
     LogFileName = GenerateLogFileName() + ".txt";
 
     FileCatchUp();
 }
 
-void CPP_LoggingManager::InternalLogDebug(int ID, std::string Content, bool RepeatForEffect) {
+void PMMA::Internal::LoggingManager::InternalLogDebug(int ID, std::string Content, bool RepeatForEffect) {
     if (!LogDebug) {
         return;
     }
@@ -181,7 +181,7 @@ void CPP_LoggingManager::InternalLogDebug(int ID, std::string Content, bool Repe
     }
 }
 
-void CPP_LoggingManager::ExternalLogDebug(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
+void PMMA::Internal::LoggingManager::ExternalLogDebug(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogDebug) {
         return;
     }
@@ -221,7 +221,7 @@ void CPP_LoggingManager::ExternalLogDebug(std::string ID, std::string Content, s
     }
 }
 
-void CPP_LoggingManager::ExternalLogInfo(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
+void PMMA::Internal::LoggingManager::ExternalLogInfo(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogInfo) {
         return;
     }
@@ -259,7 +259,7 @@ void CPP_LoggingManager::ExternalLogInfo(std::string ID, std::string Content, st
     }
 }
 
-void CPP_LoggingManager::ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
+void PMMA::Internal::LoggingManager::ExternalLogWarn(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogWarn) {
         return;
     }
@@ -297,7 +297,7 @@ void CPP_LoggingManager::ExternalLogWarn(std::string ID, std::string Content, st
     }
 }
 
-void CPP_LoggingManager::ExternalLogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
+void PMMA::Internal::LoggingManager::ExternalLogError(std::string ID, std::string Content, std::string ProductName, bool RepeatForEffect) {
     if (!LogError) {
         return;
     }

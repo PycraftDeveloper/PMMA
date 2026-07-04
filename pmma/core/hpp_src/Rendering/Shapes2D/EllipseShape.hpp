@@ -10,8 +10,8 @@
 #include "Logger.hpp"
 #include "Types.hpp"
 
-namespace PMMA::Rendering::TwoD {
-class EXPORT CPP_Ellipse {
+namespace PMMA::Rendering::TwoD::Shapes {
+class EXPORT Ellipse {
 public:
     PMMA::Types::DisplayCoordinate ShapeCenter;
     PMMA::Types::Color Color;
@@ -30,7 +30,7 @@ public:
     bool ShapePropertyChanged = true;
     bool ShapeSizeSet = false;
 
-    inline CPP_Ellipse() {
+    inline Ellipse() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 

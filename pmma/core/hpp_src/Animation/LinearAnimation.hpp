@@ -10,7 +10,7 @@
 #include "Types.hpp"
 
 namespace PMMA::Animation {
-class EXPORT LinearAnimation : public CPP_AnimationCore {
+class EXPORT LinearAnimation : public PMMA::Internal::AnimationCore {
 public:
     PMMA::Types::DisplayCoordinate *TargetCoordinatePtr;
     PMMA::Types::DisplayCoordinate *StartCoordinatePtr;

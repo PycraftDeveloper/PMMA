@@ -56,20 +56,20 @@ void remove_last_utf8_char(std::string &text) {
     text.erase(start);
 };
 
-CPP_TextEvent::CPP_TextEvent() {
+PMMA::Events::Text::Text() {
     PMMA::Core::TextEventInstances.push_back(this);
 
-    Control_KeyEventPtr = new CPP_KeyEvent_Control();
-    Shift_KeyEventPtr = new CPP_KeyEvent_Shift();
-    V_KeyEventPtr = new CPP_KeyEvent_V();
-    Insert_KeyEventPtr = new CPP_KeyEvent_Insert();
-    Delete_KeyEventPtr = new CPP_KeyEvent_Delete();
-    Backspace_KeyEventPtr = new CPP_KeyEvent_Backspace();
+    Control_KeyEventPtr = new PMMA::Events::Key_Control();
+    Shift_KeyEventPtr = new PMMA::Events::Key_Shift();
+    V_KeyEventPtr = new PMMA::Events::Key_V();
+    Insert_KeyEventPtr = new PMMA::Events::Key_Insert();
+    Delete_KeyEventPtr = new PMMA::Events::Key_Delete();
+    Backspace_KeyEventPtr = new PMMA::Events::Key_Backspace();
 
     PMMA::Registry::TextEventInstanceCount++;
 };
 
-CPP_TextEvent::~CPP_TextEvent() {
+PMMA::Events::Text::~Text() {
     auto it = find(PMMA::Core::TextEventInstances.begin(), PMMA::Core::TextEventInstances.end(), this);
     if (it != PMMA::Core::TextEventInstances.end()) {
         PMMA::Core::TextEventInstances.erase(it);
@@ -85,25 +85,25 @@ CPP_TextEvent::~CPP_TextEvent() {
     PMMA::Registry::TextEventInstanceCount--;
 };
 
-void CPP_TextEvent::RemoveBack() {
+void PMMA::Events::Text::RemoveBack() {
     if (!IsEnabled) {
         return;
     }
-    if (!Text.empty()) {
-        remove_last_utf8_char(Text);
+    if (!TextBuffer.empty()) {
+        remove_last_utf8_char(TextBuffer);
     }
 };
 
-void CPP_TextEvent::RemoveFront() {
+void PMMA::Events::Text::RemoveFront() {
     if (!IsEnabled) {
         return;
     }
-    if (Text.size() > 0) {
-        remove_utf8_char(Text, 0);
+    if (TextBuffer.size() > 0) {
+        remove_utf8_char(TextBuffer, 0);
     }
 };
 
-void CPP_TextEvent::GenericUpdate(GLFWwindow *window) {
+void PMMA::Events::Text::GenericUpdate(GLFWwindow *window) {
     if (!IsEnabled) {
         return;
     }
@@ -139,13 +139,13 @@ void CPP_TextEvent::GenericUpdate(GLFWwindow *window) {
     }
 };
 
-CPP_DropEvent::CPP_DropEvent() {
+PMMA::Events::Drop::Drop() {
     PMMA::Core::DropEvent_Instances.push_back(this);
 
     PMMA::Registry::DropEventInstanceCount++;
 };
 
-CPP_DropEvent::~CPP_DropEvent() {
+PMMA::Events::Drop::~Drop() {
     auto it = find(PMMA::Core::DropEvent_Instances.begin(), PMMA::Core::DropEvent_Instances.end(), this);
     if (it != PMMA::Core::DropEvent_Instances.end()) {
         PMMA::Core::DropEvent_Instances.erase(it);

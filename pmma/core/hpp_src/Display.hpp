@@ -116,7 +116,7 @@ public:
     PMMA::Events::Key_F11 *F11_KeyEvent;
     PMMA::Events::Key_Escape *Escape_KeyEvent;
 
-    PMMA::Internal::Rendering::Core2D::CPP_RenderPipelineManager *RenderPipelineCore;
+    PMMA::Internal::Rendering::Core2D::RenderPipelineManager *RenderPipelineCore;
 
     unsigned char DisplayID = 0;
 

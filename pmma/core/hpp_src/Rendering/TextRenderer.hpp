@@ -6,7 +6,8 @@
 
 #include <glm/glm.hpp>
 
-class EXPORT CPP_TextRenderer {
+namespace PMMA::Rendering::Core2D {
+class EXPORT TextRenderer {
 public:
     PMMA::Types::DisplayCoordinate *Position;
     PMMA::Types::Color *ForegroundColor;
@@ -25,9 +26,9 @@ public:
     bool GlyphsPrepared = false;
     bool Changed = true;
 
-    CPP_TextRenderer();
+    TextRenderer();
 
-    ~CPP_TextRenderer() {
+    ~TextRenderer() {
         if (Logger != nullptr) {
             delete Logger;
             Logger = nullptr;
@@ -96,3 +97,4 @@ public:
 
     void Render();
 };
+}

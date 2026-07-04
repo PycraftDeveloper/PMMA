@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-float PMMA::Rendering::TwoD::CPP_Arc::GetStartAngle() {
+float PMMA::Rendering::TwoD::Shapes::Arc::GetStartAngle() {
     if (!StartAngleSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -11,7 +11,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
     return StartAngle;
 }
 
-float PMMA::Rendering::TwoD::CPP_Arc::GetEndAngle() {
+float PMMA::Rendering::TwoD::Shapes::Arc::GetEndAngle() {
     if (!EndAngleSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -22,7 +22,7 @@ please use `Arc.set_start_angle` to set it before attempting to get it.");
     return EndAngle;
 }
 
-uint16_t PMMA::Rendering::TwoD::CPP_Arc::GetRadius() {
+uint16_t PMMA::Rendering::TwoD::Shapes::Arc::GetRadius() {
     if (!RadiusSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -33,7 +33,7 @@ please use `Arc.set_radius` to set it before attempting to get it.");
     return Radius;
 }
 
-void PMMA::Rendering::TwoD::CPP_Arc::Render() {
+void PMMA::Rendering::TwoD::Shapes::Arc::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged |= ShapeCenter.GetChangedToggle();
     }

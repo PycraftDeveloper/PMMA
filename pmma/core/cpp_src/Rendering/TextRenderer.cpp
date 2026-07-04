@@ -1,7 +1,7 @@
 #include "PMMA_Core.hpp"
 
-CPP_TextRenderer::CPP_TextRenderer() {
+PMMA::Rendering::Core2D::TextRenderer::TextRenderer() {
 }
 
-void CPP_TextRenderer::Render() {
+void PMMA::Rendering::Core2D::TextRenderer::Render() {
 }

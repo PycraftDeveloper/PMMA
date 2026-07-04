@@ -116,34 +116,34 @@ public:
     ~Mouse_Button_Middle();
 };
 
-class EXPORT MouseButton_0 : public PMMA::Internal::Events::ButtonPressed {
+class EXPORT Mouse_Button_0 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    MouseButton_0();
-    ~MouseButton_0();
+    Mouse_Button_0();
+    ~Mouse_Button_0();
 };
 
-class EXPORT MouseButton_1 : public PMMA::Internal::Events::ButtonPressed {
+class EXPORT Mouse_Button_1 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    MouseButton_1();
-    ~MouseButton_1();
+    Mouse_Button_1();
+    ~Mouse_Button_1();
 };
 
-class EXPORT MouseButton_2 : public PMMA::Internal::Events::ButtonPressed {
+class EXPORT Mouse_Button_2 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    MouseButton_2();
-    ~MouseButton_2();
+    Mouse_Button_2();
+    ~Mouse_Button_2();
 };
 
-class EXPORT MouseButton_3 : public PMMA::Internal::Events::ButtonPressed {
+class EXPORT Mouse_Button_3 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    MouseButton_3();
-    ~MouseButton_3();
+    Mouse_Button_3();
+    ~Mouse_Button_3();
 };
 
-class EXPORT MouseButton_4 : public PMMA::Internal::Events::ButtonPressed {
+class EXPORT Mouse_Button_4 : public PMMA::Internal::Events::ButtonPressed {
 public:
-    MouseButton_4();
-    ~MouseButton_4();
+    Mouse_Button_4();
+    ~Mouse_Button_4();
 };
 
 class EXPORT Mouse_Scroll {

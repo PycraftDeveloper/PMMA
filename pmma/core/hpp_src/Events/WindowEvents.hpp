@@ -8,15 +8,16 @@
 
 #include "KeyEvents.hpp"
 
-class EXPORT CPP_DropEvent {
+namespace PMMA::Events {
+class EXPORT Drop {
 private:
     std::vector<std::string> FilePaths;
     unsigned int FilePathCount = 0;
     bool IsEnabled = true;
 
 public:
-    CPP_DropEvent();
-    ~CPP_DropEvent();
+    Drop();
+    ~Drop();
 
     inline void Update(std::vector<std::string> NewFilePaths, unsigned int NewCount) {
         if (!IsEnabled) {
@@ -62,7 +63,7 @@ public:
     };
 };
 
-class EXPORT CPP_TextEvent {
+class EXPORT Text {
 private:
     PMMA::Events::Key_Control *Control_KeyEventPtr = nullptr;
     PMMA::Events::Key_Shift *Shift_KeyEventPtr = nullptr;
@@ -70,19 +71,19 @@ private:
     PMMA::Events::Key_Insert *Insert_KeyEventPtr = nullptr;
     PMMA::Events::Key_Delete *Delete_KeyEventPtr = nullptr;
     PMMA::Events::Key_Backspace *Backspace_KeyEventPtr = nullptr;
-    std::string Text = "";
+    std::string TextBuffer = "";
     bool IsEnabled = true;
 
 public:
-    CPP_TextEvent();
+    Text();
 
-    ~CPP_TextEvent();
+    ~Text();
 
     inline void Update(std::string NewTextContent) {
         if (!IsEnabled) {
             return;
         }
-        Text += NewTextContent;
+        TextBuffer += NewTextContent;
     };
 
     void GenericUpdate(GLFWwindow *window);
@@ -92,7 +93,7 @@ public:
     void RemoveFront();
 
     inline std::string GetText() {
-        return Text;
+        return TextBuffer;
     };
 
     inline void SetEnabled(bool NewIsEnabled) {
@@ -104,7 +105,7 @@ public:
     };
 
     inline void ClearText() {
-        Text = "";
+        TextBuffer = "";
     };
 
     inline void Set_ControlKey_DoublePressDuration(float NewDuration) {
@@ -179,3 +180,4 @@ public:
         Backspace_KeyEventPtr->SetRepeatPressDuration(NewDuration);
     };
 };
+}

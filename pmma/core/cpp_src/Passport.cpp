@@ -2,7 +2,7 @@
 
 #include "PMMA_Core.hpp"
 
-CPP_Passport::CPP_Passport() {
+PMMA::Passport::Passport() {
     if (PMMA::Core::PassportInstance != nullptr) {
         delete PMMA::Core::PassportInstance;
         PMMA::Core::PassportInstance = nullptr;
@@ -11,13 +11,13 @@ CPP_Passport::CPP_Passport() {
     PMMA::Core::PassportInstance = this;
 }
 
-CPP_Passport::~CPP_Passport() {
+PMMA::Passport::~Passport() {
     if (PMMA::Core::PassportInstance == this) {
         PMMA::Core::PassportInstance = nullptr;
     }
 }
 
-void CPP_Passport::Register() {
+void PMMA::Passport::Register() {
     IsRegistered = true;
 
     PMMA::Core::LoggingManagerInstance->SetLogFileLocation(LoggingPath);
@@ -29,7 +29,7 @@ void CPP_Passport::Register() {
     std::filesystem::create_directories(TemporaryPath);
 }
 
-void CPP_Passport::SetLoggingPath(std::string NewLoggingPath, bool ExplicitlySet) {
+void PMMA::Passport::SetLoggingPath(std::string NewLoggingPath, bool ExplicitlySet) {
     LoggingPath = NewLoggingPath;
     IsRegistered = false;
     if (ExplicitlySet) {

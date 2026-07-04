@@ -10,11 +10,12 @@
 #include "Logger.hpp"
 #include "Types.hpp"
 
-class EXPORT CPP_PolygonShape {
+namespace PMMA::Rendering::TwoD::Shapes {
+class EXPORT Polygon {
 public:
-    CPP_PolygonShape();
+    Polygon();
 
-    ~CPP_PolygonShape() {
+    ~Polygon() {
     }
 
     void Render();
@@ -52,3 +53,4 @@ public:
         return false;
     }
 };
+}

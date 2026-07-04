@@ -10,8 +10,8 @@
 #include "Logger.hpp"
 #include "Types.hpp"
 
-namespace PMMA::Rendering::TwoD {
-class EXPORT CPP_Rectangle {
+namespace PMMA::Rendering::TwoD::Shapes {
+class EXPORT Rectangle {
 public:
     PMMA::Types::DisplayCoordinate ShapeCenter;
     PMMA::Types::Color Color;
@@ -29,7 +29,7 @@ public:
     bool ShapePropertyChanged = true;
     bool ShapeSizeSet = false;
 
-    inline CPP_Rectangle() {
+    inline Rectangle() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 

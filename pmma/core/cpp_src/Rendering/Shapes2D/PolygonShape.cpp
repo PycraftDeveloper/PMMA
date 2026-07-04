@@ -1,11 +1,11 @@
 #include "PMMA_Core.hpp"
 
-CPP_PolygonShape::CPP_PolygonShape() {
+PMMA::Rendering::TwoD::Shapes::Polygon::Polygon() {
 }
 
-void CPP_PolygonShape::Render() {
+void PMMA::Rendering::TwoD::Shapes::Polygon::Render() {
 }
 
-void CPP_PolygonShape::InternalRender() {
+void PMMA::Rendering::TwoD::Shapes::Polygon::InternalRender() {
     // Left intentionally blank for now
 }

@@ -9,8 +9,8 @@
 #include "Constants.hpp"
 #include "Types.hpp"
 
-namespace PMMA::Rendering::TwoD {
-class EXPORT CPP_Arc {
+namespace PMMA::Rendering::TwoD::Shapes {
+class EXPORT Arc {
 public:
     PMMA::Types::DisplayCoordinate ShapeCenter;
     PMMA::Types::Color Color;
@@ -34,7 +34,7 @@ public:
     bool EndAngleSet = false;
     bool RadiusSet = false;
 
-    inline CPP_Arc() {
+    inline Arc() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 

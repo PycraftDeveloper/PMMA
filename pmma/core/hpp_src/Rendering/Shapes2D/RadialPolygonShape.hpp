@@ -9,8 +9,8 @@
 #include "Constants.hpp"
 #include "Types.hpp"
 
-namespace PMMA::Rendering::TwoD {
-class EXPORT CPP_RadialPolygon {
+namespace PMMA::Rendering::TwoD::Shapes {
+class EXPORT RadialPolygon {
 public:
     PMMA::Types::DisplayCoordinate ShapeCenter;
     PMMA::Types::Color Color;
@@ -29,7 +29,7 @@ public:
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
-    inline CPP_RadialPolygon() {
+    inline RadialPolygon() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 

@@ -38,7 +38,7 @@ void PMMA::Animation::LinearAnimation::LinearAnimation::Start() {
     Playing = true;
 
     if (PMMA::Core::AnimationManagerInstance == nullptr) {
-        PMMA::Core::AnimationManagerInstance = new CPP_AnimationManager();
+        PMMA::Core::AnimationManagerInstance = new PMMA::Internal::AnimationManager();
     }
 
     PMMA::Core::AnimationManagerInstance->AddAnimation(this);

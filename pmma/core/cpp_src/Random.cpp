@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-void CPP_FastRandom::SetSeed() {
+void PMMA::FastRandom::SetSeed() {
     std::random_device rd;
     uint64_t rd_seed = (static_cast<uint64_t>(rd()) << 32) | rd();
 

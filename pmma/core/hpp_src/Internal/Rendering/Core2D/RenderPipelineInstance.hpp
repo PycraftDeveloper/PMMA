@@ -8,14 +8,14 @@
 #include "Internal/Rendering/Core2D/ColorTexture.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 
-class CPP_Shader;
+class PMMA::Graphics::Shader;
 
 namespace PMMA::Internal::Rendering::Core2D {
-class CPP_ColorTexture;
+class PMMA::Internal::Rendering::Core2D::ColorTexture;
 
-class EXPORT CPP_RenderPipelineInstance {
+class EXPORT RenderPipelineInstance {
 private:
-    CPP_Shader *ShapeDefinitionsShaderProgram = nullptr;
+    PMMA::Graphics::Shader *ShapeDefinitionsShaderProgram = nullptr;
 
     std::array<std::vector<uintptr_t>, 4> PreviousShapeIDs;
     std::vector<uintptr_t> CurrentShapeIDs;
@@ -41,7 +41,7 @@ private:
     bgfx::UniformHandle u_colorInfo;
     bgfx::UniformHandle s_colorTex;
 
-    CPP_ColorTexture ColorTexture;
+    ColorTexture ColorTexture;
 
     char BufferID = 0;
     char PreviousBufferID = 0;
@@ -52,9 +52,9 @@ private:
 public:
     uint32_t instanceCount = 0;
 
-    CPP_RenderPipelineInstance();
+    RenderPipelineInstance();
 
-    ~CPP_RenderPipelineInstance() {
+    ~RenderPipelineInstance() {
         if (bgfx::isValid(vbh)) {
             bgfx::destroy(vbh);
         }

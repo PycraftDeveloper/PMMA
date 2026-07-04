@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-void PMMA::Rendering::TwoD::CPP_Rectangle::GetSize(uint16_t *out_size) {
+void PMMA::Rendering::TwoD::Shapes::Rectangle::GetSize(uint16_t *out_size) {
     if (!ShapeSizeSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -12,7 +12,7 @@ please use `Rectangle.SetSize` to set it before attempting to get it.");
     out_size[1] = ShapeSize[1];
 }
 
-void PMMA::Rendering::TwoD::CPP_Rectangle::Render() {
+void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged = ShapeCenter.GetChangedToggle();
     }

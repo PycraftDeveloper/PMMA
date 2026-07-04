@@ -1,6 +1,6 @@
 #include "PMMA_Core.hpp"
 
-uint16_t PMMA::Rendering::TwoD::CPP_RadialPolygon::GetRadius() {
+uint16_t PMMA::Rendering::TwoD::Shapes::RadialPolygon::GetRadius() {
     if (!RadiusSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -11,7 +11,7 @@ please use `Arc.set_radius` to set it before attempting to get it.");
     return Radius;
 }
 
-void PMMA::Rendering::TwoD::CPP_RadialPolygon::Render() {
+void PMMA::Rendering::TwoD::Shapes::RadialPolygon::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged = ShapeCenter.GetChangedToggle();
     }

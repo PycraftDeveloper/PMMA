@@ -4,7 +4,7 @@ from libcpp.string cimport string
 from libcpp cimport bool
 
 cdef extern from "Logger.hpp" nogil:
-    cdef cppclass CPP_Logger:
+    cdef cppclass CPP_Logger "PMMA::Logger":
         void SetLogToFile(bool NewLogToFile) except + nogil
         void SetLogToConsole(bool NewLogToConsole) except + nogil
         void SetKeepCount(unsigned int NewKeepCount) except + nogil

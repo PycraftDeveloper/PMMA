@@ -7,7 +7,7 @@ PMMA::Types::Color::Color() {
 }
 
 void PMMA::Types::Color::Set_ColorName(std::string color_name) {
-    std::optional<std::array<uint8_t, 3>> Color = CPP_Constants::Colors::FindColor(color_name);
+    std::optional<std::array<uint8_t, 3>> Color = PMMA::Constants::Colors::FindColor(color_name);
 
     if (!Color.has_value()) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
@@ -513,19 +513,19 @@ void PMMA::Types::DisplayCoordinate::Configure(DisplayCoordinate_Configure_Kwarg
     uint32_t new_seed;
 
     if (!kwargs.seed.has_value()) {
-        CPP_FastRandom TempRandomGenerator;
+        PMMA::FastRandom TempRandomGenerator;
         new_seed = TempRandomGenerator.Next();
     } else {
         new_seed = kwargs.seed.value();
     }
 
-    X_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-    Y_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);
+    X_PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed);
+    Y_PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed + 1);
 
-    X_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
-    Y_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+    X_FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+    Y_FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed + 1, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
-    RandomCoordGenerator = new CPP_FastRandom();
+    RandomCoordGenerator = new PMMA::FastRandom();
     RandomCoordGenerator->SetSeed(new_seed);
 
     seed = new_seed;

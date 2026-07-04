@@ -5,17 +5,17 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-namespace PMMA::Rendering::TwoD {
-class CPP_Line;
-class CPP_Arc;
-class CPP_Ellipse;
-class CPP_RadialPolygon;
-class CPP_Rectangle;
-class CPP_Pixel;
-} // namespace PMMA::Rendering::TwoD
+namespace PMMA::Rendering::TwoD::Shapes {
+class Line;
+class Arc;
+class Ellipse;
+class RadialPolygon;
+class Rectangle;
+class Pixel;
+} // namespace PMMA::Rendering::TwoD::Shapes
 
 namespace PMMA::Internal::Rendering::Core2D {
-class CPP_RenderPipelineInstance;
+class RenderPipelineInstance;
 
 struct Vertex {
     float x, y, u, v;
@@ -30,20 +30,20 @@ struct InstanceData {
     float shape_property_four = 0, shape_property_five = 0;
 };
 
-class CPP_RenderPipelineManager {
+class RenderPipelineManager {
 private:
-    std::vector<CPP_RenderPipelineInstance *> RenderPipelineInstances;
-    std::vector<CPP_RenderPipelineInstance *> CachedRenderPipelineInstances;
+    std::vector<PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *> RenderPipelineInstances;
+    std::vector<PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *> CachedRenderPipelineInstances;
 
 public:
-    ~CPP_RenderPipelineManager();
+    ~RenderPipelineManager();
 
-    void Add(PMMA::Rendering::TwoD::CPP_Line *lineShape);
-    void Add(PMMA::Rendering::TwoD::CPP_RadialPolygon *radialPolygonShape);
-    void Add(PMMA::Rendering::TwoD::CPP_Arc *arcShape);
-    void Add(PMMA::Rendering::TwoD::CPP_Ellipse *ellipseShape);
-    void Add(PMMA::Rendering::TwoD::CPP_Rectangle *rectangleShape);
-    void Add(PMMA::Rendering::TwoD::CPP_Pixel *pixelShape);
+    void Add(PMMA::Rendering::TwoD::Shapes::Line *lineShape);
+    void Add(PMMA::Rendering::TwoD::Shapes::RadialPolygon *radialPolygonShape);
+    void Add(PMMA::Rendering::TwoD::Shapes::Arc *arcShape);
+    void Add(PMMA::Rendering::TwoD::Shapes::Ellipse *ellipseShape);
+    void Add(PMMA::Rendering::TwoD::Shapes::Rectangle *rectangleShape);
+    void Add(PMMA::Rendering::TwoD::Shapes::Pixel *pixelShape);
 
     inline float PackValues(uint16_t value_one, uint16_t value_two) {
         uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);

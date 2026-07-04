@@ -6,9 +6,9 @@
 #include <random>
 #include <thread>
 
-#include "FractalBrownianMotion.hpp"
 #include "Logger.hpp"
 #include "Maths.hpp"
+#include "Noise/FractalBrownianMotion.hpp"
 #include "Random.hpp"
 
 namespace PMMA::Types {
@@ -42,17 +42,17 @@ struct Proportion_Configure_Kwargs {
 
 class EXPORT Color {
 private:
-    CPP_PerlinNoise *R_PerlinNoiseGenerator = nullptr;
-    CPP_PerlinNoise *G_PerlinNoiseGenerator = nullptr;
-    CPP_PerlinNoise *B_PerlinNoiseGenerator = nullptr;
-    CPP_PerlinNoise *A_PerlinNoiseGenerator = nullptr;
+    PMMA::Noise::PerlinNoise *R_PerlinNoiseGenerator = nullptr;
+    PMMA::Noise::PerlinNoise *G_PerlinNoiseGenerator = nullptr;
+    PMMA::Noise::PerlinNoise *B_PerlinNoiseGenerator = nullptr;
+    PMMA::Noise::PerlinNoise *A_PerlinNoiseGenerator = nullptr;
 
-    CPP_FractalBrownianMotion *R_FractalBrownianMotionGenerator = nullptr;
-    CPP_FractalBrownianMotion *G_FractalBrownianMotionGenerator = nullptr;
-    CPP_FractalBrownianMotion *B_FractalBrownianMotionGenerator = nullptr;
-    CPP_FractalBrownianMotion *A_FractalBrownianMotionGenerator = nullptr;
+    PMMA::Noise::FractalBrownianMotion *R_FractalBrownianMotionGenerator = nullptr;
+    PMMA::Noise::FractalBrownianMotion *G_FractalBrownianMotionGenerator = nullptr;
+    PMMA::Noise::FractalBrownianMotion *B_FractalBrownianMotionGenerator = nullptr;
+    PMMA::Noise::FractalBrownianMotion *A_FractalBrownianMotionGenerator = nullptr;
 
-    CPP_FastRandom *RandomColorGenerator = nullptr;
+    PMMA::FastRandom *RandomColorGenerator = nullptr;
 
     uint8_t InternalColor[4] = {0, 0, 0, 255}; // Default is black with full opacity
 
@@ -113,23 +113,23 @@ public:
         uint32_t new_seed;
 
         if (!kwargs.seed.has_value()) {
-            CPP_FastRandom TempRandomGenerator;
+            PMMA::FastRandom TempRandomGenerator;
             new_seed = TempRandomGenerator.Next();
         } else {
             new_seed = kwargs.seed.value();
         }
 
-        R_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-        G_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 1);
-        B_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 2);
-        A_PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed + 3);
+        R_PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed);
+        G_PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed + 1);
+        B_PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed + 2);
+        A_PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed + 3);
 
-        R_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
-        G_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 1, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
-        B_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 2, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
-        A_FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed + 3, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+        R_FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+        G_FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed + 1, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+        B_FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed + 2, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+        A_FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed + 3, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
-        RandomColorGenerator = new CPP_FastRandom();
+        RandomColorGenerator = new PMMA::FastRandom();
         RandomColorGenerator->SetSeed(new_seed);
 
         seed = new_seed;
@@ -209,15 +209,15 @@ public:
 
 class EXPORT DisplayCoordinate {
 private:
-    CPP_PerlinNoise *X_PerlinNoiseGenerator = nullptr;
-    CPP_PerlinNoise *Y_PerlinNoiseGenerator = nullptr;
+    PMMA::Noise::PerlinNoise *X_PerlinNoiseGenerator = nullptr;
+    PMMA::Noise::PerlinNoise *Y_PerlinNoiseGenerator = nullptr;
 
-    CPP_FractalBrownianMotion *X_FractalBrownianMotionGenerator = nullptr;
-    CPP_FractalBrownianMotion *Y_FractalBrownianMotionGenerator = nullptr;
+    PMMA::Noise::FractalBrownianMotion *X_FractalBrownianMotionGenerator = nullptr;
+    PMMA::Noise::FractalBrownianMotion *Y_FractalBrownianMotionGenerator = nullptr;
 
     uint16_t Coordinate[2] = {0, 0}; // Default display coordinate is (0, 0)
 
-    CPP_FastRandom *RandomCoordGenerator = nullptr;
+    PMMA::FastRandom *RandomCoordGenerator = nullptr;
     int DisplaySize[2];
 
     uint32_t seed;
@@ -302,8 +302,8 @@ public:
 class EXPORT Angle {
 private:
     PMMA::Logger *Logger;
-    CPP_PerlinNoise *PerlinNoiseGenerator = nullptr;
-    CPP_FractalBrownianMotion *FractalBrownianMotionGenerator = nullptr;
+    PMMA::Noise::PerlinNoise *PerlinNoiseGenerator = nullptr;
+    PMMA::Noise::FractalBrownianMotion *FractalBrownianMotionGenerator = nullptr;
 
     uint32_t seed;
     uint32_t octaves;
@@ -341,14 +341,14 @@ public:
         uint32_t new_seed;
 
         if (!kwargs.seed.has_value()) {
-            CPP_FastRandom TempRandomGenerator;
+            PMMA::FastRandom TempRandomGenerator;
             new_seed = TempRandomGenerator.Next();
         } else {
             new_seed = kwargs.seed.value();
         }
 
-        PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-        FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+        PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed);
+        FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
         srand(new_seed);
 
@@ -618,8 +618,8 @@ class EXPORT Proportion {
 private:
     PMMA::Logger *Logger;
 
-    CPP_PerlinNoise *PerlinNoiseGenerator = nullptr;
-    CPP_FractalBrownianMotion *FractalBrownianMotionGenerator = nullptr;
+    PMMA::Noise::PerlinNoise *PerlinNoiseGenerator = nullptr;
+    PMMA::Noise::FractalBrownianMotion *FractalBrownianMotionGenerator = nullptr;
 
     uint32_t seed;
     uint32_t octaves;
@@ -655,14 +655,14 @@ public:
         uint32_t new_seed;
 
         if (!kwargs.seed.has_value()) {
-            CPP_FastRandom TempRandomGenerator;
+            PMMA::FastRandom TempRandomGenerator;
             new_seed = TempRandomGenerator.Next();
         } else {
             new_seed = kwargs.seed.value();
         }
 
-        PerlinNoiseGenerator = new CPP_PerlinNoise(new_seed);
-        FractalBrownianMotionGenerator = new CPP_FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+        PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed);
+        FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
 
         srand(new_seed);
 
@@ -928,4 +928,4 @@ before attempting to get it.");
         return InternalProportion;
     }
 };
-}
+} // namespace PMMA::Types

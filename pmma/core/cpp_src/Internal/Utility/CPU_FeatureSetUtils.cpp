@@ -1,7 +1,7 @@
 #if defined(_MSC_VER)
-  #include <intrin.h>
+#include <intrin.h>
 #elif defined(__GNUC__) || defined(__clang__)
-  #include <cpuid.h>
+#include <cpuid.h>
 #endif
 
 #include "PMMA_Core.hpp"
@@ -21,11 +21,10 @@ static uint64_t xgetbv(uint32_t index) {
     return _xgetbv(index);
 #elif defined(__GNUC__) || defined(__clang__)
     uint32_t eax, edx;
-    __asm__ volatile (
+    __asm__ volatile(
         "xgetbv"
         : "=a"(eax), "=d"(edx)
-        : "c"(index)
-    );
+        : "c"(index));
     return (uint64_t(edx) << 32) | eax;
 #else
     return 0;
@@ -39,12 +38,12 @@ static bool os_supports_avx() {
     return (xgetbv(0) & mask) == mask;
 }
 
-bool CPP_CPU_FeatureSetUtils::SupportsAVX2() {
+bool PMMA::Utils::CPU_FeatureSet::SupportsAVX2() {
     int32_t info[4];
     // Leaf 1: check OSXSAVE and AVX bit
     cpuid(info, 1, 0);
     bool has_osxsave = (info[2] & (1 << 27)) != 0;
-    bool has_avx     = (info[2] & (1 << 28)) != 0;
+    bool has_avx = (info[2] & (1 << 28)) != 0;
     if (!has_osxsave || !has_avx || !os_supports_avx()) {
         return false;
     }
@@ -55,13 +54,13 @@ bool CPP_CPU_FeatureSetUtils::SupportsAVX2() {
     return (info[1] & (1 << 5)) != 0;
 }
 
-bool CPP_CPU_FeatureSetUtils::SupportsAVX512() { // AVX512f ONLY for now
+bool PMMA::Utils::CPU_FeatureSet::SupportsAVX512() { // AVX512f ONLY for now
     int32_t info[4];
 
     // Leaf 1: check OSXSAVE and AVX bit
     cpuid(info, 1, 0);
     bool has_osxsave = (info[2] & (1 << 27)) != 0;
-    bool has_avx     = (info[2] & (1 << 28)) != 0;
+    bool has_avx = (info[2] & (1 << 28)) != 0;
     if (!has_osxsave || !has_avx) {
         return false;
     }
@@ -74,7 +73,7 @@ bool CPP_CPU_FeatureSetUtils::SupportsAVX512() { // AVX512f ONLY for now
 
     // Leaf 7 subleaf 0: check AVX-512F (EBX[16]) and AVX-512DQ (EBX[17])
     cpuid(info, 7, 0);
-    bool has_avx512f  = (info[1] & (1 << 16)) != 0;
+    bool has_avx512f = (info[1] & (1 << 16)) != 0;
     bool has_avx512dq = (info[1] & (1 << 17)) != 0;
 
     return has_avx512f && has_avx512dq;
