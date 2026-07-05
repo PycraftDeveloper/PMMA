@@ -136,7 +136,7 @@ std::vector<PMMA::Events::KeyPad_Add *> KeyPadEvent_Add_Instances;
 std::vector<PMMA::Events::KeyPad_Enter *> KeyPadEvent_Enter_Instances;
 std::vector<PMMA::Events::KeyPad_Equal *> KeyPadEvent_Equal_Instances;
 
-std::vector<PMMA::Events::Text *> TextEventInstances;
+std::vector<PMMA::Events::TextInput *> TextEventInstances;
 
 std::vector<PMMA::Events::Mouse_Position *> MousePositionEvent_Instances;
 std::vector<PMMA::Events::Mouse_EnterWindow *> MouseEnterWindowEvent_Instances;

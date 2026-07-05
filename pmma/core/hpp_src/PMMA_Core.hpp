@@ -192,7 +192,7 @@ extern std::vector<PMMA::Events::KeyPad_Add *> KeyPadEvent_Add_Instances;
 extern std::vector<PMMA::Events::KeyPad_Enter *> KeyPadEvent_Enter_Instances;
 extern std::vector<PMMA::Events::KeyPad_Equal *> KeyPadEvent_Equal_Instances;
 
-extern std::vector<PMMA::Events::Text *> TextEventInstances;
+extern std::vector<PMMA::Events::TextInput *> TextEventInstances;
 
 extern std::vector<PMMA::Events::Mouse_Position *> MousePositionEvent_Instances;
 extern std::vector<PMMA::Events::Mouse_EnterWindow *> MouseEnterWindowEvent_Instances;

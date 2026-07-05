@@ -4,7 +4,7 @@ from libcpp cimport bool
 from libcpp.string cimport string
 
 cdef extern from "Events/WindowEvents.hpp" nogil:
-    cdef cppclass CPP_Text "PMMA::Events::Text":
+    cdef cppclass CPP_TextInput "PMMA::Events::TextInput":
         inline string GetText() except + nogil
 
         inline void SetEnabled(bool NewIsEnabled) except + nogil
@@ -46,12 +46,12 @@ cdef extern from "Events/WindowEvents.hpp" nogil:
         inline bool GetEnabled() except + nogil
         inline void SetEnabled(bool NewIsEnabled) except + nogil
 
-cdef class Text:
+cdef class TextInput:
     cdef:
-        CPP_Text* cpp_class_ptr
+        CPP_TextInput* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_Text()
+        self.cpp_class_ptr = new CPP_TextInput()
 
     def __dealloc__(self):
         del self.cpp_class_ptr

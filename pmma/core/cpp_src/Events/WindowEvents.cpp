@@ -56,7 +56,7 @@ void remove_last_utf8_char(std::string &text) {
     text.erase(start);
 };
 
-PMMA::Events::Text::Text() {
+PMMA::Events::TextInput::TextInput() {
     PMMA::Core::TextEventInstances.push_back(this);
 
     Control_KeyEventPtr = new PMMA::Events::Key_Control();
@@ -69,7 +69,7 @@ PMMA::Events::Text::Text() {
     PMMA::Registry::TextEventInstanceCount++;
 };
 
-PMMA::Events::Text::~Text() {
+PMMA::Events::TextInput::~TextInput() {
     auto it = find(PMMA::Core::TextEventInstances.begin(), PMMA::Core::TextEventInstances.end(), this);
     if (it != PMMA::Core::TextEventInstances.end()) {
         PMMA::Core::TextEventInstances.erase(it);
@@ -85,7 +85,7 @@ PMMA::Events::Text::~Text() {
     PMMA::Registry::TextEventInstanceCount--;
 };
 
-void PMMA::Events::Text::RemoveBack() {
+void PMMA::Events::TextInput::RemoveBack() {
     if (!IsEnabled) {
         return;
     }
@@ -94,7 +94,7 @@ void PMMA::Events::Text::RemoveBack() {
     }
 };
 
-void PMMA::Events::Text::RemoveFront() {
+void PMMA::Events::TextInput::RemoveFront() {
     if (!IsEnabled) {
         return;
     }
@@ -103,7 +103,7 @@ void PMMA::Events::Text::RemoveFront() {
     }
 };
 
-void PMMA::Events::Text::GenericUpdate(GLFWwindow *window) {
+void PMMA::Events::TextInput::GenericUpdate(GLFWwindow *window) {
     if (!IsEnabled) {
         return;
     }

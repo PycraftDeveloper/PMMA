@@ -63,7 +63,7 @@ public:
     };
 };
 
-class EXPORT Text {
+class EXPORT TextInput {
 private:
     PMMA::Events::Key_Control *Control_KeyEventPtr = nullptr;
     PMMA::Events::Key_Shift *Shift_KeyEventPtr = nullptr;
@@ -75,9 +75,9 @@ private:
     bool IsEnabled = true;
 
 public:
-    Text();
+    TextInput();
 
-    ~Text();
+    ~TextInput();
 
     inline void Update(std::string NewTextContent) {
         if (!IsEnabled) {
