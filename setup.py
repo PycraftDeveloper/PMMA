@@ -96,16 +96,16 @@ ext_modules = [
     make_ext(os.path.join("Events", "WindowEvents.pyx"), raw_depends=["Events.pyx"]),
     make_ext(os.path.join("Events", "ControllerEvents.pyx"), add_numpy=True, raw_depends=["Events.pyx"]),
     make_ext(os.path.join("Events", "MouseEvents.pyx"), add_numpy=True),
-    #make_ext("FractalBrownianMotion.pyx", add_numpy=True),
+    make_ext("FractalBrownianMotion.pyx", add_numpy=True),
     make_ext("Types.pyx", add_numpy=True),
-    #make_ext("PerlinNoise.pyx", add_numpy=True),
-    #make_ext("PMMA_Core.pyx", raw_depends=["General.pyx"]),
+    make_ext("PerlinNoise.pyx", add_numpy=True),
+    make_ext("PMMA_Core.pyx", raw_depends=["General.pyx"]),
     #make_ext("TextRenderer.pyx", add_numpy=True),
-    #make_ext("General.pyx", add_numpy=True),
+    make_ext("General.pyx", add_numpy=True),
     #make_ext("Shapes2D.pyx", add_numpy=True, raw_depends=["Types.pyx"]),
-    #make_ext("Passport.pyx", raw_depends=["General.pyx", "Logger.pyx"]),
-    #make_ext("Logger.pyx"),
-    #make_ext("Animation.pyx", add_numpy=True, raw_depends=["Types.pyx"])
+    make_ext("Passport.pyx", raw_depends=["General.pyx", "Logger.pyx"]),
+    make_ext("Logger.pyx"),
+    make_ext("Animation.pyx", add_numpy=True, raw_depends=["Types.pyx"])
 ]
 
 # Read the long description from README.md

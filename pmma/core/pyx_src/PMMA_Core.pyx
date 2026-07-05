@@ -9,12 +9,12 @@ from pmma.build.General import General
 from pmma.core.py_src.Constants import Constants
 from pmma.core.py_src.Utility import Registry
 
-cdef extern from "PMMA_Core.hpp" nogil:
-    cdef void PMMA_Initialize(string location)
+cdef extern from "PMMA_Core.hpp" namespace "PMMA" nogil:
+    cdef void Initialize(string location)
 
-    cdef void PMMA_Uninitialize()
+    cdef void Uninitialize()
 
-cdef extern from "General.hpp" namespace "CPP_General" nogil:
+cdef extern from "General.hpp" namespace "PMMA::General" nogil:
     void SetLocale(string locale_) except + nogil
 
 def initialize(path):
@@ -22,7 +22,7 @@ def initialize(path):
         encoded_locale
         string encoded_path = path.encode('utf-8')
 
-    PMMA_Initialize(encoded_path)
+    Initialize(encoded_path)
 
     if General.get_operating_system() == Constants.OperatingSystems.WINDOWS:
         try:
@@ -64,7 +64,7 @@ def initialize(path):
     SetLocale(encoded_locale)
 
 def uninitialize():
-    PMMA_Uninitialize()
+    Uninitialize()
 
     if Registry.passport_instance is not None:
         if Registry.profiler_instance is not None:

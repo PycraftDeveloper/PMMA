@@ -271,8 +271,8 @@ extern bool F11KeyShouldToggleFullScreen;
 extern bool UserDefinedShapeQuality;
 } // namespace PMMA::Registry
 
-EXPORT void PMMA_Initialize(std::string location);
+namespace PMMA {
+EXPORT void Initialize(std::string location);
 
-EXPORT void PMMA_Uninitialize();
-
-uint32_t GetRandomSeed();
+EXPORT void Uninitialize();
+}

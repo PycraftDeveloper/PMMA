@@ -2,14 +2,14 @@
 
 from libcpp cimport bool
 
-from Types cimport DisplayCoordinate, DisplayCoordinate
+from Types cimport CPP_DisplayCoordinate, DisplayCoordinate
 
 cdef extern from "Animation/LinearAnimation.hpp" nogil:
-    cdef cppclass CPP_LinearAnimation:
-        DisplayCoordinate* StartCoordinatePtr
-        DisplayCoordinate* EndCoordinatePtr;
+    cdef cppclass CPP_LinearAnimation "PMMA::Animation::LinearAnimation":
+        CPP_DisplayCoordinate* StartCoordinatePtr
+        CPP_DisplayCoordinate* EndCoordinatePtr;
 
-        CPP_LinearAnimation(DisplayCoordinate* NewTargetCoordinatePtr) except + nogil
+        CPP_LinearAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr) except + nogil
 
         void Start() except + nogil
         void Stop() except + nogil
@@ -32,11 +32,11 @@ cdef extern from "Animation/LinearAnimation.hpp" nogil:
         bool IsRepeating() except + nogil
 
 cdef extern from "Animation/RadialAnimation.hpp" nogil:
-    cdef cppclass CPP_RadialAnimation:
-        DisplayCoordinate* StartCoordinatePtr
-        DisplayCoordinate* CenterCoordinatePtr;
+    cdef cppclass CPP_RadialAnimation "PMMA::Animation::RadialAnimation":
+        CPP_DisplayCoordinate* StartCoordinatePtr
+        CPP_DisplayCoordinate* CenterCoordinatePtr;
 
-        CPP_RadialAnimation(DisplayCoordinate* NewTargetCoordinatePtr) except + nogil
+        CPP_RadialAnimation(CPP_DisplayCoordinate* NewTargetCoordinatePtr) except + nogil
 
         void Start() except + nogil
         void Stop() except + nogil
@@ -62,7 +62,7 @@ cdef class Linear:
         DisplayCoordinate animation_end_pos
 
     def __cinit__(self, DisplayCoordinate DisplayCoordinateInstance):
-        cdef DisplayCoordinate* input_class_ptr;
+        cdef CPP_DisplayCoordinate* input_class_ptr;
         input_class_ptr = DisplayCoordinateInstance.cpp_class_ptr
 
         self.cpp_class_ptr = new CPP_LinearAnimation(input_class_ptr)
@@ -131,7 +131,7 @@ cdef class Radial:
         DisplayCoordinate animation_center_pos
 
     def __cinit__(self, DisplayCoordinate DisplayCoordinateInstance):
-        cdef DisplayCoordinate* input_class_ptr;
+        cdef CPP_DisplayCoordinate* input_class_ptr;
         input_class_ptr = DisplayCoordinateInstance.cpp_class_ptr
 
         self.cpp_class_ptr = new CPP_RadialAnimation(input_class_ptr)

@@ -7,8 +7,8 @@ cimport numpy as np
 
 np.import_array()
 
-cdef extern from "FractalBrownianMotion.hpp" nogil:
-    cdef cppclass CPP_FractalBrownianMotion:
+cdef extern from "Noise/FractalBrownianMotion.hpp" nogil:
+    cdef cppclass CPP_FractalBrownianMotion "PMMA::Noise::FractalBrownianMotion":
         CPP_FractalBrownianMotion(const unsigned int seed, unsigned int octaves, float lacunarity, float gain) except + nogil
 
         inline float Noise1D(const float x) except + nogil

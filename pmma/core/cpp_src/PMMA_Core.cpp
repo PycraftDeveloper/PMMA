@@ -216,7 +216,8 @@ bool F11KeyShouldToggleFullScreen = true;
 bool UserDefinedShapeQuality = false;
 } // namespace PMMA::Registry
 
-void PMMA_Initialize(std::string location) {
+namespace PMMA {
+void Initialize(std::string location) {
     if (std::filesystem::exists(location)) {
         if (!std::filesystem::is_directory(location)) {
             throw std::runtime_error("The provided PMMA location is not a directory.");
@@ -293,14 +294,10 @@ how PMMA and Python interact.");
     std::iota(PMMA::Registry::SecondaryDisplayIDs.begin(), PMMA::Registry::SecondaryDisplayIDs.end(), 1);
 }
 
-void PMMA_Uninitialize() {
+void Uninitialize() {
     PMMA::Core::PowerSavingManagerInstance.stop();
 
     delete PMMA::Core::LoggingManagerInstance;
     PMMA::Core::LoggingManagerInstance = nullptr;
 }
-
-uint32_t GetRandomSeed() {
-    std::lock_guard<std::mutex> lock(PMMA::Registry::SeedGeneratorLock);
-    return PMMA::Registry::SeedDistribution(PMMA::Registry::RandomSeedGenerator);
 }

@@ -12,7 +12,7 @@ from pmma.build.General import General
 from Logger cimport Logger
 
 cdef extern from "Passport.hpp" nogil:
-    cdef cppclass CPP_Passport:
+    cdef cppclass CPP_Passport "PMMA::Passport":
         inline void SetProductName(string NewProductName) except + nogil
         inline void SetProductSubName(string NewProductSubName) except + nogil
         inline void SetCompanyName(string NewCompanyName) except + nogil

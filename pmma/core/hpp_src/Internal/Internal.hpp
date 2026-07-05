@@ -9,4 +9,6 @@ struct ColorEntry {
     std::string_view name;
     std::array<uint8_t, 3> value;
 };
+
+uint32_t GetRandomSeed();
 } // namespace PMMA::Internal
