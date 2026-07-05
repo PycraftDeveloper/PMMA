@@ -57,7 +57,7 @@ void remove_last_utf8_char(std::string &text) {
 };
 
 PMMA::Events::TextInput::TextInput() {
-    PMMA::Core::TextEventInstances.push_back(this);
+    PMMA::Core::ActiveDisplayInstance->TextEventInstances.push_back(this);
 
     Control_KeyEventPtr = new PMMA::Events::Key_Control();
     Shift_KeyEventPtr = new PMMA::Events::Key_Shift();
@@ -70,9 +70,9 @@ PMMA::Events::TextInput::TextInput() {
 };
 
 PMMA::Events::TextInput::~TextInput() {
-    auto it = find(PMMA::Core::TextEventInstances.begin(), PMMA::Core::TextEventInstances.end(), this);
-    if (it != PMMA::Core::TextEventInstances.end()) {
-        PMMA::Core::TextEventInstances.erase(it);
+    auto it = find(PMMA::Core::ActiveDisplayInstance->TextEventInstances.begin(), PMMA::Core::ActiveDisplayInstance->TextEventInstances.end(), this);
+    if (it != PMMA::Core::ActiveDisplayInstance->TextEventInstances.end()) {
+        PMMA::Core::ActiveDisplayInstance->TextEventInstances.erase(it);
     }
 
     Control_KeyEventPtr = nullptr;
@@ -140,15 +140,15 @@ void PMMA::Events::TextInput::GenericUpdate(GLFWwindow *window) {
 };
 
 PMMA::Events::Drop::Drop() {
-    PMMA::Core::DropEvent_Instances.push_back(this);
+    PMMA::Core::ActiveDisplayInstance->DropEvent_Instances.push_back(this);
 
     PMMA::Registry::DropEventInstanceCount++;
 };
 
 PMMA::Events::Drop::~Drop() {
-    auto it = find(PMMA::Core::DropEvent_Instances.begin(), PMMA::Core::DropEvent_Instances.end(), this);
-    if (it != PMMA::Core::DropEvent_Instances.end()) {
-        PMMA::Core::DropEvent_Instances.erase(it);
+    auto it = find(PMMA::Core::ActiveDisplayInstance->DropEvent_Instances.begin(), PMMA::Core::ActiveDisplayInstance->DropEvent_Instances.end(), this);
+    if (it != PMMA::Core::ActiveDisplayInstance->DropEvent_Instances.end()) {
+        PMMA::Core::ActiveDisplayInstance->DropEvent_Instances.erase(it);
     }
 
     PMMA::Registry::DropEventInstanceCount--;
