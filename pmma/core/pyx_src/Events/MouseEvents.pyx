@@ -5,25 +5,10 @@ from libcpp cimport bool
 import numpy as np
 cimport numpy as np
 
+from Events cimport CPP_ButtonPressed, ButtonPressed
+
 cdef extern from "Events/MouseEvents.hpp" nogil:
-    cdef cppclass CPP_ButtonPressedEvent:
-        inline bool GetPressed() except + nogil
-
-        inline bool GetPressedToggle() except + nogil
-        inline bool GetDoublePressed() except + nogil
-
-        inline void SetLongPressDuration(float Duration) except + nogil
-        inline void SetRepeatPressDuration(float Duration) except + nogil
-        inline void SetDoublePressDuration(float Duration) except + nogil
-
-        inline bool GetLongPressed() except + nogil
-        inline bool PollLongPressed() except + nogil
-
-        inline float GetRepeatPressDuration() except + nogil
-        inline float GetLongPressDuration() except + nogil
-        inline float GetDoublePressDuration() except + nogil
-
-    cdef cppclass CPP_MousePositionEvent:
+    cdef cppclass CPP_Mouse_Position "PMMA::Events::Mouse_Position":
         inline void GetPosition(float* out) except + nogil
 
         inline void GetDelta(float* out) except + nogil
@@ -32,38 +17,54 @@ cdef extern from "Events/MouseEvents.hpp" nogil:
         inline bool GetEnabled() except + nogil
         inline void SetEnabled(bool NewIsEnabled) except + nogil
 
-    cdef cppclass CPP_MouseEnterWindowEvent:
+    cdef cppclass CPP_Mouse_EnterWindow "PMMA::Events::Mouse_EnterWindow":
         inline bool GetEntered() except + nogil
         inline bool GetEnteredToggle() except + nogil
 
         inline bool GetEnabled() except + nogil
         inline void SetEnabled(bool NewIsEnabled) except + nogil
 
-    cdef cppclass CPP_MouseButtonEvent_Left(CPP_ButtonPressedEvent):
+    cdef cppclass _CPP_Mouse_Button_Left(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_MouseButtonEvent_Right(CPP_ButtonPressedEvent):
+    ctypedef _CPP_Mouse_Button_Left CPP_Mouse_Button_Left "PMMA::Events::Mouse_Button_Left"
+
+    cdef cppclass _CPP_Mouse_Button_Right(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_MouseButtonEvent_Middle(CPP_ButtonPressedEvent):
+    ctypedef _CPP_Mouse_Button_Right CPP_Mouse_Button_Right "PMMA::Events::Mouse_Button_Right"
+
+    cdef cppclass _CPP_Mouse_Button_Middle(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_MouseButtonEvent_0(CPP_ButtonPressedEvent):
+    ctypedef _CPP_Mouse_Button_Middle CPP_Mouse_Button_Middle "PMMA::Events::Mouse_Button_Middle"
+
+    cdef cppclass _CPP_Mouse_Button_0(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_MouseButtonEvent_1(CPP_ButtonPressedEvent):
+    ctypedef _CPP_Mouse_Button_0 CPP_Mouse_Button_0 "PMMA::Events::Mouse_Button_0"
+
+    cdef cppclass _CPP_Mouse_Button_1(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_MouseButtonEvent_2(CPP_ButtonPressedEvent):
+    ctypedef _CPP_Mouse_Button_1 CPP_Mouse_Button_1 "PMMA::Events::Mouse_Button_1"
+
+    cdef cppclass _CPP_Mouse_Button_2(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_MouseButtonEvent_3(CPP_ButtonPressedEvent):
+    ctypedef _CPP_Mouse_Button_2 CPP_Mouse_Button_2 "PMMA::Events::Mouse_Button_2"
+
+    cdef cppclass _CPP_Mouse_Button_3(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_MouseButtonEvent_4(CPP_ButtonPressedEvent):
+    ctypedef _CPP_Mouse_Button_3 CPP_Mouse_Button_3 "PMMA::Events::Mouse_Button_3"
+
+    cdef cppclass _CPP_Mouse_Button_4(CPP_ButtonPressed):
         pass
 
-    cdef cppclass CPP_MouseScrollEvent:
+    ctypedef _CPP_Mouse_Button_4 CPP_Mouse_Button_4 "PMMA::Events::Mouse_Button_4"
+
+    cdef cppclass CPP_Mouse_Scroll "PMMA::Events::Mouse_Scroll":
         inline void GetPosition(float* out) except + nogil
         inline void ClearPosition() except + nogil
         inline float GetHorizontalPosition() except + nogil
@@ -80,48 +81,12 @@ cdef extern from "Events/MouseEvents.hpp" nogil:
         inline bool GetEnabled() except + nogil
         inline void SetEnabled(bool NewIsEnabled) except + nogil
 
-cdef class ButtonPressedEvent:
-    cdef CPP_ButtonPressedEvent* cpp_base_class_ptr
-
-    def get_pressed(self):
-        return self.cpp_base_class_ptr.GetPressed()
-
-    def get_pressed_toggle(self):
-        return self.cpp_base_class_ptr.GetPressedToggle()
-
-    def get_double_pressed(self):
-        return self.cpp_base_class_ptr.GetDoublePressed()
-
-    def get_long_pressed(self):
-        return self.cpp_base_class_ptr.GetLongPressed()
-
-    def poll_long_pressed(self):
-        return self.cpp_base_class_ptr.PollLongPressed()
-
-    def get_repeat_press_duration(self):
-        return self.cpp_base_class_ptr.GetRepeatPressDuration()
-
-    def get_long_press_duration(self):
-        return self.cpp_base_class_ptr.GetLongPressDuration()
-
-    def get_double_press_duration(self):
-        return self.cpp_base_class_ptr.GetDoublePressDuration()
-
-    def set_repeat_press_duration(self, duration):
-        self.cpp_base_class_ptr.SetRepeatPressDuration(duration)
-
-    def set_double_press_duration(self, duration):
-        self.cpp_base_class_ptr.SetDoublePressDuration(duration)
-
-    def set_long_press_duration(self, duration):
-        self.cpp_base_class_ptr.SetLongPressDuration(duration)
-
-cdef class MousePosition:
+cdef class Mouse_Position:
     cdef:
-        CPP_MousePositionEvent* cpp_class_ptr
+        CPP_Mouse_Position* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MousePositionEvent()
+        self.cpp_class_ptr = new CPP_Mouse_Position()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -181,12 +146,12 @@ cdef class MousePosition:
     def set_enabled(self, value):
         self.cpp_class_ptr.SetEnabled(value)
 
-cdef class MouseEnterWindow:
+cdef class Mouse_EnterWindow:
     cdef:
-        CPP_MouseEnterWindowEvent* cpp_class_ptr
+        CPP_Mouse_EnterWindow* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseEnterWindowEvent()
+        self.cpp_class_ptr = new CPP_Mouse_EnterWindow()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -204,108 +169,108 @@ cdef class MouseEnterWindow:
     def set_enabled(self, value):
         self.cpp_class_ptr.SetEnabled(value)
 
-cdef class MouseButton_Left(ButtonPressedEvent):
+cdef class Mouse_Button_Left(ButtonPressed):
     cdef:
-        CPP_MouseButtonEvent_Left* cpp_class_ptr
+        CPP_Mouse_Button_Left* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseButtonEvent_Left()
+        self.cpp_class_ptr = new CPP_Mouse_Button_Left()
         self.cpp_base_class_ptr = self.cpp_class_ptr
 
     def __dealloc__(self):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class MouseButton_Right(ButtonPressedEvent):
+cdef class Mouse_Button_Right(ButtonPressed):
     cdef:
-        CPP_MouseButtonEvent_Right* cpp_class_ptr
+        CPP_Mouse_Button_Right* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseButtonEvent_Right()
+        self.cpp_class_ptr = new CPP_Mouse_Button_Right()
         self.cpp_base_class_ptr = self.cpp_class_ptr
 
     def __dealloc__(self):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class MouseButton_Middle(ButtonPressedEvent):
+cdef class Mouse_Button_Middle(ButtonPressed):
     cdef:
-        CPP_MouseButtonEvent_Middle* cpp_class_ptr
+        CPP_Mouse_Button_Middle* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseButtonEvent_Middle()
+        self.cpp_class_ptr = new CPP_Mouse_Button_Middle()
         self.cpp_base_class_ptr = self.cpp_class_ptr
 
     def __dealloc__(self):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class MouseButton_0(ButtonPressedEvent):
+cdef class Mouse_Button_0(ButtonPressed):
     cdef:
-        CPP_MouseButtonEvent_0* cpp_class_ptr
+        CPP_Mouse_Button_0* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseButtonEvent_0()
+        self.cpp_class_ptr = new CPP_Mouse_Button_0()
         self.cpp_base_class_ptr = self.cpp_class_ptr
 
     def __dealloc__(self):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class MouseButton_1(ButtonPressedEvent):
+cdef class Mouse_Button_1(ButtonPressed):
     cdef:
-        CPP_MouseButtonEvent_1* cpp_class_ptr
+        CPP_Mouse_Button_1* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseButtonEvent_1()
+        self.cpp_class_ptr = new CPP_Mouse_Button_1()
         self.cpp_base_class_ptr = self.cpp_class_ptr
 
     def __dealloc__(self):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class MouseButton_2(ButtonPressedEvent):
+cdef class MouseButton_2(ButtonPressed):
     cdef:
-        CPP_MouseButtonEvent_2* cpp_class_ptr
+        CPP_Mouse_Button_2* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseButtonEvent_2()
+        self.cpp_class_ptr = new CPP_Mouse_Button_2()
         self.cpp_base_class_ptr = self.cpp_class_ptr
 
     def __dealloc__(self):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class MouseButton_3(ButtonPressedEvent):
+cdef class Mouse_Button_3(ButtonPressed):
     cdef:
-        CPP_MouseButtonEvent_3* cpp_class_ptr
+        CPP_Mouse_Button_3* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseButtonEvent_3()
+        self.cpp_class_ptr = new CPP_Mouse_Button_3()
         self.cpp_base_class_ptr = self.cpp_class_ptr
 
     def __dealloc__(self):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class MouseButton_4(ButtonPressedEvent):
+cdef class Mouse_Button_4(ButtonPressed):
     cdef:
-        CPP_MouseButtonEvent_4* cpp_class_ptr
+        CPP_Mouse_Button_4* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseButtonEvent_4()
+        self.cpp_class_ptr = new CPP_Mouse_Button_4()
         self.cpp_base_class_ptr = self.cpp_class_ptr
 
     def __dealloc__(self):
         del self.cpp_class_ptr
         self.cpp_class_ptr = NULL
 
-cdef class MouseScroll:
+cdef class Mouse_Scroll:
     cdef:
-        CPP_MouseScrollEvent* cpp_class_ptr
+        CPP_Mouse_Scroll* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_MouseScrollEvent()
+        self.cpp_class_ptr = new CPP_Mouse_Scroll()
 
     def __dealloc__(self):
         del self.cpp_class_ptr

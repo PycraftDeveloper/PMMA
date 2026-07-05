@@ -2,23 +2,7 @@
 
 from libcpp cimport bool
 
-cdef extern from "Internal/Events/InternalEvents.hpp" nogil:
-    cdef cppclass CPP_ButtonPressed "PMMA::Internal::Events::ButtonPressed":
-        inline bool GetPressed() except + nogil
-
-        inline bool GetPressedToggle() except + nogil
-        inline bool GetDoublePressed() except + nogil
-
-        inline void SetLongPressDuration(float Duration) except + nogil
-        inline void SetRepeatPressDuration(float Duration) except + nogil
-        inline void SetDoublePressDuration(float Duration) except + nogil
-
-        inline bool GetLongPressed() except + nogil
-        inline bool PollLongPressed() except + nogil
-
-        inline float GetRepeatPressDuration() except + nogil
-        inline float GetLongPressDuration() except + nogil
-        inline float GetDoublePressDuration() except + nogil
+from Events cimport CPP_ButtonPressed, ButtonPressed
 
 cdef extern from "Events/KeyEvents.hpp" nogil:
     cdef cppclass _CPP_Key_Space(CPP_ButtonPressed):
@@ -560,42 +544,6 @@ cdef extern from "Events/KeyEvents.hpp" nogil:
         pass
 
     ctypedef _CPP_Key_Menu CPP_Key_Menu "PMMA::Events::Key_Menu"
-
-cdef class ButtonPressed:
-    cdef CPP_ButtonPressed* cpp_base_class_ptr
-
-    def get_pressed(self):
-        return self.cpp_base_class_ptr.GetPressed()
-
-    def get_pressed_toggle(self):
-        return self.cpp_base_class_ptr.GetPressedToggle()
-
-    def get_double_pressed(self):
-        return self.cpp_base_class_ptr.GetDoublePressed()
-
-    def get_long_pressed(self):
-        return self.cpp_base_class_ptr.GetLongPressed()
-
-    def poll_long_pressed(self):
-        return self.cpp_base_class_ptr.PollLongPressed()
-
-    def get_repeat_press_duration(self):
-        return self.cpp_base_class_ptr.GetRepeatPressDuration()
-
-    def get_long_press_duration(self):
-        return self.cpp_base_class_ptr.GetLongPressDuration()
-
-    def get_double_press_duration(self):
-        return self.cpp_base_class_ptr.GetDoublePressDuration()
-
-    def set_repeat_press_duration(self, duration):
-        self.cpp_base_class_ptr.SetRepeatPressDuration(duration)
-
-    def set_double_press_duration(self, duration):
-        self.cpp_base_class_ptr.SetDoublePressDuration(duration)
-
-    def set_long_press_duration(self, duration):
-        self.cpp_base_class_ptr.SetLongPressDuration(duration)
 
 cdef class Space(ButtonPressed):
     cdef CPP_Key_Space* cpp_class_ptr

@@ -7,42 +7,27 @@ from libcpp.vector cimport vector
 import numpy as np
 cimport numpy as np
 
+from Events cimport CPP_ButtonPressed, ButtonPressed
+
 cdef extern from "Events/ControllerEvents.hpp" nogil:
-    cdef cppclass CPP_ButtonPressedEvent:
-        inline bool GetPressed() except + nogil
+    cdef cppclass CPP_Controller "PMMA::Events::Controller":
+        CPP_Controller(unsigned int new_ID) except + nogil
 
-        inline bool GetPressedToggle() except + nogil
-        inline bool GetDoublePressed() except + nogil
-
-        inline void SetLongPressDuration(float Duration) except + nogil
-        inline void SetRepeatPressDuration(float Duration) except + nogil
-        inline void SetDoublePressDuration(float Duration) except + nogil
-
-        inline bool GetLongPressed() except + nogil
-        inline bool PollLongPressed() except + nogil
-
-        inline float GetRepeatPressDuration() except + nogil
-        inline float GetLongPressDuration() except + nogil
-        inline float GetDoublePressDuration() except + nogil
-
-    cdef cppclass CPP_ControllerEvent:
-        CPP_ControllerEvent(unsigned int new_ID) except + nogil
-
-        CPP_ButtonPressedEvent* A_Button
-        CPP_ButtonPressedEvent* B_Button
-        CPP_ButtonPressedEvent* X_Button
-        CPP_ButtonPressedEvent* Y_Button
-        CPP_ButtonPressedEvent* Left_Bumper_Button
-        CPP_ButtonPressedEvent* Right_Bumper_Button
-        CPP_ButtonPressedEvent* Back_Button
-        CPP_ButtonPressedEvent* Start_Button
-        CPP_ButtonPressedEvent* Guide_Button
-        CPP_ButtonPressedEvent* Left_Thumb_Button
-        CPP_ButtonPressedEvent* Right_Thumb_Button
-        CPP_ButtonPressedEvent* DPad_Up_Button
-        CPP_ButtonPressedEvent* DPad_Down_Button
-        CPP_ButtonPressedEvent* DPad_Left_Button
-        CPP_ButtonPressedEvent* DPad_Right_Button
+        CPP_ButtonPressed* A_Button
+        CPP_ButtonPressed* B_Button
+        CPP_ButtonPressed* X_Button
+        CPP_ButtonPressed* Y_Button
+        CPP_ButtonPressed* Left_Bumper_Button
+        CPP_ButtonPressed* Right_Bumper_Button
+        CPP_ButtonPressed* Back_Button
+        CPP_ButtonPressed* Start_Button
+        CPP_ButtonPressed* Guide_Button
+        CPP_ButtonPressed* Left_Thumb_Button
+        CPP_ButtonPressed* Right_Thumb_Button
+        CPP_ButtonPressed* DPad_Up_Button
+        CPP_ButtonPressed* DPad_Down_Button
+        CPP_ButtonPressed* DPad_Left_Button
+        CPP_ButtonPressed* DPad_Right_Button
 
         bool GetConnected() except + nogil
         bool GetActive() except + nogil
@@ -80,129 +65,71 @@ cdef extern from "Events/ControllerEvents.hpp" nogil:
         void Get_Right_Stick_Position_Percentage(float DeadZone, float* out) except + nogil
         void Get_Right_Stick_Position_Decimal(float DeadZone, float* out) except + nogil
 
-cdef class ButtonPressedEvent:
-    cdef CPP_ButtonPressedEvent* cpp_base_class_ptr
-
-    def get_pressed(self):
-        if (self.cpp_base_class_ptr == NULL):
-            return False
-        return self.cpp_base_class_ptr.GetPressed()
-
-    def get_pressed_toggle(self):
-        if (self.cpp_base_class_ptr == NULL):
-            return False
-        return self.cpp_base_class_ptr.GetPressedToggle()
-
-    def get_double_pressed(self):
-        if (self.cpp_base_class_ptr == NULL):
-            return False
-        return self.cpp_base_class_ptr.GetDoublePressed()
-
-    def get_long_pressed(self):
-        if (self.cpp_base_class_ptr == NULL):
-            return False
-        return self.cpp_base_class_ptr.GetLongPressed()
-
-    def poll_long_pressed(self):
-        if (self.cpp_base_class_ptr == NULL):
-            return False
-        return self.cpp_base_class_ptr.PollLongPressed()
-
-    def get_repeat_press_duration(self):
-        if (self.cpp_base_class_ptr == NULL):
-            return 0
-        return self.cpp_base_class_ptr.GetRepeatPressDuration()
-
-    def get_long_press_duration(self):
-        if (self.cpp_base_class_ptr == NULL):
-            return 0
-        return self.cpp_base_class_ptr.GetLongPressDuration()
-
-    def get_double_press_duration(self):
-        if (self.cpp_base_class_ptr == NULL):
-            return 0
-        return self.cpp_base_class_ptr.GetDoublePressDuration()
-
-    def set_repeat_press_duration(self, duration):
-        if (self.cpp_base_class_ptr == NULL):
-            return
-        self.cpp_base_class_ptr.SetRepeatPressDuration(duration)
-
-    def set_double_press_duration(self, duration):
-        if (self.cpp_base_class_ptr == NULL):
-            return
-        self.cpp_base_class_ptr.SetDoublePressDuration(duration)
-
-    def set_long_press_duration(self, duration):
-        if (self.cpp_base_class_ptr == NULL):
-            return
-        self.cpp_base_class_ptr.SetLongPressDuration(duration)
-
 cdef class Controller:
     cdef:
-        CPP_ControllerEvent* cpp_class_ptr
-        ButtonPressedEvent cpp_a_button
-        ButtonPressedEvent cpp_b_button
-        ButtonPressedEvent cpp_x_button
-        ButtonPressedEvent cpp_y_button
-        ButtonPressedEvent cpp_left_bumper_button
-        ButtonPressedEvent cpp_right_bumper_button
-        ButtonPressedEvent cpp_back_button
-        ButtonPressedEvent cpp_start_button
-        ButtonPressedEvent cpp_guide_button
-        ButtonPressedEvent cpp_left_thumb_button
-        ButtonPressedEvent cpp_right_thumb_button
-        ButtonPressedEvent cpp_dpad_up_button
-        ButtonPressedEvent cpp_dpad_down_button
-        ButtonPressedEvent cpp_dpad_left_button
-        ButtonPressedEvent cpp_dpad_right_button
+        CPP_Controller* cpp_class_ptr
+        ButtonPressed cpp_a_button
+        ButtonPressed cpp_b_button
+        ButtonPressed cpp_x_button
+        ButtonPressed cpp_y_button
+        ButtonPressed cpp_left_bumper_button
+        ButtonPressed cpp_right_bumper_button
+        ButtonPressed cpp_back_button
+        ButtonPressed cpp_start_button
+        ButtonPressed cpp_guide_button
+        ButtonPressed cpp_left_thumb_button
+        ButtonPressed cpp_right_thumb_button
+        ButtonPressed cpp_dpad_up_button
+        ButtonPressed cpp_dpad_down_button
+        ButtonPressed cpp_dpad_left_button
+        ButtonPressed cpp_dpad_right_button
 
     def __cinit__(self, controller_id):
-        self.cpp_class_ptr = new CPP_ControllerEvent(controller_id)
+        self.cpp_class_ptr = new CPP_Controller(controller_id)
 
-        self.cpp_a_button = ButtonPressedEvent()
+        self.cpp_a_button = ButtonPressed()
         self.cpp_a_button.cpp_base_class_ptr = self.cpp_class_ptr.A_Button
 
-        self.cpp_b_button = ButtonPressedEvent()
+        self.cpp_b_button = ButtonPressed()
         self.cpp_b_button.cpp_base_class_ptr = self.cpp_class_ptr.B_Button
 
-        self.cpp_x_button = ButtonPressedEvent()
+        self.cpp_x_button = ButtonPressed()
         self.cpp_x_button.cpp_base_class_ptr = self.cpp_class_ptr.X_Button
 
-        self.cpp_y_button = ButtonPressedEvent()
+        self.cpp_y_button = ButtonPressed()
         self.cpp_y_button.cpp_base_class_ptr = self.cpp_class_ptr.Y_Button
 
-        self.cpp_left_bumper_button = ButtonPressedEvent()
+        self.cpp_left_bumper_button = ButtonPressed()
         self.cpp_left_bumper_button.cpp_base_class_ptr = self.cpp_class_ptr.Left_Bumper_Button
 
-        self.cpp_right_bumper_button = ButtonPressedEvent()
+        self.cpp_right_bumper_button = ButtonPressed()
         self.cpp_right_bumper_button.cpp_base_class_ptr = self.cpp_class_ptr.Right_Bumper_Button
 
-        self.cpp_back_button = ButtonPressedEvent()
+        self.cpp_back_button = ButtonPressed()
         self.cpp_back_button.cpp_base_class_ptr = self.cpp_class_ptr.Back_Button
 
-        self.cpp_start_button = ButtonPressedEvent()
+        self.cpp_start_button = ButtonPressed()
         self.cpp_start_button.cpp_base_class_ptr = self.cpp_class_ptr.Start_Button
 
-        self.cpp_guide_button = ButtonPressedEvent()
+        self.cpp_guide_button = ButtonPressed()
         self.cpp_guide_button.cpp_base_class_ptr = self.cpp_class_ptr.Guide_Button
 
-        self.cpp_left_thumb_button = ButtonPressedEvent()
+        self.cpp_left_thumb_button = ButtonPressed()
         self.cpp_left_thumb_button.cpp_base_class_ptr = self.cpp_class_ptr.Left_Thumb_Button
 
-        self.cpp_right_thumb_button = ButtonPressedEvent()
+        self.cpp_right_thumb_button = ButtonPressed()
         self.cpp_right_thumb_button.cpp_base_class_ptr = self.cpp_class_ptr.Right_Thumb_Button
 
-        self.cpp_dpad_up_button = ButtonPressedEvent()
+        self.cpp_dpad_up_button = ButtonPressed()
         self.cpp_dpad_up_button.cpp_base_class_ptr = self.cpp_class_ptr.DPad_Up_Button
 
-        self.cpp_dpad_down_button = ButtonPressedEvent()
+        self.cpp_dpad_down_button = ButtonPressed()
         self.cpp_dpad_down_button.cpp_base_class_ptr = self.cpp_class_ptr.DPad_Down_Button
 
-        self.cpp_dpad_left_button = ButtonPressedEvent()
+        self.cpp_dpad_left_button = ButtonPressed()
         self.cpp_dpad_left_button.cpp_base_class_ptr = self.cpp_class_ptr.DPad_Left_Button
 
-        self.cpp_dpad_right_button = ButtonPressedEvent()
+        self.cpp_dpad_right_button = ButtonPressed()
         self.cpp_dpad_right_button.cpp_base_class_ptr = self.cpp_class_ptr.DPad_Right_Button
 
 

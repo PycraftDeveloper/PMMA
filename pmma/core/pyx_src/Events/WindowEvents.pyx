@@ -4,7 +4,7 @@ from libcpp cimport bool
 from libcpp.string cimport string
 
 cdef extern from "Events/WindowEvents.hpp" nogil:
-    cdef cppclass CPP_TextEvent:
+    cdef cppclass CPP_Text "PMMA::Events::Text":
         inline string GetText() except + nogil
 
         inline void SetEnabled(bool NewIsEnabled) except + nogil
@@ -36,7 +36,7 @@ cdef extern from "Events/WindowEvents.hpp" nogil:
         inline void Set_BackspaceKey_LongPressDuration(float NewDuration) except + nogil
         inline void Set_BackspaceKey_RepeatPressDuration(float NewDuration) except + nogil
 
-    cdef cppclass CPP_DropEvent:
+    cdef cppclass CPP_Drop "PMMA::Events::Drop":
         inline const char** GetFilePaths() except + nogil
         inline const char** GetFilePathsToggle() except + nogil
 
@@ -46,12 +46,12 @@ cdef extern from "Events/WindowEvents.hpp" nogil:
         inline bool GetEnabled() except + nogil
         inline void SetEnabled(bool NewIsEnabled) except + nogil
 
-cdef class TextInput:
+cdef class Text:
     cdef:
-        CPP_TextEvent* cpp_class_ptr
+        CPP_Text* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_TextEvent()
+        self.cpp_class_ptr = new CPP_Text()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
@@ -124,12 +124,12 @@ cdef class TextInput:
     def set_backspace_key_repeat_press_duration(self, duration):
         self.cpp_class_ptr.Set_BackspaceKey_RepeatPressDuration(duration)
 
-cdef class FileDropped:
+cdef class Drop:
     cdef:
-        CPP_DropEvent* cpp_class_ptr
+        CPP_Drop* cpp_class_ptr
 
     def __cinit__(self):
-        self.cpp_class_ptr = new CPP_DropEvent()
+        self.cpp_class_ptr = new CPP_Drop()
 
     def __dealloc__(self):
         del self.cpp_class_ptr
