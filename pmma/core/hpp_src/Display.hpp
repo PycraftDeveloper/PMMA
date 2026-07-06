@@ -265,7 +265,6 @@ public:
     std::vector<PMMA::Events::Mouse_Scroll *> MouseScrollEventInstances;
 
     std::vector<PMMA::Internal::Events::InternalController *> InternalControllerEventInstances;
-    std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
 
     std::vector<PMMA::Events::Drop *> DropEvent_Instances;
 
@@ -275,7 +274,6 @@ public:
     PMMA::Internal::Events::InternalMouseEnterWindowManager *MouseEnterWindowManagerInstance = nullptr;
     PMMA::Internal::Events::InternalMouseButtonManager *MouseButtonManagerInstance = nullptr;
     PMMA::Internal::Events::InternalMouseScrollManager *MouseScrollManagerInstance = nullptr;
-    PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance = nullptr;
     PMMA::Internal::Events::InternalDropManager *DropManagerInstance = nullptr;
 
 private:

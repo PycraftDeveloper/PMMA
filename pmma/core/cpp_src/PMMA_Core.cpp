@@ -18,6 +18,11 @@ PowerSavingManager PowerSavingManagerInstance;
 PMMA::Internal::AnimationManager *AnimationManagerInstance = nullptr;
 
 PMMA::FastRandom *RandomGenerator = new PMMA::FastRandom();
+
+std::vector<PMMA::Internal::Events::InternalController *> InternalControllerEventInstances;
+std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
+
+PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance = nullptr;
 } // namespace PMMA::Core
 
 namespace PMMA::Registry {

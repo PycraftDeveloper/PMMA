@@ -120,19 +120,19 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
         }
     }
 
-    if (ControllerManagerInstance == nullptr) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr) {
         if (PMMA::Registry::ControllerEventInstanceCount > 0) {
-            ControllerManagerInstance = new PMMA::Internal::Events::InternalControllerManager();
+            PMMA::Core::ControllerManagerInstance = new PMMA::Internal::Events::InternalControllerManager();
             glfwSetJoystickCallback(PMMA::Internal::Events::InternalControllerManager::JoystickCallback);
         }
     } else {
         if (PMMA::Registry::ControllerEventInstanceCount <= 0) {
             glfwSetJoystickCallback(nullptr);
-            delete ControllerManagerInstance;
-            ControllerManagerInstance = nullptr;
+            delete PMMA::Core::ControllerManagerInstance;
+            PMMA::Core::ControllerManagerInstance = nullptr;
             PMMA::Registry::ControllerEventInstanceCount = 0;
         } else {
-            ControllerManagerInstance->Update(Window);
+            PMMA::Core::ControllerManagerInstance->Update(Window);
         }
     }
 
@@ -443,6 +443,8 @@ correctly. If the problem persists, please report this issue on our GitHub page.
         return;
     }
 
+    glfwSetWindowUserPointer(Window, this);
+
     if (PMMA::Core::MasterDisplayInstance == nullptr) {
         PMMA::Core::MasterDisplayInstance = this;
 
@@ -690,7 +692,9 @@ You can do this using `Display.create`.");
 
     unsigned int MaxRefreshRate;
 
-    if (!IsSecondaryDisplay) {
+    if (IsSecondaryDisplay) {
+        glfwPollEvents();
+    } else {
         PMMA::Core::LoggingManagerInstance->InternalLogDebug(
             62,
             "Always ensure that the master display is refreshed last as \
@@ -895,9 +899,9 @@ PMMA::Display::~Display() {
         MouseScrollManagerInstance = nullptr;
     }
 
-    if (ControllerManagerInstance != nullptr) {
-        delete ControllerManagerInstance;
-        ControllerManagerInstance = nullptr;
+    if (PMMA::Core::ControllerManagerInstance != nullptr && !IsSecondaryDisplay) {
+        delete PMMA::Core::ControllerManagerInstance;
+        PMMA::Core::ControllerManagerInstance = nullptr;
     }
 
     if (DropManagerInstance != nullptr) {

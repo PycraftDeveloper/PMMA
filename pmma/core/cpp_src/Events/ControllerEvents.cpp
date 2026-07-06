@@ -1,7 +1,7 @@
 #include "PMMA_Core.hpp"
 
 PMMA::Events::Controller::Controller(unsigned int NewID) {
-    PMMA::Core::ActiveDisplayInstance->ControllerEvent_Instances.push_back(this);
+    PMMA::Core::ControllerEvent_Instances.push_back(this);
 
     PMMA::Registry::ControllerEventInstanceCount++;
     ID = NewID;
@@ -17,9 +17,9 @@ application reliability.");
 };
 
 PMMA::Events::Controller::~Controller() {
-    auto it = find(PMMA::Core::ActiveDisplayInstance->ControllerEvent_Instances.begin(), PMMA::Core::ActiveDisplayInstance->ControllerEvent_Instances.end(), this);
-    if (it != PMMA::Core::ActiveDisplayInstance->ControllerEvent_Instances.end()) {
-        PMMA::Core::ActiveDisplayInstance->ControllerEvent_Instances.erase(it);
+    auto it = find(PMMA::Core::ControllerEvent_Instances.begin(), PMMA::Core::ControllerEvent_Instances.end(), this);
+    if (it != PMMA::Core::ControllerEvent_Instances.end()) {
+        PMMA::Core::ControllerEvent_Instances.erase(it);
     }
 
     A_Button = nullptr;
@@ -42,7 +42,7 @@ PMMA::Events::Controller::~Controller() {
 };
 
 void PMMA::Events::Controller::Update() {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return;
     }
     A_Button = PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GamePad_A_Button;
@@ -63,172 +63,172 @@ void PMMA::Events::Controller::Update() {
 };
 
 bool PMMA::Events::Controller::GetConnected() {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return false;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetConnected();
 };
 
 bool PMMA::Events::Controller::GetActive() {
-    return !(PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false);
+    return !(PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false);
 };
 
 float PMMA::Events::Controller::GetRawAxis_Decimal(int Axis) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetRawAxis_Decimal(Axis);
 };
 
 float PMMA::Events::Controller::GetRawAxis_Percentage(int Axis) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetRawAxis_Decimal(Axis);
 };
 
 int PMMA::Events::Controller::GetRawAxisCount() {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetRawAxisCount();
 };
 
 int PMMA::Events::Controller::GetRawButtonCount() {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetRawButtonCount();
 };
 
 int PMMA::Events::Controller::GetRawHatCount() {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetRawHatCount();
 };
 
 bool PMMA::Events::Controller::GetRawButtonPressed(int ButtonID) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return false;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetRawButtonPressed(ButtonID);
 };
 
 std::string PMMA::Events::Controller::GetRawHatState(int HatID) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return std::string(PMMA::Constants::HatStates::NOT_PRESSED);
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetRawHatState(HatID);
 };
 
 std::string PMMA::Events::Controller::GetRawName() {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return "";
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetRawName();
 };
 
 std::string PMMA::Events::Controller::GetGamePadName() {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return "";
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetGamePadName();
 };
 
 std::string PMMA::Events::Controller::GetGUID() {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return "";
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->GetGUID();
 };
 
 float PMMA::Events::Controller::Get_Right_Stick_X_Axis_Percentage(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Right_Stick_X_Axis_Percentage(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Right_Stick_Y_Axis_Percentage(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Right_Stick_Y_Axis_Percentage(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Right_Stick_X_Axis_Decimal(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Right_Stick_X_Axis_Decimal(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Right_Stick_Y_Axis_Decimal(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Right_Stick_Y_Axis_Decimal(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Left_Stick_X_Axis_Percentage(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Left_Stick_X_Axis_Percentage(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Left_Stick_Y_Axis_Percentage(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Left_Stick_Y_Axis_Percentage(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Left_Stick_X_Axis_Decimal(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Left_Stick_X_Axis_Decimal(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Left_Stick_Y_Axis_Decimal(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Left_Stick_Y_Axis_Decimal(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Right_Trigger_Axis_Percentage(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Right_Trigger_Axis_Percentage(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Left_Trigger_Axis_Percentage(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Left_Trigger_Axis_Percentage(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Right_Trigger_Axis_Decimal(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Right_Trigger_Axis_Decimal(DeadZone);
 };
 
 float PMMA::Events::Controller::Get_Left_Trigger_Axis_Decimal(float DeadZone) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         return 0.0f;
     }
     return PMMA::Core::ActiveDisplayInstance->InternalControllerEventInstances[ID]->Get_Left_Trigger_Axis_Decimal(DeadZone);
 };
 
 void PMMA::Events::Controller::Get_Left_Stick_Position_Percentage(float DeadZone, float *out) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         out[0] = 0.0f;
         out[1] = 0.0f;
         return;
@@ -237,7 +237,7 @@ void PMMA::Events::Controller::Get_Left_Stick_Position_Percentage(float DeadZone
 };
 
 void PMMA::Events::Controller::Get_Right_Stick_Position_Percentage(float DeadZone, float *out) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         out[0] = 0.0f;
         out[1] = 0.0f;
         return;
@@ -246,7 +246,7 @@ void PMMA::Events::Controller::Get_Right_Stick_Position_Percentage(float DeadZon
 };
 
 void PMMA::Events::Controller::Get_Left_Stick_Position_Decimal(float DeadZone, float *out) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         out[0] = 0.0f;
         out[1] = 0.0f;
         return;
@@ -255,7 +255,7 @@ void PMMA::Events::Controller::Get_Left_Stick_Position_Decimal(float DeadZone, f
 };
 
 void PMMA::Events::Controller::Get_Right_Stick_Position_Decimal(float DeadZone, float *out) {
-    if (PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance == nullptr || PMMA::Core::ActiveDisplayInstance->ControllerManagerInstance->Active == false) {
+    if (PMMA::Core::ControllerManagerInstance == nullptr || PMMA::Core::ControllerManagerInstance->Active == false) {
         out[0] = 0.0f;
         out[1] = 0.0f;
         return;

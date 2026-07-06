@@ -37,6 +37,7 @@ set(CORE_SOURCES
     "${SRC_DIR}/Internal/AnimationManager.cpp"
     "${SRC_DIR}/Internal/InternalManager.cpp"
     "${SRC_DIR}/Internal/LoggingManager.cpp"
+    "${SRC_DIR}/Internal/Internal.cpp"
 
     "${SRC_DIR}/Internal/Events/EventsManager.cpp"
 

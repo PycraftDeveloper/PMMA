@@ -49,6 +49,7 @@
 
 #include "Constants.hpp"
 #include "Display.hpp"
+#include "Events/ControllerEvents.hpp"
 #include "General.hpp"
 #include "Logger.hpp"
 #include "Maths.hpp"
@@ -75,6 +76,11 @@ extern PowerSavingManager PowerSavingManagerInstance;
 extern PMMA::Internal::AnimationManager *AnimationManagerInstance;
 
 extern PMMA::FastRandom *RandomGenerator;
+
+extern std::vector<PMMA::Internal::Events::InternalController *> InternalControllerEventInstances;
+extern std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
+
+extern PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance;
 } // namespace PMMA::Core
 
 namespace PMMA::Registry {
@@ -120,4 +126,4 @@ namespace PMMA {
 EXPORT void Initialize(std::string location);
 
 EXPORT void Uninitialize();
-}
+} // namespace PMMA
