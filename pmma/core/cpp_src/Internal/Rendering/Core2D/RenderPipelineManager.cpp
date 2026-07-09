@@ -18,8 +18,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
     }
 
@@ -29,8 +30,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
         lastInstance = RenderPipelineInstances.back();
     }
@@ -43,8 +45,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
     }
 
@@ -54,8 +57,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
         lastInstance = RenderPipelineInstances.back();
     }
@@ -68,8 +72,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
     }
 
@@ -79,8 +84,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
         lastInstance = RenderPipelineInstances.back();
     }
@@ -93,8 +99,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
     }
 
@@ -104,8 +111,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
         lastInstance = RenderPipelineInstances.back();
     }
@@ -118,8 +126,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
     }
 
@@ -129,8 +138,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
         lastInstance = RenderPipelineInstances.back();
     }
@@ -143,8 +153,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
     }
 
@@ -154,8 +165,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.back());
-            CachedRenderPipelineInstances.pop_back();
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
         }
         lastInstance = RenderPipelineInstances.back();
     }
