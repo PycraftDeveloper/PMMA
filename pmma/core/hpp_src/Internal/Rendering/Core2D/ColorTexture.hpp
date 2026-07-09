@@ -44,40 +44,57 @@ public:
     // ADD COLOR (hot path)
     // ------------------------------------------------------------
     inline uint32_t AddColor(PMMA::Types::Color *Color, uintptr_t ShapeID, bool ColorDataChanged) {
-        ColorChanged |= ColorDataChanged;
+        if (ColorDataChanged) {
+            ColorChanged = true;
+        }
 
         uint32_t idx = ShapeCount++;
         uint32_t byteIndex = idx * 4;
 
-        // Ensure buffer size (safe + single responsibility)
-        if (byteIndex + 4 > CurrentColorData.size()) {
-            CurrentColorData.resize(byteIndex + 4);
+        // Cache references for faster access and fewer indirections
+        const size_t buf = static_cast<uint8_t>(PreviousBufferID);
+        auto &prevShapeIDs = PreviousShapeIDs[buf];
+        auto &prevColors = PreviousColorData[buf];
+        auto &currColors = CurrentColorData;
+        auto &currShapeIDs = CurrentShapeIDs;
+
+        // Ensure color buffer capacity (reserve growth to reduce reallocations)
+        if (byteIndex + 4 > currColors.capacity()) {
+            size_t newCap = std::max<size_t>(byteIndex + 4, std::max<size_t>(1024, currColors.capacity() * 2));
+            currColors.reserve(newCap);
+        }
+        if (byteIndex + 4 > currColors.size()) {
+            currColors.resize(byteIndex + 4);
         }
 
-        // Ensure ID buffer size
-        if (idx >= CurrentShapeIDs.size()) {
-            CurrentShapeIDs.resize(idx + 1);
-        }
+        // Ensure ID buffer capacity using push_back when extending sequentially
+        bool appendShapeID = (idx >= currShapeIDs.size());
+
+        const uintptr_t *prevIDs = PreviousShapeIDs[PreviousBufferID].data();
 
         bool cacheHit =
             UsingCache &&
-            idx < PreviousShapeIDs[BufferID].size() &&
-            PreviousShapeIDs[BufferID][idx] == ShapeID;
+            idx < PreviousShapeCount &&
+            prevIDs[idx] == ShapeID;
 
-        if (!cacheHit || ColorDataChanged) {
-            Color->Get_RGBA(&CurrentColorData[byteIndex]);
-        } else if (cacheHit) {
-            // reuse previous color data
-            const uint8_t *prev =
-                PreviousColorData[BufferID].data() + byteIndex;
-
-            CurrentColorData[byteIndex + 0] = prev[0];
-            CurrentColorData[byteIndex + 1] = prev[1];
-            CurrentColorData[byteIndex + 2] = prev[2];
-            CurrentColorData[byteIndex + 3] = prev[3];
+        if (cacheHit && !ColorDataChanged) {
+            // reuse previous color data (copy 4 bytes)
+            if (byteIndex + 4 <= prevColors.size()) {
+                std::memcpy(&currColors[byteIndex], prevColors.data() + byteIndex, 4);
+            } else {
+                // fallback: request fresh color if previous data not large enough
+                Color->Get_RGBA(&currColors[byteIndex]);
+            }
+        } else {
+            // miss or changed -> fetch color
+            Color->Get_RGBA(&currColors[byteIndex]);
         }
 
-        CurrentShapeIDs[idx] = ShapeID;
+        if (appendShapeID) {
+            currShapeIDs.push_back(ShapeID);
+        } else {
+            currShapeIDs[idx] = ShapeID;
+        }
 
         return idx;
     }
