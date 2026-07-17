@@ -120,7 +120,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
             PreviousInstanceData[BufferID][0].resize(CurrentInstanceData[0].size());
 
             // 1. Extract raw pointers to bypass all vector indexing and bounds-checking overhead
-            size_t ArrayLength = CurrentInstanceData[0].size();
+            uint32_t ArrayLength = CurrentInstanceData[0].size();
 
             if (ArrayLength > 0) {
                 const auto *__restrict src = CurrentInstanceData[0].data() + ArrayLength - 1;
@@ -133,16 +133,14 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
                 }
             }
 
-            uint32_t CurrentBufferSize = PreviousInstanceData[BufferID][0].size();
-
             if (ArrayLength > 0) {
 
                 const bgfx::Memory *OpaqueInstanceDataMem = bgfx::makeRef(
                     PreviousInstanceData[BufferID][0].data(),
-                    CurrentBufferSize * sizeof(InstanceData));
+                    ArrayLength * sizeof(InstanceData));
 
                 if (bgfx::isValid(OpaqueInstanceVbh)) {
-                    if (CurrentBufferSize != OpaquePreviousBufferSize) {
+                    if (ArrayLength != OpaquePreviousBufferSize) {
                         bgfx::destroy(OpaqueInstanceVbh);
                         OpaqueInstanceVbh = bgfx::createDynamicVertexBuffer(
                             OpaqueInstanceDataMem,
@@ -160,30 +158,17 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
                 }
             }
 
-            OpaquePreviousBufferSize = CurrentBufferSize;
+            OpaquePreviousBufferSize = ArrayLength;
         }
         {
             // then transparent
 
             // Ensure destination has the exact required memory allocated
-            PreviousInstanceData[BufferID][1].resize(CurrentInstanceData[1].size());
-            // 1. Extract raw pointers to bypass all vector indexing and bounds-checking overhead
-            size_t ArrayLength = CurrentInstanceData[1].size();
-
-            if (ArrayLength > 0) {
-                const auto *__restrict src = CurrentInstanceData[1].data() + ArrayLength - 1;
-                auto *__restrict dest = PreviousInstanceData[BufferID][1].data();
-                const auto *const end = dest + ArrayLength;
-
-                // 2. Blazing fast single-pass copy and reverse loop
-                while (dest < end) {
-                    *dest++ = *src--;
-                }
-            }
+            PreviousInstanceData[BufferID][1] = CurrentInstanceData[1];
 
             uint32_t CurrentBufferSize = PreviousInstanceData[BufferID][1].size();
 
-            if (ArrayLength > 0) {
+            if (CurrentBufferSize > 0) {
 
                 const bgfx::Memory *TransparentInstanceDataMem = bgfx::makeRef(
                     PreviousInstanceData[BufferID][1].data(),
@@ -216,21 +201,19 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         BufferID = (BufferID + 1) % 4;
     }
 
-    float proj[16];
-    PMMA::Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
-    bgfx::setUniform(OrthDisplayProj, proj);
-
-    float colorInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
-    bgfx::setUniform(u_colorInfo, colorInfo);
-
-    bgfx::setVertexBuffer(0, vbh);
-    bgfx::setIndexBuffer(ibh);
-
-    bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
-
     // opaque
     if (OpaquePreviousBufferSize > 0) {
-        std::cout << "Opaque: " << OpaquePreviousBufferSize << std::endl;
+        float proj[16];
+        PMMA::Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
+        bgfx::setUniform(OrthDisplayProj, proj);
+
+        float colorInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
+        bgfx::setUniform(u_colorInfo, colorInfo);
+
+        bgfx::setVertexBuffer(0, vbh);
+        bgfx::setIndexBuffer(ibh);
+
+        bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
 
         float transparencyInfo[4] = {1.0f, 0.0f, 0.0f, 0.0f};
         bgfx::setUniform(u_transparency, transparencyInfo);
@@ -253,7 +236,17 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
 
     // transparent
     if (TransparentPreviousBufferSize > 0) {
-        std::cout << "Transparent: " << TransparentPreviousBufferSize << std::endl;
+        float proj[16];
+        PMMA::Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
+        bgfx::setUniform(OrthDisplayProj, proj);
+
+        float colorInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
+        bgfx::setUniform(u_colorInfo, colorInfo);
+
+        bgfx::setVertexBuffer(0, vbh);
+        bgfx::setIndexBuffer(ibh);
+
+        bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
 
         float transparencyInfo[4] = {0.0f, 0.0f, 0.0f, 0.0f};
         bgfx::setUniform(u_transparency, transparencyInfo);
