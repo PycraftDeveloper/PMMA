@@ -49,8 +49,6 @@ unsigned int MouseScrollEventInstanceCount = 0;
 unsigned int ControllerEventInstanceCount = 0;
 unsigned int DropEventInstanceCount = 0;
 
-float CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
-
 int GLFW_References = 0;
 
 bool GLFW_Initialized = false;
@@ -62,7 +60,6 @@ bool IsApplicationRunning = true;
 bool EscapeKeyShouldCloseWindow = false;
 bool UserSetEscapeKeyShouldCloseWindow = false;
 bool F11KeyShouldToggleFullScreen = true;
-bool UserDefinedShapeQuality = false;
 } // namespace PMMA::Registry
 
 namespace PMMA {

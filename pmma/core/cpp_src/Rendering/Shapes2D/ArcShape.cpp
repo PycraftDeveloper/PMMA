@@ -1,3 +1,4 @@
+#include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
 float PMMA::Rendering::TwoD::Shapes::Arc::GetStartAngle() {
@@ -42,6 +43,8 @@ void PMMA::Rendering::TwoD::Shapes::Arc::Render() {
         ColorDataChanged = Color.GetInternalChangedToggle();
     }
 
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance();
+
     if (ShapePropertyChanged) {
         uint16_t start_position[2];
         ShapeCenter.Get(start_position);
@@ -60,9 +63,10 @@ void PMMA::Rendering::TwoD::Shapes::Arc::Render() {
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
 
         ShapeInstanceData.shape_property_two = rpc->PackValues(GetEndAngle() * 182, 0);
+        ShapeInstanceData.depth = static_cast<float>(Instance->instanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE);
     }
 
-    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
+    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(Instance, this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

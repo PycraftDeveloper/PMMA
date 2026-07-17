@@ -5,6 +5,7 @@ $output v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 
 uniform mat4 OrthDisplayProj;
 uniform vec4 u_colorInfo;
+uniform vec4 HasTransparency;
 
 SAMPLER2D(s_colorTex, 0);
 
@@ -43,6 +44,7 @@ void main()
     vec2 ShapePropertyTwo = Unpack2Values(i_data2.x);
     vec2 ShapePropertyThree = Unpack2Values(i_data2.y);
     float Rotation = RotationShapePropertyOne.x * 0.0000960012; // equ to '/ 182' in RADIANS
+    float depth = i_data2.z;
 
     v_data0.x = PointCountGradientType.x; // Point Count
     v_data0.y = PointCountGradientType.y; // Gradient Type
@@ -58,6 +60,7 @@ void main()
     v_data2.w = ShapePropertyTwo.y;
     v_data3.x = ShapePropertyThree.x;
     v_data3.y = ShapePropertyThree.y;
+    v_data3.z = HasTransparency.x;
 
     // 1. Scale the local vertex positions first
     vec2 scaled_pos = a_position * Size;
@@ -71,7 +74,7 @@ void main()
     // 3. Apply the translation offset
     vec2 world = Offset + vec2(rotated_x, rotated_y);
 
-    gl_Position = mul(OrthDisplayProj, vec4(world, 0.0, 1.0));
+    gl_Position = mul(OrthDisplayProj, vec4(world, depth, 1.0));
 
     v_uv = a_texcoord0;
 

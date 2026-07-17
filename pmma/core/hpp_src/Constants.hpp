@@ -11,7 +11,7 @@ namespace PMMA::Constants {
 inline constexpr float PI = 3.141592653589793f;
 inline constexpr float TAU = 6.283185307179586f;
 
-inline constexpr float SHAPE_QUALITY = 0.27341772151898736f;
+inline constexpr int RENDER_PIPELINE_INSTANCE_MAX_SIZE = 16777216;
 
 struct HatStates {
     static inline const std::string_view NOT_PRESSED = "HAT NOT PRESSED";

@@ -49,10 +49,6 @@ cdef extern from "General.hpp" namespace "PMMA::General" nogil:
     double GetApplicationStartTime() except + nogil
     double GetApplicationRunTime() except + nogil
 
-    float GetShapeQuality() except + nogil
-    void SetShapeQuality(float quality) except + nogil
-    void Let_PMMA_ControlShapeQuality() except + nogil
-
     string GetLocale() except + nogil
     void SetLocale(string locale__) except + nogil
 
@@ -248,17 +244,6 @@ f"{latest_version}. You can check out the latest features here: "
     @staticmethod
     def get_application_run_time():
         return GetApplicationRunTime()
-
-    @staticmethod
-    def get_shape_quality():
-        return GetShapeQuality()
-
-    @staticmethod
-    def set_shape_quality(value=None):
-        if value is None:
-            Let_PMMA_ControlShapeQuality()
-        else:
-            SetShapeQuality(value)
 
     @staticmethod
     def get_execution_time(function, *args, **kwargs):

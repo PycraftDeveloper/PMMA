@@ -106,8 +106,6 @@ extern unsigned int MouseScrollEventInstanceCount;
 extern unsigned int ControllerEventInstanceCount;
 extern unsigned int DropEventInstanceCount;
 
-extern float CurrentShapeQuality;
-
 extern int GLFW_References;
 
 extern bool GLFW_Initialized;
@@ -119,7 +117,6 @@ extern bool IsApplicationRunning;
 extern bool EscapeKeyShouldCloseWindow;
 extern bool UserSetEscapeKeyShouldCloseWindow;
 extern bool F11KeyShouldToggleFullScreen;
-extern bool UserDefinedShapeQuality;
 } // namespace PMMA::Registry
 
 namespace PMMA {

@@ -33,6 +33,10 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
         "OrthDisplayProj",
         bgfx::UniformType::Mat4);
 
+    u_transparency = bgfx::createUniform(
+        "HasTransparency",
+        bgfx::UniformType::Vec4);
+
     std::string ShaderPath =
         PMMA::Registry::PMMA_Location +
         PMMA::Registry::PathSeparator +
@@ -97,7 +101,21 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         CurrentShapeIDs.shrink_to_fit();
 
         PreviousShapeIDs[BufferID] = CurrentShapeIDs;
-        PreviousInstanceData[BufferID] = CurrentInstanceData;
+
+        // Ensure destination has the exact required memory allocated
+        PreviousInstanceData[BufferID].resize(CurrentInstanceData.size());
+
+        // 1. Extract raw pointers to bypass all vector indexing and bounds-checking overhead
+        size_t ArrayLength = CurrentInstanceData.size();
+
+        const auto *__restrict src = CurrentInstanceData.data() + ArrayLength - 1;
+        auto *__restrict dest = PreviousInstanceData[BufferID].data();
+        const auto *const end = dest + ArrayLength;
+
+        // 2. Blazing fast single-pass copy and reverse loop
+        while (dest < end) {
+            *dest++ = *src--;
+        }
 
         PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
 
@@ -135,8 +153,11 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
     PMMA::Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
     bgfx::setUniform(OrthDisplayProj, proj);
 
-    float info[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
-    bgfx::setUniform(u_colorInfo, info);
+    float colorInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
+    bgfx::setUniform(u_colorInfo, colorInfo);
+
+    float transparencyInfo[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+    bgfx::setUniform(u_transparency, transparencyInfo);
 
     bgfx::setVertexBuffer(0, vbh);
     bgfx::setIndexBuffer(ibh);
@@ -151,9 +172,13 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
     bgfx::setState(
         BGFX_STATE_WRITE_RGB |
         BGFX_STATE_WRITE_A |
-        BGFX_STATE_BLEND_ALPHA);
+        BGFX_STATE_BLEND_ALPHA |
+        BGFX_STATE_DEPTH_TEST_LEQUAL |
+        BGFX_STATE_WRITE_Z);
 
     bgfx::submit(
         PMMA::Core::ActiveDisplayInstance->DisplayID,
         ShapeDefinitionsShaderProgram->Use());
+
+    bgfx::setViewClear(PMMA::Core::ActiveDisplayInstance->DisplayID, BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0); // Ensures future rendering is still overlaid on-top
 }

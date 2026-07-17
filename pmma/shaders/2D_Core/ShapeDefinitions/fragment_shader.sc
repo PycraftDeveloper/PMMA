@@ -226,5 +226,9 @@ void main()
 
     alpha *= step(0.0039, alpha);
 
+    if (alpha < v_data3.z) {
+        discard;
+    }
+
     gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
 }

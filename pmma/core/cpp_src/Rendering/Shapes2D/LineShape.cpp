@@ -1,3 +1,4 @@
+#include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
 void PMMA::Rendering::TwoD::Shapes::Line::Render() {
@@ -8,6 +9,8 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
     if (!ColorDataChanged) {
         ColorDataChanged = Color.GetInternalChangedToggle();
     }
+
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance();
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2], end_position[2];
@@ -41,9 +44,11 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
 
         ShapeInstanceData.shape_property_two = rpc->PackValues(rel_start_y, rel_end_x);
         ShapeInstanceData.shape_property_three = rpc->PackValues(rel_end_y, 0);
+
+        ShapeInstanceData.depth = static_cast<float>(Instance->instanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE);
     }
 
-    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
+    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(Instance, this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

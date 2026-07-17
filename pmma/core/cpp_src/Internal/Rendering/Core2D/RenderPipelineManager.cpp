@@ -1,6 +1,8 @@
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 
+#include "Constants.hpp"
+
 PMMA::Internal::Rendering::Core2D::RenderPipelineManager::~RenderPipelineManager() {
     for (PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *instance : RenderPipelineInstances) {
         delete instance;
@@ -13,142 +15,31 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineManager::~RenderPipelineManager
     CachedRenderPipelineInstances.clear();
 }
 
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Rendering::TwoD::Shapes::Line *lineShape) {
-    if (RenderPipelineInstances.empty()) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-    }
-
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
-
-    if (lastInstance->instanceCount >= 16777216) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-        lastInstance = RenderPipelineInstances.back();
-    }
-
+void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Line *lineShape) {
     lastInstance->Add(lineShape);
 }
 
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Rendering::TwoD::Shapes::Pixel *pixelShape) {
-    if (RenderPipelineInstances.empty()) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-    }
-
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
-
-    if (lastInstance->instanceCount >= 16777216) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-        lastInstance = RenderPipelineInstances.back();
-    }
-
-    lastInstance->Add(pixelShape);
-}
-
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Rendering::TwoD::Shapes::RadialPolygon *radialPolygonShape) {
-    if (RenderPipelineInstances.empty()) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-    }
-
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
-
-    if (lastInstance->instanceCount >= 16777216) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-        lastInstance = RenderPipelineInstances.back();
-    }
-
+void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::RadialPolygon *radialPolygonShape) {
     lastInstance->Add(radialPolygonShape);
 }
 
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Rendering::TwoD::Shapes::Arc *arcShape) {
-    if (RenderPipelineInstances.empty()) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-    }
-
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
-
-    if (lastInstance->instanceCount >= 16777216) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-        lastInstance = RenderPipelineInstances.back();
-    }
-
+void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Arc *arcShape) {
     lastInstance->Add(arcShape);
 }
 
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Rendering::TwoD::Shapes::Rectangle *rectangleShape) {
-    if (RenderPipelineInstances.empty()) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-    }
+void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Ellipse *ellipseShape) {
+    lastInstance->Add(ellipseShape);
+}
 
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
-
-    if (lastInstance->instanceCount >= 16777216) {
-        if (CachedRenderPipelineInstances.empty()) {
-            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
-        } else {
-            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
-            CachedRenderPipelineInstances.erase(
-                CachedRenderPipelineInstances.begin());
-        }
-        lastInstance = RenderPipelineInstances.back();
-    }
-
+void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Rectangle *rectangleShape) {
     lastInstance->Add(rectangleShape);
 }
 
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Rendering::TwoD::Shapes::Ellipse *ellipseShape) {
+void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Pixel *pixelShape) {
+    lastInstance->Add(pixelShape);
+}
+
+PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rendering::Core2D::RenderPipelineManager::GetInstance() {
     if (RenderPipelineInstances.empty()) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
@@ -161,7 +52,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
 
     PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
 
-    if (lastInstance->instanceCount >= 16777216) {
+    if (lastInstance->instanceCount >= PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
@@ -172,7 +63,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Renderi
         lastInstance = RenderPipelineInstances.back();
     }
 
-    lastInstance->Add(ellipseShape);
+    return lastInstance;
 }
 
 void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Reset() {

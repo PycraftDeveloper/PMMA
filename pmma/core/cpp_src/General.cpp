@@ -30,9 +30,6 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             }
             PMMA::Registry::IsPowerSavingModeEnabled = true;
             PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
-            if (!PMMA::Registry::UserDefinedShapeQuality) {
-                PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY * 0.5f;
-            }
             return true;
         }
         if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
@@ -43,9 +40,6 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
             }
             PMMA::Registry::IsPowerSavingModeEnabled = true;
             PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
-            if (!PMMA::Registry::UserDefinedShapeQuality) {
-                PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY * 0.5f;
-            }
             return true; // Low battery test
         }
     }
@@ -57,9 +51,6 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
     }
     PMMA::Registry::IsPowerSavingModeEnabled = false;
     PMMA::Core::PowerSavingManagerInstance.updateCounter = 15;
-    if (!PMMA::Registry::UserDefinedShapeQuality) {
-        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
-    }
     return false;
 
 #elif defined(__linux__)
@@ -78,9 +69,6 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                     }
                     PMMA::Registry::IsPowerSavingModeEnabled = true;
                     PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
-                    if (!PMMA::Registry::UserDefinedShapeQuality) {
-                        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY * 0.5f;
-                    }
                     return true;
                 }
             }
@@ -95,9 +83,6 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
     }
     PMMA::Registry::IsPowerSavingModeEnabled = false;
     PMMA::Core::PowerSavingManagerInstance.updateCounter = 15;
-    if (!PMMA::Registry::UserDefinedShapeQuality) {
-        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
-    }
     return false;
 
 #else
@@ -114,9 +99,6 @@ checking using PMMA.");
     PMMA::Registry::IsPowerSavingModeEnabled = false;
     PMMA::Core::PowerSavingManagerInstance.running = false;
     PMMA::Core::PowerSavingManagerInstance.updateCounter = 5;
-    if (!PMMA::Registry::UserDefinedShapeQuality) {
-        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
-    }
     return false;
 #endif
 }
@@ -230,32 +212,6 @@ double PMMA::General::GetApplicationStartTime() {
 double PMMA::General::GetApplicationRunTime() {
     std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
     return (current_time - PMMA::Registry::StartupTime).count() / 1000000000.0;
-}
-
-float PMMA::General::GetShapeQuality() {
-    return PMMA::Registry::CurrentShapeQuality;
-}
-
-void PMMA::General::SetShapeQuality(float ShapeQuality) {
-    if (ShapeQuality > PMMA::Constants::SHAPE_QUALITY) {
-        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
-            41,
-            "You have set the shape quality to a very high value of: " +
-                std::to_string(ShapeQuality) +
-                ". This is typically not necessary and may cause performance \
-issues. Please consider setting the shape quality to a lower value.");
-    }
-    PMMA::Registry::CurrentShapeQuality = ShapeQuality;
-    PMMA::Registry::UserDefinedShapeQuality = true;
-}
-
-void PMMA::General::Let_PMMA_ControlShapeQuality() {
-    if (PMMA::Registry::IsPowerSavingModeEnabled) {
-        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY * 0.5f;
-    } else {
-        PMMA::Registry::CurrentShapeQuality = PMMA::Constants::SHAPE_QUALITY;
-    }
-    PMMA::Registry::UserDefinedShapeQuality = false;
 }
 
 void PMMA::General::SetLocale(std::string locale) {

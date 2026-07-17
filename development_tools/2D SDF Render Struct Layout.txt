@@ -28,7 +28,7 @@ vec4 i_data2     : TEXCOORD5;
 
 x: Shape Property Two (two values packed)
 y: Shape Property Three (single value)
-z: UNUSED
+z: Depth
 w: UNUSED
 
 ///////////////////////////////////////////////////////////////////////

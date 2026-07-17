@@ -27,7 +27,7 @@ struct InstanceData {
     float color_index, shape_type_width;
     float texture_position, texture_size;
     float shape_property_two = 0, shape_property_three = 0;
-    float shape_property_four = 0, shape_property_five = 0;
+    float depth = 0, unused = 0;
 };
 
 class RenderPipelineManager {
@@ -38,12 +38,14 @@ private:
 public:
     ~RenderPipelineManager();
 
-    void Add(PMMA::Rendering::TwoD::Shapes::Line *lineShape);
-    void Add(PMMA::Rendering::TwoD::Shapes::RadialPolygon *radialPolygonShape);
-    void Add(PMMA::Rendering::TwoD::Shapes::Arc *arcShape);
-    void Add(PMMA::Rendering::TwoD::Shapes::Ellipse *ellipseShape);
-    void Add(PMMA::Rendering::TwoD::Shapes::Rectangle *rectangleShape);
-    void Add(PMMA::Rendering::TwoD::Shapes::Pixel *pixelShape);
+    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Line *lineShape);
+    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::RadialPolygon *radialPolygonShape);
+    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Arc *arcShape);
+    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Ellipse *ellipseShape);
+    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Rectangle *rectangleShape);
+    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Pixel *pixelShape);
+
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance();
 
     inline float PackValues(uint16_t value_one, uint16_t value_two) {
         uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);

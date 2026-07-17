@@ -39,6 +39,7 @@ private:
     uint32_t CurrentDataSize = 0;
 
     bgfx::UniformHandle u_colorInfo;
+    bgfx::UniformHandle u_transparency;
     bgfx::UniformHandle s_colorTex;
 
     ColorTexture ColorTexture;

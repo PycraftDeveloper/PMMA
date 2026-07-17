@@ -874,9 +874,10 @@ before you can call this function.");
 
         OrthographicProjection[0] = 2.0f / Size[0];
         OrthographicProjection[5] = -2.0f / Size[1];
-        OrthographicProjection[10] = -1.0f;
+        OrthographicProjection[10] = 1.0f;
         OrthographicProjection[12] = -1.0f;
         OrthographicProjection[13] = 1.0f;
+        OrthographicProjection[14] = 0.0f;
         OrthographicProjection[15] = 1.0f;
 
         OrthographicProjectionSet = true;

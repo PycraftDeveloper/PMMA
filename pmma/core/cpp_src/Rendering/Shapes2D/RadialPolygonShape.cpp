@@ -1,3 +1,4 @@
+#include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
 uint16_t PMMA::Rendering::TwoD::Shapes::RadialPolygon::GetRadius() {
@@ -20,6 +21,8 @@ void PMMA::Rendering::TwoD::Shapes::RadialPolygon::Render() {
         ColorDataChanged = Color.GetInternalChangedToggle();
     }
 
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance();
+
     if (ShapePropertyChanged) {
         uint16_t start_position[2];
         ShapeCenter.Get(start_position);
@@ -35,9 +38,11 @@ void PMMA::Rendering::TwoD::Shapes::RadialPolygon::Render() {
         ShapeInstanceData.shape_type_width = rpc->PackValues(1, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
+
+        ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->instanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }
 
-    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(this);
+    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(Instance, this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;
