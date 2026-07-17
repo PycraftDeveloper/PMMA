@@ -63,7 +63,7 @@ void PMMA::Rendering::TwoD::Shapes::Arc::Render() {
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
 
         ShapeInstanceData.shape_property_two = rpc->PackValues(GetEndAngle() * 182, 0);
-        ShapeInstanceData.depth = static_cast<float>(Instance->instanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE);
+        ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }
 
     PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(Instance, this);

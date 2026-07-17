@@ -45,7 +45,7 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
         ShapeInstanceData.shape_property_two = rpc->PackValues(rel_start_y, rel_end_x);
         ShapeInstanceData.shape_property_three = rpc->PackValues(rel_end_y, 0);
 
-        ShapeInstanceData.depth = static_cast<float>(Instance->instanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE);
+        ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }
 
     PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(Instance, this);

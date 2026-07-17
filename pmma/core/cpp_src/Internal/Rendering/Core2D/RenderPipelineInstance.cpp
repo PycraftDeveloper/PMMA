@@ -74,8 +74,12 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
             IndexData,
             sizeof(uint16_t) * 6));
 
-    instanceVbh = bgfx::createDynamicVertexBuffer(
-        instanceCount,
+    OpaqueInstanceVbh = bgfx::createDynamicVertexBuffer(
+        OpaqueInstanceCount,
+        instanceLayout);
+
+    TransparentInstanceVbh = bgfx::createDynamicVertexBuffer(
+        TransparentInstanceCount,
         instanceLayout);
 
     const bgfx::Caps *caps = bgfx::getCaps();
@@ -93,57 +97,120 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         ColorTexture.Assemble();
     }
 
-    if (ShapePropertyChanged || instanceCount != PreviousBufferSize || !bgfx::isValid(instanceVbh)) {
-        CurrentInstanceData.resize(instanceCount); // Free memory if instanceCount decreased
-        CurrentInstanceData.shrink_to_fit();       // Free memory if instanceCount decreased
+    if (ShapePropertyChanged || OpaqueInstanceCount != OpaquePreviousBufferSize || TransparentInstanceCount != TransparentPreviousBufferSize || !bgfx::isValid(OpaqueInstanceVbh) || !bgfx::isValid(TransparentInstanceVbh)) {
+        PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
 
-        CurrentShapeIDs.resize(instanceCount);
-        CurrentShapeIDs.shrink_to_fit();
+        CurrentInstanceData[0].resize(OpaqueInstanceCount); // Free memory if instanceCount decreased
+        CurrentInstanceData[0].shrink_to_fit();             // Free memory if instanceCount decreased
+
+        CurrentInstanceData[1].resize(TransparentInstanceCount); // Free memory if instanceCount decreased
+        CurrentInstanceData[1].shrink_to_fit();                  // Free memory if instanceCount decreased
+
+        CurrentShapeIDs[0].resize(OpaqueInstanceCount);
+        CurrentShapeIDs[0].shrink_to_fit();
+
+        CurrentShapeIDs[1].resize(TransparentInstanceCount);
+        CurrentShapeIDs[1].shrink_to_fit();
 
         PreviousShapeIDs[BufferID] = CurrentShapeIDs;
 
-        // Ensure destination has the exact required memory allocated
-        PreviousInstanceData[BufferID].resize(CurrentInstanceData.size());
+        {
+            // opaque first
+            // Ensure destination has the exact required memory allocated
+            PreviousInstanceData[BufferID][0].resize(CurrentInstanceData[0].size());
 
-        // 1. Extract raw pointers to bypass all vector indexing and bounds-checking overhead
-        size_t ArrayLength = CurrentInstanceData.size();
+            // 1. Extract raw pointers to bypass all vector indexing and bounds-checking overhead
+            size_t ArrayLength = CurrentInstanceData[0].size();
 
-        const auto *__restrict src = CurrentInstanceData.data() + ArrayLength - 1;
-        auto *__restrict dest = PreviousInstanceData[BufferID].data();
-        const auto *const end = dest + ArrayLength;
+            if (ArrayLength > 0) {
+                const auto *__restrict src = CurrentInstanceData[0].data() + ArrayLength - 1;
+                auto *__restrict dest = PreviousInstanceData[BufferID][0].data();
+                const auto *const end = dest + ArrayLength;
 
-        // 2. Blazing fast single-pass copy and reverse loop
-        while (dest < end) {
-            *dest++ = *src--;
-        }
-
-        PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
-
-        uint32_t CurrentBufferSize = PreviousInstanceData[BufferID].size();
-
-        const bgfx::Memory *instanceDataMem = bgfx::makeRef(
-            PreviousInstanceData[BufferID].data(),
-            CurrentBufferSize * sizeof(InstanceData));
-
-        if (bgfx::isValid(instanceVbh)) {
-            if (CurrentBufferSize != PreviousBufferSize) {
-                bgfx::destroy(instanceVbh);
-                instanceVbh = bgfx::createDynamicVertexBuffer(
-                    instanceDataMem,
-                    instanceLayout);
-            } else {
-                bgfx::update(
-                    instanceVbh,
-                    0,
-                    instanceDataMem);
+                // 2. Blazing fast single-pass copy and reverse loop
+                while (dest < end) {
+                    *dest++ = *src--;
+                }
             }
-        } else {
-            instanceVbh = bgfx::createDynamicVertexBuffer(
-                instanceDataMem,
-                instanceLayout);
-        }
 
-        PreviousBufferSize = CurrentBufferSize;
+            uint32_t CurrentBufferSize = PreviousInstanceData[BufferID][0].size();
+
+            if (ArrayLength > 0) {
+
+                const bgfx::Memory *OpaqueInstanceDataMem = bgfx::makeRef(
+                    PreviousInstanceData[BufferID][0].data(),
+                    CurrentBufferSize * sizeof(InstanceData));
+
+                if (bgfx::isValid(OpaqueInstanceVbh)) {
+                    if (CurrentBufferSize != OpaquePreviousBufferSize) {
+                        bgfx::destroy(OpaqueInstanceVbh);
+                        OpaqueInstanceVbh = bgfx::createDynamicVertexBuffer(
+                            OpaqueInstanceDataMem,
+                            instanceLayout);
+                    } else {
+                        bgfx::update(
+                            OpaqueInstanceVbh,
+                            0,
+                            OpaqueInstanceDataMem);
+                    }
+                } else {
+                    OpaqueInstanceVbh = bgfx::createDynamicVertexBuffer(
+                        OpaqueInstanceDataMem,
+                        instanceLayout);
+                }
+            }
+
+            OpaquePreviousBufferSize = CurrentBufferSize;
+        }
+        {
+            // then transparent
+
+            // Ensure destination has the exact required memory allocated
+            PreviousInstanceData[BufferID][1].resize(CurrentInstanceData[1].size());
+            // 1. Extract raw pointers to bypass all vector indexing and bounds-checking overhead
+            size_t ArrayLength = CurrentInstanceData[1].size();
+
+            if (ArrayLength > 0) {
+                const auto *__restrict src = CurrentInstanceData[1].data() + ArrayLength - 1;
+                auto *__restrict dest = PreviousInstanceData[BufferID][1].data();
+                const auto *const end = dest + ArrayLength;
+
+                // 2. Blazing fast single-pass copy and reverse loop
+                while (dest < end) {
+                    *dest++ = *src--;
+                }
+            }
+
+            uint32_t CurrentBufferSize = PreviousInstanceData[BufferID][1].size();
+
+            if (ArrayLength > 0) {
+
+                const bgfx::Memory *TransparentInstanceDataMem = bgfx::makeRef(
+                    PreviousInstanceData[BufferID][1].data(),
+                    CurrentBufferSize * sizeof(InstanceData));
+
+                if (bgfx::isValid(TransparentInstanceVbh)) {
+                    if (CurrentBufferSize != TransparentPreviousBufferSize) {
+                        bgfx::destroy(TransparentInstanceVbh);
+                        TransparentInstanceVbh = bgfx::createDynamicVertexBuffer(
+                            TransparentInstanceDataMem,
+                            instanceLayout);
+                    } else {
+                        bgfx::update(
+                            TransparentInstanceVbh,
+                            0,
+                            TransparentInstanceDataMem);
+                    }
+                } else {
+                    TransparentInstanceVbh = bgfx::createDynamicVertexBuffer(
+                        TransparentInstanceDataMem,
+                        instanceLayout);
+                }
+            }
+
+            TransparentPreviousBufferSize = CurrentBufferSize;
+        }
+        // end
 
         PreviousBufferID = BufferID;
         BufferID = (BufferID + 1) % 4;
@@ -156,29 +223,57 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
     float colorInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), 0.0f, 0.0f};
     bgfx::setUniform(u_colorInfo, colorInfo);
 
-    float transparencyInfo[4] = {1.0f, 0.0f, 0.0f, 0.0f};
-    bgfx::setUniform(u_transparency, transparencyInfo);
-
     bgfx::setVertexBuffer(0, vbh);
     bgfx::setIndexBuffer(ibh);
 
-    bgfx::setInstanceDataBuffer(
-        instanceVbh,
-        0,
-        PreviousBufferSize);
-
     bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
 
-    bgfx::setState(
-        BGFX_STATE_WRITE_RGB |
-        BGFX_STATE_WRITE_A |
-        BGFX_STATE_BLEND_ALPHA |
-        BGFX_STATE_DEPTH_TEST_LEQUAL |
-        BGFX_STATE_WRITE_Z);
+    // opaque
+    if (OpaquePreviousBufferSize > 0) {
+        std::cout << "Opaque: " << OpaquePreviousBufferSize << std::endl;
 
-    bgfx::submit(
-        PMMA::Core::ActiveDisplayInstance->DisplayID,
-        ShapeDefinitionsShaderProgram->Use());
+        float transparencyInfo[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+        bgfx::setUniform(u_transparency, transparencyInfo);
 
-    bgfx::setViewClear(PMMA::Core::ActiveDisplayInstance->DisplayID, BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0); // Ensures future rendering is still overlaid on-top
+        bgfx::setInstanceDataBuffer(
+            OpaqueInstanceVbh,
+            0,
+            OpaquePreviousBufferSize);
+
+        bgfx::setState(
+            BGFX_STATE_WRITE_RGB |
+            BGFX_STATE_WRITE_A |
+            BGFX_STATE_DEPTH_TEST_LEQUAL |
+            BGFX_STATE_WRITE_Z);
+
+        bgfx::submit(
+            PMMA::Core::ActiveDisplayInstance->DisplayID,
+            ShapeDefinitionsShaderProgram->Use());
+    }
+
+    // transparent
+    if (TransparentPreviousBufferSize > 0) {
+        std::cout << "Transparent: " << TransparentPreviousBufferSize << std::endl;
+
+        float transparencyInfo[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+        bgfx::setUniform(u_transparency, transparencyInfo);
+
+        bgfx::setInstanceDataBuffer(
+            TransparentInstanceVbh,
+            0,
+            TransparentPreviousBufferSize);
+
+        bgfx::setState(
+            BGFX_STATE_WRITE_RGB |
+            BGFX_STATE_WRITE_A |
+            BGFX_STATE_BLEND_ALPHA |
+            BGFX_STATE_DEPTH_TEST_LEQUAL);
+
+        bgfx::submit(
+            PMMA::Core::ActiveDisplayInstance->DisplayID,
+            ShapeDefinitionsShaderProgram->Use());
+    }
+
+    // Ensures future rendering is still overlaid on-top
+    bgfx::setViewClear(PMMA::Core::ActiveDisplayInstance->DisplayID, BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
 }

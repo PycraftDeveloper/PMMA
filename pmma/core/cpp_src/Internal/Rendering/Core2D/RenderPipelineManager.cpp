@@ -52,7 +52,7 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rende
 
     PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
 
-    if (lastInstance->instanceCount >= PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE) {
+    if ((lastInstance->OpaqueInstanceCount + lastInstance->TransparentInstanceCount) >= PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {

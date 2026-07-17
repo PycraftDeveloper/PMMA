@@ -45,7 +45,7 @@ public:
     // ADD COLOR (hot path)
     // ------------------------------------------------------------
     inline uint32_t AddColor(
-        PMMA::Types::Color *Color,
+        uint8_t *Color,
         uintptr_t ShapeID,
         bool ColorDataChanged) {
         if (ColorDataChanged) {
@@ -58,7 +58,11 @@ public:
             idx < CurrentShapeCount &&
             CurrentShapeIDs[idx] == ShapeID) {
             if (ColorDataChanged) {
-                Color->Get_RGBA(&CurrentColorData[idx * 4]);
+                uint32_t byteIndex = idx * 4;
+                CurrentColorData[byteIndex] = Color[0];
+                CurrentColorData[byteIndex + 1] = Color[1];
+                CurrentColorData[byteIndex + 2] = Color[2];
+                CurrentColorData[byteIndex + 3] = Color[3];
             }
 
             return idx;
@@ -80,7 +84,10 @@ public:
             }
         }
 
-        Color->Get_RGBA(&CurrentColorData[byteIndex]);
+        CurrentColorData[byteIndex] = Color[0];
+        CurrentColorData[byteIndex + 1] = Color[1];
+        CurrentColorData[byteIndex + 2] = Color[2];
+        CurrentColorData[byteIndex + 3] = Color[3];
 
         return idx;
     }
