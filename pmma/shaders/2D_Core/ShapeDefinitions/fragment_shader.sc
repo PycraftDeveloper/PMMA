@@ -197,31 +197,22 @@ void main()
 
     else
     {
-        vec2 a = v_data2.yz * quad_pixel_size;
-        vec2 b = v_data2.wz * quad_pixel_size;
+        // 1. Reconstruct absolute pixel positions from the biased data
+        vec2 a = vec2(v_data2.y, v_data2.z) - vec2(32768.0, 32768.0); // Start center point
+        vec2 b = vec2(v_data2.w, v_data3.x) - vec2(32768.0, 32768.0); // End center point
 
+        // 2. Vector math to project current pixel onto line segment AB
+        vec2 pa = p_pixel - a;
         vec2 ba = b - a;
-        float lenBA = max(length(ba), 1e-6);
-        vec2 dir = ba / lenBA;
 
-        vec2 pa = (v_uv * quad_pixel_size) - a;
+        // Project and clamp to keep the point bound strictly between the endpoints
+        float h = clamp(dot(pa, ba) / max(dot(ba, ba), 1e-6), 0.0, 1.0);
 
-        float x = dot(pa, dir);
-        float y = dot(pa, vec2(-dir.y, dir.x));
+        // 3. Distance from current pixel to the closest point on the segment
+        float dist_line = length(pa - ba * h) - width;
 
-        float halfLen = lenBA * 0.5;
-        float rad = 0.5;
-
-        float dx = abs(x - halfLen);
-        float dy = abs(y);
-
-        float square = length(max(vec2(dx, dy) - vec2(halfLen, rad), 0.0)) + min(max(x - halfLen, y - rad), 0.0);
-
-        float t = clamp(x / lenBA, 0.0, 1.0);
-        float roundLine = length(pa - ba * t) - rad;
-
-        float lineDist = (pointCount < 3.0) ? square : roundLine;
-        alpha = aaMask(lineDist, aa);
+        // 4. Apply your anti-aliasing mask directly to the capsule distance field
+        alpha = aaMask(dist_line, aa);
     }
 
     alpha *= step(0.0039, alpha);

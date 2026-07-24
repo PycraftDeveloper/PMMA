@@ -17,33 +17,52 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
         ShapeStart.Get(start_position);
         ShapeEnd.Get(end_position);
 
-        float width = abs((float)end_position[0] - start_position[0]);
-        float height = abs((float)end_position[1] - start_position[1]);
+        // 1. Calculate original dimensions
+        float orig_size_x = abs((float)end_position[0] - start_position[0]);
+        float orig_size_y = abs((float)end_position[1] - start_position[1]);
 
-        if (width == 0.0f)
-            width = 1.0f;
-        if (height == 0.0f)
-            height = 1.0f;
+        if (orig_size_x == 0.0f)
+            orig_size_x = 1.0f;
+        if (orig_size_y == 0.0f)
+            orig_size_y = 1.0f;
 
-        float rel_start_x = (start_position[0] <= end_position[0]) ? 0.0f : 1.0f;
-        float rel_end_x = (start_position[0] <= end_position[0]) ? 1.0f : 0.0f;
+        // 2. Expand the bounding box size to include the width padding on all sides
+        float padding = (float)Width;
+        float size_x = orig_size_x + (padding * 2.0f);
+        float size_y = orig_size_y + (padding * 2.0f);
 
-        float rel_start_y = (start_position[1] <= end_position[1]) ? 0.0f : 1.0f;
-        float rel_end_y = (start_position[1] <= end_position[1]) ? 1.0f : 0.0f;
+        // 3. Calculate absolute pixel center of this instance quad
+        float center_x = (start_position[0] + end_position[0]) / 2.0f;
+        float center_y = (start_position[1] + end_position[1]) / 2.0f;
+
+        // 4. Calculate signed pixel distances from the center to endpoints
+        float start_offset_x = (float)start_position[0] - center_x;
+        float start_offset_y = (float)start_position[1] - center_y;
+        float end_offset_x = (float)end_position[0] - center_x;
+        float end_offset_y = (float)end_position[1] - center_y;
+
+        // 5. Add a 32768 bias to completely eliminate negative numbers for uint16_t packing
+        uint16_t pack_start_x = (uint16_t)(start_offset_x + 32768.0f);
+        uint16_t pack_start_y = (uint16_t)(start_offset_y + 32768.0f);
+        uint16_t pack_end_x = (uint16_t)(end_offset_x + 32768.0f);
+        uint16_t pack_end_y = (uint16_t)(end_offset_y + 32768.0f);
 
         auto rpc = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore;
 
         ShapeInstanceData.position = rpc->PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
-        ShapeInstanceData.size = rpc->PackValues((uint16_t)width, (uint16_t)height);
+        ShapeInstanceData.size = rpc->PackValues((uint16_t)size_x, (uint16_t)size_y);
         ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
-        ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, rel_start_x);
+
+        // Pass biased start_x here
+        ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, pack_start_x);
 
         ShapeInstanceData.shape_type_width = rpc->PackValues(4, Width);
         ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
         ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
 
-        ShapeInstanceData.shape_property_two = rpc->PackValues(rel_start_y, rel_end_x);
-        ShapeInstanceData.shape_property_three = rpc->PackValues(rel_end_y, 0);
+        // Pass remaining biased pixel coordinates
+        ShapeInstanceData.shape_property_two = rpc->PackValues(pack_start_y, pack_end_x);
+        ShapeInstanceData.shape_property_three = rpc->PackValues(pack_end_y, 0);
 
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }
