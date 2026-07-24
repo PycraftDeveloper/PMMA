@@ -485,10 +485,19 @@ displays");
         init.platformData = pd;
 
         if (!bgfx::init(init)) {
+            PMMA::Core::LoggingManagerInstance->InternalLogError(
+                65,
+                "Failed to initialize BGFX. Please ensure you have a \
+graphical desktop envionment, graphics drivers installed and have correctly \
+installed PMMA.");
+
             throw std::runtime_error("Failed to initialize BGFX");
         }
 
         bgfx::setDebug(BGFX_DEBUG_NONE);
+
+        const bgfx::Caps *caps = bgfx::getCaps();
+        PMMA::Registry::MaxViewID = caps->limits.maxViews;
 
         std::string Renderer = PMMA::General::GetGraphicsBackend();
         PMMA::Core::LoggingManagerInstance->InternalLogInfo(
@@ -516,10 +525,6 @@ displays");
         DisplayID = PMMA::Registry::SecondaryDisplayIDs.front();
         PMMA::Registry::SecondaryDisplayIDs.erase(PMMA::Registry::SecondaryDisplayIDs.begin());
     }
-
-    bgfx::setViewClear(DisplayID, BGFX_CLEAR_COLOR | BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
-    bgfx::setViewRect(0, 0, 0, Size[0], Size[1]);
-    bgfx::setViewFrameBuffer(DisplayID, DisplayFrameBufferHandle);
 
     if (!Vsync) {
         PMMA::Core::LoggingManagerInstance->InternalLogDebug(
@@ -561,6 +566,9 @@ vsync to reduce visual tearing and improve frame pacing.");
         0     // stencil clear value
     );
 
+    bgfx::setViewRect(DisplayID, 0, 0, Size[0], Size[1]);
+    bgfx::setViewFrameBuffer(DisplayID, DisplayFrameBufferHandle);
+
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::ActiveDisplayInstance = this;
     }
@@ -600,6 +608,8 @@ You can do this using `Display.create`.");
     );
 
     bgfx::touch(DisplayID); // Ensure view DisplayID is cleared
+
+    PMMA::Registry::RollingViewID = DisplayID;
 
     RenderPipelineCore->Reset();
 
@@ -687,8 +697,6 @@ You can do this using `Display.create`.");
     bgfx::setViewFrameBuffer(DisplayID, DisplayFrameBufferHandle);
 
     RenderPipelineCore->Render();
-
-    bgfx::touch(DisplayID); // Ensure view DisplayID is cleared
 
     unsigned int MaxRefreshRate;
 

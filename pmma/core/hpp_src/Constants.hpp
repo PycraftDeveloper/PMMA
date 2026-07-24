@@ -5,6 +5,8 @@
 #include <string>
 #include <tuple>
 
+#include <bgfx/bgfx.h>
+
 #include "Internal/Internal.hpp"
 
 namespace PMMA::Constants {

@@ -70,3 +70,6 @@ Notes:
 61 - Making master display
 62 - Master display should be updated last
 63 - Minimum Operating System approved window size
+64 - Max view ID threshold exceeded
+65 - Unable to setup BGFX
+66 - Unknown key

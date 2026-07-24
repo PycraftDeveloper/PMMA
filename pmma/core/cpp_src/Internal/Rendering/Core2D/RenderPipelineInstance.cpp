@@ -90,6 +90,39 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
             (uint32_t)std::numeric_limits<uint16_t>::max());
 }
 
+void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::AdvanceView() {
+    PMMA::Registry::RollingViewID++;
+    if (PMMA::Registry::RollingViewID >= PMMA::Registry::MaxViewID) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            64,
+            "The maximum number of internal views has been exceeded. \
+Please consider reducing the number of windows or quantity of 2D shapes \
+rendered if rendering more than 16,777,216 shapes to a single window.");
+
+        throw std::runtime_error("The maximum number of internal views has been exceeded.");
+    }
+
+    bgfx::setViewRect(
+        PMMA::Registry::RollingViewID,
+        0,
+        0,
+        PMMA::Core::ActiveDisplayInstance->GetWidth(),
+        PMMA::Core::ActiveDisplayInstance->GetHeight());
+
+    bgfx::setViewFrameBuffer(
+        PMMA::Registry::RollingViewID,
+        PMMA::Core::ActiveDisplayInstance->DisplayFrameBufferHandle);
+
+    bgfx::setViewClear(
+        PMMA::Registry::RollingViewID,
+        BGFX_CLEAR_DEPTH,
+        0,
+        1.0f,
+        0);
+
+    bgfx::touch(PMMA::Registry::RollingViewID);
+}
+
 void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
     if (ColorChanged || !ColorTexture.UsingCache) {
         PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
@@ -230,7 +263,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
             BGFX_STATE_WRITE_Z);
 
         bgfx::submit(
-            PMMA::Core::ActiveDisplayInstance->DisplayID,
+            PMMA::Registry::RollingViewID,
             ShapeDefinitionsShaderProgram->Use());
     }
 
@@ -263,10 +296,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
             BGFX_STATE_DEPTH_TEST_LEQUAL);
 
         bgfx::submit(
-            PMMA::Core::ActiveDisplayInstance->DisplayID,
+            PMMA::Registry::RollingViewID,
             ShapeDefinitionsShaderProgram->Use());
     }
 
-    // Ensures future rendering is still overlaid on-top
-    bgfx::setViewClear(PMMA::Core::ActiveDisplayInstance->DisplayID, BGFX_CLEAR_DEPTH, 0x000000ff, 1.0f, 0);
+    AdvanceView();
 }

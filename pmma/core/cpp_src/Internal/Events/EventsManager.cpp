@@ -764,6 +764,10 @@ void PMMA::Internal::Events::InternalKeyManager::KeyCallback(GLFWwindow *window,
             display->KeyEvent_Menu_Instances[i]->Update(action != GLFW_RELEASE);
         }
     } else {
-        std::cout << "Unknown key: " << key << std::endl;
+        PMMA::Core::LoggingManagerInstance->InternalLogDebug(
+            66,
+            "An unknown key event was triggered. The key has ID: " + std::to_string(key) + " \
+PMMA does not currently support this key event. Feel free to raise it as an issue \
+on our repo here: 'https://github.com/PycraftDeveloper/PMMA/issues'.");
     }
 }

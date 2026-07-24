@@ -1,8 +1,9 @@
-#define STB_IMAGE_IMPLEMENTATION
-#include <STB/stb_image.h>
-
 #include <filesystem>
 #include <numeric>
+
+#define STB_IMAGE_IMPLEMENTATION
+#include <STB/stb_image.h>
+#include <bgfx/bgfx.h>
 
 #include "PMMA_Core.hpp"
 
@@ -48,6 +49,9 @@ unsigned int MouseButtonEventInstanceCount = 0;
 unsigned int MouseScrollEventInstanceCount = 0;
 unsigned int ControllerEventInstanceCount = 0;
 unsigned int DropEventInstanceCount = 0;
+
+unsigned int RollingViewID;
+unsigned int MaxViewID = 0;
 
 int GLFW_References = 0;
 

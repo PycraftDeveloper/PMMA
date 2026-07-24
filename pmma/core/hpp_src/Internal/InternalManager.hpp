@@ -1,8 +1,8 @@
 #include "PMMA_Exports.hpp"
 
 #include <chrono>
-#include <thread>
 #include <condition_variable>
+#include <thread>
 
 struct PowerSavingManager {
     std::thread PowerSavingModeCheckingThread;
@@ -16,8 +16,8 @@ struct PowerSavingManager {
         stop();
     }
 
-    PowerSavingManager(const PowerSavingManager&) = delete;
-    PowerSavingManager& operator=(const PowerSavingManager&) = delete;
+    PowerSavingManager(const PowerSavingManager &) = delete;
+    PowerSavingManager &operator=(const PowerSavingManager &) = delete;
 
     void stop() {
         {

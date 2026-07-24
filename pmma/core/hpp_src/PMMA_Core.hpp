@@ -106,6 +106,9 @@ extern unsigned int MouseScrollEventInstanceCount;
 extern unsigned int ControllerEventInstanceCount;
 extern unsigned int DropEventInstanceCount;
 
+extern unsigned int RollingViewID;
+extern unsigned int MaxViewID;
+
 extern int GLFW_References;
 
 extern bool GLFW_Initialized;

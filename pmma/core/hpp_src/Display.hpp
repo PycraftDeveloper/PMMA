@@ -123,6 +123,8 @@ public:
 
     unsigned char DisplayID = 0;
 
+    bgfx::FrameBufferHandle DisplayFrameBufferHandle = BGFX_INVALID_HANDLE;
+
     std::vector<PMMA::Events::Key_Space *> KeyEvent_Space_Instances;
     std::vector<PMMA::Events::Key_Apostrophe *> KeyEvent_Apostrophe_Instances;
     std::vector<PMMA::Events::Key_Comma *> KeyEvent_Comma_Instances;
@@ -284,8 +286,6 @@ private:
 
     GLFWmonitor *Monitor = nullptr;
     GLFWwindow *Window = nullptr;
-
-    bgfx::FrameBufferHandle DisplayFrameBufferHandle = BGFX_INVALID_HANDLE;
 
     float OrthographicProjection[16] = {0.0f};
 

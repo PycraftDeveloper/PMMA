@@ -83,6 +83,8 @@ public:
         delete ShapeDefinitionsShaderProgram;
     };
 
+    void AdvanceView();
+
     inline void Reset() {
         ColorTexture.Reset();
         OpaqueInstanceCount = 0;
