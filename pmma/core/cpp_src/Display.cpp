@@ -503,6 +503,8 @@ installed PMMA.");
         PMMA::Core::LoggingManagerInstance->InternalLogInfo(
             34,
             "PMMA is using the '" + Renderer + "' backend for graphics.");
+
+        PMMA::Registry::IsApplicationRunning = true;
     } else {
         void *nwh = nullptr;
 
