@@ -77,3 +77,4 @@ Notes:
 68 - Unable to read image data
 69 - Cannot enable invalid texture
 70 - Cannot retrieve properties for an invalid texture
+71 - Cannot re-load texture without path

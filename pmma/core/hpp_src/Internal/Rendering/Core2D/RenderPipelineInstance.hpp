@@ -5,7 +5,7 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-#include "Internal/Rendering/Core2D/ColorTexture.hpp"
+#include "Internal/Rendering/Core2D/ColorTextureManager.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 
 class PMMA::Graphics::Shader;

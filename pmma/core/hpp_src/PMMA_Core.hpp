@@ -29,7 +29,6 @@
 #include "Internal/AnimationManager.hpp"
 #include "Internal/LoggingManager.hpp"
 #include "Internal/PowerSavingManager.hpp"
-#include "Internal/TextureManager.hpp"
 
 #include "Internal/Events/EventsManager.hpp"
 

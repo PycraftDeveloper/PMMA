@@ -3,41 +3,49 @@
 #include "PMMA_Core.hpp"
 
 void PMMA::Types::Texture::Load(std::string TexturePath) {
-    if (Path != TexturePath) {
+    if (Path == TexturePath) {
+        return;
+    }
+
+    if (Path != "") {
         Unload();
     }
 
     auto it = PMMA::Core::TextureCatalogue.find(TexturePath);
 
     if (it != PMMA::Core::TextureCatalogue.end()) {
-        std::pair<const std::string, int> *pairPtr = &*it;
+        std::pair<const std::string, PMMA::Internal::TextureProperty> *pairPtr = &*it;
 
-        TextureProperties = pairPtr->second;
+        TextureProperties = &(pairPtr->second);
     } else {
-        // Assigns the new object and gets a pointer to that map slot
-        TextureProperties = &(PMMA::Core::TextureCatalogue[TexturePath] = new PMMA::Internal::TextureProperty());
+        PMMA::Internal::TextureProperty &propertyRef = PMMA::Core::TextureCatalogue[TexturePath];
+
+        TextureProperties = &propertyRef;
 
         int width, height, original_channels;
-        if (!stbi_info(filename, &width, &height, &original_channels)) {
+        if (!stbi_info(TexturePath.c_str(), &width, &height, &original_channels)) {
             PMMA::Core::LoggingManagerInstance->InternalLogError(
                 67,
                 "Failed to query image information. Please ensure the \
 image path is valid and is a valid format. The image path is: '" +
-                    TexturePath "'. The reason for the fail is: " + stbi_failure_reason());
+                    TexturePath + "'. The reason for the fail is: " + stbi_failure_reason());
 
             throw std::runtime_error("Failed to query image information.");
         }
+
+        TextureProperties->TextureSize[0] = static_cast<uint16_t>(width);
+        TextureProperties->TextureSize[1] = static_cast<uint16_t>(height);
 
         // 2. Determine target channels (Force 4 if it has 4, otherwise force 3)
         TextureProperties->Channels = (original_channels == 4) ? 4 : 3;
 
         unsigned char *data = stbi_load(
             TexturePath.c_str(),
-            &TextureProperties->TextureSize[0], &TextureProperties->TextureSize[1],
-            nullptr, desired_channels);
+            &width, &height,
+            nullptr, TextureProperties->Channels);
 
-        if (raw_data) {
-            size_t data_size = w * h * desired_channels;
+        if (data) {
+            size_t data_size = TextureProperties->TextureSize[0] * TextureProperties->TextureSize[1] * TextureProperties->Channels;
             TextureProperties->PixelData.assign(data, data + data_size);
 
             stbi_image_free(data);
@@ -47,10 +55,25 @@ image path is valid and is a valid format. The image path is: '" +
                 68,
                 "Failed to read image data. Please ensure the \
 image path is valid and is a valid format. The image path is: '" +
-                    TexturePath "'. The reason for the fail is: " + stbi_failure_reason());
+                    TexturePath + "'. The reason for the fail is: " + stbi_failure_reason());
 
             throw std::runtime_error("Failed to read image data.");
         }
+    }
+
+    TextureProperties->References++;
+}
+
+void PMMA::Types::Texture::Load() {
+    if (Path != "") {
+        PMMA::Types::Texture::Load(Path);
+    } else {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            71,
+            "Unable to re-load the previously loaded texture as the \
+path has not been set. Please specify a valid file path to a texture.");
+
+        throw std::runtime_error("Failed to re-load texture - path was cleared.");
     }
 }
 
@@ -60,6 +83,61 @@ void PMMA::Types::Texture::Unload() {
     if (TextureProperties->References <= 0) {
         PMMA::Core::TextureCatalogue.erase(Path);
     }
+}
+
+PMMA::Types::Texture::~Texture() {
+    PMMA::Types::Texture::Unload();
+}
+
+void PMMA::Types::Texture::Enable() {
+    if (TextureProperties != nullptr) {
+        IsTextureEnabled = true;
+    } else {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            69,
+            "Cannot enable an image that has not been loaded yet. \
+Please load an image first.");
+    }
+}
+
+void PMMA::Types::Texture::GetSize(uint16_t *size) {
+    if (TextureProperties == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            70,
+            "Unable to get texture size. You need to load a texture \
+before calling this function!");
+
+        throw std::runtime_error("Failed to query texture information.");
+    }
+
+    size[0] = TextureProperties->TextureSize[0];
+    size[1] = TextureProperties->TextureSize[1];
+}
+
+unsigned char PMMA::Types::Texture::GetChannels() {
+    if (TextureProperties == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            70,
+            "Unable to get texture size. You need to load a texture \
+before calling this function!");
+
+        throw std::runtime_error("Failed to query texture information.");
+    }
+
+    return TextureProperties->Channels;
+}
+
+uint32_t PMMA::Types::Texture::GetReferences() {
+    if (TextureProperties == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            70,
+            "Unable to get texture size. You need to load a texture \
+before calling this function!");
+
+        throw std::runtime_error("Failed to query texture information.");
+    }
+
+    return TextureProperties->References;
 }
 
 PMMA::Types::Color::Color() {

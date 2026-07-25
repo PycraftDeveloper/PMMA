@@ -1,3 +1,4 @@
+#pragma once
 #include "PMMA_Exports.hpp"
 
 #include <chrono>
@@ -30,7 +31,7 @@ struct PowerSavingManager {
         if (PowerSavingModeCheckingThread.joinable())
             PowerSavingModeCheckingThread.join();
     }
-};
 
-void PowerSavingUpdaterThread();
-}
+    void PowerSavingUpdaterThread();
+};
+};

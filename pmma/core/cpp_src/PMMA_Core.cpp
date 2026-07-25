@@ -5,6 +5,7 @@
 #include <STB/stb_image.h>
 #include <bgfx/bgfx.h>
 
+#include "Internal/PowerSavingManager.hpp"
 #include "PMMA_Core.hpp"
 
 namespace PMMA::Core {
@@ -24,6 +25,7 @@ std::vector<PMMA::Internal::Events::InternalController *> InternalControllerEven
 std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
 
 PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance = nullptr;
+std::map<std::string, PMMA::Internal::TextureProperty> TextureCatalogue;
 } // namespace PMMA::Core
 
 namespace PMMA::Registry {
@@ -137,7 +139,9 @@ for Python, this does not effect the operation of PMMA but will change \
 how PMMA and Python interact.");
 #endif
 
-    PMMA::Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread = std::thread(PowerSavingUpdaterThread);
+    PMMA::Core::PowerSavingManagerInstance.PowerSavingModeCheckingThread = std::thread(
+        &PMMA::Internal::PowerSavingManager::PowerSavingUpdaterThread,
+        &PMMA::Core::PowerSavingManagerInstance);
 
     PMMA::Registry::SecondaryDisplayIDs.reserve(255);
     PMMA::Registry::SecondaryDisplayIDs.resize(255);
