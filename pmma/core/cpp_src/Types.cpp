@@ -7,7 +7,7 @@ PMMA::Types::Color::Color() {
 }
 
 void PMMA::Types::Color::Set_ColorName(std::string color_name) {
-    std::optional<std::array<uint8_t, 3>> Color = PMMA::Constants::Colors::FindColor(color_name);
+    std::optional<std::array<uint8_t, 3>> Color = PMMA::Internal::FindColor(color_name);
 
     if (!Color.has_value()) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
@@ -19,6 +19,10 @@ void PMMA::Types::Color::Set_ColorName(std::string color_name) {
     auto &rgb = Color.value();
     uint8_t in_color[4] = {rgb[0], rgb[1], rgb[2], 255};
     Set_RGBA(in_color);
+}
+
+void PMMA::Types::Color::Set_ColorName(std::string_view color_name) {
+    PMMA::Types::Color::Set_ColorName(static_cast<std::string>(color_name));
 }
 
 uint32_t PMMA::Types::Color::GetSeed() {

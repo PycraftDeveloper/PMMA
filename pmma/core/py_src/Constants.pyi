@@ -8,6 +8,17 @@ class Constants:
     UPDATING: Final[Literal["updating"]]
     MANUALLY_SET: Final[Literal["manually_set"]]
 
+    class HatStates:
+        NOT_PRESSED: Final[Literal["HAT NOT PRESSED"]]
+        PRESSED_UP: Final[Literal["HAT PRESSED UP"]]
+        PRESSED_RIGHT: Final[Literal["HAT PRESSED RIGHT"]]
+        PRESSED_DOWN: Final[Literal["HAT PRESSED DOWN"]]
+        PRESSED_LEFT: Final[Literal["HAT PRESSED LEFT"]]
+        PRESSED_UP_RIGHT: Final[Literal["HAT PRESSED UP-RIGHT"]]
+        PRESSED_DOWN_RIGHT: Final[Literal["HAT PRESSED DOWN-RIGHT"]]
+        PRESSED_DOWN_LEFT: Final[Literal["HAT PRESSED DOWN-LEFT"]]
+        PRESSED_UP_LEFT: Final[Literal["HAT PRESSED UP-LEFT"]]
+
     class OperatingSystems:
         ANDROID: Final[Literal["Android"]]
         BSD: Final[Literal["BSD"]]

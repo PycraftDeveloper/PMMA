@@ -261,18 +261,5 @@ struct Colors {
                                                                               {APRICOT, {255, 165, 79}},
                                                                               {FLAX, {238, 232, 205}},
                                                                               {MYSTIC_PURPLE, {102, 51, 153}}}};
-
-    constexpr static std::optional<std::array<uint8_t, 3>> FindColor(std::string_view key) {
-        auto it = std::find_if(
-            ColorMap.begin(), ColorMap.end(),
-            [key](const PMMA::Internal::ColorEntry &e) {
-                return e.name == key;
-            });
-
-        if (it != ColorMap.end())
-            return it->value;
-
-        return std::nullopt;
-    }
 };
 } // namespace PMMA::Constants

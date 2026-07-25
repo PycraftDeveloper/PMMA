@@ -20,7 +20,6 @@ public:
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
     float Rotation = 0;
-    uint16_t PointCount = 0;
 
     uintptr_t ID;
     uint16_t Width = 1;
@@ -33,18 +32,6 @@ public:
     }
 
     void Render();
-
-    inline void SetPointCount(uint16_t in_pointCount) {
-        if (in_pointCount != PointCount) {
-            ShapePropertyChanged = true;
-        }
-
-        PointCount = in_pointCount;
-    };
-
-    uint16_t GetPointCount() {
-        return PointCount;
-    }
 
     inline void SetWidth(uint16_t in_width) {
         if (in_width != Width) {

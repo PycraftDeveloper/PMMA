@@ -51,7 +51,7 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
 
         ShapeInstanceData.position = rpc->PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
         ShapeInstanceData.size = rpc->PackValues((uint16_t)size_x, (uint16_t)size_y);
-        ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
+        ShapeInstanceData.point_count_gradient_type = rpc->PackValues(0, 0);
 
         // Pass biased start_x here
         ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, pack_start_x);

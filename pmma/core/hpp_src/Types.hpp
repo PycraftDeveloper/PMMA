@@ -193,6 +193,7 @@ public:
     }
 
     void Set_ColorName(std::string color_name);
+    void Set_ColorName(std::string_view color_name);
 
     void Set_RGBA(uint8_t *in_color);
     void Set_RGB(uint8_t *in_color);
