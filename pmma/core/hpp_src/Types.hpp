@@ -6,6 +6,8 @@
 #include <random>
 #include <thread>
 
+#include <STB/stb_image.h>
+
 #include "Logger.hpp"
 #include "Maths.hpp"
 #include "Noise/FractalBrownianMotion.hpp"
@@ -38,6 +40,78 @@ struct Proportion_Configure_Kwargs {
     uint32_t octaves = 2;
     float frequency = 0.75f;
     float amplitude = 1.0f;
+};
+
+class EXPORT Texture {
+private:
+    std::string Path;
+    PMMA::Internal::TextureProperty *TextureProperties;
+
+public:
+    bool IsTextureEnabled = false;
+
+    void Load(std::string TexturePath);
+
+    void Unload();
+
+    inline void Enable() {
+        if (TextureProperties != nullptr) {
+            IsTextureEnabled = true;
+        } else {
+            PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+                69,
+                "Cannot enable an image that has not been loaded yet. \
+Please load an image first.");
+        }
+    }
+
+    inline void Disable() {
+        IsTextureEnabled = false;
+    }
+
+    inline bool IsEnabled() {
+        return IsTextureEnabled
+    }
+
+    inline void GetSize(uint16_t *size) {
+        if (TextureProperties == nullptr) {
+            PMMA::Core::LoggingManagerInstance->InternalLogError(
+                70,
+                "Unable to get texture size. You need to load a texture \
+before calling this function!");
+
+            throw std::runtime_error("Failed to query texture information.");
+        }
+
+        size[0] = TextureProperties->TextureSize[0];
+        size[1] = TextureProperties->TextureSize[1];
+    }
+
+    inline char GetChannels() {
+        if (TextureProperties == nullptr) {
+            PMMA::Core::LoggingManagerInstance->InternalLogError(
+                70,
+                "Unable to get texture size. You need to load a texture \
+before calling this function!");
+
+            throw std::runtime_error("Failed to query texture information.");
+        }
+
+        return TextureProperties->Channels;
+    }
+
+    inline uint16_t GetReferences() {
+        if (TextureProperties == nullptr) {
+            PMMA::Core::LoggingManagerInstance->InternalLogError(
+                70,
+                "Unable to get texture size. You need to load a texture \
+before calling this function!");
+
+            throw std::runtime_error("Failed to query texture information.");
+        }
+
+        return TextureProperties->References;
+    }
 };
 
 class EXPORT Color {

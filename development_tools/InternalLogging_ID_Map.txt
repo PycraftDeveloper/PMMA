@@ -73,3 +73,7 @@ Notes:
 64 - Max view ID threshold exceeded
 65 - Unable to setup BGFX
 66 - Unknown key
+67 - Unable to query image data
+68 - Unable to read image data
+69 - Cannot enable invalid texture
+70 - Cannot retrieve properties for an invalid texture

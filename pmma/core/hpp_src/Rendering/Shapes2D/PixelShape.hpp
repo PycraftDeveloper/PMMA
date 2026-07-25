@@ -15,6 +15,7 @@ class EXPORT Pixel {
 public:
     PMMA::Types::DisplayCoordinate ShapeCenter;
     PMMA::Types::Color Color;
+    PMMA::Types::Texture Texture;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 

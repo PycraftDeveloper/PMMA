@@ -35,7 +35,7 @@ set(CORE_SOURCES
     "${SRC_DIR}/Graphics/Shader.cpp"
 
     "${SRC_DIR}/Internal/AnimationManager.cpp"
-    "${SRC_DIR}/Internal/InternalManager.cpp"
+    "${SRC_DIR}/Internal/PowerSavingManager.cpp"
     "${SRC_DIR}/Internal/LoggingManager.cpp"
     "${SRC_DIR}/Internal/Internal.cpp"
 

@@ -4,6 +4,7 @@
 #include <condition_variable>
 #include <thread>
 
+namespace PMMA::Internal {
 struct PowerSavingManager {
     std::thread PowerSavingModeCheckingThread;
     std::condition_variable cv;
@@ -32,3 +33,4 @@ struct PowerSavingManager {
 };
 
 void PowerSavingUpdaterThread();
+}

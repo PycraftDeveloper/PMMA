@@ -2,6 +2,66 @@
 
 #include "PMMA_Core.hpp"
 
+void PMMA::Types::Texture::Load(std::string TexturePath) {
+    if (Path != TexturePath) {
+        Unload();
+    }
+
+    auto it = PMMA::Core::TextureCatalogue.find(TexturePath);
+
+    if (it != PMMA::Core::TextureCatalogue.end()) {
+        std::pair<const std::string, int> *pairPtr = &*it;
+
+        TextureProperties = pairPtr->second;
+    } else {
+        // Assigns the new object and gets a pointer to that map slot
+        TextureProperties = &(PMMA::Core::TextureCatalogue[TexturePath] = new PMMA::Internal::TextureProperty());
+
+        int width, height, original_channels;
+        if (!stbi_info(filename, &width, &height, &original_channels)) {
+            PMMA::Core::LoggingManagerInstance->InternalLogError(
+                67,
+                "Failed to query image information. Please ensure the \
+image path is valid and is a valid format. The image path is: '" +
+                    TexturePath "'. The reason for the fail is: " + stbi_failure_reason());
+
+            throw std::runtime_error("Failed to query image information.");
+        }
+
+        // 2. Determine target channels (Force 4 if it has 4, otherwise force 3)
+        TextureProperties->Channels = (original_channels == 4) ? 4 : 3;
+
+        unsigned char *data = stbi_load(
+            TexturePath.c_str(),
+            &TextureProperties->TextureSize[0], &TextureProperties->TextureSize[1],
+            nullptr, desired_channels);
+
+        if (raw_data) {
+            size_t data_size = w * h * desired_channels;
+            TextureProperties->PixelData.assign(data, data + data_size);
+
+            stbi_image_free(data);
+            data = nullptr;
+        } else {
+            PMMA::Core::LoggingManagerInstance->InternalLogError(
+                68,
+                "Failed to read image data. Please ensure the \
+image path is valid and is a valid format. The image path is: '" +
+                    TexturePath "'. The reason for the fail is: " + stbi_failure_reason());
+
+            throw std::runtime_error("Failed to read image data.");
+        }
+    }
+}
+
+void PMMA::Types::Texture::Unload() {
+    TextureProperties->References -= 1;
+
+    if (TextureProperties->References <= 0) {
+        PMMA::Core::TextureCatalogue.erase(Path);
+    }
+}
+
 PMMA::Types::Color::Color() {
     RandomColorGenerator = PMMA::Core::RandomGenerator;
 }

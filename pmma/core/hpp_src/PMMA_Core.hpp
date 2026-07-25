@@ -27,8 +27,9 @@
 #include "Graphics/Shader.hpp"
 
 #include "Internal/AnimationManager.hpp"
-#include "Internal/InternalManager.hpp"
 #include "Internal/LoggingManager.hpp"
+#include "Internal/PowerSavingManager.hpp"
+#include "Internal/TextureManager.hpp"
 
 #include "Internal/Events/EventsManager.hpp"
 
@@ -71,7 +72,7 @@ extern PMMA::Display *MasterDisplayInstance;
 extern PMMA::Passport *PassportInstance;
 extern PMMA::Internal::LoggingManager *LoggingManagerInstance;
 
-extern PowerSavingManager PowerSavingManagerInstance;
+extern PMMA::Internal::PowerSavingManager PowerSavingManagerInstance;
 
 extern PMMA::Internal::AnimationManager *AnimationManagerInstance;
 
@@ -81,6 +82,8 @@ extern std::vector<PMMA::Internal::Events::InternalController *> InternalControl
 extern std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
 
 extern PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance;
+
+extern std::map<std::string, PMMA::Internal::TextureProperty> TextureCatalogue;
 } // namespace PMMA::Core
 
 namespace PMMA::Registry {

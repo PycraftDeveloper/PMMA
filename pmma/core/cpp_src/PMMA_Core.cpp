@@ -14,7 +14,7 @@ PMMA::Display *MasterDisplayInstance = nullptr;
 PMMA::Passport *PassportInstance = nullptr;
 PMMA::Internal::LoggingManager *LoggingManagerInstance = nullptr;
 
-PowerSavingManager PowerSavingManagerInstance;
+PMMA::Internal::PowerSavingManager PowerSavingManagerInstance;
 
 PMMA::Internal::AnimationManager *AnimationManagerInstance = nullptr;
 
