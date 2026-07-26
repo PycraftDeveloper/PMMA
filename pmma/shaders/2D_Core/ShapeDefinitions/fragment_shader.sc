@@ -221,7 +221,12 @@ void main()
         discard;
     }
 
-    vec2 atlasUV = v_data1.yz + (v_uv * vec2(v_data1.w, v_data2.x));
-    vec4 TexColor = texture2D(s_Tex, atlasUV);
-    gl_FragColor = vec4(v_col0.rgb * TexColor.rgb, v_col0.a * alpha * TexColor.a);
+    if (v_data1.w > 0.0001 && v_data2.x > 0.0001)
+    {
+        vec2 atlasUV = v_data1.yz + (v_uv * vec2(v_data1.w, v_data2.x));
+        vec4 TexColor = texture2D(s_Tex, atlasUV);
+        gl_FragColor = vec4(v_col0.rgb * TexColor.rgb, v_col0.a * alpha * TexColor.a);
+    } else {
+        gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
+    }
 }

@@ -342,16 +342,10 @@ public:
 
         PendingTextures.push_back(Texture);
         Dirty = true;
-
-        std::cout << "Reg" << std::endl;
     }
 
     // Here, if the texture atlas is dirty, the texture atlas should be generated using the properties from 'RegisteredTextures' and written to a BGFX texture.
     void Assemble() {
-        std::cout << "Assembled" << std::endl;
-        if (!Dirty)
-            return;
-
         constexpr uint32_t Channels = 4;
 
         //

@@ -141,7 +141,6 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
     }
 
     if (TextureManager.Dirty) {
-        std::cout << "Assembled" << std::endl;
         TextureManager.Assemble();
     }
 
@@ -262,11 +261,6 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         bgfx::setIndexBuffer(ibh);
 
         bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
-
-        if (!bgfx::isValid(TextureManager.TextureHandle)) {
-            std::cout << "Invalid texture handle" << std::endl;
-        }
-
         bgfx::setTexture(1, s_Tex, TextureManager.TextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
 
         float transparencyInfo[4] = {1.0f, 0.0f, 0.0f, 0.0f};

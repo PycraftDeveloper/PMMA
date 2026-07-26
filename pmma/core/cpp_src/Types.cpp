@@ -50,8 +50,6 @@ image path is valid and is a valid format. The image path is: '" +
 
             stbi_image_free(data);
             data = nullptr;
-
-            IsTextureEnabled = true;
         } else {
             PMMA::Core::LoggingManagerInstance->InternalLogError(
                 68,
@@ -64,6 +62,7 @@ image path is valid and is a valid format. The image path is: '" +
     }
 
     TextureProperties->References++;
+    IsTextureEnabled = true;
 }
 
 void PMMA::Types::Texture::Load() {
