@@ -22,7 +22,7 @@ public:
     float StartAngle;
     float EndAngle;
 
-    uint64_t ID;
+    uintptr_t ID;
 
     uint16_t Width = 0;
     uint16_t PointCount = 0;

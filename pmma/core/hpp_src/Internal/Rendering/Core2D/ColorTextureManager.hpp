@@ -9,7 +9,7 @@
 #include "Types.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
-class ColorTexture {
+class ColorTextureManager {
 private:
     std::array<std::vector<uint8_t>, 4> PreviousColorData;
     std::vector<uint8_t> CurrentColorData;
@@ -35,7 +35,7 @@ public:
     uint32_t m_colorTextureHeight = 0;
     uint32_t MaxTextureDimension = 1024;
 
-    ~ColorTexture() {
+    ~ColorTextureManager() {
         if (bgfx::isValid(ColorTextureHandle)) {
             bgfx::destroy(ColorTextureHandle);
         }

@@ -47,23 +47,6 @@ public:
 
     PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance();
 
-    inline float PackValues(uint16_t value_one, uint16_t value_two) {
-        uint32_t bits = (uint32_t(value_two) << 16) | uint32_t(value_one);
-        float packed;
-        std::memcpy(&packed, &bits, sizeof(float));
-        return packed;
-    }
-
-    inline float PackValues(uint8_t value_one, uint8_t value_two, uint8_t value_three) {
-        uint32_t bits = (static_cast<uint32_t>(value_three) << 24) |
-                        (static_cast<uint32_t>(value_two) << 16) |
-                        (static_cast<uint32_t>(value_one) << 8); // Leaving lowest 8 bits empty/0
-
-        float packed;
-        std::memcpy(&packed, &bits, sizeof(float));
-        return packed;
-    }
-
     void Reset();
 
     void Render();

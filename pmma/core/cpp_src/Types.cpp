@@ -78,6 +78,7 @@ path has not been set. Please specify a valid file path to a texture.");
 }
 
 void PMMA::Types::Texture::Unload() {
+    IsTextureEnabled = false;
     TextureProperties->References -= 1;
 
     if (TextureProperties->References <= 0) {
@@ -112,6 +113,19 @@ before calling this function!");
 
     size[0] = TextureProperties->TextureSize[0];
     size[1] = TextureProperties->TextureSize[1];
+}
+
+void PMMA::Types::Texture::GetPositionInAtlas(uintptr_t RenderPipelineInstance_ID, uint16_t *position) {
+    if (TextureProperties == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            70,
+            "Unable to get texture size. You need to load a texture \
+before calling this function!");
+
+        throw std::runtime_error("Failed to query texture information.");
+    }
+
+    position = TextureProperties->RegisteredRenderPipelineInstances[RenderPipelineInstance_ID];
 }
 
 unsigned char PMMA::Types::Texture::GetChannels() {

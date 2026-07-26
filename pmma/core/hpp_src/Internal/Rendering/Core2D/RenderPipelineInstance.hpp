@@ -1,4 +1,6 @@
 #pragma once
+#include "PMMA_Exports.hpp"
+
 #include <cstdint>
 #include <vector>
 
@@ -7,12 +9,13 @@
 
 #include "Internal/Rendering/Core2D/ColorTextureManager.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
+#include "Internal/Rendering/Core2D/TextureManager.hpp"
 
-class PMMA::Graphics::Shader;
+namespace PMMA::Graphics {
+class Shader;
+}
 
 namespace PMMA::Internal::Rendering::Core2D {
-class PMMA::Internal::Rendering::Core2D::ColorTexture;
-
 class EXPORT RenderPipelineInstance {
 private:
     PMMA::Graphics::Shader *ShapeDefinitionsShaderProgram = nullptr;
@@ -45,7 +48,8 @@ private:
     bgfx::UniformHandle u_transparency;
     bgfx::UniformHandle s_colorTex;
 
-    ColorTexture ColorTexture;
+    PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
+    PMMA::Internal::Rendering::Core2D::TextureManager TextureManager;
 
     char BufferID = 0;
     char PreviousBufferID = 0;
@@ -54,6 +58,8 @@ private:
     bool ShapePropertyChanged = true;
 
 public:
+    uintptr_t ID;
+
     uint32_t OpaqueInstanceCount = 0;
     uint32_t TransparentInstanceCount = 0;
 
@@ -111,6 +117,19 @@ public:
         shape->Color.Get_RGBA(Color);
 
         instance.color_index = ColorTexture.AddColor(Color, ShapeID, shape->ColorDataChanged);
+
+        // Texture
+        // Texture Information
+        uint16_t TexturePositionInAtlas[2] = {0, 0};
+        uint16_t TextureSizeInAtlas[2] = {0, 0};
+        if (shape->Texture.IsEnabled()) {
+            TextureManager.RegisterTexture(shape->Texture.TextureProperties);
+            shape->Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
+            shape->Texture.GetSize(TextureSizeInAtlas);
+        }
+
+        instance.texture_position = PMMA::Internal::PackValues(TexturePositionInAtlas[0], TexturePositionInAtlas[1]);
+        instance.texture_size = PMMA::Internal::PackValues(TextureSizeInAtlas[0], TextureSizeInAtlas[1]);
 
         ColorChanged |= shape->ColorDataChanged;
         ShapePropertyChanged |= shape->ShapePropertyChanged;

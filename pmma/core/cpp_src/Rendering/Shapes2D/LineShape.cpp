@@ -47,22 +47,18 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
         uint16_t pack_end_x = (uint16_t)(end_offset_x + 32768.0f);
         uint16_t pack_end_y = (uint16_t)(end_offset_y + 32768.0f);
 
-        auto rpc = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore;
-
-        ShapeInstanceData.position = rpc->PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
-        ShapeInstanceData.size = rpc->PackValues((uint16_t)size_x, (uint16_t)size_y);
-        ShapeInstanceData.point_count_gradient_type = rpc->PackValues(0, 0);
+        ShapeInstanceData.position = PMMA::Internal::PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
+        ShapeInstanceData.size = PMMA::Internal::PackValues((uint16_t)size_x, (uint16_t)size_y);
+        ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(0, 0);
 
         // Pass biased start_x here
-        ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, pack_start_x);
+        ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(Rotation * 182, pack_start_x);
 
-        ShapeInstanceData.shape_type_width = rpc->PackValues(4, Width);
-        ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
-        ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
+        ShapeInstanceData.shape_type_width = PMMA::Internal::PackValues(4, Width);
 
         // Pass remaining biased pixel coordinates
-        ShapeInstanceData.shape_property_two = rpc->PackValues(pack_start_y, pack_end_x);
-        ShapeInstanceData.shape_property_three = rpc->PackValues(pack_end_y, 0);
+        ShapeInstanceData.shape_property_two = PMMA::Internal::PackValues(pack_start_y, pack_end_x);
+        ShapeInstanceData.shape_property_three = PMMA::Internal::PackValues(pack_end_y, 0);
 
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }

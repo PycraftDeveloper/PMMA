@@ -46,9 +46,9 @@ struct Proportion_Configure_Kwargs {
 class EXPORT Texture {
 private:
     std::string Path = "";
-    PMMA::Internal::TextureProperty *TextureProperties;
 
 public:
+    PMMA::Internal::TextureProperty *TextureProperties;
     bool IsTextureEnabled = false;
 
     ~Texture();
@@ -69,6 +69,8 @@ public:
     }
 
     void GetSize(uint16_t *size);
+
+    void GetPositionInAtlas(uintptr_t RenderPipelineInstance_ID, uint16_t *position);
 
     unsigned char GetChannels();
 

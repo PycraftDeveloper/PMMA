@@ -50,19 +50,15 @@ void PMMA::Rendering::TwoD::Shapes::Arc::Render() {
         ShapeCenter.Get(start_position);
         uint16_t radius = GetRadius() * 2;
 
-        auto rpc = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore;
-
         // Existing packing logic
-        ShapeInstanceData.position = rpc->PackValues(start_position[0], start_position[1]);
-        ShapeInstanceData.size = rpc->PackValues(radius, radius);
-        ShapeInstanceData.point_count_gradient_type = rpc->PackValues(PointCount, 0);
-        ShapeInstanceData.rotation_shape_property_one = rpc->PackValues(Rotation * 182, GetStartAngle() * 182);
+        ShapeInstanceData.position = PMMA::Internal::PackValues(start_position[0], start_position[1]);
+        ShapeInstanceData.size = PMMA::Internal::PackValues(radius, radius);
+        ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(PointCount, 0);
+        ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(Rotation * 182, GetStartAngle() * 182);
 
-        ShapeInstanceData.shape_type_width = rpc->PackValues(3, Width);
-        ShapeInstanceData.texture_position = rpc->PackValues(0, 0);
-        ShapeInstanceData.texture_size = rpc->PackValues(0, 0);
+        ShapeInstanceData.shape_type_width = PMMA::Internal::PackValues(3, Width);
 
-        ShapeInstanceData.shape_property_two = rpc->PackValues(GetEndAngle() * 182, 0);
+        ShapeInstanceData.shape_property_two = PMMA::Internal::PackValues(GetEndAngle() * 182, 0);
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }
 

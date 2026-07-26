@@ -22,7 +22,7 @@ public:
     float Rotation = 0;
 
     uint16_t ShapeSize[2];
-    uint64_t ID;
+    uintptr_t ID;
     uint16_t Width = 0;
     uint16_t CornerRadius = 0;
 

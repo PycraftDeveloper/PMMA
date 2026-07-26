@@ -10,6 +10,8 @@
 #include "PMMA_Core.hpp"
 
 PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstance() {
+    ID = reinterpret_cast<uintptr_t>(this);
+
     m_layout.begin()
         .add(bgfx::Attrib::Position, 2, bgfx::AttribType::Float)
         .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
@@ -84,10 +86,14 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
 
     const bgfx::Caps *caps = bgfx::getCaps();
 
-    ColorTexture.MaxTextureDimension =
-        std::min(
-            (uint32_t)caps->limits.maxTextureSize,
-            (uint32_t)std::numeric_limits<uint16_t>::max());
+    uint32_t MaxTextureDimension = std::min(
+        (uint32_t)caps->limits.maxTextureSize,
+        (uint32_t)std::numeric_limits<uint16_t>::max());
+
+    ColorTexture.MaxTextureDimension = MaxTextureDimension;
+
+    TextureManager.MaxTextureDimension = MaxTextureDimension;
+    TextureManager.RenderPipelineInstanceID = ID;
 }
 
 void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::AdvanceView() {
@@ -128,6 +134,10 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
 
         ColorTexture.Assemble();
+    }
+
+    if (TextureManager.Dirty) {
+        TextureManager.Assemble();
     }
 
     if (ShapePropertyChanged || OpaqueInstanceCount != OpaquePreviousBufferSize || TransparentInstanceCount != TransparentPreviousBufferSize || !bgfx::isValid(OpaqueInstanceVbh) || !bgfx::isValid(TransparentInstanceVbh)) {
