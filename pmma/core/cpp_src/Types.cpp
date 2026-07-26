@@ -50,6 +50,8 @@ image path is valid and is a valid format. The image path is: '" +
 
             stbi_image_free(data);
             data = nullptr;
+
+            IsTextureEnabled = true;
         } else {
             PMMA::Core::LoggingManagerInstance->InternalLogError(
                 68,
@@ -125,7 +127,11 @@ before calling this function!");
         throw std::runtime_error("Failed to query texture information.");
     }
 
-    position = TextureProperties->RegisteredRenderPipelineInstances[RenderPipelineInstance_ID];
+    auto &storedPosition =
+        TextureProperties->RegisteredRenderPipelineInstances[RenderPipelineInstance_ID];
+
+    position[0] = storedPosition[0];
+    position[1] = storedPosition[1];
 }
 
 unsigned char PMMA::Types::Texture::GetChannels() {

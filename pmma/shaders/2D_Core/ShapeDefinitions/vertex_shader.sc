@@ -4,7 +4,7 @@ $output v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 #include "common.sh"
 
 uniform mat4 OrthDisplayProj;
-uniform vec4 u_colorInfo;
+uniform vec4 u_textureInfo;
 uniform vec4 HasTransparency;
 
 SAMPLER2D(s_colorTex, 0);
@@ -18,8 +18,8 @@ vec2 Unpack2Values(float data) {
 vec4 ExtractColor(float ColorIndex) {
     float idxF = floor(ColorIndex + 0.5);
 
-    float w = u_colorInfo.x;
-    float h = u_colorInfo.y;
+    float w = u_textureInfo.x;
+    float h = u_textureInfo.y;
 
     float x = mod(idxF, w);
     float y = floor(idxF / w);
@@ -39,8 +39,8 @@ void main()
     vec2 ShapeTypeWidth = Unpack2Values(i_data1.y);
     vec2 RotationShapePropertyOne = Unpack2Values(i_data0.w);
     float ColorIndex = i_data1.x;
-    vec2 TextureStart = Unpack2Values(i_data1.z) / vec2(u_colorInfo.xy);
-    vec2 TextureEnd = Unpack2Values(i_data1.w) / vec2(u_colorInfo.xy);
+    vec2 TextureStart = Unpack2Values(i_data1.z) / vec2(u_textureInfo.zw);
+    vec2 TextureSize = Unpack2Values(i_data1.w) / vec2(u_textureInfo.zw);
     vec2 ShapePropertyTwo = Unpack2Values(i_data2.x);
     vec2 ShapePropertyThree = Unpack2Values(i_data2.y);
     float Rotation = RotationShapePropertyOne.x * 0.0000960012; // equ to '/ 182' in RADIANS
@@ -53,8 +53,8 @@ void main()
     v_data1.x = ShapeTypeWidth.y; // Width
     v_data1.y = TextureStart.x;
     v_data1.z = TextureStart.y;
-    v_data1.w = TextureEnd.x;
-    v_data2.x = TextureEnd.y;
+    v_data1.w = TextureSize.x;
+    v_data2.x = TextureSize.y;
     v_data2.y = RotationShapePropertyOne.y; // Shape Property (corner radius, end angle exct...)
     v_data2.z = ShapePropertyTwo.x;
     v_data2.w = ShapePropertyTwo.y;

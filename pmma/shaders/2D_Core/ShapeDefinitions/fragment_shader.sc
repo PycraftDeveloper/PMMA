@@ -1,7 +1,7 @@
 $input v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 #include "common.sh"
 
-SAMPLER2D(s_colorTex, 0);
+SAMPLER2D(s_Tex, 1);
 
 // ------------------------------------------------------------
 // Utility
@@ -221,5 +221,7 @@ void main()
         discard;
     }
 
-    gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
+    vec2 atlasUV = v_data1.yz + (v_uv * vec2(v_data1.w, v_data2.x));
+    vec4 TexColor = texture2D(s_Tex, atlasUV);
+    gl_FragColor = vec4(v_col0.rgb * TexColor.rgb, v_col0.a * alpha * TexColor.a);
 }

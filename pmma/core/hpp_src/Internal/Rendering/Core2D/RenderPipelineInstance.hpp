@@ -44,9 +44,10 @@ private:
     uint32_t CurrentOpaqueDataSize = 0;
     uint32_t CurrentTransparentDataSize = 0;
 
-    bgfx::UniformHandle u_colorInfo;
+    bgfx::UniformHandle u_textureInfo;
     bgfx::UniformHandle u_transparency;
     bgfx::UniformHandle s_colorTex;
+    bgfx::UniformHandle s_Tex;
 
     PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
     PMMA::Internal::Rendering::Core2D::TextureManager TextureManager;
@@ -78,8 +79,8 @@ public:
             bgfx::destroy(s_colorTex);
         }
 
-        if (bgfx::isValid(u_colorInfo)) {
-            bgfx::destroy(u_colorInfo);
+        if (bgfx::isValid(u_textureInfo)) {
+            bgfx::destroy(u_textureInfo);
         }
 
         if (bgfx::isValid(OrthDisplayProj)) {
