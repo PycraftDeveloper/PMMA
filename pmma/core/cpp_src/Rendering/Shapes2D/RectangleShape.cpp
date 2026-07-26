@@ -2,15 +2,20 @@
 #include "PMMA_Core.hpp"
 
 void PMMA::Rendering::TwoD::Shapes::Rectangle::GetSize(uint16_t *out_size) {
-    if (!ShapeSizeSet) {
+    if (!(ShapeSizeSet || Texture.IsLoaded())) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not specified a size for the rectangle \
 please use `Rectangle.SetSize` to set it before attempting to get it.");
         throw std::runtime_error("Size not set!");
     }
-    out_size[0] = ShapeSize[0];
-    out_size[1] = ShapeSize[1];
+
+    if (ShapeSizeSet) {
+        out_size[0] = ShapeSize[0];
+        out_size[1] = ShapeSize[1];
+    } else {
+        Texture.GetSize(out_size);
+    }
 }
 
 void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {

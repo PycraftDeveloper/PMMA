@@ -75,6 +75,10 @@ public:
     unsigned char GetChannels();
 
     uint32_t GetReferences();
+
+    bool IsLoaded() {
+        return TextureProperties != nullptr;
+    }
 };
 
 class EXPORT Color {

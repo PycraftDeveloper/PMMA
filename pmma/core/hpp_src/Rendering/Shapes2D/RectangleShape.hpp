@@ -83,5 +83,9 @@ public:
     inline uint16_t GetCornerRadius() const {
         return CornerRadius;
     }
+
+    inline void SetSizeToTexture() {
+        ShapeSizeSet = false;
+    }
 };
 } // namespace PMMA::Rendering::TwoD

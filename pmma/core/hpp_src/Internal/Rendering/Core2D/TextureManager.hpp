@@ -53,6 +53,7 @@ public:
     uint32_t m_TextureHeight = 0;
     uint32_t MaxTextureDimension = 1024;
     uintptr_t RenderPipelineInstanceID;
+    bool Transparent = false;
 
     ~TextureManager() {
         if (bgfx::isValid(TextureHandle)) {
@@ -346,7 +347,10 @@ public:
 
     // Here, if the texture atlas is dirty, the texture atlas should be generated using the properties from 'RegisteredTextures' and written to a BGFX texture.
     void Assemble() {
-        constexpr uint32_t Channels = 4;
+        char Channels = 3;
+        if (Transparent) {
+            Channels++;
+        }
 
         //
         // Find required atlas dimensions.
@@ -455,17 +459,31 @@ public:
             bgfx::destroy(TextureHandle);
         }
 
-        TextureHandle =
-            bgfx::createTexture2D(
-                static_cast<uint16_t>(m_TextureWidth),
-                static_cast<uint16_t>(m_TextureHeight),
-                false,
-                1,
-                bgfx::TextureFormat::RGBA8,
-                BGFX_TEXTURE_NONE,
-                bgfx::copy(
-                    AtlasPixels.data(),
-                    static_cast<uint32_t>(AtlasPixels.size())));
+        if (Transparent) {
+            TextureHandle =
+                bgfx::createTexture2D(
+                    static_cast<uint16_t>(m_TextureWidth),
+                    static_cast<uint16_t>(m_TextureHeight),
+                    false,
+                    1,
+                    bgfx::TextureFormat::RGBA8,
+                    BGFX_TEXTURE_NONE,
+                    bgfx::copy(
+                        AtlasPixels.data(),
+                        static_cast<uint32_t>(AtlasPixels.size())));
+        } else {
+            TextureHandle =
+                bgfx::createTexture2D(
+                    static_cast<uint16_t>(m_TextureWidth),
+                    static_cast<uint16_t>(m_TextureHeight),
+                    false,
+                    1,
+                    bgfx::TextureFormat::RGB8,
+                    BGFX_TEXTURE_NONE,
+                    bgfx::copy(
+                        AtlasPixels.data(),
+                        static_cast<uint32_t>(AtlasPixels.size())));
+        }
 
         PendingTextures.clear();
         Dirty = false;

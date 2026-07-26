@@ -24,6 +24,8 @@ public:
 
     uintptr_t ID;
 
+    uint16_t ShapeSize[2];
+
     uint16_t Width = 0;
     uint16_t PointCount = 0;
     uint16_t Radius;
@@ -34,6 +36,7 @@ public:
     bool StartAngleSet = false;
     bool EndAngleSet = false;
     bool RadiusSet = false;
+    bool ShapeSizeSet = false;
 
     inline Arc() {
         ID = reinterpret_cast<uintptr_t>(this);
@@ -75,12 +78,31 @@ public:
         return Width;
     }
 
+    inline void SetSizeToTexture() {
+        ShapeSizeSet = false;
+        RadiusSet = false;
+    }
+
+    inline void SetSize(uint16_t *in_size) {
+        if (in_size[0] != ShapeSize[0] || in_size[1] != ShapeSize[1]) {
+            ShapePropertyChanged = true;
+        }
+
+        ShapeSize[0] = in_size[0];
+        ShapeSize[1] = in_size[1];
+        ShapeSizeSet = true;
+        RadiusSet = false;
+    };
+
+    void GetSize(uint16_t *out_size);
+
     inline void SetRadius(uint16_t in_radius) {
         if (in_radius != Radius) {
             ShapePropertyChanged = true;
         }
 
         RadiusSet = true;
+        ShapeSizeSet = false;
         Radius = in_radius;
     };
 

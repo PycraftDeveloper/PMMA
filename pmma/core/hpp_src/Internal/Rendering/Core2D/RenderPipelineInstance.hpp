@@ -50,7 +50,8 @@ private:
     bgfx::UniformHandle s_Tex;
 
     PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
-    PMMA::Internal::Rendering::Core2D::TextureManager TextureManager;
+    PMMA::Internal::Rendering::Core2D::TextureManager TransparentTextureManager;
+    PMMA::Internal::Rendering::Core2D::TextureManager OpaqueTextureManager;
 
     char BufferID = 0;
     char PreviousBufferID = 0;
@@ -116,6 +117,7 @@ public:
 
         uint8_t Color[4];
         shape->Color.Get_RGBA(Color);
+        bool IsOpaque = Color[3] == 255;
 
         instance.color_index = ColorTexture.AddColor(Color, ShapeID, shape->ColorDataChanged);
 
@@ -124,7 +126,12 @@ public:
         uint16_t TexturePositionInAtlas[2] = {0, 0};
         uint16_t TextureSizeInAtlas[2] = {0, 0};
         if (shape->Texture.IsEnabled()) {
-            TextureManager.RegisterTexture(shape->Texture.TextureProperties);
+            if (shape->Texture.GetChannels() == 3) {
+                OpaqueTextureManager.RegisterTexture(shape->Texture.TextureProperties);
+            } else {
+                TransparentTextureManager.RegisterTexture(shape->Texture.TextureProperties);
+                IsOpaque = false;
+            }
             shape->Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
             shape->Texture.GetSize(TextureSizeInAtlas);
         }
@@ -135,7 +142,7 @@ public:
         ColorChanged |= shape->ColorDataChanged;
         ShapePropertyChanged |= shape->ShapePropertyChanged;
 
-        if (Color[3] == 255) { // opaque
+        if (IsOpaque) { // opaque
             if (UsingCache && OpaqueInstanceCount < CurrentOpaqueDataSize && CurrentShapeIDs[0][OpaqueInstanceCount] == ShapeID) {
                 if (shape->ShapePropertyChanged) {
                     CurrentInstanceData[0][OpaqueInstanceCount] = instance;

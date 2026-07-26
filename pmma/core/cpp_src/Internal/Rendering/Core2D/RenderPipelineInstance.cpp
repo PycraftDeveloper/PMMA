@@ -96,8 +96,12 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
 
     ColorTexture.MaxTextureDimension = MaxTextureDimension;
 
-    TextureManager.MaxTextureDimension = MaxTextureDimension;
-    TextureManager.RenderPipelineInstanceID = ID;
+    TransparentTextureManager.MaxTextureDimension = MaxTextureDimension;
+    TransparentTextureManager.RenderPipelineInstanceID = ID;
+    TransparentTextureManager.Transparent = true;
+
+    OpaqueTextureManager.MaxTextureDimension = MaxTextureDimension;
+    OpaqueTextureManager.RenderPipelineInstanceID = ID;
 }
 
 void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::AdvanceView() {
@@ -140,8 +144,12 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         ColorTexture.Assemble();
     }
 
-    if (TextureManager.Dirty) {
-        TextureManager.Assemble();
+    if (TransparentTextureManager.Dirty) {
+        TransparentTextureManager.Assemble();
+    }
+
+    if (OpaqueTextureManager.Dirty) {
+        OpaqueTextureManager.Assemble();
     }
 
     if (ShapePropertyChanged || OpaqueInstanceCount != OpaquePreviousBufferSize || TransparentInstanceCount != TransparentPreviousBufferSize || !bgfx::isValid(OpaqueInstanceVbh) || !bgfx::isValid(TransparentInstanceVbh)) {
@@ -254,14 +262,14 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         PMMA::Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
         bgfx::setUniform(OrthDisplayProj, proj);
 
-        float textureInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), float(TextureManager.m_TextureWidth), float(TextureManager.m_TextureHeight)};
+        float textureInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), float(OpaqueTextureManager.m_TextureWidth), float(OpaqueTextureManager.m_TextureHeight)};
         bgfx::setUniform(u_textureInfo, textureInfo);
 
         bgfx::setVertexBuffer(0, vbh);
         bgfx::setIndexBuffer(ibh);
 
         bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
-        bgfx::setTexture(1, s_Tex, TextureManager.TextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
+        bgfx::setTexture(1, s_Tex, OpaqueTextureManager.TextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
 
         float transparencyInfo[4] = {1.0f, 0.0f, 0.0f, 0.0f};
         bgfx::setUniform(u_transparency, transparencyInfo);
@@ -288,14 +296,14 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         PMMA::Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
         bgfx::setUniform(OrthDisplayProj, proj);
 
-        float textureInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), float(TextureManager.m_TextureWidth), float(TextureManager.m_TextureHeight)};
+        float textureInfo[4] = {float(ColorTexture.m_colorTextureWidth), float(ColorTexture.m_colorTextureHeight), float(TransparentTextureManager.m_TextureWidth), float(TransparentTextureManager.m_TextureHeight)};
         bgfx::setUniform(u_textureInfo, textureInfo);
 
         bgfx::setVertexBuffer(0, vbh);
         bgfx::setIndexBuffer(ibh);
 
         bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
-        bgfx::setTexture(1, s_Tex, TextureManager.TextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
+        bgfx::setTexture(1, s_Tex, TransparentTextureManager.TextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
 
         float transparencyInfo[4] = {0.0f, 0.0f, 0.0f, 0.0f};
         bgfx::setUniform(u_transparency, transparencyInfo);
