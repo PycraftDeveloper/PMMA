@@ -20,6 +20,8 @@ public:
 
     uintptr_t ID;
 
+    uint16_t ShapeSize[2];
+
     float Rotation = 0;
 
     uint16_t Radius;
@@ -29,12 +31,31 @@ public:
     bool RadiusSet = false;
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
+    bool ShapeSizeSet = false;
 
     inline RadialPolygon() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 
     void Render();
+
+    inline void SetSizeToTexture() {
+        ShapeSizeSet = false;
+        RadiusSet = false;
+    }
+
+    inline void SetSize(uint16_t *in_size) {
+        if (in_size[0] != ShapeSize[0] || in_size[1] != ShapeSize[1]) {
+            ShapePropertyChanged = true;
+        }
+
+        ShapeSize[0] = in_size[0];
+        ShapeSize[1] = in_size[1];
+        ShapeSizeSet = true;
+        RadiusSet = false;
+    };
+
+    void GetSize(uint16_t *out_size);
 
     inline void SetRadius(uint16_t in_radius) {
         if (in_radius != Radius) {
