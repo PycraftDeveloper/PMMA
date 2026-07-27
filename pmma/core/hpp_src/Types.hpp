@@ -259,7 +259,7 @@ private:
     uint16_t Coordinate[2] = {0, 0}; // Default display coordinate is (0, 0)
 
     PMMA::FastRandom *RandomCoordGenerator = nullptr;
-    int DisplaySize[2];
+    uint16_t DisplaySize[2];
 
     uint32_t seed;
     uint32_t octaves;
@@ -272,7 +272,8 @@ private:
 
     const float noise_range[2] = {-1.f, 1.f};
 
-    bool IsSet = false;
+    bool X_IsSet = false;
+    bool Y_IsSet = false;
     bool Changed = true;
     bool Configured = false;
 
@@ -307,7 +308,15 @@ public:
     }
 
     inline bool GetSet() {
-        return IsSet;
+        return X_IsSet && Y_IsSet;
+    }
+
+    inline bool Get_X_Set() {
+        return X_IsSet;
+    }
+
+    inline bool Get_Y_Set() {
+        return Y_IsSet;
     }
 
     uint32_t GetSeed();
@@ -315,7 +324,9 @@ public:
     float GetFrequency();
     float GetAmplitude();
 
-    void SetCentered();
+    void Center();
+    void CenterHorizontal();
+    void CenterVertical();
 
     void GenerateFromRandom();
 
@@ -334,10 +345,31 @@ public:
             Coordinate[1] = in_coordinate[1];
         }
 
-        IsSet = true;
+        X_IsSet = true;
+        Y_IsSet = true;
+    }
+
+    inline void Set_X(uint16_t in_coordinate) {
+        if (in_coordinate != Coordinate[0]) {
+            Changed = true;
+            Coordinate[0] = in_coordinate;
+        }
+
+        X_IsSet = true;
+    }
+
+    inline void Set_Y(uint16_t in_coordinate) {
+        if (in_coordinate != Coordinate[1]) {
+            Changed = true;
+            Coordinate[1] = in_coordinate;
+        }
+
+        Y_IsSet = true;
     }
 
     void Get(uint16_t *out);
+    uint16_t GetX();
+    uint16_t GetY();
 };
 
 class EXPORT Angle {

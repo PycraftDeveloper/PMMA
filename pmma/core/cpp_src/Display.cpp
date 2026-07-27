@@ -22,7 +22,10 @@
 #include <STB/stb_image.h>
 
 void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
-    glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);
+    int size[2];
+    glfwGetWindowSize(Window, &size[0], &size[1]);
+    CurrentSize[0] = static_cast<uint16_t>(size[0]);
+    CurrentSize[1] = static_cast<uint16_t>(size[1]);
 
     if (KeyManagerInstance == nullptr) {
         if (PMMA::Registry::KeyboardEventInstanceCount > 0) {
@@ -174,7 +177,7 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
         ToggleFullScreen();
     }
 
-    int DisplaySize[2];
+    uint16_t DisplaySize[2];
     GetSize(DisplaySize);
 
     DisplaySizeChanged = false;
@@ -269,7 +272,7 @@ GLFWmonitor *PMMA::Display::GetCurrentMonitor(GLFWwindow *window) {
 }
 
 void PMMA::Display::Create(
-    unsigned int *NewSize,
+    uint16_t *NewSize,
     Display_Create_Kwargs kwargs) {
 
     if (!kwargs.OptionalFullScreen.has_value()) {
@@ -521,7 +524,7 @@ installed PMMA.");
 #endif
 
         // Create a framebuffer using the native window handle
-        DisplayFrameBufferHandle = bgfx::createFrameBuffer(nwh, uint16_t(Size[0]), uint16_t(Size[1]));
+        DisplayFrameBufferHandle = bgfx::createFrameBuffer(nwh, Size[0], Size[1]);
 
         IsSecondaryDisplay = true;
         DisplayID = PMMA::Registry::SecondaryDisplayIDs.front();

@@ -1,6 +1,7 @@
 #include <optional>
 
 #include "PMMA_Core.hpp"
+#include <STB/stb_image.h>
 
 void PMMA::Types::Texture::Load(std::string TexturePath) {
     if (Path == TexturePath) {
@@ -618,7 +619,7 @@ You can do this using `Display.create`.");
 }
 
 void PMMA::Types::DisplayCoordinate::Get(uint16_t *out) {
-    if (!IsSet) {
+    if (!GetSet()) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not set a display coordinate - please set a \
@@ -628,6 +629,30 @@ display coordinate before attempting to get it.");
 
     out[0] = Coordinate[0];
     out[1] = Coordinate[1];
+}
+
+uint16_t PMMA::Types::DisplayCoordinate::GetX() {
+    if (!Get_X_Set()) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a display coordinate - please set a \
+display coordinate before attempting to get it.");
+        throw std::runtime_error("Display coordinate not set!");
+    }
+
+    return Coordinate[0];
+}
+
+uint16_t PMMA::Types::DisplayCoordinate::GetY() {
+    if (!Get_Y_Set()) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a display coordinate - please set a \
+display coordinate before attempting to get it.");
+        throw std::runtime_error("Display coordinate not set!");
+    }
+
+    return Coordinate[1];
 }
 
 uint32_t PMMA::Types::DisplayCoordinate::GetSeed() {
@@ -696,7 +721,7 @@ void PMMA::Types::DisplayCoordinate::Configure(DisplayCoordinate_Configure_Kwarg
     Configured = true;
 }
 
-void PMMA::Types::DisplayCoordinate::SetCentered() {
+void PMMA::Types::DisplayCoordinate::Center() {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -709,14 +734,50 @@ You can do this using `Display.create`.");
         PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
     }
 
-    unsigned int new_coord[2];
+    uint16_t new_coord[2];
     PMMA::Core::ActiveDisplayInstance->GetCenterPosition(new_coord);
 
     uint16_t coord_float[2];
-    coord_float[0] = static_cast<uint16_t>(new_coord[0]);
-    coord_float[1] = static_cast<uint16_t>(new_coord[1]);
+    coord_float[0] = new_coord[0];
+    coord_float[1] = new_coord[1];
 
     Set(coord_float);
+}
+
+void PMMA::Types::DisplayCoordinate::CenterHorizontal() {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+
+    if (PMMA::Core::ActiveDisplayInstance->DisplaySizeChanged) {
+        PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
+    }
+
+    uint16_t center = PMMA::Core::ActiveDisplayInstance->GetHorizontalCenterPosition();
+
+    Set_X(center);
+}
+
+void PMMA::Types::DisplayCoordinate::CenterVertical() {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+
+    if (PMMA::Core::ActiveDisplayInstance->DisplaySizeChanged) {
+        PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
+    }
+
+    uint16_t center = PMMA::Core::ActiveDisplayInstance->GetVerticalCenterPosition();
+
+    Set_Y(center);
 }
 
 void PMMA::Types::DisplayCoordinate::GenerateFromRandom() {

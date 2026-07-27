@@ -289,14 +289,14 @@ private:
 
     float OrthographicProjection[16] = {0.0f};
 
-    unsigned int PreviousDisplaySize[2];
+    uint16_t PreviousDisplaySize[2];
 
     std::chrono::high_resolution_clock::time_point StartTime = std::chrono::high_resolution_clock::now();
 
-    unsigned int Size[2] = {0, 0};
+    uint16_t Size[2] = {0, 0};
     unsigned int Position[2] = {0, 0};
     unsigned int CurrentMonitorRefreshRate = 0;
-    int CurrentSize[2] = {0, 0};
+    uint16_t CurrentSize[2] = {0, 0};
 
     float RefreshTime = 0.000001f;
 
@@ -328,7 +328,7 @@ public:
      * \note Certain display settings can only be set at the time of window creation. If you need to change these settings, you will need to recreate the window. We are working on making this process easier.
      * \note Only one PMMA display can be created at a time. You can have multiple display instances but they will all share the same object behind the scenes. This is something we are looking to address in a future version of PMMA.
      */
-    void Create(unsigned int *NewSize, Display_Create_Kwargs kwargs = {});
+    void Create(uint16_t *NewSize, Display_Create_Kwargs kwargs = {});
 
     /**
      * This method is used to get if the window is set to use vsync. Note that this does not check if vsync is supported in your setup, as this varies based on third party factors that we cannot check.
@@ -372,7 +372,7 @@ before you can call this function.");
      * \returns unsigned int - The window width in pixels.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline unsigned int GetWidth() {
+    inline uint16_t GetWidth() {
         if (Window == nullptr) {
             Logger->InternalLogError(
                 18,
@@ -388,7 +388,7 @@ before you can call this function.");
      * \returns unsigned int - The window height in pixels.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline unsigned int GetHeight() {
+    inline uint16_t GetHeight() {
         if (Window == nullptr) {
             Logger->InternalLogError(
                 18,
@@ -405,7 +405,7 @@ before you can call this function.");
      * \param out The output size of the window in pixels.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void GetSize(int *out) {
+    inline void GetSize(uint16_t *out) {
         if (Window == nullptr) {
             Logger->InternalLogError(
                 18,
@@ -724,7 +724,7 @@ before you can call this function.");
      * \param unsigned int* The center point as a coordinate (x, y).
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void GetCenterPosition(unsigned int *out) {
+    inline void GetCenterPosition(uint16_t *out) {
         if (Window == nullptr) {
             Logger->InternalLogError(
                 18,
@@ -733,8 +733,42 @@ before you can call this function.");
             throw std::runtime_error("Display not created yet!");
         }
 
-        out[0] = (unsigned int)(Size[0] / 2);
-        out[1] = (unsigned int)(Size[1] / 2);
+        out[0] = Size[0] / 2;
+        out[1] = Size[1] / 2;
+    }
+
+    /**
+     * This method is used to get the horizontal center point of the window.
+     * \returns The horizontal center position.
+     * \warning A valid window must be created using `Display::Create` before calling this method.
+     */
+    inline uint16_t GetHorizontalCenterPosition() {
+        if (Window == nullptr) {
+            Logger->InternalLogError(
+                18,
+                "You need to create a display using `Display.create` \
+before you can call this function.");
+            throw std::runtime_error("Display not created yet!");
+        }
+
+        return Size[0] / 2;
+    }
+
+    /**
+     * This method is used to get the vertical center point of the window.
+     * \returns The vertical center position.
+     * \warning A valid window must be created using `Display::Create` before calling this method.
+     */
+    inline uint16_t GetVerticalCenterPosition() {
+        if (Window == nullptr) {
+            Logger->InternalLogError(
+                18,
+                "You need to create a display using `Display.create` \
+before you can call this function.");
+            throw std::runtime_error("Display not created yet!");
+        }
+
+        return Size[1] / 2;
     }
 
     /**
@@ -743,7 +777,7 @@ before you can call this function.");
      * \param out: The output center point as a coordinate (x, y).\
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void GetCenterPosition(unsigned int *ObjectSize, unsigned int *out) {
+    inline void GetCenterPosition(uint16_t *ObjectSize, uint16_t *out) {
         if (Window == nullptr) {
             Logger->InternalLogError(
                 18,
@@ -752,8 +786,42 @@ before you can call this function.");
             throw std::runtime_error("Display not created yet!");
         }
 
-        out[0] = (unsigned int)((Size[0] - ObjectSize[0]) / 2);
-        out[1] = (unsigned int)((Size[1] - ObjectSize[1]) / 2);
+        out[0] = (Size[0] - ObjectSize[0]) / 2;
+        out[1] = (Size[1] - ObjectSize[1]) / 2;
+    }
+
+    /**
+     * This method is used to get the horizontal center position.
+     * \param ObjectSize: The horizontal size to offset the center position.
+     * \warning A valid window must be created using `Display::Create` before calling this method.
+     */
+    inline uint16_t GetHorizontalCenterPosition(uint16_t ObjectSize) {
+        if (Window == nullptr) {
+            Logger->InternalLogError(
+                18,
+                "You need to create a display using `Display.create` \
+before you can call this function.");
+            throw std::runtime_error("Display not created yet!");
+        }
+
+        return (Size[0] - ObjectSize) / 2;
+    }
+
+    /**
+     * This method is used to get the vertical center position.
+     * \param ObjectSize: The vertical size to offset the center position.
+     * \warning A valid window must be created using `Display::Create` before calling this method.
+     */
+    inline uint16_t GetVerticalCenterPosition(uint16_t ObjectSize) {
+        if (Window == nullptr) {
+            Logger->InternalLogError(
+                18,
+                "You need to create a display using `Display.create` \
+before you can call this function.");
+            throw std::runtime_error("Display not created yet!");
+        }
+
+        return (Size[1] - ObjectSize) / 2;
     }
 
     /**
@@ -769,7 +837,7 @@ before you can call this function.");
 before you can call this function.");
             throw std::runtime_error("Display not created yet!");
         }
-        int Size[2];
+        uint16_t Size[2];
         GetSize(Size);
         return (float)Size[0] / (float)Size[1];
     }
@@ -869,11 +937,11 @@ before you can call this function.");
             return;
         }
 
-        int Size[2];
+        uint16_t Size[2];
         GetSize(Size);
 
-        OrthographicProjection[0] = 2.0f / Size[0];
-        OrthographicProjection[5] = -2.0f / Size[1];
+        OrthographicProjection[0] = 2.0f / (float)Size[0];
+        OrthographicProjection[5] = -2.0f / (float)Size[1];
         OrthographicProjection[10] = 1.0f;
         OrthographicProjection[12] = -1.0f;
         OrthographicProjection[13] = 1.0f;
