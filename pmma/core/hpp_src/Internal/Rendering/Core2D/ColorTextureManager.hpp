@@ -29,11 +29,11 @@ private:
 public:
     bool UsingCache = false;
 
-    bgfx::TextureHandle ColorTextureHandle = BGFX_INVALID_HANDLE;
-
     uint32_t m_colorTextureWidth = 0;
     uint32_t m_colorTextureHeight = 0;
     uint32_t MaxTextureDimension = 1024;
+
+    bgfx::TextureHandle ColorTextureHandle = BGFX_INVALID_HANDLE;
 
     ~ColorTextureManager() {
         if (bgfx::isValid(ColorTextureHandle)) {

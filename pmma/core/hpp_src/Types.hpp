@@ -456,13 +456,6 @@ public:
 } // namespace PMMA::Types
 
 namespace PMMA::Types::TwoD {
-struct Coordinate_Configure_Kwargs {
-    std::optional<uint32_t> seed = std::nullopt;
-    uint32_t octaves = 2;
-    float frequency = 0.75f;
-    float amplitude = 1.0f;
-};
-
 class EXPORT Coordinate {
 private:
     PMMA::Noise::PerlinNoise *X_PerlinNoiseGenerator = nullptr;
@@ -471,9 +464,9 @@ private:
     PMMA::Noise::FractalBrownianMotion *X_FractalBrownianMotionGenerator = nullptr;
     PMMA::Noise::FractalBrownianMotion *Y_FractalBrownianMotionGenerator = nullptr;
 
-    uint16_t coordinate[2] = {0, 0}; // Default display coordinate is (0, 0)
-
     PMMA::FastRandom *RandomCoordGenerator = nullptr;
+
+    uint16_t coordinate[2] = {0, 0}; // Default display coordinate is (0, 0)
     uint16_t DisplaySize[2];
 
     uint32_t seed;
@@ -600,11 +593,10 @@ private:
     PMMA::Noise::FractalBrownianMotion *X_FractalBrownianMotionGenerator = nullptr;
     PMMA::Noise::FractalBrownianMotion *Y_FractalBrownianMotionGenerator = nullptr;
 
-    uint16_t size[2] = {0, 0}; // Default display coordinate is (0, 0)
-
     PMMA::FastRandom *RandomSizeGenerator = nullptr;
+
+    uint16_t size[2] = {0, 0}; // Default display coordinate is (0, 0)
     uint16_t DisplaySize[2];
-    uint16_t Radius = 0;
 
     uint32_t seed;
     uint32_t octaves;
@@ -616,6 +608,8 @@ private:
     float y_offset = PMMA::Maths::RandomFloat(offset_range);
 
     const float noise_range[2] = {-1.f, 1.f};
+
+    uint16_t Radius = 0;
 
     bool X_IsSet = false;
     bool Y_IsSet = false;

@@ -20,9 +20,10 @@ public:
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
+    uintptr_t ID;
+
     float Rotation = 0;
 
-    uintptr_t ID;
     uint16_t Width = 0;
     uint16_t CornerRadius = 0;
 
@@ -78,4 +79,4 @@ public:
         UseTextureSize = true;
     }
 };
-} // namespace PMMA::Rendering::TwoD
+} // namespace PMMA::Rendering::TwoD::Shapes
