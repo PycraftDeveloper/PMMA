@@ -14,8 +14,8 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2], end_position[2];
-        ShapeStart.Get(start_position);
-        ShapeEnd.Get(end_position);
+        ShapeStart.GetCoordinate(start_position);
+        ShapeEnd.GetCoordinate(end_position);
 
         // 1. Calculate original dimensions
         float orig_size_x = abs((float)end_position[0] - start_position[0]);

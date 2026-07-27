@@ -57,6 +57,9 @@ public:
     bool IsLoaded() {
         return TextureProperties != nullptr;
     }
+
+    uint16_t GetWidth();
+    uint16_t GetHeight();
 };
 
 class EXPORT Color {
@@ -211,8 +214,8 @@ public:
         return OldChanged;
     }
 
-    void Set_ColorName(std::string color_name);
-    void Set_ColorName(std::string_view color_name);
+    void SetColorName(std::string color_name);
+    void SetColorName(std::string_view color_name);
 
     void Set_RGBA(uint8_t *in_color);
     void Set_RGB(uint8_t *in_color);
@@ -229,7 +232,6 @@ public:
 
 class EXPORT Angle {
 private:
-    PMMA::Logger *Logger;
     PMMA::Noise::PerlinNoise *PerlinNoiseGenerator = nullptr;
     PMMA::Noise::FractalBrownianMotion *FractalBrownianMotionGenerator = nullptr;
 
@@ -258,11 +260,6 @@ public:
             PerlinNoiseGenerator = nullptr;
             FractalBrownianMotionGenerator = nullptr;
         }
-
-        if (Logger != nullptr) {
-            delete Logger;
-            Logger = nullptr;
-        }
     }
 
     inline void Configure(Configure_Kwargs kwargs = {}) {
@@ -287,57 +284,13 @@ public:
         Configured = true;
     }
 
-    inline uint32_t GetSeed() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return seed;
-    }
+    uint32_t GetSeed();
 
-    inline uint32_t GetOctaves() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return octaves;
-    }
+    uint32_t GetOctaves();
 
-    inline float GetFrequency() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return frequency;
-    }
+    float GetFrequency();
 
-    inline float GetAmplitude() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return amplitude;
-    }
+    float GetAmplitude();
 
     inline void GenerateFromRandom() {
         float converted_in_angle = PMMA::Maths::RandomFloat(angle_range);
@@ -350,137 +303,13 @@ public:
         IsSet = true;
     }
 
-    inline void GenerateFrom1DPerlinNoise(float value) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
+    void GenerateFrom1DPerlinNoise(float value);
+    void GenerateFrom2DPerlinNoise(float value_one, float value_two);
+    void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three);
 
-        InternalAngle = PerlinNoiseGenerator->Noise1D(value);
-        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
-
-        if (converted_in_angle != InternalAngle) {
-            Changed = true;
-            InternalAngle = converted_in_angle;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalAngle = PerlinNoiseGenerator->Noise2D(value_one, value_two);
-        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
-
-        if (converted_in_angle != InternalAngle) {
-            Changed = true;
-            InternalAngle = converted_in_angle;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalAngle = PerlinNoiseGenerator->Noise3D(value_one, value_two, value_three);
-        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
-
-        if (converted_in_angle != InternalAngle) {
-            Changed = true;
-            InternalAngle = converted_in_angle;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom1DFractalBrownianMotion(float value) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalAngle = FractalBrownianMotionGenerator->Noise1D(value);
-        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
-
-        if (converted_in_angle != InternalAngle) {
-            Changed = true;
-            InternalAngle = converted_in_angle;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalAngle = FractalBrownianMotionGenerator->Noise2D(value_one, value_two);
-        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
-
-        if (converted_in_angle != InternalAngle) {
-            Changed = true;
-            InternalAngle = converted_in_angle;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalAngle = FractalBrownianMotionGenerator->Noise3D(value_one, value_two, value_three);
-        float converted_in_angle = PMMA::Maths::Ranger(InternalAngle, noise_range, angle_range);
-
-        if (converted_in_angle != InternalAngle) {
-            Changed = true;
-            InternalAngle = converted_in_angle;
-        }
-
-        IsSet = true;
-    }
+    void GenerateFrom1DFractalBrownianMotion(float value);
+    void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two);
+    void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three);
 
     inline bool GetSet() {
         return IsSet;
@@ -492,7 +321,7 @@ public:
         return OldChanged;
     }
 
-    inline void Set_Radians(float in_angle) {
+    inline void SetRadians(float in_angle) {
         if (in_angle != InternalAngle) {
             Changed = true;
             InternalAngle = in_angle;
@@ -501,7 +330,7 @@ public:
         IsSet = true;
     }
 
-    inline void Set_Degrees(float in_angle) {
+    inline void SetDegrees(float in_angle) {
         float converted_in_angle = in_angle * DEGREES_TO_RADIANS;
         if (converted_in_angle != InternalAngle) {
             Changed = true;
@@ -511,41 +340,12 @@ public:
         IsSet = true;
     }
 
-    inline float Get_Radians() {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogWarn(
-                30,
-                "You have not set an angle - please set an angle \
-before attempting to get it.");
-
-            throw std::runtime_error("Angle not set!");
-        }
-        return InternalAngle;
-    }
-
-    inline float Get_Degrees() {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogWarn(
-                30,
-                "You have not set an angle - please set an angle \
-before attempting to get it.");
-
-            throw std::runtime_error("Angle not set!");
-        }
-        return InternalAngle * RADIANS_TO_DEGREES;
-    }
+    float GetRadians();
+    float GetDegrees();
 };
 
 class EXPORT Proportion {
 private:
-    PMMA::Logger *Logger;
-
     PMMA::Noise::PerlinNoise *PerlinNoiseGenerator = nullptr;
     PMMA::Noise::FractalBrownianMotion *FractalBrownianMotionGenerator = nullptr;
 
@@ -572,11 +372,6 @@ public:
             PerlinNoiseGenerator = nullptr;
             FractalBrownianMotionGenerator = nullptr;
         }
-
-        if (Logger != nullptr) {
-            delete Logger;
-            Logger = nullptr;
-        }
     }
 
     inline void Configure(Configure_Kwargs kwargs = {}) {
@@ -601,57 +396,10 @@ public:
         Configured = true;
     }
 
-    inline uint32_t GetSeed() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return seed;
-    }
-
-    inline uint32_t GetOctaves() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return octaves;
-    }
-
-    inline float GetFrequency() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return frequency;
-    }
-
-    inline float GetAmplitude() {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-        return amplitude;
-    }
+    uint32_t GetSeed();
+    uint32_t GetOctaves();
+    float GetFrequency();
+    float GetAmplitude();
 
     inline void GenerateFromRandom() {
         float converted_in_proportion = PMMA::Maths::RandomFloat(proportion_range);
@@ -664,137 +412,13 @@ public:
         IsSet = true;
     }
 
-    inline void GenerateFrom1DPerlinNoise(float value) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
+    void GenerateFrom1DPerlinNoise(float value);
+    void GenerateFrom2DPerlinNoise(float value_one, float value_two);
+    void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three);
 
-        InternalProportion = PerlinNoiseGenerator->Noise1D(value);
-        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
-
-        if (converted_in_proportion != InternalProportion) {
-            Changed = true;
-            InternalProportion = converted_in_proportion;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom2DPerlinNoise(float value_one, float value_two) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalProportion = PerlinNoiseGenerator->Noise2D(value_one, value_two);
-        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
-
-        if (converted_in_proportion != InternalProportion) {
-            Changed = true;
-            InternalProportion = converted_in_proportion;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalProportion = PerlinNoiseGenerator->Noise3D(value_one, value_two, value_three);
-        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
-
-        if (converted_in_proportion != InternalProportion) {
-            Changed = true;
-            InternalProportion = converted_in_proportion;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom1DFractalBrownianMotion(float value) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalProportion = FractalBrownianMotionGenerator->Noise1D(value);
-        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
-
-        if (converted_in_proportion != InternalProportion) {
-            Changed = true;
-            InternalProportion = converted_in_proportion;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalProportion = FractalBrownianMotionGenerator->Noise2D(value_one, value_two);
-        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
-
-        if (converted_in_proportion != InternalProportion) {
-            Changed = true;
-            InternalProportion = converted_in_proportion;
-        }
-
-        IsSet = true;
-    }
-
-    inline void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
-        if (!Configured) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogError(
-                13,
-                "You need to configure this component before calling this.");
-            throw std::runtime_error("You need to configure this component first!");
-        }
-
-        InternalProportion = FractalBrownianMotionGenerator->Noise3D(value_one, value_two, value_three);
-        float converted_in_proportion = PMMA::Maths::Ranger(InternalProportion, noise_range, proportion_range);
-
-        if (converted_in_proportion != InternalProportion) {
-            Changed = true;
-            InternalProportion = converted_in_proportion;
-        }
-
-        IsSet = true;
-    }
+    void GenerateFrom1DFractalBrownianMotion(float value);
+    void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two);
+    void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three);
 
     inline bool GetSet() {
         return IsSet;
@@ -806,7 +430,7 @@ public:
         return OldChanged;
     }
 
-    inline void Set_Percentage(float in_proportion) {
+    inline void SetPercentage(float in_proportion) {
         float converted_in_proportion = in_proportion / 100;
 
         if (converted_in_proportion != InternalProportion) {
@@ -817,7 +441,7 @@ public:
         IsSet = true;
     }
 
-    inline void Set_Decimal(float in_proportion) {
+    inline void SetDecimal(float in_proportion) {
         if (in_proportion != InternalProportion) {
             Changed = true;
             InternalProportion = in_proportion;
@@ -826,35 +450,8 @@ public:
         IsSet = true;
     }
 
-    inline float Get_Percentage() {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogWarn(
-                30,
-                "You have not set a proportion - please set a proportion \
-before attempting to get it.");
-
-            throw std::runtime_error("Proportion not set!");
-        }
-        return InternalProportion * 100;
-    }
-
-    inline float Get_Decimal() {
-        if (!IsSet) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-            Logger->InternalLogWarn(
-                30,
-                "You have not set a proportion - please set a proportion \
-before attempting to get it.");
-
-            throw std::runtime_error("Proportion not set!");
-        }
-        return InternalProportion;
-    }
+    inline float GetPercentage();
+    inline float GetDecimal();
 };
 } // namespace PMMA::Types
 
@@ -925,7 +522,7 @@ public:
         return OldChanged;
     }
 
-    inline bool GetSet() {
+    inline bool GetCoordinateSet() {
         return X_IsSet && Y_IsSet;
     }
 
@@ -956,7 +553,7 @@ public:
     void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two);
     void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three);
 
-    inline void Set(uint16_t *in_coordinate) {
+    inline void SetCoordinate(uint16_t *in_coordinate) {
         if (in_coordinate[0] != coordinate[0] || in_coordinate[1] != coordinate[1]) {
             Changed = true;
             coordinate[0] = in_coordinate[0];
@@ -967,7 +564,7 @@ public:
         Y_IsSet = true;
     }
 
-    inline void Set_X(uint16_t in_coordinate) {
+    inline void SetX(uint16_t in_coordinate) {
         if (in_coordinate != coordinate[0]) {
             Changed = true;
             coordinate[0] = in_coordinate;
@@ -976,7 +573,7 @@ public:
         X_IsSet = true;
     }
 
-    inline void Set_Y(uint16_t in_coordinate) {
+    inline void SetY(uint16_t in_coordinate) {
         if (in_coordinate != coordinate[1]) {
             Changed = true;
             coordinate[1] = in_coordinate;
@@ -985,12 +582,17 @@ public:
         Y_IsSet = true;
     }
 
-    void Get(uint16_t *out);
+    void GetCoordinate(uint16_t *out);
     uint16_t GetX();
     uint16_t GetY();
 };
 
 class EXPORT Size {
+public:
+    PMMA::Types::Texture *Texture;
+    Proportion HorizontalScale;
+    Proportion VerticalScale;
+
 private:
     PMMA::Noise::PerlinNoise *X_PerlinNoiseGenerator = nullptr;
     PMMA::Noise::PerlinNoise *Y_PerlinNoiseGenerator = nullptr;
@@ -1002,6 +604,7 @@ private:
 
     PMMA::FastRandom *RandomSizeGenerator = nullptr;
     uint16_t DisplaySize[2];
+    uint16_t Radius = 0;
 
     uint32_t seed;
     uint32_t octaves;
@@ -1049,15 +652,15 @@ public:
         return OldChanged;
     }
 
-    inline bool GetSet() {
+    inline bool GetSizeSet() {
         return X_IsSet && Y_IsSet;
     }
 
-    inline bool Get_X_Set() {
+    inline bool GetWidthSet() {
         return X_IsSet;
     }
 
-    inline bool Get_Y_Set() {
+    inline bool GetHeightSet() {
         return Y_IsSet;
     }
 
@@ -1076,37 +679,57 @@ public:
     void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two);
     void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three);
 
-    inline void Set(uint16_t *in_size) {
+    inline void SetSize(uint16_t *in_size) {
         if (in_size[0] != size[0] || in_size[1] != size[1]) {
             Changed = true;
             size[0] = in_size[0];
             size[1] = in_size[1];
+
+            Radius = static_cast<uint16_t>(PMMA::Maths::PythagoreanDistance(size[0], size[1]));
         }
 
         X_IsSet = true;
         Y_IsSet = true;
     }
 
-    inline void Set_X(uint16_t in_size) {
+    inline void SetWidth(uint16_t in_size) {
         if (in_size != size[0]) {
             Changed = true;
             size[0] = in_size;
+
+            Radius = static_cast<uint16_t>(PMMA::Maths::PythagoreanDistance(size[0], size[1]));
         }
 
         X_IsSet = true;
     }
 
-    inline void Set_Y(uint16_t in_size) {
+    inline void SetHeight(uint16_t in_size) {
         if (in_size != size[1]) {
             Changed = true;
             size[1] = in_size;
+
+            Radius = static_cast<uint16_t>(PMMA::Maths::PythagoreanDistance(size[0], size[1]));
         }
 
         Y_IsSet = true;
     }
 
-    void Get(uint16_t *out);
-    uint16_t GetX();
-    uint16_t GetY();
+    void SetSizeToTextureSize();
+    void SetWidthToTextureWidth();
+    void SetWidthToTextureHeight();
+
+    void GetSize(uint16_t *out);
+    uint16_t GetWidth();
+    uint16_t GetHeight();
+
+    inline uint16_t GetRadius() {
+        return Radius;
+    }
+
+    inline void SetRadius(uint16_t in_radius) {
+        in_radius *= 2;
+        uint16_t new_size[2] = {in_radius, in_radius};
+        SetSize(new_size);
+    }
 };
 }; // namespace PMMA::Types::TwoD

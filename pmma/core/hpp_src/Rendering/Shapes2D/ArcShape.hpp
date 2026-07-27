@@ -27,18 +27,18 @@ public:
 
     uint16_t Width = 0;
     uint16_t PointCount = 0;
-    uint16_t Radius;
 
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
     bool StartAngleSet = false;
     bool EndAngleSet = false;
-    bool RadiusSet = false;
     bool UseTextureSize = false;
 
     inline Arc() {
         ID = reinterpret_cast<uintptr_t>(this);
+
+        ShapeSize.Texture = &Texture;
     }
 
     void Render();
@@ -81,17 +81,6 @@ public:
         UseTextureSize = true;
     }
 
-    inline void SetRadius(uint16_t in_radius) {
-        if (in_radius != Radius) {
-            ShapePropertyChanged = true;
-        }
-
-        RadiusSet = true;
-        Radius = in_radius;
-    };
-
-    uint16_t GetRadius();
-
     inline void SetRotation(float in_rotation) {
         if (in_rotation != Rotation) {
             ShapePropertyChanged = true;
@@ -115,7 +104,5 @@ public:
     uint16_t GetPointCount() {
         return PointCount;
     }
-
-    void GetSize(uint16_t *out_size);
 };
 }

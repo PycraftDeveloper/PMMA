@@ -43,8 +43,8 @@ void PMMA::Animation::RadialAnimation::RadialAnimation::Start() {
     RunTime = std::chrono::seconds(0);
 
     uint16_t start_position[2];
-    StartCoordinatePtr->Get(start_position);
-    TargetCoordinatePtr->Set(start_position);
+    StartCoordinatePtr->GetCoordinate(start_position);
+    TargetCoordinatePtr->SetCoordinate(start_position);
 }
 
 void PMMA::Animation::RadialAnimation::RadialAnimation::Stop() {

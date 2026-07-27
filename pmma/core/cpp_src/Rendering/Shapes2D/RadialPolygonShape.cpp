@@ -1,38 +1,6 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
-uint16_t PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::GetRadius() {
-    if (!RadiusSet) {
-        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
-            30,
-            "You have not specified a radius for the arc \
-please use `Arc.set_radius` to set it before attempting to get it.");
-        throw std::runtime_error("Radius not set!");
-    }
-    return Radius;
-}
-
-void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::GetSize(uint16_t *out_size) {
-    if (!(RadiusSet || ShapeSize.GetSet() || Texture.IsLoaded())) {
-        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
-            30,
-            "You have not specified a size for the radial polygon \
-please use 'RadialPolygon.ShapeSize' or 'RadialPolygon.SetRadius' or set a texture before \
-attempting to get it.");
-        throw std::runtime_error("Size not set!");
-    }
-
-    if (UseTextureSize) {
-        Texture.GetSize(out_size);
-    } else if (RadiusSet) {
-        uint16_t radius = GetRadius() * 2;
-        out_size[0] = radius;
-        out_size[1] = radius;
-    } else {
-        ShapeSize.Get(out_size);
-    }
-}
-
 void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged = ShapeCenter.GetChangedToggle();
@@ -46,10 +14,10 @@ void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2];
-        ShapeCenter.Get(start_position);
+        ShapeCenter.GetCoordinate(start_position);
 
         uint16_t size[2];
-        GetSize(size);
+        ShapeSize.GetSize(size);
 
         // Existing packing logic
         ShapeInstanceData.position = PMMA::Internal::PackValues(start_position[0], start_position[1]);

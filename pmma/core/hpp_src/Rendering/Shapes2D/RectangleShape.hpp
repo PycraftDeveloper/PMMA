@@ -32,6 +32,8 @@ public:
 
     inline Rectangle() {
         ID = reinterpret_cast<uintptr_t>(this);
+
+        ShapeSize.Texture = &Texture;
     }
 
     void Render();
@@ -75,7 +77,5 @@ public:
     inline void SetSizeToTexture() {
         UseTextureSize = true;
     }
-
-    void GetSize(uint16_t *out_size);
 };
 } // namespace PMMA::Rendering::TwoD

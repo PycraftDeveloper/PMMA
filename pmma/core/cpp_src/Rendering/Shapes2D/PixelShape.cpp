@@ -14,7 +14,7 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2];
-        ShapeCenter.Get(start_position);
+        ShapeCenter.GetCoordinate(start_position);
 
         // Existing packing logic
         ShapeInstanceData.position = PMMA::Internal::PackValues(start_position[0], start_position[1]);

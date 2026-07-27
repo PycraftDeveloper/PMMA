@@ -41,8 +41,8 @@ public:
         uint16_t start_pos[2];
         uint16_t end_pos[2];
 
-        StartCoordinatePtr->Get(start_pos);
-        EndCoordinatePtr->Get(end_pos);
+        StartCoordinatePtr->GetCoordinate(start_pos);
+        EndCoordinatePtr->GetCoordinate(end_pos);
 
         new_location[0] = (uint16_t)PMMA::Maths::Lerp(
             (float)start_pos[0], (float)end_pos[0],
@@ -52,7 +52,7 @@ public:
             (float)start_pos[1], (float)end_pos[1],
             Duration.count(), RunTime.count());
 
-        TargetCoordinatePtr->Set(new_location);
+        TargetCoordinatePtr->SetCoordinate(new_location);
 
         if (RunTime >= Duration) {
             RunTime = Duration;

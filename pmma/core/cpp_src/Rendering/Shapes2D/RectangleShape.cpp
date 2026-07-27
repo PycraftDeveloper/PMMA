@@ -1,22 +1,6 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
-void PMMA::Rendering::TwoD::Shapes::Rectangle::GetSize(uint16_t *out_size) {
-    if (!(ShapeSize.GetSet() || Texture.IsLoaded())) {
-        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
-            30,
-            "You have not specified a size for the rectangle \
-please use `Rectangle.ShapeSize` to set it before attempting to get it.");
-        throw std::runtime_error("Size not set!");
-    }
-
-    if (UseTextureSize) {
-        Texture.GetSize(out_size);
-    } else {
-        ShapeSize.Get(out_size);
-    }
-}
-
 void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged = ShapeCenter.GetChangedToggle();
@@ -30,10 +14,10 @@ void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2];
-        ShapeCenter.Get(start_position);
+        ShapeCenter.GetCoordinate(start_position);
 
         uint16_t Size[2];
-        GetSize(Size);
+        ShapeSize.GetSize(Size);
 
         // Existing packing logic
         ShapeInstanceData.position = PMMA::Internal::PackValues(start_position[0], start_position[1]);
