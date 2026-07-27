@@ -1,7 +1,6 @@
 #include <algorithm>
 
 #include <GLFW/glfw3.h>
-#include <STB/stb_image.h>
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 #include <bx/platform.h>
@@ -20,6 +19,7 @@
 #endif
 
 #include "PMMA_Core.hpp"
+#include <STB/stb_image.h>
 
 void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
     glfwGetWindowSize(Window, &CurrentSize[0], &CurrentSize[1]);

@@ -19,7 +19,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Interna
     lastInstance->Add(lineShape);
 }
 
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::RadialPolygon *radialPolygonShape) {
+void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::RadialPolygonBase *radialPolygonShape) {
     lastInstance->Add(radialPolygonShape);
 }
 

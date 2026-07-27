@@ -9,8 +9,12 @@
 #include "Constants.hpp"
 #include "Types.hpp"
 
+namespace PMMA::Internal::Rendering::Core2D {
+struct InstanceData;
+}
+
 namespace PMMA::Rendering::TwoD::Shapes {
-class EXPORT RadialPolygon {
+class EXPORT RadialPolygonBase {
 public:
     PMMA::Types::DisplayCoordinate ShapeCenter;
     PMMA::Types::Color Color;
@@ -33,7 +37,7 @@ public:
     bool ShapePropertyChanged = true;
     bool ShapeSizeSet = false;
 
-    inline RadialPolygon() {
+    inline RadialPolygonBase() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 
@@ -44,6 +48,31 @@ public:
         RadiusSet = false;
     }
 
+    inline void SetWidth(uint16_t in_width) {
+        if (in_width != Width) {
+            ShapePropertyChanged = true;
+        }
+
+        Width = in_width;
+    };
+
+    inline uint16_t GetWidth() const {
+        return Width;
+    }
+
+    inline void SetRotation(float in_rotation) {
+        if (in_rotation != Rotation) {
+            ShapePropertyChanged = true;
+        }
+
+        Rotation = in_rotation;
+    }
+
+    inline float GetRotation() const {
+        return Rotation;
+    }
+
+protected:
     inline void SetSize(uint16_t *in_size) {
         if (in_size[0] != ShapeSize[0] || in_size[1] != ShapeSize[1]) {
             ShapePropertyChanged = true;
@@ -77,30 +106,6 @@ public:
 
     uint16_t GetPointCount() {
         return PointCount;
-    }
-
-    inline void SetWidth(uint16_t in_width) {
-        if (in_width != Width) {
-            ShapePropertyChanged = true;
-        }
-
-        Width = in_width;
-    };
-
-    inline uint16_t GetWidth() const {
-        return Width;
-    }
-
-    inline void SetRotation(float in_rotation) {
-        if (in_rotation != Rotation) {
-            ShapePropertyChanged = true;
-        }
-
-        Rotation = in_rotation;
-    }
-
-    inline float GetRotation() const {
-        return Rotation;
     }
 };
 } // namespace PMMA::Rendering::TwoD::Shapes

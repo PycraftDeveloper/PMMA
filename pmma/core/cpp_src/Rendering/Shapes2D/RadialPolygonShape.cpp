@@ -1,7 +1,7 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
-uint16_t PMMA::Rendering::TwoD::Shapes::RadialPolygon::GetRadius() {
+uint16_t PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::GetRadius() {
     if (!RadiusSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -12,7 +12,7 @@ please use `Arc.set_radius` to set it before attempting to get it.");
     return Radius;
 }
 
-void PMMA::Rendering::TwoD::Shapes::RadialPolygon::GetSize(uint16_t *out_size) {
+void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::GetSize(uint16_t *out_size) {
     if (!(RadiusSet || ShapeSizeSet || Texture.IsLoaded())) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -34,7 +34,7 @@ attempting to get it.");
     }
 }
 
-void PMMA::Rendering::TwoD::Shapes::RadialPolygon::Render() {
+void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
     if (!ShapePropertyChanged) {
         ShapePropertyChanged = ShapeCenter.GetChangedToggle();
     }

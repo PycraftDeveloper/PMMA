@@ -6,12 +6,11 @@
 #include <random>
 #include <thread>
 
-#include <STB/stb_image.h>
-
 #include "Internal/Internal.hpp"
 #include "Logger.hpp"
 #include "Maths.hpp"
 #include "Noise/FractalBrownianMotion.hpp"
+#include "PMMA_Core.hpp"
 #include "Random.hpp"
 
 namespace PMMA::Types {

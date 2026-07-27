@@ -37,8 +37,8 @@
 #include "Internal/Utility/CPU_FeatureSetUtils.hpp"
 #include "Internal/Utility/FontUtils.hpp"
 
+#include "Rendering/Shapes2D/AdditionalShapes.hpp"
 #include "Rendering/Shapes2D/ArcShape.hpp"
-#include "Rendering/Shapes2D/EllipseShape.hpp"
 #include "Rendering/Shapes2D/LineShape.hpp"
 #include "Rendering/Shapes2D/PixelShape.hpp"
 #include "Rendering/Shapes2D/PolygonShape.hpp"

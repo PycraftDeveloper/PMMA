@@ -54,7 +54,6 @@ set(CORE_SOURCES
     "${SRC_DIR}/Rendering/Shapes2D/PixelShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/LineShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/ArcShape.cpp"
-    "${SRC_DIR}/Rendering/Shapes2D/EllipseShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/PolygonShape.cpp"
 
     "${SRC_DIR}/Noise/FractalBrownianMotion.cpp"

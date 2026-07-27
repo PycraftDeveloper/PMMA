@@ -9,7 +9,7 @@ namespace PMMA::Rendering::TwoD::Shapes {
 class Line;
 class Arc;
 class Ellipse;
-class RadialPolygon;
+class RadialPolygonBase;
 class Rectangle;
 class Pixel;
 } // namespace PMMA::Rendering::TwoD::Shapes
@@ -39,7 +39,7 @@ public:
     ~RenderPipelineManager();
 
     void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Line *lineShape);
-    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::RadialPolygon *radialPolygonShape);
+    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::RadialPolygonBase *radialPolygonShape);
     void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Arc *arcShape);
     void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Ellipse *ellipseShape);
     void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Rectangle *rectangleShape);
