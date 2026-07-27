@@ -14,6 +14,7 @@ namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT Rectangle {
 public:
     PMMA::Types::TwoD::Coordinate ShapeCenter;
+    PMMA::Types::TwoD::Size ShapeSize;
     PMMA::Types::Color Color;
     PMMA::Types::Texture Texture;
 
@@ -21,32 +22,19 @@ public:
 
     float Rotation = 0;
 
-    uint16_t ShapeSize[2];
     uintptr_t ID;
     uint16_t Width = 0;
     uint16_t CornerRadius = 0;
 
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
-    bool ShapeSizeSet = false;
+    bool UseTextureSize = false;
 
     inline Rectangle() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 
     void Render();
-
-    inline void SetSize(uint16_t *in_size) {
-        if (in_size[0] != ShapeSize[0] || in_size[1] != ShapeSize[1]) {
-            ShapePropertyChanged = true;
-        }
-
-        ShapeSize[0] = in_size[0];
-        ShapeSize[1] = in_size[1];
-        ShapeSizeSet = true;
-    };
-
-    void GetSize(uint16_t *out_size);
 
     inline void SetWidth(uint16_t in_width) {
         if (in_width != Width) {
@@ -85,7 +73,9 @@ public:
     }
 
     inline void SetSizeToTexture() {
-        ShapeSizeSet = false;
+        UseTextureSize = true;
     }
+
+    void GetSize(uint16_t *out_size);
 };
 } // namespace PMMA::Rendering::TwoD

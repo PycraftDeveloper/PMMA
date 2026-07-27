@@ -35,24 +35,23 @@ please use `Arc.set_radius` to set it before attempting to get it.");
 }
 
 void PMMA::Rendering::TwoD::Shapes::Arc::GetSize(uint16_t *out_size) {
-    if (!(RadiusSet || ShapeSizeSet || Texture.IsLoaded())) {
+    if (!(RadiusSet || ShapeSize.GetSet() || Texture.IsLoaded())) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
             "You have not specified a size for the arc \
-please use 'Arc.SetSize' or 'Arc.SetRadius' or set a texture before \
+please use 'Arc.ShapeSize' or 'Arc.SetRadius' or set a texture before \
 attempting to get it.");
         throw std::runtime_error("Size not set!");
     }
 
-    if (RadiusSet) {
+    if (UseTextureSize) {
+        Texture.GetSize(out_size);
+    } else if (RadiusSet) {
         uint16_t radius = GetRadius() * 2;
         out_size[0] = radius;
         out_size[1] = radius;
-    } else if (ShapeSizeSet) {
-        out_size[0] = ShapeSize[0];
-        out_size[1] = ShapeSize[1];
     } else {
-        Texture.GetSize(out_size);
+        ShapeSize.Get(out_size);
     }
 }
 

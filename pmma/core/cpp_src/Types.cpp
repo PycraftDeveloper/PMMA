@@ -695,7 +695,7 @@ float PMMA::Types::TwoD::Coordinate::GetAmplitude() {
     return amplitude;
 }
 
-void PMMA::Types::TwoD::Coordinate::Configure(PMMA::Types::TwoD::Coordinate_Configure_Kwargs kwargs) {
+void PMMA::Types::TwoD::Coordinate::Configure(PMMA::Types::Configure_Kwargs kwargs) {
     uint32_t new_seed;
 
     if (!kwargs.seed.has_value()) {
@@ -966,4 +966,309 @@ You can do this using `Display.create`.");
     new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
 
     Set(new_coord);
+}
+
+PMMA::Types::TwoD::Size::Size() {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+
+    RandomSizeGenerator = PMMA::Core::RandomGenerator;
+
+    PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
+}
+
+void PMMA::Types::TwoD::Size::Get(uint16_t *out) {
+    if (!GetSet()) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a size - please set a \
+size before attempting to get it.");
+        throw std::runtime_error("Size not set!");
+    }
+
+    out[0] = size[0];
+    out[1] = size[1];
+}
+
+uint16_t PMMA::Types::TwoD::Size::GetX() {
+    if (!Get_X_Set()) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a size - please set a \
+size before attempting to get it.");
+        throw std::runtime_error("Size not set!");
+    }
+
+    return size[0];
+}
+
+uint16_t PMMA::Types::TwoD::Size::GetY() {
+    if (!Get_Y_Set()) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a size - please set a \
+size before attempting to get it.");
+        throw std::runtime_error("Size not set!");
+    }
+
+    return size[1];
+}
+
+uint32_t PMMA::Types::TwoD::Size::GetSeed() {
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return seed;
+}
+
+uint32_t PMMA::Types::TwoD::Size::GetOctaves() {
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return octaves;
+}
+
+float PMMA::Types::TwoD::Size::GetFrequency() {
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return frequency;
+}
+
+float PMMA::Types::TwoD::Size::GetAmplitude() {
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+    return amplitude;
+}
+
+void PMMA::Types::TwoD::Size::Configure(PMMA::Types::Configure_Kwargs kwargs) {
+    uint32_t new_seed;
+
+    if (!kwargs.seed.has_value()) {
+        PMMA::FastRandom TempRandomGenerator;
+        new_seed = TempRandomGenerator.Next();
+    } else {
+        new_seed = kwargs.seed.value();
+    }
+
+    X_PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed);
+    Y_PerlinNoiseGenerator = new PMMA::Noise::PerlinNoise(new_seed + 1);
+
+    X_FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+    Y_FractalBrownianMotionGenerator = new PMMA::Noise::FractalBrownianMotion(new_seed + 1, kwargs.octaves, kwargs.frequency, kwargs.amplitude);
+
+    RandomSizeGenerator = new PMMA::FastRandom();
+    RandomSizeGenerator->SetSeed(new_seed);
+
+    seed = new_seed;
+    octaves = kwargs.octaves;
+    frequency = kwargs.frequency;
+    amplitude = kwargs.amplitude;
+    Configured = true;
+}
+
+void PMMA::Types::TwoD::Size::GenerateFromRandom() {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+
+    if (PMMA::Core::ActiveDisplayInstance->DisplaySizeChanged) {
+        PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
+    }
+
+    uint16_t new_size[2];
+    new_size[0] = RandomSizeGenerator->Next(DisplaySize[0]);
+    new_size[1] = RandomSizeGenerator->Next(DisplaySize[1]);
+
+    Set(new_size);
+}
+
+void PMMA::Types::TwoD::Size::GenerateFrom1DPerlinNoise(float value) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    uint16_t new_size[2];
+
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float x_value = X_PerlinNoiseGenerator->Noise1D(value + x_offset);
+    new_size[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float y_value = Y_PerlinNoiseGenerator->Noise1D(value + y_offset);
+    new_size[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+
+    Set(new_size);
+}
+
+void PMMA::Types::TwoD::Size::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    uint16_t new_size[2];
+
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float x_value = X_PerlinNoiseGenerator->Noise2D(value_one + x_offset, value_two + x_offset);
+    new_size[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float y_value = Y_PerlinNoiseGenerator->Noise2D(value_one + y_offset, value_two + y_offset);
+    new_size[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+
+    Set(new_size);
+}
+
+void PMMA::Types::TwoD::Size::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    uint16_t new_size[2];
+
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float x_value = X_PerlinNoiseGenerator->Noise3D(value_one + x_offset, value_two + x_offset, value_three + x_offset);
+    new_size[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float y_value = Y_PerlinNoiseGenerator->Noise3D(value_one + y_offset, value_two + y_offset, value_three + y_offset);
+    new_size[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+
+    Set(new_size);
+}
+
+void PMMA::Types::TwoD::Size::GenerateFrom1DFractalBrownianMotion(float value) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    uint16_t new_size[2];
+
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float x_value = X_FractalBrownianMotionGenerator->Noise1D(value + x_offset);
+    new_size[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float y_value = Y_FractalBrownianMotionGenerator->Noise1D(value + y_offset);
+    new_size[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+
+    Set(new_size);
+}
+
+void PMMA::Types::TwoD::Size::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    uint16_t new_size[2];
+
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float x_value = X_FractalBrownianMotionGenerator->Noise2D(value_one + x_offset, value_two + x_offset);
+    new_size[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float y_value = Y_FractalBrownianMotionGenerator->Noise2D(value_one + y_offset, value_two + y_offset);
+    new_size[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+
+    Set(new_size);
+}
+
+void PMMA::Types::TwoD::Size::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
+    if (PMMA::Core::ActiveDisplayInstance == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display before using this function. \
+You can do this using `Display.create`.");
+        throw std::runtime_error("Display not created yet!");
+    }
+    if (!Configured) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            13,
+            "You need to configure this component before calling this.");
+        throw std::runtime_error("You need to configure this component first!");
+    }
+
+    uint16_t new_size[2];
+
+    float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float x_value = X_FractalBrownianMotionGenerator->Noise3D(value_one + x_offset, value_two + x_offset, value_three + x_offset);
+    new_size[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+
+    float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
+    float y_value = Y_FractalBrownianMotionGenerator->Noise3D(value_one + y_offset, value_two + y_offset, value_three + y_offset);
+    new_size[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+
+    Set(new_size);
 }
