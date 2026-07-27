@@ -604,7 +604,7 @@ void PMMA::Types::Color::Set_HEX(std::string input_color) {
     }
 }
 
-PMMA::Types::DisplayCoordinate::DisplayCoordinate() {
+PMMA::Types::TwoD::Coordinate::Coordinate() {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -618,7 +618,7 @@ You can do this using `Display.create`.");
     PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
 }
 
-void PMMA::Types::DisplayCoordinate::Get(uint16_t *out) {
+void PMMA::Types::TwoD::Coordinate::Get(uint16_t *out) {
     if (!GetSet()) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -627,11 +627,11 @@ display coordinate before attempting to get it.");
         throw std::runtime_error("Display coordinate not set!");
     }
 
-    out[0] = Coordinate[0];
-    out[1] = Coordinate[1];
+    out[0] = coordinate[0];
+    out[1] = coordinate[1];
 }
 
-uint16_t PMMA::Types::DisplayCoordinate::GetX() {
+uint16_t PMMA::Types::TwoD::Coordinate::GetX() {
     if (!Get_X_Set()) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -640,10 +640,10 @@ display coordinate before attempting to get it.");
         throw std::runtime_error("Display coordinate not set!");
     }
 
-    return Coordinate[0];
+    return coordinate[0];
 }
 
-uint16_t PMMA::Types::DisplayCoordinate::GetY() {
+uint16_t PMMA::Types::TwoD::Coordinate::GetY() {
     if (!Get_Y_Set()) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -652,10 +652,10 @@ display coordinate before attempting to get it.");
         throw std::runtime_error("Display coordinate not set!");
     }
 
-    return Coordinate[1];
+    return coordinate[1];
 }
 
-uint32_t PMMA::Types::DisplayCoordinate::GetSeed() {
+uint32_t PMMA::Types::TwoD::Coordinate::GetSeed() {
     if (!Configured) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
@@ -665,7 +665,7 @@ uint32_t PMMA::Types::DisplayCoordinate::GetSeed() {
     return seed;
 }
 
-uint32_t PMMA::Types::DisplayCoordinate::GetOctaves() {
+uint32_t PMMA::Types::TwoD::Coordinate::GetOctaves() {
     if (!Configured) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
@@ -675,7 +675,7 @@ uint32_t PMMA::Types::DisplayCoordinate::GetOctaves() {
     return octaves;
 }
 
-float PMMA::Types::DisplayCoordinate::GetFrequency() {
+float PMMA::Types::TwoD::Coordinate::GetFrequency() {
     if (!Configured) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
@@ -685,7 +685,7 @@ float PMMA::Types::DisplayCoordinate::GetFrequency() {
     return frequency;
 }
 
-float PMMA::Types::DisplayCoordinate::GetAmplitude() {
+float PMMA::Types::TwoD::Coordinate::GetAmplitude() {
     if (!Configured) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             13,
@@ -695,7 +695,7 @@ float PMMA::Types::DisplayCoordinate::GetAmplitude() {
     return amplitude;
 }
 
-void PMMA::Types::DisplayCoordinate::Configure(DisplayCoordinate_Configure_Kwargs kwargs) {
+void PMMA::Types::TwoD::Coordinate::Configure(PMMA::Types::TwoD::Coordinate_Configure_Kwargs kwargs) {
     uint32_t new_seed;
 
     if (!kwargs.seed.has_value()) {
@@ -721,7 +721,7 @@ void PMMA::Types::DisplayCoordinate::Configure(DisplayCoordinate_Configure_Kwarg
     Configured = true;
 }
 
-void PMMA::Types::DisplayCoordinate::Center() {
+void PMMA::Types::TwoD::Coordinate::Center() {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -744,7 +744,7 @@ You can do this using `Display.create`.");
     Set(coord_float);
 }
 
-void PMMA::Types::DisplayCoordinate::CenterHorizontal() {
+void PMMA::Types::TwoD::Coordinate::CenterHorizontal() {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -762,7 +762,7 @@ You can do this using `Display.create`.");
     Set_X(center);
 }
 
-void PMMA::Types::DisplayCoordinate::CenterVertical() {
+void PMMA::Types::TwoD::Coordinate::CenterVertical() {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -780,7 +780,7 @@ You can do this using `Display.create`.");
     Set_Y(center);
 }
 
-void PMMA::Types::DisplayCoordinate::GenerateFromRandom() {
+void PMMA::Types::TwoD::Coordinate::GenerateFromRandom() {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -800,7 +800,7 @@ You can do this using `Display.create`.");
     Set(new_coord);
 }
 
-void PMMA::Types::DisplayCoordinate::GenerateFrom1DPerlinNoise(float value) {
+void PMMA::Types::TwoD::Coordinate::GenerateFrom1DPerlinNoise(float value) {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -828,7 +828,7 @@ You can do this using `Display.create`.");
     Set(new_coord);
 }
 
-void PMMA::Types::DisplayCoordinate::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
+void PMMA::Types::TwoD::Coordinate::GenerateFrom2DPerlinNoise(float value_one, float value_two) {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -856,7 +856,7 @@ You can do this using `Display.create`.");
     Set(new_coord);
 }
 
-void PMMA::Types::DisplayCoordinate::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
+void PMMA::Types::TwoD::Coordinate::GenerateFrom3DPerlinNoise(float value_one, float value_two, float value_three) {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -884,7 +884,7 @@ You can do this using `Display.create`.");
     Set(new_coord);
 }
 
-void PMMA::Types::DisplayCoordinate::GenerateFrom1DFractalBrownianMotion(float value) {
+void PMMA::Types::TwoD::Coordinate::GenerateFrom1DFractalBrownianMotion(float value) {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -912,7 +912,7 @@ You can do this using `Display.create`.");
     Set(new_coord);
 }
 
-void PMMA::Types::DisplayCoordinate::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
+void PMMA::Types::TwoD::Coordinate::GenerateFrom2DFractalBrownianMotion(float value_one, float value_two) {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -940,7 +940,7 @@ You can do this using `Display.create`.");
     Set(new_coord);
 }
 
-void PMMA::Types::DisplayCoordinate::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
+void PMMA::Types::TwoD::Coordinate::GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three) {
     if (PMMA::Core::ActiveDisplayInstance == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,

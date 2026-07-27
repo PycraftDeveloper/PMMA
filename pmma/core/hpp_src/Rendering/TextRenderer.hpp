@@ -9,7 +9,7 @@
 namespace PMMA::Rendering::Core2D {
 class EXPORT TextRenderer {
 public:
-    PMMA::Types::DisplayCoordinate *Position;
+    PMMA::Types::TwoD::Coordinate *Position;
     PMMA::Types::Color *ForegroundColor;
     PMMA::Types::Color *BackgroundColor;
     PMMA::Logger *Logger;

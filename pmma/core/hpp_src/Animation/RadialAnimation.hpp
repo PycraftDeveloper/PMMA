@@ -11,9 +11,9 @@
 namespace PMMA::Animation {
 class EXPORT RadialAnimation : public PMMA::Internal::AnimationCore {
 public:
-    PMMA::Types::DisplayCoordinate *TargetCoordinatePtr;
-    PMMA::Types::DisplayCoordinate *StartCoordinatePtr;
-    PMMA::Types::DisplayCoordinate *CenterCoordinatePtr;
+    PMMA::Types::TwoD::Coordinate *TargetCoordinatePtr;
+    PMMA::Types::TwoD::Coordinate *StartCoordinatePtr;
+    PMMA::Types::TwoD::Coordinate *CenterCoordinatePtr;
 
     std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
     std::chrono::duration<float> Duration;
@@ -23,7 +23,7 @@ public:
     bool Paused = false;
     bool Repeat = false;
 
-    RadialAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr);
+    RadialAnimation(PMMA::Types::TwoD::Coordinate *NewTargetCoordinatePtr);
 
     ~RadialAnimation();
 

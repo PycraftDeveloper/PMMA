@@ -13,7 +13,7 @@
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT Rectangle {
 public:
-    PMMA::Types::DisplayCoordinate ShapeCenter;
+    PMMA::Types::TwoD::Coordinate ShapeCenter;
     PMMA::Types::Color Color;
     PMMA::Types::Texture Texture;
 

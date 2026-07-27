@@ -13,8 +13,8 @@
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT Line {
 public:
-    PMMA::Types::DisplayCoordinate ShapeStart;
-    PMMA::Types::DisplayCoordinate ShapeEnd;
+    PMMA::Types::TwoD::Coordinate ShapeStart;
+    PMMA::Types::TwoD::Coordinate ShapeEnd;
     PMMA::Types::Color Color;
     PMMA::Types::Texture Texture;
 

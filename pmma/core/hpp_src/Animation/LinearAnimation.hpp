@@ -12,9 +12,9 @@
 namespace PMMA::Animation {
 class EXPORT LinearAnimation : public PMMA::Internal::AnimationCore {
 public:
-    PMMA::Types::DisplayCoordinate *TargetCoordinatePtr;
-    PMMA::Types::DisplayCoordinate *StartCoordinatePtr;
-    PMMA::Types::DisplayCoordinate *EndCoordinatePtr;
+    PMMA::Types::TwoD::Coordinate *TargetCoordinatePtr;
+    PMMA::Types::TwoD::Coordinate *StartCoordinatePtr;
+    PMMA::Types::TwoD::Coordinate *EndCoordinatePtr;
     PMMA::Logger *Logger;
 
     std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
@@ -26,7 +26,7 @@ public:
     bool Loop = false;
     bool Repeat = false;
 
-    LinearAnimation(PMMA::Types::DisplayCoordinate *NewTargetCoordinatePtr);
+    LinearAnimation(PMMA::Types::TwoD::Coordinate *NewTargetCoordinatePtr);
 
     ~LinearAnimation();
 
@@ -67,7 +67,7 @@ public:
             }
 
             if (Loop) { // Switch start and end
-                PMMA::Types::DisplayCoordinate *TempPtr = StartCoordinatePtr;
+                PMMA::Types::TwoD::Coordinate *TempPtr = StartCoordinatePtr;
                 StartCoordinatePtr = EndCoordinatePtr;
                 EndCoordinatePtr = TempPtr;
 

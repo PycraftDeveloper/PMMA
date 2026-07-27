@@ -16,7 +16,7 @@ struct InstanceData;
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT RadialPolygonBase {
 public:
-    PMMA::Types::DisplayCoordinate ShapeCenter;
+    PMMA::Types::TwoD::Coordinate ShapeCenter;
     PMMA::Types::Color Color;
     PMMA::Types::Texture Texture;
 
