@@ -12,194 +12,188 @@
 #include "Internal/Rendering/Core2D/TextureManager.hpp"
 
 namespace PMMA::Graphics {
-	class Shader;
+class Shader;
 }
 
 namespace PMMA::Internal::Rendering::Core2D {
-	class EXPORT RenderPipelineInstance {
-	private:
-		PMMA::Graphics::Shader* ShapeDefinitionsShaderProgram = nullptr;
+class EXPORT RenderPipelineInstance {
+private:
+    PMMA::Graphics::Shader *ShapeDefinitionsShaderProgram = nullptr;
 
-		std::array<std::array<std::vector<uintptr_t>, 2>, 4> PreviousShapeIDs;
-		std::array<std::vector<uintptr_t>, 2> CurrentShapeIDs;
+    std::array<std::array<std::vector<uintptr_t>, 2>, 4> PreviousShapeIDs;
+    std::array<std::vector<uintptr_t>, 2> CurrentShapeIDs;
 
-		std::array<std::array<std::vector<InstanceData>, 2>, 4> PreviousInstanceData;
-		std::array<std::vector<InstanceData>, 2> CurrentInstanceData; // opaque, transparent
+    std::array<std::array<std::vector<InstanceData>, 2>, 4> PreviousInstanceData;
+    std::array<std::vector<InstanceData>, 2> CurrentInstanceData; // opaque, transparent
 
-		PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
-		PMMA::Internal::Rendering::Core2D::TextureManager TransparentTextureManager;
-		PMMA::Internal::Rendering::Core2D::TextureManager OpaqueTextureManager;
+    PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
+    PMMA::Internal::Rendering::Core2D::TextureManager TransparentTextureManager;
+    PMMA::Internal::Rendering::Core2D::TextureManager OpaqueTextureManager;
 
-		Vertex VertexData[4];
-		uint16_t IndexData[6];
+    Vertex VertexData[4];
+    uint16_t IndexData[6];
 
-		bgfx::VertexLayout m_layout;
-		bgfx::VertexLayout instanceLayout;
+    bgfx::VertexLayout m_layout;
+    bgfx::VertexLayout instanceLayout;
 
-		uint32_t numTiles;
+    uint32_t numTiles;
 
-	public:
-		uintptr_t ID;
+public:
+    uintptr_t ID;
 
-		uint32_t OpaqueInstanceCount = 0;
-		uint32_t TransparentInstanceCount = 0;
+    uint32_t OpaqueInstanceCount = 0;
+    uint32_t TransparentInstanceCount = 0;
 
-	private:
+private:
+    uint32_t OpaquePreviousBufferSize = 0;
+    uint32_t TransparentPreviousBufferSize = 0;
+    uint32_t CurrentOpaqueDataSize = 0;
+    uint32_t CurrentTransparentDataSize = 0;
 
-		uint32_t OpaquePreviousBufferSize = 0;
-		uint32_t TransparentPreviousBufferSize = 0;
-		uint32_t CurrentOpaqueDataSize = 0;
-		uint32_t CurrentTransparentDataSize = 0;
+    bgfx::VertexBufferHandle vbh;
+    bgfx::IndexBufferHandle ibh;
+    bgfx::UniformHandle OrthDisplayProj;
 
-		bgfx::VertexBufferHandle vbh;
-		bgfx::IndexBufferHandle ibh;
-		bgfx::UniformHandle OrthDisplayProj;
+    bgfx::DynamicVertexBufferHandle OpaqueInstanceVbh = BGFX_INVALID_HANDLE;
+    bgfx::DynamicVertexBufferHandle TransparentInstanceVbh = BGFX_INVALID_HANDLE;
 
-		bgfx::DynamicVertexBufferHandle OpaqueInstanceVbh = BGFX_INVALID_HANDLE;
-		bgfx::DynamicVertexBufferHandle TransparentInstanceVbh = BGFX_INVALID_HANDLE;
+    bgfx::UniformHandle u_textureInfo;
+    bgfx::UniformHandle u_transparency;
+    bgfx::UniformHandle s_colorTex;
+    bgfx::UniformHandle s_Tex;
 
-		bgfx::UniformHandle u_textureInfo;
-		bgfx::UniformHandle u_transparency;
-		bgfx::UniformHandle s_colorTex;
-		bgfx::UniformHandle s_Tex;
+    char BufferID = 0;
+    char PreviousBufferID = 0;
 
-		char BufferID = 0;
-		char PreviousBufferID = 0;
+    bool ColorChanged = true;
+    bool ShapePropertyChanged = true;
+    bool UsingCache = false;
 
-		bool ColorChanged = true;
-		bool ShapePropertyChanged = true;
-		bool UsingCache = false;
+public:
+    RenderPipelineInstance();
 
-	public:
+    ~RenderPipelineInstance() {
+        if (bgfx::isValid(vbh)) {
+            bgfx::destroy(vbh);
+        }
 
-		RenderPipelineInstance();
+        if (bgfx::isValid(ibh)) {
+            bgfx::destroy(ibh);
+        }
 
-		~RenderPipelineInstance() {
-			if (bgfx::isValid(vbh)) {
-				bgfx::destroy(vbh);
-			}
+        if (bgfx::isValid(s_colorTex)) {
+            bgfx::destroy(s_colorTex);
+        }
 
-			if (bgfx::isValid(ibh)) {
-				bgfx::destroy(ibh);
-			}
+        if (bgfx::isValid(u_textureInfo)) {
+            bgfx::destroy(u_textureInfo);
+        }
 
-			if (bgfx::isValid(s_colorTex)) {
-				bgfx::destroy(s_colorTex);
-			}
+        if (bgfx::isValid(OrthDisplayProj)) {
+            bgfx::destroy(OrthDisplayProj);
+        }
 
-			if (bgfx::isValid(u_textureInfo)) {
-				bgfx::destroy(u_textureInfo);
-			}
+        delete ShapeDefinitionsShaderProgram;
+    };
 
-			if (bgfx::isValid(OrthDisplayProj)) {
-				bgfx::destroy(OrthDisplayProj);
-			}
+    void AdvanceView();
 
-			delete ShapeDefinitionsShaderProgram;
-		};
+    inline void Reset() {
+        ColorTexture.Reset();
+        OpaqueInstanceCount = 0;
+        TransparentInstanceCount = 0;
 
-		void AdvanceView();
+        ColorChanged = false;
+        ShapePropertyChanged = false;
+        UsingCache = true;
 
-		inline void Reset() {
-			ColorTexture.Reset();
-			OpaqueInstanceCount = 0;
-			TransparentInstanceCount = 0;
+        CurrentShapeIDs = PreviousShapeIDs[PreviousBufferID];
+        CurrentInstanceData = PreviousInstanceData[PreviousBufferID];
 
-			ColorChanged = false;
-			ShapePropertyChanged = false;
-			UsingCache = true;
+        CurrentOpaqueDataSize = CurrentInstanceData[0].size();
+        CurrentTransparentDataSize = CurrentInstanceData[1].size();
+    }
 
-			CurrentShapeIDs = PreviousShapeIDs[PreviousBufferID];
-			CurrentInstanceData = PreviousInstanceData[PreviousBufferID];
+    template <typename T>
+    inline void Add(T *shape) {
+        uintptr_t ShapeID = shape->ID;
 
-			CurrentOpaqueDataSize = CurrentInstanceData[0].size();
-			CurrentTransparentDataSize = CurrentInstanceData[1].size();
-		}
+        auto &instance = shape->ShapeInstanceData;
 
-		template <typename T>
-		inline void Add(T* shape) {
-			uintptr_t ShapeID = shape->ID;
+        uint8_t Color[4];
+        shape->Color.Get_RGBA(Color);
+        bool IsOpaque = Color[3] == 255;
 
-			auto& instance = shape->ShapeInstanceData;
+        instance.color_index = ColorTexture.AddColor(Color, ShapeID, shape->ColorDataChanged);
 
-			uint8_t Color[4];
-			shape->Color.Get_RGBA(Color);
-			bool IsOpaque = Color[3] == 255;
+        // Texture
+        // Texture Information
+        uint16_t TexturePositionInAtlas[2] = {0, 0};
+        uint16_t TextureSizeInAtlas[2] = {0, 0};
+        if (shape->Texture.IsEnabled()) {
+            if (shape->Texture.GetChannels() == 3) {
+                OpaqueTextureManager.RegisterTexture(shape->Texture.TextureProperties);
+            } else {
+                TransparentTextureManager.RegisterTexture(shape->Texture.TextureProperties);
+                IsOpaque = false;
+            }
+            shape->Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
+            shape->Texture.GetSize(TextureSizeInAtlas);
+        }
 
-			instance.color_index = ColorTexture.AddColor(Color, ShapeID, shape->ColorDataChanged);
+        instance.texture_position = PMMA::Internal::PackValues(TexturePositionInAtlas[0], TexturePositionInAtlas[1]);
+        instance.texture_size = PMMA::Internal::PackValues(TextureSizeInAtlas[0], TextureSizeInAtlas[1]);
 
-			// Texture
-			// Texture Information
-			uint16_t TexturePositionInAtlas[2] = { 0, 0 };
-			uint16_t TextureSizeInAtlas[2] = { 0, 0 };
-			if (shape->Texture.IsEnabled()) {
-				if (shape->Texture.GetChannels() == 3) {
-					OpaqueTextureManager.RegisterTexture(shape->Texture.TextureProperties);
-				}
-				else {
-					TransparentTextureManager.RegisterTexture(shape->Texture.TextureProperties);
-					IsOpaque = false;
-				}
-				shape->Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
-				shape->Texture.GetSize(TextureSizeInAtlas);
-			}
+        ColorChanged |= shape->ColorDataChanged;
+        ShapePropertyChanged |= shape->ShapePropertyChanged;
 
-			instance.texture_position = PMMA::Internal::PackValues(TexturePositionInAtlas[0], TexturePositionInAtlas[1]);
-			instance.texture_size = PMMA::Internal::PackValues(TextureSizeInAtlas[0], TextureSizeInAtlas[1]);
+        if (IsOpaque) { // opaque
+            if (UsingCache && OpaqueInstanceCount < CurrentOpaqueDataSize && CurrentShapeIDs[0][OpaqueInstanceCount] == ShapeID) {
+                if (shape->ShapePropertyChanged) {
+                    CurrentInstanceData[0][OpaqueInstanceCount] = instance;
+                }
 
-			ColorChanged |= shape->ColorDataChanged;
-			ShapePropertyChanged |= shape->ShapePropertyChanged;
+                OpaqueInstanceCount++;
+                return;
+            }
 
-			if (IsOpaque) { // opaque
-				if (UsingCache && OpaqueInstanceCount < CurrentOpaqueDataSize && CurrentShapeIDs[0][OpaqueInstanceCount] == ShapeID) {
-					if (shape->ShapePropertyChanged) {
-						CurrentInstanceData[0][OpaqueInstanceCount] = instance;
-					}
+            UsingCache = false;
 
-					OpaqueInstanceCount++;
-					return;
-				}
+            if (OpaqueInstanceCount >= CurrentOpaqueDataSize) {
+                CurrentInstanceData[0].push_back(instance);
+                CurrentShapeIDs[0].push_back(ShapeID);
+                CurrentOpaqueDataSize++;
+            } else {
+                CurrentInstanceData[0][OpaqueInstanceCount] = instance;
+                CurrentShapeIDs[0][OpaqueInstanceCount] = ShapeID;
+            }
 
-				UsingCache = false;
+            OpaqueInstanceCount++;
+        } else { // transparent
+            if (UsingCache && TransparentInstanceCount < CurrentTransparentDataSize && CurrentShapeIDs[1][TransparentInstanceCount] == ShapeID) {
+                if (shape->ShapePropertyChanged) {
+                    CurrentInstanceData[1][TransparentInstanceCount] = instance;
+                }
 
-				if (OpaqueInstanceCount >= CurrentOpaqueDataSize) {
-					CurrentInstanceData[0].push_back(instance);
-					CurrentShapeIDs[0].push_back(ShapeID);
-					CurrentOpaqueDataSize++;
-				}
-				else {
-					CurrentInstanceData[0][OpaqueInstanceCount] = instance;
-					CurrentShapeIDs[0][OpaqueInstanceCount] = ShapeID;
-				}
+                TransparentInstanceCount++;
+                return;
+            }
 
-				OpaqueInstanceCount++;
-			}
-			else { // transparent
-				if (UsingCache && TransparentInstanceCount < CurrentTransparentDataSize && CurrentShapeIDs[1][TransparentInstanceCount] == ShapeID) {
-					if (shape->ShapePropertyChanged) {
-						CurrentInstanceData[1][TransparentInstanceCount] = instance;
-					}
+            UsingCache = false;
 
-					TransparentInstanceCount++;
-					return;
-				}
+            if (TransparentInstanceCount >= CurrentTransparentDataSize) {
+                CurrentInstanceData[1].push_back(instance);
+                CurrentShapeIDs[1].push_back(ShapeID);
+                CurrentTransparentDataSize++;
+            } else {
+                CurrentInstanceData[1][TransparentInstanceCount] = instance;
+                CurrentShapeIDs[1][TransparentInstanceCount] = ShapeID;
+            }
 
-				UsingCache = false;
+            TransparentInstanceCount++;
+        }
+    }
 
-				if (TransparentInstanceCount >= CurrentTransparentDataSize) {
-					CurrentInstanceData[1].push_back(instance);
-					CurrentShapeIDs[1].push_back(ShapeID);
-					CurrentTransparentDataSize++;
-				}
-				else {
-					CurrentInstanceData[1][TransparentInstanceCount] = instance;
-					CurrentShapeIDs[1][TransparentInstanceCount] = ShapeID;
-				}
-
-				TransparentInstanceCount++;
-			}
-		}
-
-		void Render();
-	};
+    void Render();
+};
 } // namespace PMMA::Internal::Rendering::Core2D
