@@ -44,6 +44,9 @@ private:
 
     std::vector<unsigned char> AtlasPixels;
 
+    uint32_t MipLevels = 5;
+    uint32_t Padding = 1u << MipLevels;
+
 public:
     bool Dirty = false;
 
@@ -345,6 +348,184 @@ public:
         Dirty = true;
     }
 
+    std::vector<uint8_t> GenerateMipChain(
+        const std::vector<uint8_t> &basePixels,
+        uint32_t width,
+        uint32_t height,
+        uint32_t channels) {
+        std::vector<uint8_t> result;
+
+        // Reserve approximately enough space for the full mip chain.
+        result.reserve(basePixels.size() * 4 / 3);
+
+        std::vector<uint8_t> current = basePixels;
+
+        uint32_t currentWidth = width;
+        uint32_t currentHeight = height;
+
+        //
+        // Mip 0
+        //
+        result.insert(
+            result.end(),
+            current.begin(),
+            current.end());
+
+        //
+        // Generate remaining mip levels.
+        //
+        while (currentWidth > 1 || currentHeight > 1) {
+            uint32_t nextWidth =
+                std::max(1u, currentWidth / 2);
+
+            uint32_t nextHeight =
+                std::max(1u, currentHeight / 2);
+
+            std::vector<uint8_t> next(
+                nextWidth *
+                nextHeight *
+                channels);
+
+            for (uint32_t y = 0; y < nextHeight; ++y) {
+                for (uint32_t x = 0; x < nextWidth; ++x) {
+                    uint32_t sx = x * 2;
+                    uint32_t sy = y * 2;
+
+                    if (channels == 4) {
+                        //
+                        // Premultiplied alpha filtering.
+                        //
+                        float r = 0.0f;
+                        float g = 0.0f;
+                        float b = 0.0f;
+                        float a = 0.0f;
+
+                        for (uint32_t oy = 0; oy < 2; ++oy) {
+                            for (uint32_t ox = 0; ox < 2; ++ox) {
+                                uint32_t px =
+                                    std::min(
+                                        sx + ox,
+                                        currentWidth - 1);
+
+                                uint32_t py =
+                                    std::min(
+                                        sy + oy,
+                                        currentHeight - 1);
+
+                                size_t index =
+                                    (py * currentWidth + px) *
+                                    channels;
+
+                                float alpha =
+                                    current[index + 3] /
+                                    255.0f;
+
+                                r += current[index + 0] * alpha;
+                                g += current[index + 1] * alpha;
+                                b += current[index + 2] * alpha;
+                                a += alpha;
+                            }
+                        }
+
+                        r *= 0.25f;
+                        g *= 0.25f;
+                        b *= 0.25f;
+                        a *= 0.25f;
+
+                        size_t dst =
+                            (y * nextWidth + x) *
+                            channels;
+
+                        if (a > 0.00001f) {
+                            next[dst + 0] =
+                                static_cast<uint8_t>(
+                                    std::clamp(
+                                        r / a,
+                                        0.0f,
+                                        255.0f));
+
+                            next[dst + 1] =
+                                static_cast<uint8_t>(
+                                    std::clamp(
+                                        g / a,
+                                        0.0f,
+                                        255.0f));
+
+                            next[dst + 2] =
+                                static_cast<uint8_t>(
+                                    std::clamp(
+                                        b / a,
+                                        0.0f,
+                                        255.0f));
+                        } else {
+                            next[dst + 0] = 0;
+                            next[dst + 1] = 0;
+                            next[dst + 2] = 0;
+                        }
+
+                        next[dst + 3] =
+                            static_cast<uint8_t>(
+                                std::clamp(
+                                    a * 255.0f,
+                                    0.0f,
+                                    255.0f));
+                    } else {
+                        //
+                        // RGB filtering.
+                        //
+                        for (uint32_t c = 0; c < channels; ++c) {
+                            uint32_t sum = 0;
+
+                            for (uint32_t oy = 0; oy < 2; ++oy) {
+                                for (uint32_t ox = 0; ox < 2; ++ox) {
+                                    uint32_t px =
+                                        std::min(
+                                            sx + ox,
+                                            currentWidth - 1);
+
+                                    uint32_t py =
+                                        std::min(
+                                            sy + oy,
+                                            currentHeight - 1);
+
+                                    sum +=
+                                        current[(py * currentWidth + px) *
+                                                    channels +
+                                                c];
+                                }
+                            }
+
+                            next[(y * nextWidth + x) *
+                                     channels +
+                                 c] =
+                                static_cast<uint8_t>(
+                                    sum / 4);
+                        }
+                    }
+                }
+            }
+
+            //
+            // Append this mip directly to BGFX data.
+            //
+            result.insert(
+                result.end(),
+                next.begin(),
+                next.end());
+
+            current =
+                std::move(next);
+
+            currentWidth =
+                nextWidth;
+
+            currentHeight =
+                nextHeight;
+        }
+
+        return result;
+    }
+
     // Here, if the texture atlas is dirty, the texture atlas should be generated using the properties from 'RegisteredTextures' and written to a BGFX texture.
     void Assemble() {
         char Channels = 3;
@@ -459,31 +640,26 @@ public:
             bgfx::destroy(TextureHandle);
         }
 
-        if (Transparent) {
-            TextureHandle =
-                bgfx::createTexture2D(
-                    static_cast<uint16_t>(m_TextureWidth),
-                    static_cast<uint16_t>(m_TextureHeight),
-                    false,
-                    1,
-                    bgfx::TextureFormat::RGBA8,
-                    BGFX_TEXTURE_NONE,
-                    bgfx::copy(
-                        AtlasPixels.data(),
-                        static_cast<uint32_t>(AtlasPixels.size())));
-        } else {
-            TextureHandle =
-                bgfx::createTexture2D(
-                    static_cast<uint16_t>(m_TextureWidth),
-                    static_cast<uint16_t>(m_TextureHeight),
-                    false,
-                    1,
-                    bgfx::TextureFormat::RGB8,
-                    BGFX_TEXTURE_NONE,
-                    bgfx::copy(
-                        AtlasPixels.data(),
-                        static_cast<uint32_t>(AtlasPixels.size())));
-        }
+        std::vector<uint8_t> MipPixels =
+            GenerateMipChain(
+                AtlasPixels,
+                m_TextureWidth,
+                m_TextureHeight,
+                Channels);
+
+        TextureHandle =
+            bgfx::createTexture2D(
+                (uint16_t)m_TextureWidth,
+                (uint16_t)m_TextureHeight,
+                true, // Has mip chain
+                1,
+                Transparent
+                    ? bgfx::TextureFormat::RGBA8
+                    : bgfx::TextureFormat::RGB8,
+                BGFX_TEXTURE_NONE,
+                bgfx::copy(
+                    MipPixels.data(),
+                    (uint32_t)MipPixels.size()));
 
         PendingTextures.clear();
         Dirty = false;
