@@ -28,6 +28,8 @@ struct SkylineNode {
 };
 
 struct AtlasAllocation {
+    uint32_t Padding;
+
     uint32_t X;
     uint32_t Y;
 
@@ -51,8 +53,7 @@ private:
 
     std::vector<unsigned char> AtlasPixels;
 
-    uint32_t MipLevels = 5;
-    uint32_t Padding = 1u << MipLevels;
+    uint32_t MaxMipLevels = 5;
 
 public:
     bool Dirty = false;
@@ -69,6 +70,24 @@ public:
         if (bgfx::isValid(TextureHandle)) {
             bgfx::destroy(TextureHandle);
         }
+    }
+
+    uint32_t CalculatePadding(
+        uint32_t Width,
+        uint32_t Height) {
+        uint32_t Size =
+            std::max(
+                Width,
+                Height);
+
+        uint32_t Levels = 0;
+
+        while (Size > 1 && Levels < MaxMipLevels) {
+            Size >>= 1;
+            Levels++;
+        }
+
+        return 1u << Levels;
     }
 
     bool FindPosition(
@@ -286,6 +305,11 @@ public:
             return;
         }
 
+        uint32_t Padding =
+            CalculatePadding(
+                Texture->TextureSize[0],
+                Texture->TextureSize[1]);
+
         uint32_t PackedWidth =
             Texture->TextureSize[0] + Padding * 2;
 
@@ -325,6 +349,8 @@ public:
 
         Allocations[Texture->ID] =
             {
+                Padding,
+
                 X,
                 Y,
 
@@ -546,6 +572,7 @@ public:
         int32_t Y,
         int32_t Width,
         int32_t Height,
+        int32_t Padding,
         int32_t Channels) {
         int32_t AtlasWidth = m_TextureWidth;
 
@@ -761,6 +788,7 @@ public:
                 Allocation.ContentY,
                 Allocation.ContentWidth,
                 Allocation.ContentHeight,
+                Allocation.Padding,
                 Channels);
         }
 
