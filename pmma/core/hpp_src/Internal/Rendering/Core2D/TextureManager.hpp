@@ -30,8 +30,15 @@ struct SkylineNode {
 struct AtlasAllocation {
     uint32_t X;
     uint32_t Y;
+
     uint32_t Width;
     uint32_t Height;
+
+    uint32_t ContentX;
+    uint32_t ContentY;
+
+    uint32_t ContentWidth;
+    uint32_t ContentHeight;
 };
 
 class TextureManager { // makes texture atlas for a RenderPipelineInstance
@@ -279,8 +286,6 @@ public:
             return;
         }
 
-        constexpr uint32_t Padding = 16;
-
         uint32_t PackedWidth =
             Texture->TextureSize[0] + Padding * 2;
 
@@ -322,8 +327,15 @@ public:
             {
                 X,
                 Y,
+
                 PackedWidth,
-                PackedHeight};
+                PackedHeight,
+
+                X + Padding,
+                Y + Padding,
+
+                Texture->TextureSize[0],
+                Texture->TextureSize[1]};
 
         //
         // Register texture.
@@ -341,8 +353,11 @@ public:
             Texture->RegisteredRenderPipelineInstances
                 [RenderPipelineInstanceID];
 
-        Location[0] = X + Padding;
-        Location[1] = Y + Padding;
+        Location[0] =
+            static_cast<uint16_t>(X + Padding);
+
+        Location[1] =
+            static_cast<uint16_t>(Y + Padding);
 
         PendingTextures.push_back(Texture);
         Dirty = true;
@@ -526,6 +541,115 @@ public:
         return result;
     }
 
+    void ExtrudeTextureEdges(
+        int32_t X,
+        int32_t Y,
+        int32_t Width,
+        int32_t Height,
+        int32_t Channels) {
+        int32_t AtlasWidth = m_TextureWidth;
+
+        auto CopyPixel =
+            [&](int32_t dstX,
+                int32_t dstY,
+                int32_t srcX,
+                int32_t srcY) {
+                if (dstX < 0 ||
+                    dstY < 0 ||
+                    srcX < 0 ||
+                    srcY < 0)
+                    return;
+
+                if (dstX >= (int32_t)m_TextureWidth ||
+                    dstY >= (int32_t)m_TextureHeight)
+                    return;
+
+                if (srcX >= (int32_t)m_TextureWidth ||
+                    srcY >= (int32_t)m_TextureHeight)
+                    return;
+
+                memcpy(
+                    &AtlasPixels[((uint32_t)dstY * AtlasWidth +
+                                  (uint32_t)dstX) *
+                                 Channels],
+
+                    &AtlasPixels[((uint32_t)srcY * AtlasWidth +
+                                  (uint32_t)srcX) *
+                                 Channels],
+
+                    Channels);
+            };
+
+        //
+        // Left/right borders
+        //
+        for (uint32_t y = 0; y < Height; y++) {
+            for (uint32_t p = 1; p <= Padding; p++) {
+                CopyPixel(
+                    X - p,
+                    Y + y,
+                    X,
+                    Y + y);
+
+                CopyPixel(
+                    X + Width - 1 + p,
+                    Y + y,
+                    X + Width - 1,
+                    Y + y);
+            }
+        }
+
+        //
+        // Top/bottom borders
+        //
+        for (uint32_t x = 0; x < Width; x++) {
+            for (uint32_t p = 1; p <= Padding; p++) {
+                CopyPixel(
+                    X + x,
+                    Y - p,
+                    X + x,
+                    Y);
+
+                CopyPixel(
+                    X + x,
+                    Y + Height - 1 + p,
+                    X + x,
+                    Y + Height - 1);
+            }
+        }
+
+        //
+        // Corners
+        //
+        for (uint32_t x = 1; x <= Padding; x++) {
+            for (uint32_t y = 1; y <= Padding; y++) {
+                CopyPixel(
+                    X - x,
+                    Y - y,
+                    X,
+                    Y);
+
+                CopyPixel(
+                    X + Width - 1 + x,
+                    Y - y,
+                    X + Width - 1,
+                    Y);
+
+                CopyPixel(
+                    X - x,
+                    Y + Height - 1 + y,
+                    X,
+                    Y + Height - 1);
+
+                CopyPixel(
+                    X + Width - 1 + x,
+                    Y + Height - 1 + y,
+                    X + Width - 1,
+                    Y + Height - 1);
+            }
+        }
+    }
+
     // Here, if the texture atlas is dirty, the texture atlas should be generated using the properties from 'RegisteredTextures' and written to a BGFX texture.
     void Assemble() {
         char Channels = 3;
@@ -575,11 +699,9 @@ public:
             m_TextureHeight *
             Channels;
 
-        if (AtlasPixels.size() != RequiredSize) {
-            AtlasPixels.resize(
-                RequiredSize,
-                255);
-        }
+        AtlasPixels.assign(
+            RequiredSize,
+            0);
 
         //
         // Copy textures into their assigned regions.
@@ -588,12 +710,11 @@ public:
             auto Allocation =
                 Allocations[Texture->ID];
 
-            auto Position =
-                Texture->RegisteredRenderPipelineInstances
-                    [RenderPipelineInstanceID];
+            uint32_t DestX =
+                Allocation.ContentX;
 
-            uint32_t DestX = Position[0];
-            uint32_t DestY = Position[1];
+            uint32_t DestY =
+                Allocation.ContentY;
 
             uint32_t SrcChannels =
                 Texture->Channels;
@@ -605,7 +726,8 @@ public:
                      X < Texture->TextureSize[0];
                      ++X) {
                     size_t SourceIndex =
-                        (Y * Texture->TextureSize[0] + X) * SrcChannels;
+                        (Y * Texture->TextureSize[0] + X) *
+                        SrcChannels;
 
                     size_t DestinationIndex =
                         ((DestY + Y) * m_TextureWidth +
@@ -625,12 +747,21 @@ public:
                             ? Texture->PixelData[SourceIndex + 2]
                             : 255;
 
-                    AtlasPixels[DestinationIndex + 3] =
-                        SrcChannels > 3
-                            ? Texture->PixelData[SourceIndex + 3]
-                            : 255;
+                    if (Channels == 4) {
+                        AtlasPixels[DestinationIndex + 3] =
+                            SrcChannels > 3
+                                ? Texture->PixelData[SourceIndex + 3]
+                                : 255;
+                    }
                 }
             }
+
+            ExtrudeTextureEdges(
+                Allocation.ContentX,
+                Allocation.ContentY,
+                Allocation.ContentWidth,
+                Allocation.ContentHeight,
+                Channels);
         }
 
         //
