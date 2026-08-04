@@ -34,8 +34,7 @@ inline float PackValues(uint8_t value_one, uint8_t value_two, uint8_t value_thre
 struct MipData {
     std::vector<uint8_t> PixelData;
 
-    uint16_t Size[2];       // logical texture size
-    uint16_t PaddedSize[2]; // stored pixel size
+    uint16_t Size[2]; // logical texture size
 
     uint8_t Padding;
 };
@@ -55,7 +54,7 @@ struct TextureProperty {
 };
 
 struct TextureCacheHeader {
-    uint32_t Magic = 0x504D4D41; // "PMMA"
+    char Magic[4];
     uint32_t Version = 1;
 
     uint8_t Channels;

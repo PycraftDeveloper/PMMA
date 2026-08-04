@@ -281,10 +281,10 @@ public:
             Texture->MipChain[0];
 
         uint32_t PackedWidth =
-            Mip0.PaddedSize[0];
+            Mip0.Size[0];
 
         uint32_t PackedHeight =
-            Mip0.PaddedSize[1];
+            Mip0.Size[1];
 
         uint32_t X;
         uint32_t Y;
@@ -350,13 +350,13 @@ public:
         uint32_t dstChannels,
         std::vector<uint8_t> &atlas) {
         for (uint32_t y = 0;
-             y < mip.PaddedSize[1];
+             y < mip.Size[1];
              y++) {
             for (uint32_t x = 0;
-                 x < mip.PaddedSize[0];
+                 x < mip.Size[0];
                  x++) {
                 uint32_t sourceIndex =
-                    (y * mip.PaddedSize[0] + x) *
+                    (y * mip.Size[0] + x) *
                     srcChannels;
 
                 uint32_t destX =
@@ -501,8 +501,8 @@ public:
                 uint32_t y =
                     allocation.Y >> mipLevel;
 
-                if (source.PaddedSize[0] > mipWidth ||
-                    source.PaddedSize[1] > mipHeight) {
+                if (source.Size[0] > mipWidth ||
+                    source.Size[1] > mipHeight) {
 
                     std::cout
                         << "Skipping texture "
@@ -510,9 +510,9 @@ public:
                         << " at mip "
                         << mipLevel
                         << " source "
-                        << source.PaddedSize[0]
+                        << source.Size[0]
                         << "x"
-                        << source.PaddedSize[1]
+                        << source.Size[1]
                         << " atlas "
                         << mipWidth
                         << "x"
@@ -523,11 +523,11 @@ public:
 
                 x = std::min(
                     x,
-                    mipWidth - source.PaddedSize[0]);
+                    mipWidth - source.Size[0]);
 
                 y = std::min(
                     y,
-                    mipHeight - source.PaddedSize[1]);
+                    mipHeight - source.Size[1]);
 
                 CopyMipIntoAtlas(
                     source,

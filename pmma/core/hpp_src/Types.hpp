@@ -44,6 +44,7 @@ public:
             std::ios::binary);
 
         if (!file.is_open()) {
+            std::cout << "Failed to open cache: file is not open." << std::endl;
             return false;
         }
 
@@ -54,18 +55,20 @@ public:
             sizeof(Magic));
 
         if (memcmp(Magic, "PMTX", 4) != 0) {
+            std::cout << "Failed to open cache: invalid magic number." << std::endl;
             return false;
         }
 
-        uint32_t Version = 0;
+        uint32_t Version;
 
         file.read(
             reinterpret_cast<char *>(&Version),
             sizeof(Version));
 
-        constexpr uint32_t CurrentVersion = 2;
+        constexpr uint32_t CurrentVersion = 1;
 
         if (Version != CurrentVersion) {
+            std::cout << "Failed to open cache: unsupported version." << std::endl;
             return false;
         }
 
@@ -77,6 +80,7 @@ public:
 
         if (Channels != 3 &&
             Channels != 4) {
+            std::cout << "Failed to open cache: unsupported channel count." << std::endl;
             return false;
         }
 
@@ -88,6 +92,7 @@ public:
 
         if (MipCount == 0 ||
             MipCount > 32) {
+            std::cout << "Failed to open cache: invalid mip count." << std::endl;
             return false;
         }
 
@@ -115,17 +120,6 @@ public:
                 sizeof(uint16_t));
 
             //
-            // Stored padded size.
-            //
-            file.read(
-                reinterpret_cast<char *>(&mip.PaddedSize[0]),
-                sizeof(uint16_t));
-
-            file.read(
-                reinterpret_cast<char *>(&mip.PaddedSize[1]),
-                sizeof(uint16_t));
-
-            //
             // Padding amount.
             //
             file.read(
@@ -139,20 +133,20 @@ public:
                 sizeof(uint32_t));
 
             if (mip.Size[0] == 0 ||
-                mip.Size[1] == 0 ||
-                mip.PaddedSize[0] == 0 ||
-                mip.PaddedSize[1] == 0) {
+                mip.Size[1] == 0) {
+                std::cout << "Failed to open cache: invalid mip size." << std::endl;
                 return false;
             }
 
             uint64_t ExpectedSize =
                 static_cast<uint64_t>(
-                    mip.PaddedSize[0]) *
+                    mip.Size[0]) *
                 static_cast<uint64_t>(
-                    mip.PaddedSize[1]) *
+                    mip.Size[1]) *
                 Channels;
 
             if (PixelSize != ExpectedSize) {
+                std::cout << "Failed to open cache: pixel size does not match expected size." << std::endl;
                 return false;
             }
 
@@ -165,6 +159,7 @@ public:
                 PixelSize);
 
             if (file.fail()) {
+                std::cout << "Failed to open cache: error reading mip pixel data." << std::endl;
                 return false;
             }
 
@@ -173,6 +168,7 @@ public:
         }
 
         if (file.fail()) {
+            std::cout << "Failed to open cache: error reading file." << std::endl;
             return false;
         }
 
@@ -209,9 +205,14 @@ public:
             //
             PMMA::Internal::MipData mip;
 
-            mip.Size[0] = static_cast<uint16_t>(currentWidth);
-            mip.Size[1] = static_cast<uint16_t>(currentHeight);
+            mip.Size[0] =
+                static_cast<uint16_t>(currentWidth);
+
+            mip.Size[1] =
+                static_cast<uint16_t>(currentHeight);
+
             mip.Padding = 0;
+
             mip.PixelData = current;
 
             TextureProperties->MipChain.emplace_back(std::move(mip));
@@ -482,10 +483,10 @@ public:
         mip.PixelData =
             std::move(expanded);
 
-        mip.PaddedSize[0] =
+        mip.Size[0] =
             static_cast<uint16_t>(newWidth);
 
-        mip.PaddedSize[1] =
+        mip.Size[1] =
             static_cast<uint16_t>(newHeight);
     }
 
@@ -502,18 +503,25 @@ public:
                 "Failed to create texture cache.");
         }
 
-        PMMA::Internal::TextureCacheHeader header;
+        file.write("PMTX", 4);
 
-        header.Channels =
-            texture.Channels;
+        uint32_t Version = 1;
 
-        header.MipCount =
+        file.write(
+            reinterpret_cast<char *>(&Version),
+            sizeof(Version));
+
+        file.write(
+            reinterpret_cast<const char *>(&texture.Channels),
+            sizeof(uint8_t));
+
+        uint8_t MipCount =
             static_cast<uint8_t>(
                 texture.MipChain.size());
 
         file.write(
-            reinterpret_cast<char *>(&header),
-            sizeof(header));
+            reinterpret_cast<char *>(&MipCount),
+            sizeof(MipCount));
 
         for (const auto &mip : texture.MipChain) {
 
@@ -527,14 +535,6 @@ public:
 
             file.write(
                 reinterpret_cast<const char *>(&mip.Size[1]),
-                sizeof(uint16_t));
-
-            file.write(
-                reinterpret_cast<const char *>(&mip.PaddedSize[0]),
-                sizeof(uint16_t));
-
-            file.write(
-                reinterpret_cast<const char *>(&mip.PaddedSize[1]),
                 sizeof(uint16_t));
 
             file.write(

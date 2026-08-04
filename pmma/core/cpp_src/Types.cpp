@@ -32,13 +32,15 @@ void PMMA::Types::Texture::DumpMipInfo() {
             << mip.PixelData.size()
             << std::endl;
 
+        std::cout << "Size: " << mip.Size[0] << "x" << mip.Size[1] << std::endl;
+
         stbi_write_png(
             ("mip_" + std::to_string(i) + ".png").c_str(),
-            mip.PaddedSize[0],
-            mip.PaddedSize[1],
+            mip.Size[0],
+            mip.Size[1],
             TextureProperties->Channels,
             mip.PixelData.data(),
-            mip.PaddedSize[0] * TextureProperties->Channels);
+            mip.Size[0] * TextureProperties->Channels);
 
         // Print first few pixels
         for (size_t p = 0; p < std::min<size_t>(16, mip.PixelData.size()); p++) {
@@ -119,46 +121,25 @@ image path is valid and is a valid format. The image path is: '" +
             nullptr, TextureProperties->Channels);
 
         if (data) {
-            GenerateMipChain(
+            PMMA::Internal::MipData base;
+
+            base.Size[0] = width;
+            base.Size[1] = height;
+            base.PixelData.assign(
                 data,
-                width,
-                height,
+                data + width * height * TextureProperties->Channels);
+
+            base.Padding = 1;
+
+            ExtrudeMip(
+                base,
                 TextureProperties->Channels);
 
-            TextureProperties->MipLevels =
-                static_cast<uint8_t>(
-                    TextureProperties->MipChain.size());
-
-            for (size_t i = 0; i < TextureProperties->MipChain.size(); i++) {
-                auto &mip = TextureProperties->MipChain[i];
-
-                mip.Padding =
-                    1u << i;
-
-                std::cout
-                    << "Before extrusion Mip "
-                    << i
-                    << ": "
-                    << mip.Size[0]
-                    << "x"
-                    << mip.Size[1]
-                    << " padding="
-                    << (int)mip.Padding
-                    << std::endl;
-
-                ExtrudeMip(
-                    mip,
-                    TextureProperties->Channels);
-
-                std::cout
-                    << "After extrusion Mip "
-                    << i
-                    << ": "
-                    << mip.PaddedSize[0]
-                    << "x"
-                    << mip.PaddedSize[1]
-                    << std::endl;
-            }
+            GenerateMipChain(
+                base.PixelData.data(),
+                base.Size[0],
+                base.Size[1],
+                TextureProperties->Channels);
 
             SaveTextureCache(
                 CachedTexturePath,
