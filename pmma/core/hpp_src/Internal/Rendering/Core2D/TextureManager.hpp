@@ -532,7 +532,7 @@ public:
             bgfx::createTexture2D(
                 (uint16_t)m_TextureWidth,
                 (uint16_t)m_TextureHeight,
-                false,
+                true, // has mips
                 1,
                 Transparent
                     ? bgfx::TextureFormat::RGBA8
