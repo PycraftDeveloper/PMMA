@@ -42,10 +42,6 @@ public:
             std::ios::binary);
 
         if (!file.is_open()) {
-            std::cout
-                << "Failed to open cache: file is not open."
-                << std::endl;
-
             return false;
         }
 
@@ -56,10 +52,6 @@ public:
             sizeof(Magic));
 
         if (memcmp(Magic, "PMTX", 4) != 0) {
-            std::cout
-                << "Failed to open cache: invalid magic number."
-                << std::endl;
-
             return false;
         }
 
@@ -72,10 +64,6 @@ public:
         constexpr uint32_t CurrentVersion = 1;
 
         if (Version != CurrentVersion) {
-            std::cout
-                << "Failed to open cache: unsupported version."
-                << std::endl;
-
             return false;
         }
 
@@ -88,10 +76,6 @@ public:
         if (Channels != 3 &&
             Channels != 4) {
 
-            std::cout
-                << "Failed to open cache: unsupported channel count."
-                << std::endl;
-
             return false;
         }
 
@@ -103,10 +87,6 @@ public:
 
         if (MipCount == 0 ||
             MipCount > 32) {
-
-            std::cout
-                << "Failed to open cache: invalid mip count."
-                << std::endl;
 
             return false;
         }
@@ -155,10 +135,6 @@ public:
             if (mip.Size[0] == 0 ||
                 mip.Size[1] == 0) {
 
-                std::cout
-                    << "Failed to open cache: invalid mip size."
-                    << std::endl;
-
                 return false;
             }
 
@@ -170,11 +146,6 @@ public:
                 Channels;
 
             if (RawSize != ExpectedSize) {
-
-                std::cout
-                    << "Failed to open cache: pixel size does not match expected size."
-                    << std::endl;
-
                 return false;
             }
 
@@ -183,10 +154,6 @@ public:
             //
             if (CompressedSize == 0 ||
                 RawSize == 0) {
-
-                std::cout
-                    << "Failed to open cache: invalid compressed size."
-                    << std::endl;
 
                 return false;
             }
@@ -201,11 +168,6 @@ public:
                 CompressedSize);
 
             if (file.fail()) {
-
-                std::cout
-                    << "Failed to open cache: error reading compressed mip data."
-                    << std::endl;
-
                 return false;
             }
 
@@ -220,7 +182,6 @@ public:
                     CompressedSize);
 
             if (ZSTD_isError(DecompressedSize)) {
-
                 std::cout
                     << "Failed to open cache: zstd decompression failed: "
                     << ZSTD_getErrorName(DecompressedSize)
@@ -231,10 +192,6 @@ public:
 
             if (DecompressedSize != RawSize) {
 
-                std::cout
-                    << "Failed to open cache: decompressed size mismatch."
-                    << std::endl;
-
                 return false;
             }
 
@@ -243,11 +200,6 @@ public:
         }
 
         if (file.fail()) {
-
-            std::cout
-                << "Failed to open cache: error reading file."
-                << std::endl;
-
             return false;
         }
 

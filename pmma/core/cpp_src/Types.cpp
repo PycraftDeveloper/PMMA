@@ -35,16 +35,12 @@ void PMMA::Types::Texture::Load(std::string TexturePath) {
         }
 
         if (std::filesystem::exists(CachedTexturePath)) {
-            std::cout << "Loading texture from cache: " << CachedTexturePath << std::endl;
             if (LoadCached(CachedTexturePath)) {
-                std::cout << "Cached texture loaded successfully." << std::endl;
                 TextureProperties->References++;
                 IsTextureEnabled = true;
                 return;
             }
         }
-
-        std::cout << "Loading texture from source: " << TexturePath << std::endl;
 
         std::filesystem::create_directories(std::filesystem::path(CachedTexturePath).parent_path());
 
