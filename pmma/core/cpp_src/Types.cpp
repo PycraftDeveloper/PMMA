@@ -154,9 +154,9 @@ image path is valid and is a valid format. The image path is: '" +
                     << "After extrusion Mip "
                     << i
                     << ": "
-                    << mip.Size[0]
+                    << mip.PaddedSize[0]
                     << "x"
-                    << mip.Size[1]
+                    << mip.PaddedSize[1]
                     << std::endl;
             }
 
