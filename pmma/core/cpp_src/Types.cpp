@@ -1,57 +1,8 @@
 #include <optional>
 
-#include "PMMA_Core.hpp"
 #include <STB/stb_image.h>
 
-#define STB_IMAGE_WRITE_IMPLEMENTATION
-#include <STB/stb_image_write.h>
-
-void PMMA::Types::Texture::DumpMipInfo() {
-    std::cout
-        << "Channels: "
-        << (int)TextureProperties->Channels
-        << std::endl;
-
-    std::cout
-        << "Mip count: "
-        << TextureProperties->MipChain.size()
-        << std::endl;
-
-    for (size_t i = 0; i < TextureProperties->MipChain.size(); i++) {
-        const auto &mip =
-            TextureProperties->MipChain[i];
-
-        std::cout
-            << "Mip "
-            << i
-            << ": "
-            << mip.Size[0]
-            << "x"
-            << mip.Size[1]
-            << " bytes="
-            << mip.PixelData.size()
-            << std::endl;
-
-        std::cout << "Size: " << mip.Size[0] << "x" << mip.Size[1] << std::endl;
-
-        stbi_write_png(
-            ("mip_" + std::to_string(i) + ".png").c_str(),
-            mip.Size[0],
-            mip.Size[1],
-            TextureProperties->Channels,
-            mip.PixelData.data(),
-            mip.Size[0] * TextureProperties->Channels);
-
-        // Print first few pixels
-        for (size_t p = 0; p < std::min<size_t>(16, mip.PixelData.size()); p++) {
-            std::cout
-                << (int)mip.PixelData[p]
-                << " ";
-        }
-
-        std::cout << std::endl;
-    }
-}
+#include "PMMA_Core.hpp"
 
 void PMMA::Types::Texture::Load(std::string TexturePath) {
     if (Path == TexturePath) {
@@ -87,8 +38,6 @@ void PMMA::Types::Texture::Load(std::string TexturePath) {
             std::cout << "Loading texture from cache: " << CachedTexturePath << std::endl;
             if (LoadCached(CachedTexturePath)) {
                 std::cout << "Cached texture loaded successfully." << std::endl;
-
-                DumpMipInfo();
                 TextureProperties->References++;
                 IsTextureEnabled = true;
                 return;
@@ -144,8 +93,6 @@ image path is valid and is a valid format. The image path is: '" +
             SaveTextureCache(
                 CachedTexturePath,
                 *TextureProperties);
-
-            DumpMipInfo();
 
             stbi_image_free(data);
             data = nullptr;

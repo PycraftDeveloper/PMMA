@@ -32,6 +32,7 @@ build_cache_dir = join_path(cwd, "build_cache")
 cmake_build_cache_dir = join_path(build_cache_dir, "cmake")
 build_tools_dir = join_path(cwd, "build_tools")
 shader_cache_dir = join_path(pmma_dir, "temporary", "shader_cache")
+texture_cache_dir = join_path(pmma_dir, "temporary", "texture_cache")
 
 print_lock = threading.Lock()
 

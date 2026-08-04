@@ -59,7 +59,5 @@ struct TextureCacheHeader {
 
     uint8_t Channels;
     uint8_t MipCount;
-
-    uint16_t Reserved = 0;
 };
 } // namespace PMMA::Internal

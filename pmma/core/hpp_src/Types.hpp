@@ -1,10 +1,11 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
-#include <glm/glm.hpp>
 #include <optional>
 #include <random>
 #include <thread>
+
+#include <zstd.h>
 
 #include "Internal/Internal.hpp"
 #include "Logger.hpp"
@@ -34,17 +35,17 @@ public:
     void Load(std::string TexturePath);
     void Load();
 
-    void DumpMipInfo();
-
     bool LoadCached(
         const std::string &CachedTexturePath) {
-
         std::ifstream file(
             CachedTexturePath,
             std::ios::binary);
 
         if (!file.is_open()) {
-            std::cout << "Failed to open cache: file is not open." << std::endl;
+            std::cout
+                << "Failed to open cache: file is not open."
+                << std::endl;
+
             return false;
         }
 
@@ -55,11 +56,14 @@ public:
             sizeof(Magic));
 
         if (memcmp(Magic, "PMTX", 4) != 0) {
-            std::cout << "Failed to open cache: invalid magic number." << std::endl;
+            std::cout
+                << "Failed to open cache: invalid magic number."
+                << std::endl;
+
             return false;
         }
 
-        uint32_t Version;
+        uint32_t Version = 0;
 
         file.read(
             reinterpret_cast<char *>(&Version),
@@ -68,7 +72,10 @@ public:
         constexpr uint32_t CurrentVersion = 1;
 
         if (Version != CurrentVersion) {
-            std::cout << "Failed to open cache: unsupported version." << std::endl;
+            std::cout
+                << "Failed to open cache: unsupported version."
+                << std::endl;
+
             return false;
         }
 
@@ -80,7 +87,11 @@ public:
 
         if (Channels != 3 &&
             Channels != 4) {
-            std::cout << "Failed to open cache: unsupported channel count." << std::endl;
+
+            std::cout
+                << "Failed to open cache: unsupported channel count."
+                << std::endl;
+
             return false;
         }
 
@@ -92,7 +103,11 @@ public:
 
         if (MipCount == 0 ||
             MipCount > 32) {
-            std::cout << "Failed to open cache: invalid mip count." << std::endl;
+
+            std::cout
+                << "Failed to open cache: invalid mip count."
+                << std::endl;
+
             return false;
         }
 
@@ -126,15 +141,24 @@ public:
                 reinterpret_cast<char *>(&mip.Padding),
                 sizeof(uint8_t));
 
-            uint32_t PixelSize = 0;
+            uint32_t CompressedSize = 0;
+            uint32_t RawSize = 0;
 
             file.read(
-                reinterpret_cast<char *>(&PixelSize),
+                reinterpret_cast<char *>(&CompressedSize),
+                sizeof(uint32_t));
+
+            file.read(
+                reinterpret_cast<char *>(&RawSize),
                 sizeof(uint32_t));
 
             if (mip.Size[0] == 0 ||
                 mip.Size[1] == 0) {
-                std::cout << "Failed to open cache: invalid mip size." << std::endl;
+
+                std::cout
+                    << "Failed to open cache: invalid mip size."
+                    << std::endl;
+
                 return false;
             }
 
@@ -145,21 +169,72 @@ public:
                     mip.Size[1]) *
                 Channels;
 
-            if (PixelSize != ExpectedSize) {
-                std::cout << "Failed to open cache: pixel size does not match expected size." << std::endl;
+            if (RawSize != ExpectedSize) {
+
+                std::cout
+                    << "Failed to open cache: pixel size does not match expected size."
+                    << std::endl;
+
+                return false;
+            }
+
+            //
+            // Safety check before allocation.
+            //
+            if (CompressedSize == 0 ||
+                RawSize == 0) {
+
+                std::cout
+                    << "Failed to open cache: invalid compressed size."
+                    << std::endl;
+
+                return false;
+            }
+
+            std::vector<uint8_t>
+                CompressedData(
+                    CompressedSize);
+
+            file.read(
+                reinterpret_cast<char *>(
+                    CompressedData.data()),
+                CompressedSize);
+
+            if (file.fail()) {
+
+                std::cout
+                    << "Failed to open cache: error reading compressed mip data."
+                    << std::endl;
+
                 return false;
             }
 
             mip.PixelData.resize(
-                PixelSize);
+                RawSize);
 
-            file.read(
-                reinterpret_cast<char *>(
-                    mip.PixelData.data()),
-                PixelSize);
+            size_t DecompressedSize =
+                ZSTD_decompress(
+                    mip.PixelData.data(),
+                    RawSize,
+                    CompressedData.data(),
+                    CompressedSize);
 
-            if (file.fail()) {
-                std::cout << "Failed to open cache: error reading mip pixel data." << std::endl;
+            if (ZSTD_isError(DecompressedSize)) {
+
+                std::cout
+                    << "Failed to open cache: zstd decompression failed: "
+                    << ZSTD_getErrorName(DecompressedSize)
+                    << std::endl;
+
+                return false;
+            }
+
+            if (DecompressedSize != RawSize) {
+
+                std::cout
+                    << "Failed to open cache: decompressed size mismatch."
+                    << std::endl;
+
                 return false;
             }
 
@@ -168,7 +243,11 @@ public:
         }
 
         if (file.fail()) {
-            std::cout << "Failed to open cache: error reading file." << std::endl;
+
+            std::cout
+                << "Failed to open cache: error reading file."
+                << std::endl;
+
             return false;
         }
 
@@ -524,11 +603,6 @@ public:
             sizeof(MipCount));
 
         for (const auto &mip : texture.MipChain) {
-
-            uint32_t dataSize =
-                static_cast<uint32_t>(
-                    mip.PixelData.size());
-
             file.write(
                 reinterpret_cast<const char *>(&mip.Size[0]),
                 sizeof(uint16_t));
@@ -541,14 +615,46 @@ public:
                 reinterpret_cast<const char *>(&mip.Padding),
                 sizeof(uint8_t));
 
+            uint32_t rawSize =
+                static_cast<uint32_t>(
+                    mip.PixelData.size());
+
+            size_t maxCompressedSize =
+                ZSTD_compressBound(
+                    rawSize);
+
+            std::vector<uint8_t> compressedData(
+                maxCompressedSize);
+
+            size_t compressedSize =
+                ZSTD_compress(
+                    compressedData.data(),
+                    compressedData.size(),
+                    mip.PixelData.data(),
+                    rawSize,
+                    3); // zstd level
+
+            if (ZSTD_isError(compressedSize)) {
+                throw std::runtime_error(
+                    ZSTD_getErrorName(compressedSize));
+            }
+
+            uint32_t compressedSize32 =
+                static_cast<uint32_t>(
+                    compressedSize);
+
             file.write(
-                reinterpret_cast<char *>(&dataSize),
+                reinterpret_cast<char *>(&compressedSize32),
+                sizeof(uint32_t));
+
+            file.write(
+                reinterpret_cast<char *>(&rawSize),
                 sizeof(uint32_t));
 
             file.write(
                 reinterpret_cast<const char *>(
-                    mip.PixelData.data()),
-                dataSize);
+                    compressedData.data()),
+                compressedSize32);
         }
     }
 

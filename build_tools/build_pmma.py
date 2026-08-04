@@ -167,6 +167,15 @@ except Exception as error:
     else:
         print("No stale shader cache found. Continuing...")
 
+try:
+    shutil.rmtree(texture_cache_dir)
+    print("Cleared stale texture cache.")
+except Exception as error:
+    if (type(error) != FileNotFoundError):
+        print(f"Unable to reset texture cache due to error: '{error}'")
+    else:
+        print("No stale texture cache found. Continuing...")
+
 if build_for_python:
     total_time = get_execution_time(run_setup)[0]
     print(f"Running Setup.py took {total_time:.2f} seconds")
