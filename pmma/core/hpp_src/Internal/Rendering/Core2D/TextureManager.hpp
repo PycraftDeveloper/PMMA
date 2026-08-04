@@ -281,10 +281,10 @@ public:
             Texture->MipChain[0];
 
         uint32_t PackedWidth =
-            Mip0.Size[0];
+            Mip0.PaddedSize[0];
 
         uint32_t PackedHeight =
-            Mip0.Size[1];
+            Mip0.PaddedSize[1];
 
         uint32_t X;
         uint32_t Y;
@@ -350,13 +350,13 @@ public:
         uint32_t dstChannels,
         std::vector<uint8_t> &atlas) {
         for (uint32_t y = 0;
-             y < mip.Size[1];
+             y < mip.PaddedSize[1];
              y++) {
             for (uint32_t x = 0;
-                 x < mip.Size[0];
+                 x < mip.PaddedSize[0];
                  x++) {
                 uint32_t sourceIndex =
-                    (y * mip.Size[0] + x) *
+                    (y * mip.PaddedSize[0] + x) *
                     srcChannels;
 
                 uint32_t destX =
@@ -455,12 +455,13 @@ public:
         //
         uint32_t mipCount = 1;
 
-        for (auto *texture : PendingTextures) {
-            mipCount =
-                std::max(
-                    mipCount,
-                    static_cast<uint32_t>(
-                        texture->MipChain.size()));
+        uint32_t w = m_TextureWidth;
+        uint32_t h = m_TextureHeight;
+
+        while (w > 1 || h > 1) {
+            w = std::max(1u, w >> 1);
+            h = std::max(1u, h >> 1);
+            mipCount++;
         }
 
         std::vector<uint8_t> AtlasMipChain;
@@ -500,13 +501,33 @@ public:
                 uint32_t y =
                     allocation.Y >> mipLevel;
 
+                if (source.PaddedSize[0] > mipWidth ||
+                    source.PaddedSize[1] > mipHeight) {
+
+                    std::cout
+                        << "Skipping texture "
+                        << texture->ID
+                        << " at mip "
+                        << mipLevel
+                        << " source "
+                        << source.PaddedSize[0]
+                        << "x"
+                        << source.PaddedSize[1]
+                        << " atlas "
+                        << mipWidth
+                        << "x"
+                        << mipHeight
+                        << std::endl;
+                    continue;
+                }
+
                 x = std::min(
                     x,
-                    mipWidth - source.Size[0]);
+                    mipWidth - source.PaddedSize[0]);
 
                 y = std::min(
                     y,
-                    mipHeight - source.Size[1]);
+                    mipHeight - source.PaddedSize[1]);
 
                 CopyMipIntoAtlas(
                     source,

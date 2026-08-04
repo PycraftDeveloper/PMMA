@@ -32,8 +32,11 @@ inline float PackValues(uint8_t value_one, uint8_t value_two, uint8_t value_thre
 }
 
 struct MipData {
-    std::vector<unsigned char> PixelData;
-    uint16_t Size[2];
+    std::vector<uint8_t> PixelData;
+
+    uint16_t Size[2];       // logical texture size
+    uint16_t PaddedSize[2]; // stored pixel size
+
     uint8_t Padding;
 };
 

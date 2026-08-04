@@ -34,8 +34,11 @@ public:
     void Load(std::string TexturePath);
     void Load();
 
+    void DumpMipInfo();
+
     bool LoadCached(
         const std::string &CachedTexturePath) {
+
         std::ifstream file(
             CachedTexturePath,
             std::ios::binary);
@@ -44,40 +47,28 @@ public:
             return false;
         }
 
-        //
-        // Validate magic.
-        //
         char Magic[4];
 
         file.read(
             Magic,
             sizeof(Magic));
 
-        if (memcmp(
-                Magic,
-                "PMTX",
-                4) != 0) {
+        if (memcmp(Magic, "PMTX", 4) != 0) {
             return false;
         }
 
-        //
-        // Version check.
-        //
         uint32_t Version = 0;
 
         file.read(
             reinterpret_cast<char *>(&Version),
             sizeof(Version));
 
-        constexpr uint32_t CurrentVersion = 1;
+        constexpr uint32_t CurrentVersion = 2;
 
         if (Version != CurrentVersion) {
             return false;
         }
 
-        //
-        // Read channels.
-        //
         uint8_t Channels = 0;
 
         file.read(
@@ -89,9 +80,6 @@ public:
             return false;
         }
 
-        //
-        // Read mip count.
-        //
         uint8_t MipCount = 0;
 
         file.read(
@@ -109,14 +97,15 @@ public:
         LoadedMipChain.reserve(
             MipCount);
 
-        //
-        // Read mip levels.
-        //
         for (uint32_t i = 0;
              i < MipCount;
              i++) {
+
             PMMA::Internal::MipData mip;
 
+            //
+            // Logical mip size.
+            //
             file.read(
                 reinterpret_cast<char *>(&mip.Size[0]),
                 sizeof(uint16_t));
@@ -125,6 +114,20 @@ public:
                 reinterpret_cast<char *>(&mip.Size[1]),
                 sizeof(uint16_t));
 
+            //
+            // Stored padded size.
+            //
+            file.read(
+                reinterpret_cast<char *>(&mip.PaddedSize[0]),
+                sizeof(uint16_t));
+
+            file.read(
+                reinterpret_cast<char *>(&mip.PaddedSize[1]),
+                sizeof(uint16_t));
+
+            //
+            // Padding amount.
+            //
             file.read(
                 reinterpret_cast<char *>(&mip.Padding),
                 sizeof(uint8_t));
@@ -135,19 +138,18 @@ public:
                 reinterpret_cast<char *>(&PixelSize),
                 sizeof(uint32_t));
 
-            //
-            // Sanity checks.
-            //
             if (mip.Size[0] == 0 ||
-                mip.Size[1] == 0) {
+                mip.Size[1] == 0 ||
+                mip.PaddedSize[0] == 0 ||
+                mip.PaddedSize[1] == 0) {
                 return false;
             }
 
             uint64_t ExpectedSize =
                 static_cast<uint64_t>(
-                    mip.Size[0]) *
+                    mip.PaddedSize[0]) *
                 static_cast<uint64_t>(
-                    mip.Size[1]) *
+                    mip.PaddedSize[1]) *
                 Channels;
 
             if (PixelSize != ExpectedSize) {
@@ -170,16 +172,10 @@ public:
                 std::move(mip));
         }
 
-        //
-        // Ensure nothing unexpected happened.
-        //
         if (file.fail()) {
             return false;
         }
 
-        //
-        // Commit only after everything succeeds.
-        //
         TextureProperties->Channels =
             Channels;
 
@@ -191,24 +187,6 @@ public:
             MipCount;
 
         return true;
-    }
-
-    uint32_t CalculatePadding(
-        uint32_t Width,
-        uint32_t Height) {
-        uint32_t Size =
-            std::max(
-                Width,
-                Height);
-
-        uint32_t Levels = 0;
-
-        while (Size > 1 && Levels < TextureProperties->MipLevels) {
-            Size >>= 1;
-            Levels++;
-        }
-
-        return 1u << Levels;
     }
 
     void GenerateMipChain(
@@ -504,16 +482,17 @@ public:
         mip.PixelData =
             std::move(expanded);
 
-        mip.Size[0] =
+        mip.PaddedSize[0] =
             static_cast<uint16_t>(newWidth);
 
-        mip.Size[1] =
+        mip.PaddedSize[1] =
             static_cast<uint16_t>(newHeight);
     }
 
     void SaveTextureCache(
         const std::string &path,
         const PMMA::Internal::TextureProperty &texture) {
+
         std::ofstream file(
             path,
             std::ios::binary);
@@ -532,17 +511,12 @@ public:
             static_cast<uint8_t>(
                 texture.MipChain.size());
 
-        //
-        // Write header.
-        //
         file.write(
             reinterpret_cast<char *>(&header),
             sizeof(header));
 
-        //
-        // Write each mip.
-        //
         for (const auto &mip : texture.MipChain) {
+
             uint32_t dataSize =
                 static_cast<uint32_t>(
                     mip.PixelData.size());
@@ -553,6 +527,14 @@ public:
 
             file.write(
                 reinterpret_cast<const char *>(&mip.Size[1]),
+                sizeof(uint16_t));
+
+            file.write(
+                reinterpret_cast<const char *>(&mip.PaddedSize[0]),
+                sizeof(uint16_t));
+
+            file.write(
+                reinterpret_cast<const char *>(&mip.PaddedSize[1]),
                 sizeof(uint16_t));
 
             file.write(
