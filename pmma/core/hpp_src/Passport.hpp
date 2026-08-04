@@ -66,32 +66,64 @@ public:
         return ProductName;
     }
 
+    inline bool GetIsProductNameSet() {
+        return !ProductName.empty();
+    }
+
     inline std::string GetProductSubName() {
         return ProductSubName;
+    }
+
+    inline bool GetIsProductSubNameSet() {
+        return !ProductSubName.empty();
     }
 
     inline std::string GetCompanyName() {
         return CompanyName;
     }
 
+    inline bool GetIsCompanyNameSet() {
+        return !CompanyName.empty();
+    }
+
     inline std::string GetProductVersion() {
         return ProductVersion;
+    }
+
+    inline bool GetIsProductVersionSet() {
+        return !ProductVersion.empty();
     }
 
     inline std::string GetProductPath() {
         return ProductPath;
     }
 
+    inline bool GetIsProductPathSet() {
+        return !ProductPath.empty();
+    }
+
     inline std::string GetLoggingPath() {
         return LoggingPath;
+    }
+
+    inline bool GetIsLoggingPathSet() {
+        return !LoggingPath.empty();
     }
 
     inline std::string GetProfilingPath() {
         return ProfilingPath;
     }
 
+    inline bool GetIsProfilingPathSet() {
+        return !ProfilingPath.empty();
+    }
+
     inline std::string GetTemporaryPath() {
         return TemporaryPath;
+    }
+
+    inline bool GetIsTemporaryPathSet() {
+        return !TemporaryPath.empty();
     }
 };
 } // namespace PMMA

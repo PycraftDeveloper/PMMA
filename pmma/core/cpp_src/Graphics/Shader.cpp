@@ -131,7 +131,7 @@ void PMMA::Graphics::Shader::CompileShader(bool InternalShader) {
     if (RawFragmentShaderPath != "") {
         if (CompiledFragmentShaderPath == "") {
             std::string ShaderName = std::filesystem::path(RawFragmentShaderPath).stem().string();
-            if (InternalShader || !PMMA::Core::PassportInstance->IsRegistered) {
+            if (InternalShader || !PMMA::Core::PassportInstance->GetIsRegistered()) {
                 CompiledFragmentShaderPath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "temporary" + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
             } else {
                 CompiledFragmentShaderPath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";

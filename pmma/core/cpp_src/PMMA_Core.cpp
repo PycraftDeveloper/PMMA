@@ -12,7 +12,7 @@ namespace PMMA::Core {
 PMMA::Display *ActiveDisplayInstance = nullptr;
 PMMA::Display *MasterDisplayInstance = nullptr;
 
-PMMA::Passport *PassportInstance = nullptr;
+PMMA::Passport *PassportInstance = new PMMA::Passport();
 PMMA::Internal::LoggingManager *LoggingManagerInstance = nullptr;
 
 PMMA::Internal::PowerSavingManager PowerSavingManagerInstance;

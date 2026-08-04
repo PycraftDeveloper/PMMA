@@ -23,6 +23,32 @@ void PMMA::Types::Texture::Load(std::string TexturePath) {
 
         TextureProperties = &propertyRef;
 
+        // Attempt to load from cache first
+
+        std::string CachedTexturePath = "";
+        std::string ShaderName = std::filesystem::path(TexturePath).stem().string();
+        if (!PMMA::Core::PassportInstance->GetIsRegistered()) {
+            CachedTexturePath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "temporary" + PMMA::Registry::PathSeparator + "texture_cache" + PMMA::Registry::PathSeparator + ShaderName + ".dds.cache";
+        } else {
+            CachedTexturePath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Registry::PathSeparator + "texture_cache" + PMMA::Registry::PathSeparator + ShaderName + ".dds.cache";
+        }
+
+        if (std::filesystem::exists(CachedTexturePath)) {
+            std::cout << "Loading texture from cache: " << CachedTexturePath << std::endl;
+            if (LoadCached(CachedTexturePath)) {
+                std::cout << "Cached texture loaded successfully." << std::endl;
+                TextureProperties->References++;
+                IsTextureEnabled = true;
+                return;
+            }
+        }
+
+        std::cout << "Loading texture from source: " << TexturePath << std::endl;
+
+        std::filesystem::create_directories(std::filesystem::path(CachedTexturePath).parent_path());
+
+        // Load texture and generate mipmaps/extrusion before building cached data.
+
         int width, height, original_channels;
         if (!stbi_info(TexturePath.c_str(), &width, &height, &original_channels)) {
             PMMA::Core::LoggingManagerInstance->InternalLogError(
@@ -34,9 +60,6 @@ image path is valid and is a valid format. The image path is: '" +
             throw std::runtime_error("Failed to query image information.");
         }
 
-        TextureProperties->TextureSize[0] = static_cast<uint16_t>(width);
-        TextureProperties->TextureSize[1] = static_cast<uint16_t>(height);
-
         // 2. Determine target channels (Force 4 if it has 4, otherwise force 3)
         TextureProperties->Channels = (original_channels == 4) ? 4 : 3;
 
@@ -46,8 +69,28 @@ image path is valid and is a valid format. The image path is: '" +
             nullptr, TextureProperties->Channels);
 
         if (data) {
-            size_t data_size = TextureProperties->TextureSize[0] * TextureProperties->TextureSize[1] * TextureProperties->Channels;
-            TextureProperties->PixelData.assign(data, data + data_size);
+            GenerateMipChain(
+                data,
+                width,
+                height,
+                TextureProperties->Channels);
+
+            TextureProperties->MipLevels =
+                static_cast<uint8_t>(
+                    TextureProperties->MipChain.size());
+
+            for (auto &mip : TextureProperties->MipChain) {
+                mip.Padding = CalculatePadding(
+                    mip.Size[0],
+                    mip.Size[1]);
+
+                ExtrudeMip(mip, TextureProperties->Channels);
+            }
+
+            // Save final processed texture.
+            SaveTextureCache(
+                CachedTexturePath,
+                *TextureProperties);
 
             stbi_image_free(data);
             data = nullptr;
@@ -116,8 +159,8 @@ before calling this function!");
         throw std::runtime_error("Failed to query texture information.");
     }
 
-    size[0] = TextureProperties->TextureSize[0];
-    size[1] = TextureProperties->TextureSize[1];
+    size[0] = TextureProperties->MipChain[0].Size[0];
+    size[1] = TextureProperties->MipChain[0].Size[1];
 }
 
 uint16_t PMMA::Types::Texture::GetWidth() {
@@ -130,7 +173,7 @@ before calling this function!");
         throw std::runtime_error("Failed to query texture information.");
     }
 
-    return TextureProperties->TextureSize[0];
+    return TextureProperties->MipChain[0].Size[0];
 }
 
 uint16_t PMMA::Types::Texture::GetHeight() {
@@ -143,7 +186,7 @@ before calling this function!");
         throw std::runtime_error("Failed to query texture information.");
     }
 
-    return TextureProperties->TextureSize[1];
+    return TextureProperties->MipChain[0].Size[1];
 }
 
 void PMMA::Types::Texture::GetPositionInAtlas(uintptr_t RenderPipelineInstance_ID, uint16_t *position) {

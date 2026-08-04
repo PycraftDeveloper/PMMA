@@ -31,16 +31,33 @@ inline float PackValues(uint8_t value_one, uint8_t value_two, uint8_t value_thre
     return packed;
 }
 
+struct MipData {
+    std::vector<unsigned char> PixelData;
+    uint16_t Size[2];
+    uint8_t Padding;
+};
+
 struct TextureProperty {
     uintptr_t ID;
-    uint16_t TextureSize[2];
-    unsigned char Channels;
     uint32_t References = 0;
-    std::vector<unsigned char> PixelData;
     std::map<uintptr_t, uint16_t[2]> RegisteredRenderPipelineInstances;
+    unsigned char Channels;
+    uint8_t MipLevels;
+
+    std::vector<MipData> MipChain;
 
     TextureProperty() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
+};
+
+struct TextureCacheHeader {
+    uint32_t Magic = 0x504D4D41; // "PMMA"
+    uint32_t Version = 1;
+
+    uint8_t Channels;
+    uint8_t MipCount;
+
+    uint16_t Reserved = 0;
 };
 } // namespace PMMA::Internal

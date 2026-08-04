@@ -34,6 +34,542 @@ public:
     void Load(std::string TexturePath);
     void Load();
 
+    bool LoadCached(
+        const std::string &CachedTexturePath) {
+        std::ifstream file(
+            CachedTexturePath,
+            std::ios::binary);
+
+        if (!file.is_open()) {
+            return false;
+        }
+
+        //
+        // Validate magic.
+        //
+        char Magic[4];
+
+        file.read(
+            Magic,
+            sizeof(Magic));
+
+        if (memcmp(
+                Magic,
+                "PMTX",
+                4) != 0) {
+            return false;
+        }
+
+        //
+        // Version check.
+        //
+        uint32_t Version = 0;
+
+        file.read(
+            reinterpret_cast<char *>(&Version),
+            sizeof(Version));
+
+        constexpr uint32_t CurrentVersion = 1;
+
+        if (Version != CurrentVersion) {
+            return false;
+        }
+
+        //
+        // Read channels.
+        //
+        uint8_t Channels = 0;
+
+        file.read(
+            reinterpret_cast<char *>(&Channels),
+            sizeof(Channels));
+
+        if (Channels != 3 &&
+            Channels != 4) {
+            return false;
+        }
+
+        //
+        // Read mip count.
+        //
+        uint8_t MipCount = 0;
+
+        file.read(
+            reinterpret_cast<char *>(&MipCount),
+            sizeof(MipCount));
+
+        if (MipCount == 0 ||
+            MipCount > 32) {
+            return false;
+        }
+
+        std::vector<PMMA::Internal::MipData>
+            LoadedMipChain;
+
+        LoadedMipChain.reserve(
+            MipCount);
+
+        //
+        // Read mip levels.
+        //
+        for (uint32_t i = 0;
+             i < MipCount;
+             i++) {
+            PMMA::Internal::MipData mip;
+
+            file.read(
+                reinterpret_cast<char *>(&mip.Size[0]),
+                sizeof(uint16_t));
+
+            file.read(
+                reinterpret_cast<char *>(&mip.Size[1]),
+                sizeof(uint16_t));
+
+            file.read(
+                reinterpret_cast<char *>(&mip.Padding),
+                sizeof(uint8_t));
+
+            uint32_t PixelSize = 0;
+
+            file.read(
+                reinterpret_cast<char *>(&PixelSize),
+                sizeof(uint32_t));
+
+            //
+            // Sanity checks.
+            //
+            if (mip.Size[0] == 0 ||
+                mip.Size[1] == 0) {
+                return false;
+            }
+
+            uint64_t ExpectedSize =
+                static_cast<uint64_t>(
+                    mip.Size[0]) *
+                static_cast<uint64_t>(
+                    mip.Size[1]) *
+                Channels;
+
+            if (PixelSize != ExpectedSize) {
+                return false;
+            }
+
+            mip.PixelData.resize(
+                PixelSize);
+
+            file.read(
+                reinterpret_cast<char *>(
+                    mip.PixelData.data()),
+                PixelSize);
+
+            if (file.fail()) {
+                return false;
+            }
+
+            LoadedMipChain.push_back(
+                std::move(mip));
+        }
+
+        //
+        // Ensure nothing unexpected happened.
+        //
+        if (file.fail()) {
+            return false;
+        }
+
+        //
+        // Commit only after everything succeeds.
+        //
+        TextureProperties->Channels =
+            Channels;
+
+        TextureProperties->MipChain =
+            std::move(
+                LoadedMipChain);
+
+        TextureProperties->MipLevels =
+            MipCount;
+
+        return true;
+    }
+
+    uint32_t CalculatePadding(
+        uint32_t Width,
+        uint32_t Height) {
+        uint32_t Size =
+            std::max(
+                Width,
+                Height);
+
+        uint32_t Levels = 0;
+
+        while (Size > 1 && Levels < TextureProperties->MipLevels) {
+            Size >>= 1;
+            Levels++;
+        }
+
+        return 1u << Levels;
+    }
+
+    void GenerateMipChain(
+        const unsigned char *basePixels,
+        uint32_t width,
+        uint32_t height,
+        uint32_t channels) {
+        TextureProperties->MipChain.clear();
+
+        std::vector<uint8_t> current(
+            basePixels,
+            basePixels + (width * height * channels));
+
+        uint32_t currentWidth = width;
+        uint32_t currentHeight = height;
+
+        while (true) {
+            //
+            // Store the current mip.
+            //
+            PMMA::Internal::MipData mip;
+
+            mip.Size[0] = static_cast<uint16_t>(currentWidth);
+            mip.Size[1] = static_cast<uint16_t>(currentHeight);
+            mip.Padding = 0;
+            mip.PixelData = current;
+
+            TextureProperties->MipChain.emplace_back(std::move(mip));
+
+            //
+            // Finished once we've reached 1x1.
+            //
+            if (currentWidth == 1 && currentHeight == 1) {
+                break;
+            }
+
+            const uint32_t nextWidth =
+                std::max(1u, currentWidth / 2);
+
+            const uint32_t nextHeight =
+                std::max(1u, currentHeight / 2);
+
+            std::vector<uint8_t> next(
+                nextWidth *
+                nextHeight *
+                channels);
+
+            for (uint32_t y = 0; y < nextHeight; ++y) {
+                for (uint32_t x = 0; x < nextWidth; ++x) {
+                    const uint32_t sx = x * 2;
+                    const uint32_t sy = y * 2;
+
+                    if (channels == 4) {
+                        //
+                        // Premultiplied alpha box filter.
+                        //
+                        float r = 0.0f;
+                        float g = 0.0f;
+                        float b = 0.0f;
+                        float a = 0.0f;
+
+                        for (uint32_t oy = 0; oy < 2; ++oy) {
+                            for (uint32_t ox = 0; ox < 2; ++ox) {
+                                const uint32_t px =
+                                    std::min(sx + ox, currentWidth - 1);
+
+                                const uint32_t py =
+                                    std::min(sy + oy, currentHeight - 1);
+
+                                const size_t src =
+                                    (py * currentWidth + px) * channels;
+
+                                const float alpha =
+                                    current[src + 3] / 255.0f;
+
+                                r += current[src + 0] * alpha;
+                                g += current[src + 1] * alpha;
+                                b += current[src + 2] * alpha;
+                                a += alpha;
+                            }
+                        }
+
+                        r *= 0.25f;
+                        g *= 0.25f;
+                        b *= 0.25f;
+                        a *= 0.25f;
+
+                        const size_t dst =
+                            (y * nextWidth + x) * channels;
+
+                        if (a > 0.00001f) {
+                            next[dst + 0] =
+                                static_cast<uint8_t>(
+                                    std::clamp(r / a, 0.0f, 255.0f));
+
+                            next[dst + 1] =
+                                static_cast<uint8_t>(
+                                    std::clamp(g / a, 0.0f, 255.0f));
+
+                            next[dst + 2] =
+                                static_cast<uint8_t>(
+                                    std::clamp(b / a, 0.0f, 255.0f));
+                        } else {
+                            next[dst + 0] = 0;
+                            next[dst + 1] = 0;
+                            next[dst + 2] = 0;
+                        }
+
+                        next[dst + 3] =
+                            static_cast<uint8_t>(
+                                std::clamp(a * 255.0f, 0.0f, 255.0f));
+                    } else {
+                        //
+                        // Standard RGB box filter.
+                        //
+                        for (uint32_t c = 0; c < channels; ++c) {
+                            uint32_t sum = 0;
+
+                            for (uint32_t oy = 0; oy < 2; ++oy) {
+                                for (uint32_t ox = 0; ox < 2; ++ox) {
+                                    const uint32_t px =
+                                        std::min(sx + ox, currentWidth - 1);
+
+                                    const uint32_t py =
+                                        std::min(sy + oy, currentHeight - 1);
+
+                                    sum +=
+                                        current[(py * currentWidth + px) *
+                                                    channels +
+                                                c];
+                                }
+                            }
+
+                            next[(y * nextWidth + x) *
+                                     channels +
+                                 c] =
+                                static_cast<uint8_t>(sum / 4);
+                        }
+                    }
+                }
+            }
+
+            current = std::move(next);
+            currentWidth = nextWidth;
+            currentHeight = nextHeight;
+        }
+    }
+
+    void ExtrudeMip(
+        PMMA::Internal::MipData &mip,
+        uint32_t channels) {
+        const uint32_t oldWidth =
+            mip.Size[0];
+
+        const uint32_t oldHeight =
+            mip.Size[1];
+
+        const uint32_t newWidth =
+            oldWidth + (mip.Padding * 2);
+
+        const uint32_t newHeight =
+            oldHeight + (mip.Padding * 2);
+
+        std::vector<uint8_t> expanded(
+            newWidth *
+            newHeight *
+            channels);
+
+        auto CopyPixel =
+            [&](uint32_t dstX,
+                uint32_t dstY,
+                uint32_t srcX,
+                uint32_t srcY) {
+                memcpy(
+                    &expanded[(dstY * newWidth + dstX) *
+                              channels],
+
+                    &mip.PixelData[(srcY * oldWidth + srcX) *
+                                   channels],
+
+                    channels);
+            };
+
+        //
+        // Copy original image into centre.
+        //
+        for (uint32_t y = 0; y < oldHeight; y++) {
+            for (uint32_t x = 0; x < oldWidth; x++) {
+                CopyPixel(
+                    x + mip.Padding,
+                    y + mip.Padding,
+                    x,
+                    y);
+            }
+        }
+
+        //
+        // Left/right extrusion.
+        //
+        for (uint32_t y = 0; y < oldHeight; y++) {
+            for (uint32_t p = 0; p < mip.Padding; p++) {
+                //
+                // Left
+                //
+                CopyPixel(
+                    p,
+                    y + mip.Padding,
+                    0,
+                    y);
+
+                //
+                // Right
+                //
+                CopyPixel(
+                    newWidth - mip.Padding + p,
+                    y + mip.Padding,
+                    oldWidth - 1,
+                    y);
+            }
+        }
+
+        //
+        // Top/bottom extrusion.
+        //
+        for (uint32_t x = 0; x < oldWidth; x++) {
+            for (uint32_t p = 0; p < mip.Padding; p++) {
+                //
+                // Top
+                //
+                CopyPixel(
+                    x + mip.Padding,
+                    p,
+                    x,
+                    0);
+
+                //
+                // Bottom
+                //
+                CopyPixel(
+                    x + mip.Padding,
+                    newHeight - mip.Padding + p,
+                    x,
+                    oldHeight - 1);
+            }
+        }
+
+        //
+        // Corners.
+        //
+        for (uint32_t x = 0; x < mip.Padding; x++) {
+            for (uint32_t y = 0; y < mip.Padding; y++) {
+                //
+                // Top-left
+                //
+                CopyPixel(
+                    x,
+                    y,
+                    0,
+                    0);
+
+                //
+                // Top-right
+                //
+                CopyPixel(
+                    newWidth - mip.Padding + x,
+                    y,
+                    oldWidth - 1,
+                    0);
+
+                //
+                // Bottom-left
+                //
+                CopyPixel(
+                    x,
+                    newHeight - mip.Padding + y,
+                    0,
+                    oldHeight - 1);
+
+                //
+                // Bottom-right
+                //
+                CopyPixel(
+                    newWidth - mip.Padding + x,
+                    newHeight - mip.Padding + y,
+                    oldWidth - 1,
+                    oldHeight - 1);
+            }
+        }
+
+        //
+        // Replace mip data.
+        //
+        mip.PixelData =
+            std::move(expanded);
+
+        mip.Size[0] =
+            static_cast<uint16_t>(newWidth);
+
+        mip.Size[1] =
+            static_cast<uint16_t>(newHeight);
+    }
+
+    void SaveTextureCache(
+        const std::string &path,
+        const PMMA::Internal::TextureProperty &texture) {
+        std::ofstream file(
+            path,
+            std::ios::binary);
+
+        if (!file) {
+            throw std::runtime_error(
+                "Failed to create texture cache.");
+        }
+
+        PMMA::Internal::TextureCacheHeader header;
+
+        header.Channels =
+            texture.Channels;
+
+        header.MipCount =
+            static_cast<uint8_t>(
+                texture.MipChain.size());
+
+        //
+        // Write header.
+        //
+        file.write(
+            reinterpret_cast<char *>(&header),
+            sizeof(header));
+
+        //
+        // Write each mip.
+        //
+        for (const auto &mip : texture.MipChain) {
+            uint32_t dataSize =
+                static_cast<uint32_t>(
+                    mip.PixelData.size());
+
+            file.write(
+                reinterpret_cast<const char *>(&mip.Size[0]),
+                sizeof(uint16_t));
+
+            file.write(
+                reinterpret_cast<const char *>(&mip.Size[1]),
+                sizeof(uint16_t));
+
+            file.write(
+                reinterpret_cast<const char *>(&mip.Padding),
+                sizeof(uint8_t));
+
+            file.write(
+                reinterpret_cast<char *>(&dataSize),
+                sizeof(uint32_t));
+
+            file.write(
+                reinterpret_cast<const char *>(
+                    mip.PixelData.data()),
+                dataSize);
+        }
+    }
+
     void Unload();
 
     void Enable();
