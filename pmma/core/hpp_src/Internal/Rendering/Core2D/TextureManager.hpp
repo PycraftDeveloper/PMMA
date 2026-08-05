@@ -5,21 +5,6 @@
 
 #include "Internal/Internal.hpp"
 
-/*
-struct TextureProperty {
-    uintptr_t ID;
-    uint16_t TextureSize[2];
-    unsigned char Channels;
-    uint32_t References = 0;
-    std::vector<unsigned char> PixelData;
-    std::map<uintptr_t, uint16_t[2]> RegisteredRenderPipelineInstances;
-
-    TextureProperty() {
-        ID = reinterpret_cast<uintptr_t>(this);
-    }
-};
-*/
-
 namespace PMMA::Internal::Rendering::Core2D {
 struct SkylineNode {
     uint32_t x;
@@ -64,19 +49,12 @@ public:
         }
     }
 
-    bool FindPosition(
+    inline bool FindPosition(
         uint32_t Width,
         uint32_t Height,
         uint32_t &OutX,
         uint32_t &OutY,
         size_t &OutSkylineIndex) {
-
-        std::cout
-            << "FindPosition "
-            << Width << "x" << Height
-            << " skyline nodes: "
-            << Skyline.size()
-            << std::endl;
 
         uint32_t BestY = UINT32_MAX;
         uint32_t BestX = UINT32_MAX;
@@ -163,7 +141,7 @@ public:
         return true;
     }
 
-    void InsertSkylineLevel(
+    inline void InsertSkylineLevel(
         size_t Index,
         uint32_t X,
         uint32_t Y,
@@ -226,7 +204,7 @@ public:
         }
     }
 
-    void MergeSkyline() {
+    inline void MergeSkyline() {
         if (Skyline.size() < 2)
             return;
 
@@ -256,7 +234,7 @@ public:
         }
     }
 
-    void RegisterTexture(
+    inline void RegisterTexture(
         PMMA::Internal::TextureProperty *Texture) {
         if (Skyline.empty()) {
             Skyline.push_back(
@@ -340,74 +318,34 @@ public:
         Dirty = true;
     }
 
-    void CopyMipIntoAtlas(
+    template <uint32_t Channels>
+    inline void CopyMipIntoAtlas(
         const PMMA::Internal::MipData &mip,
         uint32_t dstX,
         uint32_t dstY,
         uint32_t atlasWidth,
         uint32_t atlasHeight,
-        uint32_t srcChannels,
-        uint32_t dstChannels,
         std::vector<uint8_t> &atlas) {
-        for (uint32_t y = 0;
-             y < mip.Size[1];
-             y++) {
-            for (uint32_t x = 0;
-                 x < mip.Size[0];
-                 x++) {
-                uint32_t sourceIndex =
-                    (y * mip.Size[0] + x) *
-                    srcChannels;
+        const uint32_t width = std::min(static_cast<uint32_t>(mip.Size[0]), atlasWidth - dstX);
+        const uint32_t height = std::min(static_cast<uint32_t>(mip.Size[1]), atlasHeight - dstY);
 
-                uint32_t destX =
-                    dstX + x;
+        if (!width || !height)
+            return;
 
-                uint32_t destY =
-                    dstY + y;
+        const uint32_t rowBytes = width * Channels;
 
-                //
-                // Outside atlas.
-                //
-                if (destX >= atlasWidth ||
-                    destY >= atlasHeight) {
-                    continue;
-                }
+        const uint8_t *src = mip.PixelData.data();
+        uint8_t *dst = atlas.data();
 
-                uint32_t destinationIndex =
-                    (destY * atlasWidth + destX) *
-                    dstChannels;
-
-                //
-                // RGB/RGBA conversion.
-                //
-                atlas[destinationIndex + 0] =
-                    mip.PixelData[sourceIndex + 0];
-
-                if (dstChannels > 1) {
-                    atlas[destinationIndex + 1] =
-                        srcChannels > 1
-                            ? mip.PixelData[sourceIndex + 1]
-                            : 255;
-                }
-
-                if (dstChannels > 2) {
-                    atlas[destinationIndex + 2] =
-                        srcChannels > 2
-                            ? mip.PixelData[sourceIndex + 2]
-                            : 255;
-                }
-
-                if (dstChannels > 3) {
-                    atlas[destinationIndex + 3] =
-                        srcChannels > 3
-                            ? mip.PixelData[sourceIndex + 3]
-                            : 255;
-                }
-            }
+        for (uint32_t y = 0; y < height; ++y) {
+            memcpy(
+                dst + ((dstY + y) * atlasWidth + dstX) * Channels,
+                src + y * mip.Size[0] * Channels,
+                rowBytes);
         }
     }
 
-    void Assemble() {
+    inline void Assemble() {
         if (!Dirty)
             return;
 
@@ -529,15 +467,23 @@ public:
                     y,
                     mipHeight - source.Size[1]);
 
-                CopyMipIntoAtlas(
-                    source,
-                    x,
-                    y,
-                    mipWidth,
-                    mipHeight,
-                    texture->Channels,
-                    channels,
-                    mipPixels);
+                if (channels == 3) {
+                    CopyMipIntoAtlas<3>(
+                        source,
+                        x,
+                        y,
+                        mipWidth,
+                        mipHeight,
+                        mipPixels);
+                } else {
+                    CopyMipIntoAtlas<4>(
+                        source,
+                        x,
+                        y,
+                        mipWidth,
+                        mipHeight,
+                        mipPixels);
+                }
             }
 
             //
