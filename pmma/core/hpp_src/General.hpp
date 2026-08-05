@@ -44,4 +44,8 @@ EXPORT std::string GetLocale();
 EXPORT std::string GetOperatingSystem();
 
 EXPORT std::string GetGraphicsBackend();
+
+EXPORT void SetMaxParallelWorkerThreads(unsigned int max_threads);
+
+EXPORT unsigned int GetMaxParallelWorkerThreads();
 } // namespace PMMA::General

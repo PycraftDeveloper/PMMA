@@ -284,3 +284,11 @@ std::string PMMA::General::GetGraphicsBackend() {
         return std::string(PMMA::Constants::GraphicsBackends::UNKNOWN);
     }
 }
+
+void PMMA::General::SetMaxParallelWorkerThreads(unsigned int max_threads) {
+    PMMA::Registry::ParallelWorkerMaxThreads = max_threads;
+}
+
+unsigned int PMMA::General::GetMaxParallelWorkerThreads() {
+    return PMMA::Registry::ParallelWorkerMaxThreads;
+}

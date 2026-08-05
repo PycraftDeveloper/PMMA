@@ -112,6 +112,31 @@ command listed above in your system terminal/command prompt directly.");
     }
 }
 
+void PMMA::Graphics::Shader::CreateShader() {
+    if (CompileShaderFuture.valid()) {
+        CompileShaderFuture.wait();
+    }
+
+    if (IsCompiled) {
+        return;
+    }
+
+    if (CompiledVertexShaderPath != "" && CompiledFragmentShaderPath != "") {
+        bgfx::ShaderHandle vertex_shader = bgfx::createShader(
+            InternalLoadShader(CompiledVertexShaderPath));
+        bgfx::ShaderHandle fragment_shader = bgfx::createShader(
+            InternalLoadShader(CompiledFragmentShaderPath));
+
+        ShaderProgram = bgfx::createProgram(
+            vertex_shader,
+            fragment_shader,
+            true);
+        IsCompiled = true;
+    } else {
+        IsCompiled = false;
+    }
+}
+
 void PMMA::Graphics::Shader::CompileShader(bool InternalShader) {
     IsInternalShader = InternalShader;
 
@@ -149,24 +174,13 @@ void PMMA::Graphics::Shader::CompileShader(bool InternalShader) {
             CompileShaderComponent(RawFragmentShaderPath, CompiledFragmentShaderPath, "fragment");
         }
     }
-
-    if (CompiledVertexShaderPath != "" && CompiledFragmentShaderPath != "") {
-        bgfx::ShaderHandle vertex_shader = bgfx::createShader(
-            InternalLoadShader(CompiledVertexShaderPath));
-        bgfx::ShaderHandle fragment_shader = bgfx::createShader(
-            InternalLoadShader(CompiledFragmentShaderPath));
-
-        ShaderProgram = bgfx::createProgram(
-            vertex_shader,
-            fragment_shader,
-            true);
-        IsCompiled = true;
-    } else {
-        IsCompiled = false;
-    }
 }
 
 bgfx::ProgramHandle PMMA::Graphics::Shader::Use() {
+    if (CompileShaderFuture.valid()) {
+        CompileShaderFuture.wait();
+    }
+
     if (IsCompiled) {
         return ShaderProgram;
     } else {
@@ -180,4 +194,148 @@ bgfx::ProgramHandle PMMA::Graphics::Shader::Use() {
     if (RawFragmentShaderPath == "" || CompiledFragmentShaderPath == "") {
         throw std::runtime_error("Fragment shader path is not set");
     }
+}
+
+void PMMA::Graphics::Shader::LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
+    if (CompileShaderFuture.valid()) {
+        CompileShaderFuture.wait();
+    }
+
+    if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
+        IsCompiled = true;
+        CompiledVertexShaderPath = VertexShaderPath;
+        RawVertexShaderPath = "";
+    } else {
+        IsCompiled = false;
+        RawVertexShaderPath = VertexShaderPath;
+        CompiledVertexShaderPath = "";
+    }
+
+    if (FragmentShaderPath.size() >= 5 && FragmentShaderPath.substr(FragmentShaderPath.size() - 5) == ".bin") {
+        IsCompiled = true;
+        CompiledFragmentShaderPath = FragmentShaderPath;
+        RawFragmentShaderPath = "";
+    } else {
+        IsCompiled = false;
+        RawFragmentShaderPath = FragmentShaderPath;
+        CompiledFragmentShaderPath = "";
+    }
+
+    CompileShaderFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this, InternalShader]() {
+        CompileShader(InternalShader);
+    });
+}
+
+void PMMA::Graphics::Shader::LoadVertexShader(std::string VertexShaderPath, bool InternalShader) {
+    if (CompileShaderFuture.valid()) {
+        CompileShaderFuture.wait();
+    }
+
+    if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
+        IsCompiled = true;
+        CompiledVertexShaderPath = VertexShaderPath;
+        RawVertexShaderPath = "";
+    } else {
+        IsCompiled = false;
+        RawVertexShaderPath = VertexShaderPath;
+        CompiledVertexShaderPath = "";
+    }
+
+    CompileShaderFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this, InternalShader]() {
+        CompileShader(InternalShader);
+    });
+}
+
+void PMMA::Graphics::Shader::LoadFragmentShader(std::string FragmentShaderPath, bool InternalShader) {
+    if (CompileShaderFuture.valid()) {
+        CompileShaderFuture.wait();
+    }
+
+    if (FragmentShaderPath.size() >= 5 && FragmentShaderPath.substr(FragmentShaderPath.size() - 5) == ".bin") {
+        IsCompiled = true;
+        CompiledFragmentShaderPath = FragmentShaderPath;
+        RawFragmentShaderPath = "";
+    } else {
+        IsCompiled = false;
+        RawFragmentShaderPath = FragmentShaderPath;
+        CompiledFragmentShaderPath = "";
+    }
+
+    CompileShaderFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this, InternalShader]() {
+        CompileShader(InternalShader);
+    });
+}
+
+void PMMA::Graphics::Shader::LoadShaderFromFolder(std::string FolderPath, bool InternalShader) {
+    if (CompileShaderFuture.valid()) {
+        CompileShaderFuture.wait();
+    }
+
+    try {
+        for (const auto &entry : std::filesystem::directory_iterator(FolderPath)) {
+            std::string FileName = entry.path().filename().string();
+            std::string FilePath = entry.path().string();
+
+            if (FileName.size() >= 7 && FileName.substr(FileName.size() - 5) == ".bin") {
+                IsCompiled = true;
+            } else {
+                IsCompiled = false;
+            }
+
+            std::string LowerFileName = FileName;
+            std::transform(LowerFileName.begin(), LowerFileName.end(), LowerFileName.begin(), ::tolower);
+            if (LowerFileName.find("vertex") != std::string::npos) {
+                if (IsCompiled) {
+                    CompiledVertexShaderPath = FilePath;
+                    RawVertexShaderPath = "";
+                } else {
+                    RawVertexShaderPath = FilePath;
+                    CompiledVertexShaderPath = "";
+                }
+            } else if (LowerFileName.find("fragment") != std::string::npos) {
+                if (IsCompiled) {
+                    CompiledFragmentShaderPath = FilePath;
+                    RawFragmentShaderPath = "";
+                } else {
+                    RawFragmentShaderPath = FilePath;
+                    CompiledFragmentShaderPath = "";
+                }
+            } else if (LowerFileName.substr(0, 3) == "vs_") {
+                if (IsCompiled) {
+                    CompiledVertexShaderPath = FilePath;
+                    RawVertexShaderPath = "";
+                } else {
+                    RawVertexShaderPath = FilePath;
+                    CompiledVertexShaderPath = "";
+                }
+            } else if (LowerFileName.substr(0, 3) == "fs_") {
+                if (IsCompiled) {
+                    CompiledFragmentShaderPath = FilePath;
+                    RawFragmentShaderPath = "";
+                } else {
+                    RawFragmentShaderPath = FilePath;
+                    CompiledFragmentShaderPath = "";
+                }
+            }
+
+            if ((CompiledVertexShaderPath != "" || RawVertexShaderPath != "") &&
+                (CompiledFragmentShaderPath != "" || RawFragmentShaderPath != "")) {
+                break;
+            }
+        }
+    } catch (const std::filesystem::filesystem_error &error) {
+        if (Logger == nullptr) {
+            Logger = new PMMA::Logger();
+        }
+
+        Logger->InternalLogWarn(
+            48,
+            "Whilst looking for shader files in the folder: '" +
+                FolderPath + "' the following filesystem error occurred: '" +
+                error.what() + "'");
+    }
+
+    CompileShaderFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this, InternalShader]() {
+        CompileShader(InternalShader);
+    });
 }

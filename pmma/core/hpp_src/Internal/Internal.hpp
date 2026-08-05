@@ -2,6 +2,7 @@
 
 #include <array>
 #include <cstdint>
+#include <future>
 #include <string>
 
 namespace PMMA::Internal {
@@ -47,6 +48,8 @@ struct TextureProperty {
     uint8_t MipLevels;
 
     std::vector<MipData> MipChain;
+
+    std::future<void> LoadFuture;
 
     TextureProperty() {
         ID = reinterpret_cast<uintptr_t>(this);

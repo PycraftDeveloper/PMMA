@@ -25,7 +25,11 @@ std::vector<PMMA::Internal::Events::InternalController *> InternalControllerEven
 std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
 
 PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance = nullptr;
+
 std::map<std::string, PMMA::Internal::TextureProperty> TextureCatalogue;
+
+PMMA::Internal::ParallelWorker *ParallelWorkerInstance = nullptr;
+PMMA::Graphics::Shader *Core2D_ShapeSDF_Program = nullptr;
 } // namespace PMMA::Core
 
 namespace PMMA::Registry {
@@ -55,9 +59,8 @@ unsigned int DropEventInstanceCount = 0;
 unsigned int RollingViewID;
 unsigned int MaxViewID = 0;
 
-int GLFW_References = 0;
+unsigned int ParallelWorkerMaxThreads = std::thread::hardware_concurrency();
 
-bool GLFW_Initialized = false;
 bool CPU_Supports_AVX2 = PMMA::Utils::CPU_FeatureSet::SupportsAVX2();
 bool CPU_Supports_AVX512 = PMMA::Utils::CPU_FeatureSet::SupportsAVX512();
 bool IsPowerSavingModeEnabled = false;
@@ -81,6 +84,8 @@ void Initialize(std::string location) {
     PMMA::Registry::PMMA_Location = location;
 
     PMMA::Registry::RandomSeedGenerator.seed(std::random_device{}());
+
+    PMMA::Core::ParallelWorkerInstance = new PMMA::Internal::ParallelWorker(PMMA::Registry::ParallelWorkerMaxThreads);
 
     PMMA::Core::LoggingManagerInstance = new PMMA::Internal::LoggingManager();
 

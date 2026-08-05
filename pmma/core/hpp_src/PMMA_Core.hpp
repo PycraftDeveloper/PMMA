@@ -6,6 +6,7 @@
 #include <cmath>
 #include <cstdint>
 #include <fstream>
+#include <future>
 #include <iostream>
 #include <map>
 #include <random>
@@ -28,6 +29,7 @@
 
 #include "Internal/AnimationManager.hpp"
 #include "Internal/LoggingManager.hpp"
+#include "Internal/ParallelWorker.hpp"
 #include "Internal/PowerSavingManager.hpp"
 
 #include "Internal/Events/EventsManager.hpp"
@@ -83,6 +85,10 @@ extern std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
 extern PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance;
 
 extern std::map<std::string, PMMA::Internal::TextureProperty> TextureCatalogue;
+
+extern PMMA::Internal::ParallelWorker *ParallelWorkerInstance;
+
+extern PMMA::Graphics::Shader *Core2D_ShapeSDF_Program;
 } // namespace PMMA::Core
 
 namespace PMMA::Registry {
@@ -111,9 +117,8 @@ extern unsigned int DropEventInstanceCount;
 extern unsigned int RollingViewID;
 extern unsigned int MaxViewID;
 
-extern int GLFW_References;
+extern unsigned int ParallelWorkerMaxThreads;
 
-extern bool GLFW_Initialized;
 extern bool CPU_Supports_AVX2;
 extern bool CPU_Supports_AVX512;
 extern bool IsPowerSavingModeEnabled;

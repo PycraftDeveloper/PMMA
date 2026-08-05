@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <filesystem>
 #include <fstream>
+#include <future>
 #include <string>
 
 #include <bgfx/bgfx.h>
@@ -16,6 +17,8 @@
 namespace PMMA::Graphics {
 class Shader {
 private:
+    std::future<void> CompileShaderFuture;
+
     bgfx::ProgramHandle ShaderProgram = BGFX_INVALID_HANDLE;
     PMMA::Logger *Logger;
 
@@ -62,6 +65,10 @@ this as a GitHub issue so we can add support for it.");
 
 public:
     ~Shader() {
+        if (CompileShaderFuture.valid()) {
+            CompileShaderFuture.wait();
+        }
+
         if (bgfx::isValid(ShaderProgram)) {
             bgfx::destroy(ShaderProgram);
         }
@@ -72,130 +79,16 @@ public:
         }
     }
 
-    void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
-        bool IsCompiled;
-        if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
-            IsCompiled = true;
-            CompiledVertexShaderPath = VertexShaderPath;
-            RawVertexShaderPath = "";
-        } else {
-            IsCompiled = false;
-            RawVertexShaderPath = VertexShaderPath;
-            CompiledVertexShaderPath = "";
-        }
+    void CreateShader();
 
-        if (FragmentShaderPath.size() >= 5 && FragmentShaderPath.substr(FragmentShaderPath.size() - 5) == ".bin") {
-            IsCompiled = true;
-            CompiledFragmentShaderPath = FragmentShaderPath;
-            RawFragmentShaderPath = "";
-        } else {
-            IsCompiled = false;
-            RawFragmentShaderPath = FragmentShaderPath;
-            CompiledFragmentShaderPath = "";
-        }
+    void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader);
 
-        CompileShader(InternalShader);
-    }
+    void LoadVertexShader(std::string VertexShaderPath, bool InternalShader);
 
-    void LoadVertexShader(std::string VertexShaderPath, bool InternalShader) {
-        bool IsCompiled;
-        if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
-            IsCompiled = true;
-            CompiledVertexShaderPath = VertexShaderPath;
-            RawVertexShaderPath = "";
-        } else {
-            IsCompiled = false;
-            RawVertexShaderPath = VertexShaderPath;
-            CompiledVertexShaderPath = "";
-        }
+    void LoadFragmentShader(std::string FragmentShaderPath, bool InternalShader);
 
-        CompileShader(InternalShader);
-    }
-
-    void LoadFragmentShader(std::string FragmentShaderPath, bool InternalShader) {
-        bool IsCompiled;
-        if (FragmentShaderPath.size() >= 5 && FragmentShaderPath.substr(FragmentShaderPath.size() - 5) == ".bin") {
-            IsCompiled = true;
-            CompiledFragmentShaderPath = FragmentShaderPath;
-            RawFragmentShaderPath = "";
-        } else {
-            IsCompiled = false;
-            RawFragmentShaderPath = FragmentShaderPath;
-            CompiledFragmentShaderPath = "";
-        }
-
-        CompileShader(InternalShader);
-    }
-
-    void LoadShaderFromFolder(std::string FolderPath, bool InternalShader) {
-        bool IsCompiled = false;
-        try {
-            for (const auto &entry : std::filesystem::directory_iterator(FolderPath)) {
-                std::string FileName = entry.path().filename().string();
-                std::string FilePath = entry.path().string();
-
-                if (FileName.size() >= 7 && FileName.substr(FileName.size() - 5) == ".bin") {
-                    IsCompiled = true;
-                } else {
-                    IsCompiled = false;
-                }
-
-                std::string LowerFileName = FileName;
-                std::transform(LowerFileName.begin(), LowerFileName.end(), LowerFileName.begin(), ::tolower);
-                if (LowerFileName.find("vertex") != std::string::npos) {
-                    if (IsCompiled) {
-                        CompiledVertexShaderPath = FilePath;
-                        RawVertexShaderPath = "";
-                    } else {
-                        RawVertexShaderPath = FilePath;
-                        CompiledVertexShaderPath = "";
-                    }
-                } else if (LowerFileName.find("fragment") != std::string::npos) {
-                    if (IsCompiled) {
-                        CompiledFragmentShaderPath = FilePath;
-                        RawFragmentShaderPath = "";
-                    } else {
-                        RawFragmentShaderPath = FilePath;
-                        CompiledFragmentShaderPath = "";
-                    }
-                } else if (LowerFileName.substr(0, 3) == "vs_") {
-                    if (IsCompiled) {
-                        CompiledVertexShaderPath = FilePath;
-                        RawVertexShaderPath = "";
-                    } else {
-                        RawVertexShaderPath = FilePath;
-                        CompiledVertexShaderPath = "";
-                    }
-                } else if (LowerFileName.substr(0, 3) == "fs_") {
-                    if (IsCompiled) {
-                        CompiledFragmentShaderPath = FilePath;
-                        RawFragmentShaderPath = "";
-                    } else {
-                        RawFragmentShaderPath = FilePath;
-                        CompiledFragmentShaderPath = "";
-                    }
-                }
-
-                if ((CompiledVertexShaderPath != "" || RawVertexShaderPath != "") &&
-                    (CompiledFragmentShaderPath != "" || RawFragmentShaderPath != "")) {
-                    break;
-                }
-            }
-        } catch (const std::filesystem::filesystem_error &error) {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
-
-            Logger->InternalLogWarn(
-                48,
-                "Whilst looking for shader files in the folder: '" +
-                    FolderPath + "' the following filesystem error occurred: '" +
-                    error.what() + "'");
-        }
-
-        CompileShader(InternalShader);
-    }
+    void LoadShaderFromFolder(std::string FolderPath, bool InternalShader);
 
     bgfx::ProgramHandle Use();
 };
-}
+} // namespace PMMA::Graphics

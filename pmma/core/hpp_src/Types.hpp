@@ -1,6 +1,7 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
+#include <future>
 #include <optional>
 #include <random>
 #include <thread>
@@ -34,6 +35,8 @@ public:
 
     void Load(std::string TexturePath);
     void Load();
+
+    void InternalLoad();
 
     bool LoadCached(
         const std::string &CachedTexturePath) {

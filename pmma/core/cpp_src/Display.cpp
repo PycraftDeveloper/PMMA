@@ -199,12 +199,7 @@ PMMA::Display::Display() {
     WindowFillColor = new PMMA::Types::Color();
     WindowFillColor->LinkedToDisplayBackground = true;
 
-    if (!PMMA::Registry::GLFW_Initialized) {
-        glfwInit();
-        PMMA::Registry::GLFW_Initialized = true;
-    }
-
-    PMMA::Registry::GLFW_References++;
+    glfwInit();
 
     DefaultIconPath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "resources" + PMMA::Registry::PathSeparator + "Icon.png";
 }
@@ -309,11 +304,6 @@ correctly. If the problem persists, please report this issue on our GitHub page.
 
         throw std::runtime_error("Failed to create GLFW window");
 
-        PMMA::Registry::GLFW_References--;
-        if (PMMA::Registry::GLFW_References <= 0) {
-            PMMA::Registry::GLFW_Initialized = false;
-            glfwTerminate();
-        }
         return;
     }
 
@@ -438,11 +428,6 @@ correctly. If the problem persists, please report this issue on our GitHub page.
 
         throw std::runtime_error("Failed to create GLFW window");
 
-        PMMA::Registry::GLFW_References--;
-        if (PMMA::Registry::GLFW_References <= 0) {
-            PMMA::Registry::GLFW_Initialized = false;
-            glfwTerminate();
-        }
         return;
     }
 
@@ -508,6 +493,21 @@ installed PMMA.");
             "PMMA is using the '" + Renderer + "' backend for graphics.");
 
         PMMA::Registry::IsApplicationRunning = true;
+
+        std::string ShaderPath =
+            PMMA::Registry::PMMA_Location +
+            PMMA::Registry::PathSeparator +
+            "shaders" +
+            PMMA::Registry::PathSeparator +
+            "2D_Core" +
+            PMMA::Registry::PathSeparator +
+            "ShapeDefinitions";
+
+        PMMA::Core::Core2D_ShapeSDF_Program = new PMMA::Graphics::Shader();
+        PMMA::Core::Core2D_ShapeSDF_Program->LoadShaderFromFolder(
+            ShaderPath,
+            true);
+
     } else {
         void *nwh = nullptr;
 
@@ -689,7 +689,6 @@ unsigned int PMMA::Display::CalculateRefreshRate(
 }
 
 void PMMA::Display::Refresh(Display_Refresh_Kwargs kwargs) {
-
     if (Window == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,
@@ -701,6 +700,7 @@ You can do this using `Display.create`.");
     bgfx::setViewRect(DisplayID, 0, 0, GetWidth(), GetHeight());
     bgfx::setViewFrameBuffer(DisplayID, DisplayFrameBufferHandle);
 
+    PMMA::Core::Core2D_ShapeSDF_Program->CreateShader();
     RenderPipelineCore->Render();
 
     unsigned int MaxRefreshRate;
@@ -924,17 +924,15 @@ PMMA::Display::~Display() {
 
     if (!IsSecondaryDisplay) {
         PMMA::Core::MasterDisplayInstance = nullptr;
+
+        delete PMMA::Core::Core2D_ShapeSDF_Program;
+
+        glfwTerminate();
         bgfx::shutdown();
     }
 
     glfwDestroyWindow(Window);
     Window = nullptr;
-
-    PMMA::Registry::GLFW_References--;
-    if (PMMA::Registry::GLFW_References <= 0) {
-        PMMA::Registry::GLFW_Initialized = false;
-        glfwTerminate();
-    }
 
     delete WindowFillColor;
     WindowFillColor = nullptr;

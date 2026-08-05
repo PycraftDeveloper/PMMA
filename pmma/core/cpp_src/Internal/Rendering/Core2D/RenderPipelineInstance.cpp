@@ -43,20 +43,6 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
         "HasTransparency",
         bgfx::UniformType::Vec4);
 
-    std::string ShaderPath =
-        PMMA::Registry::PMMA_Location +
-        PMMA::Registry::PathSeparator +
-        "shaders" +
-        PMMA::Registry::PathSeparator +
-        "2D_Core" +
-        PMMA::Registry::PathSeparator +
-        "ShapeDefinitions";
-
-    ShapeDefinitionsShaderProgram = new PMMA::Graphics::Shader();
-    ShapeDefinitionsShaderProgram->LoadShaderFromFolder(
-        ShaderPath,
-        true);
-
     VertexData[0] = {-0.5f, -0.5f, 0.0f, 0.0f};
     VertexData[1] = {0.5f, -0.5f, 1.0f, 0.0f};
     VertexData[2] = {0.5f, 0.5f, 1.0f, 1.0f};
@@ -287,7 +273,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
 
         bgfx::submit(
             PMMA::Registry::RollingViewID,
-            ShapeDefinitionsShaderProgram->Use());
+            PMMA::Core::Core2D_ShapeSDF_Program->Use());
     }
 
     // transparent
@@ -321,7 +307,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
 
         bgfx::submit(
             PMMA::Registry::RollingViewID,
-            ShapeDefinitionsShaderProgram->Use());
+            PMMA::Core::Core2D_ShapeSDF_Program->Use());
     }
 
     AdvanceView();

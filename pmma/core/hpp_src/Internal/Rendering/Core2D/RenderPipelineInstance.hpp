@@ -11,15 +11,9 @@
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 #include "Internal/Rendering/Core2D/TextureManager.hpp"
 
-namespace PMMA::Graphics {
-class Shader;
-}
-
 namespace PMMA::Internal::Rendering::Core2D {
 class EXPORT RenderPipelineInstance {
 private:
-    PMMA::Graphics::Shader *ShapeDefinitionsShaderProgram = nullptr;
-
     std::array<std::array<std::vector<uintptr_t>, 2>, 4> PreviousShapeIDs;
     std::array<std::vector<uintptr_t>, 2> CurrentShapeIDs;
 
@@ -92,8 +86,6 @@ public:
         if (bgfx::isValid(OrthDisplayProj)) {
             bgfx::destroy(OrthDisplayProj);
         }
-
-        delete ShapeDefinitionsShaderProgram;
     };
 
     void AdvanceView();
