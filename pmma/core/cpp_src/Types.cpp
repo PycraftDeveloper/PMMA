@@ -135,6 +135,8 @@ void PMMA::Types::Texture::Unload() {
     if (TextureProperties != nullptr) {
         if (TextureProperties->LoadFuture.valid()) {
             TextureProperties->LoadFuture.wait();
+
+            TextureProperties->LoadFuture = std::future<void>();
         }
 
         TextureProperties->References -= 1;
@@ -159,6 +161,8 @@ Please load an image first.");
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
+
+        TextureProperties->LoadFuture = std::future<void>();
     }
 
     IsTextureEnabled = true;
@@ -176,6 +180,8 @@ before calling this function!");
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
+
+        TextureProperties->LoadFuture = std::future<void>();
     }
 
     size[0] = TextureProperties->MipChain[0].Size[0];
@@ -194,6 +200,8 @@ before calling this function!");
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
+
+        TextureProperties->LoadFuture = std::future<void>();
     }
 
     return TextureProperties->MipChain[0].Size[0];
@@ -211,6 +219,8 @@ before calling this function!");
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
+
+        TextureProperties->LoadFuture = std::future<void>();
     }
 
     return TextureProperties->MipChain[0].Size[1];
@@ -228,6 +238,8 @@ before calling this function!");
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
+
+        TextureProperties->LoadFuture = std::future<void>();
     }
 
     auto &storedPosition =
@@ -249,6 +261,8 @@ before calling this function!");
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
+
+        TextureProperties->LoadFuture = std::future<void>();
     }
 
     return TextureProperties->Channels;
@@ -266,6 +280,8 @@ before calling this function!");
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
+
+        TextureProperties->LoadFuture = std::future<void>();
     }
 
     return TextureProperties->References;

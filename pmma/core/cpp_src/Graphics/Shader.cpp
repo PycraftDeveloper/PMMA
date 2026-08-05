@@ -115,6 +115,8 @@ command listed above in your system terminal/command prompt directly.");
 void PMMA::Graphics::Shader::CreateShader() {
     if (CompileShaderFuture.valid()) {
         CompileShaderFuture.wait();
+
+        CompileShaderFuture = std::future<void>();
     }
 
     if (IsCompiled) {
@@ -179,6 +181,8 @@ void PMMA::Graphics::Shader::CompileShader(bool InternalShader) {
 bgfx::ProgramHandle PMMA::Graphics::Shader::Use() {
     if (CompileShaderFuture.valid()) {
         CompileShaderFuture.wait();
+
+        CompileShaderFuture = std::future<void>();
     }
 
     if (IsCompiled) {
@@ -199,6 +203,8 @@ bgfx::ProgramHandle PMMA::Graphics::Shader::Use() {
 void PMMA::Graphics::Shader::LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader) {
     if (CompileShaderFuture.valid()) {
         CompileShaderFuture.wait();
+
+        CompileShaderFuture = std::future<void>();
     }
 
     if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
@@ -229,6 +235,8 @@ void PMMA::Graphics::Shader::LoadShader(std::string VertexShaderPath, std::strin
 void PMMA::Graphics::Shader::LoadVertexShader(std::string VertexShaderPath, bool InternalShader) {
     if (CompileShaderFuture.valid()) {
         CompileShaderFuture.wait();
+
+        CompileShaderFuture = std::future<void>();
     }
 
     if (VertexShaderPath.size() >= 5 && VertexShaderPath.substr(VertexShaderPath.size() - 5) == ".bin") {
@@ -249,6 +257,8 @@ void PMMA::Graphics::Shader::LoadVertexShader(std::string VertexShaderPath, bool
 void PMMA::Graphics::Shader::LoadFragmentShader(std::string FragmentShaderPath, bool InternalShader) {
     if (CompileShaderFuture.valid()) {
         CompileShaderFuture.wait();
+
+        CompileShaderFuture = std::future<void>();
     }
 
     if (FragmentShaderPath.size() >= 5 && FragmentShaderPath.substr(FragmentShaderPath.size() - 5) == ".bin") {
@@ -269,6 +279,8 @@ void PMMA::Graphics::Shader::LoadFragmentShader(std::string FragmentShaderPath, 
 void PMMA::Graphics::Shader::LoadShaderFromFolder(std::string FolderPath, bool InternalShader) {
     if (CompileShaderFuture.valid()) {
         CompileShaderFuture.wait();
+
+        CompileShaderFuture = std::future<void>();
     }
 
     try {

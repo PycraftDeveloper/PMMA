@@ -325,22 +325,33 @@ public:
         uint32_t dstY,
         uint32_t atlasWidth,
         uint32_t atlasHeight,
-        std::vector<uint8_t> &atlas) {
-        const uint32_t width = std::min(static_cast<uint32_t>(mip.Size[0]), atlasWidth - dstX);
-        const uint32_t height = std::min(static_cast<uint32_t>(mip.Size[1]), atlasHeight - dstY);
+        uint8_t *atlas) {
+        const uint32_t width =
+            std::min(
+                static_cast<uint32_t>(mip.Size[0]),
+                atlasWidth - dstX);
+
+        const uint32_t height =
+            std::min(
+                static_cast<uint32_t>(mip.Size[1]),
+                atlasHeight - dstY);
 
         if (!width || !height)
             return;
 
         const uint32_t rowBytes = width * Channels;
 
-        const uint8_t *src = mip.PixelData.data();
-        uint8_t *dst = atlas.data();
+        const uint8_t *src =
+            mip.PixelData.data();
 
         for (uint32_t y = 0; y < height; ++y) {
             memcpy(
-                dst + ((dstY + y) * atlasWidth + dstX) * Channels,
-                src + y * mip.Size[0] * Channels,
+                atlas +
+                    ((dstY + y) * atlasWidth + dstX) * Channels,
+
+                src +
+                    y * mip.Size[0] * Channels,
+
                 rowBytes);
         }
     }
@@ -391,18 +402,32 @@ public:
         //
         // Determine number of mip levels.
         //
-        uint32_t mipCount = 1;
+        uint32_t mipCount = 0;
+        size_t AtlasMipChainSize = 0;
 
-        uint32_t w = m_TextureWidth;
-        uint32_t h = m_TextureHeight;
+        uint32_t mipW = m_TextureWidth;
+        uint32_t mipH = m_TextureHeight;
 
-        while (w > 1 || h > 1) {
-            w = std::max(1u, w >> 1);
-            h = std::max(1u, h >> 1);
-            mipCount++;
+        while (true) {
+            ++mipCount;
+
+            AtlasMipChainSize +=
+                size_t(mipW) *
+                mipH *
+                channels;
+
+            if (mipW == 1 && mipH == 1)
+                break;
+
+            mipW = std::max(1u, mipW >> 1);
+            mipH = std::max(1u, mipH >> 1);
         }
 
-        std::vector<uint8_t> AtlasMipChain;
+        std::vector<uint8_t> AtlasMipChain(
+            AtlasMipChainSize,
+            0);
+
+        size_t mipOffset = 0;
 
         for (uint32_t mipLevel = 0;
              mipLevel < mipCount;
@@ -417,11 +442,8 @@ public:
                     1u,
                     m_TextureHeight >> mipLevel);
 
-            std::vector<uint8_t> mipPixels(
-                mipWidth *
-                    mipHeight *
-                    channels,
-                0);
+            uint8_t *mipDestination =
+                AtlasMipChain.data() + mipOffset;
 
             for (auto *texture : PendingTextures) {
                 auto allocation =
@@ -474,7 +496,7 @@ public:
                         y,
                         mipWidth,
                         mipHeight,
-                        mipPixels);
+                        mipDestination);
                 } else {
                     CopyMipIntoAtlas<4>(
                         source,
@@ -482,17 +504,17 @@ public:
                         y,
                         mipWidth,
                         mipHeight,
-                        mipPixels);
+                        mipDestination);
                 }
             }
 
             //
             // Append this mip to BGFX stream
             //
-            AtlasMipChain.insert(
-                AtlasMipChain.end(),
-                mipPixels.begin(),
-                mipPixels.end());
+            mipOffset +=
+                size_t(mipWidth) *
+                mipHeight *
+                channels;
         }
 
         TextureHandle =

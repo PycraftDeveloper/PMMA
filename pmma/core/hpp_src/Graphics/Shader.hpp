@@ -67,6 +67,8 @@ public:
     ~Shader() {
         if (CompileShaderFuture.valid()) {
             CompileShaderFuture.wait();
+
+            CompileShaderFuture = std::future<void>();
         }
 
         if (bgfx::isValid(ShaderProgram)) {
