@@ -21,9 +21,12 @@ private:
     std::array<std::vector<InstanceData>, 2> CurrentInstanceData; // opaque, transparent
 
     PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
+
+public:
     PMMA::Internal::Rendering::Core2D::TextureManager TransparentTextureManager;
     PMMA::Internal::Rendering::Core2D::TextureManager OpaqueTextureManager;
 
+private:
     Vertex VertexData[4];
     uint16_t IndexData[6];
 
@@ -62,6 +65,13 @@ private:
     bool ColorChanged = true;
     bool ShapePropertyChanged = true;
     bool UsingCache = false;
+
+    static uint32_t GetMaxTextureDimension() {
+        const bgfx::Caps *caps = bgfx::getCaps();
+        return std::min(
+            static_cast<uint32_t>(caps->limits.maxTextureSize),
+            static_cast<uint32_t>(std::numeric_limits<uint16_t>::max()));
+    }
 
 public:
     RenderPipelineInstance();
@@ -107,7 +117,7 @@ public:
     }
 
     template <typename T>
-    inline void Add(T *shape) {
+    inline void Add(T *shape, uint16_t *TextureSize, unsigned char Channels) {
         uintptr_t ShapeID = shape->ID;
 
         auto &instance = shape->ShapeInstanceData;
@@ -121,20 +131,18 @@ public:
         // Texture
         // Texture Information
         uint16_t TexturePositionInAtlas[2] = {0, 0};
-        uint16_t TextureSizeInAtlas[2] = {0, 0};
         if (shape->Texture.IsEnabled()) {
-            if (shape->Texture.GetChannels() == 3) {
+            if (Channels == 3) {
                 OpaqueTextureManager.RegisterTexture(shape->Texture.TextureProperties);
             } else {
                 TransparentTextureManager.RegisterTexture(shape->Texture.TextureProperties);
                 IsOpaque = false;
             }
             shape->Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
-            shape->Texture.GetSize(TextureSizeInAtlas);
         }
 
         instance.texture_position = PMMA::Internal::PackValues(TexturePositionInAtlas[0], TexturePositionInAtlas[1]);
-        instance.texture_size = PMMA::Internal::PackValues(TextureSizeInAtlas[0], TextureSizeInAtlas[1]);
+        instance.texture_size = PMMA::Internal::PackValues(TextureSize[0], TextureSize[1]);
 
         ColorChanged |= shape->ColorDataChanged;
         ShapePropertyChanged |= shape->ShapePropertyChanged;

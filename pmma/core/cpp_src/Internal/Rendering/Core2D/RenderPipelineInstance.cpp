@@ -9,7 +9,10 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
-PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstance() {
+PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstance() : TransparentTextureManager(
+                                                                                          GetMaxTextureDimension()),
+                                                                                      OpaqueTextureManager(
+                                                                                          GetMaxTextureDimension()) {
     ID = reinterpret_cast<uintptr_t>(this);
 
     m_layout.begin()
@@ -76,17 +79,11 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
 
     const bgfx::Caps *caps = bgfx::getCaps();
 
-    uint32_t MaxTextureDimension = std::min(
-        (uint32_t)caps->limits.maxTextureSize,
-        (uint32_t)std::numeric_limits<uint16_t>::max());
+    ColorTexture.MaxTextureDimension = GetMaxTextureDimension();
 
-    ColorTexture.MaxTextureDimension = MaxTextureDimension;
-
-    TransparentTextureManager.MaxTextureDimension = MaxTextureDimension;
     TransparentTextureManager.RenderPipelineInstanceID = ID;
     TransparentTextureManager.Transparent = true;
 
-    OpaqueTextureManager.MaxTextureDimension = MaxTextureDimension;
     OpaqueTextureManager.RenderPipelineInstanceID = ID;
 }
 

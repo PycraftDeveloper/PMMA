@@ -10,7 +10,14 @@ void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
         ColorDataChanged = Color.GetInternalChangedToggle();
     }
 
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance();
+    uint16_t TextureSize[2] = {0, 0};
+    unsigned char Channels;
+    if (Texture.IsEnabled()) {
+        Texture.GetSize(TextureSize);
+        Channels = Texture.GetChannels();
+    }
+
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(TextureSize, Channels);
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2];
@@ -29,7 +36,7 @@ void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }
 
-    PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->Add(Instance, this);
+    Instance->Add(this, TextureSize, Channels);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

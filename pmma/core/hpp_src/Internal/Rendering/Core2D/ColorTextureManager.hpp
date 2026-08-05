@@ -117,6 +117,10 @@ public:
             return;
         }
 
+        if (ShapeCount == 0) {
+            return;
+        }
+
         uint32_t numColors = ShapeCount;
 
         uint32_t width = std::min(MaxTextureDimension, numColors);

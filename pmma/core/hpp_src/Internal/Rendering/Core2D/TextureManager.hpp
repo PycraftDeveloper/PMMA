@@ -30,7 +30,7 @@ private:
 
     std::vector<unsigned char> AtlasPixels;
 
-    uint32_t MaxMipLevels = 5;
+    uint32_t AtlasPadding = 0;
 
 public:
     bool Dirty = false;
@@ -43,10 +43,34 @@ public:
     uintptr_t RenderPipelineInstanceID;
     bool Transparent = false;
 
+    TextureManager(uint32_t NewMaxTextureDimension) {
+        MaxTextureDimension = NewMaxTextureDimension;
+
+        Skyline.push_back(
+            {0,
+             0,
+             MaxTextureDimension});
+    }
+
     ~TextureManager() {
         if (bgfx::isValid(TextureHandle)) {
             bgfx::destroy(TextureHandle);
         }
+    }
+
+    inline bool CanFitTexture(
+        uint32_t Width,
+        uint32_t Height) {
+        uint32_t X;
+        uint32_t Y;
+        size_t Index;
+
+        return FindPosition(
+            Width + AtlasPadding * 2,
+            Height + AtlasPadding * 2,
+            X,
+            Y,
+            Index);
     }
 
     inline bool FindPosition(
@@ -236,12 +260,6 @@ public:
 
     inline void RegisterTexture(
         PMMA::Internal::TextureProperty *Texture) {
-        if (Skyline.empty()) {
-            Skyline.push_back(
-                {0,
-                 0,
-                 MaxTextureDimension});
-        }
 
         if (Texture == nullptr)
             return;
@@ -259,10 +277,10 @@ public:
             Texture->MipChain[0];
 
         uint32_t PackedWidth =
-            Mip0.Size[0];
+            Mip0.Size[0] + AtlasPadding * 2;
 
         uint32_t PackedHeight =
-            Mip0.Size[1];
+            Mip0.Size[1] + AtlasPadding * 2;
 
         uint32_t X;
         uint32_t Y;
@@ -292,10 +310,10 @@ public:
 
         Allocations[Texture->ID] =
             {
-                X,
-                Y,
-                PackedWidth,
-                PackedHeight};
+                X + AtlasPadding,
+                Y + AtlasPadding,
+                Mip0.Size[0],
+                Mip0.Size[1]};
 
         RegisteredTextures.emplace(
             Texture->ID,
@@ -456,10 +474,10 @@ public:
                     texture->MipChain[mipLevel];
 
                 uint32_t x =
-                    allocation.X >> mipLevel;
+                    (allocation.X >> mipLevel);
 
                 uint32_t y =
-                    allocation.Y >> mipLevel;
+                    (allocation.Y >> mipLevel);
 
                 if (source.Size[0] > mipWidth ||
                     source.Size[1] > mipHeight) {

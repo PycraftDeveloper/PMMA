@@ -38,14 +38,7 @@ private:
 public:
     ~RenderPipelineManager();
 
-    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Line *lineShape);
-    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::RadialPolygonBase *radialPolygonShape);
-    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Arc *arcShape);
-    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Ellipse *ellipseShape);
-    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Rectangle *rectangleShape);
-    void Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Pixel *pixelShape);
-
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance();
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance(uint16_t *TextureSize, unsigned char Channels);
 
     void Reset();
 

@@ -15,31 +15,7 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineManager::~RenderPipelineManager
     CachedRenderPipelineInstances.clear();
 }
 
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Line *lineShape) {
-    lastInstance->Add(lineShape);
-}
-
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::RadialPolygonBase *radialPolygonShape) {
-    lastInstance->Add(radialPolygonShape);
-}
-
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Arc *arcShape) {
-    lastInstance->Add(arcShape);
-}
-
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Ellipse *ellipseShape) {
-    lastInstance->Add(ellipseShape);
-}
-
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Rectangle *rectangleShape) {
-    lastInstance->Add(rectangleShape);
-}
-
-void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Add(PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance, PMMA::Rendering::TwoD::Shapes::Pixel *pixelShape) {
-    lastInstance->Add(pixelShape);
-}
-
-PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rendering::Core2D::RenderPipelineManager::GetInstance() {
+PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rendering::Core2D::RenderPipelineManager::GetInstance(uint16_t *TextureSize, unsigned char Channels) {
     if (RenderPipelineInstances.empty()) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
@@ -52,7 +28,18 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rende
 
     PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
 
-    if ((lastInstance->OpaqueInstanceCount + lastInstance->TransparentInstanceCount) >= PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE) {
+    // THIS NEEDS TO CHECK IF THE EXISTING TEXTURE IS NOT ALREADY IN THE ATLAS AS OTHERWISE MEMORY LEAKS
+    bool TextureCanFit = true;
+    if (TextureSize[0] > 0 && TextureSize[1] > 0) {
+        if (Channels == 3) {
+            TextureCanFit = lastInstance->OpaqueTextureManager.CanFitTexture(TextureSize[0], TextureSize[1]);
+        } else {
+            TextureCanFit = lastInstance->TransparentTextureManager.CanFitTexture(TextureSize[0], TextureSize[1]);
+        }
+    }
+
+    if ((lastInstance->OpaqueInstanceCount + lastInstance->TransparentInstanceCount) >= PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE || !TextureCanFit) {
+        std::cout << "New RPI" << std::endl;
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
         } else {
@@ -62,6 +49,8 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rende
         }
         lastInstance = RenderPipelineInstances.back();
     }
+
+    // adds textures and uses lastInstance batch
 
     return lastInstance;
 }
