@@ -146,7 +146,7 @@ public:
                     mip.Size[0]) *
                 static_cast<uint64_t>(
                     mip.Size[1]) *
-                Channels;
+                4;
 
             if (RawSize != ExpectedSize) {
                 return false;

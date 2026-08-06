@@ -62,7 +62,7 @@ public:
     }
 
     template <typename Func, typename... Args>
-    auto Enqueue(Func &&func, Args &&...args)
+    inline auto Enqueue(Func &&func, Args &&...args)
         -> std::future<std::invoke_result_t<Func, Args...>> {
         using ReturnType = std::invoke_result_t<Func, Args...>;
 

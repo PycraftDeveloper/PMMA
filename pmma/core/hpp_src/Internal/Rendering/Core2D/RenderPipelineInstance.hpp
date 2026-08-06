@@ -119,34 +119,37 @@ public:
     template <typename T>
     inline void Add(T *shape, uint16_t *TextureSize, unsigned char Channels) {
         uintptr_t ShapeID = shape->ID;
-
+        const bool ColorDataChanged = shape->ColorDataChanged;
+        const bool PropertyChanged = shape->ShapePropertyChanged;
+        auto &Color = shape->Color;
+        auto &Texture = shape->Texture;
         auto &instance = shape->ShapeInstanceData;
 
-        bool IsOpaque = shape->Color.IsOpaque();
+        bool IsOpaque = Color.IsOpaque();
 
-        instance.color_index = ColorTexture.AddColor(&shape->Color, ShapeID, shape->ColorDataChanged);
+        instance.color_index = ColorTexture.AddColor(&Color, ShapeID, ColorDataChanged);
 
         // Texture
         uint16_t TexturePositionInAtlas[2] = {0, 0};
-        if (shape->Texture.IsEnabled()) {
+        if (Texture.IsEnabled()) {
             if (Channels == 3) {
-                OpaqueTextureManager.RegisterTexture(shape->Texture.TextureProperties);
+                OpaqueTextureManager.RegisterTexture(Texture.TextureProperties);
             } else {
-                TransparentTextureManager.RegisterTexture(shape->Texture.TextureProperties);
+                TransparentTextureManager.RegisterTexture(Texture.TextureProperties);
                 IsOpaque = false;
             }
-            shape->Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
+            Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
 
             instance.texture_position = PMMA::Internal::PackValues(TexturePositionInAtlas[0], TexturePositionInAtlas[1]);
             instance.texture_size = PMMA::Internal::PackValues(TextureSize[0], TextureSize[1]);
         }
 
-        ColorChanged |= shape->ColorDataChanged;
-        ShapePropertyChanged |= shape->ShapePropertyChanged;
+        ColorChanged |= ColorDataChanged;
+        ShapePropertyChanged |= ShapePropertyChanged;
 
         if (IsOpaque) { // opaque
             if (UsingCache && OpaqueInstanceCount < CurrentOpaqueDataSize && CurrentShapeIDs[0][OpaqueInstanceCount] == ShapeID) {
-                if (shape->ShapePropertyChanged) {
+                if (ShapePropertyChanged) {
                     CurrentInstanceData[0][OpaqueInstanceCount] = instance;
                 }
 
@@ -168,7 +171,7 @@ public:
             OpaqueInstanceCount++;
         } else { // transparent
             if (UsingCache && TransparentInstanceCount < CurrentTransparentDataSize && CurrentShapeIDs[1][TransparentInstanceCount] == ShapeID) {
-                if (shape->ShapePropertyChanged) {
+                if (ShapePropertyChanged) {
                     CurrentInstanceData[1][TransparentInstanceCount] = instance;
                 }
 
