@@ -122,14 +122,11 @@ public:
 
         auto &instance = shape->ShapeInstanceData;
 
-        uint8_t Color[4];
-        shape->Color.Get_RGBA(Color);
-        bool IsOpaque = Color[3] == 255;
+        bool IsOpaque = shape->Color.IsOpaque();
 
-        instance.color_index = ColorTexture.AddColor(Color, ShapeID, shape->ColorDataChanged);
+        instance.color_index = ColorTexture.AddColor(&shape->Color, ShapeID, shape->ColorDataChanged);
 
         // Texture
-        // Texture Information
         uint16_t TexturePositionInAtlas[2] = {0, 0};
         if (shape->Texture.IsEnabled()) {
             if (Channels == 3) {
@@ -139,10 +136,10 @@ public:
                 IsOpaque = false;
             }
             shape->Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
-        }
 
-        instance.texture_position = PMMA::Internal::PackValues(TexturePositionInAtlas[0], TexturePositionInAtlas[1]);
-        instance.texture_size = PMMA::Internal::PackValues(TextureSize[0], TextureSize[1]);
+            instance.texture_position = PMMA::Internal::PackValues(TexturePositionInAtlas[0], TexturePositionInAtlas[1]);
+            instance.texture_size = PMMA::Internal::PackValues(TextureSize[0], TextureSize[1]);
+        }
 
         ColorChanged |= shape->ColorDataChanged;
         ShapePropertyChanged |= shape->ShapePropertyChanged;

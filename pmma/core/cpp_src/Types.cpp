@@ -511,21 +511,14 @@ void PMMA::Types::Color::GenerateFrom3DFractalBrownianMotion(float value_one, fl
     Set_RGBA(in_color);
 }
 
+#include <cstring>
+
 void PMMA::Types::Color::Set_RGBA(uint8_t *in_color) {
-    bool Different = false;
-    for (int i = 0; i < 4; i++) {
-        if (in_color[i] != InternalColor[i]) {
-            Different = true;
-            break;
-        }
-    }
-    if (Different) {
+    if (std::memcmp(InternalColor, in_color, 4) != 0) {
         Changed = true;
         InternalChanged = true;
-        InternalColor[0] = in_color[0];
-        InternalColor[1] = in_color[1];
-        InternalColor[2] = in_color[2];
-        InternalColor[3] = in_color[3];
+
+        std::memcpy(InternalColor, in_color, 4);
     }
 
     IsSet = true;
@@ -537,35 +530,30 @@ void PMMA::Types::Color::Set_RGBA(uint8_t *in_color) {
     }
 }
 
+#include <cstring>
+
 void PMMA::Types::Color::Get_RGBA(uint8_t *out_color) {
     if (!IsSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             30,
-            "You have not set a color - please set a color \
-before attempting to get it.");
+            "You have not set a color - please set a color before attempting to get it.");
 
         throw std::runtime_error("Color not set!");
     }
 
-    out_color[0] = InternalColor[0];
-    out_color[1] = InternalColor[1];
-    out_color[2] = InternalColor[2];
-    out_color[3] = InternalColor[3];
+    std::memcpy(out_color, InternalColor, 4);
 }
 
 void PMMA::Types::Color::Get_RGB(uint8_t *out_color) {
     if (!IsSet) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
-            "You have not set a color - please set a color \
-before attempting to get it.");
+            "You have not set a color - please set a color before attempting to get it.");
 
         throw std::runtime_error("Color not set!");
     }
 
-    out_color[0] = InternalColor[0];
-    out_color[1] = InternalColor[1];
-    out_color[2] = InternalColor[2];
+    std::memcpy(out_color, InternalColor, 3);
 }
 
 std::string PMMA::Types::Color::Get_HEXA() {
@@ -662,19 +650,12 @@ void PMMA::Types::Color::Set_RGB(uint8_t *in_color) {
         9,
         "The alpha channel is automatically set to opaque.");
 
-    bool Different = false;
-    for (int i = 0; i < 3; i++) {
-        if (in_color[i] != InternalColor[i]) {
-            Different = true;
-            break;
-        }
-    }
-    if (Different) {
+    if (std::memcmp(InternalColor, in_color, 3) != 0 ||
+        InternalColor[3] != 255) {
         Changed = true;
         InternalChanged = true;
-        InternalColor[0] = in_color[0];
-        InternalColor[1] = in_color[1];
-        InternalColor[2] = in_color[2];
+
+        std::memcpy(InternalColor, in_color, 3);
         InternalColor[3] = 255;
     }
 
@@ -729,6 +710,32 @@ void PMMA::Types::Color::Set_HEX(std::string input_color) {
             PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
         }
     }
+}
+
+bool PMMA::Types::Color::IsTransparent() {
+    if (!IsSet) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a color - please set a color \
+before attempting to get it.");
+
+        throw std::runtime_error("Color not set!");
+    }
+
+    return InternalColor[3] != 255;
+}
+
+bool PMMA::Types::Color::IsOpaque() {
+    if (!IsSet) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a color - please set a color \
+before attempting to get it.");
+
+        throw std::runtime_error("Color not set!");
+    }
+
+    return InternalColor[3] == 255;
 }
 
 uint32_t PMMA::Types::Angle::GetSeed() {

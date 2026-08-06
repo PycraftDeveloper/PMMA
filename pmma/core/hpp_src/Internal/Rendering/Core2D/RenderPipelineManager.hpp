@@ -25,7 +25,7 @@ struct InstanceData {
     float position, size;
     float point_count_gradient_type, rotation_shape_property_one;
     float color_index, shape_type_width;
-    float texture_position, texture_size;
+    float texture_position = 0, texture_size = 0;
     float shape_property_two = 0, shape_property_three = 0;
     float depth = 0, unused = 0;
 };

@@ -45,32 +45,26 @@ public:
     // ADD COLOR (hot path)
     // ------------------------------------------------------------
     inline uint32_t AddColor(
-        uint8_t *Color,
+        PMMA::Types::Color *Color,
         uintptr_t ShapeID,
         bool ColorDataChanged) {
-        if (ColorDataChanged) {
-            ColorChanged = true;
-        }
-
         uint32_t idx = ShapeCount++;
 
-        if (UsingCache &&
-            idx < CurrentShapeCount &&
-            CurrentShapeIDs[idx] == ShapeID) {
-            if (ColorDataChanged) {
-                uint32_t byteIndex = idx * 4;
-                CurrentColorData[byteIndex] = Color[0];
-                CurrentColorData[byteIndex + 1] = Color[1];
-                CurrentColorData[byteIndex + 2] = Color[2];
-                CurrentColorData[byteIndex + 3] = Color[3];
-            }
+        if (UsingCache) {
+            if (idx < CurrentShapeCount && CurrentShapeIDs[idx] == ShapeID) {
+                if (ColorDataChanged) {
+                    Color->Get_RGBA(CurrentColorData.data() + (idx << 2));
 
-            return idx;
+                    ColorChanged = true;
+                }
+
+                return idx;
+            }
         }
 
         UsingCache = false;
 
-        uint32_t byteIndex = idx * 4;
+        uint32_t byteIndex = idx << 2;
 
         if (idx >= CurrentShapeCount) {
             CurrentShapeIDs.push_back(ShapeID);
@@ -78,16 +72,9 @@ public:
             CurrentShapeCount++;
         } else {
             CurrentShapeIDs[idx] = ShapeID;
-
-            if (CurrentColorData.size() < byteIndex + 4) {
-                CurrentColorData.resize(byteIndex + 4);
-            }
         }
 
-        CurrentColorData[byteIndex] = Color[0];
-        CurrentColorData[byteIndex + 1] = Color[1];
-        CurrentColorData[byteIndex + 2] = Color[2];
-        CurrentColorData[byteIndex + 3] = Color[3];
+        Color->Get_RGBA(CurrentColorData.data() + (idx << 2));
 
         return idx;
     }

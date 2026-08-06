@@ -807,6 +807,9 @@ public:
 
     std::string Get_HEXA();
     std::string Get_HEX();
+
+    bool IsTransparent();
+    bool IsOpaque();
 };
 
 class EXPORT Angle {
