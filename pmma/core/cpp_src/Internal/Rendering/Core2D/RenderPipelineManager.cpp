@@ -74,6 +74,4 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineManager::Render() {
     for (PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *instance : RenderPipelineInstances) {
         instance->Render();
     }
-
-    std::cout << "Rendering done, now other stuff" << std::endl;
 }

@@ -41,7 +41,6 @@ public:
     uint32_t m_TextureHeight = 0;
     uint32_t MaxTextureDimension = 1024;
     uintptr_t RenderPipelineInstanceID;
-    bool Transparent = false;
 
     TextureManager(uint32_t NewMaxTextureDimension) {
         MaxTextureDimension = NewMaxTextureDimension;
@@ -62,7 +61,6 @@ public:
         PMMA::Internal::TextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
-
         if (RegisteredTextures.contains(Texture->ID)) {
             return true;
         }
@@ -84,7 +82,6 @@ public:
         uint32_t &OutX,
         uint32_t &OutY,
         size_t &OutSkylineIndex) {
-
         uint32_t BestY = UINT32_MAX;
         uint32_t BestX = UINT32_MAX;
         size_t BestIndex = SIZE_MAX;
@@ -265,7 +262,6 @@ public:
 
     inline void RegisterTexture(
         PMMA::Internal::TextureProperty *Texture) {
-
         if (Texture == nullptr) {
             return;
         }
@@ -344,7 +340,6 @@ public:
         Dirty = true;
     }
 
-    template <uint32_t Channels>
     inline void CopyMipIntoAtlas(
         const PMMA::Internal::MipData &mip,
         uint32_t dstX,
@@ -365,20 +360,17 @@ public:
         if (!width || !height)
             return;
 
-        const uint32_t rowBytes = width * Channels;
-
-        const uint8_t *src =
-            mip.PixelData.data();
+        const uint8_t *src = mip.PixelData.data();
 
         for (uint32_t y = 0; y < height; ++y) {
             memcpy(
                 atlas +
-                    ((dstY + y) * atlasWidth + dstX) * Channels,
+                    ((dstY + y) * atlasWidth + dstX) * 4,
 
                 src +
-                    y * mip.Size[0] * Channels,
+                    y * mip.Size[0] * 4,
 
-                rowBytes);
+                width * 4);
         }
     }
 
@@ -386,8 +378,7 @@ public:
         if (!Dirty)
             return;
 
-        uint32_t channels =
-            Transparent ? 4 : 3;
+        uint32_t channels = 4; //
 
         //
         // Find atlas size from mip 0.
@@ -489,7 +480,6 @@ public:
 
                 if (source.Size[0] > mipWidth ||
                     source.Size[1] > mipHeight) {
-
                     std::cout
                         << "Skipping texture "
                         << texture->ID
@@ -515,23 +505,13 @@ public:
                     y,
                     mipHeight - source.Size[1]);
 
-                if (channels == 3) {
-                    CopyMipIntoAtlas<3>(
-                        source,
-                        x,
-                        y,
-                        mipWidth,
-                        mipHeight,
-                        mipDestination);
-                } else {
-                    CopyMipIntoAtlas<4>(
-                        source,
-                        x,
-                        y,
-                        mipWidth,
-                        mipHeight,
-                        mipDestination);
-                }
+                CopyMipIntoAtlas(
+                    source,
+                    x,
+                    y,
+                    mipWidth,
+                    mipHeight,
+                    mipDestination);
             }
 
             //
@@ -543,8 +523,6 @@ public:
                 channels;
         }
 
-        std::cout << "CREARTING TEXTURE" << std::endl;
-
         if (bgfx::isValid(TextureHandle)) {
             bgfx::destroy(TextureHandle);
         }
@@ -555,9 +533,7 @@ public:
                 (uint16_t)m_TextureHeight,
                 true, // has mips
                 1,
-                Transparent
-                    ? bgfx::TextureFormat::RGBA8
-                    : bgfx::TextureFormat::RGB8,
+                bgfx::TextureFormat::RGBA8,
                 BGFX_TEXTURE_NONE,
                 bgfx::copy(
                     AtlasMipChain.data(),

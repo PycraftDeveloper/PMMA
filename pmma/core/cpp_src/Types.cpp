@@ -44,7 +44,7 @@ image path is valid and is a valid format. The image path is: '" +
     unsigned char *data = stbi_load(
         Path.c_str(),
         &width, &height,
-        nullptr, TextureProperties->Channels);
+        nullptr, 4);
 
     if (data) {
         PMMA::Internal::MipData base;
@@ -53,19 +53,19 @@ image path is valid and is a valid format. The image path is: '" +
         base.Size[1] = height;
         base.PixelData.assign(
             data,
-            data + width * height * TextureProperties->Channels);
+            data + width * height * 4);
 
         base.Padding = 1;
 
         ExtrudeMip(
             base,
-            TextureProperties->Channels);
+            4); // channels, force to RGBA
 
         GenerateMipChain(
             base.PixelData.data(),
             base.Size[0],
             base.Size[1],
-            TextureProperties->Channels);
+            4); // channels, force to RGBA
 
         SaveTextureCache(
             CachedTexturePath,
