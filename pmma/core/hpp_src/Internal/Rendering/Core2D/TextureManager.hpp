@@ -59,8 +59,13 @@ public:
     }
 
     inline bool CanFitTexture(
+        PMMA::Internal::TextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
+
+        if (RegisteredTextures.contains(Texture->ID)) {
+            return true;
+        }
         uint32_t X;
         uint32_t Y;
         size_t Index;
@@ -261,14 +266,17 @@ public:
     inline void RegisterTexture(
         PMMA::Internal::TextureProperty *Texture) {
 
-        if (Texture == nullptr)
+        if (Texture == nullptr) {
             return;
+        }
 
-        if (RegisteredTextures.contains(Texture->ID))
+        if (RegisteredTextures.contains(Texture->ID)) {
             return;
+        }
 
-        if (Texture->MipChain.empty())
+        if (Texture->MipChain.empty()) {
             return;
+        }
 
         //
         // Mip 0 is the atlas packing size.

@@ -38,7 +38,7 @@ private:
 public:
     ~RenderPipelineManager();
 
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance(uint16_t *TextureSize, unsigned char Channels);
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance(PMMA::Internal::TextureProperty *Texture, uint16_t *TextureSize, unsigned char Channels);
 
     void Reset();
 

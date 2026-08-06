@@ -39,7 +39,7 @@ void PMMA::Rendering::TwoD::Shapes::Arc::Render() {
         Channels = Texture.GetChannels();
     }
 
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(TextureSize, Channels);
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture.TextureProperties, TextureSize, Channels);
 
     if (ShapePropertyChanged) {
         uint16_t start_position[2];
