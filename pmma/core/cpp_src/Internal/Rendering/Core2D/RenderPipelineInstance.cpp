@@ -127,6 +127,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         ColorTexture.Assemble();
     }
 
+    std::cout << "Assembling textures" << std::endl;
+
     if (TransparentTextureManager.Dirty) {
         TransparentTextureManager.Assemble();
     }
@@ -134,6 +136,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
     if (OpaqueTextureManager.Dirty) {
         OpaqueTextureManager.Assemble();
     }
+
+    std::cout << "done" << std::endl;
 
     if (ShapePropertyChanged || OpaqueInstanceCount != OpaquePreviousBufferSize || TransparentInstanceCount != TransparentPreviousBufferSize || !bgfx::isValid(OpaqueInstanceVbh) || !bgfx::isValid(TransparentInstanceVbh)) {
         PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
@@ -239,6 +243,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         BufferID = (BufferID + 1) % 4;
     }
 
+    std::cout << "Updated buffers" << std::endl;
+
     // opaque
     if (OpaquePreviousBufferSize > 0) {
         float proj[16];
@@ -271,6 +277,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         bgfx::submit(
             PMMA::Registry::RollingViewID,
             PMMA::Core::Core2D_ShapeSDF_Program->Use());
+
+        std::cout << "Render opaque" << std::endl;
     }
 
     // transparent
@@ -305,6 +313,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         bgfx::submit(
             PMMA::Registry::RollingViewID,
             PMMA::Core::Core2D_ShapeSDF_Program->Use());
+
+        std::cout << "Render transparent" << std::endl;
     }
 
     AdvanceView();

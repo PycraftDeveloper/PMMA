@@ -708,6 +708,8 @@ You can do this using `Display.create`.");
     if (IsSecondaryDisplay) {
         glfwPollEvents();
     } else {
+
+        std::cout << "A" << std::endl;
         PMMA::Core::LoggingManagerInstance->InternalLogDebug(
             62,
             "Always ensure that the master display is refreshed last as \
@@ -715,6 +717,8 @@ this controls both frame timing and events. Also, refreshing the master \
 display updates all secondary displays.");
 
         bgfx::frame();
+
+        std::cout << "B" << std::endl;
 
         if (kwargs.LimitRefreshRate) {
             if (!kwargs.MaxRefreshRate.has_value()) {
@@ -735,6 +739,8 @@ display updates all secondary displays.");
         } else {
             glfwPollEvents();
         }
+
+        std::cout << "C" << std::endl;
     }
 
     PMMA_Update(Window);

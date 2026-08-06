@@ -543,6 +543,12 @@ public:
                 channels;
         }
 
+        std::cout << "CREARTING TEXTURE" << std::endl;
+
+        if (bgfx::isValid(TextureHandle)) {
+            bgfx::destroy(TextureHandle);
+        }
+
         TextureHandle =
             bgfx::createTexture2D(
                 (uint16_t)m_TextureWidth,
