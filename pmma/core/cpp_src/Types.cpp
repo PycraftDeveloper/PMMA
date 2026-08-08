@@ -1,8 +1,130 @@
 #include <optional>
 
 #include <STB/stb_image.h>
+#include <bimg/bimg.h>
+#include <bimg/encode.h>
+#include <bx/allocator.h>
+#include <bx/error.h>
 
 #include "PMMA_Core.hpp"
+
+inline void CompressMipChainToBC7(
+    std::vector<PMMA::Internal::MipData> &mipChain,
+    bx::AllocatorI *allocator) {
+    if (allocator == nullptr) {
+        throw std::invalid_argument(
+            "CompressMipChainToBC7: allocator is null.");
+    }
+
+    if (mipChain.empty()) {
+        throw std::invalid_argument(
+            "CompressMipChainToBC7: mip chain is empty.");
+    }
+
+    for (PMMA::Internal::MipData &mip : mipChain) {
+        const uint32_t width =
+            mip.Size[0];
+
+        const uint32_t height =
+            mip.Size[1];
+
+        if (width == 0 || height == 0) {
+            throw std::runtime_error(
+                "CompressMipChainToBC7: mip has invalid dimensions.");
+        }
+
+        /*
+         * Every input mip must currently be RGBA8.
+         *
+         * width * height * 4 bytes.
+         */
+        const uint64_t expectedSourceSize =
+            static_cast<uint64_t>(width) *
+            static_cast<uint64_t>(height) *
+            4ull;
+
+        if (mip.PixelData.size() != expectedSourceSize) {
+            throw std::runtime_error(
+                "CompressMipChainToBC7: "
+                "mip PixelData does not contain the expected "
+                "RGBA8 data.");
+        }
+
+        /*
+         * BIMG provides the correct storage calculation for the
+         * destination format.
+         */
+        const uint64_t compressedSize64 =
+            bimg::imageGetSize(
+                nullptr,
+                width,
+                height,
+                1,
+                false,
+                false,
+                1,
+                bimg::TextureFormat::BC7);
+
+        if (compressedSize64 == 0) {
+            throw std::runtime_error(
+                "CompressMipChainToBC7: "
+                "BIMG returned a compressed size of zero.");
+        }
+
+        if (compressedSize64 >
+            static_cast<uint64_t>(
+                std::numeric_limits<size_t>::max())) {
+            throw std::overflow_error(
+                "CompressMipChainToBC7: "
+                "compressed mip is too large.");
+        }
+
+        const size_t compressedSize =
+            static_cast<size_t>(compressedSize64);
+
+        /*
+         * Allocate the BC7 destination.
+         */
+        std::vector<uint8_t> compressedData(
+            compressedSize);
+
+        /*
+         * BIMG reports errors through bx::Error.
+         */
+        bx::Error error;
+
+        /*
+         * Encode RGBA8 -> BC7.
+         *
+         * depth = 1 because these are ordinary 2D texture mips.
+         */
+        bimg::imageEncodeFromRgba8(
+            allocator,
+            compressedData.data(),
+            mip.PixelData.data(),
+            width,
+            height,
+            1,
+            bimg::TextureFormat::BC7,
+            bimg::Quality::Highest,
+            &error);
+
+        /*
+         * Check the BIMG error object.
+         */
+        if (error.isOk() == false) {
+            throw std::runtime_error(
+                "CompressMipChainToBC7: "
+                "BIMG failed to encode a mip to BC7.");
+        }
+
+        /*
+         * Replace the RGBA8 data with the BC7 blocks.
+         */
+        mip.PixelData =
+            std::move(compressedData);
+    }
+}
 
 void PMMA::Types::Texture::InternalLoad() {
     // Attempt to load from cache first
@@ -70,7 +192,11 @@ image path is valid and is a valid format. The image path is: '" +
             base.Size[1],
             4); // channels, force to RGBA
 
-        // Compress to optimized GOU compatable format texture format
+        bx::DefaultAllocator BimgAllocator;
+
+        CompressMipChainToBC7(
+            TextureProperties->MipChain,
+            &BimgAllocator);
 
         PMMA::Core::ParallelWorkerInstance->Enqueue([this, CachedTexturePath]() {
             SaveTextureCache(
