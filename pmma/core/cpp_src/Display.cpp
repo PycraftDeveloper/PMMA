@@ -5,6 +5,8 @@
 #include <bgfx/platform.h>
 #include <bx/platform.h>
 
+#include <bc7enc_wrapper.hpp>
+
 // For native window handles via GLFW
 #if BX_PLATFORM_WINDOWS
 #define GLFW_EXPOSE_NATIVE_WIN32
@@ -507,6 +509,8 @@ installed PMMA.");
         PMMA::Core::Core2D_ShapeSDF_Program->LoadShaderFromFolder(
             ShaderPath,
             true);
+
+        bc7enc_init();
 
     } else {
         void *nwh = nullptr;

@@ -64,6 +64,7 @@ os.makedirs(pmma_lib_dir, exist_ok=True)
 bm = DependencyBuildManager()
 
 bm.add_component("zlib")
+bm.add_component("bc7enc")
 bm.add_component("zstd")
 bm.add_component("harfbuzz")
 bm.add_component("libpng", dependencies=["zlib"])

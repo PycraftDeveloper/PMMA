@@ -35,6 +35,7 @@
 #include "Internal/Events/EventsManager.hpp"
 
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
+#include "Internal/Rendering/Core2D/TextureManager.hpp"
 
 #include "Internal/Utility/CPU_FeatureSetUtils.hpp"
 #include "Internal/Utility/FontUtils.hpp"

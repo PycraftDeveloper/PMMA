@@ -1,126 +1,145 @@
 #include <optional>
 
 #include <STB/stb_image.h>
-#include <bimg/bimg.h>
-#include <bimg/encode.h>
-#include <bx/allocator.h>
-#include <bx/error.h>
+#include <bc7enc_wrapper.hpp>
 
 #include "PMMA_Core.hpp"
 
+static size_t GetBC7MipSize(
+    uint32_t width,
+    uint32_t height) {
+    const uint32_t blocksX = (width + 3) / 4;
+    const uint32_t blocksY = (height + 3) / 4;
+
+    return size_t(blocksX) * size_t(blocksY) * 16;
+}
+
 inline void CompressMipChainToBC7(
-    std::vector<PMMA::Internal::MipData> &mipChain,
-    bx::AllocatorI *allocator) {
-    if (allocator == nullptr) {
-        throw std::invalid_argument(
-            "CompressMipChainToBC7: allocator is null.");
-    }
+    std::vector<PMMA::Internal::MipData> &mipChain) {
 
     if (mipChain.empty()) {
+        std::cout << "CompressMipChainToBC7: mip chain is empty." << std::endl;
         throw std::invalid_argument(
             "CompressMipChainToBC7: mip chain is empty.");
     }
 
-    for (PMMA::Internal::MipData &mip : mipChain) {
+    // Initialise the BC7 encoder once.
+    bc7enc_init();
+
+    for (size_t mipIndex = 0;
+         mipIndex < mipChain.size();
+         ++mipIndex) {
+        PMMA::Internal::MipData &mip = mipChain[mipIndex];
+
         const uint32_t width =
-            mip.Size[0];
+            static_cast<uint32_t>(mip.Size[0]);
 
         const uint32_t height =
-            mip.Size[1];
+            static_cast<uint32_t>(mip.Size[1]);
 
         if (width == 0 || height == 0) {
+            std::cout << "CompressMipChainToBC7: mip has invalid dimensions." << std::endl;
             throw std::runtime_error(
                 "CompressMipChainToBC7: mip has invalid dimensions.");
         }
 
-        /*
-         * Every input mip must currently be RGBA8.
-         *
-         * width * height * 4 bytes.
-         */
-        const uint64_t expectedSourceSize =
-            static_cast<uint64_t>(width) *
-            static_cast<uint64_t>(height) *
-            4ull;
+        const size_t expectedRGBA8Size =
+            size_t(width) *
+            size_t(height) *
+            4;
 
-        if (mip.PixelData.size() != expectedSourceSize) {
+        if (mip.PixelData.size() != expectedRGBA8Size) {
+            std::cout << "CompressMipChainToBC7: mip PixelData is not RGBA8." << std::endl;
             throw std::runtime_error(
                 "CompressMipChainToBC7: "
-                "mip PixelData does not contain the expected "
-                "RGBA8 data.");
+                "mip PixelData is not RGBA8.");
         }
 
-        /*
-         * BIMG provides the correct storage calculation for the
-         * destination format.
-         */
-        const uint64_t compressedSize64 =
-            bimg::imageGetSize(
-                nullptr,
-                width,
-                height,
-                1,
-                false,
-                false,
-                1,
-                bimg::TextureFormat::BC7);
+        const uint32_t blocksX =
+            (width + 3) / 4;
 
-        if (compressedSize64 == 0) {
-            throw std::runtime_error(
-                "CompressMipChainToBC7: "
-                "BIMG returned a compressed size of zero.");
-        }
-
-        if (compressedSize64 >
-            static_cast<uint64_t>(
-                std::numeric_limits<size_t>::max())) {
-            throw std::overflow_error(
-                "CompressMipChainToBC7: "
-                "compressed mip is too large.");
-        }
+        const uint32_t blocksY =
+            (height + 3) / 4;
 
         const size_t compressedSize =
-            static_cast<size_t>(compressedSize64);
+            size_t(blocksX) *
+            size_t(blocksY) *
+            16;
 
-        /*
-         * Allocate the BC7 destination.
-         */
         std::vector<uint8_t> compressedData(
             compressedSize);
 
-        /*
-         * BIMG reports errors through bx::Error.
-         */
-        bx::Error error;
+        const uint8_t *src =
+            mip.PixelData.data();
 
-        /*
-         * Encode RGBA8 -> BC7.
-         *
-         * depth = 1 because these are ordinary 2D texture mips.
-         */
-        bimg::imageEncodeFromRgba8(
-            allocator,
-            compressedData.data(),
-            mip.PixelData.data(),
-            width,
-            height,
-            1,
-            bimg::TextureFormat::BC7,
-            bimg::Quality::Highest,
-            &error);
+        uint8_t *dst =
+            compressedData.data();
 
-        /*
-         * Check the BIMG error object.
-         */
-        if (error.isOk() == false) {
-            throw std::runtime_error(
-                "CompressMipChainToBC7: "
-                "BIMG failed to encode a mip to BC7.");
+        // Temporary 4x4 RGBA block.
+        uint8_t block[4 * 4 * 4];
+
+        for (uint32_t blockY = 0;
+             blockY < blocksY;
+             ++blockY) {
+            for (uint32_t blockX = 0;
+                 blockX < blocksX;
+                 ++blockX) {
+                // Construct a 4x4 block.
+                //
+                // Clamp coordinates at the image edges. This is important
+                // for dimensions such as 1017x1442.
+                for (uint32_t py = 0; py < 4; ++py) {
+                    const uint32_t y =
+                        std::min(
+                            blockY * 4 + py,
+                            height - 1);
+
+                    for (uint32_t px = 0; px < 4; ++px) {
+                        const uint32_t x =
+                            std::min(
+                                blockX * 4 + px,
+                                width - 1);
+
+                        const size_t srcOffset =
+                            (size_t(y) * width + x) * 4;
+
+                        const size_t dstOffset =
+                            (size_t(py) * 4 + px) * 4;
+
+                        block[dstOffset + 0] =
+                            src[srcOffset + 0];
+
+                        block[dstOffset + 1] =
+                            src[srcOffset + 1];
+
+                        block[dstOffset + 2] =
+                            src[srcOffset + 2];
+
+                        block[dstOffset + 3] =
+                            src[srcOffset + 3];
+                    }
+                }
+
+                bc7enc_encode_block(
+                    dst,
+                    block,
+
+                    // Start with all modes enabled.
+                    0xFF,
+
+                    // Let the encoder consider all partitions.
+                    64,
+
+                    // Quality/performance level.
+                    3,
+
+                    // Perceptual encoding.
+                    1);
+
+                dst += 16;
+            }
         }
 
-        /*
-         * Replace the RGBA8 data with the BC7 blocks.
-         */
         mip.PixelData =
             std::move(compressedData);
     }
@@ -192,11 +211,8 @@ image path is valid and is a valid format. The image path is: '" +
             base.Size[1],
             4); // channels, force to RGBA
 
-        bx::DefaultAllocator BimgAllocator;
-
         CompressMipChainToBC7(
-            TextureProperties->MipChain,
-            &BimgAllocator);
+            TextureProperties->MipChain);
 
         PMMA::Core::ParallelWorkerInstance->Enqueue([this, CachedTexturePath]() {
             SaveTextureCache(

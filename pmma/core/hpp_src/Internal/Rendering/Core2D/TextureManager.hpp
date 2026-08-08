@@ -341,7 +341,9 @@ public:
     }
 
     inline void CopyMipIntoAtlas(
-        const PMMA::Internal::MipData &mip,
+        const uint8_t *src,
+        uint32_t sourceWidth,
+        uint32_t sourceHeight,
         uint32_t dstX,
         uint32_t dstY,
         uint32_t atlasWidth,
@@ -349,18 +351,16 @@ public:
         uint8_t *atlas) {
         const uint32_t width =
             std::min(
-                static_cast<uint32_t>(mip.Size[0]),
+                sourceWidth,
                 atlasWidth - dstX);
 
         const uint32_t height =
             std::min(
-                static_cast<uint32_t>(mip.Size[1]),
+                sourceHeight,
                 atlasHeight - dstY);
 
         if (!width || !height)
             return;
-
-        const uint8_t *src = mip.PixelData.data();
 
         for (uint32_t y = 0; y < height; ++y) {
             memcpy(
@@ -368,179 +368,12 @@ public:
                     ((dstY + y) * atlasWidth + dstX) * 4,
 
                 src +
-                    y * mip.Size[0] * 4,
+                    y * sourceWidth * 4,
 
                 width * 4);
         }
     }
 
-    inline void Assemble() {
-        if (!Dirty)
-            return;
-
-        uint32_t channels = 4; //
-
-        //
-        // Find atlas size from mip 0.
-        //
-        m_TextureWidth = 1;
-        m_TextureHeight = 1;
-
-        for (auto &[id, allocation] : Allocations) {
-            m_TextureWidth =
-                std::max(
-                    m_TextureWidth,
-                    allocation.X +
-                        allocation.Width);
-
-            m_TextureHeight =
-                std::max(
-                    m_TextureHeight,
-                    allocation.Y +
-                        allocation.Height);
-        }
-
-        auto NextPowerOfTwo =
-            [](uint32_t value) {
-                uint32_t result = 1;
-
-                while (result < value)
-                    result <<= 1;
-
-                return result;
-            };
-
-        m_TextureWidth =
-            NextPowerOfTwo(m_TextureWidth);
-
-        m_TextureHeight =
-            NextPowerOfTwo(m_TextureHeight);
-
-        //
-        // Determine number of mip levels.
-        //
-        uint32_t mipCount = 0;
-        size_t AtlasMipChainSize = 0;
-
-        uint32_t mipW = m_TextureWidth;
-        uint32_t mipH = m_TextureHeight;
-
-        while (true) {
-            ++mipCount;
-
-            AtlasMipChainSize +=
-                size_t(mipW) *
-                mipH *
-                channels;
-
-            if (mipW == 1 && mipH == 1)
-                break;
-
-            mipW = std::max(1u, mipW >> 1);
-            mipH = std::max(1u, mipH >> 1);
-        }
-
-        std::vector<uint8_t> AtlasMipChain(
-            AtlasMipChainSize,
-            0);
-
-        size_t mipOffset = 0;
-
-        for (uint32_t mipLevel = 0;
-             mipLevel < mipCount;
-             mipLevel++) {
-            uint32_t mipWidth =
-                std::max(
-                    1u,
-                    m_TextureWidth >> mipLevel);
-
-            uint32_t mipHeight =
-                std::max(
-                    1u,
-                    m_TextureHeight >> mipLevel);
-
-            uint8_t *mipDestination =
-                AtlasMipChain.data() + mipOffset;
-
-            for (auto *texture : PendingTextures) {
-                auto allocation =
-                    Allocations[texture->ID];
-
-                if (mipLevel >= texture->MipChain.size())
-                    continue;
-
-                const auto &source =
-                    texture->MipChain[mipLevel];
-
-                uint32_t x =
-                    (allocation.X >> mipLevel);
-
-                uint32_t y =
-                    (allocation.Y >> mipLevel);
-
-                if (source.Size[0] > mipWidth ||
-                    source.Size[1] > mipHeight) {
-                    std::cout
-                        << "Skipping texture "
-                        << texture->ID
-                        << " at mip "
-                        << mipLevel
-                        << " source "
-                        << source.Size[0]
-                        << "x"
-                        << source.Size[1]
-                        << " atlas "
-                        << mipWidth
-                        << "x"
-                        << mipHeight
-                        << std::endl;
-                    continue;
-                }
-
-                x = std::min(
-                    x,
-                    mipWidth - source.Size[0]);
-
-                y = std::min(
-                    y,
-                    mipHeight - source.Size[1]);
-
-                CopyMipIntoAtlas(
-                    source,
-                    x,
-                    y,
-                    mipWidth,
-                    mipHeight,
-                    mipDestination);
-            }
-
-            //
-            // Append this mip to BGFX stream
-            //
-            mipOffset +=
-                size_t(mipWidth) *
-                mipHeight *
-                channels;
-        }
-
-        if (bgfx::isValid(TextureHandle)) {
-            bgfx::destroy(TextureHandle);
-        }
-
-        TextureHandle =
-            bgfx::createTexture2D(
-                (uint16_t)m_TextureWidth,
-                (uint16_t)m_TextureHeight,
-                true, // has mips
-                1,
-                bgfx::TextureFormat::RGBA8,
-                BGFX_TEXTURE_NONE,
-                bgfx::copy(
-                    AtlasMipChain.data(),
-                    (uint32_t)AtlasMipChain.size()));
-
-        PendingTextures.clear();
-        Dirty = false;
-    }
+    void Assemble();
 };
 } // namespace PMMA::Internal::Rendering::Core2D
