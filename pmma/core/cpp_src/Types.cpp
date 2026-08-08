@@ -55,6 +55,9 @@ image path is valid and is a valid format. The image path is: '" +
             data,
             data + width * height * 4);
 
+        stbi_image_free(data);
+        data = nullptr;
+
         base.Padding = 1;
 
         ExtrudeMip(
@@ -67,12 +70,13 @@ image path is valid and is a valid format. The image path is: '" +
             base.Size[1],
             4); // channels, force to RGBA
 
-        SaveTextureCache(
-            CachedTexturePath,
-            *TextureProperties);
+        // Compress to optimized GOU compatable format texture format
 
-        stbi_image_free(data);
-        data = nullptr;
+        PMMA::Core::ParallelWorkerInstance->Enqueue([this, CachedTexturePath]() {
+            SaveTextureCache(
+                CachedTexturePath,
+                *TextureProperties);
+        });
     } else {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             68,
