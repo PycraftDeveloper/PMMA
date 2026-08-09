@@ -167,9 +167,7 @@ static bool CompressRGBA8ToBC7(
     uint32_t width,
     uint32_t height,
     std::vector<uint8_t> &output) {
-    if (rgba == nullptr ||
-        width == 0 ||
-        height == 0) {
+    if (!rgba || width == 0 || height == 0) {
         output.clear();
         return false;
     }
@@ -180,102 +178,262 @@ static bool CompressRGBA8ToBC7(
     const uint32_t blocksY =
         (height + 3) / 4;
 
-    const size_t compressedSize =
-        size_t(blocksX) *
-        size_t(blocksY) *
-        16;
+    const size_t blockCount =
+        size_t(blocksX) * size_t(blocksY);
 
-    output.resize(compressedSize);
-
-    uint8_t *dst =
-        output.data();
+    output.resize(blockCount * 16);
 
     //
-    // Temporary 4x4 RGBA block.
+    // Generate the BC7 encoding for a completely
+    // transparent-black 4x4 block once.
     //
-    uint8_t block[4 * 4 * 4];
+    // This is thread-safe because initialization of a
+    // function-local static is guaranteed to happen once.
+    //
+    static const std::array<uint8_t, 16> zeroBC7 = []() {
+        std::array<uint8_t, 64> zeroRGBA{};
+        std::array<uint8_t, 16> encoded{};
 
-    for (uint32_t blockY = 0;
-         blockY < blocksY;
-         ++blockY) {
-        for (uint32_t blockX = 0;
-             blockX < blocksX;
-             ++blockX) {
-            //
-            // Construct the 4x4 block.
-            //
-            // Clamp at the image edge so BC7 always receives
-            // a complete 4x4 block.
-            //
-            for (uint32_t py = 0;
-                 py < 4;
-                 ++py) {
-                const uint32_t y =
-                    std::min(
-                        blockY * 4 + py,
-                        height - 1);
+        bc7enc_encode_block(
+            encoded.data(),
+            zeroRGBA.data(),
+            0xFF, // all modes
+            16,   // max partitions
+            1,    // uber level
+            1);   // perceptual
 
-                for (uint32_t px = 0;
-                     px < 4;
-                     ++px) {
-                    const uint32_t x =
-                        std::min(
-                            blockX * 4 + px,
-                            width - 1);
+        return encoded;
+    }();
 
-                    const size_t srcOffset =
-                        (size_t(y) * width + x) * 4;
+    //
+    // Use all available hardware threads.
+    //
+    unsigned threadCount =
+        std::thread::hardware_concurrency();
 
-                    const size_t dstOffset =
-                        (size_t(py) * 4 + px) * 4;
+    if (threadCount == 0)
+        threadCount = 1;
 
-                    block[dstOffset + 0] =
-                        rgba[srcOffset + 0];
+    threadCount = std::min(
+        threadCount,
+        static_cast<unsigned>(blockCount));
 
-                    block[dstOffset + 1] =
-                        rgba[srcOffset + 1];
+    //
+    // Each worker receives one contiguous range of blocks.
+    //
+    const size_t blocksPerThread =
+        (blockCount + threadCount - 1) /
+        threadCount;
 
-                    block[dstOffset + 2] =
-                        rgba[srcOffset + 2];
+    std::vector<std::thread> threads;
+    threads.reserve(threadCount);
 
-                    block[dstOffset + 3] =
-                        rgba[srcOffset + 3];
+    for (unsigned threadIndex = 0;
+         threadIndex < threadCount;
+         ++threadIndex) {
+        const size_t firstBlock =
+            size_t(threadIndex) * blocksPerThread;
+
+        const size_t lastBlock =
+            std::min(
+                firstBlock + blocksPerThread,
+                blockCount);
+
+        if (firstBlock >= lastBlock)
+            break;
+
+        threads.emplace_back(
+            [=, &output]() {
+                //
+                // Private scratch buffer.
+                //
+                alignas(16) uint8_t block[64];
+
+                for (size_t blockIndex = firstBlock;
+                     blockIndex < lastBlock;
+                     ++blockIndex) {
+                    const uint32_t blockX =
+                        static_cast<uint32_t>(
+                            blockIndex % blocksX);
+
+                    const uint32_t blockY =
+                        static_cast<uint32_t>(
+                            blockIndex / blocksX);
+
+                    const uint32_t pixelX =
+                        blockX * 4;
+
+                    const uint32_t pixelY =
+                        blockY * 4;
+
+                    uint8_t *outputBlock =
+                        output.data() +
+                        blockIndex * 16;
+
+                    //
+                    // Fast path:
+                    //
+                    // Completely interior 4x4 block.
+                    //
+                    if (pixelX + 4 <= width &&
+                        pixelY + 4 <= height) {
+                        const uint8_t *src =
+                            rgba +
+                            (size_t(pixelY) * width +
+                             pixelX) *
+                                4;
+
+                        //
+                        // Check whether all 16 pixels are
+                        // completely transparent black.
+                        //
+                        const bool allZero =
+                            std::memcmp(
+                                src,
+                                zeroBC7.data(), // NOT used as RGBA!
+                                16) == 0;
+
+                        //
+                        // The above comparison cannot be used because
+                        // zeroBC7 contains compressed BC7 data.
+                        //
+                        // Check the source rows instead.
+                        //
+                        const bool empty =
+                            std::memcmp(
+                                src,
+                                "\0\0\0\0\0\0\0\0"
+                                "\0\0\0\0\0\0\0\0",
+                                16) == 0 &&
+                            std::memcmp(
+                                src + size_t(width) * 4,
+                                "\0\0\0\0\0\0\0\0"
+                                "\0\0\0\0\0\0\0\0",
+                                16) == 0 &&
+                            std::memcmp(
+                                src + size_t(width) * 8,
+                                "\0\0\0\0\0\0\0\0"
+                                "\0\0\0\0\0\0\0\0",
+                                16) == 0 &&
+                            std::memcmp(
+                                src + size_t(width) * 12,
+                                "\0\0\0\0\0\0\0\0"
+                                "\0\0\0\0\0\0\0\0",
+                                16) == 0;
+
+                        if (empty) {
+                            //
+                            // Skip BC7 encoding completely.
+                            //
+                            std::memcpy(
+                                outputBlock,
+                                zeroBC7.data(),
+                                16);
+
+                            continue;
+                        }
+
+                        //
+                        // Copy the four RGBA rows.
+                        //
+                        std::memcpy(
+                            block + 0,
+                            src + size_t(width) * 0 * 4,
+                            16);
+
+                        std::memcpy(
+                            block + 16,
+                            src + size_t(width) * 1 * 4,
+                            16);
+
+                        std::memcpy(
+                            block + 32,
+                            src + size_t(width) * 2 * 4,
+                            16);
+
+                        std::memcpy(
+                            block + 48,
+                            src + size_t(width) * 3 * 4,
+                            16);
+                    } else {
+                        //
+                        // Edge block.
+                        //
+                        for (uint32_t py = 0;
+                             py < 4;
+                             ++py) {
+                            const uint32_t y =
+                                std::min(
+                                    pixelY + py,
+                                    height - 1);
+
+                            const uint8_t *srcRow =
+                                rgba +
+                                size_t(y) * width * 4;
+
+                            for (uint32_t px = 0;
+                                 px < 4;
+                                 ++px) {
+                                const uint32_t x =
+                                    std::min(
+                                        pixelX + px,
+                                        width - 1);
+
+                                const uint8_t *src =
+                                    srcRow +
+                                    size_t(x) * 4;
+
+                                uint8_t *dst =
+                                    block +
+                                    (size_t(py) * 4 + px) * 4;
+
+                                dst[0] = src[0];
+                                dst[1] = src[1];
+                                dst[2] = src[2];
+                                dst[3] = src[3];
+                            }
+                        }
+
+                        //
+                        // Check the completed edge block.
+                        //
+                        bool empty = true;
+
+                        for (size_t i = 0;
+                             i < sizeof(block);
+                             ++i) {
+                            if (block[i] != 0) {
+                                empty = false;
+                                break;
+                            }
+                        }
+
+                        if (empty) {
+                            std::memcpy(
+                                outputBlock,
+                                zeroBC7.data(),
+                                16);
+
+                            continue;
+                        }
+                    }
+
+                    //
+                    // Expensive BC7 encoding path.
+                    //
+                    bc7enc_encode_block(
+                        outputBlock,
+                        block,
+                        0xFF, // all modes
+                        16,   // max partitions
+                        1,    // uber level
+                        1);   // perceptual
                 }
-            }
-
-            //
-            // Encode BC7 block.
-            //
-            bc7enc_encode_block(
-                dst,
-                block,
-
-                //
-                // Mode mask.
-                //
-                // These are the values that worked with
-                // your bc7enc_rdo wrapper.
-                //
-                0xFF,
-
-                //
-                // Maximum number of partitions.
-                //
-                64,
-
-                //
-                // Uber level / quality.
-                //
-                3,
-
-                //
-                // Perceptual encoding.
-                //
-                1);
-
-            dst += 16;
-        }
+            });
     }
+
+    for (std::thread &thread : threads)
+        thread.join();
 
     return true;
 }
@@ -310,28 +468,16 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
                     allocation.Height);
     }
 
-    //
-    // ---------------------------------------------------------
-    // 2. Round atlas dimensions to power-of-two.
-    // ---------------------------------------------------------
-    //
-
-    auto NextPowerOfTwo =
+    auto RoundUp4 =
         [](uint32_t value) {
-            uint32_t result = 1;
-
-            while (result < value) {
-                result <<= 1;
-            }
-
-            return result;
+            return (value + 3) & ~3u;
         };
 
     m_TextureWidth =
-        NextPowerOfTwo(m_TextureWidth);
+        RoundUp4(m_TextureWidth);
 
     m_TextureHeight =
-        NextPowerOfTwo(m_TextureHeight);
+        RoundUp4(m_TextureHeight);
 
     //
     // ---------------------------------------------------------
