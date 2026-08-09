@@ -125,12 +125,29 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         ColorTexture.Assemble();
     }
 
-    if (TransparentTextureManager.Dirty) {
-        TransparentTextureManager.Assemble();
-    }
+    bool TransparentDirty = TransparentTextureManager.Dirty;
+    bool OpaqueDirty = OpaqueTextureManager.Dirty;
 
-    if (OpaqueTextureManager.Dirty) {
-        OpaqueTextureManager.Assemble();
+    if (TransparentDirty && OpaqueDirty) {
+        std::future<void> TransparentFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this]() {
+            TransparentTextureManager.Assemble();
+        });
+
+        std::future<void> OpaqueFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this]() {
+            OpaqueTextureManager.Assemble();
+        });
+
+        TransparentFuture.wait();
+        OpaqueFuture.wait();
+    } else {
+
+        if (TransparentDirty) {
+            TransparentTextureManager.Assemble();
+        }
+
+        if (OpaqueDirty) {
+            OpaqueTextureManager.Assemble();
+        }
     }
 
     if (ShapePropertyChanged || OpaqueInstanceCount != OpaquePreviousBufferSize || TransparentInstanceCount != TransparentPreviousBufferSize || !bgfx::isValid(OpaqueInstanceVbh) || !bgfx::isValid(TransparentInstanceVbh)) {
