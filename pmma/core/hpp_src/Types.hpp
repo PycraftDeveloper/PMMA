@@ -141,12 +141,14 @@ public:
                 return false;
             }
 
+            uint64_t BlocksX =
+                (static_cast<uint64_t>(mip.Size[0]) + 3) / 4;
+
+            uint64_t BlocksY =
+                (static_cast<uint64_t>(mip.Size[1]) + 3) / 4;
+
             uint64_t ExpectedSize =
-                static_cast<uint64_t>(
-                    mip.Size[0]) *
-                static_cast<uint64_t>(
-                    mip.Size[1]) *
-                4;
+                BlocksX * BlocksY * 16;
 
             if (RawSize != ExpectedSize) {
                 return false;
