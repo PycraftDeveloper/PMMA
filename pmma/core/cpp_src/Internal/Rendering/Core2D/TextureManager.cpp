@@ -701,7 +701,7 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
             static_cast<uint16_t>(m_TextureWidth),
             static_cast<uint16_t>(m_TextureHeight),
 
-            false, // <-- NO MIPS: mip-0-only test
+            true,
 
             1,
 
@@ -711,10 +711,7 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
 
             bgfx::copy(
                 CompressedAtlasMipChain.data(),
-                static_cast<uint32_t>(
-                    GetBC7MipSize(
-                        m_TextureWidth,
-                        m_TextureHeight))));
+                (uint32_t)CompressedAtlasMipChain.size()));
 
     //
     // ---------------------------------------------------------
