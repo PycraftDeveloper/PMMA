@@ -16,18 +16,12 @@ static size_t GetBC7MipSize(
 
 inline void CompressMipChainToBC7(
     std::vector<PMMA::Internal::MipData> &mipChain) {
-
     if (mipChain.empty()) {
-        std::cout << "CompressMipChainToBC7: mip chain is empty." << std::endl;
         throw std::invalid_argument(
             "CompressMipChainToBC7: mip chain is empty.");
     }
 
-    for (size_t mipIndex = 0;
-         mipIndex < mipChain.size();
-         ++mipIndex) {
-        PMMA::Internal::MipData &mip = mipChain[mipIndex];
-
+    for (PMMA::Internal::MipData &mip : mipChain) {
         const uint32_t width =
             static_cast<uint32_t>(mip.Size[0]);
 
@@ -35,7 +29,6 @@ inline void CompressMipChainToBC7(
             static_cast<uint32_t>(mip.Size[1]);
 
         if (width == 0 || height == 0) {
-            std::cout << "CompressMipChainToBC7: mip has invalid dimensions." << std::endl;
             throw std::runtime_error(
                 "CompressMipChainToBC7: mip has invalid dimensions.");
         }
@@ -46,25 +39,22 @@ inline void CompressMipChainToBC7(
             4;
 
         if (mip.PixelData.size() != expectedRGBA8Size) {
-            std::cout << "CompressMipChainToBC7: mip PixelData is not RGBA8." << std::endl;
             throw std::runtime_error(
-                "CompressMipChainToBC7: "
-                "mip PixelData is not RGBA8.");
+                "CompressMipChainToBC7: mip PixelData is not RGBA8.");
         }
 
         const uint32_t blocksX =
-            (width + 3) / 4;
+            (width + 3) >> 2;
 
         const uint32_t blocksY =
-            (height + 3) / 4;
+            (height + 3) >> 2;
 
-        const size_t compressedSize =
+        const size_t blockCount =
             size_t(blocksX) *
-            size_t(blocksY) *
-            16;
+            size_t(blocksY);
 
         std::vector<uint8_t> compressedData(
-            compressedSize);
+            blockCount * 16);
 
         const uint8_t *src =
             mip.PixelData.data();
@@ -72,65 +62,307 @@ inline void CompressMipChainToBC7(
         uint8_t *dst =
             compressedData.data();
 
-        // Temporary 4x4 RGBA block.
-        uint8_t block[4 * 4 * 4];
+        //
+        // One temporary 4x4 RGBA block.
+        //
+        alignas(16) uint8_t block[64];
 
+        //
+        // Number of bytes in one source RGBA row.
+        //
+        const size_t srcRowBytes =
+            size_t(width) * 4;
+
+        //
+        // Number of complete 4-pixel-wide blocks.
+        //
+        const uint32_t fullBlocksX =
+            width >> 2;
+
+        //
+        // Encode all completely interior blocks first.
+        //
+        // This is the overwhelmingly common path and avoids
+        // all per-pixel coordinate calculations.
+        //
         for (uint32_t blockY = 0;
-             blockY < blocksY;
+             blockY < (height >> 2);
              ++blockY) {
+            const uint8_t *row0 =
+                src +
+                size_t(blockY * 4 + 0) * srcRowBytes;
+
+            const uint8_t *row1 =
+                src +
+                size_t(blockY * 4 + 1) * srcRowBytes;
+
+            const uint8_t *row2 =
+                src +
+                size_t(blockY * 4 + 2) * srcRowBytes;
+
+            const uint8_t *row3 =
+                src +
+                size_t(blockY * 4 + 3) * srcRowBytes;
+
             for (uint32_t blockX = 0;
-                 blockX < blocksX;
+                 blockX < fullBlocksX;
                  ++blockX) {
-                // Construct a 4x4 block.
+                const size_t x =
+                    size_t(blockX) * 16;
+
                 //
-                // Clamp coordinates at the image edges. This is important
-                // for dimensions such as 1017x1442.
-                for (uint32_t py = 0; py < 4; ++py) {
-                    const uint32_t y =
-                        std::min(
-                            blockY * 4 + py,
-                            height - 1);
+                // Each 4-pixel RGBA row is exactly 16 bytes.
+                //
+                std::memcpy(
+                    block + 0,
+                    row0 + x,
+                    16);
 
-                    for (uint32_t px = 0; px < 4; ++px) {
-                        const uint32_t x =
-                            std::min(
-                                blockX * 4 + px,
-                                width - 1);
+                std::memcpy(
+                    block + 16,
+                    row1 + x,
+                    16);
 
-                        const size_t srcOffset =
-                            (size_t(y) * width + x) * 4;
+                std::memcpy(
+                    block + 32,
+                    row2 + x,
+                    16);
 
-                        const size_t dstOffset =
-                            (size_t(py) * 4 + px) * 4;
+                std::memcpy(
+                    block + 48,
+                    row3 + x,
+                    16);
 
-                        block[dstOffset + 0] =
-                            src[srcOffset + 0];
+                bc7enc_encode_block(
+                    dst,
+                    block,
+                    0xFF, // all modes
+                    16,   // max partitions
+                    1,    // uber level
+                    1);   // perceptual
 
-                        block[dstOffset + 1] =
-                            src[srcOffset + 1];
+                dst += 16;
+            }
 
-                        block[dstOffset + 2] =
-                            src[srcOffset + 2];
+            //
+            // Right edge block, if width isn't divisible by 4.
+            //
+            if (fullBlocksX < blocksX) {
+                const uint32_t x =
+                    fullBlocksX * 4;
 
-                        block[dstOffset + 3] =
-                            src[srcOffset + 3];
+                const uint32_t lastX =
+                    width - 1;
+
+                for (uint32_t py = 0;
+                     py < 4;
+                     ++py) {
+                    const uint8_t *row =
+                        src +
+                        size_t(blockY * 4 + py) *
+                            srcRowBytes;
+
+                    uint8_t *blockRow =
+                        block +
+                        size_t(py) * 16;
+
+                    //
+                    // Copy the remaining real pixels.
+                    //
+                    const uint32_t remaining =
+                        width - x;
+
+                    std::memcpy(
+                        blockRow,
+                        row + size_t(x) * 4,
+                        size_t(remaining) * 4);
+
+                    //
+                    // Clamp the remaining pixels to the
+                    // final pixel in the row.
+                    //
+                    const uint8_t *edgePixel =
+                        row + size_t(lastX) * 4;
+
+                    for (uint32_t px = remaining;
+                         px < 4;
+                         ++px) {
+                        std::memcpy(
+                            blockRow + size_t(px) * 4,
+                            edgePixel,
+                            4);
                     }
                 }
 
                 bc7enc_encode_block(
                     dst,
                     block,
-
-                    // Start with all modes enabled.
                     0xFF,
-
-                    // Let the encoder consider all partitions.
                     16,
-
-                    // Quality/performance level.
                     1,
+                    1);
 
-                    // Perceptual encoding.
+                dst += 16;
+            }
+        }
+
+        //
+        // Bottom edge.
+        //
+        // This is only needed when height isn't divisible by 4.
+        //
+        if ((height & 3) != 0) {
+            const uint32_t blockY =
+                height >> 2;
+
+            const uint32_t y =
+                blockY * 4;
+
+            const uint32_t remainingRows =
+                height - y;
+
+            const uint32_t lastY =
+                height - 1;
+
+            const uint8_t *lastRow =
+                src +
+                size_t(lastY) * srcRowBytes;
+
+            //
+            // All full-width blocks on the bottom row.
+            //
+            for (uint32_t blockX = 0;
+                 blockX < fullBlocksX;
+                 ++blockX) {
+                const uint32_t x =
+                    blockX * 4;
+
+                const size_t blockOffset =
+                    size_t(x) * 4;
+
+                for (uint32_t py = 0;
+                     py < remainingRows;
+                     ++py) {
+                    const uint8_t *row =
+                        src +
+                        size_t(y + py) * srcRowBytes;
+
+                    std::memcpy(
+                        block + size_t(py) * 16,
+                        row + blockOffset,
+                        16);
+                }
+
+                //
+                // Clamp remaining rows to the last real row.
+                //
+                for (uint32_t py = remainingRows;
+                     py < 4;
+                     ++py) {
+                    std::memcpy(
+                        block + size_t(py) * 16,
+                        lastRow + blockOffset,
+                        16);
+                }
+
+                bc7enc_encode_block(
+                    dst,
+                    block,
+                    0xFF,
+                    16,
+                    1,
+                    1);
+
+                dst += 16;
+            }
+
+            //
+            // Bottom-right corner block.
+            //
+            if (fullBlocksX < blocksX) {
+                const uint32_t x =
+                    fullBlocksX * 4;
+
+                const uint32_t remainingPixels =
+                    width - x;
+
+                const uint8_t *edgePixel =
+                    src +
+                    size_t(lastY) * srcRowBytes +
+                    size_t(width - 1) * 4;
+
+                for (uint32_t py = 0;
+                     py < remainingRows;
+                     ++py) {
+                    const uint8_t *row =
+                        src +
+                        size_t(y + py) * srcRowBytes;
+
+                    uint8_t *blockRow =
+                        block +
+                        size_t(py) * 16;
+
+                    std::memcpy(
+                        blockRow,
+                        row + size_t(x) * 4,
+                        size_t(remainingPixels) * 4);
+
+                    const uint8_t *horizontalEdge =
+                        row +
+                        size_t(width - 1) * 4;
+
+                    for (uint32_t px = remainingPixels;
+                         px < 4;
+                         ++px) {
+                        std::memcpy(
+                            blockRow + size_t(px) * 4,
+                            horizontalEdge,
+                            4);
+                    }
+                }
+
+                //
+                // Fill remaining rows from the final pixel row.
+                //
+                for (uint32_t py = remainingRows;
+                     py < 4;
+                     ++py) {
+                    uint8_t *blockRow =
+                        block +
+                        size_t(py) * 16;
+
+                    const uint8_t *edge =
+                        edgePixel;
+
+                    for (uint32_t px = 0;
+                         px < remainingPixels;
+                         ++px) {
+                        const uint8_t *pixel =
+                            lastRow +
+                            size_t(x + px) * 4;
+
+                        std::memcpy(
+                            blockRow + size_t(px) * 4,
+                            pixel,
+                            4);
+                    }
+
+                    for (uint32_t px = remainingPixels;
+                         px < 4;
+                         ++px) {
+                        std::memcpy(
+                            blockRow + size_t(px) * 4,
+                            edge,
+                            4);
+                    }
+                }
+
+                bc7enc_encode_block(
+                    dst,
+                    block,
+                    0xFF,
+                    16,
+                    1,
                     1);
 
                 dst += 16;
@@ -219,8 +451,6 @@ image path is valid and is a valid format. The image path is: '" +
         std::chrono::duration<float> Duration = CurrentTime - PMMA::Registry::TextureCompilationStartTime.value();
 
         if (Duration.count() > 60) { // if loading for more than 60 seconds, prioritize caching inline so if the user closes program because they feel it's not responding, some progress is kept!
-            std::cout << "Writing inline" << std::endl;
-
             SaveTextureCache(
                 CachedTexturePath,
                 *TextureProperties);
