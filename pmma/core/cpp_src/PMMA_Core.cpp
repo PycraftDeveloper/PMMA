@@ -45,7 +45,8 @@ std::mutex SeedGeneratorLock;
 std::mt19937 RandomSeedGenerator;
 std::uniform_int_distribution<uint32_t> SeedDistribution;
 
-std::chrono::high_resolution_clock::time_point StartupTime = std::chrono::high_resolution_clock::now();
+std::chrono::steady_clock::time_point StartupTime = std::chrono::high_resolution_clock::now();
+std::optional<std::chrono::steady_clock::time_point> TextureCompilationStartTime;
 
 unsigned int KeyboardEventInstanceCount = 0;
 unsigned int TextEventInstanceCount = 0;

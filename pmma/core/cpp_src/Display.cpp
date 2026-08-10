@@ -720,6 +720,8 @@ display updates all secondary displays.");
 
         bgfx::frame();
 
+        PMMA::Registry::TextureCompilationStartTime.reset();
+
         if (kwargs.LimitRefreshRate) {
             if (!kwargs.MaxRefreshRate.has_value()) {
                 if (GetIsWindowUsingVsync()) {

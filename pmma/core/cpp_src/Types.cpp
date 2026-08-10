@@ -23,9 +23,6 @@ inline void CompressMipChainToBC7(
             "CompressMipChainToBC7: mip chain is empty.");
     }
 
-    // Initialise the BC7 encoder once.
-    bc7enc_init();
-
     for (size_t mipIndex = 0;
          mipIndex < mipChain.size();
          ++mipIndex) {
@@ -128,10 +125,10 @@ inline void CompressMipChainToBC7(
                     0xFF,
 
                     // Let the encoder consider all partitions.
-                    64,
+                    16,
 
                     // Quality/performance level.
-                    3,
+                    1,
 
                     // Perceptual encoding.
                     1);
@@ -162,6 +159,10 @@ void PMMA::Types::Texture::InternalLoad() {
             IsTextureEnabled = true;
             return;
         }
+    }
+
+    if (!PMMA::Registry::TextureCompilationStartTime.has_value()) {
+        PMMA::Registry::TextureCompilationStartTime = std::chrono::steady_clock::now();
     }
 
     std::filesystem::create_directories(std::filesystem::path(CachedTexturePath).parent_path());
@@ -214,11 +215,23 @@ image path is valid and is a valid format. The image path is: '" +
         CompressMipChainToBC7(
             TextureProperties->MipChain);
 
-        PMMA::Core::ParallelWorkerInstance->Enqueue([this, CachedTexturePath]() {
+        std::chrono::steady_clock::time_point CurrentTime = std::chrono::steady_clock::now();
+        std::chrono::duration<float> Duration = CurrentTime - PMMA::Registry::TextureCompilationStartTime.value();
+
+        if (Duration.count() > 60) { // if loading for more than 60 seconds, prioritize caching inline so if the user closes program because they feel it's not responding, some progress is kept!
+            std::cout << "Writing inline" << std::endl;
+
             SaveTextureCache(
                 CachedTexturePath,
                 *TextureProperties);
-        });
+        } else {
+            PMMA::Core::ParallelWorkerInstance->Enqueue([this, CachedTexturePath]() {
+                SaveTextureCache(
+                    CachedTexturePath,
+                    *TextureProperties);
+            });
+        }
+
     } else {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             68,

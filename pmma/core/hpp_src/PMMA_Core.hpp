@@ -105,6 +105,7 @@ extern std::mt19937 RandomSeedGenerator;
 extern std::uniform_int_distribution<uint32_t> SeedDistribution;
 
 extern std::chrono::high_resolution_clock::time_point StartupTime;
+extern std::optional<std::chrono::steady_clock::time_point> TextureCompilationStartTime;
 
 extern unsigned int KeyboardEventInstanceCount;
 extern unsigned int TextEventInstanceCount;
