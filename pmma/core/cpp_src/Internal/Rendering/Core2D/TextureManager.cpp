@@ -1,460 +1,332 @@
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <cstring>
 #include <iostream>
 #include <stdexcept>
 #include <vector>
 
-#include <bc7dec_wrapper.hpp>
 #include <bc7enc_wrapper.hpp>
 
 #include "PMMA_Core.hpp"
 
+// ============================================================================
+// BC7 helpers
+// ============================================================================
+
+static constexpr uint32_t BC7_BLOCK_WIDTH = 4;
+static constexpr uint32_t BC7_BLOCK_HEIGHT = 4;
+static constexpr size_t BC7_BLOCK_SIZE = 16;
+
+// ============================================================================
+// Get compressed BC7 mip size
+// ============================================================================
+
 static size_t GetBC7MipSize(
     uint32_t width,
     uint32_t height) {
+
     const uint32_t blocksX =
-        (width + 3) / 4;
+        (width + BC7_BLOCK_WIDTH - 1) /
+        BC7_BLOCK_WIDTH;
 
     const uint32_t blocksY =
-        (height + 3) / 4;
+        (height + BC7_BLOCK_HEIGHT - 1) /
+        BC7_BLOCK_HEIGHT;
 
     return size_t(blocksX) *
            size_t(blocksY) *
-           16;
+           BC7_BLOCK_SIZE;
 }
 
+// ============================================================================
+// Generate one valid BC7 block representing transparent black.
 //
-// BC7 -> RGBA8
+// This is used to initialize unused portions of the atlas.
 //
-// Decodes one BC7 mip into a tightly packed RGBA8 image.
-//
-static bool DecodeBC7Mip(
-    const PMMA::Internal::MipData &source,
-    std::vector<uint8_t> &output) {
-    const uint32_t width =
-        static_cast<uint32_t>(source.Size[0]);
+// It is generated only once.
+// ============================================================================
 
-    const uint32_t height =
-        static_cast<uint32_t>(source.Size[1]);
+static const std::array<uint8_t, BC7_BLOCK_SIZE> &
+GetZeroBC7Block() {
 
-    if (width == 0 || height == 0) {
-        output.clear();
-        return false;
+    static const std::array<uint8_t, BC7_BLOCK_SIZE> zeroBC7 =
+        []() {
+            std::array<uint8_t, 64> zeroRGBA{};
+            std::array<uint8_t, BC7_BLOCK_SIZE> encoded{};
+
+            bc7enc_encode_block(
+                encoded.data(),
+                zeroRGBA.data(),
+                0xFF, // all modes
+                16,   // max partitions
+                1,    // uber level
+                1);   // perceptual
+
+            return encoded;
+        }();
+
+    return zeroBC7;
+}
+
+// ============================================================================
+// Fill an entire BC7 mip with one BC7 block.
+//
+// This avoids having to memset compressed data, since a BC7 block is not
+// necessarily represented by all-zero bytes.
+//
+// The atlas therefore starts as completely transparent black.
+// ============================================================================
+
+static void ClearBC7Mip(
+    uint8_t *atlas,
+    uint32_t width,
+    uint32_t height) {
+
+    if (!atlas ||
+        width == 0 ||
+        height == 0) {
+        return;
     }
 
     const uint32_t blocksX =
-        (width + 3) / 4;
+        (width + BC7_BLOCK_WIDTH - 1) /
+        BC7_BLOCK_WIDTH;
 
     const uint32_t blocksY =
-        (height + 3) / 4;
+        (height + BC7_BLOCK_HEIGHT - 1) /
+        BC7_BLOCK_HEIGHT;
 
-    const size_t expectedBC7Size =
+    const auto &zeroBC7 =
+        GetZeroBC7Block();
+
+    const size_t blockCount =
         size_t(blocksX) *
-        size_t(blocksY) *
-        16;
+        size_t(blocksY);
 
-    if (source.PixelData.size() != expectedBC7Size) {
+    for (size_t block = 0;
+         block < blockCount;
+         ++block) {
+
+        std::memcpy(
+            atlas +
+                block * BC7_BLOCK_SIZE,
+
+            zeroBC7.data(),
+            BC7_BLOCK_SIZE);
+    }
+}
+
+// ============================================================================
+// Copy a BC7 mip directly into a BC7 atlas.
+//
+// IMPORTANT:
+//
+// BC7 operates on 4x4 pixel blocks. Therefore dstX and dstY must be aligned
+// to 4 pixels.
+//
+// No decoding or encoding happens here.
+//
+// The source PixelData is copied block-for-block.
+//
+// ============================================================================
+
+static bool CopyBC7MipIntoAtlas(
+    const PMMA::Internal::MipData &source,
+    uint32_t sourceWidth,
+    uint32_t sourceHeight,
+    uint32_t dstX,
+    uint32_t dstY,
+    uint32_t atlasWidth,
+    uint32_t atlasHeight,
+    uint8_t *atlas) {
+
+    if (!atlas ||
+        sourceWidth == 0 ||
+        sourceHeight == 0 ||
+        atlasWidth == 0 ||
+        atlasHeight == 0) {
+
+        return false;
+    }
+
+    // ------------------------------------------------------------------------
+    // BC7 requires the destination to start on a block boundary.
+    // ------------------------------------------------------------------------
+
+    if ((dstX & 3u) != 0 ||
+        (dstY & 3u) != 0) {
+
+        std::cerr
+            << "Cannot copy BC7 mip at unaligned atlas position "
+            << dstX
+            << ", "
+            << dstY
+            << ". BC7 positions must be 4-pixel aligned."
+            << std::endl;
+
+        return false;
+    }
+
+    // ------------------------------------------------------------------------
+    // Calculate source and destination block dimensions.
+    // ------------------------------------------------------------------------
+
+    const uint32_t sourceBlocksX =
+        (sourceWidth + BC7_BLOCK_WIDTH - 1) /
+        BC7_BLOCK_WIDTH;
+
+    const uint32_t sourceBlocksY =
+        (sourceHeight + BC7_BLOCK_HEIGHT - 1) /
+        BC7_BLOCK_HEIGHT;
+
+    const uint32_t atlasBlocksX =
+        (atlasWidth + BC7_BLOCK_WIDTH - 1) /
+        BC7_BLOCK_WIDTH;
+
+    const uint32_t atlasBlocksY =
+        (atlasHeight + BC7_BLOCK_HEIGHT - 1) /
+        BC7_BLOCK_HEIGHT;
+
+    // ------------------------------------------------------------------------
+    // Validate the cached BC7 data.
+    // ------------------------------------------------------------------------
+
+    const size_t expectedSize =
+        size_t(sourceBlocksX) *
+        size_t(sourceBlocksY) *
+        BC7_BLOCK_SIZE;
+
+    if (source.PixelData.size() != expectedSize) {
+
         std::cerr
             << "Invalid BC7 mip size. Expected "
-            << expectedBC7Size
+            << expectedSize
             << " bytes but got "
             << source.PixelData.size()
             << " bytes."
             << std::endl;
 
-        output.clear();
         return false;
     }
 
-    const size_t rgbaSize =
-        size_t(width) *
-        size_t(height) *
-        4;
+    // ------------------------------------------------------------------------
+    // Destination block position.
+    // ------------------------------------------------------------------------
 
-    output.resize(rgbaSize);
+    const uint32_t dstBlockX =
+        dstX / BC7_BLOCK_WIDTH;
 
-    const uint8_t *srcBC7 =
+    const uint32_t dstBlockY =
+        dstY / BC7_BLOCK_HEIGHT;
+
+    if (dstBlockX >= atlasBlocksX ||
+        dstBlockY >= atlasBlocksY) {
+
+        return false;
+    }
+
+    // ------------------------------------------------------------------------
+    // Number of complete BC7 blocks that fit.
+    //
+    // We copy complete compressed blocks only.
+    // ------------------------------------------------------------------------
+
+    const uint32_t copyBlocksX =
+        std::min(
+            sourceBlocksX,
+            atlasBlocksX - dstBlockX);
+
+    const uint32_t copyBlocksY =
+        std::min(
+            sourceBlocksY,
+            atlasBlocksY - dstBlockY);
+
+    if (copyBlocksX == 0 ||
+        copyBlocksY == 0) {
+
+        return false;
+    }
+
+    // ------------------------------------------------------------------------
+    // Copy complete BC7 rows.
+    //
+    // One BC7 block = 16 bytes.
+    //
+    // This means a whole row of blocks can be copied with ONE memcpy.
+    // ------------------------------------------------------------------------
+
+    const uint8_t *sourceData =
         source.PixelData.data();
 
     for (uint32_t blockY = 0;
-         blockY < blocksY;
+         blockY < copyBlocksY;
          ++blockY) {
-        for (uint32_t blockX = 0;
-             blockX < blocksX;
-             ++blockX) {
-            uint8_t blockRGBA[4 * 4 * 4];
 
-            if (!bc7_decode_block(
-                    blockRGBA,
-                    srcBC7)) {
-                output.clear();
+        const uint8_t *sourceRow =
+            sourceData +
+            size_t(blockY) *
+                size_t(sourceBlocksX) *
+                BC7_BLOCK_SIZE;
 
-                std::cerr
-                    << "Failed to decode BC7 block "
-                    << blockX
-                    << ", "
-                    << blockY
-                    << " in mip "
-                    << width
-                    << "x"
-                    << height
-                    << std::endl;
+        uint8_t *destinationRow =
+            atlas +
+            (size_t(dstBlockY + blockY) *
+                 size_t(atlasBlocksX) +
+             size_t(dstBlockX)) *
+                BC7_BLOCK_SIZE;
 
-                return false;
-            }
-
-            //
-            // Copy the decoded 4x4 block into the image.
-            //
-            for (uint32_t py = 0;
-                 py < 4;
-                 ++py) {
-                const uint32_t y =
-                    blockY * 4 + py;
-
-                //
-                // The final block may extend past the image.
-                //
-                if (y >= height) {
-                    continue;
-                }
-
-                for (uint32_t px = 0;
-                     px < 4;
-                     ++px) {
-                    const uint32_t x =
-                        blockX * 4 + px;
-
-                    if (x >= width) {
-                        continue;
-                    }
-
-                    const size_t srcOffset =
-                        (size_t(py) * 4 + px) * 4;
-
-                    const size_t dstOffset =
-                        (size_t(y) * width + x) * 4;
-
-                    output[dstOffset + 0] =
-                        blockRGBA[srcOffset + 0];
-
-                    output[dstOffset + 1] =
-                        blockRGBA[srcOffset + 1];
-
-                    output[dstOffset + 2] =
-                        blockRGBA[srcOffset + 2];
-
-                    output[dstOffset + 3] =
-                        blockRGBA[srcOffset + 3];
-                }
-            }
-
-            srcBC7 += 16;
-        }
+        std::memcpy(
+            destinationRow,
+            sourceRow,
+            size_t(copyBlocksX) *
+                BC7_BLOCK_SIZE);
     }
 
     return true;
 }
 
+// ============================================================================
+// Assemble
 //
-// RGBA8 -> BC7
+// Builds the atlas directly in BC7 format.
 //
-// Compresses one tightly packed RGBA8 image into BC7.
+// Pipeline:
 //
-static bool CompressRGBA8ToBC7(
-    const uint8_t *rgba,
-    uint32_t width,
-    uint32_t height,
-    std::vector<uint8_t> &output) {
-    if (!rgba || width == 0 || height == 0) {
-        output.clear();
-        return false;
-    }
-
-    const uint32_t blocksX =
-        (width + 3) / 4;
-
-    const uint32_t blocksY =
-        (height + 3) / 4;
-
-    const size_t blockCount =
-        size_t(blocksX) * size_t(blocksY);
-
-    output.resize(blockCount * 16);
-
-    //
-    // Generate the BC7 encoding for a completely
-    // transparent-black 4x4 block once.
-    //
-    // This is thread-safe because initialization of a
-    // function-local static is guaranteed to happen once.
-    //
-    static const std::array<uint8_t, 16> zeroBC7 = []() {
-        std::array<uint8_t, 64> zeroRGBA{};
-        std::array<uint8_t, 16> encoded{};
-
-        bc7enc_encode_block(
-            encoded.data(),
-            zeroRGBA.data(),
-            0xFF, // all modes
-            16,   // max partitions
-            1,    // uber level
-            1);   // perceptual
-
-        return encoded;
-    }();
-
-    //
-    // Use all available hardware threads.
-    //
-    unsigned threadCount =
-        std::thread::hardware_concurrency();
-
-    if (threadCount == 0)
-        threadCount = 1;
-
-    threadCount = std::min(
-        threadCount,
-        static_cast<unsigned>(blockCount));
-
-    //
-    // Each worker receives one contiguous range of blocks.
-    //
-    const size_t blocksPerThread =
-        (blockCount + threadCount - 1) /
-        threadCount;
-
-    std::vector<std::thread> threads;
-    threads.reserve(threadCount);
-
-    for (unsigned threadIndex = 0;
-         threadIndex < threadCount;
-         ++threadIndex) {
-        const size_t firstBlock =
-            size_t(threadIndex) * blocksPerThread;
-
-        const size_t lastBlock =
-            std::min(
-                firstBlock + blocksPerThread,
-                blockCount);
-
-        if (firstBlock >= lastBlock)
-            break;
-
-        threads.emplace_back(
-            [=, &output]() {
-                //
-                // Private scratch buffer.
-                //
-                alignas(16) uint8_t block[64];
-
-                for (size_t blockIndex = firstBlock;
-                     blockIndex < lastBlock;
-                     ++blockIndex) {
-                    const uint32_t blockX =
-                        static_cast<uint32_t>(
-                            blockIndex % blocksX);
-
-                    const uint32_t blockY =
-                        static_cast<uint32_t>(
-                            blockIndex / blocksX);
-
-                    const uint32_t pixelX =
-                        blockX * 4;
-
-                    const uint32_t pixelY =
-                        blockY * 4;
-
-                    uint8_t *outputBlock =
-                        output.data() +
-                        blockIndex * 16;
-
-                    //
-                    // Fast path:
-                    //
-                    // Completely interior 4x4 block.
-                    //
-                    if (pixelX + 4 <= width &&
-                        pixelY + 4 <= height) {
-                        const uint8_t *src =
-                            rgba +
-                            (size_t(pixelY) * width +
-                             pixelX) *
-                                4;
-
-                        //
-                        // Check whether all 16 pixels are
-                        // completely transparent black.
-                        //
-                        const bool allZero =
-                            std::memcmp(
-                                src,
-                                zeroBC7.data(), // NOT used as RGBA!
-                                16) == 0;
-
-                        //
-                        // The above comparison cannot be used because
-                        // zeroBC7 contains compressed BC7 data.
-                        //
-                        // Check the source rows instead.
-                        //
-                        const bool empty =
-                            std::memcmp(
-                                src,
-                                "\0\0\0\0\0\0\0\0"
-                                "\0\0\0\0\0\0\0\0",
-                                16) == 0 &&
-                            std::memcmp(
-                                src + size_t(width) * 4,
-                                "\0\0\0\0\0\0\0\0"
-                                "\0\0\0\0\0\0\0\0",
-                                16) == 0 &&
-                            std::memcmp(
-                                src + size_t(width) * 8,
-                                "\0\0\0\0\0\0\0\0"
-                                "\0\0\0\0\0\0\0\0",
-                                16) == 0 &&
-                            std::memcmp(
-                                src + size_t(width) * 12,
-                                "\0\0\0\0\0\0\0\0"
-                                "\0\0\0\0\0\0\0\0",
-                                16) == 0;
-
-                        if (empty) {
-                            //
-                            // Skip BC7 encoding completely.
-                            //
-                            std::memcpy(
-                                outputBlock,
-                                zeroBC7.data(),
-                                16);
-
-                            continue;
-                        }
-
-                        //
-                        // Copy the four RGBA rows.
-                        //
-                        std::memcpy(
-                            block + 0,
-                            src + size_t(width) * 0 * 4,
-                            16);
-
-                        std::memcpy(
-                            block + 16,
-                            src + size_t(width) * 1 * 4,
-                            16);
-
-                        std::memcpy(
-                            block + 32,
-                            src + size_t(width) * 2 * 4,
-                            16);
-
-                        std::memcpy(
-                            block + 48,
-                            src + size_t(width) * 3 * 4,
-                            16);
-                    } else {
-                        //
-                        // Edge block.
-                        //
-                        for (uint32_t py = 0;
-                             py < 4;
-                             ++py) {
-                            const uint32_t y =
-                                std::min(
-                                    pixelY + py,
-                                    height - 1);
-
-                            const uint8_t *srcRow =
-                                rgba +
-                                size_t(y) * width * 4;
-
-                            for (uint32_t px = 0;
-                                 px < 4;
-                                 ++px) {
-                                const uint32_t x =
-                                    std::min(
-                                        pixelX + px,
-                                        width - 1);
-
-                                const uint8_t *src =
-                                    srcRow +
-                                    size_t(x) * 4;
-
-                                uint8_t *dst =
-                                    block +
-                                    (size_t(py) * 4 + px) * 4;
-
-                                dst[0] = src[0];
-                                dst[1] = src[1];
-                                dst[2] = src[2];
-                                dst[3] = src[3];
-                            }
-                        }
-
-                        //
-                        // Check the completed edge block.
-                        //
-                        bool empty = true;
-
-                        for (size_t i = 0;
-                             i < sizeof(block);
-                             ++i) {
-                            if (block[i] != 0) {
-                                empty = false;
-                                break;
-                            }
-                        }
-
-                        if (empty) {
-                            std::memcpy(
-                                outputBlock,
-                                zeroBC7.data(),
-                                16);
-
-                            continue;
-                        }
-                    }
-
-                    //
-                    // Expensive BC7 encoding path.
-                    //
-                    bc7enc_encode_block(
-                        outputBlock,
-                        block,
-                        0xFF, // all modes
-                        16,   // max partitions
-                        1,    // uber level
-                        1);   // perceptual
-                }
-            });
-    }
-
-    for (std::thread &thread : threads)
-        thread.join();
-
-    return true;
-}
+//     cached BC7 texture
+//             |
+//             | memcpy 16-byte blocks
+//             v
+//         BC7 atlas
+//             |
+//             v
+//         bgfx texture
+//
+// There is NO:
+//
+//     BC7 -> RGBA8
+//
+// and NO:
+//
+//     RGBA8 -> BC7
+//
+// ============================================================================
 
 void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
+
     if (!Dirty) {
         return;
     }
 
-    constexpr uint32_t Channels = 4;
-
-    //
-    // ---------------------------------------------------------
+    // ========================================================================
     // 1. Determine atlas dimensions from mip 0.
-    // ---------------------------------------------------------
-    //
+    // ========================================================================
 
     m_TextureWidth = 1;
     m_TextureHeight = 1;
 
     for (auto &[id, allocation] : Allocations) {
+
         m_TextureWidth =
             std::max(
                 m_TextureWidth,
@@ -468,9 +340,15 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
                     allocation.Height);
     }
 
+    // ========================================================================
+    // 2. BC7 operates on 4x4 blocks.
+    //
+    // Round the atlas dimensions up to the next BC7 block boundary.
+    // ========================================================================
+
     auto RoundUp4 =
         [](uint32_t value) {
-            return (value + 3) & ~3u;
+            return (value + 3u) & ~3u;
         };
 
     m_TextureWidth =
@@ -479,15 +357,13 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
     m_TextureHeight =
         RoundUp4(m_TextureHeight);
 
-    //
-    // ---------------------------------------------------------
-    // 3. Determine mip count and RGBA8 atlas size.
-    // ---------------------------------------------------------
-    //
+    // ========================================================================
+    // 3. Determine mip count and total BC7 atlas size.
+    // ========================================================================
 
     uint32_t mipCount = 0;
 
-    size_t AtlasMipChainSize = 0;
+    size_t totalBC7Size = 0;
 
     uint32_t mipW =
         m_TextureWidth;
@@ -496,15 +372,17 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
         m_TextureHeight;
 
     while (true) {
+
         ++mipCount;
 
-        AtlasMipChainSize +=
-            size_t(mipW) *
-            size_t(mipH) *
-            Channels;
+        totalBC7Size +=
+            GetBC7MipSize(
+                mipW,
+                mipH);
 
         if (mipW == 1 &&
             mipH == 1) {
+
             break;
         }
 
@@ -519,28 +397,68 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
                 mipH >> 1);
     }
 
+    // ========================================================================
+    // 4. Allocate the final BC7 atlas.
     //
-    // ---------------------------------------------------------
-    // 4. Build an UNCOMPRESSED RGBA8 atlas mip chain.
-    //
-    // This buffer is temporary. It is NOT uploaded to BGFX.
-    // ---------------------------------------------------------
-    //
+    // There is no temporary RGBA8 atlas anymore.
+    // ========================================================================
 
-    std::vector<uint8_t> AtlasMipChain(
-        AtlasMipChainSize,
-        0);
+    std::vector<uint8_t> compressedAtlas(
+        totalBC7Size);
+
+    // ========================================================================
+    // 5. Initialize every atlas block to transparent black.
+    //
+    // This means areas not occupied by textures are valid BC7 blocks.
+    // ========================================================================
 
     size_t mipOffset = 0;
 
-    //
-    // Reuse this allocation for every source texture.
-    //
-    std::vector<uint8_t> decodedMip;
+    mipW =
+        m_TextureWidth;
+
+    mipH =
+        m_TextureHeight;
 
     for (uint32_t mipLevel = 0;
          mipLevel < mipCount;
          ++mipLevel) {
+
+        uint8_t *mipDestination =
+            compressedAtlas.data() +
+            mipOffset;
+
+        ClearBC7Mip(
+            mipDestination,
+            mipW,
+            mipH);
+
+        mipOffset +=
+            GetBC7MipSize(
+                mipW,
+                mipH);
+
+        mipW =
+            std::max(
+                1u,
+                mipW >> 1);
+
+        mipH =
+            std::max(
+                1u,
+                mipH >> 1);
+    }
+
+    // ========================================================================
+    // 6. Copy cached BC7 textures directly into the atlas.
+    // ========================================================================
+
+    mipOffset = 0;
+
+    for (uint32_t mipLevel = 0;
+         mipLevel < mipCount;
+         ++mipLevel) {
+
         const uint32_t mipWidth =
             std::max(
                 1u,
@@ -552,16 +470,15 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
                 m_TextureHeight >> mipLevel);
 
         uint8_t *mipDestination =
-            AtlasMipChain.data() +
+            compressedAtlas.data() +
             mipOffset;
 
-        //
-        // -----------------------------------------------------
-        // Place every texture into this atlas mip.
-        // -----------------------------------------------------
-        //
+        // --------------------------------------------------------------------
+        // Process every pending texture.
+        // --------------------------------------------------------------------
 
         for (auto *texture : PendingTextures) {
+
             if (texture == nullptr) {
                 continue;
             }
@@ -572,17 +489,20 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
 
             if (allocationIt ==
                 Allocations.end()) {
+
                 continue;
             }
 
             const AtlasAllocation &allocation =
                 allocationIt->second;
 
-            //
-            // Texture doesn't have this mip.
-            //
+            // ----------------------------------------------------------------
+            // Texture does not contain this mip.
+            // ----------------------------------------------------------------
+
             if (mipLevel >=
                 texture->MipChain.size()) {
+
                 continue;
             }
 
@@ -599,40 +519,76 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
 
             if (sourceWidth == 0 ||
                 sourceHeight == 0) {
+
                 continue;
             }
 
-            //
-            // Atlas position at this mip.
-            //
+            // ----------------------------------------------------------------
+            // Calculate the texture's position at this mip.
+            // ----------------------------------------------------------------
+
             uint32_t x =
-                allocation.X >> mipLevel;
+                allocation.X >>
+                mipLevel;
 
             uint32_t y =
-                allocation.Y >> mipLevel;
+                allocation.Y >>
+                mipLevel;
 
+            // ----------------------------------------------------------------
+            // BC7 alignment check.
             //
-            // Make sure the source fits.
-            //
+            // The source cannot be shifted by a non-block-aligned amount.
+            // ----------------------------------------------------------------
+
+            if ((x & 3u) != 0 ||
+                (y & 3u) != 0) {
+
+                /*std::cerr
+                    << "Cannot atlas texture "
+                    << texture->ID
+                    << " at mip "
+                    << mipLevel
+                    << ". "
+                    << "Atlas position "
+                    << x
+                    << ", "
+                    << y
+                    << " is not BC7 4x4 aligned."
+                    << std::endl;*/
+
+                continue;
+            }
+
+            // ----------------------------------------------------------------
+            // Check that the source fits into the atlas mip.
+            // ----------------------------------------------------------------
+
             if (sourceWidth > mipWidth ||
                 sourceHeight > mipHeight) {
-                std::cout
+
+                std::cerr
                     << "Skipping texture "
                     << texture->ID
                     << " at mip "
                     << mipLevel
-                    << " source "
+                    << ". Source is "
                     << sourceWidth
                     << "x"
                     << sourceHeight
-                    << " atlas "
+                    << ", atlas mip is "
                     << mipWidth
                     << "x"
                     << mipHeight
+                    << "."
                     << std::endl;
 
                 continue;
             }
+
+            // ----------------------------------------------------------------
+            // Clamp destination position so the nominal source rectangle fits.
+            // ----------------------------------------------------------------
 
             x =
                 std::min(
@@ -646,191 +602,85 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
                     mipHeight -
                         sourceHeight);
 
+            // ----------------------------------------------------------------
+            // IMPORTANT:
             //
-            // -------------------------------------------------
-            // BC7 -> RGBA8
-            // -------------------------------------------------
+            // The clamp above can theoretically produce a non-aligned
+            // coordinate.
             //
+            // Do NOT round it here, because that would change the placement.
+            // Just reject the placement.
+            // ----------------------------------------------------------------
 
-            if (!DecodeBC7Mip(
-                    source,
-                    decodedMip)) {
+            if ((x & 3u) != 0 ||
+                (y & 3u) != 0) {
+
                 std::cerr
-                    << "Failed to decode BC7 mip "
-                    << mipLevel
-                    << " for texture "
+                    << "Texture "
                     << texture->ID
+                    << " became unaligned after atlas clamping at mip "
+                    << mipLevel
+                    << "."
                     << std::endl;
 
                 continue;
             }
 
-            //
-            // -------------------------------------------------
-            // RGBA8 -> RGBA8 atlas
-            // -------------------------------------------------
-            //
+            // ----------------------------------------------------------------
+            // Direct BC7 -> BC7 block copy.
+            // ----------------------------------------------------------------
 
-            CopyMipIntoAtlas(
-                decodedMip.data(),
-                sourceWidth,
-                sourceHeight,
-                x,
-                y,
-                mipWidth,
-                mipHeight,
-                mipDestination);
+            if (!CopyBC7MipIntoAtlas(
+                    source,
+                    sourceWidth,
+                    sourceHeight,
+                    x,
+                    y,
+                    mipWidth,
+                    mipHeight,
+                    mipDestination)) {
+
+                std::cerr
+                    << "Failed to copy BC7 mip "
+                    << mipLevel
+                    << " for texture "
+                    << texture->ID
+                    << "."
+                    << std::endl;
+
+                continue;
+            }
         }
 
-        //
-        // Move to next RGBA8 mip.
-        //
+        // --------------------------------------------------------------------
+        // Advance to the next compressed mip.
+        // --------------------------------------------------------------------
+
         mipOffset +=
-            size_t(mipWidth) *
-            size_t(mipHeight) *
-            Channels;
-    }
-
-    //
-    // ---------------------------------------------------------
-    // 5. Now compress every atlas mip individually to BC7.
-    // ---------------------------------------------------------
-    //
-
-    std::vector<uint8_t>
-        CompressedAtlasMipChain;
-
-    //
-    // Calculate the total BC7 size so we can reserve once.
-    //
-    size_t TotalBC7Size = 0;
-
-    mipW = m_TextureWidth;
-    mipH = m_TextureHeight;
-
-    while (true) {
-        TotalBC7Size +=
             GetBC7MipSize(
-                mipW,
-                mipH);
-
-        if (mipW == 1 &&
-            mipH == 1) {
-            break;
-        }
-
-        mipW =
-            std::max(
-                1u,
-                mipW >> 1);
-
-        mipH =
-            std::max(
-                1u,
-                mipH >> 1);
-    }
-
-    CompressedAtlasMipChain.reserve(
-        TotalBC7Size);
-
-    //
-    // Reset offset into the RGBA8 atlas.
-    //
-    mipOffset = 0;
-
-    for (uint32_t mipLevel = 0;
-         mipLevel < mipCount;
-         ++mipLevel) {
-        const uint32_t mipWidth =
-            std::max(
-                1u,
-                m_TextureWidth >> mipLevel);
-
-        const uint32_t mipHeight =
-            std::max(
-                1u,
-                m_TextureHeight >> mipLevel);
-
-        const uint8_t *mipSource =
-            AtlasMipChain.data() +
-            mipOffset;
-
-        //
-        // Temporary compressed mip.
-        //
-        std::vector<uint8_t>
-            compressedMip;
-
-        //
-        // -----------------------------------------------------
-        // RGBA8 -> BC7
-        // -----------------------------------------------------
-        //
-
-        if (!CompressRGBA8ToBC7(
-                mipSource,
                 mipWidth,
-                mipHeight,
-                compressedMip)) {
-            std::cerr
-                << "Failed to compress atlas mip "
-                << mipLevel
-                << " to BC7."
-                << std::endl;
-
-            PendingTextures.clear();
-
-            Dirty = false;
-
-            return;
-        }
-
-        //
-        // Append compressed mip.
-        //
-        CompressedAtlasMipChain.insert(
-            CompressedAtlasMipChain.end(),
-            compressedMip.begin(),
-            compressedMip.end());
-
-        //
-        // Advance through the RGBA8 source.
-        //
-        mipOffset +=
-            size_t(mipWidth) *
-            size_t(mipHeight) *
-            Channels;
+                mipHeight);
     }
 
-    //
-    // ---------------------------------------------------------
-    // 6. The RGBA8 atlas is no longer needed.
-    // ---------------------------------------------------------
-    //
-
-    AtlasMipChain.clear();
-    AtlasMipChain.shrink_to_fit();
-
-    //
-    // ---------------------------------------------------------
+    // ========================================================================
     // 7. Destroy previous GPU texture.
-    // ---------------------------------------------------------
-    //
+    // ========================================================================
 
     if (bgfx::isValid(TextureHandle)) {
-        bgfx::destroy(TextureHandle);
+
+        bgfx::destroy(
+            TextureHandle);
 
         TextureHandle =
             BGFX_INVALID_HANDLE;
     }
 
-    //
-    // ---------------------------------------------------------
-    // 8. Upload the ACTUAL BC7 data.
-    // ---------------------------------------------------------
-    //
+    // ========================================================================
+    // 8. Upload the BC7 atlas directly.
+    // ========================================================================
 
-    if (CompressedAtlasMipChain.empty()) {
+    if (compressedAtlas.empty()) {
+
         std::cerr
             << "Compressed atlas is empty."
             << std::endl;
@@ -844,26 +694,29 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
 
     TextureHandle =
         bgfx::createTexture2D(
-            static_cast<uint16_t>(m_TextureWidth),
-            static_cast<uint16_t>(m_TextureHeight),
+            static_cast<uint16_t>(
+                m_TextureWidth),
 
-            true,
+            static_cast<uint16_t>(
+                m_TextureHeight),
 
-            1,
+            true, // has mipmaps
+
+            1, // layers
 
             bgfx::TextureFormat::BC7,
 
             BGFX_TEXTURE_NONE,
 
             bgfx::copy(
-                CompressedAtlasMipChain.data(),
-                (uint32_t)CompressedAtlasMipChain.size()));
+                compressedAtlas.data(),
 
-    //
-    // ---------------------------------------------------------
+                static_cast<uint32_t>(
+                    compressedAtlas.size())));
+
+    // ========================================================================
     // 9. Cleanup.
-    // ---------------------------------------------------------
-    //
+    // ========================================================================
 
     PendingTextures.clear();
 

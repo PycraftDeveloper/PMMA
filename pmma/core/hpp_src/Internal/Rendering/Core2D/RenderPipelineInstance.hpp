@@ -46,6 +46,7 @@ private:
     uint32_t TransparentPreviousBufferSize = 0;
     uint32_t CurrentOpaqueDataSize = 0;
     uint32_t CurrentTransparentDataSize = 0;
+    uint32_t MaxTextureDimension;
 
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
@@ -132,6 +133,12 @@ public:
         // Texture
         uint16_t TexturePositionInAtlas[2] = {0, 0};
         if (Texture.IsEnabled()) {
+            if (TextureSize[0] > MaxTextureDimension || TextureSize[1] > MaxTextureDimension) {
+                std::cout << "The texture: " << Texture.GetPath() << " is too large with dimensions: " << TextureSize[0] << "x" << TextureSize[1] << std::endl;
+
+                return;
+            }
+
             if (Channels == 3) {
                 OpaqueTextureManager.RegisterTexture(Texture.TextureProperties);
             } else {

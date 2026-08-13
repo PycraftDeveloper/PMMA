@@ -340,40 +340,6 @@ public:
         Dirty = true;
     }
 
-    inline void CopyMipIntoAtlas(
-        const uint8_t *src,
-        uint32_t sourceWidth,
-        uint32_t sourceHeight,
-        uint32_t dstX,
-        uint32_t dstY,
-        uint32_t atlasWidth,
-        uint32_t atlasHeight,
-        uint8_t *atlas) {
-        const uint32_t width =
-            std::min(
-                sourceWidth,
-                atlasWidth - dstX);
-
-        const uint32_t height =
-            std::min(
-                sourceHeight,
-                atlasHeight - dstY);
-
-        if (!width || !height)
-            return;
-
-        for (uint32_t y = 0; y < height; ++y) {
-            memcpy(
-                atlas +
-                    ((dstY + y) * atlasWidth + dstX) * 4,
-
-                src +
-                    y * sourceWidth * 4,
-
-                width * 4);
-        }
-    }
-
     void Assemble();
 };
 } // namespace PMMA::Internal::Rendering::Core2D

@@ -15,6 +15,8 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
                                                                                           GetMaxTextureDimension()) {
     ID = reinterpret_cast<uintptr_t>(this);
 
+    MaxTextureDimension = GetMaxTextureDimension();
+
     m_layout.begin()
         .add(bgfx::Attrib::Position, 2, bgfx::AttribType::Float)
         .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
