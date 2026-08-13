@@ -615,6 +615,25 @@ before calling this function!");
     return TextureProperties->MipChain[0].Size[1];
 }
 
+std::string PMMA::Types::Texture::GetPath() {
+    if (TextureProperties == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            70,
+            "Unable to get texture path. You need to load a texture \
+before calling this function!");
+
+        throw std::runtime_error("Failed to query texture information.");
+    }
+
+    if (TextureProperties->LoadFuture.valid()) {
+        TextureProperties->LoadFuture.wait();
+
+        TextureProperties->LoadFuture = std::future<void>();
+    }
+
+    return Path;
+}
+
 void PMMA::Types::Texture::GetPositionInAtlas(uintptr_t RenderPipelineInstance_ID, uint16_t *position) {
     if (TextureProperties == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(

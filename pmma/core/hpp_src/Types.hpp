@@ -641,6 +641,8 @@ public:
 
     uint16_t GetWidth();
     uint16_t GetHeight();
+
+    std::string GetPath();
 };
 
 class EXPORT Color {
