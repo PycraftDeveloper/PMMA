@@ -156,13 +156,13 @@ static inline bool CopyBC7MipIntoAtlas(
     if ((dstX & 3u) != 0 ||
         (dstY & 3u) != 0) {
 
-        /*std::cerr
+        std::cerr
             << "Cannot copy BC7 mip at unaligned atlas position "
             << dstX
             << ", "
             << dstY
             << ". BC7 positions must be 4-pixel aligned."
-            << std::endl;*/
+            << std::endl;
 
         return false;
     }
@@ -543,7 +543,7 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
             if ((x & 3u) != 0 ||
                 (y & 3u) != 0) {
 
-                std::cerr
+                /*std::cerr
                     << "Cannot atlas texture "
                     << texture->ID
                     << " at mip "
@@ -554,7 +554,7 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
                     << ", "
                     << y
                     << " is not BC7 4x4 aligned."
-                    << std::endl;
+                    << std::endl;*/
 
                 continue;
             }
