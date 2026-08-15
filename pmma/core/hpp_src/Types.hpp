@@ -221,6 +221,95 @@ public:
         return true;
     }
 
+    void SaveTextureCache(
+        const std::string &path,
+        const PMMA::Internal::TextureProperty &texture) {
+
+        std::ofstream file(
+            path,
+            std::ios::binary);
+
+        if (!file) {
+            throw std::runtime_error(
+                "Failed to create texture cache.");
+        }
+
+        file.write("PMTX", 4);
+
+        uint32_t Version = 1;
+
+        file.write(
+            reinterpret_cast<char *>(&Version),
+            sizeof(Version));
+
+        file.write(
+            reinterpret_cast<const char *>(&texture.Channels),
+            sizeof(uint8_t));
+
+        uint8_t MipCount =
+            static_cast<uint8_t>(
+                texture.MipChain.size());
+
+        file.write(
+            reinterpret_cast<char *>(&MipCount),
+            sizeof(MipCount));
+
+        for (const auto &mip : texture.MipChain) {
+            file.write(
+                reinterpret_cast<const char *>(&mip.Size[0]),
+                sizeof(uint16_t));
+
+            file.write(
+                reinterpret_cast<const char *>(&mip.Size[1]),
+                sizeof(uint16_t));
+
+            file.write(
+                reinterpret_cast<const char *>(&mip.Padding),
+                sizeof(uint8_t));
+
+            uint32_t rawSize =
+                static_cast<uint32_t>(
+                    mip.PixelData.size());
+
+            size_t maxCompressedSize =
+                ZSTD_compressBound(
+                    rawSize);
+
+            std::vector<uint8_t> compressedData(
+                maxCompressedSize);
+
+            size_t compressedSize =
+                ZSTD_compress(
+                    compressedData.data(),
+                    compressedData.size(),
+                    mip.PixelData.data(),
+                    rawSize,
+                    3); // zstd level
+
+            if (ZSTD_isError(compressedSize)) {
+                throw std::runtime_error(
+                    ZSTD_getErrorName(compressedSize));
+            }
+
+            uint32_t compressedSize32 =
+                static_cast<uint32_t>(
+                    compressedSize);
+
+            file.write(
+                reinterpret_cast<char *>(&compressedSize32),
+                sizeof(uint32_t));
+
+            file.write(
+                reinterpret_cast<char *>(&rawSize),
+                sizeof(uint32_t));
+
+            file.write(
+                reinterpret_cast<const char *>(
+                    compressedData.data()),
+                compressedSize32);
+        }
+    }
+
     void GenerateMipChain(
         const unsigned char *basePixels,
         uint32_t width,
@@ -524,95 +613,6 @@ public:
 
         mip.Size[1] =
             static_cast<uint16_t>(newHeight);
-    }
-
-    void SaveTextureCache(
-        const std::string &path,
-        const PMMA::Internal::TextureProperty &texture) {
-
-        std::ofstream file(
-            path,
-            std::ios::binary);
-
-        if (!file) {
-            throw std::runtime_error(
-                "Failed to create texture cache.");
-        }
-
-        file.write("PMTX", 4);
-
-        uint32_t Version = 1;
-
-        file.write(
-            reinterpret_cast<char *>(&Version),
-            sizeof(Version));
-
-        file.write(
-            reinterpret_cast<const char *>(&texture.Channels),
-            sizeof(uint8_t));
-
-        uint8_t MipCount =
-            static_cast<uint8_t>(
-                texture.MipChain.size());
-
-        file.write(
-            reinterpret_cast<char *>(&MipCount),
-            sizeof(MipCount));
-
-        for (const auto &mip : texture.MipChain) {
-            file.write(
-                reinterpret_cast<const char *>(&mip.Size[0]),
-                sizeof(uint16_t));
-
-            file.write(
-                reinterpret_cast<const char *>(&mip.Size[1]),
-                sizeof(uint16_t));
-
-            file.write(
-                reinterpret_cast<const char *>(&mip.Padding),
-                sizeof(uint8_t));
-
-            uint32_t rawSize =
-                static_cast<uint32_t>(
-                    mip.PixelData.size());
-
-            size_t maxCompressedSize =
-                ZSTD_compressBound(
-                    rawSize);
-
-            std::vector<uint8_t> compressedData(
-                maxCompressedSize);
-
-            size_t compressedSize =
-                ZSTD_compress(
-                    compressedData.data(),
-                    compressedData.size(),
-                    mip.PixelData.data(),
-                    rawSize,
-                    3); // zstd level
-
-            if (ZSTD_isError(compressedSize)) {
-                throw std::runtime_error(
-                    ZSTD_getErrorName(compressedSize));
-            }
-
-            uint32_t compressedSize32 =
-                static_cast<uint32_t>(
-                    compressedSize);
-
-            file.write(
-                reinterpret_cast<char *>(&compressedSize32),
-                sizeof(uint32_t));
-
-            file.write(
-                reinterpret_cast<char *>(&rawSize),
-                sizeof(uint32_t));
-
-            file.write(
-                reinterpret_cast<const char *>(
-                    compressedData.data()),
-                compressedSize32);
-        }
     }
 
     void Unload();

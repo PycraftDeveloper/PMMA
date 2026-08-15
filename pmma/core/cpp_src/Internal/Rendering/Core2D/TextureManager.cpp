@@ -78,42 +78,41 @@ GetZeroBC7Block() {
 // The atlas therefore starts as completely transparent black.
 // ============================================================================
 
-static void ClearBC7Mip(
+static inline void ClearBC7Mip(
     uint8_t *atlas,
     uint32_t width,
     uint32_t height) {
-
-    if (!atlas ||
-        width == 0 ||
-        height == 0) {
+    if (!atlas || width == 0 || height == 0)
         return;
-    }
 
-    const uint32_t blocksX =
-        (width + BC7_BLOCK_WIDTH - 1) /
+    const size_t blocksX =
+        (size_t(width) + BC7_BLOCK_WIDTH - 1) /
         BC7_BLOCK_WIDTH;
 
-    const uint32_t blocksY =
-        (height + BC7_BLOCK_HEIGHT - 1) /
+    const size_t blocksY =
+        (size_t(height) + BC7_BLOCK_HEIGHT - 1) /
         BC7_BLOCK_HEIGHT;
 
-    const auto &zeroBC7 =
-        GetZeroBC7Block();
+    const size_t totalBytes =
+        blocksX * blocksY * BC7_BLOCK_SIZE;
 
-    const size_t blockCount =
-        size_t(blocksX) *
-        size_t(blocksY);
+    const auto &zeroBC7 = GetZeroBC7Block();
 
-    for (size_t block = 0;
-         block < blockCount;
-         ++block) {
+    // First 16 bytes.
+    std::memcpy(atlas, zeroBC7.data(), BC7_BLOCK_SIZE);
+
+    size_t filled = BC7_BLOCK_SIZE;
+
+    while (filled < totalBytes) {
+        const size_t copySize =
+            std::min(filled, totalBytes - filled);
 
         std::memcpy(
-            atlas +
-                block * BC7_BLOCK_SIZE,
+            atlas + filled,
+            atlas,
+            copySize);
 
-            zeroBC7.data(),
-            BC7_BLOCK_SIZE);
+        filled += copySize;
     }
 }
 
@@ -131,7 +130,7 @@ static void ClearBC7Mip(
 //
 // ============================================================================
 
-static bool CopyBC7MipIntoAtlas(
+static inline bool CopyBC7MipIntoAtlas(
     const PMMA::Internal::MipData &source,
     uint32_t sourceWidth,
     uint32_t sourceHeight,
