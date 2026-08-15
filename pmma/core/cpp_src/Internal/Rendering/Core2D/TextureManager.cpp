@@ -156,13 +156,13 @@ static inline bool CopyBC7MipIntoAtlas(
     if ((dstX & 3u) != 0 ||
         (dstY & 3u) != 0) {
 
-        std::cerr
+        /*std::cerr
             << "Cannot copy BC7 mip at unaligned atlas position "
             << dstX
             << ", "
             << dstY
             << ". BC7 positions must be 4-pixel aligned."
-            << std::endl;
+            << std::endl;*/
 
         return false;
     }
