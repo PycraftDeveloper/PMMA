@@ -14,6 +14,312 @@ static size_t GetBC7MipSize(
     return size_t(blocksX) * size_t(blocksY) * 16;
 }
 
+inline void GenerateMipChain(
+    PMMA::Internal::TextureProperty *TextureProperties,
+    const unsigned char *basePixels,
+    uint32_t width,
+    uint32_t height,
+    uint32_t channels) {
+    TextureProperties->MipChain.clear();
+
+    std::vector<uint8_t> current(
+        basePixels,
+        basePixels + (width * height * channels));
+
+    uint32_t currentWidth = width;
+    uint32_t currentHeight = height;
+
+    while (true) {
+        //
+        // Store the current mip.
+        //
+        PMMA::Internal::MipData mip;
+
+        mip.Size[0] =
+            static_cast<uint16_t>(currentWidth);
+
+        mip.Size[1] =
+            static_cast<uint16_t>(currentHeight);
+
+        mip.Padding = 0;
+
+        mip.PixelData = current;
+
+        TextureProperties->MipChain.emplace_back(std::move(mip));
+
+        //
+        // Finished once we've reached 1x1.
+        //
+        if (currentWidth == 1 && currentHeight == 1) {
+            break;
+        }
+
+        const uint32_t nextWidth =
+            std::max(1u, currentWidth / 2);
+
+        const uint32_t nextHeight =
+            std::max(1u, currentHeight / 2);
+
+        std::vector<uint8_t> next(
+            nextWidth *
+            nextHeight *
+            channels);
+
+        for (uint32_t y = 0; y < nextHeight; ++y) {
+            for (uint32_t x = 0; x < nextWidth; ++x) {
+                const uint32_t sx = x * 2;
+                const uint32_t sy = y * 2;
+
+                if (channels == 4) {
+                    //
+                    // Premultiplied alpha box filter.
+                    //
+                    float r = 0.0f;
+                    float g = 0.0f;
+                    float b = 0.0f;
+                    float a = 0.0f;
+
+                    for (uint32_t oy = 0; oy < 2; ++oy) {
+                        for (uint32_t ox = 0; ox < 2; ++ox) {
+                            const uint32_t px =
+                                std::min(sx + ox, currentWidth - 1);
+
+                            const uint32_t py =
+                                std::min(sy + oy, currentHeight - 1);
+
+                            const size_t src =
+                                (py * currentWidth + px) * channels;
+
+                            const float alpha =
+                                current[src + 3] / 255.0f;
+
+                            r += current[src + 0] * alpha;
+                            g += current[src + 1] * alpha;
+                            b += current[src + 2] * alpha;
+                            a += alpha;
+                        }
+                    }
+
+                    r *= 0.25f;
+                    g *= 0.25f;
+                    b *= 0.25f;
+                    a *= 0.25f;
+
+                    const size_t dst =
+                        (y * nextWidth + x) * channels;
+
+                    if (a > 0.00001f) {
+                        next[dst + 0] =
+                            static_cast<uint8_t>(
+                                std::clamp(r / a, 0.0f, 255.0f));
+
+                        next[dst + 1] =
+                            static_cast<uint8_t>(
+                                std::clamp(g / a, 0.0f, 255.0f));
+
+                        next[dst + 2] =
+                            static_cast<uint8_t>(
+                                std::clamp(b / a, 0.0f, 255.0f));
+                    } else {
+                        next[dst + 0] = 0;
+                        next[dst + 1] = 0;
+                        next[dst + 2] = 0;
+                    }
+
+                    next[dst + 3] =
+                        static_cast<uint8_t>(
+                            std::clamp(a * 255.0f, 0.0f, 255.0f));
+                } else {
+                    //
+                    // Standard RGB box filter.
+                    //
+                    for (uint32_t c = 0; c < channels; ++c) {
+                        uint32_t sum = 0;
+
+                        for (uint32_t oy = 0; oy < 2; ++oy) {
+                            for (uint32_t ox = 0; ox < 2; ++ox) {
+                                const uint32_t px =
+                                    std::min(sx + ox, currentWidth - 1);
+
+                                const uint32_t py =
+                                    std::min(sy + oy, currentHeight - 1);
+
+                                sum +=
+                                    current[(py * currentWidth + px) *
+                                                channels +
+                                            c];
+                            }
+                        }
+
+                        next[(y * nextWidth + x) *
+                                 channels +
+                             c] =
+                            static_cast<uint8_t>(sum / 4);
+                    }
+                }
+            }
+        }
+
+        current = std::move(next);
+        currentWidth = nextWidth;
+        currentHeight = nextHeight;
+    }
+}
+
+inline void ExtrudeMip(
+    PMMA::Internal::MipData &mip,
+    uint32_t channels) {
+    const uint32_t oldWidth =
+        mip.Size[0];
+
+    const uint32_t oldHeight =
+        mip.Size[1];
+
+    const uint32_t newWidth =
+        oldWidth + (mip.Padding * 2);
+
+    const uint32_t newHeight =
+        oldHeight + (mip.Padding * 2);
+
+    std::vector<uint8_t> expanded(
+        newWidth *
+        newHeight *
+        channels);
+
+    auto CopyPixel =
+        [&](uint32_t dstX,
+            uint32_t dstY,
+            uint32_t srcX,
+            uint32_t srcY) {
+            memcpy(
+                &expanded[(dstY * newWidth + dstX) *
+                          channels],
+
+                &mip.PixelData[(srcY * oldWidth + srcX) *
+                               channels],
+
+                channels);
+        };
+
+    //
+    // Copy original image into centre.
+    //
+    for (uint32_t y = 0; y < oldHeight; y++) {
+        for (uint32_t x = 0; x < oldWidth; x++) {
+            CopyPixel(
+                x + mip.Padding,
+                y + mip.Padding,
+                x,
+                y);
+        }
+    }
+
+    //
+    // Left/right extrusion.
+    //
+    for (uint32_t y = 0; y < oldHeight; y++) {
+        for (uint32_t p = 0; p < mip.Padding; p++) {
+            //
+            // Left
+            //
+            CopyPixel(
+                p,
+                y + mip.Padding,
+                0,
+                y);
+
+            //
+            // Right
+            //
+            CopyPixel(
+                newWidth - mip.Padding + p,
+                y + mip.Padding,
+                oldWidth - 1,
+                y);
+        }
+    }
+
+    //
+    // Top/bottom extrusion.
+    //
+    for (uint32_t x = 0; x < oldWidth; x++) {
+        for (uint32_t p = 0; p < mip.Padding; p++) {
+            //
+            // Top
+            //
+            CopyPixel(
+                x + mip.Padding,
+                p,
+                x,
+                0);
+
+            //
+            // Bottom
+            //
+            CopyPixel(
+                x + mip.Padding,
+                newHeight - mip.Padding + p,
+                x,
+                oldHeight - 1);
+        }
+    }
+
+    //
+    // Corners.
+    //
+    for (uint32_t x = 0; x < mip.Padding; x++) {
+        for (uint32_t y = 0; y < mip.Padding; y++) {
+            //
+            // Top-left
+            //
+            CopyPixel(
+                x,
+                y,
+                0,
+                0);
+
+            //
+            // Top-right
+            //
+            CopyPixel(
+                newWidth - mip.Padding + x,
+                y,
+                oldWidth - 1,
+                0);
+
+            //
+            // Bottom-left
+            //
+            CopyPixel(
+                x,
+                newHeight - mip.Padding + y,
+                0,
+                oldHeight - 1);
+
+            //
+            // Bottom-right
+            //
+            CopyPixel(
+                newWidth - mip.Padding + x,
+                newHeight - mip.Padding + y,
+                oldWidth - 1,
+                oldHeight - 1);
+        }
+    }
+
+    //
+    // Replace mip data.
+    //
+    mip.PixelData =
+        std::move(expanded);
+
+    mip.Size[0] =
+        static_cast<uint16_t>(newWidth);
+
+    mip.Size[1] =
+        static_cast<uint16_t>(newHeight);
+}
+
 inline void CompressMipChainToBC7(
     std::vector<PMMA::Internal::MipData> &mipChain) {
     if (mipChain.empty()) {
@@ -439,6 +745,7 @@ image path is valid and is a valid format. The image path is: '" +
             4); // channels, force to RGBA
 
         GenerateMipChain(
+            TextureProperties,
             base.PixelData.data(),
             base.Size[0],
             base.Size[1],

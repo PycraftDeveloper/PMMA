@@ -85,6 +85,9 @@ elseif(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
         -std=c++20 -mtune=generic
         -finline-functions -flto -ftree-vectorize
     )
+else()
+    set(ZSTD_C_FLAGS "")
+    set(ZSTD_LINKER_FLAGS "")
 endif()
 
 # ---- SIMD subcomponents ----------------------------------------------

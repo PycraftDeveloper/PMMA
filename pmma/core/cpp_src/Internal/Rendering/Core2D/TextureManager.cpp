@@ -543,7 +543,7 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
             if ((x & 3u) != 0 ||
                 (y & 3u) != 0) {
 
-                /*std::cerr
+                std::cerr
                     << "Cannot atlas texture "
                     << texture->ID
                     << " at mip "
@@ -554,7 +554,7 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
                     << ", "
                     << y
                     << " is not BC7 4x4 aligned."
-                    << std::endl;*/
+                    << std::endl;
 
                 continue;
             }
