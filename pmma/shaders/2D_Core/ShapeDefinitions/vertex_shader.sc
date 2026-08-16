@@ -5,7 +5,6 @@ $output v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 
 uniform mat4 OrthDisplayProj;
 uniform vec4 u_textureInfo;
-uniform vec4 HasTransparency;
 
 SAMPLER2D(s_colorTex, 0);
 
@@ -60,7 +59,7 @@ void main()
     v_data2.w = ShapePropertyTwo.y;
     v_data3.x = ShapePropertyThree.x;
     v_data3.y = ShapePropertyThree.y;
-    v_data3.z = HasTransparency.x;
+    v_data3.z = i_data2.w; // Texture ID
 
     // 1. Scale the local vertex positions first
     vec2 scaled_pos = a_position * Size;

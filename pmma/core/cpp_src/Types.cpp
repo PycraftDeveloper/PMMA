@@ -946,29 +946,6 @@ before calling this function!");
     return Path;
 }
 
-void PMMA::Types::Texture::GetPositionInAtlas(uintptr_t RenderPipelineInstance_ID, uint16_t *position) {
-    if (TextureProperties == nullptr) {
-        PMMA::Core::LoggingManagerInstance->InternalLogError(
-            70,
-            "Unable to get texture size. You need to load a texture \
-before calling this function!");
-
-        throw std::runtime_error("Failed to query texture information.");
-    }
-
-    if (TextureProperties->LoadFuture.valid()) {
-        TextureProperties->LoadFuture.wait();
-
-        TextureProperties->LoadFuture = std::future<void>();
-    }
-
-    auto &storedPosition =
-        TextureProperties->RegisteredRenderPipelineInstances[RenderPipelineInstance_ID];
-
-    position[0] = storedPosition[0];
-    position[1] = storedPosition[1];
-}
-
 unsigned char PMMA::Types::Texture::GetChannels() {
     if (TextureProperties == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(

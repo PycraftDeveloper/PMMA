@@ -43,7 +43,6 @@ struct MipData {
 struct TextureProperty {
     uintptr_t ID;
     uint32_t References = 0;
-    std::map<uintptr_t, uint16_t[2]> RegisteredRenderPipelineInstances;
     unsigned char Channels;
     uint8_t MipLevels;
 

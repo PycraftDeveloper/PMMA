@@ -45,6 +45,17 @@ public:
     uint32_t MaxTextureDimension = 1024;
     uintptr_t RenderPipelineInstanceID;
 
+    static constexpr uint32_t BC7_ALIGNMENT = 4;
+
+    static constexpr uint32_t AlignUp4(uint32_t value) {
+        return (value + (BC7_ALIGNMENT - 1)) &
+               ~(BC7_ALIGNMENT - 1);
+    }
+
+    static constexpr uint32_t AlignDown4(uint32_t value) {
+        return value & ~(BC7_ALIGNMENT - 1);
+    }
+
     CompressedTextureInstance(uintptr_t NewRenderPipelineInstanceID, uint32_t NewMaxTextureDimension, uint32_t NewMipLevel) {
         RenderPipelineInstanceID = NewRenderPipelineInstanceID;
         MaxTextureDimension = NewMaxTextureDimension;
@@ -59,6 +70,29 @@ public:
     ~CompressedTextureInstance() {
         if (bgfx::isValid(TextureHandle)) {
             bgfx::destroy(TextureHandle);
+        }
+    }
+
+    inline void Reset() {
+        RegisteredTextures.clear();
+        PendingTextures.clear();
+        Allocations.clear();
+
+        Skyline.clear();
+        Skyline.push_back({0,
+                           0,
+                           MaxTextureDimension});
+
+        AtlasPixels.clear();
+
+        Dirty = false;
+
+        m_TextureWidth = 0;
+        m_TextureHeight = 0;
+
+        if (bgfx::isValid(TextureHandle)) {
+            bgfx::destroy(TextureHandle);
+            TextureHandle = BGFX_INVALID_HANDLE;
         }
     }
 
@@ -267,38 +301,114 @@ public:
         }
     }
 
-    inline void RegisterTexture(
-        PMMA::Internal::TextureProperty *Texture) {
-
+    inline bool RegisterTexture(
+        PMMA::Internal::TextureProperty *Texture,
+        std::vector<float> &LookUpTextureData,
+        uint32_t TextureID) {
         if (Texture == nullptr) {
-            return;
+            return false;
         }
 
         if (RegisteredTextures.contains(Texture->ID)) {
-            return;
+            return false;
         }
 
         if (Texture->MipChain.empty()) {
-            return;
+            return false;
         }
 
-        //
-        // Treat each mip as an independent texture.
-        // This TextureManager only wants the mip selected
-        // by MipLevel.
-        //
         if (MipLevel >= Texture->MipChain.size()) {
-            return;
+            return false;
         }
 
         const auto &Mip =
             Texture->MipChain[MipLevel];
 
-        uint32_t PackedWidth =
-            Mip.Size[0] + AtlasPadding * 2;
+        // ========================================================================
+        // BC7 operates on 4x4 blocks.
+        //
+        // Round the actual mip dimensions UP to complete BC7 blocks.
+        // ========================================================================
 
-        uint32_t PackedHeight =
-            Mip.Size[1] + AtlasPadding * 2;
+        const uint32_t MipWidth =
+            static_cast<uint32_t>(Mip.Size[0]);
+
+        const uint32_t MipHeight =
+            static_cast<uint32_t>(Mip.Size[1]);
+
+        if (MipWidth == 0 ||
+            MipHeight == 0) {
+
+            return false;
+        }
+
+        const uint32_t AlignedWidth =
+            AlignUp4(MipWidth);
+
+        const uint32_t AlignedHeight =
+            AlignUp4(MipHeight);
+
+        // ========================================================================
+        // Padding must also be BC7 aligned.
+        //
+        // Otherwise:
+        //
+        //     X + AtlasPadding
+        //
+        // could become something like:
+        //
+        //     128 + 2 = 130
+        //
+        // which is invalid for BC7.
+        // ========================================================================
+
+        const uint32_t AlignedPadding =
+            AlignUp4(AtlasPadding);
+
+        // ========================================================================
+        // Reserve the entire BC7-aligned rectangle.
+        //
+        // Everything entering the skyline is now a multiple of 4.
+        // Since the skyline starts at X=0/Y=0, every resulting skyline
+        // coordinate will remain a multiple of 4.
+        // ========================================================================
+
+        const uint32_t PackedWidth =
+            AlignedWidth +
+            AlignedPadding * 2;
+
+        const uint32_t PackedHeight =
+            AlignedHeight +
+            AlignedPadding * 2;
+
+        // ========================================================================
+        // Make sure the texture can theoretically fit in the atlas.
+        // ========================================================================
+
+        if (PackedWidth > MaxTextureDimension ||
+            PackedHeight > MaxTextureDimension) {
+
+            std::cerr
+                << "Texture "
+                << Texture->ID
+                << " is too large for the atlas. "
+                << "Required "
+                << PackedWidth
+                << "x"
+                << PackedHeight
+                << ", atlas is "
+                << MaxTextureDimension
+                << "x"
+                << MaxTextureDimension
+                << "."
+                << std::endl;
+
+            return false;
+        }
+
+        // ========================================================================
+        // Find a BC7-aligned position.
+        // ========================================================================
 
         uint32_t X;
         uint32_t Y;
@@ -315,8 +425,33 @@ public:
                 << "Atlas full"
                 << std::endl;
 
-            return;
+            return false;
         }
+
+        // ========================================================================
+        // Sanity check.
+        //
+        // This should ALWAYS succeed now because every skyline dimension and
+        // position is a multiple of 4.
+        // ========================================================================
+
+        if ((X & 3u) != 0 ||
+            (Y & 3u) != 0) {
+
+            std::cerr
+                << "Internal error: skyline returned "
+                << "unaligned BC7 position "
+                << X
+                << ", "
+                << Y
+                << std::endl;
+
+            return false;
+        }
+
+        // ========================================================================
+        // Insert the complete aligned rectangle into the skyline.
+        // ========================================================================
 
         InsertSkylineLevel(
             SkylineIndex,
@@ -327,12 +462,26 @@ public:
 
         MergeSkyline();
 
+        // ========================================================================
+        // The actual texture starts after the aligned padding.
+        //
+        // IMPORTANT:
+        //
+        // X + AlignedPadding is still guaranteed to be divisible by 4.
+        // ========================================================================
+
+        const uint32_t TextureX =
+            X + AlignedPadding;
+
+        const uint32_t TextureY =
+            Y + AlignedPadding;
+
         Allocations[Texture->ID] =
             {
-                X + AtlasPadding,
-                Y + AtlasPadding,
-                Mip.Size[0],
-                Mip.Size[1]};
+                TextureX,
+                TextureY,
+                AlignedWidth,
+                AlignedHeight};
 
         RegisteredTextures.emplace(
             Texture->ID,
@@ -340,21 +489,33 @@ public:
 
         ++Texture->References;
 
-        if (MipLevel == 0) {
-            auto &Location =
-                Texture->RegisteredRenderPipelineInstances
-                    [RenderPipelineInstanceID];
+        const size_t Offset =
+            (static_cast<size_t>(TextureID) *
+                 PMMA::Constants::MAX_TEXTURE_MIPS +
+             static_cast<size_t>(MipLevel)) *
+            4;
 
-            Location[0] =
-                static_cast<uint16_t>(X);
-
-            Location[1] =
-                static_cast<uint16_t>(Y);
+        if (LookUpTextureData.size() < Offset + 4) {
+            LookUpTextureData.resize(Offset + 4, 0.0f);
         }
+
+        LookUpTextureData[Offset + 0] =
+            static_cast<float>(TextureX);
+
+        LookUpTextureData[Offset + 1] =
+            static_cast<float>(TextureY);
+
+        LookUpTextureData[Offset + 2] =
+            static_cast<float>(MipWidth);
+
+        LookUpTextureData[Offset + 3] =
+            static_cast<float>(MipHeight);
 
         PendingTextures.push_back(Texture);
 
         Dirty = true;
+
+        return true;
     }
 
     void Assemble();

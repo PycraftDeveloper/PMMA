@@ -1,22 +1,26 @@
 $input v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 #include "common.sh"
 
+#define MAX_TEXTURE_MIPS 13
+
 // SAMPLER2D(Color, 0);
 // SAMPLER2D(Generated, 1);
-SAMPLER2D(s_Tex_0, 2);
-SAMPLER2D(s_Tex_1, 3);
-SAMPLER2D(s_Tex_2, 4);
-SAMPLER2D(s_Tex_3, 5);
-SAMPLER2D(s_Tex_4, 6);
-SAMPLER2D(s_Tex_5, 7);
-SAMPLER2D(s_Tex_6, 8);
-SAMPLER2D(s_Tex_7, 9);
-SAMPLER2D(s_Tex_8, 10);
-SAMPLER2D(s_Tex_9, 11);
-SAMPLER2D(s_Tex_10, 12);
-SAMPLER2D(s_Tex_11, 13);
-SAMPLER2D(s_Tex_12, 14);
-SAMPLER2D(s_Tex_13, 15);
+SAMPLER2D(s_LookUpTexture, 2);
+SAMPLER2D(s_Tex_0, 3);
+SAMPLER2D(s_Tex_1, 4);
+SAMPLER2D(s_Tex_2, 5);
+SAMPLER2D(s_Tex_3, 6);
+SAMPLER2D(s_Tex_4, 7);
+SAMPLER2D(s_Tex_5, 8);
+SAMPLER2D(s_Tex_6, 9);
+SAMPLER2D(s_Tex_7, 10);
+SAMPLER2D(s_Tex_8, 11);
+SAMPLER2D(s_Tex_9, 12);
+SAMPLER2D(s_Tex_10, 13);
+SAMPLER2D(s_Tex_11, 14);
+SAMPLER2D(s_Tex_12, 15);
+
+uniform vec4 FragmentData;
 
 // ------------------------------------------------------------
 // Utility
@@ -232,16 +236,104 @@ void main()
 
     alpha *= step(0.0039, alpha);
 
-    if (alpha < v_data3.z) {
+    if (alpha < FragmentData.x) {
         discard;
     }
 
-    if (v_data1.w > 0.0001 && v_data2.x > 0.0001)
+    float textureID = v_data3.z;
+
+    if (textureID >= 0.0)
     {
-        vec2 atlasUV = v_data1.yz + (v_uv * vec2(v_data1.w, v_data2.x));
-        vec4 TexColor = texture2D(s_Tex_0, atlasUV) * texture2D(s_Tex_1, atlasUV) * texture2D(s_Tex_2, atlasUV) * texture2D(s_Tex_3, atlasUV) * texture2D(s_Tex_4, atlasUV) * texture2D(s_Tex_5, atlasUV) * texture2D(s_Tex_6, atlasUV) * texture2D(s_Tex_7, atlasUV) * texture2D(s_Tex_8, atlasUV) * texture2D(s_Tex_9, atlasUV) * texture2D(s_Tex_10, atlasUV) * texture2D(s_Tex_11, atlasUV) * texture2D(s_Tex_12, atlasUV) * texture2D(s_Tex_13, atlasUV);
-        gl_FragColor = vec4(v_col0.rgb * TexColor.rgb, v_col0.a * alpha * TexColor.a);
-    } else {
-        gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
+        float mip = 0.0;
+
+        vec2 lookupUV = vec2(
+                (mip + 0.5) / float(MAX_TEXTURE_MIPS),
+                (textureID + 0.5) / FragmentData.y
+            );
+
+        vec4 lookup = texture2D(
+                s_LookUpTexture,
+                lookupUV
+            );
+
+        if (lookup.z <= 0.0 || lookup.w <= 0.0)
+        {
+            gl_FragColor = vec4(
+                    v_col0.rgb,
+                    v_col0.a * alpha
+                );
+            return;
+        }
+
+        vec2 atlasUV =
+            lookup.xy +
+                v_uv * lookup.zw;
+
+        vec4 TexColor;
+
+        if (mip < 0.5)
+        {
+            TexColor = texture2D(s_Tex_0, atlasUV);
+        }
+        else if (mip < 1.5)
+        {
+            TexColor = texture2D(s_Tex_1, atlasUV);
+        }
+        else if (mip < 2.5)
+        {
+            TexColor = texture2D(s_Tex_2, atlasUV);
+        }
+        else if (mip < 3.5)
+        {
+            TexColor = texture2D(s_Tex_3, atlasUV);
+        }
+        else if (mip < 4.5)
+        {
+            TexColor = texture2D(s_Tex_4, atlasUV);
+        }
+        else if (mip < 5.5)
+        {
+            TexColor = texture2D(s_Tex_5, atlasUV);
+        }
+        else if (mip < 6.5)
+        {
+            TexColor = texture2D(s_Tex_6, atlasUV);
+        }
+        else if (mip < 7.5)
+        {
+            TexColor = texture2D(s_Tex_7, atlasUV);
+        }
+        else if (mip < 8.5)
+        {
+            TexColor = texture2D(s_Tex_8, atlasUV);
+        }
+        else if (mip < 9.5)
+        {
+            TexColor = texture2D(s_Tex_9, atlasUV);
+        }
+        else if (mip < 10.5)
+        {
+            TexColor = texture2D(s_Tex_10, atlasUV);
+        }
+        else if (mip < 11.5)
+        {
+            TexColor = texture2D(s_Tex_11, atlasUV);
+        }
+        else
+        {
+            TexColor = texture2D(s_Tex_12, atlasUV);
+        }
+
+        gl_FragColor = vec4(
+                v_col0.rgb * TexColor.rgb,
+                v_col0.a * alpha * TexColor.a
+            );
+    }
+    else
+    {
+        gl_FragColor = vec4(
+                v_col0.rgb,
+                v_col0.a * alpha
+            );
     }
 }

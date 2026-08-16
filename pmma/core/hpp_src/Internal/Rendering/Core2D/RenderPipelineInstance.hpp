@@ -55,7 +55,7 @@ private:
     bgfx::DynamicVertexBufferHandle TransparentInstanceVbh = BGFX_INVALID_HANDLE;
 
     bgfx::UniformHandle u_textureInfo;
-    bgfx::UniformHandle u_transparency;
+    bgfx::UniformHandle u_FragmentData;
     bgfx::UniformHandle s_colorTex;
 
     char BufferID = 0;
@@ -94,6 +94,8 @@ public:
 
     inline void Reset() {
         ColorTexture.Reset();
+        CompressedTextureManager.Reset();
+
         OpaqueInstanceCount = 0;
         TransparentInstanceCount = 0;
 
@@ -121,7 +123,12 @@ public:
 
         instance.color_index = ColorTexture.AddColor(&Color, ShapeID, ColorDataChanged);
 
-        // Texture
+        // Used for RGBA generated texture for noise and text
+        instance.texture_position = 0;
+        instance.texture_size = 0;
+        // end
+
+        // CompressedTexture
         uint16_t TexturePositionInAtlas[2] = {0, 0};
         if (Texture.IsEnabled()) {
             if (TextureSize[0] > MaxTextureDimension || TextureSize[1] > MaxTextureDimension) {
@@ -130,16 +137,15 @@ public:
                 return;
             }
 
+            float TextureID = 0;
+
             if (Channels == 3) {
-                CompressedTextureManager.RegisterOpaque(Texture.TextureProperties);
+                TextureID = CompressedTextureManager.RegisterOpaque(Texture.TextureProperties);
             } else {
-                CompressedTextureManager.RegisterTransparent(Texture.TextureProperties);
+                TextureID = CompressedTextureManager.RegisterTransparent(Texture.TextureProperties);
                 IsOpaque = false;
             }
-            Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
-
-            instance.texture_position = PMMA::Internal::PackValues(TexturePositionInAtlas[0], TexturePositionInAtlas[1]);
-            instance.texture_size = PMMA::Internal::PackValues(TextureSize[0], TextureSize[1]);
+            instance.texture_id = TextureID;
         }
 
         ColorChanged |= ColorDataChanged;

@@ -27,7 +27,7 @@ struct InstanceData {
     float color_index, shape_type_width;
     float texture_position = 0, texture_size = 0;
     float shape_property_two = 0, shape_property_three = 0;
-    float depth = 0, unused = 0;
+    float depth = 0, texture_id = 0;
 };
 
 class RenderPipelineManager {

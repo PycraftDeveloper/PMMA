@@ -324,8 +324,6 @@ public:
 
     void GetSize(uint16_t *size);
 
-    void GetPositionInAtlas(uintptr_t RenderPipelineInstance_ID, uint16_t *position);
-
     unsigned char GetChannels();
 
     uint32_t GetReferences();
