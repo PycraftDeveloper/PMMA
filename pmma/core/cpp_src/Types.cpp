@@ -29,6 +29,8 @@ inline void GenerateMipChain(
     uint32_t currentWidth = width;
     uint32_t currentHeight = height;
 
+    uint32_t mipLevel = 0;
+
     while (true) {
         //
         // Store the current mip.
@@ -47,10 +49,13 @@ inline void GenerateMipChain(
 
         TextureProperties->MipChain.emplace_back(std::move(mip));
 
+        ++mipLevel;
+
         //
         // Finished once we've reached 1x1.
         //
-        if (currentWidth == 1 && currentHeight == 1) {
+        if (mipLevel >= PMMA::Constants::MAX_TEXTURE_MIPS ||
+            (currentWidth == 1 && currentHeight == 1)) {
             break;
         }
 
