@@ -17,6 +17,8 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
         static_cast<uint32_t>(caps->limits.maxTextureSize),
         static_cast<uint32_t>(std::numeric_limits<uint16_t>::max()));
 
+    CompressedTextureManager.Initialize(ID, MaxTextureDimension);
+
     m_layout.begin()
         .add(bgfx::Attrib::Position, 2, bgfx::AttribType::Float)
         .add(bgfx::Attrib::TexCoord0, 2, bgfx::AttribType::Float)
@@ -31,16 +33,6 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
     s_colorTex = bgfx::createUniform(
         "s_colorTex",
         bgfx::UniformType::Sampler);
-
-    for (int i = 0; i < std::size(s_Tex); i++) {
-        std::string uniformName = "s_Tex_" + std::to_string(i);
-
-        std::cout << uniformName << std::endl;
-
-        s_Tex[i] = bgfx::createUniform(
-            uniformName.c_str(),
-            bgfx::UniformType::Sampler);
-    }
 
     u_textureInfo = bgfx::createUniform(
         "u_textureInfo",
@@ -128,33 +120,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         ColorTexture.Assemble();
     }
 
-    for (int i = 0; i < std::size(TransparentCompressedTextureManager); i++) {
-        PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = TransparentCompressedTextureManager[i];
-
-        if (Texture == nullptr) {
-            break;
-        }
-
-        if (Texture->Dirty) {
-            Texture->Assemble();
-
-            std::cout << "Assembled Transparent Texture: " << i << std::endl;
-        }
-    }
-
-    for (int i = 0; i < std::size(OpaqueCompressedTextureManager); i++) {
-        PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = OpaqueCompressedTextureManager[i];
-
-        if (Texture == nullptr) {
-            break;
-        }
-
-        if (Texture->Dirty) {
-            Texture->Assemble();
-
-            std::cout << "Assembled Opaque Texture: " << i << std::endl;
-        }
-    }
+    CompressedTextureManager.Assemble();
 
     if (ShapePropertyChanged || OpaqueInstanceCount != OpaquePreviousBufferSize || TransparentInstanceCount != TransparentPreviousBufferSize || !bgfx::isValid(OpaqueInstanceVbh) || !bgfx::isValid(TransparentInstanceVbh)) {
         PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
@@ -264,19 +230,13 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         PMMA::Core::ActiveDisplayInstance->GetOrthographicProjection(proj);
         bgfx::setUniform(OrthDisplayProj, proj);
 
-        float CompressedTextureWidth = 0;
-        float CompressedTextureHeight = 0;
-
-        if (OpaqueCompressedTextureManager[0] != nullptr) {
-            CompressedTextureWidth = float(OpaqueCompressedTextureManager[0]->m_TextureWidth);
-            CompressedTextureHeight = float(OpaqueCompressedTextureManager[0]->m_TextureHeight);
-        }
-
         float textureInfo[4] = {
             float(ColorTexture.m_colorTextureWidth),
             float(ColorTexture.m_colorTextureHeight),
-            CompressedTextureWidth,
-            CompressedTextureHeight};
+            0,
+            0};
+
+        CompressedTextureManager.OpaquePass(textureInfo);
 
         bgfx::setUniform(u_textureInfo, textureInfo);
 
@@ -285,16 +245,6 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
 
         bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
         // bgfx::setTexture(1, RGB texture for generated textures like text and noise)
-
-        for (int i = 0; i < std::size(OpaqueCompressedTextureManager); i++) {
-            PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = OpaqueCompressedTextureManager[i];
-
-            if (Texture == nullptr) {
-                break;
-            }
-
-            bgfx::setTexture(2 + i, s_Tex[i], Texture->TextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
-        }
 
         float transparencyInfo[4] = {1.0f, 0.0f, 0.0f, 0.0f};
         bgfx::setUniform(u_transparency, transparencyInfo);
@@ -324,16 +274,13 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         float CompressedTextureWidth = 0;
         float CompressedTextureHeight = 0;
 
-        if (TransparentCompressedTextureManager[0] != nullptr) {
-            CompressedTextureWidth = float(TransparentCompressedTextureManager[0]->m_TextureWidth);
-            CompressedTextureHeight = float(TransparentCompressedTextureManager[0]->m_TextureHeight);
-        }
-
         float textureInfo[4] = {
             float(ColorTexture.m_colorTextureWidth),
             float(ColorTexture.m_colorTextureHeight),
-            CompressedTextureWidth,
-            CompressedTextureHeight};
+            0,
+            0};
+
+        CompressedTextureManager.TransparentPass(textureInfo);
 
         bgfx::setUniform(u_textureInfo, textureInfo);
 
@@ -342,18 +289,6 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
 
         bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
         // bgfx::setTexture(1, RGBA texture for generated textures like text and noise)
-
-        for (int i = 0; i < std::size(TransparentCompressedTextureManager); i++) {
-            PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = TransparentCompressedTextureManager[i];
-
-            if (Texture == nullptr) {
-                break;
-            }
-
-            std::cout << "Transparent Texture :" << i << " has textures: " << Texture->Allocations.size() << std::endl;
-
-            bgfx::setTexture(2 + i, s_Tex[i], Texture->TextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP);
-        }
 
         float transparencyInfo[4] = {0.0f, 0.0f, 0.0f, 0.0f};
         bgfx::setUniform(u_transparency, transparencyInfo);

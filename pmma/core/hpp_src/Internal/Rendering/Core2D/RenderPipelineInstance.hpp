@@ -8,7 +8,7 @@
 #include <bgfx/platform.h>
 
 #include "Internal/Rendering/Core2D/ColorTextureManager.hpp"
-#include "Internal/Rendering/Core2D/CompressedTextureInstance.hpp"
+#include "Internal/Rendering/Core2D/CompressedTextureManager.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
@@ -23,8 +23,7 @@ private:
     PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
 
 public:
-    PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *TransparentCompressedTextureManager[PMMA::Constants::MAX_TEXTURE_MIPS]{};
-    PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *OpaqueCompressedTextureManager[PMMA::Constants::MAX_TEXTURE_MIPS]{};
+    PMMA::Internal::Rendering::Core2D::CompressedTextureManager CompressedTextureManager;
 
 private:
     Vertex VertexData[4];
@@ -58,7 +57,6 @@ private:
     bgfx::UniformHandle u_textureInfo;
     bgfx::UniformHandle u_transparency;
     bgfx::UniformHandle s_colorTex;
-    bgfx::UniformHandle s_Tex[PMMA::Constants::MAX_TEXTURE_MIPS];
 
     char BufferID = 0;
     char PreviousBufferID = 0;
@@ -133,19 +131,9 @@ public:
             }
 
             if (Channels == 3) {
-                for (int i = 0; i < Texture.TextureProperties->MipChain.size(); i++) {
-                    if (OpaqueCompressedTextureManager[i] == nullptr) {
-                        OpaqueCompressedTextureManager[i] = new PMMA::Internal::Rendering::Core2D::CompressedTextureInstance(ID, MaxTextureDimension, i);
-                    }
-                    OpaqueCompressedTextureManager[i]->RegisterTexture(Texture.TextureProperties);
-                }
+                CompressedTextureManager.RegisterOpaque(Texture.TextureProperties);
             } else {
-                for (int i = 0; i < Texture.TextureProperties->MipChain.size(); i++) {
-                    if (TransparentCompressedTextureManager[i] == nullptr) {
-                        TransparentCompressedTextureManager[i] = new PMMA::Internal::Rendering::Core2D::CompressedTextureInstance(ID, MaxTextureDimension, i);
-                    }
-                    TransparentCompressedTextureManager[i]->RegisterTexture(Texture.TextureProperties);
-                }
+                CompressedTextureManager.RegisterTransparent(Texture.TextureProperties);
                 IsOpaque = false;
             }
             Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);
