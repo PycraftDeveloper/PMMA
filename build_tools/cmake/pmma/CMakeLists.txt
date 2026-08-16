@@ -43,7 +43,7 @@ set(CORE_SOURCES
 
     "${SRC_DIR}/Internal/Rendering/Core2D/RenderPipelineManager.cpp"
     "${SRC_DIR}/Internal/Rendering/Core2D/RenderPipelineInstance.cpp"
-    "${SRC_DIR}/Internal/Rendering/Core2D/TextureManager.cpp"
+    "${SRC_DIR}/Internal/Rendering/Core2D/CompressedTextureInstance.cpp"
 
     "${SRC_DIR}/Internal/Utility/CPU_FeatureSetUtils.cpp"
     "${SRC_DIR}/Internal/Utility/FontUtils.cpp"

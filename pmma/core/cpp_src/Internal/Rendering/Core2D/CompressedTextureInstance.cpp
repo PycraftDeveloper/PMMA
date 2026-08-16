@@ -311,14 +311,17 @@ static inline bool CopyBC7MipIntoAtlas(
 //
 // ============================================================================
 
-void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
+void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
 
     if (!Dirty) {
         return;
     }
 
     // ========================================================================
-    // 1. Determine atlas dimensions from mip 0.
+    // 1. Determine atlas dimensions.
+    //
+    // Every texture is treated as an independent texture.
+    // This atlas contains ONLY the mip selected by MipLevel.
     // ========================================================================
 
     m_TextureWidth = 1;
@@ -341,8 +344,6 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
 
     // ========================================================================
     // 2. BC7 operates on 4x4 blocks.
-    //
-    // Round the atlas dimensions up to the next BC7 block boundary.
     // ========================================================================
 
     auto RoundUp4 =
@@ -357,312 +358,202 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
         RoundUp4(m_TextureHeight);
 
     // ========================================================================
-    // 3. Determine mip count and total BC7 atlas size.
-    // ========================================================================
-
-    uint32_t mipCount = 0;
-
-    size_t totalBC7Size = 0;
-
-    uint32_t mipW =
-        m_TextureWidth;
-
-    uint32_t mipH =
-        m_TextureHeight;
-
-    while (true) {
-
-        ++mipCount;
-
-        totalBC7Size +=
-            GetBC7MipSize(
-                mipW,
-                mipH);
-
-        if (mipW == 1 &&
-            mipH == 1) {
-
-            break;
-        }
-
-        mipW =
-            std::max(
-                1u,
-                mipW >> 1);
-
-        mipH =
-            std::max(
-                1u,
-                mipH >> 1);
-    }
-
-    // ========================================================================
-    // 4. Allocate the final BC7 atlas.
+    // 3. Allocate one BC7 atlas.
     //
-    // There is no temporary RGBA8 atlas anymore.
+    // There are NO atlas mip levels.
+    // MipLevel was already selected when the textures were registered.
     // ========================================================================
+
+    const size_t atlasSize =
+        GetBC7MipSize(
+            m_TextureWidth,
+            m_TextureHeight);
 
     std::vector<uint8_t> compressedAtlas(
-        totalBC7Size);
+        atlasSize);
 
     // ========================================================================
-    // 5. Initialize every atlas block to transparent black.
+    // 4. Initialize the atlas to transparent black.
+    // ========================================================================
+
+    ClearBC7Mip(
+        compressedAtlas.data(),
+        m_TextureWidth,
+        m_TextureHeight);
+
+    // ========================================================================
+    // 5. Copy the selected mip of every texture into the atlas.
     //
-    // This means areas not occupied by textures are valid BC7 blocks.
+    // Each mip is treated as an independent texture.
     // ========================================================================
 
-    size_t mipOffset = 0;
+    for (auto *texture : PendingTextures) {
 
-    mipW =
-        m_TextureWidth;
+        if (texture == nullptr) {
+            continue;
+        }
 
-    mipH =
-        m_TextureHeight;
+        auto allocationIt =
+            Allocations.find(
+                texture->ID);
 
-    for (uint32_t mipLevel = 0;
-         mipLevel < mipCount;
-         ++mipLevel) {
+        if (allocationIt ==
+            Allocations.end()) {
 
-        uint8_t *mipDestination =
-            compressedAtlas.data() +
-            mipOffset;
+            continue;
+        }
 
-        ClearBC7Mip(
-            mipDestination,
-            mipW,
-            mipH);
-
-        mipOffset +=
-            GetBC7MipSize(
-                mipW,
-                mipH);
-
-        mipW =
-            std::max(
-                1u,
-                mipW >> 1);
-
-        mipH =
-            std::max(
-                1u,
-                mipH >> 1);
-    }
-
-    // ========================================================================
-    // 6. Copy cached BC7 textures directly into the atlas.
-    // ========================================================================
-
-    mipOffset = 0;
-
-    for (uint32_t mipLevel = 0;
-         mipLevel < mipCount;
-         ++mipLevel) {
-
-        const uint32_t mipWidth =
-            std::max(
-                1u,
-                m_TextureWidth >> mipLevel);
-
-        const uint32_t mipHeight =
-            std::max(
-                1u,
-                m_TextureHeight >> mipLevel);
-
-        uint8_t *mipDestination =
-            compressedAtlas.data() +
-            mipOffset;
+        const AtlasAllocation &allocation =
+            allocationIt->second;
 
         // --------------------------------------------------------------------
-        // Process every pending texture.
+        // The requested mip does not exist.
         // --------------------------------------------------------------------
 
-        for (auto *texture : PendingTextures) {
+        if (MipLevel >=
+            texture->MipChain.size()) {
 
-            if (texture == nullptr) {
-                continue;
-            }
+            std::cerr
+                << "Texture "
+                << texture->ID
+                << " does not contain mip "
+                << MipLevel
+                << "."
+                << std::endl;
 
-            auto allocationIt =
-                Allocations.find(
-                    texture->ID);
-
-            if (allocationIt ==
-                Allocations.end()) {
-
-                continue;
-            }
-
-            const AtlasAllocation &allocation =
-                allocationIt->second;
-
-            // ----------------------------------------------------------------
-            // Texture does not contain this mip.
-            // ----------------------------------------------------------------
-
-            if (mipLevel >=
-                texture->MipChain.size()) {
-
-                continue;
-            }
-
-            const auto &source =
-                texture->MipChain[mipLevel];
-
-            const uint32_t sourceWidth =
-                static_cast<uint32_t>(
-                    source.Size[0]);
-
-            const uint32_t sourceHeight =
-                static_cast<uint32_t>(
-                    source.Size[1]);
-
-            if (sourceWidth == 0 ||
-                sourceHeight == 0) {
-
-                continue;
-            }
-
-            // ----------------------------------------------------------------
-            // Calculate the texture's position at this mip.
-            // ----------------------------------------------------------------
-
-            uint32_t x =
-                allocation.X >>
-                mipLevel;
-
-            uint32_t y =
-                allocation.Y >>
-                mipLevel;
-
-            // ----------------------------------------------------------------
-            // BC7 alignment check.
-            //
-            // The source cannot be shifted by a non-block-aligned amount.
-            // ----------------------------------------------------------------
-
-            if ((x & 3u) != 0 ||
-                (y & 3u) != 0) {
-
-                /*std::cerr
-                    << "Cannot atlas texture "
-                    << texture->ID
-                    << " at mip "
-                    << mipLevel
-                    << ". "
-                    << "Atlas position "
-                    << x
-                    << ", "
-                    << y
-                    << " is not BC7 4x4 aligned."
-                    << std::endl;*/
-
-                continue;
-            }
-
-            // ----------------------------------------------------------------
-            // Check that the source fits into the atlas mip.
-            // ----------------------------------------------------------------
-
-            if (sourceWidth > mipWidth ||
-                sourceHeight > mipHeight) {
-
-                std::cerr
-                    << "Skipping texture "
-                    << texture->ID
-                    << " at mip "
-                    << mipLevel
-                    << ". Source is "
-                    << sourceWidth
-                    << "x"
-                    << sourceHeight
-                    << ", atlas mip is "
-                    << mipWidth
-                    << "x"
-                    << mipHeight
-                    << "."
-                    << std::endl;
-
-                continue;
-            }
-
-            // ----------------------------------------------------------------
-            // Clamp destination position so the nominal source rectangle fits.
-            // ----------------------------------------------------------------
-
-            x =
-                std::min(
-                    x,
-                    mipWidth -
-                        sourceWidth);
-
-            y =
-                std::min(
-                    y,
-                    mipHeight -
-                        sourceHeight);
-
-            // ----------------------------------------------------------------
-            // IMPORTANT:
-            //
-            // The clamp above can theoretically produce a non-aligned
-            // coordinate.
-            //
-            // Do NOT round it here, because that would change the placement.
-            // Just reject the placement.
-            // ----------------------------------------------------------------
-
-            if ((x & 3u) != 0 ||
-                (y & 3u) != 0) {
-
-                std::cerr
-                    << "Texture "
-                    << texture->ID
-                    << " became unaligned after atlas clamping at mip "
-                    << mipLevel
-                    << "."
-                    << std::endl;
-
-                continue;
-            }
-
-            // ----------------------------------------------------------------
-            // Direct BC7 -> BC7 block copy.
-            // ----------------------------------------------------------------
-
-            if (!CopyBC7MipIntoAtlas(
-                    source,
-                    sourceWidth,
-                    sourceHeight,
-                    x,
-                    y,
-                    mipWidth,
-                    mipHeight,
-                    mipDestination)) {
-
-                std::cerr
-                    << "Failed to copy BC7 mip "
-                    << mipLevel
-                    << " for texture "
-                    << texture->ID
-                    << "."
-                    << std::endl;
-
-                continue;
-            }
+            continue;
         }
 
         // --------------------------------------------------------------------
-        // Advance to the next compressed mip.
+        // Get ONLY the requested mip.
         // --------------------------------------------------------------------
 
-        mipOffset +=
-            GetBC7MipSize(
-                mipWidth,
-                mipHeight);
+        const auto &source =
+            texture->MipChain[MipLevel];
+
+        const uint32_t sourceWidth =
+            static_cast<uint32_t>(
+                source.Size[0]);
+
+        const uint32_t sourceHeight =
+            static_cast<uint32_t>(
+                source.Size[1]);
+
+        if (sourceWidth == 0 ||
+            sourceHeight == 0) {
+
+            continue;
+        }
+
+        // --------------------------------------------------------------------
+        // The allocation was made for this exact mip, so use its position
+        // directly.
+        //
+        // DO NOT divide the coordinates by MipLevel.
+        // --------------------------------------------------------------------
+
+        uint32_t x =
+            allocation.X;
+
+        uint32_t y =
+            allocation.Y;
+
+        // --------------------------------------------------------------------
+        // BC7 requires block-aligned destinations.
+        // --------------------------------------------------------------------
+
+        if ((x & 3u) != 0 ||
+            (y & 3u) != 0) {
+
+            std::cerr
+                << "Cannot atlas texture "
+                << texture->ID
+                << " at mip "
+                << MipLevel
+                << ". Atlas position "
+                << x
+                << ", "
+                << y
+                << " is not BC7 4x4 aligned."
+                << std::endl;
+
+            continue;
+        }
+
+        // --------------------------------------------------------------------
+        // Make sure the selected mip fits.
+        // --------------------------------------------------------------------
+
+        if (sourceWidth > m_TextureWidth ||
+            sourceHeight > m_TextureHeight) {
+
+            std::cerr
+                << "Skipping texture "
+                << texture->ID
+                << " at mip "
+                << MipLevel
+                << ". Source is "
+                << sourceWidth
+                << "x"
+                << sourceHeight
+                << ", atlas is "
+                << m_TextureWidth
+                << "x"
+                << m_TextureHeight
+                << "."
+                << std::endl;
+
+            continue;
+        }
+
+        // --------------------------------------------------------------------
+        // Destination must contain the entire texture.
+        // --------------------------------------------------------------------
+
+        if (x + sourceWidth > m_TextureWidth ||
+            y + sourceHeight > m_TextureHeight) {
+
+            std::cerr
+                << "Texture "
+                << texture->ID
+                << " does not fit in atlas at "
+                << x
+                << ", "
+                << y
+                << "."
+                << std::endl;
+
+            continue;
+        }
+
+        // --------------------------------------------------------------------
+        // Direct BC7 -> BC7 block copy.
+        // --------------------------------------------------------------------
+
+        if (!CopyBC7MipIntoAtlas(
+                source,
+                sourceWidth,
+                sourceHeight,
+                x,
+                y,
+                m_TextureWidth,
+                m_TextureHeight,
+                compressedAtlas.data())) {
+
+            std::cerr
+                << "Failed to copy mip "
+                << MipLevel
+                << " for texture "
+                << texture->ID
+                << "."
+                << std::endl;
+
+            continue;
+        }
     }
 
     // ========================================================================
-    // 7. Destroy previous GPU texture.
+    // 6. Destroy previous GPU texture.
     // ========================================================================
 
     if (bgfx::isValid(TextureHandle)) {
@@ -675,7 +566,9 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
     }
 
     // ========================================================================
-    // 8. Upload the BC7 atlas directly.
+    // 7. Upload ONE BC7 texture.
+    //
+    // This texture has no mip chain.
     // ========================================================================
 
     if (compressedAtlas.empty()) {
@@ -699,7 +592,7 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
             static_cast<uint16_t>(
                 m_TextureHeight),
 
-            true, // has mipmaps
+            false, // no mipmaps
 
             1, // layers
 
@@ -714,7 +607,7 @@ void PMMA::Internal::Rendering::Core2D::TextureManager::Assemble() {
                     compressedAtlas.size())));
 
     // ========================================================================
-    // 9. Cleanup.
+    // 8. Cleanup.
     // ========================================================================
 
     PendingTextures.clear();

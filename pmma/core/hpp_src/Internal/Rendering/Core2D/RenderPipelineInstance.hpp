@@ -8,8 +8,8 @@
 #include <bgfx/platform.h>
 
 #include "Internal/Rendering/Core2D/ColorTextureManager.hpp"
+#include "Internal/Rendering/Core2D/CompressedTextureInstance.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
-#include "Internal/Rendering/Core2D/TextureManager.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
 class EXPORT RenderPipelineInstance {
@@ -23,8 +23,8 @@ private:
     PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
 
 public:
-    PMMA::Internal::Rendering::Core2D::TextureManager TransparentTextureManager;
-    PMMA::Internal::Rendering::Core2D::TextureManager OpaqueTextureManager;
+    PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *TransparentCompressedTextureManager[PMMA::Constants::MAX_TEXTURE_MIPS]{};
+    PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *OpaqueCompressedTextureManager[PMMA::Constants::MAX_TEXTURE_MIPS]{};
 
 private:
     Vertex VertexData[4];
@@ -40,13 +40,13 @@ public:
 
     uint32_t OpaqueInstanceCount = 0;
     uint32_t TransparentInstanceCount = 0;
+    uint32_t MaxTextureDimension;
 
 private:
     uint32_t OpaquePreviousBufferSize = 0;
     uint32_t TransparentPreviousBufferSize = 0;
     uint32_t CurrentOpaqueDataSize = 0;
     uint32_t CurrentTransparentDataSize = 0;
-    uint32_t MaxTextureDimension;
 
     bgfx::VertexBufferHandle vbh;
     bgfx::IndexBufferHandle ibh;
@@ -58,7 +58,7 @@ private:
     bgfx::UniformHandle u_textureInfo;
     bgfx::UniformHandle u_transparency;
     bgfx::UniformHandle s_colorTex;
-    bgfx::UniformHandle s_Tex;
+    bgfx::UniformHandle s_Tex[PMMA::Constants::MAX_TEXTURE_MIPS];
 
     char BufferID = 0;
     char PreviousBufferID = 0;
@@ -66,13 +66,6 @@ private:
     bool ColorChanged = true;
     bool ShapePropertyChanged = true;
     bool UsingCache = false;
-
-    static uint32_t GetMaxTextureDimension() {
-        const bgfx::Caps *caps = bgfx::getCaps();
-        return std::min(
-            static_cast<uint32_t>(caps->limits.maxTextureSize),
-            static_cast<uint32_t>(std::numeric_limits<uint16_t>::max()));
-    }
 
 public:
     RenderPipelineInstance();
@@ -140,9 +133,19 @@ public:
             }
 
             if (Channels == 3) {
-                OpaqueTextureManager.RegisterTexture(Texture.TextureProperties);
+                for (int i = 0; i < Texture.TextureProperties->MipChain.size(); i++) {
+                    if (OpaqueCompressedTextureManager[i] == nullptr) {
+                        OpaqueCompressedTextureManager[i] = new PMMA::Internal::Rendering::Core2D::CompressedTextureInstance(ID, MaxTextureDimension, i);
+                    }
+                    OpaqueCompressedTextureManager[i]->RegisterTexture(Texture.TextureProperties);
+                }
             } else {
-                TransparentTextureManager.RegisterTexture(Texture.TextureProperties);
+                for (int i = 0; i < Texture.TextureProperties->MipChain.size(); i++) {
+                    if (TransparentCompressedTextureManager[i] == nullptr) {
+                        TransparentCompressedTextureManager[i] = new PMMA::Internal::Rendering::Core2D::CompressedTextureInstance(ID, MaxTextureDimension, i);
+                    }
+                    TransparentCompressedTextureManager[i]->RegisterTexture(Texture.TextureProperties);
+                }
                 IsOpaque = false;
             }
             Texture.GetPositionInAtlas(ID, TexturePositionInAtlas);

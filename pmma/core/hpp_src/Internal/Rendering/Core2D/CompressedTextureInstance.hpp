@@ -20,17 +20,20 @@ struct AtlasAllocation {
     uint32_t Height;
 };
 
-class TextureManager { // makes texture atlas for a RenderPipelineInstance
+class CompressedTextureInstance { // makes texture atlas for a RenderPipelineInstance
 private:
     std::map<uintptr_t, PMMA::Internal::TextureProperty *> RegisteredTextures;
     std::vector<PMMA::Internal::TextureProperty *> PendingTextures;
 
     std::vector<SkylineNode> Skyline;
+
+public:
     std::map<uintptr_t, AtlasAllocation> Allocations;
 
     std::vector<unsigned char> AtlasPixels;
 
     uint32_t AtlasPadding = 0;
+    uint32_t MipLevel = 0;
 
 public:
     bool Dirty = false;
@@ -42,8 +45,10 @@ public:
     uint32_t MaxTextureDimension = 1024;
     uintptr_t RenderPipelineInstanceID;
 
-    TextureManager(uint32_t NewMaxTextureDimension) {
+    CompressedTextureInstance(uintptr_t NewRenderPipelineInstanceID, uint32_t NewMaxTextureDimension, uint32_t NewMipLevel) {
+        RenderPipelineInstanceID = NewRenderPipelineInstanceID;
         MaxTextureDimension = NewMaxTextureDimension;
+        MipLevel = NewMipLevel;
 
         Skyline.push_back(
             {0,
@@ -51,7 +56,7 @@ public:
              MaxTextureDimension});
     }
 
-    ~TextureManager() {
+    ~CompressedTextureInstance() {
         if (bgfx::isValid(TextureHandle)) {
             bgfx::destroy(TextureHandle);
         }
@@ -61,6 +66,7 @@ public:
         PMMA::Internal::TextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
+
         if (RegisteredTextures.contains(Texture->ID)) {
             return true;
         }
@@ -173,6 +179,7 @@ public:
         uint32_t Y,
         uint32_t Width,
         uint32_t Height) {
+
         SkylineNode NewNode{
             X,
             Y + Height,
@@ -262,6 +269,7 @@ public:
 
     inline void RegisterTexture(
         PMMA::Internal::TextureProperty *Texture) {
+
         if (Texture == nullptr) {
             return;
         }
@@ -275,16 +283,22 @@ public:
         }
 
         //
-        // Mip 0 is the atlas packing size.
+        // Treat each mip as an independent texture.
+        // This TextureManager only wants the mip selected
+        // by MipLevel.
         //
-        const auto &Mip0 =
-            Texture->MipChain[0];
+        if (MipLevel >= Texture->MipChain.size()) {
+            return;
+        }
+
+        const auto &Mip =
+            Texture->MipChain[MipLevel];
 
         uint32_t PackedWidth =
-            Mip0.Size[0] + AtlasPadding * 2;
+            Mip.Size[0] + AtlasPadding * 2;
 
         uint32_t PackedHeight =
-            Mip0.Size[1] + AtlasPadding * 2;
+            Mip.Size[1] + AtlasPadding * 2;
 
         uint32_t X;
         uint32_t Y;
@@ -296,6 +310,7 @@ public:
                 X,
                 Y,
                 SkylineIndex)) {
+
             std::cout
                 << "Atlas full"
                 << std::endl;
@@ -316,8 +331,8 @@ public:
             {
                 X + AtlasPadding,
                 Y + AtlasPadding,
-                Mip0.Size[0],
-                Mip0.Size[1]};
+                Mip.Size[0],
+                Mip.Size[1]};
 
         RegisteredTextures.emplace(
             Texture->ID,
@@ -325,15 +340,17 @@ public:
 
         ++Texture->References;
 
-        auto &Location =
-            Texture->RegisteredRenderPipelineInstances
-                [RenderPipelineInstanceID];
+        if (MipLevel == 0) {
+            auto &Location =
+                Texture->RegisteredRenderPipelineInstances
+                    [RenderPipelineInstanceID];
 
-        Location[0] =
-            static_cast<uint16_t>(X);
+            Location[0] =
+                static_cast<uint16_t>(X);
 
-        Location[1] =
-            static_cast<uint16_t>(Y);
+            Location[1] =
+                static_cast<uint16_t>(Y);
+        }
 
         PendingTextures.push_back(Texture);
 

@@ -1,7 +1,22 @@
 $input v_uv , v_data0 , v_data1 , v_data2 , v_data3 , v_col0
 #include "common.sh"
 
-SAMPLER2D(s_Tex, 1);
+// SAMPLER2D(Color, 0);
+// SAMPLER2D(Generated, 1);
+SAMPLER2D(s_Tex_0, 2);
+SAMPLER2D(s_Tex_1, 3);
+SAMPLER2D(s_Tex_2, 4);
+SAMPLER2D(s_Tex_3, 5);
+SAMPLER2D(s_Tex_4, 6);
+SAMPLER2D(s_Tex_5, 7);
+SAMPLER2D(s_Tex_6, 8);
+SAMPLER2D(s_Tex_7, 9);
+SAMPLER2D(s_Tex_8, 10);
+SAMPLER2D(s_Tex_9, 11);
+SAMPLER2D(s_Tex_10, 12);
+SAMPLER2D(s_Tex_11, 13);
+SAMPLER2D(s_Tex_12, 14);
+SAMPLER2D(s_Tex_13, 15);
 
 // ------------------------------------------------------------
 // Utility
@@ -224,7 +239,7 @@ void main()
     if (v_data1.w > 0.0001 && v_data2.x > 0.0001)
     {
         vec2 atlasUV = v_data1.yz + (v_uv * vec2(v_data1.w, v_data2.x));
-        vec4 TexColor = texture2D(s_Tex, atlasUV);
+        vec4 TexColor = texture2D(s_Tex_0, atlasUV) * texture2D(s_Tex_1, atlasUV) * texture2D(s_Tex_2, atlasUV) * texture2D(s_Tex_3, atlasUV) * texture2D(s_Tex_4, atlasUV) * texture2D(s_Tex_5, atlasUV) * texture2D(s_Tex_6, atlasUV) * texture2D(s_Tex_7, atlasUV) * texture2D(s_Tex_8, atlasUV) * texture2D(s_Tex_9, atlasUV) * texture2D(s_Tex_10, atlasUV) * texture2D(s_Tex_11, atlasUV) * texture2D(s_Tex_12, atlasUV) * texture2D(s_Tex_13, atlasUV);
         gl_FragColor = vec4(v_col0.rgb * TexColor.rgb, v_col0.a * alpha * TexColor.a);
     } else {
         gl_FragColor = vec4(v_col0.rgb, v_col0.a * alpha);
