@@ -28,10 +28,10 @@ private:
     uint32_t RenderPipelineInstanceMaxTextureDimension = 0;
     std::vector<float> LookUpTextureData;
 
-    float TextureID = 0;
+    uint32_t TextureID = 0;
 
-    std::unordered_map<uintptr_t, float> RegisteredTextures;
-    std::pair<uintptr_t, float> Primed;
+    std::unordered_map<uintptr_t, uint32_t> RegisteredTextures;
+    std::pair<uintptr_t, uint32_t> Primed;
 
 public:
     CompressedTextureManager() {
@@ -212,7 +212,7 @@ public:
             return Primed.second;
         }
 
-        const uint32_t ID = static_cast<uint32_t>(TextureID++);
+        const uint32_t ID = TextureID++;
 
         RegisteredTextures[InternalTextureID] = ID;
 
@@ -246,7 +246,7 @@ public:
             return Primed.second;
         }
 
-        const uint32_t ID = static_cast<uint32_t>(TextureID++);
+        const uint32_t ID = TextureID++;
 
         RegisteredTextures[InternalTextureID] = ID;
 
@@ -281,11 +281,9 @@ public:
             static_cast<uint32_t>(
                 PMMA::Constants::MAX_TEXTURE_MIPS);
 
-        const uint32_t Height =
-            static_cast<uint32_t>(TextureID);
+        const uint32_t Height = TextureID;
 
         if (Width == 0 || Height == 0) {
-            std::cout << "Cannot assemble look up texture with dims: " << Width << " " << Height << std::endl;
             return;
         }
 
