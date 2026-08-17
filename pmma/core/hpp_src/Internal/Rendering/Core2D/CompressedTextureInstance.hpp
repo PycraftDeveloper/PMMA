@@ -21,9 +21,6 @@ struct AtlasAllocation {
 };
 
 class CompressedTextureInstance { // makes texture atlas for a RenderPipelineInstance
-public:
-    std::map<uintptr_t, PMMA::Internal::TextureProperty *> RegisteredTextures;
-
 private:
     std::vector<PMMA::Internal::TextureProperty *> PendingTextures;
 
@@ -76,7 +73,6 @@ public:
     }
 
     inline void Reset() {
-        RegisteredTextures.clear();
         PendingTextures.clear();
         Allocations.clear();
 
@@ -103,9 +99,6 @@ public:
         uint32_t Width,
         uint32_t Height) {
 
-        if (RegisteredTextures.contains(Texture->ID)) {
-            return true;
-        }
         uint32_t X;
         uint32_t Y;
         size_t Index;
@@ -312,11 +305,6 @@ public:
             return false;
         }
 
-        if (RegisteredTextures.contains(Texture->ID)) {
-            std::cout << "Texture already registered" << std::endl;
-            return false;
-        }
-
         if (Texture->MipChain.empty()) {
             std::cout << "Texture has no mip data" << std::endl;
             return false;
@@ -488,10 +476,6 @@ public:
                 TextureY,
                 AlignedWidth,
                 AlignedHeight};
-
-        RegisteredTextures.emplace(
-            Texture->ID,
-            Texture);
 
         ++Texture->References;
 

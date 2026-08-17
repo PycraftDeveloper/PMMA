@@ -11,12 +11,12 @@
 namespace PMMA::Internal::Rendering::Core2D {
 
 class CompressedTextureManager {
-public:
+private:
     PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
-        TransparentCompressedTextureManager[PMMA::Constants::MAX_TEXTURE_MIPS]{};
+        TransparentCompressedTextureInstance[PMMA::Constants::MAX_TEXTURE_MIPS]{};
 
     PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
-        OpaqueCompressedTextureManager[PMMA::Constants::MAX_TEXTURE_MIPS]{};
+        OpaqueCompressedTextureInstance[PMMA::Constants::MAX_TEXTURE_MIPS]{};
 
     bgfx::UniformHandle s_Tex[PMMA::Constants::MAX_TEXTURE_MIPS];
     bgfx::UniformHandle s_LookUpTexture;
@@ -26,44 +26,14 @@ public:
 
     uintptr_t RenderPipelineInstanceID = 0;
     uint32_t RenderPipelineInstanceMaxTextureDimension = 0;
-
-    /*
-     * Four floats per mip:
-     *
-     *   R = X
-     *   G = Y
-     *   B = Width
-     *   A = Height
-     *
-     * Data is stored texture-by-texture:
-     *
-     *   Texture 0:
-     *       mip 0 = RGBA
-     *       mip 1 = RGBA
-     *       mip 2 = RGBA
-     *       ...
-     *
-     *   Texture 1:
-     *       mip 0 = RGBA
-     *       mip 1 = RGBA
-     *       ...
-     *
-     * The final BGFX texture is laid out as:
-     *
-     *        X/mip
-     *        0       1       2       3
-     *      +-------+-------+-------+-------+
-     * Y 0  | mip 0 | mip 1 | mip 2 | ...   |
-     *      +-------+-------+-------+-------+
-     *   1  | mip 0 | mip 1 | mip 2 | ...   |
-     *      +-------+-------+-------+-------+
-     *   2  | mip 0 | mip 1 | mip 2 | ...   |
-     *      +-------+-------+-------+-------+
-     */
     std::vector<float> LookUpTextureData;
 
     float TextureID = 0;
 
+    std::unordered_map<uintptr_t, float> RegisteredTextures;
+    std::pair<uintptr_t, float> Primed;
+
+public:
     CompressedTextureManager() {
         for (int i = 0; i < std::size(s_Tex); i++) {
             std::string uniformName = "s_Tex_" + std::to_string(i);
@@ -91,21 +61,21 @@ public:
             bgfx::destroy(s_LookUpTexture);
         }
 
-        for (int i = 0; i < std::size(OpaqueCompressedTextureManager); i++) {
-            delete OpaqueCompressedTextureManager[i];
-            OpaqueCompressedTextureManager[i] = nullptr;
+        for (int i = 0; i < std::size(OpaqueCompressedTextureInstance); i++) {
+            delete OpaqueCompressedTextureInstance[i];
+            OpaqueCompressedTextureInstance[i] = nullptr;
         }
 
-        for (int i = 0; i < std::size(TransparentCompressedTextureManager); i++) {
-            delete TransparentCompressedTextureManager[i];
-            TransparentCompressedTextureManager[i] = nullptr;
+        for (int i = 0; i < std::size(TransparentCompressedTextureInstance); i++) {
+            delete TransparentCompressedTextureInstance[i];
+            TransparentCompressedTextureInstance[i] = nullptr;
         }
     }
 
-    void WriteOpaqueData(float *in_data) {
+    inline void WriteOpaqueData(float *in_data) {
         in_data[1] = TextureID;
 
-        PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = OpaqueCompressedTextureManager[0];
+        PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = OpaqueCompressedTextureInstance[0];
 
         if (Texture == nullptr) {
             return;
@@ -115,10 +85,10 @@ public:
         in_data[3] = Texture->m_TextureHeight;
     }
 
-    void WriteTransparentData(float *in_data) {
+    inline void WriteTransparentData(float *in_data) {
         in_data[1] = TextureID;
 
-        PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = TransparentCompressedTextureManager[0];
+        PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = TransparentCompressedTextureInstance[0];
 
         if (Texture == nullptr) {
             return;
@@ -128,27 +98,30 @@ public:
         in_data[3] = Texture->m_TextureHeight;
     }
 
-    void DestroyLookupTexture() {
+    inline void DestroyLookupTexture() {
         if (bgfx::isValid(LookUpTextureHandle)) {
             bgfx::destroy(LookUpTextureHandle);
             LookUpTextureHandle = BGFX_INVALID_HANDLE;
         }
     }
 
-    void Reset() {
+    inline void Reset() {
         TextureID = 0;
 
         LookUpTextureData.clear();
         TextureIsTransparent.clear();
+        RegisteredTextures.clear();
+
+        Primed = std::make_pair(0, 0);
 
         DestroyLookupTexture();
 
         for (int i = 0;
-             i < std::size(TransparentCompressedTextureManager);
+             i < std::size(TransparentCompressedTextureInstance);
              i++) {
 
             PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
-                Texture = TransparentCompressedTextureManager[i];
+                Texture = TransparentCompressedTextureInstance[i];
 
             if (Texture == nullptr) {
                 break;
@@ -158,11 +131,11 @@ public:
         }
 
         for (int i = 0;
-             i < std::size(OpaqueCompressedTextureManager);
+             i < std::size(OpaqueCompressedTextureInstance);
              i++) {
 
             PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
-                Texture = OpaqueCompressedTextureManager[i];
+                Texture = OpaqueCompressedTextureInstance[i];
 
             if (Texture == nullptr) {
                 break;
@@ -172,7 +145,7 @@ public:
         }
     }
 
-    void Initialize(
+    inline void Initialize(
         uintptr_t NewRenderPipelineInstanceID,
         uint32_t NewRenderPipelineInstanceMaxTextureDimension) {
 
@@ -181,46 +154,67 @@ public:
             NewRenderPipelineInstanceMaxTextureDimension;
     }
 
-    bool CanFitTextureOpaque(
+    inline bool CanFitTextureOpaque(
         PMMA::Internal::TextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
 
-        if (OpaqueCompressedTextureManager[0] == nullptr) {
-            OpaqueCompressedTextureManager[0] =
+        uintptr_t InternalTextureID = Texture->ID;
+        auto it = RegisteredTextures.find(InternalTextureID);
+        if (it != RegisteredTextures.end()) {
+            Primed = std::make_pair(InternalTextureID, it->second);
+            return true;
+        }
+
+        if (OpaqueCompressedTextureInstance[0] == nullptr) {
+            OpaqueCompressedTextureInstance[0] =
                 new PMMA::Internal::Rendering::Core2D::CompressedTextureInstance(
                     RenderPipelineInstanceID,
                     RenderPipelineInstanceMaxTextureDimension,
                     0);
         }
 
-        return OpaqueCompressedTextureManager[0]->CanFitTexture(
+        return OpaqueCompressedTextureInstance[0]->CanFitTexture(
             Texture,
             Width,
             Height);
     }
 
-    bool CanFitTextureTransparent(
+    inline bool CanFitTextureTransparent(
         PMMA::Internal::TextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
 
-        if (TransparentCompressedTextureManager[0] == nullptr) {
-            TransparentCompressedTextureManager[0] =
+        uintptr_t InternalTextureID = Texture->ID;
+        auto it = RegisteredTextures.find(InternalTextureID);
+        if (it != RegisteredTextures.end()) {
+            Primed = std::make_pair(InternalTextureID, it->second);
+            return true;
+        }
+
+        if (TransparentCompressedTextureInstance[0] == nullptr) {
+            TransparentCompressedTextureInstance[0] =
                 new PMMA::Internal::Rendering::Core2D::CompressedTextureInstance(
                     RenderPipelineInstanceID,
                     RenderPipelineInstanceMaxTextureDimension,
                     0);
         }
 
-        return TransparentCompressedTextureManager[0]->CanFitTexture(
+        return TransparentCompressedTextureInstance[0]->CanFitTexture(
             Texture,
             Width,
             Height);
     }
 
-    float RegisterOpaque(TextureProperty *TextureProperties) {
+    inline float RegisterOpaque(TextureProperty *TextureProperties) {
+        uintptr_t InternalTextureID = TextureProperties->ID;
+        if (Primed.first == InternalTextureID) {
+            return Primed.second;
+        }
+
         const uint32_t ID = static_cast<uint32_t>(TextureID++);
+
+        RegisteredTextures[InternalTextureID] = ID;
 
         TextureIsTransparent.push_back(false);
 
@@ -229,15 +223,15 @@ public:
              i < PMMA::Constants::MAX_TEXTURE_MIPS;
              ++i) {
 
-            if (OpaqueCompressedTextureManager[i] == nullptr) {
-                OpaqueCompressedTextureManager[i] =
+            if (OpaqueCompressedTextureInstance[i] == nullptr) {
+                OpaqueCompressedTextureInstance[i] =
                     new CompressedTextureInstance(
                         RenderPipelineInstanceID,
                         RenderPipelineInstanceMaxTextureDimension,
                         i);
             }
 
-            OpaqueCompressedTextureManager[i]->RegisterTexture(
+            OpaqueCompressedTextureInstance[i]->RegisterTexture(
                 TextureProperties,
                 LookUpTextureData,
                 ID);
@@ -246,8 +240,15 @@ public:
         return static_cast<float>(ID);
     }
 
-    float RegisterTransparent(TextureProperty *TextureProperties) {
+    inline float RegisterTransparent(TextureProperty *TextureProperties) {
+        uintptr_t InternalTextureID = TextureProperties->ID;
+        if (Primed.first == InternalTextureID) {
+            return Primed.second;
+        }
+
         const uint32_t ID = static_cast<uint32_t>(TextureID++);
+
+        RegisteredTextures[InternalTextureID] = ID;
 
         TextureIsTransparent.push_back(true);
 
@@ -256,15 +257,15 @@ public:
              i < PMMA::Constants::MAX_TEXTURE_MIPS;
              ++i) {
 
-            if (TransparentCompressedTextureManager[i] == nullptr) {
-                TransparentCompressedTextureManager[i] =
+            if (TransparentCompressedTextureInstance[i] == nullptr) {
+                TransparentCompressedTextureInstance[i] =
                     new CompressedTextureInstance(
                         RenderPipelineInstanceID,
                         RenderPipelineInstanceMaxTextureDimension,
                         i);
             }
 
-            TransparentCompressedTextureManager[i]->RegisterTexture(
+            TransparentCompressedTextureInstance[i]->RegisterTexture(
                 TextureProperties,
                 LookUpTextureData,
                 ID);
@@ -273,7 +274,7 @@ public:
         return static_cast<float>(ID);
     }
 
-    void AssembleLookupTexture() {
+    inline void AssembleLookupTexture() {
         DestroyLookupTexture();
 
         const uint32_t Width =
@@ -284,7 +285,7 @@ public:
             static_cast<uint32_t>(TextureID);
 
         if (Width == 0 || Height == 0) {
-            std::cout << Width << " " << Height << std::endl;
+            std::cout << "Cannot assemble look up texture with dims: " << Width << " " << Height << std::endl;
             return;
         }
 
@@ -348,8 +349,8 @@ public:
 
                 CompressedTextureInstance *Atlas =
                     Transparent
-                        ? TransparentCompressedTextureManager[Mip]
-                        : OpaqueCompressedTextureManager[Mip];
+                        ? TransparentCompressedTextureInstance[Mip]
+                        : OpaqueCompressedTextureInstance[Mip];
 
                 if (Atlas == nullptr) {
                     continue;
@@ -422,13 +423,13 @@ public:
                 Memory);
     }
 
-    void Assemble() {
+    inline void Assemble() {
         for (int i = 0;
-             i < std::size(TransparentCompressedTextureManager);
+             i < std::size(TransparentCompressedTextureInstance);
              i++) {
 
             PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
-                Texture = TransparentCompressedTextureManager[i];
+                Texture = TransparentCompressedTextureInstance[i];
 
             if (Texture == nullptr) {
                 break;
@@ -436,20 +437,15 @@ public:
 
             if (Texture->Dirty) {
                 Texture->Assemble();
-
-                std::cout
-                    << "Assembled Transparent Texture: "
-                    << i << " With textures: " << Texture->RegisteredTextures.size()
-                    << std::endl;
             }
         }
 
         for (int i = 0;
-             i < std::size(OpaqueCompressedTextureManager);
+             i < std::size(OpaqueCompressedTextureInstance);
              i++) {
 
             PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
-                Texture = OpaqueCompressedTextureManager[i];
+                Texture = OpaqueCompressedTextureInstance[i];
 
             if (Texture == nullptr) {
                 break;
@@ -457,11 +453,6 @@ public:
 
             if (Texture->Dirty) {
                 Texture->Assemble();
-
-                std::cout
-                    << "Assembled Opaque Texture: "
-                    << i << " With textures: " << Texture->RegisteredTextures.size()
-                    << std::endl;
             }
         }
 
@@ -471,7 +462,7 @@ public:
         AssembleLookupTexture();
     }
 
-    void SetLookupTexture() {
+    inline void SetLookupTexture() {
         if (!bgfx::isValid(LookUpTextureHandle)) {
             return;
         }
@@ -487,21 +478,21 @@ public:
                 BGFX_SAMPLER_MIP_POINT);
     }
 
-    void OpaquePass(float *out) {
-        if (OpaqueCompressedTextureManager[0] != nullptr) {
+    inline void OpaquePass(float *out) {
+        if (OpaqueCompressedTextureInstance[0] != nullptr) {
             out[2] =
-                float(OpaqueCompressedTextureManager[0]->m_TextureWidth);
+                float(OpaqueCompressedTextureInstance[0]->m_TextureWidth);
 
             out[3] =
-                float(OpaqueCompressedTextureManager[0]->m_TextureHeight);
+                float(OpaqueCompressedTextureInstance[0]->m_TextureHeight);
         }
 
         for (int i = 0;
-             i < std::size(OpaqueCompressedTextureManager);
+             i < std::size(OpaqueCompressedTextureInstance);
              i++) {
 
             PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
-                Texture = OpaqueCompressedTextureManager[i];
+                Texture = OpaqueCompressedTextureInstance[i];
 
             if (Texture == nullptr) {
                 break;
@@ -518,21 +509,21 @@ public:
         SetLookupTexture();
     }
 
-    void TransparentPass(float *out) {
-        if (TransparentCompressedTextureManager[0] != nullptr) {
+    inline void TransparentPass(float *out) {
+        if (TransparentCompressedTextureInstance[0] != nullptr) {
             out[2] =
-                float(TransparentCompressedTextureManager[0]->m_TextureWidth);
+                float(TransparentCompressedTextureInstance[0]->m_TextureWidth);
 
             out[3] =
-                float(TransparentCompressedTextureManager[0]->m_TextureHeight);
+                float(TransparentCompressedTextureInstance[0]->m_TextureHeight);
         }
 
         for (int i = 0;
-             i < std::size(TransparentCompressedTextureManager);
+             i < std::size(TransparentCompressedTextureInstance);
              i++) {
 
             PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
-                Texture = TransparentCompressedTextureManager[i];
+                Texture = TransparentCompressedTextureInstance[i];
 
             if (Texture == nullptr) {
                 break;
