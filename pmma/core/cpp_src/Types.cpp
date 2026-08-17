@@ -1435,6 +1435,19 @@ before attempting to get it.");
     return InternalColor[3] == 255;
 }
 
+bool PMMA::Types::Color::IsClear() {
+    if (!IsSet) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a color - please set a color \
+before attempting to get it.");
+
+        throw std::runtime_error("Color not set!");
+    }
+
+    return InternalColor[3] == 0;
+}
+
 uint32_t PMMA::Types::Angle::GetSeed() {
     if (!Configured) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
@@ -2192,6 +2205,39 @@ size before attempting to get it.");
 
     out[0] = size[0] * scale_x;
     out[1] = size[1] * scale_y;
+}
+
+void PMMA::Types::TwoD::Size::GetScaledSize(uint16_t *out) {
+    if (ScaledSizeSet && !HorizontalScale.GetChangedToggle() && !VerticalScale.GetChangedToggle()) {
+        out[0] = scaled_size[0];
+        out[1] = scaled_size[1];
+        return;
+    }
+
+    bool SizeSet = GetSizeSet();
+    bool TextureLoaded = Texture->IsLoaded();
+    if (!(SizeSet || TextureLoaded)) {
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+            30,
+            "You have not set a size - please set a \
+size before attempting to get it.");
+        throw std::runtime_error("Size not set!");
+    }
+
+    if (!SizeSet) {
+        SetSizeToTextureSize();
+    }
+
+    float scale_x = HorizontalScale.GetDecimal();
+    float scale_y = VerticalScale.GetDecimal();
+
+    scaled_size[0] = size[0] * scale_x;
+    scaled_size[1] = size[1] * scale_y;
+
+    out[0] = scaled_size[0];
+    out[1] = scaled_size[1];
+
+    ScaledSizeSet = true;
 }
 
 uint16_t PMMA::Types::TwoD::Size::GetWidth() {

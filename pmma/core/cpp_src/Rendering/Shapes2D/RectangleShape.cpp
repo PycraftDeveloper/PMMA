@@ -3,15 +3,41 @@
 
 void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
     if (!ShapePropertyChanged) {
-        ShapePropertyChanged = ShapeCenter.GetChangedToggle();
+        ShapePropertyChanged = ShapeCenter.GetChangedToggle() || ShapeSize.GetScaledChangedToggle();
     }
 
     if (!ColorDataChanged) {
         ColorDataChanged = Color.GetInternalChangedToggle();
     }
 
+    if (ColorDataChanged) {
+        if (Color.IsClear()) {
+            ColorDataChanged = false;
+            return; // Invisible
+        }
+    }
+
+    uint16_t start_position[2];
+    uint16_t size[2];
+
+    if (ShapePropertyChanged) {
+        ShapeCenter.GetCoordinate(start_position);
+        ShapeSize.GetScaledSize(size);
+
+        uint16_t display_size[2];
+        PMMA::Core::ActiveDisplayInstance->GetSize(display_size);
+
+        if ((start_position[0] >= display_size[0]) || // Completely past right edge
+            (start_position[1] >= display_size[1]) || // Completely past bottom edge
+            ((start_position[0] + size[0]) <= 0) ||   // Completely past left edge
+            ((start_position[1] + size[1]) <= 0)) {   // Completely past top edge
+            ShapePropertyChanged = false;
+            return; // Early exit: Shape is completely off-screen
+        }
+    }
+
     uint16_t TextureSize[2] = {0, 0};
-    unsigned char Channels;
+    unsigned char Channels = 0;
     if (Texture.IsEnabled()) {
         Texture.GetSize(TextureSize);
         Channels = Texture.GetChannels();
@@ -20,15 +46,9 @@ void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
     PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture.TextureProperties, TextureSize, Channels);
 
     if (ShapePropertyChanged) {
-        uint16_t start_position[2];
-        ShapeCenter.GetCoordinate(start_position);
-
-        uint16_t Size[2];
-        ShapeSize.GetSize(Size);
-
         // Existing packing logic
         ShapeInstanceData.position = PMMA::Internal::PackValues(start_position[0], start_position[1]);
-        ShapeInstanceData.size = PMMA::Internal::PackValues(Size[0], Size[1]);
+        ShapeInstanceData.size = PMMA::Internal::PackValues(size[0], size[1]);
         ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(0, 0); // no point count here
         ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(Rotation * 182, CornerRadius);
         ShapeInstanceData.shape_type_width = PMMA::Internal::PackValues(2, Width);

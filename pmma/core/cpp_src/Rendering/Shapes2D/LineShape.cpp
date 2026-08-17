@@ -3,11 +3,18 @@
 
 void PMMA::Rendering::TwoD::Shapes::Line::Render() {
     if (!ShapePropertyChanged) {
-        ShapePropertyChanged |= ShapeStart.GetChangedToggle() || ShapeEnd.GetChangedToggle();
+        ShapePropertyChanged = ShapeStart.GetChangedToggle() || ShapeEnd.GetChangedToggle();
     }
 
     if (!ColorDataChanged) {
         ColorDataChanged = Color.GetInternalChangedToggle();
+    }
+
+    if (ColorDataChanged) {
+        if (Color.IsClear()) {
+            ColorDataChanged = false;
+            return; // Invisible
+        }
     }
 
     uint16_t TextureSize[2] = {0, 0};

@@ -10,6 +10,30 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
         ColorDataChanged = Color.GetInternalChangedToggle();
     }
 
+    if (ColorDataChanged) {
+        if (Color.IsClear()) {
+            ColorDataChanged = false;
+            return; // Invisible
+        }
+    }
+
+    uint16_t start_position[2];
+
+    if (ShapePropertyChanged) {
+        ShapeCenter.GetCoordinate(start_position);
+
+        uint16_t display_size[2];
+        PMMA::Core::ActiveDisplayInstance->GetSize(display_size);
+
+        if ((start_position[0] >= display_size[0]) || // Completely past right edge
+            (start_position[1] >= display_size[1]) || // Completely past bottom edge
+            (start_position[0] <= 0) ||               // Completely past left edge
+            (start_position[1] <= 0)) {               // Completely past top edge
+            ShapePropertyChanged = false;
+            return; // Early exit: Shape is completely off-screen
+        }
+    }
+
     uint16_t TextureSize[2] = {0, 0};
     unsigned char Channels;
     if (Texture.IsEnabled()) {
@@ -20,9 +44,6 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
     PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture.TextureProperties, TextureSize, Channels);
 
     if (ShapePropertyChanged) {
-        uint16_t start_position[2];
-        ShapeCenter.GetCoordinate(start_position);
-
         // Existing packing logic
         ShapeInstanceData.position = PMMA::Internal::PackValues(start_position[0], start_position[1]);
         ShapeInstanceData.size = PMMA::Internal::PackValues(1, 1);

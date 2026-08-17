@@ -507,6 +507,7 @@ public:
 
     bool IsTransparent();
     bool IsOpaque();
+    bool IsClear();
 };
 
 class EXPORT Angle {
@@ -875,6 +876,7 @@ private:
     PMMA::FastRandom *RandomSizeGenerator = nullptr;
 
     uint16_t size[2] = {0, 0}; // Default display coordinate is (0, 0)
+    uint16_t scaled_size[2] = {0, 0};
     uint16_t DisplaySize[2];
 
     uint32_t seed;
@@ -893,6 +895,7 @@ private:
     bool X_IsSet = false;
     bool Y_IsSet = false;
     bool Changed = true;
+    bool ScaledSizeSet = false;
     bool Configured = false;
 
 public:
@@ -921,6 +924,16 @@ public:
 
     inline bool GetChangedToggle() {
         bool OldChanged = Changed;
+        Changed = false;
+        return OldChanged;
+    }
+
+    inline bool GetScaledChangedToggle() {
+        bool ScaleChanged = HorizontalScale.GetChangedToggle() || VerticalScale.GetChangedToggle();
+        if (ScaleChanged) {
+            ScaledSizeSet = false;
+        }
+        bool OldChanged = Changed || ScaleChanged;
         Changed = false;
         return OldChanged;
     }
@@ -955,6 +968,7 @@ public:
     inline void SetSize(uint16_t *in_size) {
         if (in_size[0] != size[0] || in_size[1] != size[1]) {
             Changed = true;
+            ScaledSizeSet = false;
             size[0] = in_size[0];
             size[1] = in_size[1];
 
@@ -968,6 +982,7 @@ public:
     inline void SetWidth(uint16_t in_size) {
         if (in_size != size[0]) {
             Changed = true;
+            ScaledSizeSet = false;
             size[0] = in_size;
 
             Radius = static_cast<uint16_t>(PMMA::Maths::PythagoreanDistance(size[0], size[1]));
@@ -979,6 +994,7 @@ public:
     inline void SetHeight(uint16_t in_size) {
         if (in_size != size[1]) {
             Changed = true;
+            ScaledSizeSet = false;
             size[1] = in_size;
 
             Radius = static_cast<uint16_t>(PMMA::Maths::PythagoreanDistance(size[0], size[1]));
@@ -994,6 +1010,10 @@ public:
     void GetSize(uint16_t *out);
     uint16_t GetWidth();
     uint16_t GetHeight();
+
+    void GetScaledSize(uint16_t *out);
+    uint16_t GetScaledWidth();
+    uint16_t GetScaledHeight();
 
     inline uint16_t GetRadius() {
         return Radius;
