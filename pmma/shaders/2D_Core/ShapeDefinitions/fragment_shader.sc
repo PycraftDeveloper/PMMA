@@ -244,10 +244,63 @@ void main()
 
     if (textureID >= 0.0)
     {
-        float mip = 0.0;
+        // --------------------------------------------------------
+        // Get mip-0 rectangle.
+        // This is needed only to determine the source texture size.
+        // --------------------------------------------------------
+
+        vec2 lookupUV0 = vec2(
+                0.5 / float(MAX_TEXTURE_MIPS),
+                (textureID + 0.5) / FragmentData.y
+            );
+
+        vec4 lookup0 = texture2D(
+                s_LookUpTexture,
+                lookupUV0
+            );
+
+        if (lookup0.z <= 0.0 || lookup0.w <= 0.0)
+        {
+            gl_FragColor = vec4(
+                    v_col0.rgb,
+                    v_col0.a * alpha
+                );
+            return;
+        }
+
+        // Base-level source texture dimensions in texels.
+        vec2 sourceSize =
+            lookup0.zw * FragmentData.zw;
+
+        // --------------------------------------------------------
+        // Calculate LOD from v_uv.
+        // --------------------------------------------------------
+
+        vec2 ddxUV = dFdx(v_uv);
+        vec2 ddyUV = dFdy(v_uv);
+
+        vec2 dxTexels = ddxUV * sourceSize;
+        vec2 dyTexels = ddyUV * sourceSize;
+
+        float footprint = max(
+                length(dxTexels),
+                length(dyTexels)
+            );
+
+        float mip = log2(max(footprint, 1.0));
+
+        float mipLevel = clamp(
+                floor(mip + 0.5),
+                0.0,
+                float(MAX_TEXTURE_MIPS - 1)
+            );
+
+        // --------------------------------------------------------
+        // Now get the independently-packed rectangle for this mip.
+        // --------------------------------------------------------
 
         vec2 lookupUV = vec2(
-                (mip + 0.5) / float(MAX_TEXTURE_MIPS),
+                (mipLevel + 0.5) / float(MAX_TEXTURE_MIPS),
                 (textureID + 0.5) / FragmentData.y
             );
 

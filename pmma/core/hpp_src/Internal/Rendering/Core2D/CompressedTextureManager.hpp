@@ -102,8 +102,30 @@ public:
         }
     }
 
-    float LookUpTextureHeight() {
-        return TextureID;
+    void WriteOpaqueData(float *in_data) {
+        in_data[1] = TextureID;
+
+        PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = OpaqueCompressedTextureManager[0];
+
+        if (Texture == nullptr) {
+            return;
+        }
+
+        in_data[2] = Texture->m_TextureWidth;
+        in_data[3] = Texture->m_TextureHeight;
+    }
+
+    void WriteTransparentData(float *in_data) {
+        in_data[1] = TextureID;
+
+        PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *Texture = TransparentCompressedTextureManager[0];
+
+        if (Texture == nullptr) {
+            return;
+        }
+
+        in_data[2] = Texture->m_TextureWidth;
+        in_data[3] = Texture->m_TextureHeight;
     }
 
     void DestroyLookupTexture() {
@@ -120,6 +142,34 @@ public:
         TextureIsTransparent.clear();
 
         DestroyLookupTexture();
+
+        for (int i = 0;
+             i < std::size(TransparentCompressedTextureManager);
+             i++) {
+
+            PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
+                Texture = TransparentCompressedTextureManager[i];
+
+            if (Texture == nullptr) {
+                break;
+            }
+
+            Texture->Reset();
+        }
+
+        for (int i = 0;
+             i < std::size(OpaqueCompressedTextureManager);
+             i++) {
+
+            PMMA::Internal::Rendering::Core2D::CompressedTextureInstance *
+                Texture = OpaqueCompressedTextureManager[i];
+
+            if (Texture == nullptr) {
+                break;
+            }
+
+            Texture->Reset();
+        }
     }
 
     void Initialize(
@@ -234,6 +284,7 @@ public:
             static_cast<uint32_t>(TextureID);
 
         if (Width == 0 || Height == 0) {
+            std::cout << Width << " " << Height << std::endl;
             return;
         }
 
@@ -388,7 +439,7 @@ public:
 
                 std::cout
                     << "Assembled Transparent Texture: "
-                    << i
+                    << i << " With textures: " << Texture->RegisteredTextures.size()
                     << std::endl;
             }
         }
@@ -409,7 +460,7 @@ public:
 
                 std::cout
                     << "Assembled Opaque Texture: "
-                    << i
+                    << i << " With textures: " << Texture->RegisteredTextures.size()
                     << std::endl;
             }
         }

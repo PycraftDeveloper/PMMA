@@ -21,8 +21,10 @@ struct AtlasAllocation {
 };
 
 class CompressedTextureInstance { // makes texture atlas for a RenderPipelineInstance
-private:
+public:
     std::map<uintptr_t, PMMA::Internal::TextureProperty *> RegisteredTextures;
+
+private:
     std::vector<PMMA::Internal::TextureProperty *> PendingTextures;
 
     std::vector<SkylineNode> Skyline;
@@ -306,18 +308,22 @@ public:
         std::vector<float> &LookUpTextureData,
         uint32_t TextureID) {
         if (Texture == nullptr) {
+            std::cout << "Texture is nullptr" << std::endl;
             return false;
         }
 
         if (RegisteredTextures.contains(Texture->ID)) {
+            std::cout << "Texture already registered" << std::endl;
             return false;
         }
 
         if (Texture->MipChain.empty()) {
+            std::cout << "Texture has no mip data" << std::endl;
             return false;
         }
 
         if (MipLevel >= Texture->MipChain.size()) {
+            std::cout << "Texture has not got this mip lvl" << std::endl;
             return false;
         }
 

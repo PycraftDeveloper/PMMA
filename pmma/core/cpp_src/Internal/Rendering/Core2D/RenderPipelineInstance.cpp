@@ -246,7 +246,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
         // bgfx::setTexture(1, RGB texture for generated textures like text and noise)
 
-        float FragmentData[4] = {1.0f, CompressedTextureManager.LookUpTextureHeight(), 0.0f, 0.0f};
+        float FragmentData[4] = {1.0f, 0.0f, 0.0f, 0.0f};
+        CompressedTextureManager.WriteOpaqueData(FragmentData);
+
         bgfx::setUniform(u_FragmentData, FragmentData);
 
         bgfx::setInstanceDataBuffer(
@@ -290,7 +292,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         bgfx::setTexture(0, s_colorTex, ColorTexture.ColorTextureHandle, BGFX_SAMPLER_U_CLAMP | BGFX_SAMPLER_V_CLAMP | BGFX_SAMPLER_POINT);
         // bgfx::setTexture(1, RGBA texture for generated textures like text and noise)
 
-        float FragmentData[4] = {0.0f, CompressedTextureManager.LookUpTextureHeight(), 0.0f, 0.0f};
+        float FragmentData[4] = {0.0f, 0.0f, 0.0f, 0.0f};
+        CompressedTextureManager.WriteTransparentData(FragmentData);
         bgfx::setUniform(u_FragmentData, FragmentData);
 
         bgfx::setInstanceDataBuffer(
