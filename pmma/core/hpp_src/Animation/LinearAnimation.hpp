@@ -37,9 +37,9 @@ public:
 
         RunTime += FrameTime;
 
-        uint16_t new_location[2];
-        uint16_t start_pos[2];
-        uint16_t end_pos[2];
+        int16_t new_location[2];
+        int16_t start_pos[2];
+        int16_t end_pos[2];
 
         StartCoordinatePtr->GetCoordinate(start_pos);
         EndCoordinatePtr->GetCoordinate(end_pos);

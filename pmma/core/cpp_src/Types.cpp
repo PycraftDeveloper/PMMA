@@ -1818,7 +1818,7 @@ You can do this using `Display.create`.");
     PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
 }
 
-void PMMA::Types::TwoD::Coordinate::GetCoordinate(uint16_t *out) {
+void PMMA::Types::TwoD::Coordinate::GetCoordinate(int16_t *out) {
     if (!GetCoordinateSet()) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -1831,7 +1831,7 @@ display coordinate before attempting to get it.");
     out[1] = coordinate[1];
 }
 
-uint16_t PMMA::Types::TwoD::Coordinate::GetX() {
+int16_t PMMA::Types::TwoD::Coordinate::GetX() {
     if (!Get_X_Set()) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -1843,7 +1843,7 @@ display coordinate before attempting to get it.");
     return coordinate[0];
 }
 
-uint16_t PMMA::Types::TwoD::Coordinate::GetY() {
+int16_t PMMA::Types::TwoD::Coordinate::GetY() {
     if (!Get_Y_Set()) {
         PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             30,
@@ -1937,7 +1937,7 @@ You can do this using `Display.create`.");
     uint16_t new_coord[2];
     PMMA::Core::ActiveDisplayInstance->GetCenterPosition(new_coord);
 
-    uint16_t coord_float[2];
+    int16_t coord_float[2];
     coord_float[0] = new_coord[0];
     coord_float[1] = new_coord[1];
 
@@ -1957,7 +1957,7 @@ You can do this using `Display.create`.");
         PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
     }
 
-    uint16_t center = PMMA::Core::ActiveDisplayInstance->GetHorizontalCenterPosition();
+    int16_t center = PMMA::Core::ActiveDisplayInstance->GetHorizontalCenterPosition();
 
     SetX(center);
 }
@@ -1975,7 +1975,7 @@ You can do this using `Display.create`.");
         PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
     }
 
-    uint16_t center = PMMA::Core::ActiveDisplayInstance->GetVerticalCenterPosition();
+    int16_t center = PMMA::Core::ActiveDisplayInstance->GetVerticalCenterPosition();
 
     SetY(center);
 }
@@ -1993,7 +1993,7 @@ You can do this using `Display.create`.");
         PMMA::Core::ActiveDisplayInstance->GetSize(DisplaySize);
     }
 
-    uint16_t new_coord[2];
+    int16_t new_coord[2];
     new_coord[0] = RandomCoordGenerator->Next(DisplaySize[0]);
     new_coord[1] = RandomCoordGenerator->Next(DisplaySize[1]);
 
@@ -2015,15 +2015,15 @@ You can do this using `Display.create`.");
         throw std::runtime_error("You need to configure this component first!");
     }
 
-    uint16_t new_coord[2];
+    int16_t new_coord[2];
 
     float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise1D(value + x_offset);
-    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = static_cast<int16_t>(PMMA::Maths::Ranger(x_value, noise_range, x_range));
 
     float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise1D(value + y_offset);
-    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = static_cast<int16_t>(PMMA::Maths::Ranger(y_value, noise_range, y_range));
 
     SetCoordinate(new_coord);
 }
@@ -2043,15 +2043,15 @@ You can do this using `Display.create`.");
         throw std::runtime_error("You need to configure this component first!");
     }
 
-    uint16_t new_coord[2];
+    int16_t new_coord[2];
 
     float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise2D(value_one + x_offset, value_two + x_offset);
-    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = static_cast<int16_t>(PMMA::Maths::Ranger(x_value, noise_range, x_range));
 
     float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise2D(value_one + y_offset, value_two + y_offset);
-    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = static_cast<int16_t>(PMMA::Maths::Ranger(y_value, noise_range, y_range));
 
     SetCoordinate(new_coord);
 }
@@ -2071,15 +2071,15 @@ You can do this using `Display.create`.");
         throw std::runtime_error("You need to configure this component first!");
     }
 
-    uint16_t new_coord[2];
+    int16_t new_coord[2];
 
     float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_PerlinNoiseGenerator->Noise3D(value_one + x_offset, value_two + x_offset, value_three + x_offset);
-    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = static_cast<int16_t>(PMMA::Maths::Ranger(x_value, noise_range, x_range));
 
     float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_PerlinNoiseGenerator->Noise3D(value_one + y_offset, value_two + y_offset, value_three + y_offset);
-    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = static_cast<int16_t>(PMMA::Maths::Ranger(y_value, noise_range, y_range));
 
     SetCoordinate(new_coord);
 }
@@ -2099,15 +2099,15 @@ You can do this using `Display.create`.");
         throw std::runtime_error("You need to configure this component first!");
     }
 
-    uint16_t new_coord[2];
+    int16_t new_coord[2];
 
     float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise1D(value + x_offset);
-    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = static_cast<int16_t>(PMMA::Maths::Ranger(x_value, noise_range, x_range));
 
     float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise1D(value + y_offset);
-    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = static_cast<int16_t>(PMMA::Maths::Ranger(y_value, noise_range, y_range));
 
     SetCoordinate(new_coord);
 }
@@ -2127,15 +2127,15 @@ You can do this using `Display.create`.");
         throw std::runtime_error("You need to configure this component first!");
     }
 
-    uint16_t new_coord[2];
+    int16_t new_coord[2];
 
     float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise2D(value_one + x_offset, value_two + x_offset);
-    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = static_cast<int16_t>(PMMA::Maths::Ranger(x_value, noise_range, x_range));
 
     float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise2D(value_one + y_offset, value_two + y_offset);
-    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = static_cast<int16_t>(PMMA::Maths::Ranger(y_value, noise_range, y_range));
 
     SetCoordinate(new_coord);
 }
@@ -2155,15 +2155,15 @@ You can do this using `Display.create`.");
         throw std::runtime_error("You need to configure this component first!");
     }
 
-    uint16_t new_coord[2];
+    int16_t new_coord[2];
 
     float x_range[2] = {0, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float x_value = X_FractalBrownianMotionGenerator->Noise3D(value_one + x_offset, value_two + x_offset, value_three + x_offset);
-    new_coord[0] = PMMA::Maths::Ranger(x_value, noise_range, x_range);
+    new_coord[0] = static_cast<int16_t>(PMMA::Maths::Ranger(x_value, noise_range, x_range));
 
     float y_range[2] = {1, (float)PMMA::Core::ActiveDisplayInstance->GetWidth()};
     float y_value = Y_FractalBrownianMotionGenerator->Noise3D(value_one + y_offset, value_two + y_offset, value_three + y_offset);
-    new_coord[1] = PMMA::Maths::Ranger(y_value, noise_range, y_range);
+    new_coord[1] = static_cast<int16_t>(PMMA::Maths::Ranger(y_value, noise_range, y_range));
 
     SetCoordinate(new_coord);
 }

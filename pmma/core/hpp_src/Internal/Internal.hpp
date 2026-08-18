@@ -22,6 +22,18 @@ inline float PackValues(uint16_t value_one, uint16_t value_two) {
     return packed;
 }
 
+#include <cstdint>
+#include <cstring>
+
+inline float PackSignedValues(int16_t value_one, int16_t value_two) {
+    uint32_t bits = (static_cast<uint32_t>(static_cast<uint16_t>(value_two)) << 16) |
+                    static_cast<uint32_t>(static_cast<uint16_t>(value_one));
+
+    float packed;
+    std::memcpy(&packed, &bits, sizeof(float));
+    return packed;
+}
+
 inline float PackValues(uint8_t value_one, uint8_t value_two, uint8_t value_three) {
     uint32_t bits = (static_cast<uint32_t>(value_three) << 24) |
                     (static_cast<uint32_t>(value_two) << 16) |

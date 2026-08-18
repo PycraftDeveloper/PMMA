@@ -35,8 +35,8 @@ public:
 
         RunTime += FrameTime;
 
-        uint16_t start_pos[2];
-        uint16_t center_pos[2];
+        int16_t start_pos[2];
+        int16_t center_pos[2];
         StartCoordinatePtr->GetCoordinate(start_pos);
         CenterCoordinatePtr->GetCoordinate(center_pos); // Now the "center" of orbit
 
@@ -57,7 +57,7 @@ public:
         float angle = initial_angle + sweep;
 
         // Compute new position
-        uint16_t new_location[2];
+        int16_t new_location[2];
         new_location[0] = static_cast<uint16_t>(center_pos[0] + std::cos(angle) * radius);
         new_location[1] = static_cast<uint16_t>(center_pos[1] + std::sin(angle) * radius);
 

@@ -746,7 +746,7 @@ private:
 
     PMMA::FastRandom *RandomCoordGenerator = nullptr;
 
-    uint16_t coordinate[2] = {0, 0}; // Default display coordinate is (0, 0)
+    int16_t coordinate[2] = {0, 0}; // Default display coordinate is (0, 0)
     uint16_t DisplaySize[2];
 
     uint32_t seed;
@@ -826,7 +826,7 @@ public:
     void GenerateFrom2DFractalBrownianMotion(float value_one, float value_two);
     void GenerateFrom3DFractalBrownianMotion(float value_one, float value_two, float value_three);
 
-    inline void SetCoordinate(uint16_t *in_coordinate) {
+    inline void SetCoordinate(int16_t *in_coordinate) {
         if (in_coordinate[0] != coordinate[0] || in_coordinate[1] != coordinate[1]) {
             Changed = true;
             coordinate[0] = in_coordinate[0];
@@ -837,7 +837,7 @@ public:
         Y_IsSet = true;
     }
 
-    inline void SetX(uint16_t in_coordinate) {
+    inline void SetX(int16_t in_coordinate) {
         if (in_coordinate != coordinate[0]) {
             Changed = true;
             coordinate[0] = in_coordinate;
@@ -846,7 +846,7 @@ public:
         X_IsSet = true;
     }
 
-    inline void SetY(uint16_t in_coordinate) {
+    inline void SetY(int16_t in_coordinate) {
         if (in_coordinate != coordinate[1]) {
             Changed = true;
             coordinate[1] = in_coordinate;
@@ -855,9 +855,9 @@ public:
         Y_IsSet = true;
     }
 
-    void GetCoordinate(uint16_t *out);
-    uint16_t GetX();
-    uint16_t GetY();
+    void GetCoordinate(int16_t *out);
+    int16_t GetX();
+    int16_t GetY();
 };
 
 class EXPORT Size {

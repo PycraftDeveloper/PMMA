@@ -27,7 +27,7 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
     PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture.TextureProperties, TextureSize, Channels);
 
     if (ShapePropertyChanged) {
-        uint16_t start_position[2], end_position[2];
+        int16_t start_position[2], end_position[2];
         ShapeStart.GetCoordinate(start_position);
         ShapeEnd.GetCoordinate(end_position);
 
@@ -61,7 +61,7 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
         uint16_t pack_end_x = (uint16_t)(end_offset_x + 32768.0f);
         uint16_t pack_end_y = (uint16_t)(end_offset_y + 32768.0f);
 
-        ShapeInstanceData.position = PMMA::Internal::PackValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
+        ShapeInstanceData.position = PMMA::Internal::PackSignedValues((start_position[0] + end_position[0]) / 2, (start_position[1] + end_position[1]) / 2);
         ShapeInstanceData.size = PMMA::Internal::PackValues((uint16_t)size_x, (uint16_t)size_y);
         ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(0, 0);
 

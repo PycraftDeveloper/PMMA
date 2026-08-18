@@ -17,7 +17,7 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
         }
     }
 
-    uint16_t start_position[2];
+    int16_t start_position[2];
 
     if (ShapePropertyChanged) {
         ShapeCenter.GetCoordinate(start_position);
@@ -45,7 +45,7 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
 
     if (ShapePropertyChanged) {
         // Existing packing logic
-        ShapeInstanceData.position = PMMA::Internal::PackValues(start_position[0], start_position[1]);
+        ShapeInstanceData.position = PMMA::Internal::PackSignedValues(start_position[0], start_position[1]);
         ShapeInstanceData.size = PMMA::Internal::PackValues(1, 1);
         ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(0, 0);
         ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(0, 0);

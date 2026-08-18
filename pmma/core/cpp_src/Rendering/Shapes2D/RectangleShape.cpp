@@ -17,7 +17,7 @@ void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
         }
     }
 
-    uint16_t start_position[2];
+    int16_t start_position[2];
     uint16_t size[2];
 
     if (ShapePropertyChanged) {
@@ -47,7 +47,7 @@ void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
 
     if (ShapePropertyChanged) {
         // Existing packing logic
-        ShapeInstanceData.position = PMMA::Internal::PackValues(start_position[0], start_position[1]);
+        ShapeInstanceData.position = PMMA::Internal::PackSignedValues(start_position[0], start_position[1]);
         ShapeInstanceData.size = PMMA::Internal::PackValues(size[0], size[1]);
         ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(0, 0); // no point count here
         ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(Rotation * 182, CornerRadius);

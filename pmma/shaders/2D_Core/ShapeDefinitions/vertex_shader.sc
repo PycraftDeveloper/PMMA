@@ -14,6 +14,18 @@ vec2 Unpack2Values(float data) {
     return vec2(float(PackedData & 0xFFFFu), float(PackedData >> 16u));
 }
 
+vec2 Unpack2SignedValues(float data) {
+    uint PackedData = floatBitsToUint(data);
+
+    uint raw_one = PackedData & 0xFFFFu;
+    uint raw_two = PackedData >> 16u;
+
+    int val_one = int(raw_one << 16u) >> 16u;
+    int val_two = int(raw_two << 16u) >> 16u;
+
+    return vec2(float(val_one), float(val_two));
+}
+
 vec4 ExtractColor(float ColorIndex) {
     float idxF = floor(ColorIndex + 0.5);
 
@@ -32,7 +44,7 @@ vec4 ExtractColor(float ColorIndex) {
 void main()
 {
     // Instance Data Extraction
-    vec2 Offset = Unpack2Values(i_data0.x);
+    vec2 Offset = Unpack2SignedValues(i_data0.x);
     vec2 Size = Unpack2Values(i_data0.y);
     vec2 PointCountGradientType = Unpack2Values(i_data0.z);
     vec2 ShapeTypeWidth = Unpack2Values(i_data1.y);
