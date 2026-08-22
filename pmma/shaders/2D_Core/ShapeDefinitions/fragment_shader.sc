@@ -68,10 +68,6 @@ void main()
     vec2 p_pixel = (v_uv - vec2(0.5, 0.5)) * quad_pixel_size;
     vec2 half_size = quad_pixel_size * 0.5;
 
-    // Discard any fragments escaping the primary boundary
-    if (abs(p_pixel.x) > half_size.x || abs(p_pixel.y) > half_size.y)
-        discard;
-
     float aa = 1.0;
 
     // ------------------------------------------------------------
