@@ -149,11 +149,11 @@ public:
         }
 
         ColorChanged |= ColorDataChanged;
-        ShapePropertyChanged |= ShapePropertyChanged;
+        ShapePropertyChanged |= PropertyChanged;
 
         if (IsOpaque) { // opaque
             if (UsingCache && OpaqueInstanceCount < CurrentOpaqueDataSize && CurrentShapeIDs[0][OpaqueInstanceCount] == ShapeID) {
-                if (ShapePropertyChanged) {
+                if (PropertyChanged) {
                     CurrentInstanceData[0][OpaqueInstanceCount] = instance;
                 }
 
@@ -175,7 +175,7 @@ public:
             OpaqueInstanceCount++;
         } else { // transparent
             if (UsingCache && TransparentInstanceCount < CurrentTransparentDataSize && CurrentShapeIDs[1][TransparentInstanceCount] == ShapeID) {
-                if (ShapePropertyChanged) {
+                if (PropertyChanged) {
                     CurrentInstanceData[1][TransparentInstanceCount] = instance;
                 }
 

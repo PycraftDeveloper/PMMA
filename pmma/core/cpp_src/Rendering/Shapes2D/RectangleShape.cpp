@@ -31,6 +31,7 @@ void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
             (start_position[1] >= display_size[1]) || // Completely past bottom edge
             ((start_position[0] + size[0]) <= 0) ||   // Completely past left edge
             ((start_position[1] + size[1]) <= 0)) {   // Completely past top edge
+
             ShapePropertyChanged = false;
             return; // Early exit: Shape is completely off-screen
         }
@@ -48,6 +49,7 @@ void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
     if (ShapePropertyChanged) {
         // Existing packing logic
         ShapeInstanceData.position = PMMA::Internal::PackSignedValues(start_position[0], start_position[1]);
+
         ShapeInstanceData.size = PMMA::Internal::PackValues(size[0], size[1]);
         ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(0, 0); // no point count here
         ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(Rotation * 182, CornerRadius);
