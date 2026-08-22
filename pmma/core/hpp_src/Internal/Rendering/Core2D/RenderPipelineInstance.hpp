@@ -19,6 +19,7 @@ private:
 
     std::array<std::array<std::vector<InstanceData>, 2>, 4> PreviousInstanceData;
     std::array<std::vector<InstanceData>, 2> CurrentInstanceData; // opaque, transparent
+    std::array<std::vector<InstanceData>, 4> OpaqueGPUInstanceData;
 
     PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
 

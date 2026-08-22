@@ -141,34 +141,49 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
 
         {
             // opaque first
-            // Ensure destination has the exact required memory allocated
-            PreviousInstanceData[BufferID][0].resize(CurrentInstanceData[0].size());
+            const uint32_t ArrayLength =
+                static_cast<uint32_t>(CurrentInstanceData[0].size());
 
-            // 1. Extract raw pointers to bypass all vector indexing and bounds-checking overhead
-            uint32_t ArrayLength = CurrentInstanceData[0].size();
+            // Keep PreviousInstanceData in logical/Add order.
+            PreviousInstanceData[BufferID][0] = CurrentInstanceData[0];
+
+            // Build a separate reversed buffer for GPU rendering.
+            //
+            // Logical order:
+            //     A B C D
+            //
+            // GPU/depth order:
+            //     D C B A
+            //
+            OpaqueGPUInstanceData[BufferID].resize(ArrayLength);
 
             if (ArrayLength > 0) {
-                const auto *__restrict src = CurrentInstanceData[0].data() + ArrayLength - 1;
-                auto *__restrict dest = PreviousInstanceData[BufferID][0].data();
-                const auto *const end = dest + ArrayLength;
+                const auto *src =
+                    CurrentInstanceData[0].data() + ArrayLength - 1;
 
-                // 2. Blazing fast single-pass copy and reverse loop
+                auto *dest =
+                    OpaqueGPUInstanceData[BufferID].data();
+
+                const auto *end =
+                    dest + ArrayLength;
+
                 while (dest < end) {
                     *dest++ = *src--;
                 }
-            }
 
-            if (ArrayLength > 0) {
-                const bgfx::Memory *OpaqueInstanceDataMem = bgfx::makeRef(
-                    PreviousInstanceData[BufferID][0].data(),
-                    ArrayLength * sizeof(InstanceData));
+                const bgfx::Memory *OpaqueInstanceDataMem =
+                    bgfx::makeRef(
+                        OpaqueGPUInstanceData[BufferID].data(),
+                        ArrayLength * sizeof(InstanceData));
 
                 if (bgfx::isValid(OpaqueInstanceVbh)) {
                     if (ArrayLength != OpaquePreviousBufferSize) {
                         bgfx::destroy(OpaqueInstanceVbh);
-                        OpaqueInstanceVbh = bgfx::createDynamicVertexBuffer(
-                            OpaqueInstanceDataMem,
-                            instanceLayout);
+
+                        OpaqueInstanceVbh =
+                            bgfx::createDynamicVertexBuffer(
+                                OpaqueInstanceDataMem,
+                                instanceLayout);
                     } else {
                         bgfx::update(
                             OpaqueInstanceVbh,
@@ -176,9 +191,10 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
                             OpaqueInstanceDataMem);
                     }
                 } else {
-                    OpaqueInstanceVbh = bgfx::createDynamicVertexBuffer(
-                        OpaqueInstanceDataMem,
-                        instanceLayout);
+                    OpaqueInstanceVbh =
+                        bgfx::createDynamicVertexBuffer(
+                            OpaqueInstanceDataMem,
+                            instanceLayout);
                 }
             }
 
