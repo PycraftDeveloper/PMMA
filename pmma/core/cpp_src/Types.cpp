@@ -723,15 +723,23 @@ image path is valid and is a valid format. The image path is: '" +
         throw std::runtime_error("Failed to query image information.");
     }
 
-    // 2. Determine target channels (Force 4 if it has 4, otherwise force 3)
-    TextureProperties->Channels = (original_channels == 4) ? 4 : 3;
-
     unsigned char *data = stbi_load(
         Path.c_str(),
         &width, &height,
         nullptr, 4);
 
     if (data) {
+        const uint8_t *alpha = data + 3;
+        const uint8_t *end =
+            data + size_t(width) * size_t(height) * 4;
+
+        for (; alpha < end; alpha += 4) {
+            if (*alpha != 255) {
+                TextureProperties->Transparent = true;
+                break;
+            }
+        }
+
         PMMA::Internal::MipData base;
 
         base.Size[0] = width;
@@ -972,7 +980,11 @@ before calling this function!");
         TextureProperties->LoadFuture = std::future<void>();
     }
 
-    return TextureProperties->Channels;
+    if (TextureProperties->Transparent) {
+        return 4;
+    }
+
+    return 3;
 }
 
 uint32_t PMMA::Types::Texture::GetReferences() {

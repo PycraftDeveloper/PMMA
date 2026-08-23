@@ -70,17 +70,18 @@ public:
             return false;
         }
 
-        uint8_t Channels = 0;
+        uint8_t Transparent = 0;
 
         file.read(
-            reinterpret_cast<char *>(&Channels),
-            sizeof(Channels));
+            reinterpret_cast<char *>(&Transparent),
+            sizeof(Transparent));
 
-        if (Channels != 3 &&
-            Channels != 4) {
-
+        if (Transparent > 1) {
             return false;
         }
+
+        TextureProperties->Transparent =
+            Transparent != 0;
 
         uint8_t MipCount = 0;
 
@@ -208,9 +209,6 @@ public:
             return false;
         }
 
-        TextureProperties->Channels =
-            Channels;
-
         TextureProperties->MipChain =
             std::move(
                 LoadedMipChain);
@@ -242,9 +240,12 @@ public:
             reinterpret_cast<char *>(&Version),
             sizeof(Version));
 
+        const uint8_t Transparent =
+            texture.Transparent ? 1 : 0;
+
         file.write(
-            reinterpret_cast<const char *>(&texture.Channels),
-            sizeof(uint8_t));
+            reinterpret_cast<const char *>(&Transparent),
+            sizeof(Transparent));
 
         uint8_t MipCount =
             static_cast<uint8_t>(

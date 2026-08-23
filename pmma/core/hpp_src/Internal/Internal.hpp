@@ -52,8 +52,8 @@ struct MipData {
 struct TextureProperty {
     uintptr_t ID;
     uint32_t References = 0;
-    unsigned char Channels;
     uint8_t MipLevels;
+    bool Transparent = false;
 
     std::vector<MipData> MipChain;
 
