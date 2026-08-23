@@ -1,6 +1,7 @@
+#include <array>
 #include <immintrin.h>
 
-#include "PMMA_Core.hpp"
+#include "Noise/PerlinNoise.hpp"
 
 __m256 Fade_AVX2(__m256 t) noexcept {
     __m256 t2 = _mm256_mul_ps(t, t);

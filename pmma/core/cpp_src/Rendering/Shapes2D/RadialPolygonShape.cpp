@@ -1,10 +1,11 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
+
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::RadialPolygonBase() {
     ID = reinterpret_cast<uintptr_t>(this);
 
-    ShapeCenter = new PMMA::Types::TwoD::Coordinate();
     ShapeSize = new PMMA::Types::TwoD::Size();
     Color = new PMMA::Types::Color();
     Texture = new PMMA::Types::Texture();
@@ -14,7 +15,7 @@ PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::RadialPolygonBase() {
 
 void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
     if (!ShapePropertyChanged) {
-        ShapePropertyChanged = ShapeCenter->GetChangedToggle() || ShapeSize->GetScaledChangedToggle();
+        ShapePropertyChanged = ShapeCenter.GetChangedToggle() || ShapeSize->GetScaledChangedToggle();
     }
 
     if (!ColorDataChanged) {
@@ -32,7 +33,7 @@ void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
     uint16_t size[2];
 
     if (ShapePropertyChanged) {
-        ShapeCenter->GetCoordinate(start_position);
+        ShapeCenter.GetCoordinate(start_position);
         ShapeSize->GetScaledSize(size);
 
         uint16_t display_size[2];

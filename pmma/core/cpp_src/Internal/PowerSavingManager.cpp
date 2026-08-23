@@ -1,4 +1,6 @@
 #include "Internal/PowerSavingManager.hpp"
+
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 void PMMA::Internal::PowerSavingManager::PowerSavingUpdaterThread() {

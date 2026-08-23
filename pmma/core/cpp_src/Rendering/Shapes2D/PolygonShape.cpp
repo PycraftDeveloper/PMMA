@@ -1,5 +1,3 @@
-#include "PMMA_Core.hpp"
-
 PMMA::Rendering::TwoD::Shapes::Polygon::Polygon() {
 }
 

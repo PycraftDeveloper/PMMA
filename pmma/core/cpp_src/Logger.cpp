@@ -1,3 +1,4 @@
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 void PMMA::Logger::SetLogToFile(bool NewLogToFile) {

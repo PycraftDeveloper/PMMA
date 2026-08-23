@@ -17,6 +17,13 @@ Internal Utility (pmma.py_src.utility./)
 
 *ONLY import required modules.
 
+Tools
+=====
+
+"Get-ChildItem .\pmma -Recurse -File -Include *.hpp,*.h | Where-Object { try { $content = [System.IO.File]::ReadAllText($_.FullName); ($content -match '#include\s*"PMMA_Core\.hpp"') -and ($content -notmatch 'PMMA::(Core|Registry)') } catch { $false } } | Select-Object -ExpandProperty FullName"
+
+Check all project files for redundant 'PMMA_Core.hpp' file
+
 Search
 ======
 Search for public attributes of a class: self.([A-Z]|[a-z])+

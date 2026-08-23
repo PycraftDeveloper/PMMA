@@ -8,6 +8,7 @@
 #include <bgfx/bgfx.h>
 #include <bx/platform.h>
 
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 std::string PMMA::General::Get_PMMA_Location() {

@@ -1,6 +1,7 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 const bgfx::Memory *InternalLoadShader(const std::string &filePath) {

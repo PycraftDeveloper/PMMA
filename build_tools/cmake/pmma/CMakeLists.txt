@@ -117,7 +117,7 @@ if(NOT APPLE)
 	    ${INCLUDE_DIR}
 	    ${EXTERN_INSTALL_DIR}/include
 	    ${EXTERN_INSTALL_DIR}/include/freetype2)
-    target_compile_definitions(AVX2_obj PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+    target_compile_definitions(AVX2_obj PRIVATE PMMA_CORE_EXPORTS PMMA_BUILDING_LIBRARY BX_CONFIG_DEBUG=0)
 
     # AVX-512
     add_library(AVX512_obj OBJECT
@@ -142,7 +142,7 @@ if(NOT APPLE)
 	    ${INCLUDE_DIR}
 	    ${EXTERN_INSTALL_DIR}/include
         ${EXTERN_INSTALL_DIR}/include/freetype2)
-    target_compile_definitions(AVX512_obj PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+    target_compile_definitions(AVX512_obj PRIVATE PMMA_CORE_EXPORTS PMMA_BUILDING_LIBRARY BX_CONFIG_DEBUG=0)
 
     add_library(${LIB_NAME} SHARED ${CORE_SOURCES} $<TARGET_OBJECTS:AVX2_obj> $<TARGET_OBJECTS:AVX512_obj>)
 else()
@@ -166,7 +166,7 @@ else()
 	    ${EXTERN_INSTALL_DIR}/include
 	    ${EXTERN_INSTALL_DIR}/include/freetype2)
 
-    target_compile_definitions(AVX_Filler_obj PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+    target_compile_definitions(AVX_Filler_obj PRIVATE PMMA_CORE_EXPORTS PMMA_BUILDING_LIBRARY BX_CONFIG_DEBUG=0)
 
     add_library(${LIB_NAME} SHARED ${CORE_SOURCES} $<TARGET_OBJECTS:AVX_Filler_obj>)
 endif()
@@ -179,7 +179,7 @@ if(lto_supported)
 endif()
 
 # ---- Includes / Defines ------------------------------------------------------
-target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS PMMA_BUILDING_LIBRARY BX_CONFIG_DEBUG=0)
 target_include_directories(${LIB_NAME} PRIVATE
     ${INCLUDE_DIR}
     ${EXTERN_INSTALL_DIR}/include

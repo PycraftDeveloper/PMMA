@@ -1,5 +1,6 @@
 #include "Internal/AnimationManager.hpp"
 
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 PMMA::Animation::LinearAnimation::LinearAnimation(PMMA::Types::TwoD::Coordinate *NewTargetCoordinatePtr) {

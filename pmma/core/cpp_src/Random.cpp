@@ -1,4 +1,3 @@
-#include "PMMA_Core.hpp"
 
 void PMMA::FastRandom::SetSeed() {
     std::random_device rd;

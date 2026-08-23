@@ -1,5 +1,6 @@
 #include <GLFW/glfw3.h>
 
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 inline std::string encode_utf8(unsigned int codepoint) {

@@ -1,3 +1,4 @@
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 PMMA::Events::KeyPad_0::KeyPad_0() {

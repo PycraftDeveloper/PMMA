@@ -1,6 +1,7 @@
 #pragma once
 #include "PMMA_Exports.hpp"
 
+#include <fstream>
 #include <future>
 #include <optional>
 #include <random>
@@ -12,7 +13,6 @@
 #include "Logger.hpp"
 #include "Maths.hpp"
 #include "Noise/FractalBrownianMotion.hpp"
-#include "PMMA_Core.hpp"
 #include "Random.hpp"
 
 namespace PMMA::Types {

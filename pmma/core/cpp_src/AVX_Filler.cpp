@@ -1,5 +1,3 @@
-#include "PMMA_Core.hpp"
-
 void PMMA::Maths::ArrayRanger_AVX2(
     const float *values,
     const unsigned int length,

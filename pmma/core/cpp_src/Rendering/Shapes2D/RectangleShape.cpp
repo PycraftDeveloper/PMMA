@@ -1,4 +1,6 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
+
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 PMMA::Rendering::TwoD::Shapes::Rectangle::Rectangle() {

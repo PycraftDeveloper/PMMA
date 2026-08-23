@@ -1,6 +1,6 @@
 #include <immintrin.h>
 
-#include "PMMA_Core.hpp"
+#include "Maths.hpp"
 
 void PMMA::Maths::ArrayRanger_AVX2(
     const float *values,

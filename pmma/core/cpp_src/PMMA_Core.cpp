@@ -6,6 +6,8 @@
 #include <bgfx/bgfx.h>
 
 #include "Internal/PowerSavingManager.hpp"
+
+#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 namespace PMMA::Core {
