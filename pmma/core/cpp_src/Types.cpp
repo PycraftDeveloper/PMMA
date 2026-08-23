@@ -704,7 +704,7 @@ void PMMA::Types::Texture::InternalLoad() {
         }
     }
 
-    if (!PMMA::Registry::TextureCompilationStartTime.has_value()) {
+    if (PMMA::Registry::InitialSetup && !PMMA::Registry::TextureCompilationStartTime.has_value()) {
         PMMA::Registry::TextureCompilationStartTime = std::chrono::steady_clock::now();
     }
 
@@ -759,19 +759,27 @@ image path is valid and is a valid format. The image path is: '" +
         CompressMipChainToBC7(
             TextureProperties->MipChain);
 
-        std::chrono::steady_clock::time_point CurrentTime = std::chrono::steady_clock::now();
-        std::chrono::duration<float> Duration = CurrentTime - PMMA::Registry::TextureCompilationStartTime.value();
-
-        if (Duration.count() > 60) { // if loading for more than 60 seconds, prioritize caching inline so if the user closes program because they feel it's not responding, some progress is kept!
-            SaveTextureCache(
-                CachedTexturePath,
-                *TextureProperties);
-        } else {
+        if (!PMMA::Registry::InitialSetup) {
             PMMA::Core::ParallelWorkerInstance->Enqueue([this, CachedTexturePath]() {
                 SaveTextureCache(
                     CachedTexturePath,
                     *TextureProperties);
             });
+        } else {
+            std::chrono::steady_clock::time_point CurrentTime = std::chrono::steady_clock::now();
+            std::chrono::duration<float> Duration = CurrentTime - PMMA::Registry::TextureCompilationStartTime.value();
+
+            if (Duration.count() < 6) { // if loading for more than 60 seconds, prioritize caching inline so if the user closes program because they feel it's not responding, some progress is kept!
+                SaveTextureCache(
+                    CachedTexturePath,
+                    *TextureProperties);
+            } else {
+                PMMA::Core::ParallelWorkerInstance->Enqueue([this, CachedTexturePath]() {
+                    SaveTextureCache(
+                        CachedTexturePath,
+                        *TextureProperties);
+                });
+            }
         }
 
     } else {

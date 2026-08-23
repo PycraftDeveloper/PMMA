@@ -129,6 +129,7 @@ extern bool IsApplicationRunning;
 extern bool EscapeKeyShouldCloseWindow;
 extern bool UserSetEscapeKeyShouldCloseWindow;
 extern bool F11KeyShouldToggleFullScreen;
+extern bool InitialSetup;
 } // namespace PMMA::Registry
 
 namespace PMMA {

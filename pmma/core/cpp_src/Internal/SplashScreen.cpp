@@ -35,8 +35,6 @@ void PMMA::Internal::SplashScreen::Play() {
     AccentColor[1] = 255 - WindowColor[1];
     AccentColor[2] = 255 - WindowColor[2];
 
-    std::cout << (int)AccentColor[0] << " " << (int)AccentColor[1] << " " << (int)AccentColor[2] << " " << (int)AccentColor[3] << std::endl;
-
     // ------------------------------------------------------------
     // InnerBar: INNER
     //
@@ -98,9 +96,6 @@ void PMMA::Internal::SplashScreen::Play() {
 
         float NewProgress = static_cast<float>(PMMA::Core::ParallelWorkerInstance->ShadersLoaded + PMMA::Core::ParallelWorkerInstance->TexturesLoaded + PMMA::Core::ParallelWorkerInstance->FontsLoaded) / static_cast<float>(PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad);
         progress = std::clamp(NewProgress, 0.0f, 1.0f);
-
-        std::cout << progress << std::endl;
-        std::cout << static_cast<float>(PMMA::Core::ParallelWorkerInstance->ShadersLoaded + PMMA::Core::ParallelWorkerInstance->TexturesLoaded + PMMA::Core::ParallelWorkerInstance->FontsLoaded) << std::endl;
 
         // --------------------------------------------------------
         // Inner progress dimensions

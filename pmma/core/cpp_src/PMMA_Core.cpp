@@ -70,6 +70,7 @@ bool IsApplicationRunning = true;
 bool EscapeKeyShouldCloseWindow = false;
 bool UserSetEscapeKeyShouldCloseWindow = false;
 bool F11KeyShouldToggleFullScreen = true;
+bool InitialSetup = true;
 } // namespace PMMA::Registry
 
 namespace PMMA {

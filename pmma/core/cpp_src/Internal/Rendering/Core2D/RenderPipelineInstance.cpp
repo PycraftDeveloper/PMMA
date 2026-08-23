@@ -138,6 +138,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
         if (PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad > 1) {
             PMMA::Internal::SplashScreen SplashScreen;
             SplashScreen.Play();
+
+            PMMA::Registry::TextureCompilationStartTime.reset();
+            PMMA::Registry::InitialSetup = false;
         }
     }
 
