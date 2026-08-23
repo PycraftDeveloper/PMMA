@@ -1,4 +1,4 @@
-#define PMMA_ALLOW_UMBRELLA_HEADER
+
 #include "PMMA_Core.hpp"
 
 PMMA::Events::Controller::Controller(unsigned int NewID) {

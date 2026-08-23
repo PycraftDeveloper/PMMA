@@ -1,4 +1,4 @@
-#define PMMA_ALLOW_UMBRELLA_HEADER
+
 #include "PMMA_Core.hpp"
 
 void PMMA::Maths::PerspectiveFOV(const float fov, const float aspect_ratio, const float near, const float far, float (*out)[4]) {

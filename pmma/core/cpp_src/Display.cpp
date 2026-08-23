@@ -20,7 +20,6 @@
 #include <GLFW/glfw3native.h>
 #endif
 
-#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 #include <STB/stb_image.h>
 

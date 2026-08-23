@@ -1,6 +1,5 @@
 #include <random>
 
-#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 const float PMMA::Noise::PerlinNoise::F2 = 1.0f / sqrt(2.0f);

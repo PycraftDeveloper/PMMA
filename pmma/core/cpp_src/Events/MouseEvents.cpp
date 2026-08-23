@@ -1,6 +1,5 @@
 #include <GLFW/glfw3.h>
 
-#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 PMMA::Events::Mouse_Button_Left::Mouse_Button_Left() {

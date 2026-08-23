@@ -1,6 +1,5 @@
 #include "Internal/AnimationManager.hpp"
 
-#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 PMMA::Animation::RadialAnimation::RadialAnimation(PMMA::Types::TwoD::Coordinate *NewTargetCoordinatePtr) {

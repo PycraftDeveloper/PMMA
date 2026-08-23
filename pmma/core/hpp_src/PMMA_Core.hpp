@@ -1,9 +1,5 @@
 #pragma once
 
-#ifndef PMMA_BUILDING_LIBRARY
-#error "Do not include PMMA_Core.hpp from PMMA headers. Include the specific PMMA header you need instead."
-#endif
-
 #include <algorithm>
 #include <array>
 #include <chrono>

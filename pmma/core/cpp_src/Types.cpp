@@ -3,7 +3,6 @@
 #include <STB/stb_image.h>
 #include <bc7enc_wrapper.hpp>
 
-#define PMMA_ALLOW_UMBRELLA_HEADER
 #include "PMMA_Core.hpp"
 
 static size_t GetBC7MipSize(
