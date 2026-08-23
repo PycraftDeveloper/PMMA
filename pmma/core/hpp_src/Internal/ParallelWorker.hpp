@@ -11,6 +11,24 @@
 namespace PMMA::Internal {
 class ParallelWorker {
 private:
+    std::vector<std::thread> workers;
+
+    std::queue<std::function<void()>> jobs;
+
+    std::mutex mutex;
+    std::condition_variable cv;
+
+public:
+    std::atomic<int> ShadersLoaded = 0;
+    std::atomic<int> ShadersToLoad = 0;
+    std::atomic<int> TexturesLoaded = 0;
+    std::atomic<int> TexturesToLoad = 0;
+    std::atomic<int> FontsLoaded = 0;
+    std::atomic<int> FontsToLoad = 0;
+
+private:
+    bool stopping = false;
+
     void Worker() {
         while (true) {
             std::function<void()> job;
@@ -32,15 +50,6 @@ private:
             job();
         }
     }
-
-    std::vector<std::thread> workers;
-
-    std::queue<std::function<void()>> jobs;
-
-    std::mutex mutex;
-    std::condition_variable cv;
-
-    bool stopping = false;
 
 public:
     ParallelWorker(unsigned int threadCount) {

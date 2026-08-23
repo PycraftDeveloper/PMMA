@@ -47,6 +47,57 @@ void PMMA::Animation::RadialAnimation::RadialAnimation::Start() {
     TargetCoordinatePtr->SetCoordinate(start_position);
 }
 
+bool PMMA::Animation::RadialAnimation::RadialAnimation::Update(std::chrono::duration<float> FrameTime) {
+    // Return TRUE if animation finished
+    if (Paused) {
+        return false;
+    }
+
+    RunTime += FrameTime;
+
+    int16_t start_pos[2];
+    int16_t center_pos[2];
+    StartCoordinatePtr->GetCoordinate(start_pos);
+    CenterCoordinatePtr->GetCoordinate(center_pos); // Now the "center" of orbit
+
+    // radius = start - center
+    float dx = static_cast<float>(start_pos[0]) - static_cast<float>(center_pos[0]);
+    float dy = static_cast<float>(start_pos[1]) - static_cast<float>(center_pos[1]);
+    float radius = std::sqrt(dx * dx + dy * dy);
+
+    // Initial angle (from center to start)
+    float initial_angle = std::atan2(dy, dx);
+
+    // Normalized progress [0,1]
+    float t = RunTime.count() / Duration.count();
+    if (t > 1.0f)
+        t = 1.0f;
+
+    float sweep = 2.0f * 3.14159265f * t; // one full orbit
+    float angle = initial_angle + sweep;
+
+    // Compute new position
+    int16_t new_location[2];
+    new_location[0] = static_cast<uint16_t>(center_pos[0] + std::cos(angle) * radius);
+    new_location[1] = static_cast<uint16_t>(center_pos[1] + std::sin(angle) * radius);
+
+    TargetCoordinatePtr->SetCoordinate(new_location);
+
+    if (RunTime >= Duration) {
+        RunTime = Duration;
+
+        if (!Repeat) {
+            Playing = false;
+            return true;
+        }
+
+        if (Repeat) {
+            RunTime = std::chrono::seconds(0);
+        }
+    }
+    return false;
+}
+
 void PMMA::Animation::RadialAnimation::RadialAnimation::Stop() {
     if (!Playing) {
         return;

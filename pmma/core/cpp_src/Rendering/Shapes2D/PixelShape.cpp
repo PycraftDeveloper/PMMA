@@ -1,17 +1,25 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "PMMA_Core.hpp"
 
+PMMA::Rendering::TwoD::Shapes::Pixel::Pixel() {
+    ID = reinterpret_cast<uintptr_t>(this);
+
+    ShapeCenter = new PMMA::Types::TwoD::Coordinate();
+    Color = new PMMA::Types::Color();
+    Texture = new PMMA::Types::Texture();
+}
+
 void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
     if (!ShapePropertyChanged) {
-        ShapePropertyChanged = ShapeCenter.GetChangedToggle();
+        ShapePropertyChanged = ShapeCenter->GetChangedToggle();
     }
 
     if (!ColorDataChanged) {
-        ColorDataChanged = Color.GetInternalChangedToggle();
+        ColorDataChanged = Color->GetInternalChangedToggle();
     }
 
     if (ColorDataChanged) {
-        if (Color.IsClear()) {
+        if (Color->IsClear()) {
             ColorDataChanged = false;
             return; // Invisible
         }
@@ -20,7 +28,7 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
     int16_t start_position[2];
 
     if (ShapePropertyChanged) {
-        ShapeCenter.GetCoordinate(start_position);
+        ShapeCenter->GetCoordinate(start_position);
 
         uint16_t display_size[2];
         PMMA::Core::ActiveDisplayInstance->GetSize(display_size);
@@ -36,12 +44,12 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
 
     uint16_t TextureSize[2] = {0, 0};
     unsigned char Channels;
-    if (Texture.IsEnabled()) {
-        Texture.GetSize(TextureSize);
-        Channels = Texture.GetChannels();
+    if (Texture->IsEnabled()) {
+        Texture->GetSize(TextureSize);
+        Channels = Texture->GetChannels();
     }
 
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture.TextureProperties, TextureSize, Channels);
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture->TextureProperties, TextureSize, Channels);
 
     if (ShapePropertyChanged) {
         // Existing packing logic

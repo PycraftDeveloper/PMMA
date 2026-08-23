@@ -38,8 +38,10 @@ set(CORE_SOURCES
     "${SRC_DIR}/Internal/PowerSavingManager.cpp"
     "${SRC_DIR}/Internal/LoggingManager.cpp"
     "${SRC_DIR}/Internal/Internal.cpp"
+    "${SRC_DIR}/Internal/SplashScreen.cpp"
 
     "${SRC_DIR}/Internal/Events/EventsManager.cpp"
+    "${SRC_DIR}/Internal/Events/InternalEvents.cpp"
 
     "${SRC_DIR}/Internal/Rendering/Core2D/RenderPipelineManager.cpp"
     "${SRC_DIR}/Internal/Rendering/Core2D/RenderPipelineInstance.cpp"

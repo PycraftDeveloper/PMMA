@@ -4,18 +4,27 @@
 #include <cstdint>
 #include <vector>
 
-#include <glm/glm.hpp>
+namespace PMMA::Internal::Rendering::Core2D {
+struct InstanceData;
+}
 
-#include "Constants.hpp"
-#include "Types.hpp"
+namespace PMMA::Types::TwoD {
+class Coordinate;
+class Size;
+} // namespace PMMA::Types::TwoD
+
+namespace PMMA::Types {
+class Color;
+class Texture;
+} // namespace PMMA::Types
 
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT Arc {
 public:
-    PMMA::Types::TwoD::Coordinate ShapeCenter;
-    PMMA::Types::TwoD::Size ShapeSize;
-    PMMA::Types::Color Color;
-    PMMA::Types::Texture Texture;
+    PMMA::Types::TwoD::Coordinate *ShapeCenter = nullptr;
+    PMMA::Types::TwoD::Size *ShapeSize = nullptr;
+    PMMA::Types::Color *Color = nullptr;
+    PMMA::Types::Texture *Texture = nullptr;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
@@ -35,10 +44,18 @@ public:
     bool EndAngleSet = false;
     bool UseTextureSize = false;
 
-    inline Arc() {
-        ID = reinterpret_cast<uintptr_t>(this);
+    Arc();
 
-        ShapeSize.Texture = &Texture;
+    ~Arc() {
+        delete ShapeCenter;
+        delete ShapeSize;
+        delete Color;
+        delete Texture;
+
+        ShapeCenter = nullptr;
+        ShapeSize = nullptr;
+        Color = nullptr;
+        Texture = nullptr;
     }
 
     void Render();

@@ -5,9 +5,15 @@
 #include <iostream>
 
 #include "Internal/AnimationManager.hpp"
-#include "Logger.hpp"
 #include "Maths.hpp"
-#include "Types.hpp"
+
+namespace PMMA::Types::TwoD {
+class Coordinate;
+};
+
+namespace PMMA {
+class Logger;
+}
 
 namespace PMMA::Animation {
 class EXPORT LinearAnimation : public PMMA::Internal::AnimationCore {
@@ -30,52 +36,7 @@ public:
 
     ~LinearAnimation();
 
-    inline bool Update(std::chrono::duration<float> FrameTime) override { // Return TRUE if animation finished
-        if (Paused) {
-            return false;
-        }
-
-        RunTime += FrameTime;
-
-        int16_t new_location[2];
-        int16_t start_pos[2];
-        int16_t end_pos[2];
-
-        StartCoordinatePtr->GetCoordinate(start_pos);
-        EndCoordinatePtr->GetCoordinate(end_pos);
-
-        new_location[0] = (uint16_t)PMMA::Maths::Lerp(
-            (float)start_pos[0], (float)end_pos[0],
-            Duration.count(), RunTime.count());
-
-        new_location[1] = (uint16_t)PMMA::Maths::Lerp(
-            (float)start_pos[1], (float)end_pos[1],
-            Duration.count(), RunTime.count());
-
-        TargetCoordinatePtr->SetCoordinate(new_location);
-
-        if (RunTime >= Duration) {
-            RunTime = Duration;
-
-            if (!(Repeat || Loop)) {
-                Playing = false;
-                return true;
-            }
-
-            if (Repeat) {
-                RunTime = std::chrono::seconds(0);
-            }
-
-            if (Loop) { // Switch start and end
-                PMMA::Types::TwoD::Coordinate *TempPtr = StartCoordinatePtr;
-                StartCoordinatePtr = EndCoordinatePtr;
-                EndCoordinatePtr = TempPtr;
-
-                RunTime = std::chrono::seconds(0);
-            }
-        }
-        return false;
-    }
+    bool Update(std::chrono::duration<float> FrameTime) override;
 
     void Start();
 
@@ -109,38 +70,16 @@ public:
         return Paused;
     }
 
-    inline void SetLooping(bool NewLooping) {
-        if (Repeat && NewLooping) {
-            Logger->InternalLogWarn(
-                40,
-                "This animation has already been set to repeat. The \
-looping and repeating modes are mutually exclusive - meaning they cannot be \
-both set - as they customize the same behaviour. We have turned off Repeat \
-as that was what was previous set.");
-            Repeat = false;
-        }
-        Loop = NewLooping;
-    }
+    void SetLooping(bool NewLooping);
 
     inline bool IsLooping() {
         return Loop;
     }
 
-    inline void SetRepeating(bool NewRepeating) {
-        if (Loop && NewRepeating) {
-            Logger->InternalLogWarn(
-                40,
-                "This animation has already been set to loop. The \
-looping and repeating modes are mutually exclusive - meaning they cannot be \
-both set - as they customize the same behaviour. We have turned off Looping \
-as that was what was previous set.");
-            Loop = false;
-        }
-        Repeat = NewRepeating;
-    }
+    void SetRepeating(bool NewRepeating);
 
     inline bool IsRepeating() {
         return Repeat;
     }
 };
-}
+} // namespace PMMA::Animation

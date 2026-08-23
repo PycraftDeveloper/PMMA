@@ -4,18 +4,25 @@
 #include <cstdint>
 #include <vector>
 
-#include <glm/glm.hpp>
+namespace PMMA::Internal::Rendering::Core2D {
+struct InstanceData;
+}
 
-#include "Constants.hpp"
-#include "Logger.hpp"
-#include "Types.hpp"
+namespace PMMA::Types::TwoD {
+class Coordinate;
+} // namespace PMMA::Types::TwoD
+
+namespace PMMA::Types {
+class Color;
+class Texture;
+} // namespace PMMA::Types
 
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT Pixel {
 public:
-    PMMA::Types::TwoD::Coordinate ShapeCenter;
-    PMMA::Types::Color Color;
-    PMMA::Types::Texture Texture;
+    PMMA::Types::TwoD::Coordinate *ShapeCenter = nullptr;
+    PMMA::Types::Color *Color = nullptr;
+    PMMA::Types::Texture *Texture = nullptr;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
@@ -24,10 +31,18 @@ public:
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
-    inline Pixel() {
-        ID = reinterpret_cast<uintptr_t>(this);
+    Pixel();
+
+    ~Pixel() {
+        delete ShapeCenter;
+        delete Color;
+        delete Texture;
+
+        ShapeCenter = nullptr;
+        Color = nullptr;
+        Texture = nullptr;
     }
 
     void Render();
 };
-} // namespace PMMA::Rendering::TwoD
+} // namespace PMMA::Rendering::TwoD::Shapes

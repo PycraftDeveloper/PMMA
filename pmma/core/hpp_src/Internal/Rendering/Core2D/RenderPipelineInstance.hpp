@@ -112,7 +112,7 @@ public:
     }
 
     template <typename T>
-    void Add(T *shape, uint16_t *TextureSize, unsigned char Channels);
+    inline void Add(T *shape, uint16_t *TextureSize, unsigned char Channels);
 
     void Render();
 };

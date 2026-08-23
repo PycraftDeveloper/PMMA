@@ -312,6 +312,7 @@ private:
 
 public:
     bool DisplaySizeChanged = true;
+    bool FirstFrame = true;
 
     Display();
     ~Display();

@@ -7,7 +7,7 @@
 #include <vector>
 
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
-// #include "Internal/SplashScreen.hpp"
+#include "Internal/SplashScreen.hpp"
 #include "PMMA_Core.hpp"
 
 PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstance() {
@@ -123,25 +123,26 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
     auto &Texture = shape->Texture;
     auto &instance = shape->ShapeInstanceData;
 
-    bool IsOpaque = Color.IsOpaque();
+    bool IsOpaque = Color->IsOpaque();
 
-    instance.color_index = ColorTexture.AddColor(&Color, ShapeID, ColorDataChanged);
+    instance.color_index = ColorTexture.AddColor(Color, ShapeID, ColorDataChanged);
 
     // Used for RGBA generated texture for noise and text
     instance.texture_position = 0;
     instance.texture_size = 0;
     // end
 
-    /*if (PMMA::Core::MasterDisplayInstance->FirstFrame) {
+    if (PMMA::Core::MasterDisplayInstance->FirstFrame) {
+        PMMA::Core::MasterDisplayInstance->FirstFrame = false;
         PMMA::Internal::SplashScreen SplashScreen;
         SplashScreen.Play();
-    }*/
+    }
 
     // CompressedTexture
     uint16_t TexturePositionInAtlas[2] = {0, 0};
-    if (Texture.IsEnabled()) {
+    if (Texture->IsEnabled()) {
         if (TextureSize[0] > MaxTextureDimension || TextureSize[1] > MaxTextureDimension) {
-            std::cout << "The texture: " << Texture.GetPath() << " is too large with dimensions: " << TextureSize[0] << "x" << TextureSize[1] << std::endl;
+            std::cout << "The texture: " << Texture->GetPath() << " is too large with dimensions: " << TextureSize[0] << "x" << TextureSize[1] << std::endl;
 
             return;
         }
@@ -149,9 +150,9 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
         float TextureID = 0;
 
         if (Channels == 3) {
-            TextureID = CompressedTextureManager.RegisterOpaque(Texture.TextureProperties);
+            TextureID = CompressedTextureManager.RegisterOpaque(Texture->TextureProperties);
         } else {
-            TextureID = CompressedTextureManager.RegisterTransparent(Texture.TextureProperties);
+            TextureID = CompressedTextureManager.RegisterTransparent(Texture->TextureProperties);
             IsOpaque = false;
         }
         instance.texture_id = TextureID;

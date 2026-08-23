@@ -4,10 +4,6 @@
 #include <cstdint>
 #include <vector>
 
-#include <glm/glm.hpp>
-
-#include "Constants.hpp"
-#include "Logger.hpp"
 #include "Types.hpp"
 
 namespace PMMA::Rendering::TwoD::Shapes {

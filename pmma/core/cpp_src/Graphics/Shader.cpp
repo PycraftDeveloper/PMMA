@@ -227,8 +227,10 @@ void PMMA::Graphics::Shader::LoadShader(std::string VertexShaderPath, std::strin
         CompiledFragmentShaderPath = "";
     }
 
+    PMMA::Core::ParallelWorkerInstance->ShadersToLoad++;
     CompileShaderFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this, InternalShader]() {
         CompileShader(InternalShader);
+        PMMA::Core::ParallelWorkerInstance->ShadersLoaded++;
     });
 }
 
@@ -249,8 +251,10 @@ void PMMA::Graphics::Shader::LoadVertexShader(std::string VertexShaderPath, bool
         CompiledVertexShaderPath = "";
     }
 
+    PMMA::Core::ParallelWorkerInstance->ShadersToLoad++;
     CompileShaderFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this, InternalShader]() {
         CompileShader(InternalShader);
+        PMMA::Core::ParallelWorkerInstance->ShadersLoaded++;
     });
 }
 
@@ -271,8 +275,10 @@ void PMMA::Graphics::Shader::LoadFragmentShader(std::string FragmentShaderPath, 
         CompiledFragmentShaderPath = "";
     }
 
+    PMMA::Core::ParallelWorkerInstance->ShadersToLoad++;
     CompileShaderFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this, InternalShader]() {
         CompileShader(InternalShader);
+        PMMA::Core::ParallelWorkerInstance->ShadersLoaded++;
     });
 }
 
@@ -347,7 +353,9 @@ void PMMA::Graphics::Shader::LoadShaderFromFolder(std::string FolderPath, bool I
                 error.what() + "'");
     }
 
+    PMMA::Core::ParallelWorkerInstance->ShadersToLoad++;
     CompileShaderFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this, InternalShader]() {
         CompileShader(InternalShader);
+        PMMA::Core::ParallelWorkerInstance->ShadersLoaded++;
     });
 }

@@ -4,19 +4,26 @@
 #include <cstdint>
 #include <vector>
 
-#include <glm/glm.hpp>
+namespace PMMA::Internal::Rendering::Core2D {
+struct InstanceData;
+}
 
-#include "Constants.hpp"
-#include "Logger.hpp"
-#include "Types.hpp"
+namespace PMMA::Types::TwoD {
+class Coordinate;
+} // namespace PMMA::Types::TwoD
+
+namespace PMMA::Types {
+class Color;
+class Texture;
+} // namespace PMMA::Types
 
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT Line {
 public:
-    PMMA::Types::TwoD::Coordinate ShapeStart;
-    PMMA::Types::TwoD::Coordinate ShapeEnd;
-    PMMA::Types::Color Color;
-    PMMA::Types::Texture Texture;
+    PMMA::Types::TwoD::Coordinate *ShapeStart = nullptr;
+    PMMA::Types::TwoD::Coordinate *ShapeEnd = nullptr;
+    PMMA::Types::Color *Color = nullptr;
+    PMMA::Types::Texture *Texture = nullptr;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
@@ -28,8 +35,18 @@ public:
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
-    inline Line() {
-        ID = reinterpret_cast<uintptr_t>(this);
+    Line();
+
+    ~Line() {
+        delete ShapeStart;
+        delete ShapeEnd;
+        delete Color;
+        delete Texture;
+
+        ShapeStart = nullptr;
+        ShapeEnd = nullptr;
+        Color = nullptr;
+        Texture = nullptr;
     }
 
     void Render();
@@ -56,4 +73,4 @@ public:
         return Rotation;
     }
 };
-} // namespace PMMA::Rendering::TwoD
+} // namespace PMMA::Rendering::TwoD::Shapes
