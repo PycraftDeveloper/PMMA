@@ -134,8 +134,11 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
 
     if (PMMA::Core::MasterDisplayInstance->FirstFrame) {
         PMMA::Core::MasterDisplayInstance->FirstFrame = false;
-        PMMA::Internal::SplashScreen SplashScreen;
-        SplashScreen.Play();
+
+        if (PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad > 1) {
+            PMMA::Internal::SplashScreen SplashScreen;
+            SplashScreen.Play();
+        }
     }
 
     // CompressedTexture

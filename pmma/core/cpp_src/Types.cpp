@@ -808,8 +808,10 @@ void PMMA::Types::Texture::Load(std::string TexturePath) {
 
         TextureProperties = &propertyRef;
 
+        PMMA::Core::ParallelWorkerInstance->TexturesToLoad++;
         TextureProperties->LoadFuture = PMMA::Core::ParallelWorkerInstance->Enqueue([this]() {
             InternalLoad();
+            PMMA::Core::ParallelWorkerInstance->TexturesLoaded++;
         });
     }
 

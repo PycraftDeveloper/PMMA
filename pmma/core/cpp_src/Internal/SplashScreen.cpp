@@ -28,6 +28,15 @@ void PMMA::Internal::SplashScreen::Play() {
     // 2. Set barY so the bottom mask edge sits exactly 'sideDistance' away from the screen bottom
     float barY = display_size[1] - sideDistance - (maskHeight / 2.0f);
 
+    uint8_t WindowColor[3];
+    PMMA::Core::MasterDisplayInstance->WindowFillColor->Get_RGB(WindowColor);
+    uint8_t AccentColor[3];
+    AccentColor[0] = 255 - WindowColor[0];
+    AccentColor[1] = 255 - WindowColor[1];
+    AccentColor[2] = 255 - WindowColor[2];
+
+    std::cout << (int)AccentColor[0] << " " << (int)AccentColor[1] << " " << (int)AccentColor[2] << " " << (int)AccentColor[3] << std::endl;
+
     // ------------------------------------------------------------
     // InnerBar: INNER
     //
@@ -37,15 +46,14 @@ void PMMA::Internal::SplashScreen::Play() {
 
     PMMA::Rendering::TwoD::Shapes::Rectangle InnerBar;
 
-    InnerBar.Color->SetColorName(
-        PMMA::Constants::Colors::BLACK);
+    InnerBar.Color->Set_RGB(AccentColor);
 
     PMMA::Rendering::TwoD::Shapes::Rectangle RectMask;
 
     RectMask.ShapeCenter->SetX(display_size[0] / 2.0f);
     RectMask.ShapeCenter->SetY(barY);
 
-    RectMask.Color->SetColorName(PMMA::Constants::Colors::WHITE);
+    RectMask.Color->Set_RGB(WindowColor);
 
     RectMask.ShapeSize->SetSize(
         new uint16_t[2]{
@@ -64,8 +72,7 @@ void PMMA::Internal::SplashScreen::Play() {
     Outline.ShapeCenter->CenterHorizontal();
     Outline.ShapeCenter->SetY(barY);
 
-    Outline.Color->SetColorName(
-        PMMA::Constants::Colors::BLACK);
+    Outline.Color->Set_RGB(AccentColor);
 
     Outline.ShapeSize->SetSize(
         new uint16_t[2]{
@@ -84,13 +91,16 @@ void PMMA::Internal::SplashScreen::Play() {
     // Main loop
     // ------------------------------------------------------------
 
-    while (PMMA::General::IsApplicationRunning()) {
+    while (PMMA::General::IsApplicationRunning() && progress < 1.0f) {
         PMMA::Core::MasterDisplayInstance->Clear();
 
-        progress += PMMA::Core::MasterDisplayInstance->GetFrameTime() * 0.1f;
+        PMMA::Internal::ParallelWorker &ParallelWorker = *PMMA::Core::ParallelWorkerInstance;
 
-        if (progress > 1.0f)
-            progress = 0.0f;
+        float NewProgress = static_cast<float>(PMMA::Core::ParallelWorkerInstance->ShadersLoaded + PMMA::Core::ParallelWorkerInstance->TexturesLoaded + PMMA::Core::ParallelWorkerInstance->FontsLoaded) / static_cast<float>(PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad);
+        progress = std::clamp(NewProgress, 0.0f, 1.0f);
+
+        std::cout << progress << std::endl;
+        std::cout << static_cast<float>(PMMA::Core::ParallelWorkerInstance->ShadersLoaded + PMMA::Core::ParallelWorkerInstance->TexturesLoaded + PMMA::Core::ParallelWorkerInstance->FontsLoaded) << std::endl;
 
         // --------------------------------------------------------
         // Inner progress dimensions
@@ -134,6 +144,6 @@ void PMMA::Internal::SplashScreen::Play() {
         RectMask.Render();
         Outline.Render();
 
-        PMMA::Core::MasterDisplayInstance->Refresh({.LimitRefreshRate = false});
+        PMMA::Core::MasterDisplayInstance->Refresh();
     }
 }
