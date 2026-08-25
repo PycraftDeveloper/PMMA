@@ -31,7 +31,7 @@ def build_pmma(build_debug, build_for_python):
                     "-DUSE_PYTHON=ON",
                     f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}",
                     "-DCMAKE_UNITY_BUILD=ON",
-                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
+                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count()}"
                 ],
                 cmake_temp_dir,
                 config_log_file,
@@ -43,7 +43,7 @@ def build_pmma(build_debug, build_for_python):
                     f"-DWORKING_DIR={cwd}", "-DCMAKE_BUILD_TYPE=Debug",
                     f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}",
                     "-DCMAKE_UNITY_BUILD=ON",
-                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
+                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count()}"
                 ],
                 cmake_temp_dir,
                 config_log_file,
@@ -61,7 +61,7 @@ def build_pmma(build_debug, build_for_python):
                     "-DUSE_PYTHON=ON",
                     f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}",
                     "-DCMAKE_UNITY_BUILD=ON",
-                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
+                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count()}"
                 ],
                 cmake_temp_dir,
                 config_log_file,
@@ -73,7 +73,7 @@ def build_pmma(build_debug, build_for_python):
                     f"-DWORKING_DIR={cwd}", "-DCMAKE_BUILD_TYPE=Release",
                     f"-DCMAKE_INSTALL_PREFIX={pmma_lib_dir}",
                     "-DCMAKE_UNITY_BUILD=ON",
-                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count}"
+                    f"-DCMAKE_BUILD_PARALLEL_LEVEL={multiprocessing.cpu_count()}"
                 ],
                 cmake_temp_dir,
                 config_log_file,
