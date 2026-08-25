@@ -45,16 +45,16 @@ void PMMA::Internal::SplashScreen::Play() {
 
     PMMA::Rendering::TwoD::Shapes::Rectangle InnerBar;
 
-    InnerBar.Color->Set_RGB(AccentColor);
+    InnerBar.Color.Set_RGB(AccentColor);
 
     PMMA::Rendering::TwoD::Shapes::Rectangle RectMask;
 
-    RectMask.ShapeCenter->SetX(display_size[0] / 2.0f);
-    RectMask.ShapeCenter->SetY(barY);
+    RectMask.ShapeCenter.SetX(display_size[0] / 2.0f);
+    RectMask.ShapeCenter.SetY(barY);
 
-    RectMask.Color->Set_RGB(WindowColor);
+    RectMask.Color.Set_RGB(WindowColor);
 
-    RectMask.ShapeSize->SetSize(
+    RectMask.ShapeSize.SetSize(
         new uint16_t[2]{
             maskWidth,
             maskHeight});
@@ -68,12 +68,12 @@ void PMMA::Internal::SplashScreen::Play() {
 
     PMMA::Rendering::TwoD::Shapes::Rectangle Outline;
 
-    Outline.ShapeCenter->CenterHorizontal();
-    Outline.ShapeCenter->SetY(barY);
+    Outline.ShapeCenter.CenterHorizontal();
+    Outline.ShapeCenter.SetY(barY);
 
-    Outline.Color->Set_RGB(AccentColor);
+    Outline.Color.Set_RGB(AccentColor);
 
-    Outline.ShapeSize->SetSize(
+    Outline.ShapeSize.SetSize(
         new uint16_t[2]{
             maxProgressBarWidth,
             barHeight});
@@ -117,14 +117,14 @@ void PMMA::Internal::SplashScreen::Play() {
         // Position the inner rectangle
         // --------------------------------------------------------
 
-        InnerBar.ShapeSize->SetSize(
+        InnerBar.ShapeSize.SetSize(
             new uint16_t[2]{
                 currentWidth,
                 innerHeight});
 
-        InnerBar.ShapeCenter->SetY(barY);
+        InnerBar.ShapeCenter.SetY(barY);
 
-        InnerBar.ShapeCenter->SetX(
+        InnerBar.ShapeCenter.SetX(
             startX +
             borderWidth +
             gap +

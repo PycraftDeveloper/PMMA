@@ -4,8 +4,6 @@
 #include <cstdint>
 #include <vector>
 
-#include "Types.hpp"
-
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT Polygon {
 public:

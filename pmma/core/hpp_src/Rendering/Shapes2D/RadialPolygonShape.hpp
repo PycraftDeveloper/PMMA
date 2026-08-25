@@ -10,22 +10,13 @@ namespace PMMA::Internal::Rendering::Core2D {
 struct InstanceData;
 }
 
-namespace PMMA::Types::TwoD {
-class Size;
-} // namespace PMMA::Types::TwoD
-
-namespace PMMA::Types {
-class Color;
-class Texture;
-} // namespace PMMA::Types
-
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT RadialPolygonBase {
 public:
     PMMA::Types::TwoD::Coordinate ShapeCenter;
-    PMMA::Types::TwoD::Size *ShapeSize = nullptr;
-    PMMA::Types::Color *Color = nullptr;
-    PMMA::Types::Texture *Texture = nullptr;
+    PMMA::Types::TwoD::Size ShapeSize;
+    PMMA::Types::Color Color;
+    PMMA::Types::Texture Texture;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
@@ -40,16 +31,10 @@ public:
     bool ShapePropertyChanged = true;
     bool UseTextureSize = false;
 
-    RadialPolygonBase();
+    inline RadialPolygonBase() {
+        ID = reinterpret_cast<uintptr_t>(this);
 
-    ~RadialPolygonBase() {
-        delete ShapeSize;
-        delete Color;
-        delete Texture;
-
-        ShapeSize = nullptr;
-        Color = nullptr;
-        Texture = nullptr;
+        ShapeSize.Texture = &Texture;
     }
 
     void Render();

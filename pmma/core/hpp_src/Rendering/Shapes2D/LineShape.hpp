@@ -4,26 +4,19 @@
 #include <cstdint>
 #include <vector>
 
+#include "Types.hpp"
+
 namespace PMMA::Internal::Rendering::Core2D {
 struct InstanceData;
 }
 
-namespace PMMA::Types::TwoD {
-class Coordinate;
-} // namespace PMMA::Types::TwoD
-
-namespace PMMA::Types {
-class Color;
-class Texture;
-} // namespace PMMA::Types
-
 namespace PMMA::Rendering::TwoD::Shapes {
 class EXPORT Line {
 public:
-    PMMA::Types::TwoD::Coordinate *ShapeStart = nullptr;
-    PMMA::Types::TwoD::Coordinate *ShapeEnd = nullptr;
-    PMMA::Types::Color *Color = nullptr;
-    PMMA::Types::Texture *Texture = nullptr;
+    PMMA::Types::TwoD::Coordinate ShapeStart;
+    PMMA::Types::TwoD::Coordinate ShapeEnd;
+    PMMA::Types::Color Color;
+    PMMA::Types::Texture Texture;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 
@@ -35,18 +28,8 @@ public:
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
 
-    Line();
-
-    ~Line() {
-        delete ShapeStart;
-        delete ShapeEnd;
-        delete Color;
-        delete Texture;
-
-        ShapeStart = nullptr;
-        ShapeEnd = nullptr;
-        Color = nullptr;
-        Texture = nullptr;
+    inline Line() {
+        ID = reinterpret_cast<uintptr_t>(this);
     }
 
     void Render();

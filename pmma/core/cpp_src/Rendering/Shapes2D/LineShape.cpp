@@ -2,26 +2,17 @@
 
 #include "PMMA_Core.hpp"
 
-PMMA::Rendering::TwoD::Shapes::Line::Line() {
-    ID = reinterpret_cast<uintptr_t>(this);
-
-    ShapeStart = new PMMA::Types::TwoD::Coordinate();
-    ShapeEnd = new PMMA::Types::TwoD::Coordinate();
-    Color = new PMMA::Types::Color();
-    Texture = new PMMA::Types::Texture();
-}
-
 void PMMA::Rendering::TwoD::Shapes::Line::Render() {
     if (!ShapePropertyChanged) {
-        ShapePropertyChanged = ShapeStart->GetChangedToggle() || ShapeEnd->GetChangedToggle();
+        ShapePropertyChanged = ShapeStart.GetChangedToggle() || ShapeEnd.GetChangedToggle();
     }
 
     if (!ColorDataChanged) {
-        ColorDataChanged = Color->GetInternalChangedToggle();
+        ColorDataChanged = Color.GetInternalChangedToggle();
     }
 
     if (ColorDataChanged) {
-        if (Color->IsClear()) {
+        if (Color.IsClear()) {
             ColorDataChanged = false;
             return; // Invisible
         }
@@ -29,17 +20,17 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
 
     uint16_t TextureSize[2] = {0, 0};
     unsigned char Channels;
-    if (Texture->IsEnabled()) {
-        Texture->GetSize(TextureSize);
-        Channels = Texture->GetChannels();
+    if (Texture.IsEnabled()) {
+        Texture.GetSize(TextureSize);
+        Channels = Texture.GetChannels();
     }
 
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture->TextureProperties, TextureSize, Channels);
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture.TextureProperties, TextureSize, Channels);
 
     if (ShapePropertyChanged) {
         int16_t start_position[2], end_position[2];
-        ShapeStart->GetCoordinate(start_position);
-        ShapeEnd->GetCoordinate(end_position);
+        ShapeStart.GetCoordinate(start_position);
+        ShapeEnd.GetCoordinate(end_position);
 
         // 1. Calculate original dimensions
         float orig_size_x = abs((float)end_position[0] - start_position[0]);

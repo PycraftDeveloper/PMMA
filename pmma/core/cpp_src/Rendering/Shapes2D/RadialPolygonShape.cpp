@@ -2,27 +2,17 @@
 
 #include "PMMA_Core.hpp"
 
-PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::RadialPolygonBase() {
-    ID = reinterpret_cast<uintptr_t>(this);
-
-    ShapeSize = new PMMA::Types::TwoD::Size();
-    Color = new PMMA::Types::Color();
-    Texture = new PMMA::Types::Texture();
-
-    ShapeSize->Texture = Texture;
-}
-
 void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
     if (!ShapePropertyChanged) {
-        ShapePropertyChanged = ShapeCenter.GetChangedToggle() || ShapeSize->GetScaledChangedToggle();
+        ShapePropertyChanged = ShapeCenter.GetChangedToggle() || ShapeSize.GetScaledChangedToggle();
     }
 
     if (!ColorDataChanged) {
-        ColorDataChanged = Color->GetInternalChangedToggle();
+        ColorDataChanged = Color.GetInternalChangedToggle();
     }
 
     if (ColorDataChanged) {
-        if (Color->IsClear()) {
+        if (Color.IsClear()) {
             ColorDataChanged = false;
             return; // Invisible
         }
@@ -33,7 +23,7 @@ void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
 
     if (ShapePropertyChanged) {
         ShapeCenter.GetCoordinate(start_position);
-        ShapeSize->GetScaledSize(size);
+        ShapeSize.GetScaledSize(size);
 
         uint16_t display_size[2];
         PMMA::Core::ActiveDisplayInstance->GetSize(display_size);
@@ -49,12 +39,12 @@ void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
 
     uint16_t TextureSize[2] = {0, 0};
     unsigned char Channels = 0;
-    if (Texture->IsEnabled()) {
-        Texture->GetSize(TextureSize);
-        Channels = Texture->GetChannels();
+    if (Texture.IsEnabled()) {
+        Texture.GetSize(TextureSize);
+        Channels = Texture.GetChannels();
     }
 
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture->TextureProperties, TextureSize, Channels);
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture.TextureProperties, TextureSize, Channels);
 
     if (ShapePropertyChanged) {
         // Existing packing logic
