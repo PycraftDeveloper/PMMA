@@ -5,15 +5,10 @@
 #include <iostream>
 
 #include "Internal/AnimationManager.hpp"
-#include "Maths.hpp"
 
 namespace PMMA::Types::TwoD {
 class Coordinate;
 };
-
-namespace PMMA {
-class Logger;
-}
 
 namespace PMMA::Animation {
 class EXPORT LinearAnimation : public PMMA::Internal::AnimationCore {
@@ -21,7 +16,6 @@ public:
     PMMA::Types::TwoD::Coordinate *TargetCoordinatePtr;
     PMMA::Types::TwoD::Coordinate *StartCoordinatePtr;
     PMMA::Types::TwoD::Coordinate *EndCoordinatePtr;
-    PMMA::Logger *Logger;
 
     std::chrono::time_point<std::chrono::high_resolution_clock> StartTime;
     std::chrono::duration<float> Duration;

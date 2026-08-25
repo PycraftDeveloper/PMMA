@@ -7,7 +7,6 @@ PMMA::Animation::LinearAnimation::LinearAnimation(PMMA::Types::TwoD::Coordinate 
 
     StartCoordinatePtr = new PMMA::Types::TwoD::Coordinate();
     EndCoordinatePtr = new PMMA::Types::TwoD::Coordinate();
-    Logger = new PMMA::Logger();
 }
 
 PMMA::Animation::LinearAnimation::LinearAnimation::~LinearAnimation() {
@@ -25,9 +24,6 @@ PMMA::Animation::LinearAnimation::LinearAnimation::~LinearAnimation() {
         delete EndCoordinatePtr;
         EndCoordinatePtr = nullptr;
     }
-
-    delete Logger;
-    Logger = nullptr;
 }
 
 void PMMA::Animation::LinearAnimation::LinearAnimation::Start() {
@@ -109,7 +105,7 @@ void PMMA::Animation::LinearAnimation::LinearAnimation::Stop() {
 
 void PMMA::Animation::LinearAnimation::LinearAnimation::SetLooping(bool NewLooping) {
     if (Repeat && NewLooping) {
-        Logger->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             40,
             "This animation has already been set to repeat. The \
 looping and repeating modes are mutually exclusive - meaning they cannot be \
@@ -122,7 +118,7 @@ as that was what was previous set.");
 
 void PMMA::Animation::LinearAnimation::LinearAnimation::SetRepeating(bool NewRepeating) {
     if (Loop && NewRepeating) {
-        Logger->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             40,
             "This animation has already been set to loop. The \
 looping and repeating modes are mutually exclusive - meaning they cannot be \

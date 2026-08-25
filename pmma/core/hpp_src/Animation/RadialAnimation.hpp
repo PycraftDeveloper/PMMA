@@ -5,7 +5,6 @@
 #include <iostream>
 
 #include "Internal/AnimationManager.hpp"
-#include "Maths.hpp"
 
 namespace PMMA::Types::TwoD {
 class Coordinate;
