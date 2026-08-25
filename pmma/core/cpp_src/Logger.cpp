@@ -1,5 +1,5 @@
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
 
 void PMMA::Logger::SetLogToFile(bool NewLogToFile) {
     PMMA::Core::LoggingManagerInstance->SetLogToFile(NewLogToFile);

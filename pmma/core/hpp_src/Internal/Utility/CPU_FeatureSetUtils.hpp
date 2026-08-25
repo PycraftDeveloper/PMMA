@@ -1,7 +1,7 @@
 #pragma once
 
-namespace PMMA::Utils::CPU_FeatureSet {
+namespace PMMA::Utility::CPU_FeatureSet {
 bool SupportsAVX2();
 
 bool SupportsAVX512();
-} // namespace PMMA::Utils::CPU_FeatureSet
+} // namespace PMMA::Utility::CPU_FeatureSet

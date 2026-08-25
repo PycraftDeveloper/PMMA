@@ -1,12 +1,12 @@
 #include <cstdint>
 #include <mutex>
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
 
 namespace PMMA::Internal {
 uint32_t GetRandomSeed() {
-    std::lock_guard<std::mutex> lock(PMMA::Registry::SeedGeneratorLock);
-    return PMMA::Registry::SeedDistribution(PMMA::Registry::RandomSeedGenerator);
+    std::lock_guard<std::mutex> lock(PMMA::Core::Registry::SeedGeneratorLock);
+    return PMMA::Core::Registry::SeedDistribution(PMMA::Core::Registry::RandomSeedGenerator);
 }
 
 std::optional<std::array<uint8_t, 3>> FindColor(std::string_view key) {

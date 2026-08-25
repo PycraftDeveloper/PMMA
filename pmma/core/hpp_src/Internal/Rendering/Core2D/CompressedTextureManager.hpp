@@ -155,7 +155,7 @@ public:
     }
 
     inline bool CanFitTextureOpaque(
-        PMMA::Internal::TextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::TextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
 
@@ -181,7 +181,7 @@ public:
     }
 
     inline bool CanFitTextureTransparent(
-        PMMA::Internal::TextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::TextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
 

@@ -8,49 +8,54 @@
 #include <bgfx/bgfx.h>
 #include <bx/platform.h>
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
+
+#include "Internal/PowerSavingManager.hpp"
+
+#include "General.hpp"
 
 std::string PMMA::General::Get_PMMA_Location() {
-    return PMMA::Registry::PMMA_Location;
+    return PMMA::Core::Registry::PMMA_Location;
 }
 
 bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
     if (!ForceRefresh) {
-        return PMMA::Registry::IsPowerSavingModeEnabled; // Return cached value if not forcing a refresh
+        return PMMA::Core::Registry::IsPowerSavingModeEnabled; // Return cached value if not forcing a refresh
     }
 
 #if defined(_WIN32)
     SYSTEM_POWER_STATUS power_status = {};
     if (GetSystemPowerStatus(&power_status)) {
         if (power_status.SystemStatusFlag == 1) {
-            if (!PMMA::Registry::IsPowerSavingModeEnabled) {
+            if (!PMMA::Core::Registry::IsPowerSavingModeEnabled) {
                 PMMA::Core::LoggingManagerInstance->InternalLogInfo(
                     1,
                     "Your device is running in power saving mode.", true);
             }
-            PMMA::Registry::IsPowerSavingModeEnabled = true;
-            PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
+            PMMA::Core::Registry::IsPowerSavingModeEnabled = true;
+            PMMA::Core::PowerSavingManagerInstance->updateCounter = 30;
             return true;
         }
         if (power_status.ACLineStatus == 0 && power_status.BatteryLifePercent <= 20) {
-            if (!PMMA::Registry::IsPowerSavingModeEnabled) {
+            if (!PMMA::Core::Registry::IsPowerSavingModeEnabled) {
                 PMMA::Core::LoggingManagerInstance->InternalLogInfo(
                     1,
                     "Your device is running in power saving mode.", true);
             }
-            PMMA::Registry::IsPowerSavingModeEnabled = true;
-            PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
+            PMMA::Core::Registry::IsPowerSavingModeEnabled = true;
+            PMMA::Core::PowerSavingManagerInstance->updateCounter = 30;
             return true; // Low battery test
         }
     }
 
-    if (PMMA::Registry::IsPowerSavingModeEnabled) {
+    if (PMMA::Core::Registry::IsPowerSavingModeEnabled) {
         PMMA::Core::LoggingManagerInstance->InternalLogInfo(
             2,
             "Your device is not running in power saving mode.", true);
     }
-    PMMA::Registry::IsPowerSavingModeEnabled = false;
-    PMMA::Core::PowerSavingManagerInstance.updateCounter = 15;
+    PMMA::Core::Registry::IsPowerSavingModeEnabled = false;
+    PMMA::Core::PowerSavingManagerInstance->updateCounter = 15;
     return false;
 
 #elif defined(__linux__)
@@ -62,13 +67,13 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
                 std::ifstream statusFile(entry.path() / "status");
                 std::string status;
                 if (statusFile >> status && status == "Discharging") {
-                    if (!PMMA::Registry::IsPowerSavingModeEnabled) {
+                    if (!PMMA::Core::Registry::IsPowerSavingModeEnabled) {
                         PMMA::Core::LoggingManagerInstance->InternalLogInfo(
                             1,
                             "Your device is running in power saving mode.", true);
                     }
-                    PMMA::Registry::IsPowerSavingModeEnabled = true;
-                    PMMA::Core::PowerSavingManagerInstance.updateCounter = 30;
+                    PMMA::Core::Registry::IsPowerSavingModeEnabled = true;
+                    PMMA::Core::PowerSavingManagerInstance->updateCounter = 30;
                     return true;
                 }
             }
@@ -76,13 +81,13 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
     } catch (const std::filesystem::filesystem_error &error) {
         std::cerr << "Filesystem error: " << error.what() << "\n";
     }
-    if (PMMA::Registry::IsPowerSavingModeEnabled) {
+    if (PMMA::Core::Registry::IsPowerSavingModeEnabled) {
         PMMA::Core::LoggingManagerInstance->InternalLogInfo(
             2,
             "Your device is not running in power saving mode.", true);
     }
-    PMMA::Registry::IsPowerSavingModeEnabled = false;
-    PMMA::Core::PowerSavingManagerInstance.updateCounter = 15;
+    PMMA::Core::Registry::IsPowerSavingModeEnabled = false;
+    PMMA::Core::PowerSavingManagerInstance->updateCounter = 15;
     return false;
 
 #else
@@ -91,24 +96,24 @@ bool PMMA::General::Is_Power_Saving_Mode_Enabled(bool ForceRefresh) {
         "Your platform is not supported for power saving mode \
 checking using PMMA.");
 
-    if (PMMA::Registry::IsPowerSavingModeEnabled) {
+    if (PMMA::Core::Registry::IsPowerSavingModeEnabled) {
         PMMA::Core::LoggingManagerInstance->InternalLogInfo(
             2,
             "Your device is not running in power saving mode.", true);
     }
-    PMMA::Registry::IsPowerSavingModeEnabled = false;
-    PMMA::Core::PowerSavingManagerInstance.running = false;
-    PMMA::Core::PowerSavingManagerInstance.updateCounter = 5;
+    PMMA::Core::Registry::IsPowerSavingModeEnabled = false;
+    PMMA::Core::PowerSavingManagerInstance->running = false;
+    PMMA::Core::PowerSavingManagerInstance->updateCounter = 5;
     return false;
 #endif
 }
 
 bool PMMA::General::Is_DebugModeEnabled() {
-    return PMMA::Registry::IsDebuggingModeEnabled;
+    return PMMA::Core::Registry::IsDebuggingModeEnabled;
 }
 
 void PMMA::General::Set_DebugModeEnabled(bool DebugMode) {
-    PMMA::Registry::IsDebuggingModeEnabled = DebugMode;
+    PMMA::Core::Registry::IsDebuggingModeEnabled = DebugMode;
 }
 
 bool PMMA::General::IsWindowCreated() {
@@ -116,36 +121,36 @@ bool PMMA::General::IsWindowCreated() {
 }
 
 bool PMMA::General::IsApplicationRunning() {
-    return PMMA::Registry::IsApplicationRunning;
+    return PMMA::Core::Registry::IsApplicationRunning;
 }
 
 bool PMMA::General::IsEscapeKeyToCloseWindow() {
-    return PMMA::Registry::EscapeKeyShouldCloseWindow;
+    return PMMA::Core::Registry::EscapeKeyShouldCloseWindow;
 }
 
 void PMMA::General::SetEscapeKeyToCloseWindow(bool EscapeKeyShouldCloseWindow) {
-    PMMA::Registry::EscapeKeyShouldCloseWindow = EscapeKeyShouldCloseWindow;
-    PMMA::Registry::UserSetEscapeKeyShouldCloseWindow = true;
+    PMMA::Core::Registry::EscapeKeyShouldCloseWindow = EscapeKeyShouldCloseWindow;
+    PMMA::Core::Registry::UserSetEscapeKeyShouldCloseWindow = true;
 }
 
 bool PMMA::General::IsF11KeyToToggleFullscreen() {
-    return PMMA::Registry::F11KeyShouldToggleFullScreen;
+    return PMMA::Core::Registry::F11KeyShouldToggleFullScreen;
 }
 
 void PMMA::General::SetF11KeyToToggleFullscreen(bool F11KeyShouldToggleFullScreen) {
-    PMMA::Registry::F11KeyShouldToggleFullScreen = F11KeyShouldToggleFullScreen;
+    PMMA::Core::Registry::F11KeyShouldToggleFullScreen = F11KeyShouldToggleFullScreen;
 }
 
 std::string PMMA::General::GetCurrent_PMMA_Version() {
-    return PMMA::Registry::Current_PMMA_Version;
+    return PMMA::Core::Registry::Current_PMMA_Version;
 }
 
 std::string PMMA::General::GetLatest_PMMA_Version() {
-    return PMMA::Registry::Latest_PMMA_Version;
+    return PMMA::Core::Registry::Latest_PMMA_Version;
 }
 
 void PMMA::General::SetLatest_PMMA_Version(std::string latest_version) {
-    PMMA::Registry::Latest_PMMA_Version = latest_version;
+    PMMA::Core::Registry::Latest_PMMA_Version = latest_version;
 }
 
 std::string PadVersionString(std::string item) {
@@ -162,12 +167,12 @@ bool PMMA::General::IsUpdateAvailable() {
     std::string padded_current_version;
     std::string split_current_version[3];
     unsigned int split_count = 0;
-    for (unsigned int i = 0; i < PMMA::Registry::Current_PMMA_Version.length(); i++) {
-        if (PMMA::Registry::Current_PMMA_Version[i] == '.') {
+    for (unsigned int i = 0; i < PMMA::Core::Registry::Current_PMMA_Version.length(); i++) {
+        if (PMMA::Core::Registry::Current_PMMA_Version[i] == '.') {
             split_count++;
             continue;
         }
-        split_current_version[split_count] += PMMA::Registry::Current_PMMA_Version[i];
+        split_current_version[split_count] += PMMA::Core::Registry::Current_PMMA_Version[i];
     }
 
     for (unsigned int i = 0; i < 3; i++) {
@@ -177,12 +182,12 @@ bool PMMA::General::IsUpdateAvailable() {
     std::string padded_latest_version;
     std::string split_latest_version[3];
     split_count = 0;
-    for (unsigned int i = 0; i < PMMA::Registry::Latest_PMMA_Version.length(); i++) {
-        if (PMMA::Registry::Latest_PMMA_Version[i] == '.') {
+    for (unsigned int i = 0; i < PMMA::Core::Registry::Latest_PMMA_Version.length(); i++) {
+        if (PMMA::Core::Registry::Latest_PMMA_Version[i] == '.') {
             split_count++;
             continue;
         }
-        split_latest_version[split_count] += PMMA::Registry::Latest_PMMA_Version[i];
+        split_latest_version[split_count] += PMMA::Core::Registry::Latest_PMMA_Version[i];
     }
 
     for (unsigned int i = 0; i < 3; i++) {
@@ -206,20 +211,20 @@ by creating a new issue here: 'https://github.com/PycraftDeveloper/PMMA/issues'.
 }
 
 double PMMA::General::GetApplicationStartTime() {
-    return PMMA::Registry::StartupTime.time_since_epoch().count() / 1000000000.0;
+    return PMMA::Core::Registry::StartupTime.time_since_epoch().count() / 1000000000.0;
 }
 
 double PMMA::General::GetApplicationRunTime() {
     std::chrono::high_resolution_clock::time_point current_time = std::chrono::high_resolution_clock::now();
-    return (current_time - PMMA::Registry::StartupTime).count() / 1000000000.0;
+    return (current_time - PMMA::Core::Registry::StartupTime).count() / 1000000000.0;
 }
 
 void PMMA::General::SetLocale(std::string locale) {
-    PMMA::Registry::Locale = locale;
+    PMMA::Core::Registry::Locale = locale;
 }
 
 std::string PMMA::General::GetLocale() {
-    return PMMA::Registry::Locale;
+    return PMMA::Core::Registry::Locale;
 }
 
 std::string PMMA::General::GetOperatingSystem() {
@@ -286,9 +291,9 @@ std::string PMMA::General::GetGraphicsBackend() {
 }
 
 void PMMA::General::SetMaxParallelWorkerThreads(unsigned int max_threads) {
-    PMMA::Registry::ParallelWorkerMaxThreads = max_threads;
+    PMMA::Core::Registry::ParallelWorkerMaxThreads = max_threads;
 }
 
 unsigned int PMMA::General::GetMaxParallelWorkerThreads() {
-    return PMMA::Registry::ParallelWorkerMaxThreads;
+    return PMMA::Core::Registry::ParallelWorkerMaxThreads;
 }

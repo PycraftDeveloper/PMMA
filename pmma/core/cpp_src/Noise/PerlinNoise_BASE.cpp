@@ -1,6 +1,8 @@
 #include <random>
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
+
+#include "Noise/PerlinNoise.hpp"
 
 const float PMMA::Noise::PerlinNoise::F2 = 1.0f / sqrt(2.0f);
 const float PMMA::Noise::PerlinNoise::F3 = 1.0f / sqrt(3.0f);
@@ -23,9 +25,9 @@ PMMA::Noise::PerlinNoise::PerlinNoise(const uint32_t seed) {
 }
 
 void PMMA::Noise::PerlinNoise::ArrayNoise1D(const float *values, const unsigned int length, float *out) const noexcept {
-    if (PMMA::Registry::CPU_Supports_AVX512) {
+    if (PMMA::Core::Registry::CPU_Supports_AVX512) {
         ArrayNoise1D_AVX512(values, length, out);
-    } else if (PMMA::Registry::CPU_Supports_AVX2) {
+    } else if (PMMA::Core::Registry::CPU_Supports_AVX2) {
         ArrayNoise1D_AVX2(values, length, out);
     } else {
         ArrayNoise1D_BASE(values, length, out);
@@ -33,9 +35,9 @@ void PMMA::Noise::PerlinNoise::ArrayNoise1D(const float *values, const unsigned 
 }
 
 void PMMA::Noise::PerlinNoise::ArrayNoise2D(const float (*values)[2], const unsigned int length, float *out) const noexcept {
-    if (PMMA::Registry::CPU_Supports_AVX512) {
+    if (PMMA::Core::Registry::CPU_Supports_AVX512) {
         ArrayNoise2D_AVX512(values, length, out);
-    } else if (PMMA::Registry::CPU_Supports_AVX2) {
+    } else if (PMMA::Core::Registry::CPU_Supports_AVX2) {
         ArrayNoise2D_AVX2(values, length, out);
     } else {
         ArrayNoise2D_BASE(values, length, out);
@@ -43,9 +45,9 @@ void PMMA::Noise::PerlinNoise::ArrayNoise2D(const float (*values)[2], const unsi
 }
 
 void PMMA::Noise::PerlinNoise::ArrayNoise3D(const float (*values)[3], const unsigned int length, float *out) const noexcept {
-    if (PMMA::Registry::CPU_Supports_AVX512) {
+    if (PMMA::Core::Registry::CPU_Supports_AVX512) {
         ArrayNoise3D_AVX512(values, length, out);
-    } else if (PMMA::Registry::CPU_Supports_AVX2) {
+    } else if (PMMA::Core::Registry::CPU_Supports_AVX2) {
         ArrayNoise3D_AVX2(values, length, out);
     } else {
         ArrayNoise3D_BASE(values, length, out);
@@ -53,9 +55,9 @@ void PMMA::Noise::PerlinNoise::ArrayNoise3D(const float (*values)[3], const unsi
 }
 
 void PMMA::Noise::PerlinNoise::RangeNoise1D(const float *x_range, const unsigned int length, float *out) const noexcept {
-    if (PMMA::Registry::CPU_Supports_AVX512) {
+    if (PMMA::Core::Registry::CPU_Supports_AVX512) {
         RangeNoise1D_AVX512(x_range, length, out);
-    } else if (PMMA::Registry::CPU_Supports_AVX2) {
+    } else if (PMMA::Core::Registry::CPU_Supports_AVX2) {
         RangeNoise1D_AVX2(x_range, length, out);
     } else {
         RangeNoise1D_BASE(x_range, length, out);
@@ -63,9 +65,9 @@ void PMMA::Noise::PerlinNoise::RangeNoise1D(const float *x_range, const unsigned
 }
 
 void PMMA::Noise::PerlinNoise::RangeNoise2D(const float *x_range, const float *y_range, const unsigned int length, float *out) const noexcept {
-    if (PMMA::Registry::CPU_Supports_AVX512) {
+    if (PMMA::Core::Registry::CPU_Supports_AVX512) {
         RangeNoise2D_AVX512(x_range, y_range, length, out);
-    } else if (PMMA::Registry::CPU_Supports_AVX2) {
+    } else if (PMMA::Core::Registry::CPU_Supports_AVX2) {
         RangeNoise2D_AVX2(x_range, y_range, length, out);
     } else {
         RangeNoise2D_BASE(x_range, y_range, length, out);
@@ -73,9 +75,9 @@ void PMMA::Noise::PerlinNoise::RangeNoise2D(const float *x_range, const float *y
 }
 
 void PMMA::Noise::PerlinNoise::RangeNoise3D(const float *x_range, const float *y_range, const float *z_range, const unsigned int length, float *out) const noexcept {
-    if (PMMA::Registry::CPU_Supports_AVX512) {
+    if (PMMA::Core::Registry::CPU_Supports_AVX512) {
         RangeNoise3D_AVX512(x_range, y_range, z_range, length, out);
-    } else if (PMMA::Registry::CPU_Supports_AVX2) {
+    } else if (PMMA::Core::Registry::CPU_Supports_AVX2) {
         RangeNoise3D_AVX2(x_range, y_range, z_range, length, out);
     } else {
         RangeNoise3D_BASE(x_range, y_range, z_range, length, out);

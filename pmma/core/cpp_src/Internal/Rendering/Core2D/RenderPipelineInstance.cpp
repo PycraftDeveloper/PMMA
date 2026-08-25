@@ -6,10 +6,22 @@
 #include <string>
 #include <vector>
 
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
+
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
+#include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
+
+#include "Internal/ParallelWorker.hpp"
 #include "Internal/SplashScreen.hpp"
 
-#include "PMMA_Core.hpp"
+#include "Rendering/Shapes2D/ArcShape.hpp"
+#include "Rendering/Shapes2D/LineShape.hpp"
+#include "Rendering/Shapes2D/PixelShape.hpp"
+#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
+#include "Rendering/Shapes2D/RectangleShape.hpp"
+
+#include "Graphics/Shader.hpp"
 
 PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstance() {
     ID = reinterpret_cast<uintptr_t>(this);
@@ -83,8 +95,8 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstanc
 }
 
 void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::AdvanceView() {
-    PMMA::Registry::RollingViewID++;
-    if (PMMA::Registry::RollingViewID >= PMMA::Registry::MaxViewID) {
+    PMMA::Core::Registry::RollingViewID++;
+    if (PMMA::Core::Registry::RollingViewID >= PMMA::Core::Registry::MaxViewID) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             64,
             "The maximum number of internal views has been exceeded. \
@@ -95,24 +107,24 @@ rendered if rendering more than 16,777,216 shapes to a single window.");
     }
 
     bgfx::setViewRect(
-        PMMA::Registry::RollingViewID,
+        PMMA::Core::Registry::RollingViewID,
         0,
         0,
         PMMA::Core::ActiveDisplayInstance->GetWidth(),
         PMMA::Core::ActiveDisplayInstance->GetHeight());
 
     bgfx::setViewFrameBuffer(
-        PMMA::Registry::RollingViewID,
+        PMMA::Core::Registry::RollingViewID,
         PMMA::Core::ActiveDisplayInstance->DisplayFrameBufferHandle);
 
     bgfx::setViewClear(
-        PMMA::Registry::RollingViewID,
+        PMMA::Core::Registry::RollingViewID,
         BGFX_CLEAR_DEPTH,
         0,
         1.0f,
         0);
 
-    bgfx::touch(PMMA::Registry::RollingViewID);
+    bgfx::touch(PMMA::Core::Registry::RollingViewID);
 }
 
 template <typename T>
@@ -140,8 +152,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
             PMMA::Internal::SplashScreen SplashScreen;
             SplashScreen.Play();
 
-            PMMA::Registry::TextureCompilationStartTime.reset();
-            PMMA::Registry::InitialSetup = false;
+            PMMA::Core::Registry::TextureCompilationStartTime.reset();
+            PMMA::Core::Registry::InitialSetup = false;
         }
     }
 
@@ -411,7 +423,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
             BGFX_STATE_WRITE_Z);
 
         bgfx::submit(
-            PMMA::Registry::RollingViewID,
+            PMMA::Core::Registry::RollingViewID,
             PMMA::Core::Core2D_ShapeSDF_Program->Use());
     }
 
@@ -456,7 +468,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
             BGFX_STATE_DEPTH_TEST_LEQUAL);
 
         bgfx::submit(
-            PMMA::Registry::RollingViewID,
+            PMMA::Core::Registry::RollingViewID,
             PMMA::Core::Core2D_ShapeSDF_Program->Use());
     }
 

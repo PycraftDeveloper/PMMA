@@ -6,7 +6,7 @@
 #include <functional>
 #include <regex>
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
 
 struct LogFileEntry {
     std::filesystem::path path;
@@ -58,7 +58,7 @@ void ClearOldLogs(std::string LogDirectory, unsigned int KeepCount) {
 }
 
 PMMA::Internal::LoggingManager::LoggingManager() {
-    LogDebug = PMMA::Registry::IsDebuggingModeEnabled;
+    LogDebug = PMMA::Core::Registry::IsDebuggingModeEnabled;
 }
 
 PMMA::Internal::LoggingManager::~LoggingManager() {
@@ -80,15 +80,15 @@ void PMMA::Internal::LoggingManager::SetLogToFile(bool NewLogToFile) {
 
         if (LogToFile && std::filesystem::exists(ProductPath)) {
             try {
-                std::filesystem::create_directory(ProductPath + PMMA::Registry::PathSeparator + "logs");
-                LogFileLocation = ProductPath + PMMA::Registry::PathSeparator + "logs";
+                std::filesystem::create_directory(ProductPath + PMMA::Core::Registry::PathSeparator + "logs");
+                LogFileLocation = ProductPath + PMMA::Core::Registry::PathSeparator + "logs";
                 FileCatchUp();
             } catch (const std::filesystem::filesystem_error &e) {
                 PMMA::Core::LoggingManagerInstance->InternalLogError(
                     11,
                     "An error occurred whilst trying to create the \
 directory: '" + ProductPath +
-                        PMMA::Registry::PathSeparator + "logs" + "'. \
+                        PMMA::Core::Registry::PathSeparator + "logs" + "'. \
 The error details are: " +
                         e.what());
             }
@@ -119,7 +119,7 @@ void PMMA::Internal::LoggingManager::Log(std::string Content) {
     }
 
     if (LogToFile) {
-        std::ofstream LogFile(LogFileLocation + PMMA::Registry::PathSeparator + LogFileName, std::ios::app);
+        std::ofstream LogFile(LogFileLocation + PMMA::Core::Registry::PathSeparator + LogFileName, std::ios::app);
         LogFile << Content << std::endl;
         LogFile.close();
     } else {
@@ -129,7 +129,7 @@ void PMMA::Internal::LoggingManager::Log(std::string Content) {
 
 void PMMA::Internal::LoggingManager::FileCatchUp() {
     if (LogToFile && ContentToLogToFile.size() > 0) {
-        std::string fullPath = LogFileLocation + PMMA::Registry::PathSeparator + LogFileName;
+        std::string fullPath = LogFileLocation + PMMA::Core::Registry::PathSeparator + LogFileName;
 
         std::ifstream inputFile(fullPath);
         std::string originalContents;
@@ -166,7 +166,7 @@ void PMMA::Internal::LoggingManager::InternalLogDebug(int ID, std::string Conten
         return;
     }
 
-    if (PMMA::Registry::IsDebuggingModeEnabled) {
+    if (PMMA::Core::Registry::IsDebuggingModeEnabled) {
         if (!RepeatForEffect) {
             auto PreviousIndex = find(PreviouslyLoggedContent.begin(), PreviouslyLoggedContent.end(), ID);
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
@@ -186,7 +186,7 @@ void PMMA::Internal::LoggingManager::ExternalLogDebug(std::string ID, std::strin
         return;
     }
 
-    if (PMMA::Registry::IsDebuggingModeEnabled) {
+    if (PMMA::Core::Registry::IsDebuggingModeEnabled) {
         transform(ProductName.begin(), ProductName.end(), ProductName.begin(), ::tolower);
         if (ProductName == "pmma") {
             PMMA::Core::LoggingManagerInstance->InternalLogError(

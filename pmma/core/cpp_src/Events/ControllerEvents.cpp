@@ -1,10 +1,11 @@
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
 
 PMMA::Events::Controller::Controller(unsigned int NewID) {
     PMMA::Core::ControllerEvent_Instances.push_back(this);
 
-    PMMA::Registry::ControllerEventInstanceCount++;
+    PMMA::Core::Registry::ControllerEventInstanceCount++;
     ID = NewID;
 
     PMMA::Core::LoggingManagerInstance->InternalLogDebug(
@@ -39,7 +40,7 @@ PMMA::Events::Controller::~Controller() {
     DPad_Left_Button = nullptr;
     DPad_Right_Button = nullptr;
 
-    PMMA::Registry::ControllerEventInstanceCount--;
+    PMMA::Core::Registry::ControllerEventInstanceCount--;
 };
 
 void PMMA::Events::Controller::Update() {

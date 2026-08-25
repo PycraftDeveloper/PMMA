@@ -1,6 +1,10 @@
 #include <GLFW/glfw3.h>
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+
+#include "Internal/LoggingManager.hpp"
+
+#include "Display.hpp"
 
 inline std::string encode_utf8(unsigned int codepoint) {
     std::string out;

@@ -1,5 +1,5 @@
 #pragma once
-#include "PMMA_Exports.hpp"
+#include "Internal/Core/PMMA_Exports.hpp"
 
 #include <fstream>
 #include <future>
@@ -9,7 +9,8 @@
 
 #include <zstd.h>
 
-#include "Internal/Internal.hpp"
+#include "Internal/Rendering/Core2D/Internal.hpp"
+
 #include "Logger.hpp"
 #include "Maths.hpp"
 #include "Noise/FractalBrownianMotion.hpp"
@@ -28,7 +29,7 @@ private:
     std::string Path = "";
 
 public:
-    PMMA::Internal::TextureProperty *TextureProperties;
+    PMMA::Internal::Rendering::Core2D::TextureProperty *TextureProperties;
     bool IsTextureEnabled = false;
 
     ~Texture();
@@ -95,7 +96,7 @@ public:
             return false;
         }
 
-        std::vector<PMMA::Internal::MipData>
+        std::vector<PMMA::Internal::Rendering::Core2D::MipData>
             LoadedMipChain;
 
         LoadedMipChain.reserve(
@@ -105,7 +106,7 @@ public:
              i < MipCount;
              i++) {
 
-            PMMA::Internal::MipData mip;
+            PMMA::Internal::Rendering::Core2D::MipData mip;
 
             //
             // Logical mip size.
@@ -221,7 +222,7 @@ public:
 
     inline void SaveTextureCache(
         const std::string &path,
-        const PMMA::Internal::TextureProperty &texture) {
+        const PMMA::Internal::Rendering::Core2D::TextureProperty &texture) {
 
         std::ofstream file(
             path,

@@ -1,5 +1,7 @@
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
+
+#include "Maths.hpp"
 
 void PMMA::Maths::PerspectiveFOV(const float fov, const float aspect_ratio, const float near, const float far, float (*out)[4]) {
     float f = 1.0f / tan(fov * 0.5f);
@@ -22,9 +24,9 @@ void PMMA::Maths::ArrayRanger(
     const float *new_range,
     float *out) {
 
-    if (PMMA::Registry::CPU_Supports_AVX512) {
+    if (PMMA::Core::Registry::CPU_Supports_AVX512) {
         ArrayRanger_AVX512(values, length, old_range, new_range, out);
-    } else if (PMMA::Registry::CPU_Supports_AVX2) {
+    } else if (PMMA::Core::Registry::CPU_Supports_AVX2) {
         ArrayRanger_AVX2(values, length, old_range, new_range, out);
     } else {
         ArrayRanger_BASE(values, length, old_range, new_range, out);

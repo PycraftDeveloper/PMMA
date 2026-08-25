@@ -1,8 +1,10 @@
 #pragma once
-#include "PMMA_Exports.hpp"
+#include "Internal/Core/PMMA_Exports.hpp"
 
 #include <cstdint>
 #include <vector>
+
+#include "Internal/Rendering/Core2D/Internal.hpp"
 
 #include "Types.hpp"
 

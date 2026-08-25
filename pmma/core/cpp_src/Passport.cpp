@@ -1,6 +1,7 @@
 #include <filesystem>
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
 
 PMMA::Passport::Passport() {
     if (PMMA::Core::PassportInstance != nullptr) {
@@ -23,7 +24,7 @@ void PMMA::Passport::Register() {
     PMMA::Core::LoggingManagerInstance->SetLogFileLocation(LoggingPath);
 
     if (TemporaryPath == "") {
-        TemporaryPath = ProductPath + PMMA::Registry::PathSeparator + "temporary";
+        TemporaryPath = ProductPath + PMMA::Core::Registry::PathSeparator + "temporary";
     }
 
     std::filesystem::create_directories(TemporaryPath);

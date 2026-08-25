@@ -1,3 +1,5 @@
+#include "Rendering/TextRenderer.hpp"
+
 PMMA::Rendering::Core2D::TextRenderer::TextRenderer() {
 }
 

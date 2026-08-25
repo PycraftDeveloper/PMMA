@@ -1,11 +1,14 @@
-#include <GLFW/glfw3.h>
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
 
-#include "PMMA_Core.hpp"
+#include "Events/MouseEvents.hpp"
+
+#include "Display.hpp"
 
 PMMA::Events::Mouse_Button_Left::Mouse_Button_Left() {
     PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_Left_Instances.push_back(this);
 
-    PMMA::Registry::MouseButtonEventInstanceCount++;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Button_Left::~Mouse_Button_Left() {
@@ -14,13 +17,13 @@ PMMA::Events::Mouse_Button_Left::~Mouse_Button_Left() {
         PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_Left_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseButtonEventInstanceCount--;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Button_Right::Mouse_Button_Right() {
     PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_Right_Instances.push_back(this);
 
-    PMMA::Registry::MouseButtonEventInstanceCount++;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Button_Right::~Mouse_Button_Right() {
@@ -29,13 +32,13 @@ PMMA::Events::Mouse_Button_Right::~Mouse_Button_Right() {
         PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_Right_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseButtonEventInstanceCount--;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Button_Middle::Mouse_Button_Middle() {
     PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_Middle_Instances.push_back(this);
 
-    PMMA::Registry::MouseButtonEventInstanceCount++;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Button_Middle::~Mouse_Button_Middle() {
@@ -44,13 +47,13 @@ PMMA::Events::Mouse_Button_Middle::~Mouse_Button_Middle() {
         PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_Middle_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseButtonEventInstanceCount--;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Button_0::Mouse_Button_0() {
     PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_0_Instances.push_back(this);
 
-    PMMA::Registry::MouseButtonEventInstanceCount++;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Button_0::~Mouse_Button_0() {
@@ -59,13 +62,13 @@ PMMA::Events::Mouse_Button_0::~Mouse_Button_0() {
         PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_0_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseButtonEventInstanceCount--;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Button_1::Mouse_Button_1() {
     PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_1_Instances.push_back(this);
 
-    PMMA::Registry::MouseButtonEventInstanceCount++;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Button_1::~Mouse_Button_1() {
@@ -74,13 +77,13 @@ PMMA::Events::Mouse_Button_1::~Mouse_Button_1() {
         PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_1_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseButtonEventInstanceCount--;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Button_2::Mouse_Button_2() {
     PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_2_Instances.push_back(this);
 
-    PMMA::Registry::MouseButtonEventInstanceCount++;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Button_2::~Mouse_Button_2() {
@@ -89,13 +92,13 @@ PMMA::Events::Mouse_Button_2::~Mouse_Button_2() {
         PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_2_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseButtonEventInstanceCount--;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Button_3::Mouse_Button_3() {
     PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_3_Instances.push_back(this);
 
-    PMMA::Registry::MouseButtonEventInstanceCount++;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Button_3::~Mouse_Button_3() {
@@ -104,13 +107,13 @@ PMMA::Events::Mouse_Button_3::~Mouse_Button_3() {
         PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_3_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseButtonEventInstanceCount--;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Button_4::Mouse_Button_4() {
     PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_4_Instances.push_back(this);
 
-    PMMA::Registry::MouseButtonEventInstanceCount++;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Button_4::~Mouse_Button_4() {
@@ -119,13 +122,13 @@ PMMA::Events::Mouse_Button_4::~Mouse_Button_4() {
         PMMA::Core::ActiveDisplayInstance->MouseButtonEvent_4_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseButtonEventInstanceCount--;
+    PMMA::Core::Registry::MouseButtonEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Position::Mouse_Position() {
     PMMA::Core::ActiveDisplayInstance->MousePositionEvent_Instances.push_back(this);
 
-    PMMA::Registry::MousePositionEventInstanceCount++;
+    PMMA::Core::Registry::MousePositionEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Position::~Mouse_Position() {
@@ -134,13 +137,13 @@ PMMA::Events::Mouse_Position::~Mouse_Position() {
         PMMA::Core::ActiveDisplayInstance->MousePositionEvent_Instances.erase(it);
     }
 
-    PMMA::Registry::MousePositionEventInstanceCount--;
+    PMMA::Core::Registry::MousePositionEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_EnterWindow::Mouse_EnterWindow() {
     PMMA::Core::ActiveDisplayInstance->MouseEnterWindowEvent_Instances.push_back(this);
 
-    PMMA::Registry::MouseEnterWindowEventInstanceCount++;
+    PMMA::Core::Registry::MouseEnterWindowEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_EnterWindow::~Mouse_EnterWindow() {
@@ -149,13 +152,13 @@ PMMA::Events::Mouse_EnterWindow::~Mouse_EnterWindow() {
         PMMA::Core::ActiveDisplayInstance->MouseEnterWindowEvent_Instances.erase(it);
     }
 
-    PMMA::Registry::MouseEnterWindowEventInstanceCount--;
+    PMMA::Core::Registry::MouseEnterWindowEventInstanceCount--;
 };
 
 PMMA::Events::Mouse_Scroll::Mouse_Scroll() {
     PMMA::Core::ActiveDisplayInstance->MouseScrollEventInstances.push_back(this);
 
-    PMMA::Registry::MouseScrollEventInstanceCount++;
+    PMMA::Core::Registry::MouseScrollEventInstanceCount++;
 };
 
 PMMA::Events::Mouse_Scroll::~Mouse_Scroll() {
@@ -164,5 +167,5 @@ PMMA::Events::Mouse_Scroll::~Mouse_Scroll() {
         PMMA::Core::ActiveDisplayInstance->MouseScrollEventInstances.erase(it);
     }
 
-    PMMA::Registry::MouseScrollEventInstanceCount--;
+    PMMA::Core::Registry::MouseScrollEventInstanceCount--;
 };

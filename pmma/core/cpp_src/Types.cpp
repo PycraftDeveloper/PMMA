@@ -1,9 +1,14 @@
+#include <filesystem>
 #include <optional>
 
 #include <STB/stb_image.h>
 #include <bc7enc_wrapper.hpp>
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+
+#include "Internal/ParallelWorker.hpp"
+
+#include "Passport.hpp"
 
 static size_t GetBC7MipSize(
     uint32_t width,
@@ -15,7 +20,7 @@ static size_t GetBC7MipSize(
 }
 
 inline void GenerateMipChain(
-    PMMA::Internal::TextureProperty *TextureProperties,
+    PMMA::Internal::Rendering::Core2D::TextureProperty *TextureProperties,
     const unsigned char *basePixels,
     uint32_t width,
     uint32_t height,
@@ -35,7 +40,7 @@ inline void GenerateMipChain(
         //
         // Store the current mip.
         //
-        PMMA::Internal::MipData mip;
+        PMMA::Internal::Rendering::Core2D::MipData mip;
 
         mip.Size[0] =
             static_cast<uint16_t>(currentWidth);
@@ -172,7 +177,7 @@ inline void GenerateMipChain(
 }
 
 inline void ExtrudeMip(
-    PMMA::Internal::MipData &mip,
+    PMMA::Internal::Rendering::Core2D::MipData &mip,
     uint32_t channels) {
     const uint32_t oldWidth =
         mip.Size[0];
@@ -326,13 +331,13 @@ inline void ExtrudeMip(
 }
 
 inline void CompressMipChainToBC7(
-    std::vector<PMMA::Internal::MipData> &mipChain) {
+    std::vector<PMMA::Internal::Rendering::Core2D::MipData> &mipChain) {
     if (mipChain.empty()) {
         throw std::invalid_argument(
             "CompressMipChainToBC7: mip chain is empty.");
     }
 
-    for (PMMA::Internal::MipData &mip : mipChain) {
+    for (PMMA::Internal::Rendering::Core2D::MipData &mip : mipChain) {
         const uint32_t width =
             static_cast<uint32_t>(mip.Size[0]);
 
@@ -691,9 +696,9 @@ void PMMA::Types::Texture::InternalLoad() {
     std::string CachedTexturePath = "";
     std::string ShaderName = std::filesystem::path(Path).stem().string();
     if (!PMMA::Core::PassportInstance->GetIsRegistered()) {
-        CachedTexturePath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "temporary" + PMMA::Registry::PathSeparator + "texture_cache" + PMMA::Registry::PathSeparator + ShaderName + ".dds.cache";
+        CachedTexturePath = PMMA::Core::Registry::PMMA_Location + PMMA::Core::Registry::PathSeparator + "temporary" + PMMA::Core::Registry::PathSeparator + "texture_cache" + PMMA::Core::Registry::PathSeparator + ShaderName + ".dds.cache";
     } else {
-        CachedTexturePath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Registry::PathSeparator + "texture_cache" + PMMA::Registry::PathSeparator + ShaderName + ".dds.cache";
+        CachedTexturePath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Core::Registry::PathSeparator + "texture_cache" + PMMA::Core::Registry::PathSeparator + ShaderName + ".dds.cache";
     }
 
     if (std::filesystem::exists(CachedTexturePath)) {
@@ -704,8 +709,8 @@ void PMMA::Types::Texture::InternalLoad() {
         }
     }
 
-    if (PMMA::Registry::InitialSetup && !PMMA::Registry::TextureCompilationStartTime.has_value()) {
-        PMMA::Registry::TextureCompilationStartTime = std::chrono::steady_clock::now();
+    if (PMMA::Core::Registry::InitialSetup && !PMMA::Core::Registry::TextureCompilationStartTime.has_value()) {
+        PMMA::Core::Registry::TextureCompilationStartTime = std::chrono::steady_clock::now();
     }
 
     std::filesystem::create_directories(std::filesystem::path(CachedTexturePath).parent_path());
@@ -740,7 +745,7 @@ image path is valid and is a valid format. The image path is: '" +
             }
         }
 
-        PMMA::Internal::MipData base;
+        PMMA::Internal::Rendering::Core2D::MipData base;
 
         base.Size[0] = width;
         base.Size[1] = height;
@@ -767,7 +772,7 @@ image path is valid and is a valid format. The image path is: '" +
         CompressMipChainToBC7(
             TextureProperties->MipChain);
 
-        if (!PMMA::Registry::InitialSetup) {
+        if (!PMMA::Core::Registry::InitialSetup) {
             PMMA::Core::ParallelWorkerInstance->Enqueue([this, CachedTexturePath]() {
                 SaveTextureCache(
                     CachedTexturePath,
@@ -775,7 +780,7 @@ image path is valid and is a valid format. The image path is: '" +
             });
         } else {
             std::chrono::steady_clock::time_point CurrentTime = std::chrono::steady_clock::now();
-            std::chrono::duration<float> Duration = CurrentTime - PMMA::Registry::TextureCompilationStartTime.value();
+            std::chrono::duration<float> Duration = CurrentTime - PMMA::Core::Registry::TextureCompilationStartTime.value();
 
             if (Duration.count() < 6) { // if loading for more than 60 seconds, prioritize caching inline so if the user closes program because they feel it's not responding, some progress is kept!
                 SaveTextureCache(
@@ -816,11 +821,11 @@ void PMMA::Types::Texture::Load(std::string TexturePath) {
 
     // its already loaded, just use the existing one
     if (it != PMMA::Core::TextureCatalogue.end()) {
-        std::pair<const std::string, PMMA::Internal::TextureProperty> *pairPtr = &*it;
+        std::pair<const std::string, PMMA::Internal::Rendering::Core2D::TextureProperty> *pairPtr = &*it;
 
         TextureProperties = &(pairPtr->second);
     } else {
-        PMMA::Internal::TextureProperty &propertyRef = PMMA::Core::TextureCatalogue[TexturePath];
+        PMMA::Internal::Rendering::Core2D::TextureProperty &propertyRef = PMMA::Core::TextureCatalogue[TexturePath];
 
         TextureProperties = &propertyRef;
 

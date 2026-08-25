@@ -1,6 +1,6 @@
-#include "Internal/AnimationManager.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
 
-#include "PMMA_Core.hpp"
+#include "Internal/AnimationManager.hpp"
 
 PMMA::Animation::RadialAnimation::RadialAnimation(PMMA::Types::TwoD::Coordinate *NewTargetCoordinatePtr) {
     TargetCoordinatePtr = NewTargetCoordinatePtr;

@@ -1,6 +1,11 @@
+#include "Internal/Rendering/Core2D/Internal.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
+#include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 
-#include "PMMA_Core.hpp"
+#include "Rendering/Shapes2D/RadialPolygonShape.hpp"
+
+#include "Display.hpp"
+#include "Types.hpp"
 
 void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
     if (!ShapePropertyChanged) {
@@ -48,11 +53,11 @@ void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
 
     if (ShapePropertyChanged) {
         // Existing packing logic
-        ShapeInstanceData.position = PMMA::Internal::PackSignedValues(start_position[0], start_position[1]);
-        ShapeInstanceData.size = PMMA::Internal::PackValues(size[0], size[1]);
-        ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(PointCount, 0);
-        ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(Rotation * 182, 0);
-        ShapeInstanceData.shape_type_width = PMMA::Internal::PackValues(1, Width);
+        ShapeInstanceData.position = PMMA::Internal::Rendering::Core2D::PackSignedValues(start_position[0], start_position[1]);
+        ShapeInstanceData.size = PMMA::Internal::Rendering::Core2D::PackValues(size[0], size[1]);
+        ShapeInstanceData.point_count_gradient_type = PMMA::Internal::Rendering::Core2D::PackValues(PointCount, 0);
+        ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::Rendering::Core2D::PackValues(Rotation * 182, 0);
+        ShapeInstanceData.shape_type_width = PMMA::Internal::Rendering::Core2D::PackValues(1, Width);
 
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }

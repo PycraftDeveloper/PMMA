@@ -20,8 +20,18 @@
 #include <GLFW/glfw3native.h>
 #endif
 
-#include "PMMA_Core.hpp"
 #include <STB/stb_image.h>
+
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
+
+#include "Internal/AnimationManager.hpp"
+#include "Internal/LoggingManager.hpp"
+
+#include "Graphics/Shader.hpp"
+
+#include "Display.hpp"
+#include "General.hpp"
 
 void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
     int size[2];
@@ -30,128 +40,128 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
     CurrentSize[1] = static_cast<uint16_t>(size[1]);
 
     if (KeyManagerInstance == nullptr) {
-        if (PMMA::Registry::KeyboardEventInstanceCount > 0) {
+        if (PMMA::Core::Registry::KeyboardEventInstanceCount > 0) {
             KeyManagerInstance = new PMMA::Internal::Events::InternalKeyManager();
             glfwSetKeyCallback(Window, PMMA::Internal::Events::InternalKeyManager::KeyCallback);
         }
     } else {
-        if (PMMA::Registry::KeyboardEventInstanceCount <= 0) {
+        if (PMMA::Core::Registry::KeyboardEventInstanceCount <= 0) {
             glfwSetKeyCallback(Window, nullptr);
             delete KeyManagerInstance;
             KeyManagerInstance = nullptr;
-            PMMA::Registry::KeyboardEventInstanceCount = 0;
+            PMMA::Core::Registry::KeyboardEventInstanceCount = 0;
         } else {
             KeyManagerInstance->Update(Window);
         }
     }
 
     if (TextManagerInstance == nullptr) {
-        if (PMMA::Registry::TextEventInstanceCount > 0) {
+        if (PMMA::Core::Registry::TextEventInstanceCount > 0) {
             TextManagerInstance = new PMMA::Internal::Events::InternalTextManager();
             glfwSetCharCallback(Window, PMMA::Internal::Events::InternalTextManager::TextCallback);
         }
     } else {
-        if (PMMA::Registry::TextEventInstanceCount <= 0) {
+        if (PMMA::Core::Registry::TextEventInstanceCount <= 0) {
             glfwSetCharCallback(Window, nullptr);
             delete TextManagerInstance;
             TextManagerInstance = nullptr;
-            PMMA::Registry::TextEventInstanceCount = 0;
+            PMMA::Core::Registry::TextEventInstanceCount = 0;
         } else {
             TextManagerInstance->Update(Window);
         }
     }
 
     if (MousePositionManagerInstance == nullptr) {
-        if (PMMA::Registry::MousePositionEventInstanceCount > 0) {
+        if (PMMA::Core::Registry::MousePositionEventInstanceCount > 0) {
             MousePositionManagerInstance = new PMMA::Internal::Events::InternalMousePositionManager();
             glfwSetCursorPosCallback(Window, PMMA::Internal::Events::InternalMousePositionManager::CursorPositionCallback);
         }
     } else {
-        if (PMMA::Registry::MousePositionEventInstanceCount <= 0) {
+        if (PMMA::Core::Registry::MousePositionEventInstanceCount <= 0) {
             glfwSetCursorPosCallback(Window, nullptr);
             delete MousePositionManagerInstance;
             MousePositionManagerInstance = nullptr;
-            PMMA::Registry::MousePositionEventInstanceCount = 0;
+            PMMA::Core::Registry::MousePositionEventInstanceCount = 0;
         } else {
             MousePositionManagerInstance->Update(Window);
         }
     }
 
     if (MouseEnterWindowManagerInstance == nullptr) {
-        if (PMMA::Registry::MouseEnterWindowEventInstanceCount > 0) {
+        if (PMMA::Core::Registry::MouseEnterWindowEventInstanceCount > 0) {
             MouseEnterWindowManagerInstance = new PMMA::Internal::Events::InternalMouseEnterWindowManager();
             glfwSetCursorEnterCallback(Window, PMMA::Internal::Events::InternalMouseEnterWindowManager::CursorEnterCallback);
         }
     } else {
-        if (PMMA::Registry::MouseEnterWindowEventInstanceCount <= 0) {
+        if (PMMA::Core::Registry::MouseEnterWindowEventInstanceCount <= 0) {
             glfwSetCursorEnterCallback(Window, nullptr);
             delete MouseEnterWindowManagerInstance;
             MouseEnterWindowManagerInstance = nullptr;
-            PMMA::Registry::MouseEnterWindowEventInstanceCount = 0;
+            PMMA::Core::Registry::MouseEnterWindowEventInstanceCount = 0;
         } else {
             MouseEnterWindowManagerInstance->Update(Window);
         }
     }
 
     if (MouseButtonManagerInstance == nullptr) {
-        if (PMMA::Registry::MouseButtonEventInstanceCount > 0) {
+        if (PMMA::Core::Registry::MouseButtonEventInstanceCount > 0) {
             MouseButtonManagerInstance = new PMMA::Internal::Events::InternalMouseButtonManager();
             glfwSetMouseButtonCallback(Window, PMMA::Internal::Events::InternalMouseButtonManager::MouseButtonCallback);
         }
     } else {
-        if (PMMA::Registry::MouseButtonEventInstanceCount <= 0) {
+        if (PMMA::Core::Registry::MouseButtonEventInstanceCount <= 0) {
             glfwSetMouseButtonCallback(Window, nullptr);
             delete MouseButtonManagerInstance;
             MouseButtonManagerInstance = nullptr;
-            PMMA::Registry::MouseButtonEventInstanceCount = 0;
+            PMMA::Core::Registry::MouseButtonEventInstanceCount = 0;
         } else {
             MouseButtonManagerInstance->Update(Window);
         }
     }
 
     if (MouseScrollManagerInstance == nullptr) {
-        if (PMMA::Registry::MouseScrollEventInstanceCount > 0) {
+        if (PMMA::Core::Registry::MouseScrollEventInstanceCount > 0) {
             MouseScrollManagerInstance = new PMMA::Internal::Events::InternalMouseScrollManager();
             glfwSetScrollCallback(Window, PMMA::Internal::Events::InternalMouseScrollManager::ScrollCallback);
         }
     } else {
-        if (PMMA::Registry::MouseScrollEventInstanceCount <= 0) {
+        if (PMMA::Core::Registry::MouseScrollEventInstanceCount <= 0) {
             glfwSetScrollCallback(Window, nullptr);
             delete MouseScrollManagerInstance;
             MouseScrollManagerInstance = nullptr;
-            PMMA::Registry::MouseScrollEventInstanceCount = 0;
+            PMMA::Core::Registry::MouseScrollEventInstanceCount = 0;
         } else {
             MouseScrollManagerInstance->Update(Window);
         }
     }
 
     if (PMMA::Core::ControllerManagerInstance == nullptr) {
-        if (PMMA::Registry::ControllerEventInstanceCount > 0) {
+        if (PMMA::Core::Registry::ControllerEventInstanceCount > 0) {
             PMMA::Core::ControllerManagerInstance = new PMMA::Internal::Events::InternalControllerManager();
             glfwSetJoystickCallback(PMMA::Internal::Events::InternalControllerManager::JoystickCallback);
         }
     } else {
-        if (PMMA::Registry::ControllerEventInstanceCount <= 0) {
+        if (PMMA::Core::Registry::ControllerEventInstanceCount <= 0) {
             glfwSetJoystickCallback(nullptr);
             delete PMMA::Core::ControllerManagerInstance;
             PMMA::Core::ControllerManagerInstance = nullptr;
-            PMMA::Registry::ControllerEventInstanceCount = 0;
+            PMMA::Core::Registry::ControllerEventInstanceCount = 0;
         } else {
             PMMA::Core::ControllerManagerInstance->Update(Window);
         }
     }
 
     if (DropManagerInstance == nullptr) {
-        if (PMMA::Registry::DropEventInstanceCount > 0) {
+        if (PMMA::Core::Registry::DropEventInstanceCount > 0) {
             DropManagerInstance = new PMMA::Internal::Events::InternalDropManager();
             glfwSetDropCallback(Window, PMMA::Internal::Events::InternalDropManager::DropCallback);
         }
     } else {
-        if (PMMA::Registry::DropEventInstanceCount <= 0) {
+        if (PMMA::Core::Registry::DropEventInstanceCount <= 0) {
             glfwSetDropCallback(Window, nullptr);
             delete DropManagerInstance;
             DropManagerInstance = nullptr;
-            PMMA::Registry::DropEventInstanceCount = 0;
+            PMMA::Core::Registry::DropEventInstanceCount = 0;
         } else {
             DropManagerInstance->Update(Window);
         }
@@ -159,23 +169,23 @@ void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
 
     if (glfwWindowShouldClose(Window)) {
         if (!IsSecondaryDisplay) {
-            PMMA::Registry::IsApplicationRunning = false;
+            PMMA::Core::Registry::IsApplicationRunning = false;
         }
         DisplayShouldClose = true;
     }
 
-    if (!PMMA::Registry::UserSetEscapeKeyShouldCloseWindow) {
-        PMMA::Registry::EscapeKeyShouldCloseWindow = FullScreen;
+    if (!PMMA::Core::Registry::UserSetEscapeKeyShouldCloseWindow) {
+        PMMA::Core::Registry::EscapeKeyShouldCloseWindow = FullScreen;
     }
 
-    if (PMMA::Registry::EscapeKeyShouldCloseWindow && Escape_KeyEvent->GetPressed()) {
+    if (PMMA::Core::Registry::EscapeKeyShouldCloseWindow && Escape_KeyEvent->GetPressed()) {
         if (!IsSecondaryDisplay) {
-            PMMA::Registry::IsApplicationRunning = false;
+            PMMA::Core::Registry::IsApplicationRunning = false;
         }
         DisplayShouldClose = true;
     }
 
-    if (PMMA::Registry::F11KeyShouldToggleFullScreen && F11_KeyEvent->GetPressed()) {
+    if (PMMA::Core::Registry::F11KeyShouldToggleFullScreen && F11_KeyEvent->GetPressed()) {
         ToggleFullScreen();
     }
 
@@ -203,7 +213,7 @@ PMMA::Display::Display() {
 
     glfwInit();
 
-    DefaultIconPath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "resources" + PMMA::Registry::PathSeparator + "Icon.png";
+    DefaultIconPath = PMMA::Core::Registry::PMMA_Location + PMMA::Core::Registry::PathSeparator + "resources" + PMMA::Core::Registry::PathSeparator + "Icon.png";
 }
 
 GLFWmonitor *PMMA::Display::GetMonitorAtPoint(unsigned int *Point) {
@@ -487,22 +497,22 @@ installed PMMA.");
         bgfx::setDebug(BGFX_DEBUG_NONE);
 
         const bgfx::Caps *caps = bgfx::getCaps();
-        PMMA::Registry::MaxViewID = caps->limits.maxViews;
+        PMMA::Core::Registry::MaxViewID = caps->limits.maxViews;
 
         std::string Renderer = PMMA::General::GetGraphicsBackend();
         PMMA::Core::LoggingManagerInstance->InternalLogInfo(
             34,
             "PMMA is using the '" + Renderer + "' backend for graphics.");
 
-        PMMA::Registry::IsApplicationRunning = true;
+        PMMA::Core::Registry::IsApplicationRunning = true;
 
         std::string ShaderPath =
-            PMMA::Registry::PMMA_Location +
-            PMMA::Registry::PathSeparator +
+            PMMA::Core::Registry::PMMA_Location +
+            PMMA::Core::Registry::PathSeparator +
             "shaders" +
-            PMMA::Registry::PathSeparator +
+            PMMA::Core::Registry::PathSeparator +
             "2D_Core" +
-            PMMA::Registry::PathSeparator +
+            PMMA::Core::Registry::PathSeparator +
             "ShapeDefinitions";
 
         PMMA::Core::Core2D_ShapeSDF_Program = new PMMA::Graphics::Shader();
@@ -531,8 +541,8 @@ installed PMMA.");
         DisplayFrameBufferHandle = bgfx::createFrameBuffer(nwh, Size[0], Size[1]);
 
         IsSecondaryDisplay = true;
-        DisplayID = PMMA::Registry::SecondaryDisplayIDs.front();
-        PMMA::Registry::SecondaryDisplayIDs.erase(PMMA::Registry::SecondaryDisplayIDs.begin());
+        DisplayID = PMMA::Core::Registry::SecondaryDisplayIDs.front();
+        PMMA::Core::Registry::SecondaryDisplayIDs.erase(PMMA::Core::Registry::SecondaryDisplayIDs.begin());
     }
 
     if (!Vsync) {
@@ -618,7 +628,7 @@ You can do this using `Display.create`.");
 
     bgfx::touch(DisplayID); // Ensure view DisplayID is cleared
 
-    PMMA::Registry::RollingViewID = DisplayID;
+    PMMA::Core::Registry::RollingViewID = DisplayID;
 
     RenderPipelineCore->Reset();
 
@@ -663,7 +673,7 @@ unsigned int PMMA::Display::CalculateRefreshRate(
 
     bool Minimized = glfwGetWindowAttrib(Window, GLFW_ICONIFIED) == GLFW_TRUE;
     bool FocusLoss = glfwGetWindowAttrib(Window, GLFW_FOCUSED) == GLFW_FALSE;
-    bool LowBattery = PMMA::Registry::IsPowerSavingModeEnabled;
+    bool LowBattery = PMMA::Core::Registry::IsPowerSavingModeEnabled;
 
     unsigned int OriginalRefreshRate = RefreshRate;
 
@@ -879,7 +889,7 @@ before you can call this function.");
 }
 
 PMMA::Display::~Display() {
-    PMMA::Registry::SecondaryDisplayIDs.push_back(DisplayID);
+    PMMA::Core::Registry::SecondaryDisplayIDs.push_back(DisplayID);
 
     if (RenderPipelineCore != nullptr) {
         delete RenderPipelineCore;

@@ -1,10 +1,13 @@
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
+
+#include "Events/KeyPadEvents.hpp"
 
 PMMA::Events::KeyPad_0::KeyPad_0() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_0_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_0::~KeyPad_0() {
@@ -13,13 +16,13 @@ PMMA::Events::KeyPad_0::~KeyPad_0() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_0_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_1::KeyPad_1() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_1_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_1::~KeyPad_1() {
@@ -28,13 +31,13 @@ PMMA::Events::KeyPad_1::~KeyPad_1() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_1_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_2::KeyPad_2() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_2_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_2::~KeyPad_2() {
@@ -43,13 +46,13 @@ PMMA::Events::KeyPad_2::~KeyPad_2() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_2_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_3::KeyPad_3() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_3_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_3::~KeyPad_3() {
@@ -58,13 +61,13 @@ PMMA::Events::KeyPad_3::~KeyPad_3() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_3_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_4::KeyPad_4() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_4_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_4::~KeyPad_4() {
@@ -73,13 +76,13 @@ PMMA::Events::KeyPad_4::~KeyPad_4() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_4_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_5::KeyPad_5() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_5_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_5::~KeyPad_5() {
@@ -88,13 +91,13 @@ PMMA::Events::KeyPad_5::~KeyPad_5() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_5_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_6::KeyPad_6() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_6_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_6::~KeyPad_6() {
@@ -103,13 +106,13 @@ PMMA::Events::KeyPad_6::~KeyPad_6() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_6_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_7::KeyPad_7() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_7_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_7::~KeyPad_7() {
@@ -118,13 +121,13 @@ PMMA::Events::KeyPad_7::~KeyPad_7() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_7_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_8::KeyPad_8() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_8_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_8::~KeyPad_8() {
@@ -133,13 +136,13 @@ PMMA::Events::KeyPad_8::~KeyPad_8() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_8_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_9::KeyPad_9() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_9_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_9::~KeyPad_9() {
@@ -148,13 +151,13 @@ PMMA::Events::KeyPad_9::~KeyPad_9() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_9_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_Decimal::KeyPad_Decimal() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Decimal_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_Decimal::~KeyPad_Decimal() {
@@ -163,13 +166,13 @@ PMMA::Events::KeyPad_Decimal::~KeyPad_Decimal() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Decimal_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_Divide::KeyPad_Divide() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Divide_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_Divide::~KeyPad_Divide() {
@@ -178,13 +181,13 @@ PMMA::Events::KeyPad_Divide::~KeyPad_Divide() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Divide_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_Multiply::KeyPad_Multiply() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Multiply_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_Multiply::~KeyPad_Multiply() {
@@ -193,13 +196,13 @@ PMMA::Events::KeyPad_Multiply::~KeyPad_Multiply() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Multiply_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_Subtract::KeyPad_Subtract() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Subtract_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_Subtract::~KeyPad_Subtract() {
@@ -208,13 +211,13 @@ PMMA::Events::KeyPad_Subtract::~KeyPad_Subtract() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Subtract_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_Add::KeyPad_Add() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Add_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_Add::~KeyPad_Add() {
@@ -223,13 +226,13 @@ PMMA::Events::KeyPad_Add::~KeyPad_Add() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Add_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_Enter::KeyPad_Enter() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Enter_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_Enter::~KeyPad_Enter() {
@@ -238,13 +241,13 @@ PMMA::Events::KeyPad_Enter::~KeyPad_Enter() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Enter_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };
 
 PMMA::Events::KeyPad_Equal::KeyPad_Equal() {
     PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Equal_Instances.push_back(this);
 
-    PMMA::Registry::KeyboardEventInstanceCount++;
+    PMMA::Core::Registry::KeyboardEventInstanceCount++;
 };
 
 PMMA::Events::KeyPad_Equal::~KeyPad_Equal() {
@@ -253,5 +256,5 @@ PMMA::Events::KeyPad_Equal::~KeyPad_Equal() {
         PMMA::Core::ActiveDisplayInstance->KeyPadEvent_Equal_Instances.erase(it);
     }
 
-    PMMA::Registry::KeyboardEventInstanceCount--;
+    PMMA::Core::Registry::KeyboardEventInstanceCount--;
 };

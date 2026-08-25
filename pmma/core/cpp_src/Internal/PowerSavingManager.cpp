@@ -1,9 +1,9 @@
+#include "Internal/Core/PMMA_Core.hpp"
+
 #include "Internal/PowerSavingManager.hpp"
 
-#include "PMMA_Core.hpp"
-
 void PMMA::Internal::PowerSavingManager::PowerSavingUpdaterThread() {
-    auto &mgr = PMMA::Core::PowerSavingManagerInstance;
+    PMMA::Internal::PowerSavingManager &mgr = *PMMA::Core::PowerSavingManagerInstance;
 
     std::unique_lock<std::mutex> lock(mgr.m);
 

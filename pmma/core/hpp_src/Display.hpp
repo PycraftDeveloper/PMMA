@@ -4,7 +4,7 @@
 #pragma warning(disable : 4251)
 #endif
 
-#include "PMMA_Exports.hpp"
+#include "Internal/Core/PMMA_Exports.hpp"
 
 #include <array>
 #include <chrono>

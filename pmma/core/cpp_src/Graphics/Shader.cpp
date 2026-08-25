@@ -1,7 +1,16 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
+
+#include "Internal/LoggingManager.hpp"
+#include "Internal/ParallelWorker.hpp"
+
+#include "Graphics/Shader.hpp"
+
+#include "General.hpp"
+#include "Passport.hpp"
 
 const bgfx::Memory *InternalLoadShader(const std::string &filePath) {
     std::ifstream file(filePath, std::ios::binary | std::ios::ate);
@@ -43,21 +52,21 @@ void PMMA::Graphics::Shader::CompileShaderComponent(
         34,
         "PMMA is using '" + PlatformName + "' for shaders.");
 
-    std::string Shader_C_Location = PMMA::Registry::PMMA_Location +
-                                    PMMA::Registry::PathSeparator + "extern" +
-                                    PMMA::Registry::PathSeparator + "bin" +
-                                    PMMA::Registry::PathSeparator + "shaderc";
+    std::string Shader_C_Location = PMMA::Core::Registry::PMMA_Location +
+                                    PMMA::Core::Registry::PathSeparator + "extern" +
+                                    PMMA::Core::Registry::PathSeparator + "bin" +
+                                    PMMA::Core::Registry::PathSeparator + "shaderc";
 
     if (PlatformName == "windows") {
         Shader_C_Location += ".exe";
     }
 
-    std::string ShaderBuildToolsLocation = PMMA::Registry::PMMA_Location +
-                                           PMMA::Registry::PathSeparator + "extern" +
-                                           PMMA::Registry::PathSeparator + "shader_build_tools";
+    std::string ShaderBuildToolsLocation = PMMA::Core::Registry::PMMA_Location +
+                                           PMMA::Core::Registry::PathSeparator + "extern" +
+                                           PMMA::Core::Registry::PathSeparator + "shader_build_tools";
 
     std::string VaryingDefLocation = std::filesystem::path(RawFilePath).parent_path().string() +
-                                     PMMA::Registry::PathSeparator + "varying.def.sc";
+                                     PMMA::Core::Registry::PathSeparator + "varying.def.sc";
 
     std::string GraphicsProfile = PMMA::Graphics::Shader::GetGraphicsProfile();
 
@@ -148,9 +157,9 @@ void PMMA::Graphics::Shader::CompileShader(bool InternalShader) {
         if (CompiledVertexShaderPath == "") {
             std::string ShaderName = std::filesystem::path(RawVertexShaderPath).stem().string();
             if (InternalShader || !PMMA::Core::PassportInstance->IsRegistered) {
-                CompiledVertexShaderPath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "temporary" + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
+                CompiledVertexShaderPath = PMMA::Core::Registry::PMMA_Location + PMMA::Core::Registry::PathSeparator + "temporary" + PMMA::Core::Registry::PathSeparator + "shader_cache" + PMMA::Core::Registry::PathSeparator + PlatformName + PMMA::Core::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Core::Registry::PathSeparator + ShaderName + ".bin";
             } else {
-                CompiledVertexShaderPath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
+                CompiledVertexShaderPath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Core::Registry::PathSeparator + "shader_cache" + PMMA::Core::Registry::PathSeparator + PlatformName + PMMA::Core::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Core::Registry::PathSeparator + ShaderName + ".bin";
             }
         }
     }
@@ -159,9 +168,9 @@ void PMMA::Graphics::Shader::CompileShader(bool InternalShader) {
         if (CompiledFragmentShaderPath == "") {
             std::string ShaderName = std::filesystem::path(RawFragmentShaderPath).stem().string();
             if (InternalShader || !PMMA::Core::PassportInstance->GetIsRegistered()) {
-                CompiledFragmentShaderPath = PMMA::Registry::PMMA_Location + PMMA::Registry::PathSeparator + "temporary" + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
+                CompiledFragmentShaderPath = PMMA::Core::Registry::PMMA_Location + PMMA::Core::Registry::PathSeparator + "temporary" + PMMA::Core::Registry::PathSeparator + "shader_cache" + PMMA::Core::Registry::PathSeparator + PlatformName + PMMA::Core::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Core::Registry::PathSeparator + ShaderName + ".bin";
             } else {
-                CompiledFragmentShaderPath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Registry::PathSeparator + "shader_cache" + PMMA::Registry::PathSeparator + PlatformName + PMMA::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Registry::PathSeparator + ShaderName + ".bin";
+                CompiledFragmentShaderPath = PMMA::Core::PassportInstance->GetTemporaryPath() + PMMA::Core::Registry::PathSeparator + "shader_cache" + PMMA::Core::Registry::PathSeparator + PlatformName + PMMA::Core::Registry::PathSeparator + GetGraphicsProfile() + PMMA::Core::Registry::PathSeparator + ShaderName + ".bin";
             }
         }
     }

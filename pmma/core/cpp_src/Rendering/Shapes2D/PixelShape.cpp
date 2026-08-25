@@ -1,6 +1,9 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 
-#include "PMMA_Core.hpp"
+#include "Rendering/Shapes2D/PixelShape.hpp"
+
+#include "Display.hpp"
+#include "Types.hpp"
 
 void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
     if (!ShapePropertyChanged) {
@@ -46,11 +49,11 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
 
     if (ShapePropertyChanged) {
         // Existing packing logic
-        ShapeInstanceData.position = PMMA::Internal::PackSignedValues(start_position[0], start_position[1]);
-        ShapeInstanceData.size = PMMA::Internal::PackValues(1, 1);
-        ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(0, 0);
-        ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(0, 0);
-        ShapeInstanceData.shape_type_width = PMMA::Internal::PackValues(0, 0);
+        ShapeInstanceData.position = PMMA::Internal::Rendering::Core2D::PackSignedValues(start_position[0], start_position[1]);
+        ShapeInstanceData.size = PMMA::Internal::Rendering::Core2D::PackValues(1, 1);
+        ShapeInstanceData.point_count_gradient_type = PMMA::Internal::Rendering::Core2D::PackValues(0, 0);
+        ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::Rendering::Core2D::PackValues(0, 0);
+        ShapeInstanceData.shape_type_width = PMMA::Internal::Rendering::Core2D::PackValues(0, 0);
 
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }

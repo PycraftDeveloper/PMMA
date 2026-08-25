@@ -1,5 +1,5 @@
 #pragma once
-#include "PMMA_Exports.hpp"
+#include "Internal/Core/PMMA_Exports.hpp"
 
 #include <algorithm>
 #include <cstdlib>
@@ -11,6 +11,7 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
+#include "Constants.hpp"
 #include "General.hpp"
 #include "Logger.hpp"
 

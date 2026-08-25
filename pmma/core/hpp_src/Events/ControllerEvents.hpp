@@ -1,5 +1,5 @@
 #pragma once
-#include "PMMA_Exports.hpp"
+#include "Internal/Core/PMMA_Exports.hpp"
 
 #include <algorithm>
 #include <iostream>

@@ -1,7 +1,9 @@
 #pragma once
-#include "PMMA_Exports.hpp"
+#include "Internal/Core/PMMA_Exports.hpp"
 
 #include <chrono>
+
+#include <GLFW/glfw3.h>
 
 namespace PMMA::Events {
 class Key_Left_Shift;

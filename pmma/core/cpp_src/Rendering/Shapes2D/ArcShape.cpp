@@ -1,6 +1,11 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 
-#include "PMMA_Core.hpp"
+#include "Internal/LoggingManager.hpp"
+
+#include "Rendering/Shapes2D/ArcShape.hpp"
+
+#include "Display.hpp"
+#include "Types.hpp"
 
 float PMMA::Rendering::TwoD::Shapes::Arc::GetStartAngle() {
     if (!StartAngleSet) {
@@ -70,14 +75,14 @@ void PMMA::Rendering::TwoD::Shapes::Arc::Render() {
 
     if (ShapePropertyChanged) {
         // Existing packing logic
-        ShapeInstanceData.position = PMMA::Internal::PackSignedValues(start_position[0], start_position[1]);
-        ShapeInstanceData.size = PMMA::Internal::PackValues(size[0], size[1]);
-        ShapeInstanceData.point_count_gradient_type = PMMA::Internal::PackValues(PointCount, 0);
-        ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::PackValues(Rotation * 182, GetStartAngle() * 182);
+        ShapeInstanceData.position = PMMA::Internal::Rendering::Core2D::PackSignedValues(start_position[0], start_position[1]);
+        ShapeInstanceData.size = PMMA::Internal::Rendering::Core2D::PackValues(size[0], size[1]);
+        ShapeInstanceData.point_count_gradient_type = PMMA::Internal::Rendering::Core2D::PackValues(PointCount, 0);
+        ShapeInstanceData.rotation_shape_property_one = PMMA::Internal::Rendering::Core2D::PackValues(Rotation * 182, GetStartAngle() * 182);
 
-        ShapeInstanceData.shape_type_width = PMMA::Internal::PackValues(3, Width);
+        ShapeInstanceData.shape_type_width = PMMA::Internal::Rendering::Core2D::PackValues(3, Width);
 
-        ShapeInstanceData.shape_property_two = PMMA::Internal::PackValues(GetEndAngle() * 182, 0);
+        ShapeInstanceData.shape_property_two = PMMA::Internal::Rendering::Core2D::PackValues(GetEndAngle() * 182, 0);
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }
 

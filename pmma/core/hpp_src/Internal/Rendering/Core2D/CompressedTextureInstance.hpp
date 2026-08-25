@@ -22,7 +22,7 @@ struct AtlasAllocation {
 
 class CompressedTextureInstance { // makes texture atlas for a RenderPipelineInstance
 private:
-    std::vector<PMMA::Internal::TextureProperty *> PendingTextures;
+    std::vector<PMMA::Internal::Rendering::Core2D::TextureProperty *> PendingTextures;
 
     std::vector<SkylineNode> Skyline;
 
@@ -95,7 +95,7 @@ public:
     }
 
     inline bool CanFitTexture(
-        PMMA::Internal::TextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::TextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
 
@@ -297,7 +297,7 @@ public:
     }
 
     inline bool RegisterTexture(
-        PMMA::Internal::TextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::TextureProperty *Texture,
         std::vector<float> &LookUpTextureData,
         uint32_t TextureID) {
         if (Texture == nullptr) {

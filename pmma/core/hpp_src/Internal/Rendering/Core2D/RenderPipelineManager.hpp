@@ -21,15 +21,6 @@ struct Vertex {
     float x, y, u, v;
 };
 
-struct InstanceData {
-    float position, size;
-    float point_count_gradient_type, rotation_shape_property_one;
-    float color_index, shape_type_width;
-    float texture_position = 0, texture_size = 0;
-    float shape_property_two = 0, shape_property_three = 0;
-    float depth = 0, texture_id = 0;
-};
-
 class RenderPipelineManager {
 private:
     std::vector<PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *> RenderPipelineInstances;
@@ -38,7 +29,7 @@ private:
 public:
     ~RenderPipelineManager();
 
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance(PMMA::Internal::TextureProperty *Texture, uint16_t *TextureSize, unsigned char Channels);
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance(PMMA::Internal::Rendering::Core2D::TextureProperty *Texture, uint16_t *TextureSize, unsigned char Channels);
 
     void Reset();
 

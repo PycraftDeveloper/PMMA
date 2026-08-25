@@ -1,6 +1,8 @@
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 
+#include "Internal/Rendering/Core2D/Internal.hpp"
+
 #include "Constants.hpp"
 
 PMMA::Internal::Rendering::Core2D::RenderPipelineManager::~RenderPipelineManager() {
@@ -15,7 +17,7 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineManager::~RenderPipelineManager
     CachedRenderPipelineInstances.clear();
 }
 
-PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rendering::Core2D::RenderPipelineManager::GetInstance(PMMA::Internal::TextureProperty *Texture, uint16_t *TextureSize, unsigned char Channels) {
+PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rendering::Core2D::RenderPipelineManager::GetInstance(PMMA::Internal::Rendering::Core2D::TextureProperty *Texture, uint16_t *TextureSize, unsigned char Channels) {
     if (RenderPipelineInstances.empty()) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());

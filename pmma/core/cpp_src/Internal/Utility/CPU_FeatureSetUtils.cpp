@@ -4,6 +4,8 @@
 #include <cpuid.h>
 #endif
 
+#include "Internal/Utility/CPU_FeatureSetUtils.hpp"
+
 // Wrapper to invoke CPUID with eax and ecx arguments
 static void cpuid(int32_t out[4], int32_t eax, int32_t ecx) {
 #if defined(_MSC_VER)
@@ -36,7 +38,7 @@ static bool os_supports_avx() {
     return (xgetbv(0) & mask) == mask;
 }
 
-bool PMMA::Utils::CPU_FeatureSet::SupportsAVX2() {
+bool PMMA::Utility::CPU_FeatureSet::SupportsAVX2() {
     int32_t info[4];
     // Leaf 1: check OSXSAVE and AVX bit
     cpuid(info, 1, 0);
@@ -52,7 +54,7 @@ bool PMMA::Utils::CPU_FeatureSet::SupportsAVX2() {
     return (info[1] & (1 << 5)) != 0;
 }
 
-bool PMMA::Utils::CPU_FeatureSet::SupportsAVX512() { // AVX512f ONLY for now
+bool PMMA::Utility::CPU_FeatureSet::SupportsAVX512() { // AVX512f ONLY for now
     int32_t info[4];
 
     // Leaf 1: check OSXSAVE and AVX bit

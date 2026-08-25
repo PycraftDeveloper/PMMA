@@ -129,7 +129,7 @@ static inline void ClearBC7Mip(
 // ============================================================================
 
 static inline bool CopyBC7MipIntoAtlas(
-    const PMMA::Internal::MipData &source,
+    const PMMA::Internal::Rendering::Core2D::MipData &source,
     uint32_t sourceWidth,
     uint32_t sourceHeight,
     uint32_t dstX,

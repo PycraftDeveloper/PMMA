@@ -1,5 +1,6 @@
 
-#include "PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+#include "Internal/Core/PMMA_Registry.hpp"
 
 size_t utf8_char_length(unsigned char c) {
     if ((c & 0x80) == 0x00)
@@ -67,7 +68,7 @@ PMMA::Events::TextInput::TextInput() {
     Delete_KeyEventPtr = new PMMA::Events::Key_Delete();
     Backspace_KeyEventPtr = new PMMA::Events::Key_Backspace();
 
-    PMMA::Registry::TextEventInstanceCount++;
+    PMMA::Core::Registry::TextEventInstanceCount++;
 };
 
 PMMA::Events::TextInput::~TextInput() {
@@ -83,7 +84,7 @@ PMMA::Events::TextInput::~TextInput() {
     Delete_KeyEventPtr = nullptr;
     Backspace_KeyEventPtr = nullptr;
 
-    PMMA::Registry::TextEventInstanceCount--;
+    PMMA::Core::Registry::TextEventInstanceCount--;
 };
 
 void PMMA::Events::TextInput::RemoveBack() {
@@ -143,7 +144,7 @@ void PMMA::Events::TextInput::GenericUpdate(GLFWwindow *window) {
 PMMA::Events::Drop::Drop() {
     PMMA::Core::ActiveDisplayInstance->DropEvent_Instances.push_back(this);
 
-    PMMA::Registry::DropEventInstanceCount++;
+    PMMA::Core::Registry::DropEventInstanceCount++;
 };
 
 PMMA::Events::Drop::~Drop() {
@@ -152,5 +153,5 @@ PMMA::Events::Drop::~Drop() {
         PMMA::Core::ActiveDisplayInstance->DropEvent_Instances.erase(it);
     }
 
-    PMMA::Registry::DropEventInstanceCount--;
+    PMMA::Core::Registry::DropEventInstanceCount--;
 };

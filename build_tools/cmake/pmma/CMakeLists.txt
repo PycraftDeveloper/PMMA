@@ -23,6 +23,11 @@ set(LIB_OUTPUT_DIR      "${WORKING_DIR}/pmma/lib")
 
 # ---- Sources ---------------------------------------------------------
 set(CORE_SOURCES
+    "${SRC_DIR}/PMMA.cpp"
+    "${SRC_DIR}/Internal/Core/PMMA_Core.cpp"
+    "${SRC_DIR}/Internal/Core/PMMA_Registry.cpp"
+
+
     "${SRC_DIR}/Animation/LinearAnimation.cpp"
     "${SRC_DIR}/Animation/RadialAnimation.cpp"
 
@@ -68,7 +73,6 @@ set(CORE_SOURCES
     "${SRC_DIR}/Logger.cpp"
     "${SRC_DIR}/Types.cpp"
     "${SRC_DIR}/Passport.cpp"
-    "${SRC_DIR}/PMMA_Core.cpp"
     "${SRC_DIR}/Random.cpp"
 )
 

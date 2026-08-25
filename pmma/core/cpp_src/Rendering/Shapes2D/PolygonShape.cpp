@@ -1,3 +1,5 @@
+#include "Rendering/Shapes2D/PolygonShape.hpp"
+
 PMMA::Rendering::TwoD::Shapes::Polygon::Polygon() {
 }
 

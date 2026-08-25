@@ -1,7 +1,9 @@
 
+#include "Internal/Core/PMMA_Core.hpp"
+
 #include "Internal/SplashScreen.hpp"
 
-#include "PMMA_Core.hpp"
+#include "Rendering/Shapes2D/RectangleShape.hpp"
 
 void PMMA::Internal::SplashScreen::Play() {
     // ------------------------------------------------------------
