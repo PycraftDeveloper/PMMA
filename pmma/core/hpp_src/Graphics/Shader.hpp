@@ -11,87 +11,50 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-#include "Constants.hpp"
-#include "General.hpp"
-#include "Logger.hpp"
-
 namespace PMMA::Graphics {
-class Shader {
-private:
-    std::future<void> CompileShaderFuture;
+	class Shader {
+	private:
+		std::future<void> CompileShaderFuture;
 
-    bgfx::ProgramHandle ShaderProgram = BGFX_INVALID_HANDLE;
-    PMMA::Logger *Logger;
+		std::string RawVertexShaderPath = "";
+		std::string RawFragmentShaderPath = "";
+		std::string CompiledVertexShaderPath = "";
+		std::string CompiledFragmentShaderPath = "";
 
-    std::string RawVertexShaderPath = "";
-    std::string RawFragmentShaderPath = "";
-    std::string CompiledVertexShaderPath = "";
-    std::string CompiledFragmentShaderPath = "";
+		bgfx::ProgramHandle ShaderProgram = BGFX_INVALID_HANDLE;
 
-    bool IsCompiled = false;
-    bool IsInternalShader = false;
+		bool IsCompiled = false;
+		bool IsInternalShader = false;
 
-    void CompileShader(bool InternalShader);
+		void CompileShader(bool InternalShader);
 
-    void CompileShaderComponent(std::string RawFilePath, std::string CompiledFilePath, std::string Type);
+		void CompileShaderComponent(std::string RawFilePath, std::string CompiledFilePath, std::string Type);
 
-    std::string GetGraphicsProfile() {
-        std::string GraphicsBackend = PMMA::General::GetGraphicsBackend();
-        if (GraphicsBackend == PMMA::Constants::GraphicsBackends::OPENGL_ES) {
-            return "100_es";
-        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::DIRECT3D11 || GraphicsBackend == PMMA::Constants::GraphicsBackends::DIRECT3D12) {
-            return "s_4_0";
-        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::METAL) {
-            return "metal";
-        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::GNM) {
-            return "pssl";
-        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::VULKAN) {
-            return "spirv";
-        } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::OPENGL) {
-            return "150";
-        } else {
-            if (Logger == nullptr) {
-                Logger = new PMMA::Logger();
-            }
+		std::string GetGraphicsProfile();
 
-            Logger->InternalLogError(
-                58,
-                "Cannot compile shader as the graphics backend '" +
-                    GraphicsBackend + "' is not recognized. Please report \
-this as a GitHub issue so we can add support for it.");
+	public:
+		~Shader() {
+			if (CompileShaderFuture.valid()) {
+				CompileShaderFuture.wait();
 
-            throw std::runtime_error("Cannot compile shader for " + GraphicsBackend + " as its profile is not known.");
-        }
-    }
+				CompileShaderFuture = std::future<void>();
+			}
 
-public:
-    ~Shader() {
-        if (CompileShaderFuture.valid()) {
-            CompileShaderFuture.wait();
+			if (bgfx::isValid(ShaderProgram)) {
+				bgfx::destroy(ShaderProgram);
+			}
+		}
 
-            CompileShaderFuture = std::future<void>();
-        }
+		void CreateShader();
 
-        if (bgfx::isValid(ShaderProgram)) {
-            bgfx::destroy(ShaderProgram);
-        }
+		void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader);
 
-        if (Logger != nullptr) {
-            delete Logger;
-            Logger = nullptr;
-        }
-    }
+		void LoadVertexShader(std::string VertexShaderPath, bool InternalShader);
 
-    void CreateShader();
+		void LoadFragmentShader(std::string FragmentShaderPath, bool InternalShader);
 
-    void LoadShader(std::string VertexShaderPath, std::string FragmentShaderPath, bool InternalShader);
+		void LoadShaderFromFolder(std::string FolderPath, bool InternalShader);
 
-    void LoadVertexShader(std::string VertexShaderPath, bool InternalShader);
-
-    void LoadFragmentShader(std::string FragmentShaderPath, bool InternalShader);
-
-    void LoadShaderFromFolder(std::string FolderPath, bool InternalShader);
-
-    bgfx::ProgramHandle Use();
-};
+		bgfx::ProgramHandle Use();
+	};
 } // namespace PMMA::Graphics

@@ -9,8 +9,34 @@
 
 #include "Graphics/Shader.hpp"
 
+#include "Constants.hpp"
 #include "General.hpp"
 #include "Passport.hpp"
+
+std::string PMMA::Graphics::Shader::GetGraphicsProfile() {
+    std::string GraphicsBackend = PMMA::General::GetGraphicsBackend();
+    if (GraphicsBackend == PMMA::Constants::GraphicsBackends::OPENGL_ES) {
+        return "100_es";
+    } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::DIRECT3D11 || GraphicsBackend == PMMA::Constants::GraphicsBackends::DIRECT3D12) {
+        return "s_4_0";
+    } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::METAL) {
+        return "metal";
+    } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::GNM) {
+        return "pssl";
+    } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::VULKAN) {
+        return "spirv";
+    } else if (GraphicsBackend == PMMA::Constants::GraphicsBackends::OPENGL) {
+        return "150";
+    } else {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            58,
+            "Cannot compile shader as the graphics backend '" +
+                GraphicsBackend + "' is not recognized. Please report \
+this as a GitHub issue so we can add support for it.");
+
+        throw std::runtime_error("Cannot compile shader for " + GraphicsBackend + " as its profile is not known.");
+    }
+}
 
 const bgfx::Memory *InternalLoadShader(const std::string &filePath) {
     std::ifstream file(filePath, std::ios::binary | std::ios::ate);
@@ -351,11 +377,7 @@ void PMMA::Graphics::Shader::LoadShaderFromFolder(std::string FolderPath, bool I
             }
         }
     } catch (const std::filesystem::filesystem_error &error) {
-        if (Logger == nullptr) {
-            Logger = new PMMA::Logger();
-        }
-
-        Logger->InternalLogWarn(
+        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
             48,
             "Whilst looking for shader files in the folder: '" +
                 FolderPath + "' the following filesystem error occurred: '" +
