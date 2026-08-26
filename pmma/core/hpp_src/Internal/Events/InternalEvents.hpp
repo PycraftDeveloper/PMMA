@@ -7,6 +7,10 @@
 
 #include "Constants.hpp"
 
+namespace PMMA::Internal::Events {
+class ButtonPressed;
+}
+
 namespace PMMA::Types {
 class Proportion;
 }
@@ -116,21 +120,21 @@ public:
 
 class InternalController {
 public:
-    ButtonPressed *GamePad_A_Button = nullptr;
-    ButtonPressed *GamePad_B_Button = nullptr;
-    ButtonPressed *GamePad_X_Button = nullptr;
-    ButtonPressed *GamePad_Y_Button = nullptr;
-    ButtonPressed *GamePad_Left_Bumper_Button = nullptr;
-    ButtonPressed *GamePad_Right_Bumper_Button = nullptr;
-    ButtonPressed *GamePad_Back_Button = nullptr;
-    ButtonPressed *GamePad_Start_Button = nullptr;
-    ButtonPressed *GamePad_Guide_Button = nullptr;
-    ButtonPressed *GamePad_Left_Thumb_Button = nullptr;
-    ButtonPressed *GamePad_Right_Thumb_Button = nullptr;
-    ButtonPressed *GamePad_DPad_Up_Button = nullptr;
-    ButtonPressed *GamePad_DPad_Right_Button = nullptr;
-    ButtonPressed *GamePad_DPad_Down_Button = nullptr;
-    ButtonPressed *GamePad_DPad_Left_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_A_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_B_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_X_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_Y_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_Left_Bumper_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_Right_Bumper_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_Back_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_Start_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_Guide_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_Left_Thumb_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_Right_Thumb_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_DPad_Up_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_DPad_Right_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_DPad_Down_Button = nullptr;
+    PMMA::Internal::Events::ButtonPressed *GamePad_DPad_Left_Button = nullptr;
 
 private:
     PMMA::Types::Proportion *GamePad_Left_Trigger = nullptr;

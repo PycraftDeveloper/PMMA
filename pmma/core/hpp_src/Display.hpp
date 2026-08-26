@@ -13,17 +13,165 @@
 #include <string>
 
 #include <GLFW/glfw3.h>
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
+#include <bgfx/bgfx.h>
 
-#include "Events/ControllerEvents.hpp"
-#include "Events/KeyEvents.hpp"
-#include "Events/KeyPadEvents.hpp"
-#include "Events/MouseEvents.hpp"
-#include "Events/WindowEvents.hpp"
-#include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
-#include "Logger.hpp"
-#include "Types.hpp"
+namespace PMMA::Types {
+class Color;
+}
+
+namespace PMMA::Internal::Rendering::Core2D {
+class RenderPipelineManager;
+}
+
+namespace PMMA::Events {
+class Key_Space;
+class Key_Apostrophe;
+class Key_Comma;
+class Key_Minus;
+class Key_Period;
+class Key_Slash;
+class Key_0;
+class Key_1;
+class Key_2;
+class Key_3;
+class Key_4;
+class Key_5;
+class Key_6;
+class Key_7;
+class Key_8;
+class Key_9;
+class Key_Semicolon;
+class Key_Equal;
+class Key_A;
+class Key_B;
+class Key_C;
+class Key_D;
+class Key_E;
+class Key_F;
+class Key_G;
+class Key_H;
+class Key_I;
+class Key_J;
+class Key_K;
+class Key_L;
+class Key_M;
+class Key_N;
+class Key_O;
+class Key_P;
+class Key_Q;
+class Key_R;
+class Key_S;
+class Key_T;
+class Key_U;
+class Key_V;
+class Key_W;
+class Key_X;
+class Key_Y;
+class Key_Z;
+class Key_Left_Bracket;
+class Key_Backslash;
+class Key_Right_Bracket;
+class Key_Grave_Accent;
+class Key_World_1;
+class Key_World_2;
+class Key_Escape;
+class Key_Enter;
+class Key_Tab;
+class Key_Backspace;
+class Key_Insert;
+class Key_Delete;
+class Key_Right;
+class Key_Left;
+class Key_Down;
+class Key_Up;
+class Key_Page_Up;
+class Key_Page_Down;
+class Key_Home;
+class Key_End;
+class Key_Caps_Lock;
+class Key_Scroll_Lock;
+class Key_Num_Lock;
+class Key_Print_Screen;
+class Key_Pause;
+class Key_F1;
+class Key_F2;
+class Key_F3;
+class Key_F4;
+class Key_F5;
+class Key_F6;
+class Key_F7;
+class Key_F8;
+class Key_F9;
+class Key_F10;
+class Key_F11;
+class Key_F12;
+class Key_F13;
+class Key_F14;
+class Key_F15;
+class Key_F16;
+class Key_F17;
+class Key_F18;
+class Key_F19;
+class Key_F20;
+class Key_F21;
+class Key_F22;
+class Key_F23;
+class Key_F24;
+class Key_F25;
+class Key_Left_Shift;
+class Key_Left_Control;
+class Key_Left_Alt;
+class Key_Left_Super;
+class Key_Right_Shift;
+class Key_Right_Control;
+class Key_Right_Alt;
+class Key_Right_Super;
+class Key_Shift;
+class Key_Control;
+class Key_Alt;
+class Key_Super;
+class Key_Menu;
+class KeyPad_0;
+class KeyPad_1;
+class KeyPad_2;
+class KeyPad_3;
+class KeyPad_4;
+class KeyPad_5;
+class KeyPad_6;
+class KeyPad_7;
+class KeyPad_8;
+class KeyPad_9;
+class KeyPad_Decimal;
+class KeyPad_Divide;
+class KeyPad_Multiply;
+class KeyPad_Subtract;
+class KeyPad_Add;
+class KeyPad_Enter;
+class KeyPad_Equal;
+class TextInput;
+class Mouse_Position;
+class Mouse_EnterWindow;
+class Mouse_Button_Left;
+class Mouse_Button_Right;
+class Mouse_Button_Middle;
+class Mouse_Button_0;
+class Mouse_Button_1;
+class Mouse_Button_2;
+class Mouse_Button_3;
+class Mouse_Button_4;
+class Mouse_Scroll;
+class Drop;
+} // namespace PMMA::Events
+
+namespace PMMA::Internal::Events {
+class InternalKeyManager;
+class InternalTextManager;
+class InternalMousePositionManager;
+class InternalMouseEnterWindowManager;
+class InternalMouseButtonManager;
+class InternalMouseScrollManager;
+class InternalDropManager;
+} // namespace PMMA::Internal::Events
 
 namespace PMMA {
 /**
@@ -279,8 +427,6 @@ public:
     PMMA::Internal::Events::InternalDropManager *DropManagerInstance = nullptr;
 
 private:
-    PMMA::Logger *Logger;
-
     std::string Caption = "PMMA Display";
     std::string DefaultIconPath;
 
@@ -336,88 +482,35 @@ public:
      * \returns bool - Returns `true` when vsync is used. Returns `false` when the window is not using vsync.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline bool GetIsWindowUsingVsync() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return Vsync;
-    }
+    bool GetIsWindowUsingVsync();
 
     /**
      * This method gets the refresh rate of the current monitor video mode.
      * \returns unsigned int - The current monitor video mode refresh rate.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline unsigned int GetCurrentMonitorRefreshRate() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        GLFWmonitor *CurrentMonitor = GetCurrentMonitor(Window);
-        const GLFWvidmode *Mode = glfwGetVideoMode(CurrentMonitor);
-        CurrentMonitorRefreshRate = Mode->refreshRate;
-        return CurrentMonitorRefreshRate;
-    }
+    unsigned int GetCurrentMonitorRefreshRate();
 
     /**
      * This method gets the current window width in pixels.
      * \returns unsigned int - The window width in pixels.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline uint16_t GetWidth() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-        return CurrentSize[0];
-    };
+    uint16_t GetWidth();
 
     /**
      * This method gets the current window height in pixels.
      * \returns unsigned int - The window height in pixels.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline uint16_t GetHeight() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return CurrentSize[1];
-    };
+    uint16_t GetHeight();
 
     /**
      * This method gets the current size of the window in pixels (width, height)
      * \param out The output size of the window in pixels.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void GetSize(uint16_t *out) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        out[0] = CurrentSize[0];
-        out[1] = CurrentSize[1];
-    };
+    void GetSize(uint16_t *out);
 
 private:
     GLFWmonitor *GetMonitorAtPoint(unsigned int *Point);
@@ -432,17 +525,7 @@ public:
      * \param position The number of pixels to move the window to. This takes two values (x, y).
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void SetRelativeWindowPosition(unsigned int *NewPosition) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        glfwSetWindowPos(Window, NewPosition[0], NewPosition[1]);
-    }
+    void SetRelativeWindowPosition(unsigned int *NewPosition);
 
     /**
      * This method is used to set the window to be positioned on-screen relative to the windowing system's origin (typically the top left corner of the left-most monitor as arranged on your desktop).
@@ -450,48 +533,14 @@ before you can call this function.");
      * \note Please be aware that some monitor layouts will have 'gaps' between each monitor due to their arrangement or resolution. Care should be taken to not place the window in this area as it will not be seen.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void SetAbsoluteWindowPosition(unsigned int *NewPosition) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        GLFWmonitor *PointMonitor = GetMonitorAtPoint(NewPosition);
-
-        int Monitor_X_Position, Monitor_Y_Position;
-        glfwGetMonitorPos(PointMonitor, &Monitor_X_Position, &Monitor_Y_Position);
-        glfwSetWindowPos(Window, NewPosition[0] - Monitor_X_Position, NewPosition[1] - Monitor_Y_Position);
-    }
+    void SetAbsoluteWindowPosition(unsigned int *NewPosition);
 
     /**
      * This method is used to position the window centrally in the monitor the window was first created on.
      * \note We are working on a way to have this center the window to whichever monitor it is currently on.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void CenterWindow() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        GLFWmonitor *CurrentMonitor = GetCurrentMonitor(Window);
-
-        int Monitor_Width, Monitor_Height;
-        const GLFWvidmode *Mode = glfwGetVideoMode(CurrentMonitor);
-        Monitor_Width = Mode->width;
-        Monitor_Height = Mode->height;
-
-        int Window_X_Offset = (Monitor_Width - Size[0]) / 2;
-        int Window_Y_Offset = (Monitor_Height - Size[1]) / 2;
-
-        glfwSetWindowPos(Window, Window_X_Offset, Window_Y_Offset);
-    }
+    void CenterWindow();
 
     /**
      * This method is used to clear all rendered graphics from the previous frame, and also used to apply the specified background color defined in `Display::WindowFillColor`.
@@ -504,213 +553,84 @@ before you can call this function.");
      * This method is used to force the created window to be put into focus.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void SetWindowInFocus() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        glfwFocusWindow(Window);
-    }
+    void SetWindowInFocus();
 
     /**
      * This method is used to minimize the created window (to the taskbar or equivalent on your operating system).
      * \param value When `true` the display will be minimized. When `false` the display will be returned to its original state (not maximized).
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void SetWindowMinimized(bool IsMinimized) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        if (IsMinimized) {
-            glfwIconifyWindow(Window);
-        } else {
-            glfwRestoreWindow(Window);
-        }
-    }
+    void SetWindowMinimized(bool IsMinimized);
 
     /**
      * This method is used to maximize the created window to fill the current monitor, showing the title bar.
      * \param value When `true` the display will be maximized. When `false` the display will be returned to its original state (not minimized).
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void SetWindowMaximized(bool IsMaximized) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        if (IsMaximized) {
-            glfwMaximizeWindow(Window);
-        } else {
-            glfwRestoreWindow(Window);
-        }
-    }
+    void SetWindowMaximized(bool IsMaximized);
 
     /**
      * This method is used to get if the window is currently in focus.
      * \returns bool - Returns `true` when in focus. Returns `false` when not in focus.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline bool GetIsWindowInFocus() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return glfwGetWindowAttrib(Window, GLFW_FOCUSED) == GLFW_TRUE;
-    }
+    bool GetIsWindowInFocus();
 
     /**
      * This method is used to get if the window is currently minimized.
      * \returns bool - Returns `true` when the window is minimized. Returns `false` when the window is not minimized.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline bool GetIsWindowMinimized() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return glfwGetWindowAttrib(Window, GLFW_ICONIFIED) == GLFW_TRUE;
-    }
+    bool GetIsWindowMinimized();
 
     /**
      * This method is used to get if the window is resizable.
      * \returns bool - Returns `true` when the window is able to be resized by the end user. Returns `false` when the window is not resizable by the end user.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline bool GetIsWindowResizable() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return glfwGetWindowAttrib(Window, GLFW_RESIZABLE) == GLFW_TRUE;
-    }
+    bool GetIsWindowResizable();
 
     /**
      * This method is used to get if the window is currently visible on-screen.
      * \returns bool - Returns `true` when the window is visible. Returns `false` when the window is not visible.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline bool GetIsWindowVisible() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return glfwGetWindowAttrib(Window, GLFW_VISIBLE) == GLFW_TRUE;
-    }
+    bool GetIsWindowVisible();
 
     /**
      * This method is used to get if the window is set to be always on top.
      * \returns bool - Returns `true` when the window is always on top. Returns `false` when the window is not always on top.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline bool GetIsWindowAlwaysOnTop() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return glfwGetWindowAttrib(Window, GLFW_FLOATING) == GLFW_TRUE;
-    }
+    bool GetIsWindowAlwaysOnTop();
 
     /**
      * This method is used get if the window is set to automatically minimize when it is no longer in focus. This is typically seen in game applications.
      * \returns bool - Returns `true` when the window is configured to automatically minimize when focus is lost. Returns `false` when the window is not configured to automatically minimize when focus is lost.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline bool GetIsWindowAutoMinimize() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return glfwGetWindowAttrib(Window, GLFW_AUTO_ICONIFY) == GLFW_TRUE;
-    }
+    bool GetIsWindowAutoMinimize();
 
     /**
      * This method is used to get if the window is currently maximized.
      * \returns bool - Returns `true` when the window is maximized. Returns `false` when the window is not maximized.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline bool GetIsWindowMaximized() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return glfwGetWindowAttrib(Window, GLFW_MAXIMIZED) == GLFW_TRUE;
-    }
+    bool GetIsWindowMaximized();
 
     /**
      * This method is used to get the number of Multi-Sample Anti-Aliasing samples.
      * \returns unsigned int - The number of samples.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline unsigned int GetWindow_MSAA_Samples() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return glfwGetWindowAttrib(Window, GLFW_SAMPLES);
-    }
+    unsigned int GetWindow_MSAA_Samples();
 
     /**
      * This method is used to pass a string to use as the display caption.
      * \param std::string - The window title name.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void SetCaption(std::string new_caption) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        glfwSetWindowTitle(Window, new_caption.c_str());
-        Caption = new_caption;
-    }
+    void SetCaption(std::string new_caption);
 
     /**
      * This method is used to get the window caption.
@@ -725,52 +645,21 @@ before you can call this function.");
      * \param unsigned int* The center point as a coordinate (x, y).
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void GetCenterPosition(uint16_t *out) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        out[0] = Size[0] / 2;
-        out[1] = Size[1] / 2;
-    }
+    void GetCenterPosition(uint16_t *out);
 
     /**
      * This method is used to get the horizontal center point of the window.
      * \returns The horizontal center position.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline uint16_t GetHorizontalCenterPosition() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return Size[0] / 2;
-    }
+    uint16_t GetHorizontalCenterPosition();
 
     /**
      * This method is used to get the vertical center point of the window.
      * \returns The vertical center position.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline uint16_t GetVerticalCenterPosition() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return Size[1] / 2;
-    }
+    uint16_t GetVerticalCenterPosition();
 
     /**
      * This method is used to get the center point of the window.
@@ -778,70 +667,28 @@ before you can call this function.");
      * \param out: The output center point as a coordinate (x, y).\
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void GetCenterPosition(uint16_t *ObjectSize, uint16_t *out) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        out[0] = (Size[0] - ObjectSize[0]) / 2;
-        out[1] = (Size[1] - ObjectSize[1]) / 2;
-    }
+    void GetCenterPosition(uint16_t *ObjectSize, uint16_t *out);
 
     /**
      * This method is used to get the horizontal center position.
      * \param ObjectSize: The horizontal size to offset the center position.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline uint16_t GetHorizontalCenterPosition(uint16_t ObjectSize) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return (Size[0] - ObjectSize) / 2;
-    }
+    uint16_t GetHorizontalCenterPosition(uint16_t ObjectSize);
 
     /**
      * This method is used to get the vertical center position.
      * \param ObjectSize: The vertical size to offset the center position.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline uint16_t GetVerticalCenterPosition(uint16_t ObjectSize) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        return (Size[1] - ObjectSize) / 2;
-    }
+    uint16_t GetVerticalCenterPosition(uint16_t ObjectSize);
 
     /**
      * This method is used to get the aspect ratio of the window.
      * \returns float - The window aspect ratio. For example: 2.667 would be returned for a window with aspect ration 16:9.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline float GetAspectRatio() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-        uint16_t Size[2];
-        GetSize(Size);
-        return (float)Size[0] / (float)Size[1];
-    }
+    float GetAspectRatio();
 
 private:
     void LimitRefreshRate(unsigned int RefreshRate);
@@ -861,96 +708,28 @@ public:
      * This method is used to force the window to refresh. This works even when `min_refresh_rate` is 0.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void TriggerEventRefresh() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-        glfwPostEmptyEvent();
-    }
+    void TriggerEventRefresh();
 
     /**
      * This method is used to get the current frame rate of the window.
      * \returns unsigned int - The refresh rate of the window.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline unsigned int GetFrameRate() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-        return (unsigned int)(1 / RefreshTime);
-    }
+    unsigned int GetFrameRate();
 
     /**
      * This method is used to get the current frame time of the window.
      * \returns float - The time in seconds between the current and previous frame.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline float GetFrameTime() {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-        return RefreshTime;
-    }
+    float GetFrameTime();
 
     /**
      * This method is used to get the display's orthographic projection.
      * \param out The output projection matrix.
      * \warning A valid window must be created using `Display::Create` before calling this method.
      */
-    inline void GetOrthographicProjection(float *out) {
-        if (Window == nullptr) {
-            Logger->InternalLogError(
-                18,
-                "You need to create a display using `Display.create` \
-before you can call this function.");
-            throw std::runtime_error("Display not created yet!");
-        }
-
-        if (OrthographicProjectionSet) {
-            out[0] = OrthographicProjection[0];
-            out[1] = OrthographicProjection[1];
-            out[2] = OrthographicProjection[2];
-            out[3] = OrthographicProjection[3];
-            out[4] = OrthographicProjection[4];
-            out[5] = OrthographicProjection[5];
-            out[6] = OrthographicProjection[6];
-            out[7] = OrthographicProjection[7];
-            out[8] = OrthographicProjection[8];
-            out[9] = OrthographicProjection[9];
-            out[10] = OrthographicProjection[10];
-            out[11] = OrthographicProjection[11];
-            out[12] = OrthographicProjection[12];
-            out[13] = OrthographicProjection[13];
-            out[14] = OrthographicProjection[14];
-            out[15] = OrthographicProjection[15];
-            return;
-        }
-
-        uint16_t Size[2];
-        GetSize(Size);
-
-        OrthographicProjection[0] = 2.0f / (float)Size[0];
-        OrthographicProjection[5] = -2.0f / (float)Size[1];
-        OrthographicProjection[10] = 1.0f;
-        OrthographicProjection[12] = -1.0f;
-        OrthographicProjection[13] = 1.0f;
-        OrthographicProjection[14] = 0.0f;
-        OrthographicProjection[15] = 1.0f;
-
-        OrthographicProjectionSet = true;
-    };
+    void GetOrthographicProjection(float *out);
 
 private:
     unsigned int CalculateRefreshRate(unsigned int RefreshRate,

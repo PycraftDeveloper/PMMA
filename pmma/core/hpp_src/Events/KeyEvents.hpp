@@ -1,7 +1,6 @@
 #pragma once
 #include "Internal/Core/PMMA_Exports.hpp"
 
-#include "Internal/Events/EventsManager.hpp"
 #include "Internal/Events/InternalEvents.hpp"
 
 namespace PMMA::Events {

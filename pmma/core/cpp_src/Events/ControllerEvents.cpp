@@ -2,6 +2,10 @@
 #include "Internal/Core/PMMA_Core.hpp"
 #include "Internal/Core/PMMA_Registry.hpp"
 
+#include "Internal/Events/EventsManager.hpp"
+
+#include "Events/ControllerEvents.hpp"
+
 PMMA::Events::Controller::Controller(unsigned int NewID) {
     PMMA::Core::ControllerEvent_Instances.push_back(this);
 

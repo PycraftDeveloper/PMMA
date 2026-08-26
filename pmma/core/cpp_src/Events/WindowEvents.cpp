@@ -2,6 +2,10 @@
 #include "Internal/Core/PMMA_Core.hpp"
 #include "Internal/Core/PMMA_Registry.hpp"
 
+#include "Display.hpp"
+#include "Events/KeyEvents.hpp"
+#include "Events/WindowEvents.hpp"
+
 size_t utf8_char_length(unsigned char c) {
     if ((c & 0x80) == 0x00)
         return 1; // 0xxxxxxx
@@ -139,6 +143,78 @@ void PMMA::Events::TextInput::GenericUpdate(GLFWwindow *window) {
     if (Delete_KeyEventPtr->PollLongPressed() || Delete_KeyEventPtr->GetPressedToggle()) {
         RemoveFront();
     }
+};
+
+void PMMA::Events::TextInput::Set_ControlKey_DoublePressDuration(float NewDuration) {
+    Control_KeyEventPtr->SetDoublePressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_ControlKey_LongPressDuration(float NewDuration) {
+    Control_KeyEventPtr->SetLongPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_ControlKey_RepeatPressDuration(float NewDuration) {
+    Control_KeyEventPtr->SetRepeatPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_ShiftKey_DoublePressDuration(float NewDuration) {
+    Shift_KeyEventPtr->SetDoublePressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_ShiftKey_LongPressDuration(float NewDuration) {
+    Shift_KeyEventPtr->SetLongPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_ShiftKey_RepeatPressDuration(float NewDuration) {
+    Shift_KeyEventPtr->SetRepeatPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_VKey_DoublePressDuration(float NewDuration) {
+    V_KeyEventPtr->SetDoublePressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_VKey_LongPressDuration(float NewDuration) {
+    V_KeyEventPtr->SetLongPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_VKey_RepeatPressDuration(float NewDuration) {
+    V_KeyEventPtr->SetRepeatPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_InsertKey_DoublePressDuration(float NewDuration) {
+    Insert_KeyEventPtr->SetDoublePressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_InsertKey_LongPressDuration(float NewDuration) {
+    Insert_KeyEventPtr->SetLongPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_InsertKey_RepeatPressDuration(float NewDuration) {
+    Insert_KeyEventPtr->SetRepeatPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_DeleteKey_DoublePressDuration(float NewDuration) {
+    Delete_KeyEventPtr->SetDoublePressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_DeleteKey_LongPressDuration(float NewDuration) {
+    Delete_KeyEventPtr->SetLongPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_DeleteKey_RepeatPressDuration(float NewDuration) {
+    Delete_KeyEventPtr->SetRepeatPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_BackspaceKey_DoublePressDuration(float NewDuration) {
+    Backspace_KeyEventPtr->SetDoublePressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_BackspaceKey_LongPressDuration(float NewDuration) {
+    Backspace_KeyEventPtr->SetLongPressDuration(NewDuration);
+};
+
+void PMMA::Events::TextInput::Set_BackspaceKey_RepeatPressDuration(float NewDuration) {
+    Backspace_KeyEventPtr->SetRepeatPressDuration(NewDuration);
 };
 
 PMMA::Events::Drop::Drop() {

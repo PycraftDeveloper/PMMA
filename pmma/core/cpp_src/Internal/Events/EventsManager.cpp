@@ -4,6 +4,14 @@
 
 #include "Internal/LoggingManager.hpp"
 
+#include "Internal/Events/EventsManager.hpp"
+
+#include "Events/ControllerEvents.hpp"
+#include "Events/KeyEvents.hpp"
+#include "Events/KeyPadEvents.hpp"
+#include "Events/MouseEvents.hpp"
+#include "Events/WindowEvents.hpp"
+
 #include "Display.hpp"
 
 inline std::string encode_utf8(unsigned int codepoint) {

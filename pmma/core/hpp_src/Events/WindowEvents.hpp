@@ -6,7 +6,14 @@
 
 #include <GLFW/glfw3.h>
 
-#include "KeyEvents.hpp"
+namespace PMMA::Events {
+class Key_Control;
+class Key_Shift;
+class Key_V;
+class Key_Insert;
+class Key_Delete;
+class Key_Backspace;
+} // namespace PMMA::Events
 
 namespace PMMA::Events {
 class EXPORT Drop {
@@ -108,76 +115,40 @@ public:
         TextBuffer = "";
     };
 
-    inline void Set_ControlKey_DoublePressDuration(float NewDuration) {
-        Control_KeyEventPtr->SetDoublePressDuration(NewDuration);
-    };
+    void Set_ControlKey_DoublePressDuration(float NewDuration);
 
-    inline void Set_ControlKey_LongPressDuration(float NewDuration) {
-        Control_KeyEventPtr->SetLongPressDuration(NewDuration);
-    };
+    void Set_ControlKey_LongPressDuration(float NewDuration);
 
-    inline void Set_ControlKey_RepeatPressDuration(float NewDuration) {
-        Control_KeyEventPtr->SetRepeatPressDuration(NewDuration);
-    };
+    void Set_ControlKey_RepeatPressDuration(float NewDuration);
 
-    inline void Set_ShiftKey_DoublePressDuration(float NewDuration) {
-        Shift_KeyEventPtr->SetDoublePressDuration(NewDuration);
-    };
+    void Set_ShiftKey_DoublePressDuration(float NewDuration);
 
-    inline void Set_ShiftKey_LongPressDuration(float NewDuration) {
-        Shift_KeyEventPtr->SetLongPressDuration(NewDuration);
-    };
+    void Set_ShiftKey_LongPressDuration(float NewDuration);
 
-    inline void Set_ShiftKey_RepeatPressDuration(float NewDuration) {
-        Shift_KeyEventPtr->SetRepeatPressDuration(NewDuration);
-    };
+    void Set_ShiftKey_RepeatPressDuration(float NewDuration);
 
-    inline void Set_VKey_DoublePressDuration(float NewDuration) {
-        V_KeyEventPtr->SetDoublePressDuration(NewDuration);
-    };
+    void Set_VKey_DoublePressDuration(float NewDuration);
 
-    inline void Set_VKey_LongPressDuration(float NewDuration) {
-        V_KeyEventPtr->SetLongPressDuration(NewDuration);
-    };
+    void Set_VKey_LongPressDuration(float NewDuration);
 
-    inline void Set_VKey_RepeatPressDuration(float NewDuration) {
-        V_KeyEventPtr->SetRepeatPressDuration(NewDuration);
-    };
+    void Set_VKey_RepeatPressDuration(float NewDuration);
 
-    inline void Set_InsertKey_DoublePressDuration(float NewDuration) {
-        Insert_KeyEventPtr->SetDoublePressDuration(NewDuration);
-    };
+    void Set_InsertKey_DoublePressDuration(float NewDuration);
 
-    inline void Set_InsertKey_LongPressDuration(float NewDuration) {
-        Insert_KeyEventPtr->SetLongPressDuration(NewDuration);
-    };
+    void Set_InsertKey_LongPressDuration(float NewDuration);
 
-    inline void Set_InsertKey_RepeatPressDuration(float NewDuration) {
-        Insert_KeyEventPtr->SetRepeatPressDuration(NewDuration);
-    };
+    void Set_InsertKey_RepeatPressDuration(float NewDuration);
 
-    inline void Set_DeleteKey_DoublePressDuration(float NewDuration) {
-        Delete_KeyEventPtr->SetDoublePressDuration(NewDuration);
-    };
+    void Set_DeleteKey_DoublePressDuration(float NewDuration);
 
-    inline void Set_DeleteKey_LongPressDuration(float NewDuration) {
-        Delete_KeyEventPtr->SetLongPressDuration(NewDuration);
-    };
+    void Set_DeleteKey_LongPressDuration(float NewDuration);
 
-    inline void Set_DeleteKey_RepeatPressDuration(float NewDuration) {
-        Delete_KeyEventPtr->SetRepeatPressDuration(NewDuration);
-    };
+    void Set_DeleteKey_RepeatPressDuration(float NewDuration);
 
-    inline void Set_BackspaceKey_DoublePressDuration(float NewDuration) {
-        Backspace_KeyEventPtr->SetDoublePressDuration(NewDuration);
-    };
+    void Set_BackspaceKey_DoublePressDuration(float NewDuration);
 
-    inline void Set_BackspaceKey_LongPressDuration(float NewDuration) {
-        Backspace_KeyEventPtr->SetLongPressDuration(NewDuration);
-    };
+    void Set_BackspaceKey_LongPressDuration(float NewDuration);
 
-    inline void Set_BackspaceKey_RepeatPressDuration(float NewDuration) {
-        Backspace_KeyEventPtr->SetRepeatPressDuration(NewDuration);
-    };
+    void Set_BackspaceKey_RepeatPressDuration(float NewDuration);
 };
-}
+} // namespace PMMA::Events
