@@ -194,15 +194,9 @@ pmma/extern/*
 # Ignore everything under 'include'
 pmma/extern/include/*
 
-# Allow only glad and glm folders
+# Allow header only modules
 !pmma/extern/include/glad/
 !pmma/extern/include/glad/**
-
-!pmma/extern/include/glm/
-!pmma/extern/include/glm/**
-
-!pmma/extern/include/FlatHashMap/
-!pmma/extern/include/FlatHashMap/**
 
 !pmma/extern/include/STB/
 !pmma/extern/include/STB/**
