@@ -1,6 +1,6 @@
 #include "Internal/Events/InternalEvents.hpp"
 
-#include "Types.hpp"
+#include "Types/Proportion.hpp"
 
 inline float AxisDeadZoneConverter_Percentage(float DeadZone, float value) { // DeadZone as percentage, value as percentage
     if (abs(value) <= DeadZone) {

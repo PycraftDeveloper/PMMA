@@ -4,10 +4,10 @@
 #include <filesystem>
 #include <string>
 
-#include <glm/glm.hpp>
+#include "Types/Color.hpp"
+#include "Types/Coordinate.hpp"
 
 #include "Logger.hpp"
-#include "Types.hpp"
 
 namespace PMMA::Rendering::Core2D {
 class EXPORT TextRenderer {

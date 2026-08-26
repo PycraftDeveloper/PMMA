@@ -36,19 +36,10 @@
 
 #include "Events/KeyEvents.hpp"
 
+#include "Types/Color.hpp"
+
 #include "Display.hpp"
 #include "General.hpp"
-#include "Types.hpp"
-
-inline void DisplayExistsCheck(PMMA::Display *Display) {
-    if (Display == nullptr) {
-        PMMA::Core::LoggingManagerInstance->InternalLogError(
-            18,
-            "You need to create a display using `Display.create` \
-before you can call this function.");
-        throw std::runtime_error("Display not created yet!");
-    }
-}
 
 void PMMA::Display::PMMA_Update(GLFWwindow *Window) {
     int size[2];
@@ -789,7 +780,7 @@ display updates all secondary displays.");
 }
 
 void PMMA::Display::SetIcon(std::string IconPath) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     if (IconPath == "") {
         IconPath = DefaultIconPath;
@@ -822,7 +813,7 @@ ensure the file exists and is a valid image file.");
 }
 
 void PMMA::Display::ToggleFullScreen() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     FullScreen = !FullScreen;
 
@@ -969,13 +960,13 @@ bool PMMA::Display::GetIsActiveDisplay() {
 }
 
 bool PMMA::Display::GetIsWindowUsingVsync() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return Vsync;
 }
 
 unsigned int PMMA::Display::GetCurrentMonitorRefreshRate() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     GLFWmonitor *CurrentMonitor = GetCurrentMonitor(Window);
     const GLFWvidmode *Mode = glfwGetVideoMode(CurrentMonitor);
@@ -984,31 +975,31 @@ unsigned int PMMA::Display::GetCurrentMonitorRefreshRate() {
 }
 
 uint16_t PMMA::Display::GetWidth() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
     return CurrentSize[0];
 };
 
 uint16_t PMMA::Display::GetHeight() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return CurrentSize[1];
 };
 
 void PMMA::Display::GetSize(uint16_t *out) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     out[0] = CurrentSize[0];
     out[1] = CurrentSize[1];
 };
 
 void PMMA::Display::SetRelativeWindowPosition(unsigned int *NewPosition) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     glfwSetWindowPos(Window, NewPosition[0], NewPosition[1]);
 }
 
 void PMMA::Display::SetAbsoluteWindowPosition(unsigned int *NewPosition) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     GLFWmonitor *PointMonitor = GetMonitorAtPoint(NewPosition);
 
@@ -1018,7 +1009,7 @@ void PMMA::Display::SetAbsoluteWindowPosition(unsigned int *NewPosition) {
 }
 
 void PMMA::Display::CenterWindow() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     GLFWmonitor *CurrentMonitor = GetCurrentMonitor(Window);
 
@@ -1034,13 +1025,13 @@ void PMMA::Display::CenterWindow() {
 }
 
 void PMMA::Display::SetWindowInFocus() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     glfwFocusWindow(Window);
 }
 
 void PMMA::Display::SetWindowMinimized(bool IsMinimized) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     if (IsMinimized) {
         glfwIconifyWindow(Window);
@@ -1050,7 +1041,7 @@ void PMMA::Display::SetWindowMinimized(bool IsMinimized) {
 }
 
 void PMMA::Display::SetWindowMaximized(bool IsMaximized) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     if (IsMaximized) {
         glfwMaximizeWindow(Window);
@@ -1060,122 +1051,122 @@ void PMMA::Display::SetWindowMaximized(bool IsMaximized) {
 }
 
 bool PMMA::Display::GetIsWindowInFocus() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return glfwGetWindowAttrib(Window, GLFW_FOCUSED) == GLFW_TRUE;
 }
 
 bool PMMA::Display::GetIsWindowMinimized() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return glfwGetWindowAttrib(Window, GLFW_ICONIFIED) == GLFW_TRUE;
 }
 
 bool PMMA::Display::GetIsWindowResizable() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return glfwGetWindowAttrib(Window, GLFW_RESIZABLE) == GLFW_TRUE;
 }
 
 bool PMMA::Display::GetIsWindowVisible() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return glfwGetWindowAttrib(Window, GLFW_VISIBLE) == GLFW_TRUE;
 }
 
 bool PMMA::Display::GetIsWindowAlwaysOnTop() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return glfwGetWindowAttrib(Window, GLFW_FLOATING) == GLFW_TRUE;
 }
 
 bool PMMA::Display::GetIsWindowAutoMinimize() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return glfwGetWindowAttrib(Window, GLFW_AUTO_ICONIFY) == GLFW_TRUE;
 }
 
 bool PMMA::Display::GetIsWindowMaximized() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return glfwGetWindowAttrib(Window, GLFW_MAXIMIZED) == GLFW_TRUE;
 }
 
 unsigned int PMMA::Display::GetWindow_MSAA_Samples() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return glfwGetWindowAttrib(Window, GLFW_SAMPLES);
 }
 
 void PMMA::Display::SetCaption(std::string new_caption) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     glfwSetWindowTitle(Window, new_caption.c_str());
     Caption = new_caption;
 }
 
 void PMMA::Display::GetCenterPosition(uint16_t *out) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     out[0] = Size[0] / 2;
     out[1] = Size[1] / 2;
 }
 
 uint16_t PMMA::Display::GetHorizontalCenterPosition() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return Size[0] / 2;
 }
 
 uint16_t PMMA::Display::GetVerticalCenterPosition() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return Size[1] / 2;
 }
 
 void PMMA::Display::GetCenterPosition(uint16_t *ObjectSize, uint16_t *out) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     out[0] = (Size[0] - ObjectSize[0]) / 2;
     out[1] = (Size[1] - ObjectSize[1]) / 2;
 }
 
 uint16_t PMMA::Display::GetHorizontalCenterPosition(uint16_t ObjectSize) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return (Size[0] - ObjectSize) / 2;
 }
 
 uint16_t PMMA::Display::GetVerticalCenterPosition(uint16_t ObjectSize) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     return (Size[1] - ObjectSize) / 2;
 }
 
 float PMMA::Display::GetAspectRatio() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
     uint16_t Size[2];
     GetSize(Size);
     return (float)Size[0] / (float)Size[1];
 }
 
 void PMMA::Display::TriggerEventRefresh() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
     glfwPostEmptyEvent();
 }
 
 unsigned int PMMA::Display::GetFrameRate() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
     return (unsigned int)(1 / RefreshTime);
 }
 
 float PMMA::Display::GetFrameTime() {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
     return RefreshTime;
 }
 
 void PMMA::Display::GetOrthographicProjection(float *out) {
-    DisplayExistsCheck(this);
+    PMMA::Internal::DisplayExistsCheck(this);
 
     if (OrthographicProjectionSet) {
         out[0] = OrthographicProjection[0];

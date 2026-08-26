@@ -3,7 +3,6 @@
 #include "Rendering/Shapes2D/LineShape.hpp"
 
 #include "Display.hpp"
-#include "Types.hpp"
 
 void PMMA::Rendering::TwoD::Shapes::Line::Render() {
     if (!ShapePropertyChanged) {

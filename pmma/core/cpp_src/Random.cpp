@@ -1,3 +1,4 @@
+#include "Random.hpp"
 
 void PMMA::FastRandom::SetSeed() {
     std::random_device rd;

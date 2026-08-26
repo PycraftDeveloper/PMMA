@@ -21,4 +21,14 @@ std::optional<std::array<uint8_t, 3>> FindColor(std::string_view key) {
 
     return std::nullopt;
 }
+
+void DisplayExistsCheck(PMMA::Display *Display) {
+    if (Display == nullptr) {
+        PMMA::Core::LoggingManagerInstance->InternalLogError(
+            18,
+            "You need to create a display using `Display.create` \
+before you can call this function.");
+        throw std::runtime_error("Display not created yet!");
+    }
+}
 } // namespace PMMA::Internal

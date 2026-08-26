@@ -5,7 +5,6 @@
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 
 #include "Display.hpp"
-#include "Types.hpp"
 
 void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
     if (!ShapePropertyChanged) {

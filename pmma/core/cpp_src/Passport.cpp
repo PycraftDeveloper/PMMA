@@ -3,6 +3,8 @@
 #include "Internal/Core/PMMA_Core.hpp"
 #include "Internal/Core/PMMA_Registry.hpp"
 
+#include "Passport.hpp"
+
 PMMA::Passport::Passport() {
     if (PMMA::Core::PassportInstance != nullptr) {
         delete PMMA::Core::PassportInstance;

@@ -4,7 +4,9 @@
 #include <cstdint>
 #include <vector>
 
-#include "Types.hpp"
+#include "Types/Color.hpp"
+#include "Types/Coordinate.hpp"
+#include "Types/Texture.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
 struct InstanceData;

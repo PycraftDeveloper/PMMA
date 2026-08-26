@@ -6,7 +6,6 @@
 #include "Rendering/Shapes2D/RectangleShape.hpp"
 
 #include "Display.hpp"
-#include "Types.hpp"
 
 void PMMA::Rendering::TwoD::Shapes::Rectangle::Render() {
     if (!ShapePropertyChanged) {

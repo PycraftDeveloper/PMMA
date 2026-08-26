@@ -21,6 +21,13 @@
 
 #include "Rendering/TextRenderer.hpp"
 
+#include "Types/Angle.hpp"
+#include "Types/Color.hpp"
+#include "Types/Coordinate.hpp"
+#include "Types/Proportion.hpp"
+#include "Types/Size.hpp"
+#include "Types/Texture.hpp"
+
 #include "Constants.hpp"
 #include "Display.hpp"
 #include "Events/ControllerEvents.hpp"
@@ -31,7 +38,6 @@
 #include "Noise/PerlinNoise.hpp"
 #include "Passport.hpp"
 #include "Random.hpp"
-#include "Types.hpp"
 
 namespace PMMA {
 EXPORT void Initialize(std::string location);

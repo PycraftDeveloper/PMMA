@@ -67,11 +67,17 @@ set(CORE_SOURCES
     "${SRC_DIR}/Noise/FractalBrownianMotion.cpp"
     "${SRC_DIR}/Noise/PerlinNoise_BASE.cpp"
 
+    "${SRC_DIR}/Types/Color.cpp"
+    "${SRC_DIR}/Types/Angle.cpp"
+    "${SRC_DIR}/Types/Proportion.cpp"
+    "${SRC_DIR}/Types/Coordinate.cpp"
+    "${SRC_DIR}/Types/Size.cpp"
+    "${SRC_DIR}/Types/Texture.cpp"
+
     "${SRC_DIR}/Maths_BASE.cpp"
     "${SRC_DIR}/Display.cpp"
     "${SRC_DIR}/General.cpp"
     "${SRC_DIR}/Logger.cpp"
-    "${SRC_DIR}/Types.cpp"
     "${SRC_DIR}/Passport.cpp"
     "${SRC_DIR}/Random.cpp"
 )

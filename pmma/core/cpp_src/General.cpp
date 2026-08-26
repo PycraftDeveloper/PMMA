@@ -11,8 +11,11 @@
 #include "Internal/Core/PMMA_Core.hpp"
 #include "Internal/Core/PMMA_Registry.hpp"
 
+#include "Internal/LoggingManager.hpp"
 #include "Internal/PowerSavingManager.hpp"
 
+#include "Constants.hpp"
+#include "Display.hpp"
 #include "General.hpp"
 
 std::string PMMA::General::Get_PMMA_Location() {

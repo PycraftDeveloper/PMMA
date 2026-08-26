@@ -6,7 +6,10 @@
 
 #include "Internal/Rendering/Core2D/Internal.hpp"
 
-#include "Types.hpp"
+#include "Types/Color.hpp"
+#include "Types/Coordinate.hpp"
+#include "Types/Size.hpp"
+#include "Types/Texture.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
 struct InstanceData;

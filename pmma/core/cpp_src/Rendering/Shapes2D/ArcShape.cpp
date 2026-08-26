@@ -5,7 +5,6 @@
 #include "Rendering/Shapes2D/ArcShape.hpp"
 
 #include "Display.hpp"
-#include "Types.hpp"
 
 float PMMA::Rendering::TwoD::Shapes::Arc::GetStartAngle() {
     if (!StartAngleSet) {

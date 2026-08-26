@@ -6,7 +6,7 @@
 #include <bgfx/bgfx.h>
 #include <bgfx/platform.h>
 
-#include "Types.hpp"
+#include "Types/Color.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
 class ColorTextureManager {

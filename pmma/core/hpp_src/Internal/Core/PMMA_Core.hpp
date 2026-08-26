@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include "Types.hpp"
+#include "Internal/Rendering/Core2D/Internal.hpp"
 
 /*
 Notes:

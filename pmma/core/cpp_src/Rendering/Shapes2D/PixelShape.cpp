@@ -3,7 +3,6 @@
 #include "Rendering/Shapes2D/PixelShape.hpp"
 
 #include "Display.hpp"
-#include "Types.hpp"
 
 void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
     if (!ShapePropertyChanged) {
