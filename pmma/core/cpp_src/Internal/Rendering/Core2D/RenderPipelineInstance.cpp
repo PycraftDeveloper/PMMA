@@ -150,6 +150,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
 
         if (PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad > 1) {
             PMMA::Internal::SplashScreen SplashScreen;
+
             SplashScreen.Play();
 
             PMMA::Core::Registry::TextureCompilationStartTime.reset();
@@ -263,9 +264,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape) {
 
     instance.color_index = ColorTexture.AddColor(&Color, ShapeID, ColorDataChanged);
 
-    std::cout << "Splash" << std::endl;
-
-    /*if (PMMA::Core::MasterDisplayInstance->FirstFrame) {
+    if (PMMA::Core::MasterDisplayInstance->FirstFrame) {
         PMMA::Core::MasterDisplayInstance->FirstFrame = false;
 
         if (PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad > 1) {
@@ -275,7 +274,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape) {
             PMMA::Core::Registry::TextureCompilationStartTime.reset();
             PMMA::Core::Registry::InitialSetup = false;
         }
-    }*/
+    }
 
     ColorChanged |= ColorDataChanged;
     ShapePropertyChanged |= PropertyChanged;

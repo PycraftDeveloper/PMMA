@@ -1,9 +1,13 @@
 
 #include "Internal/Core/PMMA_Core.hpp"
 
+#include "Internal/ParallelWorker.hpp"
 #include "Internal/SplashScreen.hpp"
 
 #include "Rendering/Shapes2D/RectangleShape.hpp"
+
+#include "Display.hpp"
+#include "General.hpp"
 
 void PMMA::Internal::SplashScreen::Play() {
     // ------------------------------------------------------------
@@ -99,6 +103,8 @@ void PMMA::Internal::SplashScreen::Play() {
 
         float NewProgress = static_cast<float>(PMMA::Core::ParallelWorkerInstance->ShadersLoaded + PMMA::Core::ParallelWorkerInstance->TexturesLoaded + PMMA::Core::ParallelWorkerInstance->FontsLoaded) / static_cast<float>(PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad);
         progress = std::clamp(NewProgress, 0.0f, 1.0f);
+
+        // std::cout << PMMA::Core::ParallelWorkerInstance->ShadersLoaded << " " << PMMA::Core::ParallelWorkerInstance->TexturesLoaded << std::endl;
 
         // --------------------------------------------------------
         // Inner progress dimensions

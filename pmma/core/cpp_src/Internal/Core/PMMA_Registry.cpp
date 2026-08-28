@@ -32,7 +32,7 @@ unsigned int DropEventInstanceCount = 0;
 unsigned int RollingViewID;
 unsigned int MaxViewID = 0;
 
-unsigned int ParallelWorkerMaxThreads = std::thread::hardware_concurrency();
+unsigned int ParallelWorkerMaxThreads = std::thread::hardware_concurrency() - 1;
 
 bool CPU_Supports_AVX2 = PMMA::Utility::CPU_FeatureSet::SupportsAVX2();
 bool CPU_Supports_AVX512 = PMMA::Utility::CPU_FeatureSet::SupportsAVX512();

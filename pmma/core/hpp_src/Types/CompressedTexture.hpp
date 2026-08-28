@@ -15,7 +15,7 @@ private:
     std::string Path = "";
 
 public:
-    PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *TextureProperties;
+    PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *TextureProperties = nullptr;
     bool IsTextureEnabled = false;
 
     ~CompressedTexture();
