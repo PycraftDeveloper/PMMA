@@ -5,8 +5,8 @@
 #include <vector>
 
 #include "Types/Color.hpp"
+#include "Types/CompressedTexture.hpp"
 #include "Types/Coordinate.hpp"
-#include "Types/Texture.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
 struct InstanceData;
@@ -17,7 +17,6 @@ class EXPORT Pixel {
 public:
     PMMA::Types::TwoD::Coordinate ShapeCenter;
     PMMA::Types::Color Color;
-    PMMA::Types::Texture Texture;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 

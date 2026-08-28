@@ -1,7 +1,7 @@
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 
-#include "Internal/Rendering/Core2D/Internal.hpp"
+#include "Internal/Rendering/Core2D/Base.hpp"
 
 #include "Constants.hpp"
 
@@ -17,7 +17,7 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineManager::~RenderPipelineManager
     CachedRenderPipelineInstances.clear();
 }
 
-PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rendering::Core2D::RenderPipelineManager::GetInstance(PMMA::Internal::Rendering::Core2D::TextureProperty *Texture, uint16_t *TextureSize, unsigned char Channels) {
+PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rendering::Core2D::RenderPipelineManager::GetInstance(PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture, uint16_t *TextureSize, unsigned char Channels) {
     if (RenderPipelineInstances.empty()) {
         if (CachedRenderPipelineInstances.empty()) {
             RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
@@ -51,6 +51,33 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rende
     }
 
     // adds textures and uses lastInstance batch
+
+    return lastInstance;
+}
+
+PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rendering::Core2D::RenderPipelineManager::GetInstance() {
+    if (RenderPipelineInstances.empty()) {
+        if (CachedRenderPipelineInstances.empty()) {
+            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
+        } else {
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
+        }
+    }
+
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *lastInstance = RenderPipelineInstances.back();
+
+    if ((lastInstance->OpaqueInstanceCount + lastInstance->TransparentInstanceCount) >= PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE) {
+        if (CachedRenderPipelineInstances.empty()) {
+            RenderPipelineInstances.push_back(new PMMA::Internal::Rendering::Core2D::RenderPipelineInstance());
+        } else {
+            RenderPipelineInstances.push_back(CachedRenderPipelineInstances.front());
+            CachedRenderPipelineInstances.erase(
+                CachedRenderPipelineInstances.begin());
+        }
+        lastInstance = RenderPipelineInstances.back();
+    }
 
     return lastInstance;
 }

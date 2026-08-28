@@ -3,28 +3,16 @@
 #include <map>
 #include <string>
 
+#include <bgfx/bgfx.h>
+
 #include "Internal/Internal.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
-struct SkylineNode {
-    uint32_t x;
-    uint32_t y;
-    uint32_t width;
-};
-
-struct AtlasAllocation {
-    uint32_t X;
-    uint32_t Y;
-
-    uint32_t Width;
-    uint32_t Height;
-};
-
 class CompressedTextureInstance { // makes texture atlas for a RenderPipelineInstance
 private:
-    std::vector<PMMA::Internal::Rendering::Core2D::TextureProperty *> PendingTextures;
+    std::vector<PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *> PendingTextures;
 
-    std::vector<SkylineNode> Skyline;
+    std::vector<PMMA::Internal::Rendering::Core2D::SkylineNode> Skyline;
 
 public:
     std::map<uintptr_t, AtlasAllocation> Allocations;
@@ -95,7 +83,7 @@ public:
     }
 
     inline bool CanFitTexture(
-        PMMA::Internal::Rendering::Core2D::TextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
 
@@ -209,7 +197,7 @@ public:
         uint32_t Width,
         uint32_t Height) {
 
-        SkylineNode NewNode{
+        PMMA::Internal::Rendering::Core2D::SkylineNode NewNode{
             X,
             Y + Height,
             Width};
@@ -227,8 +215,8 @@ public:
         //
         for (size_t i = Index + 1;
              i < Skyline.size();) {
-            SkylineNode &Current = Skyline[i];
-            SkylineNode &Previous = Skyline[i - 1];
+            PMMA::Internal::Rendering::Core2D::SkylineNode &Current = Skyline[i];
+            PMMA::Internal::Rendering::Core2D::SkylineNode &Previous = Skyline[i - 1];
 
             uint32_t PreviousEnd =
                 Previous.x + Previous.width;
@@ -271,8 +259,8 @@ public:
             return;
 
         for (size_t i = 0; i < Skyline.size() - 1;) {
-            SkylineNode &Current = Skyline[i];
-            SkylineNode &Next = Skyline[i + 1];
+            PMMA::Internal::Rendering::Core2D::SkylineNode &Current = Skyline[i];
+            PMMA::Internal::Rendering::Core2D::SkylineNode &Next = Skyline[i + 1];
 
             //
             // Adjacent nodes at the same height
@@ -297,7 +285,7 @@ public:
     }
 
     inline bool RegisterTexture(
-        PMMA::Internal::Rendering::Core2D::TextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture,
         std::vector<float> &LookUpTextureData,
         uint32_t TextureID) {
         if (Texture == nullptr) {

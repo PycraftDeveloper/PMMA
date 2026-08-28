@@ -51,6 +51,7 @@ set(CORE_SOURCES
     "${SRC_DIR}/Internal/Rendering/Core2D/RenderPipelineManager.cpp"
     "${SRC_DIR}/Internal/Rendering/Core2D/RenderPipelineInstance.cpp"
     "${SRC_DIR}/Internal/Rendering/Core2D/CompressedTextureInstance.cpp"
+    "${SRC_DIR}/Internal/Rendering/Core2D/GeneratedTextureManager.cpp"
 
     "${SRC_DIR}/Internal/Utility/CPU_FeatureSetUtils.cpp"
     "${SRC_DIR}/Internal/Utility/FontUtils.cpp"
@@ -62,7 +63,6 @@ set(CORE_SOURCES
     "${SRC_DIR}/Rendering/Shapes2D/PixelShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/LineShape.cpp"
     "${SRC_DIR}/Rendering/Shapes2D/ArcShape.cpp"
-    "${SRC_DIR}/Rendering/Shapes2D/PolygonShape.cpp"
 
     "${SRC_DIR}/Noise/FractalBrownianMotion.cpp"
     "${SRC_DIR}/Noise/PerlinNoise_BASE.cpp"
@@ -72,7 +72,8 @@ set(CORE_SOURCES
     "${SRC_DIR}/Types/Proportion.cpp"
     "${SRC_DIR}/Types/Coordinate.cpp"
     "${SRC_DIR}/Types/Size.cpp"
-    "${SRC_DIR}/Types/Texture.cpp"
+    "${SRC_DIR}/Types/CompressedTexture.cpp"
+    "${SRC_DIR}/Types/GeneratedTexture.cpp"
 
     "${SRC_DIR}/Maths_BASE.cpp"
     "${SRC_DIR}/Display.cpp"

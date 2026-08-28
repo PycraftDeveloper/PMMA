@@ -228,12 +228,6 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
 }
 
 template void
-PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add<PMMA::Rendering::TwoD::Shapes::Pixel>(
-    PMMA::Rendering::TwoD::Shapes::Pixel *,
-    uint16_t *,
-    unsigned char);
-
-template void
 PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add<PMMA::Rendering::TwoD::Shapes::Rectangle>(
     PMMA::Rendering::TwoD::Shapes::Rectangle *,
     uint16_t *,
@@ -257,6 +251,86 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add<PMMA::Rendering::
     uint16_t *,
     unsigned char);
 
+template <typename T>
+void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape) {
+    uintptr_t ShapeID = shape->ID;
+    const bool ColorDataChanged = shape->ColorDataChanged;
+    const bool PropertyChanged = shape->ShapePropertyChanged;
+    auto &Color = shape->Color;
+    auto &instance = shape->ShapeInstanceData;
+
+    bool IsOpaque = Color.IsOpaque();
+
+    instance.color_index = ColorTexture.AddColor(&Color, ShapeID, ColorDataChanged);
+
+    std::cout << "Splash" << std::endl;
+
+    /*if (PMMA::Core::MasterDisplayInstance->FirstFrame) {
+        PMMA::Core::MasterDisplayInstance->FirstFrame = false;
+
+        if (PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad > 1) {
+            PMMA::Internal::SplashScreen SplashScreen;
+            SplashScreen.Play();
+
+            PMMA::Core::Registry::TextureCompilationStartTime.reset();
+            PMMA::Core::Registry::InitialSetup = false;
+        }
+    }*/
+
+    ColorChanged |= ColorDataChanged;
+    ShapePropertyChanged |= PropertyChanged;
+
+    if (IsOpaque) { // opaque
+        if (UsingCache && OpaqueInstanceCount < CurrentOpaqueDataSize && CurrentShapeIDs[0][OpaqueInstanceCount] == ShapeID) {
+            if (PropertyChanged) {
+                CurrentInstanceData[0][OpaqueInstanceCount] = instance;
+            }
+
+            OpaqueInstanceCount++;
+            return;
+        }
+
+        UsingCache = false;
+
+        if (OpaqueInstanceCount >= CurrentOpaqueDataSize) {
+            CurrentInstanceData[0].push_back(instance);
+            CurrentShapeIDs[0].push_back(ShapeID);
+            CurrentOpaqueDataSize++;
+        } else {
+            CurrentInstanceData[0][OpaqueInstanceCount] = instance;
+            CurrentShapeIDs[0][OpaqueInstanceCount] = ShapeID;
+        }
+
+        OpaqueInstanceCount++;
+    } else { // transparent
+        if (UsingCache && TransparentInstanceCount < CurrentTransparentDataSize && CurrentShapeIDs[1][TransparentInstanceCount] == ShapeID) {
+            if (PropertyChanged) {
+                CurrentInstanceData[1][TransparentInstanceCount] = instance;
+            }
+
+            TransparentInstanceCount++;
+            return;
+        }
+
+        UsingCache = false;
+
+        if (TransparentInstanceCount >= CurrentTransparentDataSize) {
+            CurrentInstanceData[1].push_back(instance);
+            CurrentShapeIDs[1].push_back(ShapeID);
+            CurrentTransparentDataSize++;
+        } else {
+            CurrentInstanceData[1][TransparentInstanceCount] = instance;
+            CurrentShapeIDs[1][TransparentInstanceCount] = ShapeID;
+        }
+
+        TransparentInstanceCount++;
+    }
+}
+
+template void
+PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add<PMMA::Rendering::TwoD::Shapes::Pixel>(
+    PMMA::Rendering::TwoD::Shapes::Pixel *);
+
 void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
     if (ColorChanged || !ColorTexture.UsingCache) {
         PMMA::Core::ActiveDisplayInstance->TriggerEventRefresh();
@@ -264,6 +338,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
         ColorTexture.Assemble();
     }
 
+    GeneratedTextureManager.Assemble();
     CompressedTextureManager.Assemble();
 
     if (ShapePropertyChanged || OpaqueInstanceCount != OpaquePreviousBufferSize || TransparentInstanceCount != TransparentPreviousBufferSize || !bgfx::isValid(OpaqueInstanceVbh) || !bgfx::isValid(TransparentInstanceVbh)) {
@@ -396,6 +471,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
             0,
             0};
 
+        GeneratedTextureManager.OpaquePass();
         CompressedTextureManager.OpaquePass(textureInfo);
 
         bgfx::setUniform(u_textureInfo, textureInfo);
@@ -442,6 +518,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Render() {
             0,
             0};
 
+        GeneratedTextureManager.TransparentPass();
         CompressedTextureManager.TransparentPass(textureInfo);
 
         bgfx::setUniform(u_textureInfo, textureInfo);

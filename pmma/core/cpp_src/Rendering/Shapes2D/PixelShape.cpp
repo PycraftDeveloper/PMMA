@@ -1,3 +1,5 @@
+#include "Internal/Core/PMMA_Core.hpp"
+
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 
 #include "Rendering/Shapes2D/PixelShape.hpp"
@@ -37,14 +39,7 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
         }
     }
 
-    uint16_t TextureSize[2] = {0, 0};
-    unsigned char Channels;
-    if (Texture.IsEnabled()) {
-        Texture.GetSize(TextureSize);
-        Channels = Texture.GetChannels();
-    }
-
-    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance(Texture.TextureProperties, TextureSize, Channels);
+    PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *Instance = PMMA::Core::ActiveDisplayInstance->RenderPipelineCore->GetInstance();
 
     if (ShapePropertyChanged) {
         // Existing packing logic
@@ -57,7 +52,7 @@ void PMMA::Rendering::TwoD::Shapes::Pixel::Render() {
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }
 
-    Instance->Add(this, TextureSize, Channels);
+    Instance->Add(this);
 
     if (ColorDataChanged) {
         ColorDataChanged = false;

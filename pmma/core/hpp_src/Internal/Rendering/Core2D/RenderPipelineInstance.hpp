@@ -9,6 +9,7 @@
 
 #include "Internal/Rendering/Core2D/ColorTextureManager.hpp"
 #include "Internal/Rendering/Core2D/CompressedTextureManager.hpp"
+#include "Internal/Rendering/Core2D/GeneratedTextureManager.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
@@ -24,6 +25,7 @@ private:
     PMMA::Internal::Rendering::Core2D::ColorTextureManager ColorTexture;
 
 public:
+    PMMA::Internal::Rendering::Core2D::GeneratedTextureManager GeneratedTextureManager;
     PMMA::Internal::Rendering::Core2D::CompressedTextureManager CompressedTextureManager;
 
 private:
@@ -112,7 +114,10 @@ public:
     }
 
     template <typename T>
-    inline void Add(T *shape, uint16_t *TextureSize, unsigned char Channels);
+    void Add(T *shape, uint16_t *TextureSize, unsigned char Channels);
+
+    template <typename T>
+    void Add(T *shape);
 
     void Render();
 };

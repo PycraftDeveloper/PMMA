@@ -7,18 +7,18 @@
 
 #include <zstd.h>
 
-#include "Internal/Rendering/Core2D/Internal.hpp"
+#include "Internal/Rendering/Core2D/Base.hpp"
 
 namespace PMMA::Types {
-class EXPORT Texture {
+class EXPORT CompressedTexture {
 private:
     std::string Path = "";
 
 public:
-    PMMA::Internal::Rendering::Core2D::TextureProperty *TextureProperties;
+    PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *TextureProperties;
     bool IsTextureEnabled = false;
 
-    ~Texture();
+    ~CompressedTexture();
 
     void Load(std::string TexturePath);
     void Load();
@@ -208,7 +208,7 @@ public:
 
     inline void SaveTextureCache(
         const std::string &path,
-        const PMMA::Internal::Rendering::Core2D::TextureProperty &texture) {
+        const PMMA::Internal::Rendering::Core2D::CompressedTextureProperty &texture) {
 
         std::ofstream file(
             path,
@@ -316,7 +316,7 @@ public:
 
     uint32_t GetReferences();
 
-    bool IsLoaded() {
+    inline bool IsLoaded() {
         return TextureProperties != nullptr;
     }
 

@@ -2,6 +2,7 @@
 
 #include <cstdint>
 #include <future>
+#include <map>
 #include <vector>
 
 namespace PMMA::Internal::Rendering::Core2D {
@@ -39,7 +40,7 @@ struct MipData {
     uint8_t Padding;
 };
 
-struct TextureProperty {
+struct CompressedTextureProperty {
     uintptr_t ID;
     uint32_t References = 0;
     uint8_t MipLevels;
@@ -49,7 +50,23 @@ struct TextureProperty {
 
     std::future<void> LoadFuture;
 
-    TextureProperty() {
+    CompressedTextureProperty() {
+        ID = reinterpret_cast<uintptr_t>(this);
+    }
+};
+
+struct GeneratedTextureProperty {
+    uintptr_t ID;
+    uint16_t TextureSize[2];
+    uint32_t References = 0;
+    uint8_t MipLevels;
+    bool Transparent = false;
+
+    std::vector<unsigned char> PixelData;
+
+    std::map<uintptr_t, uint16_t[2]> RegisteredRenderPipelineInstances;
+
+    GeneratedTextureProperty() {
         ID = reinterpret_cast<uintptr_t>(this);
     }
 };
@@ -69,5 +86,18 @@ struct InstanceData {
     float texture_position = 0, texture_size = 0;
     float shape_property_two = 0, shape_property_three = 0;
     float depth = 0, texture_id = 0;
+};
+
+struct SkylineNode {
+    uint32_t x;
+    uint32_t y;
+    uint32_t width;
+};
+
+struct AtlasAllocation {
+    uint32_t X;
+    uint32_t Y;
+    uint32_t Width;
+    uint32_t Height;
 };
 } // namespace PMMA::Internal::Rendering::Core2D

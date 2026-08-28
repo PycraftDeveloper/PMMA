@@ -5,8 +5,8 @@
 #include <vector>
 
 #include "Types/Color.hpp"
+#include "Types/CompressedTexture.hpp"
 #include "Types/Coordinate.hpp"
-#include "Types/Texture.hpp"
 
 namespace PMMA::Internal::Rendering::Core2D {
 struct InstanceData;
@@ -18,7 +18,7 @@ public:
     PMMA::Types::TwoD::Coordinate ShapeStart;
     PMMA::Types::TwoD::Coordinate ShapeEnd;
     PMMA::Types::Color Color;
-    PMMA::Types::Texture Texture;
+    PMMA::Types::CompressedTexture Texture;
 
     PMMA::Internal::Rendering::Core2D::InstanceData ShapeInstanceData;
 

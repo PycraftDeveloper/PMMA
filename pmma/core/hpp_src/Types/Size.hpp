@@ -5,8 +5,8 @@
 #include "Noise/PerlinNoise.hpp"
 
 #include "Types/Base.hpp"
+#include "Types/CompressedTexture.hpp"
 #include "Types/Proportion.hpp"
-#include "Types/Texture.hpp"
 
 #include "Maths.hpp"
 #include "Random.hpp"
@@ -15,7 +15,7 @@ namespace PMMA::Types::TwoD {
 
 class EXPORT Size {
 public:
-    PMMA::Types::Texture *Texture;
+    PMMA::Types::CompressedTexture *Texture;
     PMMA::Types::Proportion HorizontalScale;
     PMMA::Types::Proportion VerticalScale;
 

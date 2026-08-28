@@ -6,18 +6,19 @@
 #include "Internal/Core/PMMA_Core.hpp"
 #include "Internal/Core/PMMA_Registry.hpp"
 
+#include "Internal/LoggingManager.hpp"
 #include "Internal/ParallelWorker.hpp"
 
-#include "Types/Texture.hpp"
+#include "Types/CompressedTexture.hpp"
 
 #include "Constants.hpp"
 #include "Passport.hpp"
 
-inline void TextureSetCheck(PMMA::Internal::Rendering::Core2D::TextureProperty *TextureProperties) {
+inline void CompressedTextureSetCheck(PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *TextureProperties) {
     if (TextureProperties == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             70,
-            "Unable to get texture size. You need to load a texture \
+            "Unable to get texture properties. You need to load a texture \
 before calling this function!");
 
         throw std::runtime_error("Failed to query texture information.");
@@ -34,7 +35,7 @@ static size_t GetBC7MipSize(
 }
 
 inline void GenerateMipChain(
-    PMMA::Internal::Rendering::Core2D::TextureProperty *TextureProperties,
+    PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *TextureProperties,
     const unsigned char *basePixels,
     uint32_t width,
     uint32_t height,
@@ -704,7 +705,7 @@ inline void CompressMipChainToBC7(
     }
 }
 
-void PMMA::Types::Texture::InternalLoad() {
+void PMMA::Types::CompressedTexture::InternalLoad() {
     // Attempt to load from cache first
 
     std::string CachedTexturePath = "";
@@ -820,7 +821,7 @@ image path is valid and is a valid format. The image path is: '" +
     }
 }
 
-void PMMA::Types::Texture::Load(std::string TexturePath) {
+void PMMA::Types::CompressedTexture::Load(std::string TexturePath) {
     if (Path == TexturePath) {
         return;
     }
@@ -831,15 +832,15 @@ void PMMA::Types::Texture::Load(std::string TexturePath) {
 
     Path = TexturePath;
 
-    auto it = PMMA::Core::TextureCatalogue.find(TexturePath);
+    auto it = PMMA::Core::CompressedTextureCatalogue.find(TexturePath);
 
     // its already loaded, just use the existing one
-    if (it != PMMA::Core::TextureCatalogue.end()) {
-        std::pair<const std::string, PMMA::Internal::Rendering::Core2D::TextureProperty> *pairPtr = &*it;
+    if (it != PMMA::Core::CompressedTextureCatalogue.end()) {
+        std::pair<const std::string, PMMA::Internal::Rendering::Core2D::CompressedTextureProperty> *pairPtr = &*it;
 
         TextureProperties = &(pairPtr->second);
     } else {
-        PMMA::Internal::Rendering::Core2D::TextureProperty &propertyRef = PMMA::Core::TextureCatalogue[TexturePath];
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty &propertyRef = PMMA::Core::CompressedTextureCatalogue[TexturePath];
 
         TextureProperties = &propertyRef;
 
@@ -854,9 +855,9 @@ void PMMA::Types::Texture::Load(std::string TexturePath) {
     IsTextureEnabled = true;
 }
 
-void PMMA::Types::Texture::Load() {
+void PMMA::Types::CompressedTexture::Load() {
     if (Path != "") {
-        PMMA::Types::Texture::Load(Path);
+        PMMA::Types::CompressedTexture::Load(Path);
     } else {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             71,
@@ -867,7 +868,7 @@ path has not been set. Please specify a valid file path to a texture.");
     }
 }
 
-void PMMA::Types::Texture::Unload() {
+void PMMA::Types::CompressedTexture::Unload() {
     IsTextureEnabled = false;
 
     if (TextureProperties != nullptr) {
@@ -880,22 +881,17 @@ void PMMA::Types::Texture::Unload() {
         TextureProperties->References -= 1;
 
         if (TextureProperties->References <= 0) {
-            PMMA::Core::TextureCatalogue.erase(Path);
+            PMMA::Core::CompressedTextureCatalogue.erase(Path);
         }
     }
 }
 
-PMMA::Types::Texture::~Texture() {
-    PMMA::Types::Texture::Unload();
+PMMA::Types::CompressedTexture::~CompressedTexture() {
+    PMMA::Types::CompressedTexture::Unload();
 }
 
-void PMMA::Types::Texture::Enable() {
-    if (TextureProperties == nullptr) {
-        PMMA::Core::LoggingManagerInstance->InternalLogWarn(
-            69,
-            "Cannot enable an image that has not been loaded yet. \
-Please load an image first.");
-    }
+void PMMA::Types::CompressedTexture::Enable() {
+    CompressedTextureSetCheck(TextureProperties);
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
@@ -906,8 +902,8 @@ Please load an image first.");
     IsTextureEnabled = true;
 }
 
-void PMMA::Types::Texture::GetSize(uint16_t *size) {
-    TextureSetCheck(TextureProperties);
+void PMMA::Types::CompressedTexture::GetSize(uint16_t *size) {
+    CompressedTextureSetCheck(TextureProperties);
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
@@ -919,15 +915,8 @@ void PMMA::Types::Texture::GetSize(uint16_t *size) {
     size[1] = TextureProperties->MipChain[0].Size[1];
 }
 
-uint16_t PMMA::Types::Texture::GetWidth() {
-    if (TextureProperties == nullptr) {
-        PMMA::Core::LoggingManagerInstance->InternalLogError(
-            70,
-            "Unable to get texture width. You need to load a texture \
-before calling this function!");
-
-        throw std::runtime_error("Failed to query texture information.");
-    }
+uint16_t PMMA::Types::CompressedTexture::GetWidth() {
+    CompressedTextureSetCheck(TextureProperties);
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
@@ -938,15 +927,8 @@ before calling this function!");
     return TextureProperties->MipChain[0].Size[0];
 }
 
-uint16_t PMMA::Types::Texture::GetHeight() {
-    if (TextureProperties == nullptr) {
-        PMMA::Core::LoggingManagerInstance->InternalLogError(
-            70,
-            "Unable to get texture height. You need to load a texture \
-before calling this function!");
-
-        throw std::runtime_error("Failed to query texture information.");
-    }
+uint16_t PMMA::Types::CompressedTexture::GetHeight() {
+    CompressedTextureSetCheck(TextureProperties);
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
@@ -957,15 +939,8 @@ before calling this function!");
     return TextureProperties->MipChain[0].Size[1];
 }
 
-std::string PMMA::Types::Texture::GetPath() {
-    if (TextureProperties == nullptr) {
-        PMMA::Core::LoggingManagerInstance->InternalLogError(
-            70,
-            "Unable to get texture path. You need to load a texture \
-before calling this function!");
-
-        throw std::runtime_error("Failed to query texture information.");
-    }
+std::string PMMA::Types::CompressedTexture::GetPath() {
+    CompressedTextureSetCheck(TextureProperties);
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
@@ -976,8 +951,8 @@ before calling this function!");
     return Path;
 }
 
-unsigned char PMMA::Types::Texture::GetChannels() {
-    TextureSetCheck(TextureProperties);
+unsigned char PMMA::Types::CompressedTexture::GetChannels() {
+    CompressedTextureSetCheck(TextureProperties);
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();
@@ -992,8 +967,8 @@ unsigned char PMMA::Types::Texture::GetChannels() {
     return 3;
 }
 
-uint32_t PMMA::Types::Texture::GetReferences() {
-    TextureSetCheck(TextureProperties);
+uint32_t PMMA::Types::CompressedTexture::GetReferences() {
+    CompressedTextureSetCheck(TextureProperties);
 
     if (TextureProperties->LoadFuture.valid()) {
         TextureProperties->LoadFuture.wait();

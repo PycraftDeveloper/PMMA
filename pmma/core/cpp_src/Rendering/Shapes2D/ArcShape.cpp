@@ -1,3 +1,5 @@
+#include "Internal/Core/PMMA_Core.hpp"
+
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 
 #include "Internal/LoggingManager.hpp"

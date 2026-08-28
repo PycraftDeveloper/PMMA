@@ -155,7 +155,7 @@ public:
     }
 
     inline bool CanFitTextureOpaque(
-        PMMA::Internal::Rendering::Core2D::TextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
 
@@ -181,7 +181,7 @@ public:
     }
 
     inline bool CanFitTextureTransparent(
-        PMMA::Internal::Rendering::Core2D::TextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture,
         uint32_t Width,
         uint32_t Height) {
 
@@ -206,7 +206,7 @@ public:
             Height);
     }
 
-    inline float RegisterOpaque(TextureProperty *TextureProperties) {
+    inline float RegisterOpaque(PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *TextureProperties) {
         uintptr_t InternalTextureID = TextureProperties->ID;
         if (Primed.first == InternalTextureID) {
             return Primed.second;
@@ -240,7 +240,7 @@ public:
         return static_cast<float>(ID);
     }
 
-    inline float RegisterTransparent(TextureProperty *TextureProperties) {
+    inline float RegisterTransparent(PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *TextureProperties) {
         uintptr_t InternalTextureID = TextureProperties->ID;
         if (Primed.first == InternalTextureID) {
             return Primed.second;

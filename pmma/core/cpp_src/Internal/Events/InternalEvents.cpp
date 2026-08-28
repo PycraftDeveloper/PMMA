@@ -1,4 +1,8 @@
+#include "Internal/Core/PMMA_Core.hpp"
+
 #include "Internal/Events/InternalEvents.hpp"
+
+#include "Internal/LoggingManager.hpp"
 
 #include "Types/Proportion.hpp"
 
@@ -101,6 +105,45 @@ PMMA::Internal::Events::InternalController::~InternalController() {
     RawButtonData.clear();
     RawHatStateData.clear();
 }
+
+void PMMA::Internal::Events::InternalController::UpdateConnection(bool new_Connected) {
+    if (new_Connected) {
+        RawName = glfwGetJoystickName(ID);
+        GUID = glfwGetJoystickGUID(ID);
+
+        IsGamePad = glfwJoystickIsGamepad(ID);
+
+        if (IsGamePad) {
+            GamePadName = glfwGetGamepadName(ID);
+        }
+
+        glfwGetJoystickAxes(ID, &RawAxisCount);
+        for (int i = 0; i < RawAxisCount; i++) {
+            RawAxesData.emplace_back();
+        }
+
+        glfwGetJoystickButtons(ID, &RawButtonCount);
+        for (int i = 0; i < RawButtonCount; i++) {
+            RawButtonData.push_back(false);
+        }
+
+        glfwGetJoystickHats(ID, &RawHatCount);
+        for (int i = 0; i < RawHatCount; i++) {
+            RawHatStateData.push_back(PMMA::Constants::HatStates::NOT_PRESSED);
+        }
+
+        Update();
+
+    } else {
+        RawName = "";
+        GUID = "";
+        GamePadName = "";
+        RawAxesData.clear();
+        RawButtonData.clear();
+        RawHatStateData.clear();
+    }
+    Connected = new_Connected;
+};
 
 void PMMA::Internal::Events::InternalController::Update() {
     if (UpdateRawData) {

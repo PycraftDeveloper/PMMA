@@ -26,7 +26,8 @@ std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
 
 PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance = nullptr;
 
-std::map<std::string, PMMA::Internal::Rendering::Core2D::TextureProperty> TextureCatalogue;
+std::map<std::string, PMMA::Internal::Rendering::Core2D::CompressedTextureProperty> CompressedTextureCatalogue;
+std::map<std::string, PMMA::Internal::Rendering::Core2D::GeneratedTextureProperty> GeneratedTextureCatalogue;
 
 PMMA::Internal::ParallelWorker *ParallelWorkerInstance = nullptr;
 PMMA::Graphics::Shader *Core2D_ShapeSDF_Program = nullptr;

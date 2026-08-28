@@ -1,4 +1,6 @@
-#include "Internal/Rendering/Core2D/Internal.hpp"
+#include "Internal/Core/PMMA_Core.hpp"
+
+#include "Internal/Rendering/Core2D/Base.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 

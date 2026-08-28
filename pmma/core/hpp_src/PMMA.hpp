@@ -15,7 +15,6 @@
 #include "Rendering/Shapes2D/ArcShape.hpp"
 #include "Rendering/Shapes2D/LineShape.hpp"
 #include "Rendering/Shapes2D/PixelShape.hpp"
-#include "Rendering/Shapes2D/PolygonShape.hpp"
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
 
@@ -23,19 +22,20 @@
 
 #include "Types/Angle.hpp"
 #include "Types/Color.hpp"
+#include "Types/CompressedTexture.hpp"
 #include "Types/Coordinate.hpp"
+#include "Types/GeneratedTexture.hpp"
 #include "Types/Proportion.hpp"
 #include "Types/Size.hpp"
-#include "Types/Texture.hpp"
+
+#include "Noise/FractalBrownianMotion.hpp"
+#include "Noise/PerlinNoise.hpp"
 
 #include "Constants.hpp"
 #include "Display.hpp"
-#include "Events/ControllerEvents.hpp"
 #include "General.hpp"
 #include "Logger.hpp"
 #include "Maths.hpp"
-#include "Noise/FractalBrownianMotion.hpp"
-#include "Noise/PerlinNoise.hpp"
 #include "Passport.hpp"
 #include "Random.hpp"
 

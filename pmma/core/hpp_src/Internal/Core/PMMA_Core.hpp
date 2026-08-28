@@ -2,7 +2,7 @@
 
 #include <map>
 
-#include "Internal/Rendering/Core2D/Internal.hpp"
+#include "Internal/Rendering/Core2D/Base.hpp"
 
 /*
 Notes:
@@ -53,7 +53,8 @@ extern std::vector<PMMA::Events::Controller *> ControllerEvent_Instances;
 
 extern PMMA::Internal::Events::InternalControllerManager *ControllerManagerInstance;
 
-extern std::map<std::string, PMMA::Internal::Rendering::Core2D::TextureProperty> TextureCatalogue;
+extern std::map<std::string, PMMA::Internal::Rendering::Core2D::CompressedTextureProperty> CompressedTextureCatalogue;
+extern std::map<std::string, PMMA::Internal::Rendering::Core2D::GeneratedTextureProperty> GeneratedTextureCatalogue;
 
 extern PMMA::Internal::ParallelWorker *ParallelWorkerInstance;
 
