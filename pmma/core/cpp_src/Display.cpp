@@ -355,7 +355,6 @@ will automatically resize it to this minimum approved size.");
 
     GLFWmonitor *TargetMonitor = GetTargetMonitor(TemporaryWindow);
     glfwDestroyWindow(TemporaryWindow);
-    glfwWindowHint(GLFW_VISIBLE, GLFW_TRUE);
 
     int TargetMonitor_X_Position, TargetMonitor_Y_Position;
     glfwGetMonitorPos(
@@ -600,6 +599,12 @@ vsync to reduce visual tearing and improve frame pacing.");
 
     F11_KeyEvent = new PMMA::Events::Key_F11();
     Escape_KeyEvent = new PMMA::Events::Key_Escape();
+
+    bgfx::touch(DisplayID); // Ensure view DisplayID is cleared
+
+    bgfx::frame();
+
+    glfwShowWindow(Window);
 }
 
 void PMMA::Display::Clear() {
