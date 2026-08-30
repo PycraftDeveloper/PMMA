@@ -17,13 +17,16 @@ private:
 public:
     std::map<uintptr_t, AtlasAllocation> Allocations;
 
-    std::vector<unsigned char> AtlasPixels;
+    std::array<std::vector<unsigned char>, 4> AtlasPixels;
 
     uint32_t AtlasPadding = 0;
     uint32_t MipLevel = 0;
 
 public:
     bool Dirty = false;
+
+    char BufferID = 0;
+    char PreviousBufferID = 0;
 
     bgfx::TextureHandle TextureHandle = BGFX_INVALID_HANDLE;
 
@@ -61,7 +64,6 @@ public:
     }
 
     inline void Reset() {
-        PendingTextures.clear();
         Allocations.clear();
 
         Skyline.clear();
@@ -69,17 +71,7 @@ public:
                            0,
                            MaxTextureDimension});
 
-        AtlasPixels.clear();
-
         Dirty = false;
-
-        m_TextureWidth = 0;
-        m_TextureHeight = 0;
-
-        if (bgfx::isValid(TextureHandle)) {
-            bgfx::destroy(TextureHandle);
-            TextureHandle = BGFX_INVALID_HANDLE;
-        }
     }
 
     inline bool CanFitTexture(

@@ -8,6 +8,9 @@
 
 #include <bc7enc_wrapper.hpp>
 
+#include "Internal/Rendering/Core2D/Base.hpp"
+#include "Internal/Rendering/Core2D/CompressedTextureInstance.hpp"
+
 // ============================================================================
 // BC7 helpers
 // ============================================================================
@@ -310,11 +313,6 @@ static inline bool CopyBC7MipIntoAtlas(
 // ============================================================================
 
 void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
-
-    if (!Dirty) {
-        return;
-    }
-
     // ========================================================================
     // 1. Determine atlas dimensions.
     //
@@ -367,15 +365,14 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
             m_TextureWidth,
             m_TextureHeight);
 
-    std::vector<uint8_t> compressedAtlas(
-        atlasSize);
-
     // ========================================================================
     // 4. Initialize the atlas to transparent black.
     // ========================================================================
 
+    AtlasPixels[BufferID].resize(atlasSize);
+
     ClearBC7Mip(
-        compressedAtlas.data(),
+        AtlasPixels[BufferID].data(),
         m_TextureWidth,
         m_TextureHeight);
 
@@ -536,7 +533,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
                 y,
                 m_TextureWidth,
                 m_TextureHeight,
-                compressedAtlas.data())) {
+                AtlasPixels[BufferID].data())) {
 
             std::cerr
                 << "Failed to copy mip "
@@ -569,7 +566,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     // This texture has no mip chain.
     // ========================================================================
 
-    if (compressedAtlas.empty()) {
+    if (AtlasPixels[BufferID].empty()) {
 
         std::cerr
             << "Compressed atlas is empty."
@@ -581,6 +578,8 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
 
         return;
     }
+
+    std::cout << "TextureAtlasMaker" << std::endl;
 
     TextureHandle =
         bgfx::createTexture2D(
@@ -598,11 +597,11 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
 
             BGFX_TEXTURE_NONE,
 
-            bgfx::copy(
-                compressedAtlas.data(),
+            bgfx::makeRef(
+                AtlasPixels[BufferID].data(),
 
                 static_cast<uint32_t>(
-                    compressedAtlas.size())));
+                    AtlasPixels[BufferID].size())));
 
     // ========================================================================
     // 8. Cleanup.
@@ -611,4 +610,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     PendingTextures.clear();
 
     Dirty = false;
+
+    PreviousBufferID = BufferID;
+    BufferID = (BufferID + 1) % 4;
 }
