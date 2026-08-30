@@ -27,6 +27,8 @@ private:
     std::vector<PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *> CachedRenderPipelineInstances;
 
 public:
+    bool FirstFrame = true;
+
     ~RenderPipelineManager();
 
     PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *GetInstance(PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture, uint16_t *TextureSize, unsigned char Channels);

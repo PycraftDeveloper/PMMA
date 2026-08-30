@@ -12,6 +12,7 @@
 #include "Internal/Rendering/Core2D/RenderPipelineInstance.hpp"
 #include "Internal/Rendering/Core2D/RenderPipelineManager.hpp"
 
+#include "Internal/LoggingManager.hpp"
 #include "Internal/ParallelWorker.hpp"
 #include "Internal/SplashScreen.hpp"
 
@@ -21,6 +22,7 @@
 #include "Rendering/Shapes2D/RadialPolygonShape.hpp"
 #include "Rendering/Shapes2D/RectangleShape.hpp"
 
+#include "Display.hpp"
 #include "Graphics/Shader.hpp"
 
 PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::RenderPipelineInstance() {
@@ -145,8 +147,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
     instance.texture_size = 0;
     // end
 
-    if (PMMA::Core::MasterDisplayInstance->FirstFrame) {
-        PMMA::Core::MasterDisplayInstance->FirstFrame = false;
+    if (PMMA::Core::MasterDisplayInstance->RenderPipelineCore->FirstFrame) {
+        PMMA::Core::MasterDisplayInstance->RenderPipelineCore->FirstFrame = false;
 
         if (PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad > 1) {
             PMMA::Internal::SplashScreen SplashScreen;
@@ -264,8 +266,8 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape) {
 
     instance.color_index = ColorTexture.AddColor(&Color, ShapeID, ColorDataChanged);
 
-    if (PMMA::Core::MasterDisplayInstance->FirstFrame) {
-        PMMA::Core::MasterDisplayInstance->FirstFrame = false;
+    if (PMMA::Core::MasterDisplayInstance->RenderPipelineCore->FirstFrame) {
+        PMMA::Core::MasterDisplayInstance->RenderPipelineCore->FirstFrame = false;
 
         if (PMMA::Core::ParallelWorkerInstance->ShadersToLoad + PMMA::Core::ParallelWorkerInstance->TexturesToLoad + PMMA::Core::ParallelWorkerInstance->FontsToLoad > 1) {
             PMMA::Internal::SplashScreen SplashScreen;

@@ -604,7 +604,11 @@ vsync to reduce visual tearing and improve frame pacing.");
 
     bgfx::frame();
 
-    glfwShowWindow(Window);
+    PMMA::Core::LoggingManagerInstance->InternalLogDebug(
+        73,
+        "The created display has been automatically hidden until the first refresh \
+call is made. This is to prevent windows appearing and being unresponsive whilst \
+the app loads. It will automatically show up once the first frame is ready!");
 }
 
 void PMMA::Display::Clear() {
@@ -714,6 +718,11 @@ unsigned int PMMA::Display::CalculateRefreshRate(
 }
 
 void PMMA::Display::Refresh(Display_Refresh_Kwargs kwargs) {
+    if (FirstFrame) {
+        FirstFrame = false;
+        glfwShowWindow(Window);
+    }
+
     if (Window == nullptr) {
         PMMA::Core::LoggingManagerInstance->InternalLogError(
             18,

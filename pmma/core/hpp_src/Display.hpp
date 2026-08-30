@@ -455,10 +455,10 @@ private:
     bool OrthographicProjectionSet = false;
     bool IsSecondaryDisplay = false;
     bool DisplayShouldClose = false;
+    bool FirstFrame = true;
 
 public:
     bool DisplaySizeChanged = true;
-    bool FirstFrame = true;
 
     Display();
     ~Display();

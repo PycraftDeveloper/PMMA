@@ -79,3 +79,4 @@ Notes:
 70 - Cannot retrieve properties for an invalid texture
 71 - Cannot re-load texture without path
 72 - Serialized Shader Compilation
+73 - Display hidden until needed
