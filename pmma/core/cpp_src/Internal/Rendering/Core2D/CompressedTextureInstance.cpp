@@ -579,8 +579,6 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
         return;
     }
 
-    std::cout << "TextureAtlasMaker" << std::endl;
-
     TextureHandle =
         bgfx::createTexture2D(
             static_cast<uint16_t>(

@@ -721,7 +721,6 @@ public:
                 PaddedData[PaddedDataBufferID].data(),
                 DataSize);
 
-        std::cout << "MakeLookUpTexture" << std::endl;
         LookUpTextureHandle =
             bgfx::createTexture2D(
                 static_cast<uint16_t>(Width),
