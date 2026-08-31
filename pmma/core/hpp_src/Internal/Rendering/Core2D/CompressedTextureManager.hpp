@@ -73,6 +73,10 @@ private:
     std::unordered_map<uintptr_t, uint32_t> PreviousRegisteredTextures;
     std::unordered_map<uintptr_t, uint32_t> CurrentRegisteredTextures;
 
+    std::array<std::vector<float>, 4> PaddedData;
+    char PaddedDataBufferID = 0;
+    char PaddedDataPreviousBufferID = 0;
+
 private:
     inline bool IsValidTextureID(uint32_t ID) const {
         return ID != std::numeric_limits<uint32_t>::max();
@@ -318,8 +322,6 @@ public:
             CurrentRegisteredTextures);
 
         CurrentRegisteredTextures.clear();
-
-        DestroyLookupTexture();
 
         for (int i = 0;
              i < std::size(TransparentCompressedTextureInstance);
@@ -608,9 +610,7 @@ public:
          * This is important: anything that existed in the previous
          * frame must NOT survive into this frame.
          */
-        std::vector<float> PaddedData(
-            ExpectedFloatCount,
-            0.0f);
+        PaddedData[PaddedDataBufferID].resize(ExpectedFloatCount, 0.0f);
 
         for (uint32_t TextureIndex = 0;
              TextureIndex < Height;
@@ -697,30 +697,31 @@ public:
                     continue;
                 }
 
-                PaddedData[Offset + 0] =
+                PaddedData[PaddedDataBufferID][Offset + 0] =
                     X / AtlasWidth;
 
-                PaddedData[Offset + 1] =
+                PaddedData[PaddedDataBufferID][Offset + 1] =
                     Y / AtlasHeight;
 
-                PaddedData[Offset + 2] =
+                PaddedData[PaddedDataBufferID][Offset + 2] =
                     TextureWidth / AtlasWidth;
 
-                PaddedData[Offset + 3] =
+                PaddedData[PaddedDataBufferID][Offset + 3] =
                     TextureHeight / AtlasHeight;
             }
         }
 
         const uint32_t DataSize =
             static_cast<uint32_t>(
-                PaddedData.size() *
+                PaddedData[PaddedDataBufferID].size() *
                 sizeof(float));
 
         const bgfx::Memory *Memory =
-            bgfx::copy(
-                PaddedData.data(),
+            bgfx::makeRef(
+                PaddedData[PaddedDataBufferID].data(),
                 DataSize);
 
+        std::cout << "MakeLookUpTexture" << std::endl;
         LookUpTextureHandle =
             bgfx::createTexture2D(
                 static_cast<uint16_t>(Width),
@@ -730,9 +731,14 @@ public:
                 bgfx::TextureFormat::RGBA32F,
                 BGFX_TEXTURE_NONE,
                 Memory);
+
+        PaddedDataPreviousBufferID = PaddedDataBufferID;
+        PaddedDataBufferID = (PaddedDataBufferID + 1) % 4;
     }
 
     inline void Assemble() {
+        bool Dirty = false;
+
         for (int i = 0;
              i < std::size(OpaqueCompressedTextureInstance);
              ++i) {
@@ -749,6 +755,8 @@ public:
                 !bgfx::isValid(Texture->TextureHandle)) {
 
                 Texture->Assemble();
+
+                Dirty = true;
             }
         }
 
@@ -768,13 +776,17 @@ public:
                 !bgfx::isValid(Texture->TextureHandle)) {
 
                 Texture->Assemble();
+
+                Dirty = true;
             }
         }
 
-        /*
-         * Build this after the atlas instances have been assembled.
-         */
-        AssembleLookupTexture();
+        if (Dirty || !bgfx::isValid(LookUpTextureHandle)) {
+            /*
+             * Build this after the atlas instances have been assembled.
+             */
+            AssembleLookupTexture();
+        }
     }
 
     inline void SetLookupTexture() {

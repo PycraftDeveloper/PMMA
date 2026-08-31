@@ -7,6 +7,8 @@
 
 #include "Internal/Internal.hpp"
 
+#include "Constants.hpp"
+
 namespace PMMA::Internal::Rendering::Core2D {
 class CompressedTextureInstance { // makes texture atlas for a RenderPipelineInstance
 private:
@@ -15,7 +17,8 @@ private:
     std::vector<PMMA::Internal::Rendering::Core2D::SkylineNode> Skyline;
 
 public:
-    std::map<uintptr_t, AtlasAllocation> Allocations;
+    std::map<uintptr_t, AtlasAllocation> PreviousAllocations;
+    std::map<uintptr_t, AtlasAllocation> CurrentAllocations;
 
     std::array<std::vector<unsigned char>, 4> AtlasPixels;
 
@@ -64,7 +67,8 @@ public:
     }
 
     inline void Reset() {
-        Allocations.clear();
+        PreviousAllocations = CurrentAllocations;
+        CurrentAllocations.clear();
 
         Skyline.clear();
         Skyline.push_back({0,
@@ -450,7 +454,11 @@ public:
         const uint32_t TextureY =
             Y + AlignedPadding;
 
-        Allocations[Texture->ID] =
+        if (!PreviousAllocations.contains(Texture->ID)) {
+            Dirty = true;
+        }
+
+        CurrentAllocations[Texture->ID] =
             {
                 TextureX,
                 TextureY,
@@ -482,8 +490,6 @@ public:
             static_cast<float>(MipHeight);
 
         PendingTextures.push_back(Texture);
-
-        Dirty = true;
 
         return true;
     }

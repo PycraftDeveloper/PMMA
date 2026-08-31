@@ -323,7 +323,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     m_TextureWidth = 1;
     m_TextureHeight = 1;
 
-    for (auto &[id, allocation] : Allocations) {
+    for (auto &[id, allocation] : CurrentAllocations) {
 
         m_TextureWidth =
             std::max(
@@ -389,11 +389,11 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
         }
 
         auto allocationIt =
-            Allocations.find(
+            CurrentAllocations.find(
                 texture->ID);
 
         if (allocationIt ==
-            Allocations.end()) {
+            CurrentAllocations.end()) {
 
             continue;
         }
