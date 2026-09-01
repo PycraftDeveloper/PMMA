@@ -313,104 +313,364 @@ static inline bool CopyBC7MipIntoAtlas(
 // ============================================================================
 
 void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
+
     // ========================================================================
-    // 1. Determine atlas dimensions.
+    // 0. Nothing changed.
     //
-    // Every texture is treated as an independent texture.
-    // This atlas contains ONLY the mip selected by MipLevel.
+    // RegisterTexture() and FinalizeAllocationCache() have already determined
+    // that the current frame has exactly the same atlas layout as the
+    // previous frame.
+    //
+    // The existing CPU/GPU atlas is therefore still authoritative.
+    //
+    // Do absolutely nothing here.
     // ========================================================================
 
-    m_TextureWidth = 1;
-    m_TextureHeight = 1;
+    if (!Dirty) {
+        return;
+    }
 
-    for (auto &[id, allocation] : CurrentAllocations) {
+    // ========================================================================
+    // 1. Determine the required dimensions of the new atlas.
+    //
+    // CurrentAllocations contains the FINAL allocation for every texture
+    // which exists in the current frame.
+    //
+    // Importantly, this is independent of PendingTextures.
+    //
+    // PendingTextures is not authoritative because a texture can already
+    // have a cached allocation and still be required in the newly assembled
+    // atlas.
+    // ========================================================================
 
-        m_TextureWidth =
+    uint32_t NewTextureWidth = 1;
+    uint32_t NewTextureHeight = 1;
+
+    for (const auto &[TextureID, Allocation] :
+         CurrentAllocations) {
+
+        (void)TextureID;
+
+        NewTextureWidth =
             std::max(
-                m_TextureWidth,
-                allocation.X +
-                    allocation.Width);
+                NewTextureWidth,
+                Allocation.X +
+                    Allocation.Width);
 
-        m_TextureHeight =
+        NewTextureHeight =
             std::max(
-                m_TextureHeight,
-                allocation.Y +
-                    allocation.Height);
+                NewTextureHeight,
+                Allocation.Y +
+                    Allocation.Height);
     }
 
     // ========================================================================
     // 2. BC7 operates on 4x4 blocks.
     // ========================================================================
 
-    auto RoundUp4 =
-        [](uint32_t value) {
-            return (value + 3u) & ~3u;
-        };
+    const auto RoundUp4 =
+        [](uint32_t Value) -> uint32_t {
+        return (Value + 3u) & ~3u;
+    };
 
-    m_TextureWidth =
-        RoundUp4(m_TextureWidth);
+    NewTextureWidth =
+        RoundUp4(NewTextureWidth);
 
-    m_TextureHeight =
-        RoundUp4(m_TextureHeight);
+    NewTextureHeight =
+        RoundUp4(NewTextureHeight);
 
     // ========================================================================
-    // 3. Allocate one BC7 atlas.
+    // 3. Determine whether the previous CPU atlas is usable as a starting
+    //    point.
     //
-    // There are NO atlas mip levels.
-    // MipLevel was already selected when the textures were registered.
+    // There are two separate concepts here:
+    //
+    //   - PreviousAllocations tells us where each texture used to live.
+    //   - CurrentAllocations tells us where each texture lives now.
+    //
+    // If a texture still exists and its allocation is unchanged, its pixels
+    // can be retained directly from the previous atlas.
+    //
+    // If the atlas grew, the old atlas can still be copied into the new one.
+    //
+    // If the atlas shrank, the old BC7 rows cannot simply be retained because
+    // the destination row stride has changed. In that case we reconstruct
+    // the atlas from CurrentTextures.
+    //
+    // A removal also forces a reconstruction. Otherwise stale pixels belonging
+    // to removed textures could remain in the atlas.
     // ========================================================================
 
-    const size_t atlasSize =
+    const uint32_t PreviousTextureWidth =
+        m_TextureWidth;
+
+    const uint32_t PreviousTextureHeight =
+        m_TextureHeight;
+
+    const bool HasPreviousAtlas =
+        PreviousTextureWidth != 0 &&
+        PreviousTextureHeight != 0 &&
+        !AtlasPixels[PreviousBufferID].empty();
+
+    const bool AtlasGrew =
+        HasPreviousAtlas &&
+        (NewTextureWidth > PreviousTextureWidth ||
+         NewTextureHeight > PreviousTextureHeight);
+
+    const bool AtlasShrank =
+        HasPreviousAtlas &&
+        (NewTextureWidth < PreviousTextureWidth ||
+         NewTextureHeight < PreviousTextureHeight);
+
+    // ========================================================================
+    // 4. Allocate the destination CPU atlas.
+    //
+    // BufferID is the CPU buffer which will become the new atlas.
+    // ========================================================================
+
+    const size_t AtlasSize =
         GetBC7MipSize(
-            m_TextureWidth,
-            m_TextureHeight);
+            NewTextureWidth,
+            NewTextureHeight);
+
+    AtlasPixels[BufferID].resize(
+        AtlasSize);
 
     // ========================================================================
-    // 4. Initialize the atlas to transparent black.
-    // ========================================================================
-
-    AtlasPixels[BufferID].resize(atlasSize);
-
-    ClearBC7Mip(
-        AtlasPixels[BufferID].data(),
-        m_TextureWidth,
-        m_TextureHeight);
-
-    // ========================================================================
-    // 5. Copy the selected mip of every texture into the atlas.
+    // 5. Decide whether we can preserve the previous atlas.
     //
-    // Each mip is treated as an independent texture.
+    // We can preserve it when:
+    //
+    //   - a previous atlas exists
+    //   - no textures were removed
+    //
+    // Atlas growth is explicitly supported.
+    //
+    // Atlas shrink is not preserved because the BC7 row stride changes.
+    //
+    // NOTE:
+    //
+    // Even when the old atlas is preserved, individual textures whose
+    // allocations changed will be overwritten later from CurrentTextures.
     // ========================================================================
 
-    for (auto *texture : PendingTextures) {
+    const bool CanPreservePreviousAtlas =
+        HasPreviousAtlas &&
+        !HasRemovedTextures &&
+        !AtlasShrank;
 
-        if (texture == nullptr) {
+    bool PreservedPreviousAtlas = false;
+
+    if (CanPreservePreviousAtlas) {
+
+        // --------------------------------------------------------------------
+        // Copy the old BC7 atlas into the new buffer.
+        //
+        // We cannot memcpy the whole atlas when it grew because the number
+        // of BC7 blocks per row may have changed.
+        // --------------------------------------------------------------------
+
+        constexpr size_t BC7BlockSize = 16;
+
+        const uint32_t SourceBlocksX =
+            PreviousTextureWidth / 4;
+
+        const uint32_t SourceBlocksY =
+            PreviousTextureHeight / 4;
+
+        const uint32_t DestinationBlocksX =
+            NewTextureWidth / 4;
+
+        const uint32_t DestinationBlocksY =
+            NewTextureHeight / 4;
+
+        const uint32_t BlocksToCopyX =
+            std::min(
+                SourceBlocksX,
+                DestinationBlocksX);
+
+        const uint32_t BlocksToCopyY =
+            std::min(
+                SourceBlocksY,
+                DestinationBlocksY);
+
+        const size_t SourceRowSize =
+            static_cast<size_t>(
+                SourceBlocksX) *
+            BC7BlockSize;
+
+        const size_t DestinationRowSize =
+            static_cast<size_t>(
+                DestinationBlocksX) *
+            BC7BlockSize;
+
+        const size_t BytesToCopyPerRow =
+            static_cast<size_t>(
+                BlocksToCopyX) *
+            BC7BlockSize;
+
+        const auto &Source =
+            AtlasPixels[PreviousBufferID];
+
+        auto &Destination =
+            AtlasPixels[BufferID];
+
+        for (uint32_t BlockY = 0;
+             BlockY < BlocksToCopyY;
+             ++BlockY) {
+
+            const size_t SourceOffset =
+                static_cast<size_t>(BlockY) *
+                SourceRowSize;
+
+            const size_t DestinationOffset =
+                static_cast<size_t>(BlockY) *
+                DestinationRowSize;
+
+            std::copy_n(
+                Source.data() +
+                    SourceOffset,
+                BytesToCopyPerRow,
+                Destination.data() +
+                    DestinationOffset);
+        }
+
+        PreservedPreviousAtlas = true;
+    }
+
+    // ========================================================================
+    // 6. If the previous atlas could not be preserved, start from a completely
+    //    clean atlas.
+    //
+    // This handles:
+    //
+    //   - first assembly
+    //   - texture removal
+    //   - atlas shrink
+    //   - replacement/re-layout where the previous atlas is no longer
+    //     authoritative
+    // ========================================================================
+
+    if (!PreservedPreviousAtlas) {
+
+        ClearBC7Mip(
+            AtlasPixels[BufferID].data(),
+            NewTextureWidth,
+            NewTextureHeight);
+    }
+
+    // ========================================================================
+    // 7. Copy the current textures into the atlas.
+    //
+    // CurrentTextures is the authoritative source of textures for this
+    // frame.
+    //
+    // We deliberately do NOT iterate PendingTextures here.
+    //
+    // ------------------------------------------------------------------------
+    //
+    // If the previous atlas was preserved:
+    //
+    //   Existing texture + same allocation
+    //       -> already present, skip
+    //
+    //   Existing texture + changed allocation
+    //       -> copy again
+    //
+    //   New texture
+    //       -> copy
+    //
+    // If the previous atlas was not preserved:
+    //
+    //   Every current texture is copied.
+    //
+    // This correctly handles both growth and shrinkage.
+    // ========================================================================
+
+    // ========================================================================
+    // 7. Copy textures into the atlas.
+    //
+    // PendingTextures contains the texture objects registered during the
+    // current frame.
+    //
+    // If the previous atlas was preserved, textures which still have exactly
+    // the same allocation are already present in the copied atlas and do not
+    // need to be copied again.
+    //
+    // If the previous atlas was NOT preserved, every current texture must be
+    // copied into the newly cleared atlas.
+    // ========================================================================
+
+    for (auto *Texture : PendingTextures) {
+
+        if (Texture == nullptr) {
             continue;
         }
 
-        auto allocationIt =
-            CurrentAllocations.find(
-                texture->ID);
+        // --------------------------------------------------------------------
+        // Find the final allocation for this texture.
+        // --------------------------------------------------------------------
 
-        if (allocationIt ==
+        const auto AllocationIt =
+            CurrentAllocations.find(
+                Texture->ID);
+
+        if (AllocationIt ==
             CurrentAllocations.end()) {
 
             continue;
         }
 
-        const AtlasAllocation &allocation =
-            allocationIt->second;
+        const AtlasAllocation &Allocation =
+            AllocationIt->second;
 
         // --------------------------------------------------------------------
-        // The requested mip does not exist.
+        // If the old atlas was preserved and this texture existed previously
+        // at exactly the same location and size, its pixels are already in
+        // the destination atlas.
+        //
+        // There is no need to copy it again.
+        // --------------------------------------------------------------------
+
+        if (PreservedPreviousAtlas) {
+
+            const auto PreviousIt =
+                PreviousAllocations.find(
+                    Texture->ID);
+
+            if (PreviousIt !=
+                PreviousAllocations.end()) {
+
+                const AtlasAllocation
+                    &PreviousAllocation =
+                        PreviousIt->second;
+
+                const bool SameAllocation =
+                    PreviousAllocation.X ==
+                        Allocation.X &&
+                    PreviousAllocation.Y ==
+                        Allocation.Y &&
+                    PreviousAllocation.Width ==
+                        Allocation.Width &&
+                    PreviousAllocation.Height ==
+                        Allocation.Height;
+
+                if (SameAllocation) {
+                    continue;
+                }
+            }
+        }
+
+        // --------------------------------------------------------------------
+        // The requested mip must exist.
         // --------------------------------------------------------------------
 
         if (MipLevel >=
-            texture->MipChain.size()) {
+            Texture->MipChain.size()) {
 
             std::cerr
                 << "Texture "
-                << texture->ID
+                << Texture->ID
                 << " does not contain mip "
                 << MipLevel
                 << "."
@@ -420,55 +680,54 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
         }
 
         // --------------------------------------------------------------------
-        // Get ONLY the requested mip.
+        // Get ONLY the selected mip.
         // --------------------------------------------------------------------
 
-        const auto &source =
-            texture->MipChain[MipLevel];
+        const auto &Source =
+            Texture->MipChain[MipLevel];
 
-        const uint32_t sourceWidth =
+        const uint32_t SourceWidth =
             static_cast<uint32_t>(
-                source.Size[0]);
+                Source.Size[0]);
 
-        const uint32_t sourceHeight =
+        const uint32_t SourceHeight =
             static_cast<uint32_t>(
-                source.Size[1]);
+                Source.Size[1]);
 
-        if (sourceWidth == 0 ||
-            sourceHeight == 0) {
+        if (SourceWidth == 0 ||
+            SourceHeight == 0) {
 
             continue;
         }
 
         // --------------------------------------------------------------------
-        // The allocation was made for this exact mip, so use its position
-        // directly.
+        // Allocation coordinates are already in atlas coordinates.
         //
-        // DO NOT divide the coordinates by MipLevel.
+        // DO NOT divide by MipLevel.
         // --------------------------------------------------------------------
 
-        uint32_t x =
-            allocation.X;
+        const uint32_t X =
+            Allocation.X;
 
-        uint32_t y =
-            allocation.Y;
+        const uint32_t Y =
+            Allocation.Y;
 
         // --------------------------------------------------------------------
         // BC7 requires block-aligned destinations.
         // --------------------------------------------------------------------
 
-        if ((x & 3u) != 0 ||
-            (y & 3u) != 0) {
+        if ((X & 3u) != 0 ||
+            (Y & 3u) != 0) {
 
             std::cerr
                 << "Cannot atlas texture "
-                << texture->ID
+                << Texture->ID
                 << " at mip "
                 << MipLevel
                 << ". Atlas position "
-                << x
+                << X
                 << ", "
-                << y
+                << Y
                 << " is not BC7 4x4 aligned."
                 << std::endl;
 
@@ -476,45 +735,27 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
         }
 
         // --------------------------------------------------------------------
-        // Make sure the selected mip fits.
+        // Verify that the cached allocation is large enough for the source.
         // --------------------------------------------------------------------
 
-        if (sourceWidth > m_TextureWidth ||
-            sourceHeight > m_TextureHeight) {
-
-            std::cerr
-                << "Skipping texture "
-                << texture->ID
-                << " at mip "
-                << MipLevel
-                << ". Source is "
-                << sourceWidth
-                << "x"
-                << sourceHeight
-                << ", atlas is "
-                << m_TextureWidth
-                << "x"
-                << m_TextureHeight
-                << "."
-                << std::endl;
-
-            continue;
-        }
-
-        // --------------------------------------------------------------------
-        // Destination must contain the entire texture.
-        // --------------------------------------------------------------------
-
-        if (x + sourceWidth > m_TextureWidth ||
-            y + sourceHeight > m_TextureHeight) {
+        if (Allocation.Width <
+                SourceWidth ||
+            Allocation.Height <
+                SourceHeight) {
 
             std::cerr
                 << "Texture "
-                << texture->ID
-                << " does not fit in atlas at "
-                << x
-                << ", "
-                << y
+                << Texture->ID
+                << " allocation is too small for mip "
+                << MipLevel
+                << ". Allocation is "
+                << Allocation.Width
+                << "x"
+                << Allocation.Height
+                << ", source is "
+                << SourceWidth
+                << "x"
+                << SourceHeight
                 << "."
                 << std::endl;
 
@@ -522,24 +763,46 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
         }
 
         // --------------------------------------------------------------------
-        // Direct BC7 -> BC7 block copy.
+        // Verify that the source fits inside the new atlas.
+        // --------------------------------------------------------------------
+
+        if (X + SourceWidth >
+                NewTextureWidth ||
+            Y + SourceHeight >
+                NewTextureHeight) {
+
+            std::cerr
+                << "Texture "
+                << Texture->ID
+                << " does not fit in atlas at "
+                << X
+                << ", "
+                << Y
+                << "."
+                << std::endl;
+
+            continue;
+        }
+
+        // --------------------------------------------------------------------
+        // Copy BC7 blocks directly into the atlas.
         // --------------------------------------------------------------------
 
         if (!CopyBC7MipIntoAtlas(
-                source,
-                sourceWidth,
-                sourceHeight,
-                x,
-                y,
-                m_TextureWidth,
-                m_TextureHeight,
+                Source,
+                SourceWidth,
+                SourceHeight,
+                X,
+                Y,
+                NewTextureWidth,
+                NewTextureHeight,
                 AtlasPixels[BufferID].data())) {
 
             std::cerr
                 << "Failed to copy mip "
                 << MipLevel
                 << " for texture "
-                << texture->ID
+                << Texture->ID
                 << "."
                 << std::endl;
 
@@ -548,7 +811,19 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     }
 
     // ========================================================================
-    // 6. Destroy previous GPU texture.
+    // 8. The CPU atlas is now complete.
+    // ========================================================================
+
+    m_TextureWidth =
+        NewTextureWidth;
+
+    m_TextureHeight =
+        NewTextureHeight;
+
+    // ========================================================================
+    // 9. Replace the GPU atlas.
+    //
+    // We only reach this point when Dirty was true.
     // ========================================================================
 
     if (bgfx::isValid(TextureHandle)) {
@@ -561,9 +836,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     }
 
     // ========================================================================
-    // 7. Upload ONE BC7 texture.
-    //
-    // This texture has no mip chain.
+    // 10. Empty atlas handling.
     // ========================================================================
 
     if (AtlasPixels[BufferID].empty()) {
@@ -572,12 +845,22 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
             << "Compressed atlas is empty."
             << std::endl;
 
-        PendingTextures.clear();
-
         Dirty = false;
+
+        PreviousBufferID =
+            BufferID;
+
+        BufferID =
+            (BufferID + 1) % 4;
 
         return;
     }
+
+    // ========================================================================
+    // 11. Upload ONE BC7 texture.
+    //
+    // This atlas contains no mip chain.
+    // ========================================================================
 
     TextureHandle =
         bgfx::createTexture2D(
@@ -597,18 +880,21 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
 
             bgfx::makeRef(
                 AtlasPixels[BufferID].data(),
-
                 static_cast<uint32_t>(
                     AtlasPixels[BufferID].size())));
 
     // ========================================================================
-    // 8. Cleanup.
+    // 12. Finalise the CPU buffer rotation.
+    //
+    // The buffer we just uploaded becomes the authoritative previous atlas
+    // for the next frame.
     // ========================================================================
-
-    PendingTextures.clear();
 
     Dirty = false;
 
-    PreviousBufferID = BufferID;
-    BufferID = (BufferID + 1) % 4;
+    PreviousBufferID =
+        BufferID;
+
+    BufferID =
+        (BufferID + 1) % 4;
 }

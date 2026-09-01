@@ -512,6 +512,8 @@ public:
                 break;
             }
 
+            Texture->FinalizeAllocationCache();
+
             if (Texture->Dirty ||
                 !bgfx::isValid(Texture->TextureHandle)) {
 
@@ -533,6 +535,8 @@ public:
                 break;
             }
 
+            Texture->FinalizeAllocationCache();
+
             if (Texture->Dirty ||
                 !bgfx::isValid(Texture->TextureHandle)) {
 
@@ -542,17 +546,19 @@ public:
             }
         }
 
+        /*
         if (Dirty ||
             !bgfx::isValid(LookUpTextureHandle)) {
 
-            /*
-             * Build this after the atlas instances have been assembled.
-             */
             AssembleLookupTexture();
         }
+        */
+
+        AssembleLookupTexture();
     }
 
-    inline void SetLookupTexture() {
+    inline void
+    SetLookupTexture() {
         if (!bgfx::isValid(LookUpTextureHandle)) {
             return;
         }

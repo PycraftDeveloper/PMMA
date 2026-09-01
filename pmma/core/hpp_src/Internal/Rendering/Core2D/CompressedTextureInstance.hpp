@@ -5,8 +5,7 @@
 #include <cstdint>
 #include <iostream>
 #include <limits>
-#include <map>
-#include <string>
+#include <unordered_map>
 #include <vector>
 
 #include <bgfx/bgfx.h>
@@ -18,19 +17,99 @@ namespace PMMA::Internal::Rendering::Core2D {
 
 class CompressedTextureInstance {
 private:
-    std::vector<PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *> PendingTextures;
-
-    std::vector<PMMA::Internal::Rendering::Core2D::SkylineNode> Skyline;
-
-    // ------------------------------------------------------------------------
-    // Calculate the exact rectangle that will be reserved in the skyline.
+    // ========================================================================
+    // Textures registered during the current frame.
     //
-    // This is deliberately shared by CanFitTexture() and RegisterTexture()
-    // so that the two operations can never disagree about BC7 alignment or
-    // padding.
-    // ------------------------------------------------------------------------
+    // Assemble() uses this list to determine which texture mip data may need
+    // to be copied into the CPU atlas.
+    //
+    // A texture may appear more than once if it is registered multiple times
+    // during the same frame. That is intentional; CurrentAllocations is the
+    // authoritative source for the allocation itself.
+    // ========================================================================
+
+    std::vector<
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *>
+        PendingTextures;
+
+    // ========================================================================
+    // Current working skyline.
+    //
+    // This describes the rectangles currently present in
+    // CurrentAllocations.
+    //
+    // During normal operation this starts from PreviousSkyline and receives
+    // new allocations as textures are registered.
+    //
+    // If a removal is detected, FinalizeAllocationCache() reconstructs this
+    // skyline from CurrentAllocations.
+    // ========================================================================
+
+    std::vector<
+        PMMA::Internal::Rendering::Core2D::SkylineNode>
+        Skyline;
+
+    // ========================================================================
+    // Skyline belonging to the previous completed frame.
+    //
+    // This corresponds to PreviousAllocations.
+    //
+    // It can be reused when the current frame contains the same set of
+    // allocations, and it remains a valid conservative starting point when
+    // textures are only added.
+    //
+    // If a texture is removed, this skyline contains a ghost rectangle and
+    // therefore must not remain the authoritative skyline.
+    // ========================================================================
+
+    std::vector<
+        PMMA::Internal::Rendering::Core2D::SkylineNode>
+        PreviousSkyline;
+
+    // ========================================================================
+    // Frame-level change state.
+    //
+    // HasAddedTextures:
+    //     At least one current allocation did not exist in the previous
+    //     frame, or an existing texture changed dimensions and therefore
+    //     required a new allocation.
+    //
+    // HasRemovedTextures:
+    //     At least one allocation from the previous frame is no longer
+    //     present in the current frame, or an existing texture changed
+    //     dimensions.
+    //
+    // Assemble() uses these indirectly through Dirty and the allocation
+    // caches to determine whether the previous CPU atlas can be preserved.
+    // ========================================================================
+
+    bool HasAddedTextures = false;
+    bool HasRemovedTextures = false;
+
+    // ========================================================================
+    // Calculate the exact rectangle reserved by a mip in the atlas.
+    //
+    // The returned values are:
+    //
+    //     OutMipWidth / OutMipHeight
+    //         Actual source texture dimensions.
+    //
+    //     OutAlignedWidth / OutAlignedHeight
+    //         Dimensions rounded up to BC7's 4x4 block size.
+    //
+    //     OutPackedWidth / OutPackedHeight
+    //         Full skyline reservation including padding.
+    //
+    //     OutAlignedPadding
+    //         Padding rounded to a BC7 block boundary.
+    //
+    // CanFitTexture() and RegisterTexture() both use this function so they
+    // cannot disagree about the dimensions of a texture.
+    // ========================================================================
+
     inline bool GetPackedDimensions(
-        const PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture,
+        const PMMA::Internal::Rendering::Core2D::CompressedTextureProperty
+            *Texture,
         uint32_t &OutMipWidth,
         uint32_t &OutMipHeight,
         uint32_t &OutAlignedWidth,
@@ -41,6 +120,7 @@ private:
 
         if (Texture == nullptr ||
             MipLevel >= Texture->MipChain.size()) {
+
             return false;
         }
 
@@ -48,13 +128,16 @@ private:
             Texture->MipChain[MipLevel];
 
         const uint32_t MipWidth =
-            static_cast<uint32_t>(Mip.Size[0]);
+            static_cast<uint32_t>(
+                Mip.Size[0]);
 
         const uint32_t MipHeight =
-            static_cast<uint32_t>(Mip.Size[1]);
+            static_cast<uint32_t>(
+                Mip.Size[1]);
 
         if (MipWidth == 0 ||
             MipHeight == 0) {
+
             return false;
         }
 
@@ -68,53 +151,436 @@ private:
             AlignUp4(AtlasPadding);
 
         const uint32_t PackedWidth =
-            AlignedWidth + AlignedPadding * 2;
+            AlignedWidth +
+            AlignedPadding * 2;
 
         const uint32_t PackedHeight =
-            AlignedHeight + AlignedPadding * 2;
+            AlignedHeight +
+            AlignedPadding * 2;
 
-        OutMipWidth = MipWidth;
-        OutMipHeight = MipHeight;
+        OutMipWidth =
+            MipWidth;
 
-        OutAlignedWidth = AlignedWidth;
-        OutAlignedHeight = AlignedHeight;
+        OutMipHeight =
+            MipHeight;
 
-        OutPackedWidth = PackedWidth;
-        OutPackedHeight = PackedHeight;
+        OutAlignedWidth =
+            AlignedWidth;
 
-        OutAlignedPadding = AlignedPadding;
+        OutAlignedHeight =
+            AlignedHeight;
+
+        OutPackedWidth =
+            PackedWidth;
+
+        OutPackedHeight =
+            PackedHeight;
+
+        OutAlignedPadding =
+            AlignedPadding;
 
         return true;
     }
 
-public:
-    std::unordered_map<uintptr_t, AtlasAllocation> PreviousAllocations;
-    std::unordered_map<uintptr_t, AtlasAllocation> CurrentAllocations;
+    // ========================================================================
+    // Rebuild the skyline directly from CurrentAllocations.
+    //
+    // This is used after a removal or replacement.
+    //
+    // We deliberately do NOT replay InsertSkylineLevel() because doing so
+    // would make the reconstructed skyline dependent on unordered_map
+    // iteration order.
+    //
+    // Instead, all rectangle boundaries are converted into X intervals and
+    // the maximum occupied Y for each interval is calculated.
+    // ========================================================================
 
-    std::array<std::vector<unsigned char>, 4> AtlasPixels;
+    inline void RebuildSkylineFromCurrentAllocations() {
+
+        Skyline.clear();
+
+        Skyline.push_back({0,
+                           0,
+                           MaxTextureDimension});
+
+        if (CurrentAllocations.empty()) {
+            return;
+        }
+
+        const uint32_t AlignedPadding =
+            AlignUp4(AtlasPadding);
+
+        // --------------------------------------------------------------------
+        // Collect every X boundary.
+        // --------------------------------------------------------------------
+
+        std::vector<uint32_t> XCoordinates;
+
+        XCoordinates.reserve(
+            CurrentAllocations.size() * 2 + 2);
+
+        XCoordinates.push_back(0);
+
+        XCoordinates.push_back(
+            MaxTextureDimension);
+
+        for (const auto &[TextureID, Allocation] :
+             CurrentAllocations) {
+
+            (void)TextureID;
+
+            const uint32_t PackedX =
+                Allocation.X -
+                AlignedPadding;
+
+            const uint32_t PackedWidth =
+                Allocation.Width +
+                AlignedPadding * 2;
+
+            const uint32_t PackedEndX =
+                PackedX +
+                PackedWidth;
+
+            XCoordinates.push_back(
+                PackedX);
+
+            XCoordinates.push_back(
+                PackedEndX);
+        }
+
+        std::sort(
+            XCoordinates.begin(),
+            XCoordinates.end());
+
+        XCoordinates.erase(
+            std::unique(
+                XCoordinates.begin(),
+                XCoordinates.end()),
+            XCoordinates.end());
+
+        // --------------------------------------------------------------------
+        // Generate a skyline node for each horizontal interval.
+        // --------------------------------------------------------------------
+
+        std::vector<SkylineNode> RebuiltSkyline;
+
+        RebuiltSkyline.reserve(
+            XCoordinates.size());
+
+        for (size_t i = 0;
+             i + 1 < XCoordinates.size();
+             ++i) {
+
+            const uint32_t X =
+                XCoordinates[i];
+
+            const uint32_t NextX =
+                XCoordinates[i + 1];
+
+            if (NextX <= X) {
+                continue;
+            }
+
+            uint32_t Height = 0;
+
+            for (const auto &[TextureID, Allocation] :
+                 CurrentAllocations) {
+
+                (void)TextureID;
+
+                const uint32_t PackedX =
+                    Allocation.X -
+                    AlignedPadding;
+
+                const uint32_t PackedWidth =
+                    Allocation.Width +
+                    AlignedPadding * 2;
+
+                const uint32_t PackedEndX =
+                    PackedX +
+                    PackedWidth;
+
+                if (PackedEndX <= X ||
+                    PackedX >= NextX) {
+
+                    continue;
+                }
+
+                const uint32_t PackedY =
+                    Allocation.Y -
+                    AlignedPadding;
+
+                const uint32_t PackedHeight =
+                    Allocation.Height +
+                    AlignedPadding * 2;
+
+                const uint32_t PackedEndY =
+                    PackedY +
+                    PackedHeight;
+
+                Height =
+                    std::max(
+                        Height,
+                        PackedEndY);
+            }
+
+            Height =
+                std::min(
+                    Height,
+                    MaxTextureDimension);
+
+            RebuiltSkyline.push_back({X,
+                                      Height,
+                                      NextX - X});
+        }
+
+        // --------------------------------------------------------------------
+        // Merge adjacent nodes with the same height.
+        // --------------------------------------------------------------------
+
+        for (size_t i = 0;
+             i + 1 < RebuiltSkyline.size();) {
+
+            SkylineNode &Current =
+                RebuiltSkyline[i];
+
+            const SkylineNode &Next =
+                RebuiltSkyline[i + 1];
+
+            if (Current.y ==
+                    Next.y &&
+                Current.x +
+                        Current.width ==
+                    Next.x) {
+
+                Current.width +=
+                    Next.width;
+
+                RebuiltSkyline.erase(
+                    RebuiltSkyline.begin() +
+                    i + 1);
+
+                continue;
+            }
+
+            ++i;
+        }
+
+        // --------------------------------------------------------------------
+        // Ensure the complete atlas width is represented.
+        // --------------------------------------------------------------------
+
+        if (RebuiltSkyline.empty()) {
+
+            RebuiltSkyline.push_back({0,
+                                      0,
+                                      MaxTextureDimension});
+
+        } else {
+
+            const SkylineNode &Last =
+                RebuiltSkyline.back();
+
+            const uint32_t End =
+                Last.x +
+                Last.width;
+
+            if (End < MaxTextureDimension) {
+
+                RebuiltSkyline.push_back({End,
+                                          0,
+                                          MaxTextureDimension - End});
+
+            } else if (End > MaxTextureDimension) {
+
+                std::cerr
+                    << "Internal error: rebuilt skyline "
+                    << "extends beyond atlas width."
+                    << std::endl;
+            }
+        }
+
+        Skyline =
+            std::move(
+                RebuiltSkyline);
+    }
+
+    // ========================================================================
+    // Write one allocation into the frame lookup-data array.
+    //
+    // IMPORTANT:
+    //
+    // The lookup texture contains the ACTUAL texture rectangle:
+    //
+    //     X
+    //     Y
+    //     actual width
+    //     actual height
+    //
+    // It does NOT contain the padded skyline rectangle.
+    //
+    // AssembleLookupTexture() in CompressedTextureManager later converts
+    // these values into normalized atlas coordinates.
+    // ========================================================================
+
+    inline void UpdateLookupTexture(
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty
+            *Texture,
+        std::vector<float> &LookUpTextureData,
+        uint32_t TextureID,
+        const AtlasAllocation &Allocation) {
+
+        if (Texture == nullptr ||
+            MipLevel >= Texture->MipChain.size()) {
+
+            return;
+        }
+
+        const size_t Offset =
+            (static_cast<size_t>(TextureID) *
+                 PMMA::Constants::MAX_TEXTURE_MIPS +
+             static_cast<size_t>(MipLevel)) *
+            4;
+
+        if (LookUpTextureData.size() <
+            Offset + 4) {
+
+            LookUpTextureData.resize(
+                Offset + 4,
+                0.0f);
+        }
+
+        const auto &Mip =
+            Texture->MipChain[MipLevel];
+
+        LookUpTextureData[Offset + 0] =
+            static_cast<float>(
+                Allocation.X);
+
+        LookUpTextureData[Offset + 1] =
+            static_cast<float>(
+                Allocation.Y);
+
+        LookUpTextureData[Offset + 2] =
+            static_cast<float>(
+                Mip.Size[0]);
+
+        LookUpTextureData[Offset + 3] =
+            static_cast<float>(
+                Mip.Size[1]);
+    }
+
+public:
+    // ========================================================================
+    // Allocation cache.
+    //
+    // PreviousAllocations:
+    //     The exact allocation layout belonging to the previous frame.
+    //
+    // CurrentAllocations:
+    //     The exact allocation layout belonging to the current frame.
+    //
+    // An AtlasAllocation stores the unpadded texture position and the
+    // BC7-aligned texture dimensions.
+    // ========================================================================
+
+    std::unordered_map<
+        uintptr_t,
+        AtlasAllocation>
+        PreviousAllocations;
+
+    std::unordered_map<
+        uintptr_t,
+        AtlasAllocation>
+        CurrentAllocations;
+
+    // ========================================================================
+    // CPU atlas buffers.
+    //
+    // Four buffers are used so that the buffer uploaded to bgfx can remain
+    // untouched while another CPU buffer is assembled.
+    // ========================================================================
+
+    std::array<
+        std::vector<unsigned char>,
+        4>
+        AtlasPixels;
+
+    // ========================================================================
+    // Atlas configuration.
+    // ========================================================================
 
     uint32_t AtlasPadding = 0;
+
     uint32_t MipLevel = 0;
 
 public:
+    // ========================================================================
+    // Indicates that the current CPU/GPU atlas must be rebuilt.
+    //
+    // This is true when:
+    //
+    //     - a texture was added;
+    //     - a texture was removed;
+    //     - an existing texture changed dimensions;
+    //     - the atlas was otherwise invalidated.
+    //
+    // If false, Assemble() does nothing and the existing GPU texture remains
+    // valid.
+    // ========================================================================
+
     bool Dirty = false;
 
+    // ========================================================================
+    // CPU atlas buffer currently being constructed.
+    //
+    // PreviousBufferID identifies the CPU atlas containing the previous
+    // completed layout and is therefore the source buffer for incremental
+    // atlas reconstruction.
+    // ========================================================================
+
     char BufferID = 0;
+
     char PreviousBufferID = 0;
 
-    bgfx::TextureHandle TextureHandle = BGFX_INVALID_HANDLE;
+    // ========================================================================
+    // GPU atlas texture.
+    //
+    // This contains exactly ONE BC7 texture for this mip level.
+    // It has no mip chain of its own.
+    // ========================================================================
+
+    bgfx::TextureHandle TextureHandle =
+        BGFX_INVALID_HANDLE;
 
     uint32_t m_TextureWidth = 0;
+
     uint32_t m_TextureHeight = 0;
+
+    // ========================================================================
+    // Maximum atlas dimension.
+    // ========================================================================
+
     uint32_t MaxTextureDimension = 1024;
-    uintptr_t RenderPipelineInstanceID;
+
+    // ========================================================================
+    // Render pipeline instance owning this atlas.
+    // ========================================================================
+
+    uintptr_t RenderPipelineInstanceID = 0;
+
+    // ========================================================================
+    // BC7 alignment.
+    // ========================================================================
 
     static constexpr uint32_t BC7_ALIGNMENT = 4;
 
     static constexpr uint32_t AlignUp4(
         uint32_t value) noexcept {
 
-        return (value + (BC7_ALIGNMENT - 1)) &
+        return (
+                   value +
+                   (BC7_ALIGNMENT - 1)) &
                ~(BC7_ALIGNMENT - 1);
     }
 
@@ -125,50 +591,180 @@ public:
                ~(BC7_ALIGNMENT - 1);
     }
 
+    // ========================================================================
+    // Constructor.
+    // ========================================================================
+
     CompressedTextureInstance(
         uintptr_t NewRenderPipelineInstanceID,
         uint32_t NewMaxTextureDimension,
         uint32_t NewMipLevel)
+
         : MipLevel(NewMipLevel),
-          MaxTextureDimension(NewMaxTextureDimension),
-          RenderPipelineInstanceID(NewRenderPipelineInstanceID) {
+          MaxTextureDimension(
+              NewMaxTextureDimension),
+          RenderPipelineInstanceID(
+              NewRenderPipelineInstanceID) {
 
         Skyline.reserve(64);
 
-        Skyline.push_back(
-            {0,
-             0,
-             MaxTextureDimension});
+        PreviousSkyline.reserve(64);
+
+        Skyline.push_back({0,
+                           0,
+                           MaxTextureDimension});
     }
 
+    // ========================================================================
+    // Destructor.
+    // ========================================================================
+
     ~CompressedTextureInstance() {
+
         if (bgfx::isValid(TextureHandle)) {
-            bgfx::destroy(TextureHandle);
+
+            bgfx::destroy(
+                TextureHandle);
+
+            TextureHandle =
+                BGFX_INVALID_HANDLE;
         }
     }
 
+    // ========================================================================
+    // Begin a new frame.
+    //
+    // The current frame becomes the previous frame's cached layout.
+    //
+    // The important invariant after Reset() is:
+    //
+    //     PreviousAllocations == layout used by previous frame
+    //     CurrentAllocations  == empty
+    //
+    // and:
+    //
+    //     PreviousSkyline == skyline for PreviousAllocations
+    //     Skyline         == working copy of PreviousSkyline
+    //
+    // This lets normal frames reuse allocations without repacking.
+    // ========================================================================
+
     inline void Reset() {
-        PreviousAllocations = std::move(CurrentAllocations);
+
+        PreviousAllocations =
+            std::move(
+                CurrentAllocations);
+
         CurrentAllocations.clear();
 
-        // Reuse the existing allocation rather than forcing a new allocation.
-        Skyline.clear();
-        Skyline.push_back(
-            {0,
-             0,
-             MaxTextureDimension});
+        PreviousSkyline =
+            std::move(
+                Skyline);
 
-        Dirty = false;
+        Skyline =
+            PreviousSkyline;
+
+        if (Skyline.empty()) {
+
+            Skyline.push_back({0,
+                               0,
+                               MaxTextureDimension});
+        }
+
+        HasAddedTextures =
+            false;
+
+        HasRemovedTextures =
+            false;
+
+        Dirty =
+            false;
+
+        PendingTextures.clear();
     }
 
-    // ------------------------------------------------------------------------
-    // Query whether this exact texture can be inserted.
+    // ========================================================================
+    // Query whether a texture can be registered.
     //
-    // This is a pure query. The caller guarantees that RegisterTexture()
-    // for this same texture follows before another texture is added.
-    // ------------------------------------------------------------------------
+    // Existing textures reuse their cached allocation.
+    //
+    // New textures are tested against the current skyline.
+    //
+    // If a later registration causes a removal to be discovered, the final
+    // authoritative skyline is reconstructed by FinalizeAllocationCache().
+    // ========================================================================
+
     inline bool CanFitTexture(
-        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture) {
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty
+            *Texture) {
+
+        if (Texture == nullptr) {
+            return false;
+        }
+
+        // --------------------------------------------------------------------
+        // Already registered this frame.
+        // --------------------------------------------------------------------
+
+        if (CurrentAllocations.contains(
+                Texture->ID)) {
+
+            return true;
+        }
+
+        // --------------------------------------------------------------------
+        // Existing previous allocation.
+        //
+        // Validate that its dimensions still match this mip.
+        // --------------------------------------------------------------------
+
+        const auto PreviousAllocation =
+            PreviousAllocations.find(
+                Texture->ID);
+
+        if (PreviousAllocation !=
+            PreviousAllocations.end()) {
+
+            uint32_t MipWidth;
+            uint32_t MipHeight;
+            uint32_t AlignedWidth;
+            uint32_t AlignedHeight;
+            uint32_t PackedWidth;
+            uint32_t PackedHeight;
+            uint32_t AlignedPadding;
+
+            if (!GetPackedDimensions(
+                    Texture,
+                    MipWidth,
+                    MipHeight,
+                    AlignedWidth,
+                    AlignedHeight,
+                    PackedWidth,
+                    PackedHeight,
+                    AlignedPadding)) {
+
+                return false;
+            }
+
+            (void)MipWidth;
+            (void)MipHeight;
+            (void)PackedWidth;
+            (void)PackedHeight;
+            (void)AlignedPadding;
+
+            const AtlasAllocation
+                &Allocation =
+                    PreviousAllocation->second;
+
+            return Allocation.Width ==
+                       AlignedWidth &&
+                   Allocation.Height ==
+                       AlignedHeight;
+        }
+
+        // --------------------------------------------------------------------
+        // New texture.
+        // --------------------------------------------------------------------
 
         uint32_t MipWidth;
         uint32_t MipHeight;
@@ -191,8 +787,16 @@ public:
             return false;
         }
 
-        if (PackedWidth > MaxTextureDimension ||
-            PackedHeight > MaxTextureDimension) {
+        (void)MipWidth;
+        (void)MipHeight;
+        (void)AlignedWidth;
+        (void)AlignedHeight;
+        (void)AlignedPadding;
+
+        if (PackedWidth >
+                MaxTextureDimension ||
+            PackedHeight >
+                MaxTextureDimension) {
 
             return false;
         }
@@ -209,11 +813,12 @@ public:
             SkylineIndex);
     }
 
-    // ------------------------------------------------------------------------
-    // Find the best position for a rectangle using the bottom-left heuristic.
+    // ========================================================================
+    // Find the best skyline position using the bottom-left heuristic.
     //
-    // The skyline is kept ordered by X.
-    // ------------------------------------------------------------------------
+    // The returned X/Y describe the complete padded rectangle.
+    // ========================================================================
+
     inline bool FindPosition(
         uint32_t Width,
         uint32_t Height,
@@ -221,76 +826,118 @@ public:
         uint32_t &OutY,
         size_t &OutSkylineIndex) const {
 
-        uint32_t BestY = std::numeric_limits<uint32_t>::max();
-        uint32_t BestX = std::numeric_limits<uint32_t>::max();
-        size_t BestIndex = std::numeric_limits<size_t>::max();
+        uint32_t BestY =
+            std::numeric_limits<uint32_t>::max();
 
-        const size_t NodeCount = Skyline.size();
+        uint32_t BestX =
+            std::numeric_limits<uint32_t>::max();
 
-        for (size_t i = 0; i < NodeCount; ++i) {
-            const auto &StartNode = Skyline[i];
+        size_t BestIndex =
+            std::numeric_limits<size_t>::max();
 
-            const uint32_t X = StartNode.x;
+        const size_t NodeCount =
+            Skyline.size();
 
-            // Fast horizontal rejection.
-            if (Width > MaxTextureDimension - X) {
+        for (size_t i = 0;
+             i < NodeCount;
+             ++i) {
+
+            const auto &StartNode =
+                Skyline[i];
+
+            const uint32_t X =
+                StartNode.x;
+
+            if (X > MaxTextureDimension ||
+                Width >
+                    MaxTextureDimension - X) {
+
                 continue;
             }
 
-            uint32_t Y = StartNode.y;
-            uint32_t WidthRemaining = Width;
+            uint32_t Y =
+                StartNode.y;
 
-            size_t NodeIndex = i;
+            uint32_t WidthRemaining =
+                Width;
+
+            size_t NodeIndex =
+                i;
 
             while (WidthRemaining > 0) {
-                const auto &Node = Skyline[NodeIndex];
-
-                Y = std::max(Y, Node.y);
-
-                // Fast vertical rejection.
-                if (Height > MaxTextureDimension - Y) {
-                    break;
-                }
-
-                if (Node.width >= WidthRemaining) {
-                    WidthRemaining = 0;
-                    break;
-                }
-
-                WidthRemaining -= Node.width;
-
-                ++NodeIndex;
 
                 if (NodeIndex >= NodeCount) {
                     break;
                 }
+
+                const auto &Node =
+                    Skyline[NodeIndex];
+
+                Y =
+                    std::max(
+                        Y,
+                        Node.y);
+
+                if (Y > MaxTextureDimension ||
+                    Height >
+                        MaxTextureDimension - Y) {
+
+                    break;
+                }
+
+                if (Node.width >=
+                    WidthRemaining) {
+
+                    WidthRemaining = 0;
+                    break;
+                }
+
+                WidthRemaining -=
+                    Node.width;
+
+                ++NodeIndex;
             }
 
             if (WidthRemaining != 0) {
                 continue;
             }
 
-            // Bottom-left heuristic:
-            // lowest Y first, then lowest X.
             if (Y < BestY ||
-                (Y == BestY && X < BestX)) {
+                (Y == BestY &&
+                 X < BestX)) {
 
-                BestY = Y;
-                BestX = X;
-                BestIndex = i;
+                BestY =
+                    Y;
+
+                BestX =
+                    X;
+
+                BestIndex =
+                    i;
             }
         }
 
-        if (BestIndex == std::numeric_limits<size_t>::max()) {
+        if (BestIndex ==
+            std::numeric_limits<size_t>::max()) {
+
             return false;
         }
 
-        OutX = BestX;
-        OutY = BestY;
-        OutSkylineIndex = BestIndex;
+        OutX =
+            BestX;
+
+        OutY =
+            BestY;
+
+        OutSkylineIndex =
+            BestIndex;
 
         return true;
     }
+
+    // ========================================================================
+    // Insert a padded rectangle into the skyline.
+    // ========================================================================
 
     inline void InsertSkylineLevel(
         size_t Index,
@@ -308,9 +955,6 @@ public:
             Skyline.begin() + Index,
             NewNode);
 
-        // --------------------------------------------------------------------
-        // Remove/shrink nodes covered by the new rectangle.
-        // --------------------------------------------------------------------
         for (size_t i = Index + 1;
              i < Skyline.size();) {
 
@@ -321,33 +965,44 @@ public:
                 Skyline[i - 1];
 
             const uint32_t PreviousEnd =
-                Previous.x + Previous.width;
+                Previous.x +
+                Previous.width;
 
-            // The remaining nodes are completely to the right.
-            if (Current.x >= PreviousEnd) {
+            if (Current.x >=
+                PreviousEnd) {
+
                 break;
             }
 
             const uint32_t Shrink =
-                PreviousEnd - Current.x;
+                PreviousEnd -
+                Current.x;
 
-            // Completely covered.
-            if (Shrink >= Current.width) {
+            if (Shrink >=
+                Current.width) {
+
                 Skyline.erase(
                     Skyline.begin() + i);
 
                 continue;
             }
 
-            // Partially covered.
-            Current.x += Shrink;
-            Current.width -= Shrink;
+            Current.x +=
+                Shrink;
+
+            Current.width -=
+                Shrink;
 
             break;
         }
     }
 
+    // ========================================================================
+    // Merge adjacent skyline nodes with identical heights.
+    // ========================================================================
+
     inline void MergeSkyline() {
+
         for (size_t i = 0;
              i + 1 < Skyline.size();) {
 
@@ -357,11 +1012,18 @@ public:
             const SkylineNode &Next =
                 Skyline[i + 1];
 
-            if (Current.y == Next.y) {
-                Current.width += Next.width;
+            if (Current.y ==
+                    Next.y &&
+                Current.x +
+                        Current.width ==
+                    Next.x) {
+
+                Current.width +=
+                    Next.width;
 
                 Skyline.erase(
-                    Skyline.begin() + i + 1);
+                    Skyline.begin() +
+                    i + 1);
 
                 continue;
             }
@@ -370,12 +1032,32 @@ public:
         }
     }
 
+    // ========================================================================
+    // Register a texture in this mip-level atlas.
+    //
+    // There are three important paths:
+    //
+    // 1. Already registered this frame:
+    //      Reuse CurrentAllocations.
+    //
+    // 2. Existing allocation with identical dimensions:
+    //      Reuse PreviousAllocations.
+    //
+    // 3. New or dimension-changed texture:
+    //      Allocate a new skyline position.
+    //
+    // The final texture set is not known until all registrations have
+    // completed, so removals are reconciled by FinalizeAllocationCache().
+    // ========================================================================
+
     inline bool RegisterTexture(
-        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *Texture,
+        PMMA::Internal::Rendering::Core2D::CompressedTextureProperty
+            *Texture,
         std::vector<float> &LookUpTextureData,
         uint32_t TextureID) {
 
         if (Texture == nullptr) {
+
             std::cout
                 << "Texture is nullptr"
                 << std::endl;
@@ -384,47 +1066,48 @@ public:
         }
 
         // --------------------------------------------------------------------
-        // Do not allocate the same texture twice in the same atlas build.
-        //
-        // This protects the skyline from duplicate registration if the
-        // rendering/buffer logic ever submits the same texture more than once.
+        // Validate mip data.
         // --------------------------------------------------------------------
-        const auto ExistingAllocation =
-            CurrentAllocations.find(Texture->ID);
 
-        if (ExistingAllocation != CurrentAllocations.end()) {
+        if (MipLevel >=
+            Texture->MipChain.size()) {
 
-            const AtlasAllocation &Allocation =
-                ExistingAllocation->second;
+            if (Texture->MipChain.empty()) {
 
-            const size_t Offset =
-                (static_cast<size_t>(TextureID) *
-                     PMMA::Constants::MAX_TEXTURE_MIPS +
-                 static_cast<size_t>(MipLevel)) *
-                4;
+                std::cout
+                    << "Texture has no mip data"
+                    << std::endl;
 
-            if (LookUpTextureData.size() < Offset + 4) {
-                LookUpTextureData.resize(
-                    Offset + 4,
-                    0.0f);
+            } else {
+
+                std::cout
+                    << "Texture has not got this mip lvl"
+                    << std::endl;
             }
 
-            const auto &Mip =
-                Texture->MipChain[MipLevel];
+            return false;
+        }
 
-            LookUpTextureData[Offset + 0] =
-                static_cast<float>(Allocation.X);
+        // --------------------------------------------------------------------
+        // Already registered during this frame.
+        // --------------------------------------------------------------------
 
-            LookUpTextureData[Offset + 1] =
-                static_cast<float>(Allocation.Y);
+        const auto ExistingAllocation =
+            CurrentAllocations.find(
+                Texture->ID);
 
-            LookUpTextureData[Offset + 2] =
-                static_cast<float>(Mip.Size[0]);
+        if (ExistingAllocation !=
+            CurrentAllocations.end()) {
 
-            LookUpTextureData[Offset + 3] =
-                static_cast<float>(Mip.Size[1]);
+            const AtlasAllocation
+                &Allocation =
+                    ExistingAllocation->second;
 
-            PendingTextures.push_back(Texture);
+            UpdateLookupTexture(
+                Texture,
+                LookUpTextureData,
+                TextureID,
+                Allocation);
 
             ++Texture->References;
 
@@ -432,8 +1115,9 @@ public:
         }
 
         // --------------------------------------------------------------------
-        // Calculate the exact dimensions used by the skyline.
+        // Calculate dimensions.
         // --------------------------------------------------------------------
+
         uint32_t MipWidth;
         uint32_t MipHeight;
         uint32_t AlignedWidth;
@@ -453,10 +1137,13 @@ public:
                 AlignedPadding)) {
 
             if (Texture->MipChain.empty()) {
+
                 std::cout
                     << "Texture has no mip data"
                     << std::endl;
-            } else if (MipLevel >= Texture->MipChain.size()) {
+
+            } else {
+
                 std::cout
                     << "Texture has not got this mip lvl"
                     << std::endl;
@@ -466,10 +1153,13 @@ public:
         }
 
         // --------------------------------------------------------------------
-        // The rectangle itself cannot fit.
+        // The padded rectangle cannot fit in the atlas.
         // --------------------------------------------------------------------
-        if (PackedWidth > MaxTextureDimension ||
-            PackedHeight > MaxTextureDimension) {
+
+        if (PackedWidth >
+                MaxTextureDimension ||
+            PackedHeight >
+                MaxTextureDimension) {
 
             std::cerr
                 << "Texture "
@@ -489,8 +1179,95 @@ public:
         }
 
         // --------------------------------------------------------------------
-        // Find the exact position.
+        // Look for an allocation from the previous frame.
         // --------------------------------------------------------------------
+
+        const auto PreviousAllocation =
+            PreviousAllocations.find(
+                Texture->ID);
+
+        if (PreviousAllocation !=
+            PreviousAllocations.end()) {
+
+            const AtlasAllocation
+                &Allocation =
+                    PreviousAllocation->second;
+
+            // ----------------------------------------------------------------
+            // Existing allocation still matches.
+            //
+            // Reuse the exact position.
+            // ----------------------------------------------------------------
+
+            if (Allocation.Width ==
+                    AlignedWidth &&
+                Allocation.Height ==
+                    AlignedHeight) {
+
+                CurrentAllocations.emplace(
+                    Texture->ID,
+                    Allocation);
+
+                UpdateLookupTexture(
+                    Texture,
+                    LookUpTextureData,
+                    TextureID,
+                    Allocation);
+
+                PendingTextures.push_back(
+                    Texture);
+
+                ++Texture->References;
+
+                return true;
+            }
+
+            // ----------------------------------------------------------------
+            // Same texture ID, but dimensions changed.
+            //
+            // The old allocation can no longer be trusted.
+            //
+            // Treat this as both a removal and an addition so that
+            // FinalizeAllocationCache() rebuilds the skyline and Assemble()
+            // reconstructs the atlas rather than trying to preserve stale
+            // pixels.
+            // ----------------------------------------------------------------
+
+            HasRemovedTextures =
+                true;
+
+            HasAddedTextures =
+                true;
+
+            Dirty =
+                true;
+        }
+
+        // --------------------------------------------------------------------
+        // Genuinely new texture.
+        // --------------------------------------------------------------------
+
+        if (PreviousAllocation ==
+            PreviousAllocations.end()) {
+
+            HasAddedTextures =
+                true;
+
+            Dirty =
+                true;
+        }
+
+        // --------------------------------------------------------------------
+        // Find a position against the current skyline.
+        //
+        // If a removal is eventually detected, FinalizeAllocationCache()
+        // will rebuild the skyline from CurrentAllocations.
+        //
+        // Until then, retaining the old skyline is conservative because old
+        // rectangles can only make placement less efficient; they cannot
+        // cause a new texture to overlap a still-existing texture.
+        // --------------------------------------------------------------------
+
         uint32_t X;
         uint32_t Y;
         size_t SkylineIndex;
@@ -510,10 +1287,13 @@ public:
         }
 
         // --------------------------------------------------------------------
-        // All skyline coordinates should remain BC7 aligned.
+        // Every skyline coordinate must be BC7 aligned.
         // --------------------------------------------------------------------
-        if ((X & (BC7_ALIGNMENT - 1)) != 0 ||
-            (Y & (BC7_ALIGNMENT - 1)) != 0) {
+
+        if ((X &
+             (BC7_ALIGNMENT - 1)) != 0 ||
+            (Y &
+             (BC7_ALIGNMENT - 1)) != 0) {
 
             std::cerr
                 << "Internal error: skyline returned "
@@ -529,6 +1309,7 @@ public:
         // --------------------------------------------------------------------
         // Reserve the complete padded rectangle.
         // --------------------------------------------------------------------
+
         InsertSkylineLevel(
             SkylineIndex,
             X,
@@ -539,62 +1320,198 @@ public:
         MergeSkyline();
 
         // --------------------------------------------------------------------
-        // Actual texture coordinates exclude padding.
+        // Remove the padding from the actual texture coordinates.
         // --------------------------------------------------------------------
+
         const uint32_t TextureX =
-            X + AlignedPadding;
+            X +
+            AlignedPadding;
 
         const uint32_t TextureY =
-            Y + AlignedPadding;
+            Y +
+            AlignedPadding;
 
         // --------------------------------------------------------------------
-        // The texture was not present in the previous atlas.
+        // Store the actual BC7-aligned texture allocation.
         // --------------------------------------------------------------------
-        if (!PreviousAllocations.contains(Texture->ID)) {
-            Dirty = true;
-        }
+
+        const AtlasAllocation Allocation{
+            TextureX,
+            TextureY,
+            AlignedWidth,
+            AlignedHeight};
 
         CurrentAllocations.emplace(
             Texture->ID,
-            AtlasAllocation{
-                TextureX,
-                TextureY,
-                AlignedWidth,
-                AlignedHeight});
+            Allocation);
 
         ++Texture->References;
 
         // --------------------------------------------------------------------
-        // Update lookup texture.
+        // Update lookup information.
+        //
+        // The lookup stores the actual mip dimensions rather than the
+        // padded allocation dimensions.
         // --------------------------------------------------------------------
-        const size_t Offset =
-            (static_cast<size_t>(TextureID) *
-                 PMMA::Constants::MAX_TEXTURE_MIPS +
-             static_cast<size_t>(MipLevel)) *
-            4;
 
-        if (LookUpTextureData.size() < Offset + 4) {
-            LookUpTextureData.resize(
-                Offset + 4,
-                0.0f);
-        }
+        UpdateLookupTexture(
+            Texture,
+            LookUpTextureData,
+            TextureID,
+            Allocation);
 
-        LookUpTextureData[Offset + 0] =
-            static_cast<float>(TextureX);
-
-        LookUpTextureData[Offset + 1] =
-            static_cast<float>(TextureY);
-
-        LookUpTextureData[Offset + 2] =
-            static_cast<float>(MipWidth);
-
-        LookUpTextureData[Offset + 3] =
-            static_cast<float>(MipHeight);
-
-        PendingTextures.push_back(Texture);
+        PendingTextures.push_back(
+            Texture);
 
         return true;
     }
+
+    // ========================================================================
+    // Reconcile the complete current texture set against the previous frame.
+    //
+    // THIS MUST BE CALLED AFTER ALL RegisterTexture() CALLS FOR THE FRAME.
+    //
+    // This is the authoritative point at which we know whether textures have
+    // disappeared.
+    //
+    // Cases:
+    //
+    //     A B C -> A B C
+    //         No change.
+    //
+    //     A B C -> A B C D
+    //         Addition only.
+    //
+    //     A B C D -> A B C
+    //         Removal.
+    //
+    //     A B C -> A B D
+    //         Removal + addition.
+    //
+    //     A -> A (different dimensions)
+    //         Replacement.
+    //
+    // Removal/replacement requires the skyline to be reconstructed from the
+    // current allocation set.
+    // ========================================================================
+
+    inline void FinalizeAllocationCache() {
+
+        bool FoundAddedTexture =
+            false;
+
+        bool FoundRemovedTexture =
+            false;
+
+        // --------------------------------------------------------------------
+        // Detect removals.
+        // --------------------------------------------------------------------
+
+        for (const auto &[TextureID, Allocation] :
+             PreviousAllocations) {
+
+            (void)Allocation;
+
+            if (!CurrentAllocations.contains(
+                    TextureID)) {
+
+                FoundRemovedTexture =
+                    true;
+
+                break;
+            }
+        }
+
+        // --------------------------------------------------------------------
+        // Detect additions.
+        // --------------------------------------------------------------------
+
+        for (const auto &[TextureID, Allocation] :
+             CurrentAllocations) {
+
+            (void)Allocation;
+
+            if (!PreviousAllocations.contains(
+                    TextureID)) {
+
+                FoundAddedTexture =
+                    true;
+
+                break;
+            }
+        }
+
+        // --------------------------------------------------------------------
+        // Preserve information discovered during RegisterTexture().
+        // --------------------------------------------------------------------
+
+        HasAddedTextures =
+            HasAddedTextures ||
+            FoundAddedTexture;
+
+        HasRemovedTextures =
+            HasRemovedTextures ||
+            FoundRemovedTexture;
+
+        // --------------------------------------------------------------------
+        // Removal/replacement.
+        //
+        // The old skyline contains rectangles that no longer belong to the
+        // current atlas, so it must be reconstructed.
+        // --------------------------------------------------------------------
+
+        if (HasRemovedTextures) {
+
+            RebuildSkylineFromCurrentAllocations();
+
+            Dirty =
+                true;
+
+            return;
+        }
+
+        // --------------------------------------------------------------------
+        // Addition only.
+        //
+        // RegisterTexture() already inserted the new allocations into the
+        // working skyline.
+        // --------------------------------------------------------------------
+
+        if (HasAddedTextures) {
+
+            Dirty =
+                true;
+
+            return;
+        }
+
+        // --------------------------------------------------------------------
+        // No additions and no removals.
+        //
+        // The allocation set is unchanged, so the existing GPU atlas remains
+        // authoritative.
+        // --------------------------------------------------------------------
+
+        Dirty =
+            false;
+    }
+
+    // ========================================================================
+    // Assemble the CPU/GPU atlas.
+    //
+    // The implementation is in the .cpp.
+    //
+    // IMPORTANT:
+    //
+    // The caller must invoke:
+    //
+    //     RegisterTexture(...)
+    //     ...
+    //     FinalizeAllocationCache()
+    //     Assemble()
+    //
+    // in that order for every frame.
+    // ========================================================================
 
     void Assemble();
 };
