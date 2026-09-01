@@ -88,8 +88,8 @@ private:
     }
 
 public:
-    std::map<uintptr_t, AtlasAllocation> PreviousAllocations;
-    std::map<uintptr_t, AtlasAllocation> CurrentAllocations;
+    std::unordered_map<uintptr_t, AtlasAllocation> PreviousAllocations;
+    std::unordered_map<uintptr_t, AtlasAllocation> CurrentAllocations;
 
     std::array<std::vector<unsigned char>, 4> AtlasPixels;
 
