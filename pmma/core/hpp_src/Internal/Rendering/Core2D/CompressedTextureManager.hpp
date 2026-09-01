@@ -2,11 +2,8 @@
 
 #include <algorithm>
 #include <cstdint>
-#include <iostream>
 #include <limits>
 #include <string>
-#include <unordered_map>
-#include <utility>
 #include <vector>
 
 #include <bgfx/bgfx.h>
@@ -28,10 +25,10 @@ private:
     bgfx::UniformHandle s_LookUpTexture;
 
     /*
-     * Indexed by the stable texture ID.
+     * Indexed by the texture ID for the current frame.
      *
-     * This is rebuilt every frame.  It must therefore only contain
-     * entries for textures that actually occur in the current frame.
+     * This is rebuilt every frame and therefore only contains entries
+     * for textures registered in the current frame.
      */
     std::vector<bool> TextureIsTransparent;
 
@@ -50,108 +47,17 @@ private:
     std::vector<float> LookUpTextureData;
 
     /*
-     * Number of texture IDs required by the current frame.
+     * Number of textures registered in the current frame.
      *
-     * This is deliberately NOT simply incremented when a new texture
-     * is registered.  Cached IDs may be sparse, e.g.:
-     *
-     *     0, 1, 17, 42
-     *
-     * In that case the lookup texture must still have 43 rows.
+     * Also serves as the ID assigned to the next texture registered.
      */
     uint32_t TextureID = 0;
-
-    /*
-     * Stable texture ID cache.
-     *
-     * PreviousRegisteredTextures contains the IDs from the previous
-     * frame.
-     *
-     * CurrentRegisteredTextures contains ONLY IDs used by the current
-     * frame.
-     */
-    std::unordered_map<uintptr_t, uint32_t> PreviousRegisteredTextures;
-    std::unordered_map<uintptr_t, uint32_t> CurrentRegisteredTextures;
 
     std::array<std::vector<float>, 4> PaddedData;
     char PaddedDataBufferID = 0;
     char PaddedDataPreviousBufferID = 0;
 
 private:
-    inline bool IsValidTextureID(uint32_t ID) const {
-        return ID != std::numeric_limits<uint32_t>::max();
-    }
-
-    /*
-     * Make sure TextureID represents the number of rows required by
-     * the lookup texture.
-     *
-     * This is particularly important when a cached ID is reused.
-     *
-     * Example:
-     *
-     *     cached ID = 25
-     *     TextureID = 0
-     *
-     * We must end up with:
-     *
-     *     TextureID = 26
-     */
-    inline bool IncludeTextureID(uint32_t ID) {
-        if (!IsValidTextureID(ID)) {
-            return false;
-        }
-
-        if (ID == std::numeric_limits<uint32_t>::max()) {
-            return false;
-        }
-
-        const uint64_t RequiredHeight =
-            static_cast<uint64_t>(ID) + 1u;
-
-        if (RequiredHeight >
-            static_cast<uint64_t>(
-                std::numeric_limits<uint32_t>::max())) {
-
-            return false;
-        }
-
-        TextureID =
-            std::max(
-                TextureID,
-                static_cast<uint32_t>(RequiredHeight));
-
-        return true;
-    }
-
-    /*
-     * Register the current frame's use of a cached texture.
-     *
-     * The stable ID comes from the previous frame, but all current
-     * frame state is still explicitly rebuilt.
-     */
-    inline bool RegisterCachedTexture(
-        uintptr_t InternalTextureID,
-        uint32_t CachedID,
-        bool Transparent) {
-
-        if (!IncludeTextureID(CachedID)) {
-            return false;
-        }
-
-        CurrentRegisteredTextures[InternalTextureID] = CachedID;
-
-        if (TextureIsTransparent.size() <= CachedID) {
-            TextureIsTransparent.resize(
-                static_cast<size_t>(CachedID) + 1,
-                false);
-        }
-
-        TextureIsTransparent[CachedID] = Transparent;
-
-        return true;
-    }
-
     /*
      * Ensure the lookup data vector is large enough for a texture ID.
      *
@@ -176,12 +82,9 @@ private:
     }
 
     /*
-     * Register the texture with its atlas even when the texture ID
-     * came from the previous-frame cache.
+     * Register the texture with the appropriate atlas instances.
      *
-     * The cache only caches the stable lookup ID.  Atlas placement
-     * and lookup data are current-frame state and therefore must be
-     * rebuilt.
+     * Atlas placement and lookup data are rebuilt every frame.
      */
     inline void RegisterTextureIntoAtlases(
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *
@@ -274,8 +177,11 @@ public:
             return;
         }
 
-        in_data[2] = Texture->m_TextureWidth;
-        in_data[3] = Texture->m_TextureHeight;
+        in_data[2] =
+            Texture->m_TextureWidth;
+
+        in_data[3] =
+            Texture->m_TextureHeight;
     }
 
     inline void WriteTransparentData(float *in_data) {
@@ -288,8 +194,11 @@ public:
             return;
         }
 
-        in_data[2] = Texture->m_TextureWidth;
-        in_data[3] = Texture->m_TextureHeight;
+        in_data[2] =
+            Texture->m_TextureWidth;
+
+        in_data[3] =
+            Texture->m_TextureHeight;
     }
 
     inline void DestroyLookupTexture() {
@@ -301,27 +210,14 @@ public:
 
     inline void Reset() {
         /*
-         * TextureID describes the CURRENT frame, so it is always reset.
+         * Texture IDs are only valid for the current frame.
          *
-         * Stable IDs themselves are retained in
-         * PreviousRegisteredTextures.
+         * The next frame starts allocating IDs from zero again.
          */
         TextureID = 0;
 
         LookUpTextureData.clear();
         TextureIsTransparent.clear();
-
-        /*
-         * Move the current frame's registrations into the previous
-         * frame cache.
-         *
-         * Using swap avoids copying the entire unordered_map and,
-         * importantly, leaves CurrentRegisteredTextures empty.
-         */
-        PreviousRegisteredTextures.swap(
-            CurrentRegisteredTextures);
-
-        CurrentRegisteredTextures.clear();
 
         for (int i = 0;
              i < std::size(TransparentCompressedTextureInstance);
@@ -365,36 +261,7 @@ public:
 
     inline bool CanFitTextureOpaque(
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *
-            Texture,
-        uint32_t Width,
-        uint32_t Height) {
-
-        const uintptr_t InternalTextureID =
-            Texture->ID;
-
-        /*
-         * A cached texture has already been assigned a stable ID.
-         *
-         * Do NOT let this path leave TextureID at zero.  The ID must
-         * contribute to the current lookup texture's height.
-         */
-        auto it =
-            PreviousRegisteredTextures.find(
-                InternalTextureID);
-
-        if (it != PreviousRegisteredTextures.end()) {
-            const uint32_t CachedID = it->second;
-
-            if (!RegisterCachedTexture(
-                    InternalTextureID,
-                    CachedID,
-                    false)) {
-
-                return false;
-            }
-
-            return true;
-        }
+            Texture) {
 
         if (OpaqueCompressedTextureInstance[0] == nullptr) {
             OpaqueCompressedTextureInstance[0] =
@@ -406,37 +273,12 @@ public:
         }
 
         return OpaqueCompressedTextureInstance[0]->CanFitTexture(
-            Texture,
-            Width,
-            Height);
+            Texture);
     }
 
     inline bool CanFitTextureTransparent(
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *
-            Texture,
-        uint32_t Width,
-        uint32_t Height) {
-
-        const uintptr_t InternalTextureID =
-            Texture->ID;
-
-        auto it =
-            PreviousRegisteredTextures.find(
-                InternalTextureID);
-
-        if (it != PreviousRegisteredTextures.end()) {
-            const uint32_t CachedID = it->second;
-
-            if (!RegisterCachedTexture(
-                    InternalTextureID,
-                    CachedID,
-                    true)) {
-
-                return false;
-            }
-
-            return true;
-        }
+            Texture) {
 
         if (TransparentCompressedTextureInstance[0] == nullptr) {
             TransparentCompressedTextureInstance[0] =
@@ -448,71 +290,29 @@ public:
         }
 
         return TransparentCompressedTextureInstance[0]->CanFitTexture(
-            Texture,
-            Width,
-            Height);
+            Texture);
     }
 
     inline float RegisterOpaque(
         PMMA::Internal::Rendering::Core2D::
             CompressedTextureProperty *TextureProperties) {
 
-        const uintptr_t InternalTextureID =
-            TextureProperties->ID;
+        if (TextureID ==
+            std::numeric_limits<uint32_t>::max()) {
 
-        /*
-         * First check whether this texture has a stable ID from the
-         * previous frame.
-         */
-        auto it =
-            PreviousRegisteredTextures.find(
-                InternalTextureID);
-
-        uint32_t ID = 0;
-
-        if (it != PreviousRegisteredTextures.end()) {
-            /*
-             * Reuse the stable ID, but DO NOT skip registration.
-             *
-             * The atlas and lookup data belong to the current frame.
-             */
-            ID = it->second;
-
-            if (!RegisterCachedTexture(
-                    InternalTextureID,
-                    ID,
-                    false)) {
-
-                return static_cast<float>(
-                    std::numeric_limits<uint32_t>::max());
-            }
-        } else {
-            /*
-             * Allocate a new stable ID.
-             *
-             * TextureID is the number of rows required by the current
-             * frame, so incrementing it here is correct for a newly
-             * allocated sequential ID.
-             */
-            ID = TextureID;
-
-            if (ID == std::numeric_limits<uint32_t>::max()) {
-                return static_cast<float>(
-                    std::numeric_limits<uint32_t>::max());
-            }
-
-            ++TextureID;
-
-            CurrentRegisteredTextures[InternalTextureID] = ID;
-
-            if (TextureIsTransparent.size() <= ID) {
-                TextureIsTransparent.resize(
-                    static_cast<size_t>(ID) + 1,
-                    false);
-            }
-
-            TextureIsTransparent[ID] = false;
+            return static_cast<float>(
+                std::numeric_limits<uint32_t>::max());
         }
+
+        const uint32_t ID = TextureID++;
+
+        if (TextureIsTransparent.size() <= ID) {
+            TextureIsTransparent.resize(
+                static_cast<size_t>(ID) + 1,
+                false);
+        }
+
+        TextureIsTransparent[ID] = false;
 
         RegisterTextureIntoAtlases(
             TextureProperties,
@@ -526,50 +326,22 @@ public:
         PMMA::Internal::Rendering::Core2D::
             CompressedTextureProperty *TextureProperties) {
 
-        const uintptr_t InternalTextureID =
-            TextureProperties->ID;
+        if (TextureID ==
+            std::numeric_limits<uint32_t>::max()) {
 
-        auto it =
-            PreviousRegisteredTextures.find(
-                InternalTextureID);
-
-        uint32_t ID = 0;
-
-        if (it != PreviousRegisteredTextures.end()) {
-            /*
-             * Reuse the stable ID, but rebuild the current frame's
-             * atlas/lookup state.
-             */
-            ID = it->second;
-
-            if (!RegisterCachedTexture(
-                    InternalTextureID,
-                    ID,
-                    true)) {
-
-                return static_cast<float>(
-                    std::numeric_limits<uint32_t>::max());
-            }
-        } else {
-            ID = TextureID;
-
-            if (ID == std::numeric_limits<uint32_t>::max()) {
-                return static_cast<float>(
-                    std::numeric_limits<uint32_t>::max());
-            }
-
-            ++TextureID;
-
-            CurrentRegisteredTextures[InternalTextureID] = ID;
-
-            if (TextureIsTransparent.size() <= ID) {
-                TextureIsTransparent.resize(
-                    static_cast<size_t>(ID) + 1,
-                    false);
-            }
-
-            TextureIsTransparent[ID] = true;
+            return static_cast<float>(
+                std::numeric_limits<uint32_t>::max());
         }
+
+        const uint32_t ID = TextureID++;
+
+        if (TextureIsTransparent.size() <= ID) {
+            TextureIsTransparent.resize(
+                static_cast<size_t>(ID) + 1,
+                false);
+        }
+
+        TextureIsTransparent[ID] = true;
 
         RegisterTextureIntoAtlases(
             TextureProperties,
@@ -586,13 +358,6 @@ public:
             static_cast<uint32_t>(
                 PMMA::Constants::MAX_TEXTURE_MIPS);
 
-        /*
-         * TextureID is now the required number of rows, rather than
-         * merely the number of newly-created IDs this frame.
-         *
-         * Therefore a frame containing cached IDs such as 12 and 25
-         * correctly produces a height of 26.
-         */
         const uint32_t Height = TextureID;
 
         if (Width == 0 || Height == 0) {
@@ -607,20 +372,17 @@ public:
         /*
          * Start with a completely zeroed lookup texture.
          *
-         * This is important: anything that existed in the previous
-         * frame must NOT survive into this frame.
+         * This prevents data from the previous frame from surviving
+         * into the current frame.
          */
-        PaddedData[PaddedDataBufferID].resize(ExpectedFloatCount, 0.0f);
+        PaddedData[PaddedDataBufferID].assign(
+            ExpectedFloatCount,
+            0.0f);
 
         for (uint32_t TextureIndex = 0;
              TextureIndex < Height;
              ++TextureIndex) {
 
-            /*
-             * An ID can be sparse because stable IDs survive between
-             * frames.  A row without a current-frame registration
-             * remains completely zero.
-             */
             if (TextureIndex >=
                 TextureIsTransparent.size()) {
 
@@ -666,8 +428,7 @@ public:
 
                 /*
                  * An atlas can legitimately not exist for a mip, or
-                 * may not have been assembled yet.  Do not divide by
-                 * zero.
+                 * may not have been assembled yet.
                  */
                 if (AtlasWidth <= 0.0f ||
                     AtlasHeight <= 0.0f) {
@@ -732,7 +493,8 @@ public:
                 Memory);
 
         PaddedDataPreviousBufferID = PaddedDataBufferID;
-        PaddedDataBufferID = (PaddedDataBufferID + 1) % 4;
+        PaddedDataBufferID =
+            (PaddedDataBufferID + 1) % 4;
     }
 
     inline void Assemble() {
@@ -780,7 +542,9 @@ public:
             }
         }
 
-        if (Dirty || !bgfx::isValid(LookUpTextureHandle)) {
+        if (Dirty ||
+            !bgfx::isValid(LookUpTextureHandle)) {
+
             /*
              * Build this after the atlas instances have been assembled.
              */

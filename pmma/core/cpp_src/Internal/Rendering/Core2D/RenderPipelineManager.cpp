@@ -33,9 +33,9 @@ PMMA::Internal::Rendering::Core2D::RenderPipelineInstance *PMMA::Internal::Rende
     bool TextureCanFit = true;
     if (Texture != nullptr && TextureSize[0] > 0 && TextureSize[1] > 0 && Channels >= 3) {
         if (Channels == 3) {
-            TextureCanFit = lastInstance->CompressedTextureManager.CanFitTextureOpaque(Texture, TextureSize[0], TextureSize[1]);
+            TextureCanFit = lastInstance->CompressedTextureManager.CanFitTextureOpaque(Texture);
         } else {
-            TextureCanFit = lastInstance->CompressedTextureManager.CanFitTextureTransparent(Texture, TextureSize[0], TextureSize[1]);
+            TextureCanFit = lastInstance->CompressedTextureManager.CanFitTextureTransparent(Texture);
         }
     }
 
