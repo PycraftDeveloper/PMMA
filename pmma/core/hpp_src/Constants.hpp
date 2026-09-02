@@ -16,6 +16,8 @@ inline constexpr float TAU = 6.283185307179586f;
 inline constexpr int RENDER_PIPELINE_INSTANCE_MAX_SIZE = 16777216;
 inline constexpr int MAX_TEXTURE_MIPS = 13; // Compressed, 12 mips, RGBA for generated, lookup, color
 
+inline constexpr int MAX_FRAMES_BETWEEN_STALE_BUFFER_CLEANUP = 60; // 1 second at 60fps
+
 struct HatStates {
     static inline const std::string_view NOT_PRESSED = "HAT NOT PRESSED";
     static inline const std::string_view PRESSED_UP = "HAT PRESSED UP";

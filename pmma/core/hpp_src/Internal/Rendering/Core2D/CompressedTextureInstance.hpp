@@ -15,6 +15,13 @@
 
 namespace PMMA::Internal::Rendering::Core2D {
 
+struct CompressedTexture_BufferData {
+    std::vector<uint8_t> Data;
+    bool Active = false;
+    bool Clear = true;
+    int FramesSinceLastActive = 0;
+};
+
 class CompressedTextureInstance {
 private:
     // ========================================================================
@@ -502,7 +509,7 @@ public:
     // ========================================================================
 
     std::array<
-        std::vector<unsigned char>,
+        CompressedTexture_BufferData,
         4>
         AtlasPixels;
 
@@ -513,6 +520,8 @@ public:
     uint32_t AtlasPadding = 0;
 
     uint32_t MipLevel = 0;
+
+    uint32_t FramesSinceLastChange = 0;
 
 public:
     // ========================================================================
@@ -681,6 +690,25 @@ public:
             false;
 
         PendingTextures.clear();
+
+        if (FramesSinceLastChange >=
+            PMMA::Constants::MAX_FRAMES_BETWEEN_STALE_BUFFER_CLEANUP) {
+
+            for (auto &Buffer :
+                 AtlasPixels) {
+
+                if (!Buffer.Active &&
+                    !Buffer.Clear) {
+
+                    Buffer.Data.clear();
+                    Buffer.Data.shrink_to_fit();
+                    Buffer.Clear = true;
+                    Buffer.FramesSinceLastActive = 0;
+                }
+            }
+        } else {
+            FramesSinceLastChange++;
+        }
     }
 
     // ========================================================================

@@ -410,7 +410,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     const bool HasPreviousAtlas =
         PreviousTextureWidth != 0 &&
         PreviousTextureHeight != 0 &&
-        !AtlasPixels[PreviousBufferID].empty();
+        !AtlasPixels[PreviousBufferID].Data.empty();
 
     const bool AtlasGrew =
         HasPreviousAtlas &&
@@ -433,7 +433,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
             NewTextureWidth,
             NewTextureHeight);
 
-    AtlasPixels[BufferID].resize(
+    AtlasPixels[BufferID].Data.resize(
         AtlasSize);
 
     // ========================================================================
@@ -528,10 +528,10 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
                 DestinationRowSize;
 
             std::copy_n(
-                Source.data() +
+                Source.Data.data() +
                     SourceOffset,
                 BytesToCopyPerRow,
-                Destination.data() +
+                Destination.Data.data() +
                     DestinationOffset);
         }
 
@@ -554,7 +554,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     if (!PreservedPreviousAtlas) {
 
         ClearBC7Mip(
-            AtlasPixels[BufferID].data(),
+            AtlasPixels[BufferID].Data.data(),
             NewTextureWidth,
             NewTextureHeight);
     }
@@ -796,7 +796,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
                 Y,
                 NewTextureWidth,
                 NewTextureHeight,
-                AtlasPixels[BufferID].data())) {
+                AtlasPixels[BufferID].Data.data())) {
 
             std::cerr
                 << "Failed to copy mip "
@@ -839,7 +839,7 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     // 10. Empty atlas handling.
     // ========================================================================
 
-    if (AtlasPixels[BufferID].empty()) {
+    if (AtlasPixels[BufferID].Data.empty()) {
 
         std::cerr
             << "Compressed atlas is empty."
@@ -862,6 +862,10 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
     // This atlas contains no mip chain.
     // ========================================================================
 
+    AtlasPixels[PreviousBufferID].Active = false;
+    AtlasPixels[BufferID].Active = true;
+    AtlasPixels[BufferID].Clear = false;
+
     TextureHandle =
         bgfx::createTexture2D(
             static_cast<uint16_t>(
@@ -879,9 +883,9 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
             BGFX_TEXTURE_NONE,
 
             bgfx::makeRef(
-                AtlasPixels[BufferID].data(),
+                AtlasPixels[BufferID].Data.data(),
                 static_cast<uint32_t>(
-                    AtlasPixels[BufferID].size())));
+                    AtlasPixels[BufferID].Data.size())));
 
     // ========================================================================
     // 12. Finalise the CPU buffer rotation.
@@ -897,4 +901,6 @@ void PMMA::Internal::Rendering::Core2D::CompressedTextureInstance::Assemble() {
 
     BufferID =
         (BufferID + 1) % 4;
+
+    FramesSinceLastChange = 0;
 }
