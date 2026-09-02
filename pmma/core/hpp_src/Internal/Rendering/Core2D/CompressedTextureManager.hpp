@@ -546,15 +546,11 @@ public:
             }
         }
 
-        /*
         if (Dirty ||
             !bgfx::isValid(LookUpTextureHandle)) {
 
             AssembleLookupTexture();
         }
-        */
-
-        AssembleLookupTexture();
     }
 
     inline void
