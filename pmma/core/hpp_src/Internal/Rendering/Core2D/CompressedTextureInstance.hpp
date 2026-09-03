@@ -24,95 +24,20 @@ struct CompressedTexture_BufferData {
 
 class CompressedTextureInstance {
 private:
-    // ========================================================================
-    // Textures registered during the current frame.
-    //
-    // Assemble() uses this list to determine which texture mip data may need
-    // to be copied into the CPU atlas.
-    //
-    // A texture may appear more than once if it is registered multiple times
-    // during the same frame. That is intentional; CurrentAllocations is the
-    // authoritative source for the allocation itself.
-    // ========================================================================
-
     std::vector<
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *>
         PendingTextures;
-
-    // ========================================================================
-    // Current working skyline.
-    //
-    // This describes the rectangles currently present in
-    // CurrentAllocations.
-    //
-    // During normal operation this starts from PreviousSkyline and receives
-    // new allocations as textures are registered.
-    //
-    // If a removal is detected, FinalizeAllocationCache() reconstructs this
-    // skyline from CurrentAllocations.
-    // ========================================================================
 
     std::vector<
         PMMA::Internal::Rendering::Core2D::SkylineNode>
         Skyline;
 
-    // ========================================================================
-    // Skyline belonging to the previous completed frame.
-    //
-    // This corresponds to PreviousAllocations.
-    //
-    // It can be reused when the current frame contains the same set of
-    // allocations, and it remains a valid conservative starting point when
-    // textures are only added.
-    //
-    // If a texture is removed, this skyline contains a ghost rectangle and
-    // therefore must not remain the authoritative skyline.
-    // ========================================================================
-
     std::vector<
         PMMA::Internal::Rendering::Core2D::SkylineNode>
         PreviousSkyline;
 
-    // ========================================================================
-    // Frame-level change state.
-    //
-    // HasAddedTextures:
-    //     At least one current allocation did not exist in the previous
-    //     frame, or an existing texture changed dimensions and therefore
-    //     required a new allocation.
-    //
-    // HasRemovedTextures:
-    //     At least one allocation from the previous frame is no longer
-    //     present in the current frame, or an existing texture changed
-    //     dimensions.
-    //
-    // Assemble() uses these indirectly through Dirty and the allocation
-    // caches to determine whether the previous CPU atlas can be preserved.
-    // ========================================================================
-
     bool HasAddedTextures = false;
     bool HasRemovedTextures = false;
-
-    // ========================================================================
-    // Calculate the exact rectangle reserved by a mip in the atlas.
-    //
-    // The returned values are:
-    //
-    //     OutMipWidth / OutMipHeight
-    //         Actual source texture dimensions.
-    //
-    //     OutAlignedWidth / OutAlignedHeight
-    //         Dimensions rounded up to BC7's 4x4 block size.
-    //
-    //     OutPackedWidth / OutPackedHeight
-    //         Full skyline reservation including padding.
-    //
-    //     OutAlignedPadding
-    //         Padding rounded to a BC7 block boundary.
-    //
-    // CanFitTexture() and RegisterTexture() both use this function so they
-    // cannot disagree about the dimensions of a texture.
-    // ========================================================================
 
     inline bool GetPackedDimensions(
         const PMMA::Internal::Rendering::Core2D::CompressedTextureProperty
@@ -189,19 +114,6 @@ private:
         return true;
     }
 
-    // ========================================================================
-    // Rebuild the skyline directly from CurrentAllocations.
-    //
-    // This is used after a removal or replacement.
-    //
-    // We deliberately do NOT replay InsertSkylineLevel() because doing so
-    // would make the reconstructed skyline dependent on unordered_map
-    // iteration order.
-    //
-    // Instead, all rectangle boundaries are converted into X intervals and
-    // the maximum occupied Y for each interval is calculated.
-    // ========================================================================
-
     inline void RebuildSkylineFromCurrentAllocations() {
 
         Skyline.clear();
@@ -216,10 +128,6 @@ private:
 
         const uint32_t AlignedPadding =
             AlignUp4(AtlasPadding);
-
-        // --------------------------------------------------------------------
-        // Collect every X boundary.
-        // --------------------------------------------------------------------
 
         std::vector<uint32_t> XCoordinates;
 
@@ -264,10 +172,6 @@ private:
                 XCoordinates.begin(),
                 XCoordinates.end()),
             XCoordinates.end());
-
-        // --------------------------------------------------------------------
-        // Generate a skyline node for each horizontal interval.
-        // --------------------------------------------------------------------
 
         std::vector<SkylineNode> RebuiltSkyline;
 
@@ -341,10 +245,6 @@ private:
                                       NextX - X});
         }
 
-        // --------------------------------------------------------------------
-        // Merge adjacent nodes with the same height.
-        // --------------------------------------------------------------------
-
         for (size_t i = 0;
              i + 1 < RebuiltSkyline.size();) {
 
@@ -372,10 +272,6 @@ private:
 
             ++i;
         }
-
-        // --------------------------------------------------------------------
-        // Ensure the complete atlas width is represented.
-        // --------------------------------------------------------------------
 
         if (RebuiltSkyline.empty()) {
 
@@ -411,24 +307,6 @@ private:
             std::move(
                 RebuiltSkyline);
     }
-
-    // ========================================================================
-    // Write one allocation into the frame lookup-data array.
-    //
-    // IMPORTANT:
-    //
-    // The lookup texture contains the ACTUAL texture rectangle:
-    //
-    //     X
-    //     Y
-    //     actual width
-    //     actual height
-    //
-    // It does NOT contain the padded skyline rectangle.
-    //
-    // AssembleLookupTexture() in CompressedTextureManager later converts
-    // these values into normalized atlas coordinates.
-    // ========================================================================
 
     inline void UpdateLookupTexture(
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty
@@ -478,19 +356,6 @@ private:
     }
 
 public:
-    // ========================================================================
-    // Allocation cache.
-    //
-    // PreviousAllocations:
-    //     The exact allocation layout belonging to the previous frame.
-    //
-    // CurrentAllocations:
-    //     The exact allocation layout belonging to the current frame.
-    //
-    // An AtlasAllocation stores the unpadded texture position and the
-    // BC7-aligned texture dimensions.
-    // ========================================================================
-
     std::unordered_map<
         uintptr_t,
         AtlasAllocation>
@@ -501,21 +366,10 @@ public:
         AtlasAllocation>
         CurrentAllocations;
 
-    // ========================================================================
-    // CPU atlas buffers.
-    //
-    // Four buffers are used so that the buffer uploaded to bgfx can remain
-    // untouched while another CPU buffer is assembled.
-    // ========================================================================
-
     std::array<
         CompressedTexture_BufferData,
         4>
         AtlasPixels;
-
-    // ========================================================================
-    // Atlas configuration.
-    // ========================================================================
 
     uint32_t AtlasPadding = 0;
 
@@ -524,40 +378,11 @@ public:
     uint32_t FramesSinceLastChange = 0;
 
 public:
-    // ========================================================================
-    // Indicates that the current CPU/GPU atlas must be rebuilt.
-    //
-    // This is true when:
-    //
-    //     - a texture was added;
-    //     - a texture was removed;
-    //     - an existing texture changed dimensions;
-    //     - the atlas was otherwise invalidated.
-    //
-    // If false, Assemble() does nothing and the existing GPU texture remains
-    // valid.
-    // ========================================================================
-
     bool Dirty = false;
-
-    // ========================================================================
-    // CPU atlas buffer currently being constructed.
-    //
-    // PreviousBufferID identifies the CPU atlas containing the previous
-    // completed layout and is therefore the source buffer for incremental
-    // atlas reconstruction.
-    // ========================================================================
 
     char BufferID = 0;
 
     char PreviousBufferID = 0;
-
-    // ========================================================================
-    // GPU atlas texture.
-    //
-    // This contains exactly ONE BC7 texture for this mip level.
-    // It has no mip chain of its own.
-    // ========================================================================
 
     bgfx::TextureHandle TextureHandle =
         BGFX_INVALID_HANDLE;
@@ -566,21 +391,9 @@ public:
 
     uint32_t m_TextureHeight = 0;
 
-    // ========================================================================
-    // Maximum atlas dimension.
-    // ========================================================================
-
     uint32_t MaxTextureDimension = 1024;
 
-    // ========================================================================
-    // Render pipeline instance owning this atlas.
-    // ========================================================================
-
     uintptr_t RenderPipelineInstanceID = 0;
-
-    // ========================================================================
-    // BC7 alignment.
-    // ========================================================================
 
     static constexpr uint32_t BC7_ALIGNMENT = 4;
 
@@ -599,10 +412,6 @@ public:
         return value &
                ~(BC7_ALIGNMENT - 1);
     }
-
-    // ========================================================================
-    // Constructor.
-    // ========================================================================
 
     CompressedTextureInstance(
         uintptr_t NewRenderPipelineInstanceID,
@@ -624,10 +433,6 @@ public:
                            MaxTextureDimension});
     }
 
-    // ========================================================================
-    // Destructor.
-    // ========================================================================
-
     ~CompressedTextureInstance() {
 
         if (bgfx::isValid(TextureHandle)) {
@@ -639,24 +444,6 @@ public:
                 BGFX_INVALID_HANDLE;
         }
     }
-
-    // ========================================================================
-    // Begin a new frame.
-    //
-    // The current frame becomes the previous frame's cached layout.
-    //
-    // The important invariant after Reset() is:
-    //
-    //     PreviousAllocations == layout used by previous frame
-    //     CurrentAllocations  == empty
-    //
-    // and:
-    //
-    //     PreviousSkyline == skyline for PreviousAllocations
-    //     Skyline         == working copy of PreviousSkyline
-    //
-    // This lets normal frames reuse allocations without repacking.
-    // ========================================================================
 
     inline void Reset() {
 
@@ -711,17 +498,6 @@ public:
         }
     }
 
-    // ========================================================================
-    // Query whether a texture can be registered.
-    //
-    // Existing textures reuse their cached allocation.
-    //
-    // New textures are tested against the current skyline.
-    //
-    // If a later registration causes a removal to be discovered, the final
-    // authoritative skyline is reconstructed by FinalizeAllocationCache().
-    // ========================================================================
-
     inline bool CanFitTexture(
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty
             *Texture) {
@@ -730,21 +506,11 @@ public:
             return false;
         }
 
-        // --------------------------------------------------------------------
-        // Already registered this frame.
-        // --------------------------------------------------------------------
-
         if (CurrentAllocations.contains(
                 Texture->ID)) {
 
             return true;
         }
-
-        // --------------------------------------------------------------------
-        // Existing previous allocation.
-        //
-        // Validate that its dimensions still match this mip.
-        // --------------------------------------------------------------------
 
         const auto PreviousAllocation =
             PreviousAllocations.find(
@@ -789,10 +555,6 @@ public:
                    Allocation.Height ==
                        AlignedHeight;
         }
-
-        // --------------------------------------------------------------------
-        // New texture.
-        // --------------------------------------------------------------------
 
         uint32_t MipWidth;
         uint32_t MipHeight;
@@ -840,12 +602,6 @@ public:
             Y,
             SkylineIndex);
     }
-
-    // ========================================================================
-    // Find the best skyline position using the bottom-left heuristic.
-    //
-    // The returned X/Y describe the complete padded rectangle.
-    // ========================================================================
 
     inline bool FindPosition(
         uint32_t Width,
@@ -963,10 +719,6 @@ public:
         return true;
     }
 
-    // ========================================================================
-    // Insert a padded rectangle into the skyline.
-    // ========================================================================
-
     inline void InsertSkylineLevel(
         size_t Index,
         uint32_t X,
@@ -1025,10 +777,6 @@ public:
         }
     }
 
-    // ========================================================================
-    // Merge adjacent skyline nodes with identical heights.
-    // ========================================================================
-
     inline void MergeSkyline() {
 
         for (size_t i = 0;
@@ -1060,24 +808,6 @@ public:
         }
     }
 
-    // ========================================================================
-    // Register a texture in this mip-level atlas.
-    //
-    // There are three important paths:
-    //
-    // 1. Already registered this frame:
-    //      Reuse CurrentAllocations.
-    //
-    // 2. Existing allocation with identical dimensions:
-    //      Reuse PreviousAllocations.
-    //
-    // 3. New or dimension-changed texture:
-    //      Allocate a new skyline position.
-    //
-    // The final texture set is not known until all registrations have
-    // completed, so removals are reconciled by FinalizeAllocationCache().
-    // ========================================================================
-
     inline bool RegisterTexture(
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty
             *Texture,
@@ -1092,10 +822,6 @@ public:
 
             return false;
         }
-
-        // --------------------------------------------------------------------
-        // Validate mip data.
-        // --------------------------------------------------------------------
 
         if (MipLevel >=
             Texture->MipChain.size()) {
@@ -1115,10 +841,6 @@ public:
 
             return false;
         }
-
-        // --------------------------------------------------------------------
-        // Already registered during this frame.
-        // --------------------------------------------------------------------
 
         const auto ExistingAllocation =
             CurrentAllocations.find(
@@ -1141,10 +863,6 @@ public:
 
             return true;
         }
-
-        // --------------------------------------------------------------------
-        // Calculate dimensions.
-        // --------------------------------------------------------------------
 
         uint32_t MipWidth;
         uint32_t MipHeight;
@@ -1180,10 +898,6 @@ public:
             return false;
         }
 
-        // --------------------------------------------------------------------
-        // The padded rectangle cannot fit in the atlas.
-        // --------------------------------------------------------------------
-
         if (PackedWidth >
                 MaxTextureDimension ||
             PackedHeight >
@@ -1206,10 +920,6 @@ public:
             return false;
         }
 
-        // --------------------------------------------------------------------
-        // Look for an allocation from the previous frame.
-        // --------------------------------------------------------------------
-
         const auto PreviousAllocation =
             PreviousAllocations.find(
                 Texture->ID);
@@ -1220,12 +930,6 @@ public:
             const AtlasAllocation
                 &Allocation =
                     PreviousAllocation->second;
-
-            // ----------------------------------------------------------------
-            // Existing allocation still matches.
-            //
-            // Reuse the exact position.
-            // ----------------------------------------------------------------
 
             if (Allocation.Width ==
                     AlignedWidth &&
@@ -1250,17 +954,6 @@ public:
                 return true;
             }
 
-            // ----------------------------------------------------------------
-            // Same texture ID, but dimensions changed.
-            //
-            // The old allocation can no longer be trusted.
-            //
-            // Treat this as both a removal and an addition so that
-            // FinalizeAllocationCache() rebuilds the skyline and Assemble()
-            // reconstructs the atlas rather than trying to preserve stale
-            // pixels.
-            // ----------------------------------------------------------------
-
             HasRemovedTextures =
                 true;
 
@@ -1271,10 +964,6 @@ public:
                 true;
         }
 
-        // --------------------------------------------------------------------
-        // Genuinely new texture.
-        // --------------------------------------------------------------------
-
         if (PreviousAllocation ==
             PreviousAllocations.end()) {
 
@@ -1284,17 +973,6 @@ public:
             Dirty =
                 true;
         }
-
-        // --------------------------------------------------------------------
-        // Find a position against the current skyline.
-        //
-        // If a removal is eventually detected, FinalizeAllocationCache()
-        // will rebuild the skyline from CurrentAllocations.
-        //
-        // Until then, retaining the old skyline is conservative because old
-        // rectangles can only make placement less efficient; they cannot
-        // cause a new texture to overlap a still-existing texture.
-        // --------------------------------------------------------------------
 
         uint32_t X;
         uint32_t Y;
@@ -1314,10 +992,6 @@ public:
             return false;
         }
 
-        // --------------------------------------------------------------------
-        // Every skyline coordinate must be BC7 aligned.
-        // --------------------------------------------------------------------
-
         if ((X &
              (BC7_ALIGNMENT - 1)) != 0 ||
             (Y &
@@ -1334,10 +1008,6 @@ public:
             return false;
         }
 
-        // --------------------------------------------------------------------
-        // Reserve the complete padded rectangle.
-        // --------------------------------------------------------------------
-
         InsertSkylineLevel(
             SkylineIndex,
             X,
@@ -1347,10 +1017,6 @@ public:
 
         MergeSkyline();
 
-        // --------------------------------------------------------------------
-        // Remove the padding from the actual texture coordinates.
-        // --------------------------------------------------------------------
-
         const uint32_t TextureX =
             X +
             AlignedPadding;
@@ -1358,10 +1024,6 @@ public:
         const uint32_t TextureY =
             Y +
             AlignedPadding;
-
-        // --------------------------------------------------------------------
-        // Store the actual BC7-aligned texture allocation.
-        // --------------------------------------------------------------------
 
         const AtlasAllocation Allocation{
             TextureX,
@@ -1375,13 +1037,6 @@ public:
 
         ++Texture->References;
 
-        // --------------------------------------------------------------------
-        // Update lookup information.
-        //
-        // The lookup stores the actual mip dimensions rather than the
-        // padded allocation dimensions.
-        // --------------------------------------------------------------------
-
         UpdateLookupTexture(
             Texture,
             LookUpTextureData,
@@ -1394,35 +1049,6 @@ public:
         return true;
     }
 
-    // ========================================================================
-    // Reconcile the complete current texture set against the previous frame.
-    //
-    // THIS MUST BE CALLED AFTER ALL RegisterTexture() CALLS FOR THE FRAME.
-    //
-    // This is the authoritative point at which we know whether textures have
-    // disappeared.
-    //
-    // Cases:
-    //
-    //     A B C -> A B C
-    //         No change.
-    //
-    //     A B C -> A B C D
-    //         Addition only.
-    //
-    //     A B C D -> A B C
-    //         Removal.
-    //
-    //     A B C -> A B D
-    //         Removal + addition.
-    //
-    //     A -> A (different dimensions)
-    //         Replacement.
-    //
-    // Removal/replacement requires the skyline to be reconstructed from the
-    // current allocation set.
-    // ========================================================================
-
     inline void FinalizeAllocationCache() {
 
         bool FoundAddedTexture =
@@ -1430,10 +1056,6 @@ public:
 
         bool FoundRemovedTexture =
             false;
-
-        // --------------------------------------------------------------------
-        // Detect removals.
-        // --------------------------------------------------------------------
 
         for (const auto &[TextureID, Allocation] :
              PreviousAllocations) {
@@ -1450,10 +1072,6 @@ public:
             }
         }
 
-        // --------------------------------------------------------------------
-        // Detect additions.
-        // --------------------------------------------------------------------
-
         for (const auto &[TextureID, Allocation] :
              CurrentAllocations) {
 
@@ -1469,10 +1087,6 @@ public:
             }
         }
 
-        // --------------------------------------------------------------------
-        // Preserve information discovered during RegisterTexture().
-        // --------------------------------------------------------------------
-
         HasAddedTextures =
             HasAddedTextures ||
             FoundAddedTexture;
@@ -1480,13 +1094,6 @@ public:
         HasRemovedTextures =
             HasRemovedTextures ||
             FoundRemovedTexture;
-
-        // --------------------------------------------------------------------
-        // Removal/replacement.
-        //
-        // The old skyline contains rectangles that no longer belong to the
-        // current atlas, so it must be reconstructed.
-        // --------------------------------------------------------------------
 
         if (HasRemovedTextures) {
 
@@ -1498,13 +1105,6 @@ public:
             return;
         }
 
-        // --------------------------------------------------------------------
-        // Addition only.
-        //
-        // RegisterTexture() already inserted the new allocations into the
-        // working skyline.
-        // --------------------------------------------------------------------
-
         if (HasAddedTextures) {
 
             Dirty =
@@ -1513,33 +1113,9 @@ public:
             return;
         }
 
-        // --------------------------------------------------------------------
-        // No additions and no removals.
-        //
-        // The allocation set is unchanged, so the existing GPU atlas remains
-        // authoritative.
-        // --------------------------------------------------------------------
-
         Dirty =
             false;
     }
-
-    // ========================================================================
-    // Assemble the CPU/GPU atlas.
-    //
-    // The implementation is in the .cpp.
-    //
-    // IMPORTANT:
-    //
-    // The caller must invoke:
-    //
-    //     RegisterTexture(...)
-    //     ...
-    //     FinalizeAllocationCache()
-    //     Assemble()
-    //
-    // in that order for every frame.
-    // ========================================================================
 
     void Assemble();
 };
