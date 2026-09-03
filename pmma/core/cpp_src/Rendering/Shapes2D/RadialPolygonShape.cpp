@@ -34,12 +34,21 @@ void PMMA::Rendering::TwoD::Shapes::RadialPolygonBase::Render() {
         uint16_t display_size[2];
         PMMA::Core::ActiveDisplayInstance->GetSize(display_size);
 
-        if ((start_position[0] >= display_size[0]) || // Completely past right edge
-            (start_position[1] >= display_size[1]) || // Completely past bottom edge
-            ((start_position[0] + size[0]) <= 0) ||   // Completely past left edge
-            ((start_position[1] + size[1]) <= 0)) {   // Completely past top edge
-            ShapePropertyChanged = false;
-            return; // Early exit: Shape is completely off-screen
+        int32_t cx = start_position[0];
+        int32_t cy = start_position[1];
+        int32_t half_w = size[0] / 2;
+        int32_t half_h = size[1] / 2;
+
+        int32_t screen_w = display_size[0];
+        int32_t screen_h = display_size[1];
+
+        if ((cx - half_w >= screen_w) || // Left edge is past right screen edge
+            (cy - half_h >= screen_h) || // Top edge is past bottom screen edge
+            (cx + half_w <= 0) ||        // Right edge is past left screen edge
+            (cy + half_h <= 0))          // Bottom edge is past top screen edge
+        {
+            ShapePropertyChanged = false; // Reset the flag since we are not rendering
+            return;
         }
     }
 

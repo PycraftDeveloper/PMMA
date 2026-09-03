@@ -177,6 +177,7 @@ void PMMA::Internal::Rendering::Core2D::RenderPipelineInstance::Add(T *shape, ui
             TextureID = CompressedTextureManager.RegisterTransparent(Texture.TextureProperties);
             IsOpaque = false;
         }
+
         instance.texture_id = TextureID;
     }
 

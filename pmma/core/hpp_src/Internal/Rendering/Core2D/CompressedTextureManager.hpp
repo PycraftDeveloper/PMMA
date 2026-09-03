@@ -57,6 +57,9 @@ private:
     char PaddedDataBufferID = 0;
     char PaddedDataPreviousBufferID = 0;
 
+    std::unordered_map<uintptr_t, uint32_t> RegisteredTextureIDs;
+    std::pair<uint32_t, uint32_t> LastRegisteredTextureIDRange = {0, 0};
+
 private:
     /*
      * Ensure the lookup data vector is large enough for a texture ID.
@@ -64,7 +67,8 @@ private:
      * Each texture occupies MAX_TEXTURE_MIPS texels and every texel
      * contains four floats.
      */
-    inline void EnsureLookupDataSize(uint32_t ID) {
+    inline void
+    EnsureLookupDataSize(uint32_t ID) {
         const size_t Width =
             static_cast<size_t>(
                 PMMA::Constants::MAX_TEXTURE_MIPS);
@@ -218,6 +222,9 @@ public:
 
         LookUpTextureData.clear();
         TextureIsTransparent.clear();
+        RegisteredTextureIDs.clear();
+
+        LastRegisteredTextureIDRange = {0, 0};
 
         for (int i = 0;
              i < std::size(TransparentCompressedTextureInstance);
@@ -263,6 +270,16 @@ public:
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *
             Texture) {
 
+        const auto It = RegisteredTextureIDs.find(Texture->ID);
+
+        if (It != RegisteredTextureIDs.end()) {
+            LastRegisteredTextureIDRange = {
+                Texture->ID,
+                It->second};
+
+            return true;
+        }
+
         if (OpaqueCompressedTextureInstance[0] == nullptr) {
             OpaqueCompressedTextureInstance[0] =
                 new PMMA::Internal::Rendering::Core2D::
@@ -280,6 +297,16 @@ public:
         PMMA::Internal::Rendering::Core2D::CompressedTextureProperty *
             Texture) {
 
+        const auto It = RegisteredTextureIDs.find(Texture->ID);
+
+        if (It != RegisteredTextureIDs.end()) {
+            LastRegisteredTextureIDRange = {
+                Texture->ID,
+                It->second};
+
+            return true;
+        }
+
         if (TransparentCompressedTextureInstance[0] == nullptr) {
             TransparentCompressedTextureInstance[0] =
                 new PMMA::Internal::Rendering::Core2D::
@@ -293,26 +320,25 @@ public:
             Texture);
     }
 
+    // CanFitTextureOpaque is called immediately before this function.
     inline float RegisterOpaque(
         PMMA::Internal::Rendering::Core2D::
             CompressedTextureProperty *TextureProperties) {
 
-        if (TextureID ==
-            std::numeric_limits<uint32_t>::max()) {
+        if (LastRegisteredTextureIDRange.first == TextureProperties->ID) {
+            return static_cast<float>(LastRegisteredTextureIDRange.second);
+        }
 
+        if (RegisteredTextureIDs.contains(TextureProperties->ID)) {
             return static_cast<float>(
-                std::numeric_limits<uint32_t>::max());
+                RegisteredTextureIDs[TextureProperties->ID]);
         }
 
         const uint32_t ID = TextureID++;
 
-        if (TextureIsTransparent.size() <= ID) {
-            TextureIsTransparent.resize(
-                static_cast<size_t>(ID) + 1,
-                false);
-        }
+        TextureIsTransparent.push_back(false);
 
-        TextureIsTransparent[ID] = false;
+        RegisteredTextureIDs[TextureProperties->ID] = ID;
 
         RegisterTextureIntoAtlases(
             TextureProperties,
@@ -322,26 +348,25 @@ public:
         return static_cast<float>(ID);
     }
 
+    // CanFitTextureTransparent is called immediately before this function.
     inline float RegisterTransparent(
         PMMA::Internal::Rendering::Core2D::
             CompressedTextureProperty *TextureProperties) {
 
-        if (TextureID ==
-            std::numeric_limits<uint32_t>::max()) {
+        if (LastRegisteredTextureIDRange.first == TextureProperties->ID) {
+            return static_cast<float>(LastRegisteredTextureIDRange.second);
+        }
 
+        if (RegisteredTextureIDs.contains(TextureProperties->ID)) {
             return static_cast<float>(
-                std::numeric_limits<uint32_t>::max());
+                RegisteredTextureIDs[TextureProperties->ID]);
         }
 
         const uint32_t ID = TextureID++;
 
-        if (TextureIsTransparent.size() <= ID) {
-            TextureIsTransparent.resize(
-                static_cast<size_t>(ID) + 1,
-                false);
-        }
+        TextureIsTransparent.push_back(true);
 
-        TextureIsTransparent[ID] = true;
+        RegisteredTextureIDs[TextureProperties->ID] = ID;
 
         RegisterTextureIntoAtlases(
             TextureProperties,
@@ -369,12 +394,6 @@ public:
             static_cast<size_t>(Height) *
             4;
 
-        /*
-         * Start with a completely zeroed lookup texture.
-         *
-         * This prevents data from the previous frame from surviving
-         * into the current frame.
-         */
         PaddedData[PaddedDataBufferID].assign(
             ExpectedFloatCount,
             0.0f);

@@ -889,7 +889,6 @@ public:
                     << std::endl;
 
             } else {
-
                 std::cout
                     << "Texture has not got this mip lvl"
                     << std::endl;
