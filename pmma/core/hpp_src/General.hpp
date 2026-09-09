@@ -48,4 +48,9 @@ EXPORT std::string GetGraphicsBackend();
 EXPORT void SetMaxParallelWorkerThreads(unsigned int max_threads);
 
 EXPORT unsigned int GetMaxParallelWorkerThreads();
+
+EXPORT bool IsCPU_Supports_AVX2();
+EXPORT bool IsCPU_Supports_AVX512();
+
+EXPORT void Is_PMMA_VersionReleased();
 } // namespace PMMA::General

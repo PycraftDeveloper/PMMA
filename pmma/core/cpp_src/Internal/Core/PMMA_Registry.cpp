@@ -43,4 +43,5 @@ bool EscapeKeyShouldCloseWindow = false;
 bool UserSetEscapeKeyShouldCloseWindow = false;
 bool F11KeyShouldToggleFullScreen = true;
 bool InitialSetup = true;
+bool Is_PMMA_VersionReleased = true;
 } // namespace PMMA::Core::Registry

@@ -75,7 +75,7 @@ void PMMA::Rendering::TwoD::Shapes::Arc::Render() {
     }
 
     uint16_t TextureSize[2] = {0, 0};
-    unsigned char Channels;
+    unsigned char Channels = 0;
     if (Texture.IsEnabled()) {
         Texture.GetSize(TextureSize);
         Channels = Texture.GetChannels();

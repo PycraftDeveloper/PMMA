@@ -300,3 +300,15 @@ void PMMA::General::SetMaxParallelWorkerThreads(unsigned int max_threads) {
 unsigned int PMMA::General::GetMaxParallelWorkerThreads() {
     return PMMA::Core::Registry::ParallelWorkerMaxThreads;
 }
+
+bool PMMA::General::IsCPU_Supports_AVX2() {
+    return PMMA::Core::Registry::CPU_Supports_AVX2;
+}
+
+bool PMMA::General::IsCPU_Supports_AVX512() {
+    return PMMA::Core::Registry::CPU_Supports_AVX512;
+}
+
+void PMMA::General::Is_PMMA_VersionReleased() {
+    return PMMA::Core::Registry::Is_PMMA_VersionReleased;
+}

@@ -26,6 +26,7 @@ public:
 
     uintptr_t ID;
     uint16_t Width = 1;
+    uint16_t CornerRadius = 0;
 
     bool ColorDataChanged = true;
     bool ShapePropertyChanged = true;
@@ -56,6 +57,17 @@ public:
 
     inline float GetRotation() const {
         return Rotation;
+    }
+
+    inline void SetCornerRadius(uint16_t in_radius) {
+        if (in_radius != CornerRadius) {
+            ShapePropertyChanged = true;
+        }
+        CornerRadius = in_radius;
+    }
+
+    inline uint16_t GetCornerRadius() const {
+        return CornerRadius;
     }
 };
 } // namespace PMMA::Rendering::TwoD::Shapes

@@ -23,7 +23,7 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
     }
 
     uint16_t TextureSize[2] = {0, 0};
-    unsigned char Channels;
+    unsigned char Channels = 0;
     if (Texture.IsEnabled()) {
         Texture.GetSize(TextureSize);
         Channels = Texture.GetChannels();
@@ -77,7 +77,7 @@ void PMMA::Rendering::TwoD::Shapes::Line::Render() {
 
         // Pass remaining biased pixel coordinates
         ShapeInstanceData.shape_property_two = PMMA::Internal::Rendering::Core2D::PackValues(pack_start_y, pack_end_x);
-        ShapeInstanceData.shape_property_three = PMMA::Internal::Rendering::Core2D::PackValues(pack_end_y, 0);
+        ShapeInstanceData.shape_property_three = PMMA::Internal::Rendering::Core2D::PackValues(pack_end_y, CornerRadius);
 
         ShapeInstanceData.depth = 1.0f - (static_cast<float>(Instance->OpaqueInstanceCount + Instance->TransparentInstanceCount) / static_cast<float>(PMMA::Constants::RENDER_PIPELINE_INSTANCE_MAX_SIZE));
     }

@@ -84,6 +84,7 @@ void main()
     float p2 = v_data2.z;
     float p3 = v_data2.w;
     float p4 = v_data3.x;
+    float p5 = v_data3.y;
 
     float alpha = 0.0;
 
@@ -212,21 +213,36 @@ void main()
 
     else
     {
-        // 1. Reconstruct absolute pixel positions from the biased data
-        vec2 a = vec2(v_data2.y, v_data2.z) - vec2(32768.0, 32768.0); // Start center point
-        vec2 b = vec2(v_data2.w, v_data3.x) - vec2(32768.0, 32768.0); // End center point
+        // 1. Reconstruct absolute pixel positions
+        vec2 a = vec2(v_data2.y, v_data2.z) - vec2(32768.0, 32768.0);
+        vec2 b = vec2(v_data2.w, v_data3.x) - vec2(32768.0, 32768.0);
 
-        // 2. Vector math to project current pixel onto line segment AB
-        vec2 pa = p_pixel - a;
+        // 2. Vector math to get local coordinate frame and center
         vec2 ba = b - a;
+        float len_ba = length(ba);
+        vec2 dir = ba / max(len_ba, 1e-6);
+        vec2 perp = vec2(-dir.y, dir.x);
 
-        // Project and clamp to keep the point bound strictly between the endpoints
-        float h = clamp(dot(pa, ba) / max(dot(ba, ba), 1e-6), 0.0, 1.0);
+        vec2 center = a + ba * 0.5;
+        vec2 pa_center = p_pixel - center;
 
-        // 3. Distance from current pixel to the closest point on the segment
-        float dist_line = length(pa - ba * h) - width;
+        // Project current pixel onto local X (along line) and Y (perpendicular) axes
+        float x_local = dot(pa_center, dir);
+        float y_local = dot(pa_center, perp);
 
-        // 4. Apply your anti-aliasing mask directly to the capsule distance field
+        // 3. Define the inner core box dimensions using your corner radius variable (p5)
+        float r = clamp(p5, 0.0, width); // Safely clamp the corner radius
+
+        // The outer box half-extents are rigidly fixed by len_ba and width.
+        // We subtract the radius 'r' to find the inner core box size.
+        float h_x = (len_ba * 0.5) - r;
+        float h_y = width - r;
+
+        // 4. Compute the distance to this box, then offset by the radius 'r'
+        vec2 d = abs(vec2(x_local, y_local)) - vec2(h_x, h_y);
+        float dist_line = length(max(d, 0.0)) + min(max(d.x, d.y), 0.0) - r;
+
+        // 5. Apply anti-aliasing mask
         alpha = aaMask(dist_line, aa);
     }
 
