@@ -67,8 +67,9 @@ bm.add_component("zlib")
 bm.add_component("bc7enc")
 bm.add_component("zstd")
 bm.add_component("harfbuzz")
-bm.add_component("libpng", dependencies=["zlib"])
 bm.add_component("glfw")
+bm.add_component("cpr")
+bm.add_component("libpng", dependencies=["zlib"])
 bm.add_component("freetype", dependencies=["zlib", "libpng", "harfbuzz"])
 
 if Context.build_debug:

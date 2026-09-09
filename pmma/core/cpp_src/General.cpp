@@ -309,6 +309,6 @@ bool PMMA::General::IsCPU_Supports_AVX512() {
     return PMMA::Core::Registry::CPU_Supports_AVX512;
 }
 
-void PMMA::General::Is_PMMA_VersionReleased() {
+bool PMMA::General::Is_PMMA_VersionReleased() {
     return PMMA::Core::Registry::Is_PMMA_VersionReleased;
 }

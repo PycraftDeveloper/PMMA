@@ -52,5 +52,5 @@ EXPORT unsigned int GetMaxParallelWorkerThreads();
 EXPORT bool IsCPU_Supports_AVX2();
 EXPORT bool IsCPU_Supports_AVX512();
 
-EXPORT void Is_PMMA_VersionReleased();
+EXPORT bool Is_PMMA_VersionReleased();
 } // namespace PMMA::General
