@@ -20,6 +20,7 @@ class LoggingManager;
 class AnimationManager;
 class ParallelWorker;
 class PowerSavingManager;
+class NetworkingManager;
 } // namespace PMMA::Internal
 
 namespace PMMA::Internal::Events {
@@ -59,4 +60,6 @@ extern std::map<std::string, PMMA::Internal::Rendering::Core2D::GeneratedTexture
 extern PMMA::Internal::ParallelWorker *ParallelWorkerInstance;
 
 extern PMMA::Graphics::Shader *Core2D_ShapeSDF_Program;
+
+extern PMMA::Internal::NetworkingManager *NetworkingManagerInstance;
 } // namespace PMMA::Core

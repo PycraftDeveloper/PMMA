@@ -31,4 +31,6 @@ std::map<std::string, PMMA::Internal::Rendering::Core2D::GeneratedTexturePropert
 
 PMMA::Internal::ParallelWorker *ParallelWorkerInstance = nullptr;
 PMMA::Graphics::Shader *Core2D_ShapeSDF_Program = nullptr;
+
+PMMA::Internal::NetworkingManager *NetworkingManagerInstance = nullptr;
 } // namespace PMMA::Core

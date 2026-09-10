@@ -5,6 +5,7 @@
 #include "Internal/Core/PMMA_Core.hpp"
 #include "Internal/Core/PMMA_Registry.hpp"
 #include "Internal/LoggingManager.hpp"
+#include "Internal/NetworkingManager.hpp"
 #include "Internal/ParallelWorker.hpp"
 #include "Internal/PowerSavingManager.hpp"
 
@@ -90,6 +91,9 @@ how PMMA and Python interact.");
     PMMA::Core::Registry::SecondaryDisplayIDs.reserve(255);
     PMMA::Core::Registry::SecondaryDisplayIDs.resize(255);
     std::iota(PMMA::Core::Registry::SecondaryDisplayIDs.begin(), PMMA::Core::Registry::SecondaryDisplayIDs.end(), 1);
+
+    PMMA::Core::NetworkingManagerInstance = new PMMA::Internal::NetworkingManager();
+    PMMA::Core::NetworkingManagerInstance->QueryLatest_PMMA_Version();
 }
 
 void Uninitialize() {
@@ -100,5 +104,8 @@ void Uninitialize() {
 
     delete PMMA::Core::PowerSavingManagerInstance;
     PMMA::Core::PowerSavingManagerInstance = nullptr;
+
+    delete PMMA::Core::NetworkingManagerInstance;
+    PMMA::Core::NetworkingManagerInstance = nullptr;
 }
 } // namespace PMMA

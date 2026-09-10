@@ -58,7 +58,7 @@ private:
     char PaddedDataPreviousBufferID = 0;
 
     std::unordered_map<uintptr_t, uint32_t> RegisteredTextureIDs;
-    std::pair<uint32_t, uint32_t> LastRegisteredTextureIDRange = {0, 0};
+    std::pair<uintptr_t, uint32_t> LastRegisteredTextureIDRange = {0, 0};
 
 private:
     /*

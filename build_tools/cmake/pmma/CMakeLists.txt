@@ -224,7 +224,7 @@ if (WIN32)
     set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} /LTCG")
 
     target_link_libraries(${LIB_NAME} PRIVATE
-	    glfw3dll bc7enc bgfx bx bimg bimg_encode freetype libpng16 zlib harfbuzz zstd)
+	    glfw3dll bc7enc bgfx bx bimg bimg_encode freetype libpng16 zlib harfbuzz zstd cpr)
 elseif(UNIX)
     target_compile_options(${LIB_NAME} PRIVATE
         ${COMMON_COMPILE_OPTIONS}
@@ -232,7 +232,7 @@ elseif(UNIX)
         $<$<CONFIG:Release>:-O3>)
 
     target_link_libraries(${LIB_NAME} PRIVATE
-	    glfw bc7enc bgfx bx bimg bimg_encode freetype png z harfbuzz zstd pthread dl) # common on Linux
+	    glfw bc7enc bgfx bx bimg bimg_encode freetype png z harfbuzz zstd pthread dl cpr)
 
     target_link_options(${LIB_NAME} PUBLIC -flto=auto)
 endif()
