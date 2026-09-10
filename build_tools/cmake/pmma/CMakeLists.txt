@@ -44,6 +44,7 @@ set(CORE_SOURCES
     "${SRC_DIR}/Internal/LoggingManager.cpp"
     "${SRC_DIR}/Internal/Internal.cpp"
     "${SRC_DIR}/Internal/SplashScreen.cpp"
+    "${SRC_DIR}/Internal/NetworkingManager.cpp"
 
     "${SRC_DIR}/Internal/Events/EventsManager.cpp"
     "${SRC_DIR}/Internal/Events/InternalEvents.cpp"
@@ -130,6 +131,10 @@ if(NOT APPLE)
 	    ${EXTERN_INSTALL_DIR}/include/freetype2)
     target_compile_definitions(AVX2_obj PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
 
+    if (MSVC)
+        target_compile_definitions(AVX2_obj PRIVATE NOMINMAX)
+    endif()
+
     # AVX-512
     add_library(AVX512_obj OBJECT
 	    "${SRC_DIR}/Maths_AVX512.cpp"
@@ -153,7 +158,12 @@ if(NOT APPLE)
 	    ${INCLUDE_DIR}
 	    ${EXTERN_INSTALL_DIR}/include
         ${EXTERN_INSTALL_DIR}/include/freetype2)
+
     target_compile_definitions(AVX512_obj PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+
+    if (MSVC)
+        target_compile_definitions(AVX512_obj PRIVATE NOMINMAX)
+    endif()
 
     add_library(${LIB_NAME} SHARED ${CORE_SOURCES} $<TARGET_OBJECTS:AVX2_obj> $<TARGET_OBJECTS:AVX512_obj>)
 else()
@@ -191,6 +201,14 @@ endif()
 
 # ---- Includes / Defines ------------------------------------------------------
 target_compile_definitions(${LIB_NAME} PRIVATE PMMA_CORE_EXPORTS BX_CONFIG_DEBUG=0)
+
+if (MSVC)
+    target_compile_definitions(${LIB_NAME} PRIVATE
+        NOMINMAX
+    )
+endif()
+
+
 target_include_directories(${LIB_NAME} PRIVATE
     ${INCLUDE_DIR}
     ${EXTERN_INSTALL_DIR}/include

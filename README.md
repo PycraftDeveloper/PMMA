@@ -65,7 +65,7 @@ We are currently working on the next minor update to PMMA, version 5.1.x. This u
 
 ## Credits
 
-PMMA is made possible thanks to the following third party components.:
+PMMA is made possible thanks to the following third party components:
 
 C/C++ projects:
 
@@ -75,6 +75,11 @@ C/C++ projects:
 - FreeType - 2-13-3 - https://gitlab.freedesktop.org/freetype/freetype
 - HarfBuzz - 11.2.1 - https://github.com/harfbuzz/harfbuzz
 - STB - N/A - https://github.com/nothings/stb
+- Bc7enc - N/A - https://github.com/richgel999/bc7enc_rdo
+- CPR - 1.14.2 - https://github.com/libcpr/cpr
+- BGFX.CMake - v1.143.9248-540 - https://github.com/bkaradzic/bgfx.cmake
+- ZSTD - v1.5.7 - https://github.com/facebook/zstd
+- JSON - 3.12.0 - https://github.com/nlohmann/json
 
 > _Note: When downloading official compiled versions of PMMA 5 and newer these C++ projects are included by default for an easier installation process._
 

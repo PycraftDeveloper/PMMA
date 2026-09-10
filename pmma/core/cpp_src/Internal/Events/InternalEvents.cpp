@@ -1,3 +1,5 @@
+#include <algorithm>
+
 #include "Internal/Core/PMMA_Core.hpp"
 
 #include "Internal/Events/InternalEvents.hpp"

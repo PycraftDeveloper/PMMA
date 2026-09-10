@@ -93,7 +93,7 @@ how PMMA and Python interact.");
     std::iota(PMMA::Core::Registry::SecondaryDisplayIDs.begin(), PMMA::Core::Registry::SecondaryDisplayIDs.end(), 1);
 
     PMMA::Core::NetworkingManagerInstance = new PMMA::Internal::NetworkingManager();
-    PMMA::Core::NetworkingManagerInstance->QueryLatest_PMMA_Version();
+    std::cout << PMMA::Core::NetworkingManagerInstance->QueryLatest_PMMA_Version() << std::endl;
 }
 
 void Uninitialize() {
