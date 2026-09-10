@@ -7,6 +7,6 @@
 namespace PMMA::Internal {
 class NetworkingManager {
 public:
-    std::string QueryLatest_PMMA_Version();
+    void QueryLatest_PMMA_Version();
 };
 } // namespace PMMA::Internal

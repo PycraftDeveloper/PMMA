@@ -1,17 +1,39 @@
 #if defined(_MSC_VER)
+
 #include <intrin.h>
+
 #elif defined(__GNUC__) || defined(__clang__)
+
 #include <cpuid.h>
+
 #endif
+
+#include <cstdint>
 
 #include "Internal/Utility/CPU_FeatureSetUtils.hpp"
 
-// Wrapper to invoke CPUID with eax and ecx arguments
-static void cpuid(int32_t out[4], int32_t eax, int32_t ecx) {
+static void invoke_cpuid(int32_t *outRegisters, int32_t eax, int32_t ecx) {
 #if defined(_MSC_VER)
-    __cpuidex(out, eax, ecx);
+
+    __cpuidex(
+        outRegisters,
+        eax,
+        ecx);
+
+#elif defined(__GNUC__) || defined(__clang__)
+
+    __cpuid_count(
+        eax,
+        ecx,
+        outRegisters[0],
+        outRegisters[1],
+        outRegisters[2],
+        outRegisters[3]);
+
 #else
-    __cpuid_count(eax, ecx, out[0], out[1], out[2], out[3]);
+
+#error "Unsupported compiler for CPUID"
+
 #endif
 }
 
@@ -41,7 +63,7 @@ static bool os_supports_avx() {
 bool PMMA::Utility::CPU_FeatureSet::SupportsAVX2() {
     int32_t info[4];
     // Leaf 1: check OSXSAVE and AVX bit
-    cpuid(info, 1, 0);
+    invoke_cpuid(info, 1, 0);
     bool has_osxsave = (info[2] & (1 << 27)) != 0;
     bool has_avx = (info[2] & (1 << 28)) != 0;
     if (!has_osxsave || !has_avx || !os_supports_avx()) {
@@ -49,7 +71,7 @@ bool PMMA::Utility::CPU_FeatureSet::SupportsAVX2() {
     }
 
     // Leaf 7 subleaf 0: check AVX2 bit (EBX[5])
-    cpuid(info, 7, 0);
+    invoke_cpuid(info, 7, 0);
 
     return (info[1] & (1 << 5)) != 0;
 }
@@ -58,7 +80,7 @@ bool PMMA::Utility::CPU_FeatureSet::SupportsAVX512() { // AVX512f ONLY for now
     int32_t info[4];
 
     // Leaf 1: check OSXSAVE and AVX bit
-    cpuid(info, 1, 0);
+    invoke_cpuid(info, 1, 0);
     bool has_osxsave = (info[2] & (1 << 27)) != 0;
     bool has_avx = (info[2] & (1 << 28)) != 0;
     if (!has_osxsave || !has_avx) {
@@ -72,7 +94,7 @@ bool PMMA::Utility::CPU_FeatureSet::SupportsAVX512() { // AVX512f ONLY for now
     }
 
     // Leaf 7 subleaf 0: check AVX-512F (EBX[16]) and AVX-512DQ (EBX[17])
-    cpuid(info, 7, 0);
+    invoke_cpuid(info, 7, 0);
     bool has_avx512f = (info[1] & (1 << 16)) != 0;
     bool has_avx512dq = (info[1] & (1 << 17)) != 0;
 

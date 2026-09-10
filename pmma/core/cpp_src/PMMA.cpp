@@ -8,6 +8,7 @@
 #include "Internal/NetworkingManager.hpp"
 #include "Internal/ParallelWorker.hpp"
 #include "Internal/PowerSavingManager.hpp"
+#include "Internal/TerminalColorChecker.hpp"
 
 #include "PMMA.hpp"
 
@@ -20,6 +21,8 @@ void Initialize(std::string location) {
     } else {
         throw std::runtime_error("The provided PMMA location does not exist.");
     }
+
+    PMMA::Internal::TerminalColorChecker TerminalColorCheckerInstance;
 
     PMMA::Core::Registry::PMMA_Location = location;
 
@@ -90,10 +93,29 @@ how PMMA and Python interact.");
 
     PMMA::Core::Registry::SecondaryDisplayIDs.reserve(255);
     PMMA::Core::Registry::SecondaryDisplayIDs.resize(255);
-    std::iota(PMMA::Core::Registry::SecondaryDisplayIDs.begin(), PMMA::Core::Registry::SecondaryDisplayIDs.end(), 1);
+    std::iota(
+        PMMA::Core::Registry::SecondaryDisplayIDs.begin(),
+        PMMA::Core::Registry::SecondaryDisplayIDs.end(), 1);
 
     PMMA::Core::NetworkingManagerInstance = new PMMA::Internal::NetworkingManager();
-    std::cout << PMMA::Core::NetworkingManagerInstance->QueryLatest_PMMA_Version() << std::endl;
+
+    PMMA::Core::ParallelWorkerInstance->Enqueue([]() {
+        PMMA::Core::NetworkingManagerInstance->QueryLatest_PMMA_Version();
+
+        if (PMMA::Core::Registry::Latest_PMMA_Version.empty()) {
+            PMMA::Core::LoggingManagerInstance->InternalLogWarn(
+                76,
+                "PMMA was unable to check for the latest version of PMMA on GitHub.");
+        } else {
+            if (PMMA::Core::Registry::Latest_PMMA_Version != PMMA::Core::Registry::Current_PMMA_Version) {
+                PMMA::Core::LoggingManagerInstance->InternalLogInfo(
+                    77,
+                    "A new version of PMMA is available: " + PMMA::Core::Registry::Latest_PMMA_Version + ". \
+You are currently using version: " +
+                        PMMA::Core::Registry::Current_PMMA_Version + ".");
+            }
+        }
+    });
 }
 
 void Uninitialize() {

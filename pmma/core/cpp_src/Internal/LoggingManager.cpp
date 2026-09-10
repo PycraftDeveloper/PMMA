@@ -6,6 +6,7 @@
 #include <functional>
 #include <regex>
 
+#include "Constants.hpp"
 #include "Internal/Core/PMMA_Core.hpp"
 
 struct LogFileEntry {
@@ -107,20 +108,84 @@ cannot be stored and only displayed at runtime.");
     LogToFileSpecifiedByUser = false;
 }
 
-void PMMA::Internal::LoggingManager::Log(std::string Content) {
+void PMMA::Internal::LoggingManager::Log(std::string_view Type, std::string Timestamp, std::string Content) {
     if (LogToConsole) {
+        std::string formattedContent;
+
+        if (PMMA::Core::Registry::TerminalSupportsColor) {
+            if (Type == PMMA::Constants::Logging_Types::INFO) {
+                formattedContent = "PMMA - " + std::string(PMMA::Constants::ANSI_Escape_Codes::GREEN) + std::string(Type) + std::string(PMMA::Constants::ANSI_Escape_Codes::RESET) + " - " + Timestamp + " - " + Content;
+            } else if (Type == PMMA::Constants::Logging_Types::WARN) {
+                formattedContent = "PMMA - " + std::string(PMMA::Constants::ANSI_Escape_Codes::YELLOW) + std::string(Type) + std::string(PMMA::Constants::ANSI_Escape_Codes::RESET) + " - " + Timestamp + " - " + Content;
+            } else if (Type == PMMA::Constants::Logging_Types::ERROR) {
+                formattedContent = "PMMA - " + std::string(PMMA::Constants::ANSI_Escape_Codes::RED) + std::string(Type) + std::string(PMMA::Constants::ANSI_Escape_Codes::RESET) + " - " + Timestamp + " - " + Content;
+            } else {
+                formattedContent = "PMMA - " + std::string(Type) + " - " + Timestamp + " - " + Content; // debug has no color
+            }
+
+            if (BoldFormatting) {
+                formattedContent = std::string(PMMA::Constants::ANSI_Escape_Codes::STYLE_BOLD) + formattedContent + std::string(PMMA::Constants::ANSI_Escape_Codes::RESET);
+            }
+        } else {
+            formattedContent = "PMMA - " + std::string(Type) + " - " + Timestamp + " - " + Content;
+        }
+
 #ifdef USE_PYTHON
         PyGILState_STATE gstate = PyGILState_Ensure();
-        PySys_WriteStdout("%s\n", Content.c_str());
+        PySys_WriteStdout("%s\n", formattedContent.c_str());
         PyGILState_Release(gstate);
 #else
-        std::cout << Content << std::endl;
+        std::cout << formattedContent << std::endl;
 #endif
+
+        BoldFormatting = !BoldFormatting; // Toggle bold formatting for console output
     }
 
     if (LogToFile) {
         std::ofstream LogFile(LogFileLocation + PMMA::Core::Registry::PathSeparator + LogFileName, std::ios::app);
-        LogFile << Content << std::endl;
+        LogFile << "PMMA - " + std::string(Type) + " - " + Timestamp + " - " + Content << std::endl;
+        LogFile.close();
+    } else {
+        ContentToLogToFile.push_back(Content);
+    }
+}
+
+void PMMA::Internal::LoggingManager::Log(std::string Name, std::string_view Type, std::string Timestamp, std::string Content) {
+    if (LogToConsole) {
+        std::string formattedContent;
+
+        if (PMMA::Core::Registry::TerminalSupportsColor) {
+            if (Type == PMMA::Constants::Logging_Types::INFO) {
+                formattedContent = Name + " - " + std::string(PMMA::Constants::ANSI_Escape_Codes::GREEN) + std::string(Type) + std::string(PMMA::Constants::ANSI_Escape_Codes::RESET) + " - " + Timestamp + " - " + Content;
+            } else if (Type == PMMA::Constants::Logging_Types::WARN) {
+                formattedContent = Name + " - " + std::string(PMMA::Constants::ANSI_Escape_Codes::YELLOW) + std::string(Type) + std::string(PMMA::Constants::ANSI_Escape_Codes::RESET) + " - " + Timestamp + " - " + Content;
+            } else if (Type == PMMA::Constants::Logging_Types::ERROR) {
+                formattedContent = Name + " - " + std::string(PMMA::Constants::ANSI_Escape_Codes::RED) + std::string(Type) + std::string(PMMA::Constants::ANSI_Escape_Codes::RESET) + " - " + Timestamp + " - " + Content;
+            } else {
+                formattedContent = Name + " - " + std::string(Type) + " - " + Timestamp + " - " + Content; // debug has no color
+            }
+
+            if (BoldFormatting) {
+                formattedContent = std::string(PMMA::Constants::ANSI_Escape_Codes::STYLE_BOLD) + formattedContent + std::string(PMMA::Constants::ANSI_Escape_Codes::RESET);
+            }
+        } else {
+            formattedContent = Name + " - " + std::string(Type) + " - " + Timestamp + " - " + Content;
+        }
+
+#ifdef USE_PYTHON
+        PyGILState_STATE gstate = PyGILState_Ensure();
+        PySys_WriteStdout("%s\n", formattedContent.c_str());
+        PyGILState_Release(gstate);
+#else
+        std::cout << formattedContent << std::endl;
+#endif
+
+        BoldFormatting = !BoldFormatting; // Toggle bold formatting for console output
+    }
+
+    if (LogToFile) {
+        std::ofstream LogFile(LogFileLocation + PMMA::Core::Registry::PathSeparator + LogFileName, std::ios::app);
+        LogFile << "PMMA - " + std::string(Type) + " - " + Timestamp + " - " + Content << std::endl;
         LogFile.close();
     } else {
         ContentToLogToFile.push_back(Content);
@@ -172,11 +237,11 @@ void PMMA::Internal::LoggingManager::InternalLogDebug(int ID, std::string Conten
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
                 PreviouslyLoggedContent.push_back(ID);
                 std::string DateTimeCode = GetDateTimeCode();
-                Log("PMMA (Debug) - " + DateTimeCode + " - " + Content);
+                Log(PMMA::Constants::Logging_Types::DEBUG, DateTimeCode, Content);
             }
         } else {
             std::string DateTimeCode = GetDateTimeCode();
-            Log("PMMA (Debug) - " + DateTimeCode + " - " + Content);
+            Log(PMMA::Constants::Logging_Types::DEBUG, DateTimeCode, Content);
         }
     }
 }
@@ -209,14 +274,14 @@ void PMMA::Internal::LoggingManager::ExternalLogDebug(std::string ID, std::strin
                 if (ProductName == "" && PMMA::Core::PassportInstance->IsRegistered) {
                     ProductName = PMMA::Core::PassportInstance->ProductName + " ";
                 }
-                Log(ProductName + "(Debug) - " + DateTimeCode + " - " + Content);
+                Log(ProductName, PMMA::Constants::Logging_Types::DEBUG, DateTimeCode, Content);
             }
         } else {
             std::string DateTimeCode = GetDateTimeCode();
             if (ProductName == "" && PMMA::Core::PassportInstance->IsRegistered) {
                 ProductName = PMMA::Core::PassportInstance->ProductName + " ";
             }
-            Log(ProductName + "(Debug) - " + DateTimeCode + " - " + Content);
+            Log(ProductName, PMMA::Constants::Logging_Types::DEBUG, DateTimeCode, Content);
         }
     }
 }
@@ -248,14 +313,14 @@ void PMMA::Internal::LoggingManager::ExternalLogInfo(std::string ID, std::string
             if (ProductName == "" && PMMA::Core::PassportInstance->IsRegistered) {
                 ProductName = PMMA::Core::PassportInstance->ProductName + " ";
             }
-            Log(ProductName + "(Info) - " + DateTimeCode + " - " + Content);
+            Log(ProductName, PMMA::Constants::Logging_Types::INFO, DateTimeCode, Content);
         }
     } else {
         std::string DateTimeCode = GetDateTimeCode();
         if (ProductName == "" && PMMA::Core::PassportInstance->IsRegistered) {
             ProductName = PMMA::Core::PassportInstance->ProductName + " ";
         }
-        Log(ProductName + "(Info) - " + DateTimeCode + " - " + Content);
+        Log(ProductName, PMMA::Constants::Logging_Types::INFO, DateTimeCode, Content);
     }
 }
 
@@ -286,14 +351,14 @@ void PMMA::Internal::LoggingManager::ExternalLogWarn(std::string ID, std::string
             if (ProductName == "" && PMMA::Core::PassportInstance->IsRegistered) {
                 ProductName = PMMA::Core::PassportInstance->ProductName + " ";
             }
-            Log(ProductName + "(Warn) - " + DateTimeCode + " - " + Content);
+            Log(ProductName, PMMA::Constants::Logging_Types::WARN, DateTimeCode, Content);
         }
     } else {
         std::string DateTimeCode = GetDateTimeCode();
         if (ProductName == "" && PMMA::Core::PassportInstance->IsRegistered) {
             ProductName = PMMA::Core::PassportInstance->ProductName + " ";
         }
-        Log(ProductName + "(Warn) - " + DateTimeCode + " - " + Content);
+        Log(ProductName, PMMA::Constants::Logging_Types::WARN, DateTimeCode, Content);
     }
 }
 
@@ -324,13 +389,13 @@ void PMMA::Internal::LoggingManager::ExternalLogError(std::string ID, std::strin
             if (ProductName == "" && PMMA::Core::PassportInstance->IsRegistered) {
                 ProductName = PMMA::Core::PassportInstance->ProductName + " ";
             }
-            Log(ProductName + "(Error) - " + DateTimeCode + " - " + Content);
+            Log(ProductName, PMMA::Constants::Logging_Types::ERROR, DateTimeCode, Content);
         }
     } else {
         std::string DateTimeCode = GetDateTimeCode();
         if (ProductName == "" && PMMA::Core::PassportInstance->IsRegistered) {
             ProductName = PMMA::Core::PassportInstance->ProductName + " ";
         }
-        Log(ProductName + "(Error) - " + DateTimeCode + " - " + Content);
+        Log(ProductName, PMMA::Constants::Logging_Types::ERROR, DateTimeCode, Content);
     }
 }

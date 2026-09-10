@@ -44,4 +44,5 @@ bool UserSetEscapeKeyShouldCloseWindow = false;
 bool F11KeyShouldToggleFullScreen = true;
 bool InitialSetup = true;
 bool Is_PMMA_VersionReleased = true;
+bool TerminalSupportsColor = false;
 } // namespace PMMA::Core::Registry

@@ -9,6 +9,8 @@
 #include <string>
 #include <vector>
 
+#include "Constants.hpp"
+
 namespace PMMA::Internal {
 class LoggingManager {
 public:
@@ -28,6 +30,8 @@ public:
     bool LogInfo = true;
     bool LogWarn = true;
     bool LogError = true;
+
+    bool BoldFormatting = false;
 
 private:
     void FileCatchUp();
@@ -91,7 +95,9 @@ private:
         return oss.str();
     }
 
-    void Log(std::string Content);
+    void Log(std::string_view Type, std::string Timestamp, std::string Content);
+
+    void Log(std::string Name, std::string_view Type, std::string Timestamp, std::string Content);
 
 public:
     LoggingManager();
@@ -173,11 +179,11 @@ public:
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
                 PreviouslyLoggedContent.push_back(ID);
                 std::string DateTimeCode = GetDateTimeCode();
-                Log("PMMA (Info) - " + DateTimeCode + " - " + Content);
+                Log(PMMA::Constants::Logging_Types::INFO, DateTimeCode, Content);
             }
         } else {
             std::string DateTimeCode = GetDateTimeCode();
-            Log("PMMA (Info) - " + DateTimeCode + " - " + Content);
+            Log(PMMA::Constants::Logging_Types::INFO, DateTimeCode, Content);
         }
     }
 
@@ -191,11 +197,11 @@ public:
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
                 PreviouslyLoggedContent.push_back(ID);
                 std::string DateTimeCode = GetDateTimeCode();
-                Log("PMMA (Warn) - " + DateTimeCode + " - " + Content);
+                Log(PMMA::Constants::Logging_Types::WARN, DateTimeCode, Content);
             }
         } else {
             std::string DateTimeCode = GetDateTimeCode();
-            Log("PMMA (Warn) - " + DateTimeCode + " - " + Content);
+            Log(PMMA::Constants::Logging_Types::WARN, DateTimeCode, Content);
         }
     }
 
@@ -209,11 +215,11 @@ public:
             if (PreviousIndex == PreviouslyLoggedContent.end()) {
                 PreviouslyLoggedContent.push_back(ID);
                 std::string DateTimeCode = GetDateTimeCode();
-                Log("PMMA (Error) - " + DateTimeCode + " - " + Content);
+                Log(PMMA::Constants::Logging_Types::ERROR, DateTimeCode, Content);
             }
         } else {
             std::string DateTimeCode = GetDateTimeCode();
-            Log("PMMA (Error) - " + DateTimeCode + " - " + Content);
+            Log(PMMA::Constants::Logging_Types::ERROR, DateTimeCode, Content);
         }
     }
 

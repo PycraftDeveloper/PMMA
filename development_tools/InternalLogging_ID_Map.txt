@@ -80,3 +80,7 @@ Notes:
 71 - Cannot re-load texture without path
 72 - Serialized Shader Compilation
 73 - Display hidden until needed
+74 - Querying GitHub for the latest PMMA version
+75 - Query privacy policy
+76 - Unable to connect to GitHub to query latest version
+77 - A new version of PMMA is available

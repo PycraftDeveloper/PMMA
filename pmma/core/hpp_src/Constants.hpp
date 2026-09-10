@@ -18,6 +18,94 @@ inline constexpr int MAX_TEXTURE_MIPS = 13; // Compressed, 12 mips, RGBA for gen
 
 inline constexpr int MAX_FRAMES_BETWEEN_STALE_BUFFER_CLEANUP = 60; // 1 second at 60fps
 
+struct Logging_Types {
+    static inline constexpr std::string_view DEBUG = "[Debug]";
+    static inline constexpr std::string_view INFO = "[Info]";
+    static inline constexpr std::string_view WARN = "[Warn]";
+    static inline constexpr std::string_view ERROR = "[Error]";
+};
+
+struct ANSI_Escape_Codes {
+    // Reset
+    static inline constexpr std::string_view RESET = "\033[0m";
+
+    // Regular Colors
+    static inline constexpr std::string_view BLACK = "\033[0;30m";
+    static inline constexpr std::string_view RED = "\033[0;31m";
+    static inline constexpr std::string_view GREEN = "\033[0;32m";
+    static inline constexpr std::string_view YELLOW = "\033[0;33m";
+    static inline constexpr std::string_view BLUE = "\033[0;34m";
+    static inline constexpr std::string_view PURPLE = "\033[0;35m";
+    static inline constexpr std::string_view CYAN = "\033[0;36m";
+    static inline constexpr std::string_view WHITE = "\033[0;37m";
+
+    // Bold Colors
+    static inline constexpr std::string_view BOLD_BLACK = "\033[1;30m";
+    static inline constexpr std::string_view BOLD_RED = "\033[1;31m";
+    static inline constexpr std::string_view BOLD_GREEN = "\033[1;32m";
+    static inline constexpr std::string_view BOLD_YELLOW = "\033[1;33m";
+    static inline constexpr std::string_view BOLD_BLUE = "\033[1;34m";
+    static inline constexpr std::string_view BOLD_PURPLE = "\033[1;35m";
+    static inline constexpr std::string_view BOLD_CYAN = "\033[1;36m";
+    static inline constexpr std::string_view BOLD_WHITE = "\033[1;37m";
+
+    // Underline Colors
+    static inline constexpr std::string_view UNDERLINE_BLACK = "\033[4;30m";
+    static inline constexpr std::string_view UNDERLINE_RED = "\033[4;31m";
+    static inline constexpr std::string_view UNDERLINE_GREEN = "\033[4;32m";
+    static inline constexpr std::string_view UNDERLINE_YELLOW = "\033[4;33m";
+    static inline constexpr std::string_view UNDERLINE_BLUE = "\033[4;34m";
+    static inline constexpr std::string_view UNDERLINE_PURPLE = "\033[4;35m";
+    static inline constexpr std::string_view UNDERLINE_CYAN = "\033[4;36m";
+    static inline constexpr std::string_view UNDERLINE_WHITE = "\033[4;37m";
+
+    // Background Colors
+    static inline constexpr std::string_view BG_BLACK = "\033[40m";
+    static inline constexpr std::string_view BG_RED = "\033[41m";
+    static inline constexpr std::string_view BG_GREEN = "\033[42m";
+    static inline constexpr std::string_view BG_YELLOW = "\033[43m";
+    static inline constexpr std::string_view BG_BLUE = "\033[44m";
+    static inline constexpr std::string_view BG_PURPLE = "\033[45m";
+    static inline constexpr std::string_view BG_CYAN = "\033[46m";
+    static inline constexpr std::string_view BG_WHITE = "\033[47m";
+
+    // High Intensity Colors
+    static inline constexpr std::string_view INTENSE_BLACK = "\033[0;90m";
+    static inline constexpr std::string_view INTENSE_RED = "\033[0;91m";
+    static inline constexpr std::string_view INTENSE_GREEN = "\033[0;92m";
+    static inline constexpr std::string_view INTENSE_YELLOW = "\033[0;93m";
+    static inline constexpr std::string_view INTENSE_BLUE = "\033[0;94m";
+    static inline constexpr std::string_view INTENSE_PURPLE = "\033[0;95m";
+    static inline constexpr std::string_view INTENSE_CYAN = "\033[0;96m";
+    static inline constexpr std::string_view INTENSE_WHITE = "\033[0;97m";
+
+    // Bold High Intensity Colors
+    static inline constexpr std::string_view BOLD_INTENSE_BLACK = "\033[1;90m";
+    static inline constexpr std::string_view BOLD_INTENSE_RED = "\033[1;91m";
+    static inline constexpr std::string_view BOLD_INTENSE_GREEN = "\033[1;92m";
+    static inline constexpr std::string_view BOLD_INTENSE_YELLOW = "\033[1;93m";
+    static inline constexpr std::string_view BOLD_INTENSE_BLUE = "\033[1;94m";
+    static inline constexpr std::string_view BOLD_INTENSE_PURPLE = "\033[1;95m";
+    static inline constexpr std::string_view BOLD_INTENSE_CYAN = "\033[1;96m";
+    static inline constexpr std::string_view BOLD_INTENSE_WHITE = "\033[1;97m";
+
+    // High Intensity Backgrounds
+    static inline constexpr std::string_view BG_INTENSE_BLACK = "\033[0;100m";
+    static inline constexpr std::string_view BG_INTENSE_RED = "\033[0;101m";
+    static inline constexpr std::string_view BG_INTENSE_GREEN = "\033[0;102m";
+    static inline constexpr std::string_view BG_INTENSE_YELLOW = "\033[0;103m";
+    static inline constexpr std::string_view BG_INTENSE_BLUE = "\033[0;104m";
+    static inline constexpr std::string_view BG_INTENSE_PURPLE = "\033[0;105m";
+    static inline constexpr std::string_view BG_INTENSE_CYAN = "\033[0;106m";
+    static inline constexpr std::string_view BG_INTENSE_WHITE = "\033[0;107m";
+
+    // Additional Styles
+    static inline constexpr std::string_view STYLE_BOLD = "\033[1m";
+    static inline constexpr std::string_view STYLE_ITALIC = "\033[3m";
+    static inline constexpr std::string_view STYLE_UNDERLINE = "\033[4m";
+    static inline constexpr std::string_view STYLE_STRIKETHROUGH = "\033[9m";
+};
+
 struct HatStates {
     static inline const std::string_view NOT_PRESSED = "HAT NOT PRESSED";
     static inline const std::string_view PRESSED_UP = "HAT PRESSED UP";
