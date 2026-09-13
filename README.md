@@ -1,6 +1,6 @@
 <div align="center">
 
-![PMMA logo](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/SmallLogo.png)
+![PMMA logo](https://github.com/Project-PMMA/PMMA/blob/main/repository/SmallLogo.png)
 
 </div>
 
@@ -9,8 +9,8 @@
 ![PyPI - Wheel](https://img.shields.io/pypi/wheel/pmma) ![Python 3.8](https://img.shields.io/badge/python-3.8-blue) ![Python 3.9](https://img.shields.io/badge/python-3.9-blue) ![Python 3.10](https://img.shields.io/badge/python-3.10-blue) ![Python 3.11](https://img.shields.io/badge/python-3.11-blue) ![Windows](https://img.shields.io/badge/platform-Windows-blue?logo=windows) ![Linux](https://img.shields.io/badge/platform-Linux-yellow?logo=linux) ![GitHub commit activity](https://img.shields.io/github/commit-activity/y/PycraftDeveloper/pmma) ![GitHub commits since latest release](https://img.shields.io/github/commits-since/PycraftDeveloper/pmma/latest)
 
 <p align="center">
-    <a href="https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/intro.md#pmma-build-guide">Build Guide</a> •
-    <a href="https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/intro.md#pmma-troubleshooting">Troubleshooting</a> •
+    <a href="https://github.com/Project-PMMA/PMMA/blob/main/repository/BuildGuides/intro.md#pmma-build-guide">Build Guide</a> •
+    <a href="https://github.com/Project-PMMA/PMMA/blob/main/repository/Troubleshooting/intro.md#pmma-troubleshooting">Troubleshooting</a> •
     <a href="https://pmma.readthedocs.io/en/latest/">Documentation</a> •
     <a href="https://discord.gg/88duynCX57">Discord</a>
 </p>
@@ -19,14 +19,14 @@ PMMA is a Python module targeted at helping you build applications in the Python
 
 ## Contents
 
-- [Installation](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation)
-- [Development Progress](https://github.com/PycraftDeveloper/PMMA?tab=readme-ov-file#development-progress)
-- [Credits](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-credits)
-- [About](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-about)
+- [Installation](https://github.com/Project-PMMA/PMMA/blob/main/README.md#installation)
+- [Development Progress](https://github.com/Project-PMMA/PMMA?tab=readme-ov-file#development-progress)
+- [Credits](https://github.com/Project-PMMA/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-credits)
+- [About](https://github.com/Project-PMMA/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-about)
 
 ## Installation
 
-You can install the latest version of PMMA from PyPi using the command: `pip install pmma` or you can head over to the website here: [PMMA on PyPi](https://pypi.org/project/pmma/) to select a custom version to install. Alternatively all versions of the API are also available [here, on the releases page](https://github.com/PycraftDeveloper/PMMA/releases) of this GitHub repository!
+You can install the latest version of PMMA from PyPi using the command: `pip install pmma` or you can head over to the website here: [PMMA on PyPi](https://pypi.org/project/pmma/) to select a custom version to install. Alternatively all versions of the API are also available [here, on the releases page](https://github.com/Project-PMMA/PMMA/releases) of this GitHub repository!
 
 ### Requirements
 
@@ -38,7 +38,7 @@ In order to install PMMA 5 and newer, you must ensure you meet the following cri
 | Python Version   |                                                            `3.8.x`, `3.9.x`, `3.10.x`, `3.11.x`                                                            |
 | `pip` Version    |                                                                      `20.3 or newer`                                                                       |
 
-_Note: If your platform is not listed here then you can attempt to build your own version of PMMA using our [build guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/intro.md)!_
+_Note: If your platform is not listed here then you can attempt to build your own version of PMMA using our [build guide](https://github.com/Project-PMMA/PMMA/blob/main/repository/BuildGuides/intro.md)!_
 _Note: If you do not see your operating system listed above, please check the 'Additional Technical Requirements' section below to see if your operating system is supported._
 
 <details><summary>Additional Technical Requirements</summary>
@@ -55,13 +55,13 @@ _Please note, these requirements are only needed by users installing PMMA onto L
 
 > For older versions of PMMA, there are no hardware requirements.
 
-_If you encounter any issues or problems then check out our [troubleshooting page](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-troubleshooting)._
+_If you encounter any issues or problems then check out our [troubleshooting page](https://github.com/Project-PMMA/PMMA/blob/main/repository/Troubleshooting/into.md#pmma-troubleshooting)._
 
 ## Development Progress
 
 ![Progress on PMMA 5.1](https://geps.dev/progress/55)
 
-We are currently working on the next minor update to PMMA, version 5.1.x. This update is targeted at transitioning away from the OpenGL graphics API and into BGFX to better secure the future of the API with the gradual deprecation of the OpenGL API. This update will also bring numerous bug fixes, a major overhaul to the build system for the C++ side of PMMA, and an expansion ans general refinement of the Text and Animation portions of the API. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5.1](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
+We are currently working on the next minor update to PMMA, version 5.1.x. This update is targeted at transitioning away from the OpenGL graphics API and into BGFX to better secure the future of the API with the gradual deprecation of the OpenGL API. This update will also bring numerous bug fixes, a major overhaul to the build system for the C++ side of PMMA, and an expansion ans general refinement of the Text and Animation portions of the API. If you want to check out our current progress list, you can find it here: [Progress on PMMA 5.1](https://github.com/Project-PMMA/PMMA/blob/main/repository/DevelopmentProgress.md#progress-on-pmma-5)
 
 ## Credits
 
@@ -100,9 +100,9 @@ Python projects:
 
 None of the projects mentioned above are owned or maintained by PycraftDeveloper the maker of this repository, who would also like to say a big thank you to all the teams working on these projects!
 
-You can check out our licenses and the licenses of all the C/C++ projects PMMA uses as standard [here](https://github.com/PycraftDeveloper/PMMA/tree/main/pmma/licenses) or on your installed version of PMMA (version 5 or later) under `pmma/licenses`.
+You can check out our licenses and the licenses of all the C/C++ projects PMMA uses as standard [here](https://github.com/Project-PMMA/PMMA/tree/main/pmma/licenses) or on your installed version of PMMA (version 5 or later) under `pmma/licenses`.
 
-_Note: If you spot a problem in our licensing or distribution of third party dependencies please raise the problem as [an issue here](https://github.com/PycraftDeveloper/PMMA/issues) with the title-prefix: 'LICENSING: ' and we will respond to these problems as soon as possible. Thanks!_
+_Note: If you spot a problem in our licensing or distribution of third party dependencies please raise the problem as [an issue here](https://github.com/Project-PMMA/PMMA/issues) with the title-prefix: 'LICENSING: ' and we will respond to these problems as soon as possible. Thanks!_
 
 ## About
 

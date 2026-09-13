@@ -1,20 +1,21 @@
 <div align="center">
 
-  ![PMMA logo](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/SmallLogo.png)
-</div>
+![PMMA logo](https://github.com/Project-PMMA/PMMA/blob/main/repository/SmallLogo.png)
 
+</div>
 
 # PMMA (Python Multi-Media API)
 
 ## Contents
-* [Back to the README](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#contents)
-* [Windows Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/windows.md#windows-build-guide)
-* [MacOS Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/macos.md#macos-build-guide)
-* [Linux Build Guide](https://github.com/PycraftDeveloper/PMMA/blob/main/repository/BuildGuides/linux.md#linux-build-guide)
+
+- [Back to the README](https://github.com/Project-PMMA/PMMA/blob/main/README.md#contents)
+- [Windows Build Guide](https://github.com/Project-PMMA/PMMA/blob/main/repository/BuildGuides/windows.md#windows-build-guide)
+- [MacOS Build Guide](https://github.com/Project-PMMA/PMMA/blob/main/repository/BuildGuides/macos.md#macos-build-guide)
+- [Linux Build Guide](https://github.com/Project-PMMA/PMMA/blob/main/repository/BuildGuides/linux.md#linux-build-guide)
 
 ## PMMA Build Guide
 
-Welcome to the build guide for PMMA. For most users we **strongly recommend** checking out our [simpler install method](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#installation).
+Welcome to the build guide for PMMA. For most users we **strongly recommend** checking out our [simpler install method](https://github.com/Project-PMMA/PMMA/blob/main/README.md#installation).
 
 If however you want to try to install PMMA on a platform that doesn't meet the minimum requirements then you can do so by clicking on your operating system of choice in the contents section.
 

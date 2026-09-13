@@ -207,7 +207,7 @@ bool PMMA::General::IsUpdateAvailable() {
 note that there will likely be issues or missing/broken features as we work \
 towards creating the next version of the API. If you find any bugs or think \
 something could be improved it would be invaluable for you to let us know \
-by creating a new issue here: 'https://github.com/PycraftDeveloper/PMMA/issues'.");
+by creating a new issue here: 'https://github.com/Project-PMMA/PMMA/issues'.");
     }
 
     return numerical_current_version < numerical_latest_version;

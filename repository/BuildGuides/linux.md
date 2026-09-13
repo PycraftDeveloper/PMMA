@@ -1,13 +1,14 @@
 <div align="center">
 
-  ![PMMA logo](https://github.com/PycraftDeveloper/PMMA/assets/81379254/2c4858b8-b50c-4f3b-95f3-d93fd1f0f19b)
-</div>
+![PMMA logo](https://github.com/Project-PMMA/PMMA/assets/81379254/2c4858b8-b50c-4f3b-95f3-d93fd1f0f19b)
 
+</div>
 
 # PMMA (Python Multi-Media API)
 
 ## Contents
-* [Back to the README](https://github.com/PycraftDeveloper/PMMA/blob/main/README.md#contents)
+
+- [Back to the README](https://github.com/Project-PMMA/PMMA/blob/main/README.md#contents)
 
 ## Linux Build Guide
 
@@ -23,37 +24,41 @@ You will need:
 `cmake`, `make`, `gcc`, `gcc-c++`, `mesa-libGL-dev`, `libXrandr-dev`, `libXinerama-dev`, `libXcursor-dev`, `libXi-dev`, `wayland-dev`, `libxkbcommon-dev`, `git` and a python version of your choosing.
 
 To install all these packages you can do:
-* On Ubuntu/Debian do: `sudo apt install cmake make gcc g++ libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libwayland-dev libxkbcommon-dev git python3 python3-pip curl unzip grep`
-* On Fedora/RHEL do: `sudo dnf install cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel git python3 python3-pip curl unzip grep`
-* On Arch/Manjaro do: `sudo pacman -Syu cmake make gcc mesa libxrandr libxinerama libxcursor libxi wayland libxkbcommon git python python-pip curl unzip grep`
+
+- On Ubuntu/Debian do: `sudo apt install cmake make gcc g++ libgl1-mesa-dev libxrandr-dev libxinerama-dev libxcursor-dev libxi-dev libwayland-dev libxkbcommon-dev git python3 python3-pip curl unzip grep`
+- On Fedora/RHEL do: `sudo dnf install cmake make gcc gcc-c++ mesa-libGL-devel libXrandr-devel libXinerama-devel libXcursor-devel libXi-devel wayland-devel libxkbcommon-devel git python3 python3-pip curl unzip grep`
+- On Arch/Manjaro do: `sudo pacman -Syu cmake make gcc mesa libxrandr libxinerama libxcursor libxi wayland libxkbcommon git python python-pip curl unzip grep`
 
 ### Step 2: Grab a copy of PMMA
 
 Now we have installed all the packages we will need later, lets grab the latest copy of PMMA!
 
 To do this, we will use this handy install script:
+
 ```
 latest=$(curl -s https://api.github.com/repos/PycraftDeveloper/PMMA/releases/latest | grep tag_name | cut -d '"' -f 4)
-curl -L -o PMMA.zip "https://github.com/PycraftDeveloper/PMMA/archive/refs/tags/$latest.zip"
+curl -L -o PMMA.zip "https://github.com/Project-PMMA/PMMA/archive/refs/tags/$latest.zip"
 unzip PMMA.zip
 rm PMMA.zip
 ```
 
 This command will:
+
 1. Get the tag (the version number) for the latest release of PMMA on GitHub.
 2. Then it downloads the latest zip (source code) release of PMMA and stores it in "PMMA.zip"
 3. Then it extracts this zip file.
 4. Before cleaning up the zip file we downloaded in step 2.
 
-Alternatively you can use the command listed below to grab a specific version of PMMA - you can find the tag codes here: [here](https://github.com/PycraftDeveloper/PMMA/tags). The substitute in the command `< tag code here >` for your preference:
+Alternatively you can use the command listed below to grab a specific version of PMMA - you can find the tag codes here: [here](https://github.com/Project-PMMA/PMMA/tags). The substitute in the command `< tag code here >` for your preference:
+
 ```
 tagcode=< tag code here >
-curl -L -o PMMA.zip "https://github.com/PycraftDeveloper/PMMA/archive/refs/tags/$tagcode.zip"
+curl -L -o PMMA.zip "https://github.com/Project-PMMA/PMMA/archive/refs/tags/$tagcode.zip"
 unzip PMMA.zip
 rm PMMA.zip
 ```
 
-Alternatively you can head over to the [releases section](https://github.com/PycraftDeveloper/PMMA/releases) and manually download and extract either of the "Source code" releases.
+Alternatively you can head over to the [releases section](https://github.com/Project-PMMA/PMMA/releases) and manually download and extract either of the "Source code" releases.
 
 ### Step 3: Setup PMMA for the build
 
@@ -75,7 +80,7 @@ Unlike the previous dependency installation step, this is much easier as you jus
 
 PMMA is composed of two overlapping sections. There is the Python facing side which you use to interact with the API, then there is the C++ side that does a lot of the API's heavy lifting. Where we can use PIP to install the python packages for PMMA, there isn't a similar command to install the C++ dependencies for the API. Because of this, we need to compile PMMA Core, and all these dependencies in this step - this will enable the API to be completely stand-alone from any system packages, meaning you can much more easily move it around on your system - or deploy to multiple identical machines.
 
-Of course though, there are risks to doing this - compiled code on one machine may not work on another - particularly if they have different architectures (for example building on 64-bit for a 32-bit machine) or platforms (this Linux build will not work on Windows). Similarly, we compile PMMA for a 'generic architecture' meaning we don't enable support for features like AVX-512, however if you are building PMMA for this exact CPU architecture, you can mess around with the compiler flags for PMMA [more on this later](https://github.com/PycraftDeveloper/PMMA/blob/main/repo/BuildGuides/linux.md#final-considerations) to get even faster performance!
+Of course though, there are risks to doing this - compiled code on one machine may not work on another - particularly if they have different architectures (for example building on 64-bit for a 32-bit machine) or platforms (this Linux build will not work on Windows). Similarly, we compile PMMA for a 'generic architecture' meaning we don't enable support for features like AVX-512, however if you are building PMMA for this exact CPU architecture, you can mess around with the compiler flags for PMMA [more on this later](https://github.com/Project-PMMA/PMMA/blob/main/repo/BuildGuides/linux.md#final-considerations) to get even faster performance!
 
 With that small novel out the way - we can build PMMA Core and its dependencies using the following commands:
 
@@ -86,8 +91,9 @@ With that small novel out the way - we can build PMMA Core and its dependencies 
 Now these commands will take a while to complete - I should have made you read the first two paragraphs of this step now!
 
 Once complete, it's up to you if you plan to re-build PMMA later or not.
-* If you plan to re-build PMMA later then we recommend you keep the temporary directory
-* If you don't plan to re-build PMMA again, or encountered any errors in the build process, we recommend deleting the contents using the command `rm -rf /temporary/*`.
+
+- If you plan to re-build PMMA later then we recommend you keep the temporary directory
+- If you don't plan to re-build PMMA again, or encountered any errors in the build process, we recommend deleting the contents using the command `rm -rf /temporary/*`.
 
 ### Step 6: Building the PMMA Core -> Python interface
 

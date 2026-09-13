@@ -119,7 +119,7 @@ void PMMA::Graphics::Shader::CompileShaderComponent(
                     "PMMA was unable to compile the following shader: '" +
                         RawFilePath + "'. This is a shader that comes included \
 with PMMA, so please report this issue to us here: \
-'https://github.com/PycraftDeveloper/PMMA/issues' so we can fix the issue. \
+'https://github.com/Project-PMMA/PMMA/issues' so we can fix the issue. \
 We would also greatly appreciate it if you could include all information/debug/warn/error \
 logs from your application run to help us diagnose the issue as it could \
 be specific to a single platform or graphics backend. Thank you!");

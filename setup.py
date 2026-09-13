@@ -143,9 +143,9 @@ if __name__ == '__main__':
         description="Python Multi-Media API (PMMA) is a multi-purpose API designed to make working on multi-media projects easier and faster!",
         long_description=long_description,
         long_description_content_type="text/markdown",
-        url="https://github.com/PycraftDeveloper/PMMA",
+        url="https://github.com/Project-PMMA/PMMA",
         project_urls={
-            "Bug Tracker": "https://github.com/PycraftDeveloper/PMMA/issues",
+            "Bug Tracker": "https://github.com/Project-PMMA/PMMA/issues",
         },
         license="MIT",
         classifiers=[

@@ -39,7 +39,7 @@ jobs:
         run: |
           $ErrorActionPreference = "Stop"
 
-          git clone -b "$env:BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+          git clone -b "$env:BRANCH_NAME" --single-branch https://github.com/Project-PMMA/PMMA.git build_cache
           if ($LASTEXITCODE -ne 0) {
               Write-Host "Cache branch missing, creating..."
 
@@ -60,7 +60,7 @@ jobs:
               git clone https://github.com/${{ github.repository }} /PMMA
               cd /PMMA
               git lfs install
-              git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+              git clone -b $env:BRANCH_NAME --single-branch https://github.com/Project-PMMA/PMMA.git build_cache
           }
 
           python "build_tools/build_deps.py" -in_github_workflow
@@ -115,7 +115,7 @@ jobs:
               git clone https://github.com/${{ github.repository }} /PMMA
               cd /PMMA
 
-              if git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache; then
+              if git clone -b "$BRANCH_NAME" --single-branch https://github.com/Project-PMMA/PMMA.git build_cache; then
                   echo "Cache branch exists, cloned successfully."
               else
                   echo "Cache branch missing, creating..."
@@ -136,7 +136,7 @@ jobs:
                   git clone https://github.com/${{ github.repository }} /PMMA
                   cd /PMMA
                   git lfs install
-                  git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+                  git clone -b "$BRANCH_NAME" --single-branch https://github.com/Project-PMMA/PMMA.git build_cache
               fi
 
               python3 "build_tools/build_deps.py" -in_github_workflow
@@ -201,7 +201,7 @@ jobs:
               git clone https://github.com/${{ github.repository }} "$dir"
               cd "$dir"
 
-              git clone -b "$BRANCH_NAME" --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+              git clone -b "$BRANCH_NAME" --single-branch https://github.com/Project-PMMA/PMMA.git build_cache
 
               PYTHON_BIN="/opt/python/$tag/bin/python"
               python3 "build_tools/workflow_integration.py" -in_github_workflow
@@ -261,7 +261,7 @@ jobs:
 
       - name: Configure and build C++ API via CMake
         run: |
-          git clone -b $env:BRANCH_NAME --single-branch https://github.com/PycraftDeveloper/PMMA.git build_cache
+          git clone -b $env:BRANCH_NAME --single-branch https://github.com/Project-PMMA/PMMA.git build_cache
 
           python "build_tools/workflow_integration.py" -in_github_workflow
           python "build_tools/build_pmma.py" -in_github_workflow

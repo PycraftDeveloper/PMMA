@@ -26,7 +26,7 @@ class Audio:
             print(f"Sounddevice is not available because ({_sounddevice_error}), audio playback is not \
 possible. To fix do: 'sudo apt install libportaudio2' or consult our \
 troubleshooting section here: \
-https://github.com/PycraftDeveloper/PMMA/blob/main/repo/Troubleshooting/linux.md#oserror-portaudio-library-not-found")
+https://github.com/Project-PMMA/PMMA/blob/main/repo/Troubleshooting/linux.md#oserror-portaudio-library-not-found")
 
         self._file = None
         self._sample_rate = None

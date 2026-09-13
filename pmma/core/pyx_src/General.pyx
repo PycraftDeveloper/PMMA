@@ -230,7 +230,7 @@ cdef class General:
                 ("Did you know there is a new version of PMMA? You are "
 f"currently on version: {current_pmma_version} and the latest version is: "
 f"{latest_version}. You can check out the latest features here: "
-"'https://github.com/PycraftDeveloper/PMMA/releases' and use `pip install "
+"'https://github.com/Project-PMMA/PMMA/releases' and use `pip install "
 "--upgrade pmma` to perform the update!"),
                 False
             )
