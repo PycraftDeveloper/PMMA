@@ -1,6 +1,6 @@
 <div align="center">
 
-![PMMA logo](https://github.com/Project-PMMA/PMMA/blob/main/repository/SmallLogo.png)
+![PMMA logo](https://media.githubusercontent.com/media/Project-PMMA/PMMA-Documentation/main/SmallLogo.png)
 
 </div>
 
